@@ -1,2 +1,14 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+export let message = "I'm a message"
+
+export class Name {
+	
+	constructor( name )
+	{
+		this.name = name
+	}
+
+	sayYourName()
+	{
+		alert( 'My name is ' + this.name )
+	}
+}

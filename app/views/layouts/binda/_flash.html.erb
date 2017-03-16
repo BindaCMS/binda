@@ -1,0 +1,15 @@
+<% unless notice.blank? %>
+	<div class="form-inputs--row-transparent row">
+  	<div class="alert alert-success col-sm-12">
+			<%= notice %>
+		</div>
+	</div>
+<% end %>
+
+<% unless alert.blank? %>
+	<div class="form-inputs--row-transparent row">
+  	<div class="alert alert-danger col-sm-12">
+		<%= alert %>
+		</div>
+	</div>
+<% end %>

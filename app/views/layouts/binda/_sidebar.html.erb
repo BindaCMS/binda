@@ -1,0 +1,14 @@
+<%# unless is_devise_controller %>
+<div id="main-sidebar">
+  <ul class="main-sidebar--nav">
+    <li class = "main-sidebar--brand">
+      <h3><%= link_to 'Name of the website', '/' %></h3>
+    </li>
+    <li>
+      <a href="<%# admin_dashboard_path %>">
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Dashboard
+      </a>
+    </li>
+  </ul>
+</div>
+<%# end %>

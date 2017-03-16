@@ -1,14 +1,29 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Binda</title>
-  <%= stylesheet_link_tag    "binda/application", media: "all" %>
-  <%= javascript_include_tag "binda/application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <title>Binda CMS</title>
+    <%= csrf_meta_tags %>
+    <%# tinymce :content_css => asset_path('admin.css') %>
+	  <%= stylesheet_link_tag    "binda/application", media: "all" %>
+	  <%= javascript_include_tag "binda/application" %>
+  </head>
 
-<%= yield %>
+  <body class="<%= action_name %> <%= "#{controller_name}-#{action_name}" %> <%# 'devise-view' if is_devise_controller%>">
+    
+    <div id="main-container">
+      
+      <%= render partial: 'layouts/binda/sidebar' %>
+      <%= render partial: 'layouts/binda/header' %>
 
-</body>
+      <div id="main-content" class="container">
+
+        <%= render partial: 'layouts/binda/flash' %> 
+
+        <%= yield :content %>
+        <%= yield %>
+      
+      </div> 
+    </div>
+
+  </body>
 </html>
