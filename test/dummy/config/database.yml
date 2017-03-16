@@ -8,10 +8,8 @@ development:
   <<: *default
   host: localhost
   database: binda_development
-  username: binda_db_user
 
 test:
   <<: *default
   host: localhost
   database: binda_test
-  username: binda_db_user
