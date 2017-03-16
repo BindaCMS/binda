@@ -1,2 +1,22 @@
-@import "variables";
-@import "pages";
+// Settings
+@import "settings/variables";
+@import "settings/common";
+@import "settings/fonts";
+
+// Components
+@import "components/assets";
+@import "components/sidebar";
+@import "components/main_container";
+@import "components/main_content";
+@import "components/main_header";
+@import "components/main_table";
+@import "components/button";
+@import "components/login";
+@import "components/form-inputs";
+@import "components/sortable";
+@import "components/assets_manager";
+
+// Layout
+@import "layout/dashboard";
+@import "layout/pages_index";
+@import "layout/users_sign_in";

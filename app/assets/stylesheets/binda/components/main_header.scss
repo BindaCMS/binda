@@ -1,0 +1,25 @@
+#main-header {
+	width: 100%;
+	margin-bottom: $font-size-base * 3;
+	background-color: $gray-lighter;
+
+	h3 {
+		display: inline-block;
+		padding: 0 $font-size-base;
+	}
+}
+
+.main-header--buttons {
+	float: right;
+	margin-top: $font-size-base * 1.5;
+	margin-right: $font-size-base;
+}
+
+a.main-header--back {
+	color: $gray-light;
+	font-weight: normal;
+
+	&:hover {
+		color: $gray;
+	}
+}

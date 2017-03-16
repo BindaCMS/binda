@@ -1,0 +1,83 @@
+// - - - - - - - - - - - - - - - - - - 
+// GLOBAL PARAMETERS
+// - - - - - - - - - - - - - - - - - - 
+
+
+// MEDIA QUERIES
+// -------------
+$tablet: 480px;
+$desktop: 960px;
+
+
+// FROM BOOTSTRAP
+// --------------
+
+//== Colors
+//
+//## Gray and colors for use across Bootstrap.
+
+$gray-base:              #000 !default;
+$gray-darker:            lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:              lighten($gray-base, 20%) !default;   // #333
+$gray:                   lighten($gray-base, 33.5%) !default; // #555
+$gray-light:             lighten($gray-base, 46.7%) !default; // #777
+$gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
+
+$color-primary:         darken(#428bca, 6.5%) !default; // #337ab7
+$color-success:         #5cb85c !default;
+$color-info:            #5bc0de !default;
+$color-warning:         #f0ad4e !default;
+$color-danger:          #d9534f !default;
+
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+//** Background color for `<body>`.
+$body-bg:               #FFF !default;
+//** Global text color on `<body>`.
+$text-color:            $gray-dark !default;
+
+//** Global textual link color.
+$link-color:            $color-primary !default;
+//** Link hover color set via `darken()` function.
+$link-hover-color:      darken($link-color, 15%) !default;
+//** Link hover decoration.
+$link-hover-decoration: underline !default;
+
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family-base:        $font-family-sans-serif !default;
+
+$font-size-base:          14px !default;
+$font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
+
+$font-size-h1:            floor(($font-size-base * 2.6)) !default; // ~36px
+$font-size-h2:            floor(($font-size-base * 2.15)) !default; // ~30px
+$font-size-h3:            ceil(($font-size-base * 1.7)) !default; // ~24px
+$font-size-h4:            ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-h5:            $font-size-base !default;
+$font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
+
+
+// MIXINS
+// ------
+@mixin font-size( $pixels, $lineheight: $pixels, $default: $font-size-base ) {
+	// NOTE this function works only if you put 
+	// 'font-size: $font-size-base' in 'body' styles
+  font-size: #{$pixels/$default}em;
+	line-height: #{$lineheight/$pixels}em;
+}
+
+@function kerning( $kerning ) {
+	@return #{ $kerning / 1000 }em;
+}

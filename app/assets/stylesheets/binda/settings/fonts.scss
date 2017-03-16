@@ -1,0 +1,90 @@
+.default-font {
+	font-family: "semplicitapro", arial, sans-serif;
+}
+
+// - - - - - - - - - - - - - - - - - - 
+// LAYOUT
+// - - - - - - - - - - - - - - - - - - 
+
+body {
+  font-size: 100%;
+  font-size: $font-size-base;
+  line-height: 1.25em;
+  @extend .default-font;
+  color: $text-color;
+}
+::selection {
+  background: $text-color !important; /* WebKit/Blink Browsers */
+  color: $body-bg !important;
+}
+::-moz-selection {
+  background: $text-color !important; /* Gecko Browsers */
+  color: $body-bg !important;
+}
+
+
+// - - - - - - - - - - - - - - - - - - 
+// TYPO
+// - - - - - - - - - - - - - - - - - - 
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  // color: $link-color;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  // border-bottom: 2px solid $link-color;
+}
+
+button a {
+  border-bottom: none;
+}
+
+.p {
+  @include font-size( $font-size-base, $font-size-base * 1.25 );   
+
+  @media ( min-width: $tablet ) {
+    @include font-size( $font-size-large, $font-size-large * 1.25 );
+  }
+}
+
+.small {
+  display: inline-block;
+  @include font-size( $font-size-base );
+}
+
+em {
+  font-style: italic;
+  display: inline-block;
+}
+
+strong {
+  font-weight: bold;
+  display: inline-block;
+}
+.h1 {
+  @include font-size( $font-size-h2, $font-size-h2 * 1.25 );
+
+  @media ( min-width: $tablet ) {
+    @include font-size( $font-size-h1, $font-size-h1 * 1.25 );     
+  }
+}
+.h2 {
+  @include font-size( $font-size-h3, $font-size-h3 * 1.25 );
+
+  @media ( min-width: $tablet ) {
+    @include font-size( $font-size-h2, $font-size-h2 * 1.25 );     
+  }
+}
+.h3 {
+  @include font-size( $font-size-h4, $font-size-h4 * 1.25 );
+
+  @media ( min-width: $tablet ) {
+    @include font-size( $font-size-h3, $font-size-h3 * 1.25 );     
+  }
+}

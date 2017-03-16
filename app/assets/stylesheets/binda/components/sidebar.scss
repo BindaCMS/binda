@@ -1,0 +1,119 @@
+#main-container {
+	padding-left: 0;
+	transition: all 0.5 ease;
+
+	@media ( min-width: $tablet ) {
+		padding-left: 240px;
+	}
+
+	#main-sidebar {
+		z-index: 1000;
+		position: fixed;
+		left: 240px;
+		width: 0;
+		height: 100%;
+		margin-left: -240px;
+		overflow-y: auto;
+		@extend .box-shadowed;
+		background-color: #FFF;
+		transition: all 0.5s ease;
+
+		@media ( min-width: $tablet ) {
+			width: 240px;
+		}
+	}
+
+	#main-content {
+		width: 100%;
+		position: absolute;
+
+		@media ( min-width: $tablet ) {
+			position: relative;
+		}
+	}
+
+	&.toggled {
+		padding-left: 240px;
+
+		@media ( min-width: $tablet ) {
+			padding-left: 0;
+		}
+
+		#main-sidebar {
+			width: 240px;
+			
+			@media ( min-width: $tablet ) {
+					width: 0;
+			}
+		}
+
+		#main-content {
+			position: absolute;
+			margin-right: -240px;
+
+			@media ( min-width: $tablet ) {
+				position: relative;
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+.main-sidebar--nav {
+	position: absolute;
+	top: 0;
+	width: 240px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	li {
+		// text-indent: 20px;
+		// line-height: 40px;
+		
+		h3 {
+			padding-left: $font-size-base;
+		}
+
+		> a {
+			display: block;
+			padding: $font-size-base;
+			text-decoration: none;
+			color: $text-color;
+			font-weight: normal;
+			transition: all 0.3s ease;
+
+			&:hover {
+				padding-left: $font-size-base * 2;
+				text-decoration: none;
+				color: $gray-darker;
+				background-color: $gray-lighter;
+				border-bottom: none;
+			}
+
+			&:active,
+			&:focus {
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+li.main-sidebar--brand {
+	padding-bottom: $font-size-base;
+	margin-bottom: $font-size-base * 2;
+	border-bottom: 1px solid $gray-lighter;
+	background: #FFF;
+	// background: -moz-linear-gradient(top, #FFF 0%, $gray-lighter 100%);
+	// background: -webkit-linear-gradient(top, #FFF 0%,$gray-lighter 100%);
+	// background: linear-gradient(to bottom, #FFF 0%,$gray-lighter 100%);
+	// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFF', endColorstr='$gray-lighter',GradientType=0 );
+}
+.main-sidebar--nav .glyphicon {
+	text-indent: 0;
+	padding-right: $font-size-base/2;
+}
+
+.main-sidebar--nav li a.main-sidebar--logout {
+	color: $color-danger;
+}

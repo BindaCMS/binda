@@ -1,0 +1,28 @@
+.main-table--row {
+	margin: 0;
+
+	> div {
+		width: 100%;
+		padding-bottom: $font-size-base;
+		margin-bottom: $font-size-base * 2;
+		background-color: #FFF;
+		@extend .box-shadowed;
+	}
+
+	table {
+		border-bottom: 1px solid #CCC;
+
+		td:last-child {
+			text-align: right;
+
+			span {
+				margin-left: $font-size-base;
+
+				&:not(:first-child) {
+					border-left: 1px solid #CCC;
+					padding-left: $font-size-base;
+				}
+			}
+		}
+	}
+}

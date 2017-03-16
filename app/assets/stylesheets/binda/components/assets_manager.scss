@@ -1,0 +1,46 @@
+#assets-manager-index {
+	display: none;
+}
+
+.assets-manager--list {
+	list-style: none;
+	width: 100%;
+}
+
+.assets-manager--item {
+	position: relative;
+	display: inline-block;
+	padding: $font-size-base / 2;
+	margin-bottom: $font-size-base * 2;
+	@extend .box-shadowed;
+	transition: all 0.3s ease-in-out;
+
+	&:hover {
+		@extend .box-shadowed-up;
+	}
+}
+
+.assets-manager--image-buttons {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+
+	a {
+		display: block;
+		padding: 3px;
+		margin: 3px;
+		background-color: #FFF;
+		opacity: 0.7;
+		transition: opacity 0.3s ease-in;
+	}
+	a:hover {
+		opacity: 1;
+	}
+}
+
+.assets-manager--selected {
+	background-color: #AAA;
+	img {
+		opacity: 0.7;
+	}
+}
