@@ -47,4 +47,5 @@ The gem is available as open source under the terms of the [GNU General Public L
 
 ## Who is Binda?
 Is [this guy here](https://en.wikipedia.org/wiki/Alfredo_Binda).
+
 ![Alfredo Binda 1927](./Alfredo_Binda_1927.jpg)

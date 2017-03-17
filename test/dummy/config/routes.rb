@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Binda::Engine => "/binda"
+  mount Binda::Engine => "/admin_panel"
 end

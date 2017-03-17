@@ -1,6 +1,8 @@
 module Binda
   class Page < ApplicationRecord
 
+		has_many :fields, as: :fieldable
+
 	  # has_many :bindings
 	  # has_many :assets, class_name: 'Admin::Asset', through: :bindings
 

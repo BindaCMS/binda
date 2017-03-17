@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["alessandro@lacolonia.studio"]
   s.homepage    = "http://lacolonia.studio"
   s.summary     = "Binda CMS"
-  s.description = "A lightweight CMS for Ruby on Rails 5, based on Spina"
+  s.description = "A lightweight CMS for Ruby on Rails 5, inspired by Spina"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

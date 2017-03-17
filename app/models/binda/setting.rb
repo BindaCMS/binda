@@ -13,7 +13,7 @@ module Binda
 	  end
 
 	  def self.website_name
-	  	Setting.find_by(name: 'website_name').first
+	  	Setting.find_by(name: 'website_name').content
 	  end
 
   end
