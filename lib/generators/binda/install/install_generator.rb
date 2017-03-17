@@ -9,11 +9,11 @@ class Binda::InstallGenerator < Rails::Generators::Base
 
     def copy_migrations
       return if Rails.env.production?
-      rails 'binda:install:migrations'
+      rake 'binda:install:migrations'
     end
 
     def run_migrations
-      rails 'db:migrate'
+      rake 'db:migrate'
     end
 
     def feedback
