@@ -14,8 +14,15 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     	t.string           :name, null: false
     	t.string           :slug
   		t.index            :slug, unique: true
-    	t.string           :content
+    	t.text             :content
     	t.integer          :position
+    end
+
+    create_table :binda_texts do |t|
+      t.text        :content
+      t.integer     :position
+      t.references  :fieldable, polymorphic: true, index: true
+      t.timestamps
     end
 
     create_table :friendly_id_slugs do |t|

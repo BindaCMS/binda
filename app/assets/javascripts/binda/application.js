@@ -10,4 +10,8 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
+
+
+//= require tinymce-jquery
 //= require binda/dist/binda.bundle.js

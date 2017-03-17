@@ -21,8 +21,10 @@ module Binda
 
       def copy_migrations
         return if Rails.env.production?
-        # This task doesn't override current migration if present
-        exit if File.exists?(Rails.root.join('db/migrate', '*_create_binda_tables.rb'))
+        # Clean the application from any previous Binda installation
+        prev_migrations = Dir.glob( Rails.root.join('db', 'migrate', '*_binda_*.rb' )) 
+        FileUtils.rm_rf( prev_migrations ) if prev_migrations.any?
+        # Make a fresch copy of Binda migrations
         rake 'binda:install:migrations'
       end
       
