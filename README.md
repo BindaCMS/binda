@@ -46,4 +46,4 @@ The main entry point is the `index.js`. To know more about how Webpack works ple
 Please comment your code as much as possible.
 
 ## License
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [GNU General Public License v3.0](https://github.com/a-barbieri/binda/blob/master/LICENSE).
