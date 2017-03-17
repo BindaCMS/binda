@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rails",           "~> 5.0.1"
   s.add_dependency 'sass-rails',      "~> 5.0.6"
   s.add_dependency 'coffee-rails',    "~> 4.2.1"
-  s.add_dependency 'highline',        "~> 1.7.8"
   s.add_dependency 'colorize',        "~> 0.8.1"
   s.add_dependency "friendly_id",     "~> 5.1.0"
   s.add_dependency "aasm",            "~> 4.11"

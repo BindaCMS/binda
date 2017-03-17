@@ -1,6 +1,6 @@
 # require 'sass-rails'
 # require 'coffee-rails'
-require 'highline'
+require 'colorize'
 require 'friendly_id'
 require 'aasm'
 

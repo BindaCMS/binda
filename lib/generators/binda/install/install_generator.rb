@@ -5,9 +5,6 @@ module Binda
     source_root File.expand_path('../templates', __FILE__)
       
       def check_previous_install
-        # Setup HighLine instance
-        # https://github.com/JEG2/highline
-        @ask = ::HighLine.new
         # Ensure Binda is not installed
         if Page.table_exists?
           puts "Binda has already been installed on this database.".colorize(:red)
@@ -32,23 +29,30 @@ module Binda
       end
 
       def setup_settings
-        puts "============================================"
-        puts "               BINDA SETUP"
-        puts "============================================"
-        return if Setting.where( name: 'website_name' ).exists? && @ask.agree('Website name already exists. Skip? [y/n]')
-        website_name = Setting.where( name: 'website_name' ).try(:content) || 'MySite'
-        website_name = ask("What would you like to name your website? [#{website_name}]").presence || website_name
-        Setting.find_or_create_by( name: 'website_name' ).update_attribute( :content, website_name )
+        puts "======================================================"
+        puts "                    BINDA SETUP"
+        puts "======================================================"
+        puts 
+        puts "We need few details. Don't worry you can modify them later. \n\n"
+
+        # WEBSITE NAME
+        @website_name = ask("What would you like to name your website? ['MySite']").presence || 'MySite'
+        Setting.find_or_create_by( name: 'website_name' ).update_attribute( :content, @website_name )
+
+        # WEBSITE CONTENT
+        @website_description = ask("What is it about? ['A website about the world']").presence || 'A website about the world'
+        Setting.find_or_create_by( name: 'website_description' ).update_attribute( :content, @website_description )
       end
 
       def feedback
         puts
-        puts "    Binda CMS has been succesfully installed! ".colorize(:green)
+        puts "Binda CMS has been succesfully installed! ".colorize(:green)
         puts
-        puts "    Restart your server and visit http://localhost:3000 in your browser!"
-        puts "    The admin panel is located at http://localhost:3000/admin_panel."
+        puts "    Site name: #{ @website_name }"
+        puts "    Site description: #{ @website_description }"
         puts
-        puts "    Site name : #{Setting.find_by( name: 'website_name' ).content}"
+        puts "Restart your server and visit http://localhost:3000 in your browser!"
+        puts "The admin panel is located at http://localhost:3000/admin_panel."
         puts
       end
 

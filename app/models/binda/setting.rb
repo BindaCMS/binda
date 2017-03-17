@@ -12,5 +12,9 @@ module Binda
 	    slug.blank? || name_changed?
 	  end
 
+	  def self.website_name
+	  	Setting.find_by(name: 'website_name').first
+	  end
+
   end
 end
