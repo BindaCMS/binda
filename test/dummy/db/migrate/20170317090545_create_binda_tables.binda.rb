@@ -1,3 +1,4 @@
+# This migration comes from binda (originally 1)
 class CreateBindaTables < ActiveRecord::Migration[5.0]
   def change
 
@@ -13,7 +14,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     	t.string           :name, null: false
     	t.string           :slug
   		t.index            :slug, unique: true
-    	t.text             :content
+    	t.string           :content
     	t.integer          :position
     end
 

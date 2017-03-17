@@ -1,8 +1,9 @@
 Description:
-    Explain the generator
+    Binda install generator will setup the CMS
 
 Example:
-    rails generate install Thing
+    rails generate binda:install 
 
-    This will create:
-        what/will/it/create
+    This will: 
+    	- setup and run Binda migrations
+    	- create default settings
