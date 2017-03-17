@@ -7,6 +7,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     	t.string           :slug
   		t.index            :slug, unique: true
     	t.string           :publish_state
+      t.integer          :position
       t.timestamps
     end
 

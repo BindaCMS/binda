@@ -1,8 +1,11 @@
-# require 'sass-rails'
-# require 'coffee-rails'
+require 'sass-rails'
+require 'coffee-rails'
 require 'colorize'
 require 'friendly_id'
 require 'aasm'
+require 'ffaker'
+require 'simple_form'
+require 'tinymce-rails'
 
 module Binda
   class Engine < ::Rails::Engine

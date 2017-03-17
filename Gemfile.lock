@@ -5,12 +5,12 @@ PATH
       aasm (~> 4.11)
       coffee-rails (~> 4.2.1)
       colorize (~> 0.8.1)
-      ffaker (~> 2.4)
+      ffaker (~> 2.5.0)
       friendly_id (~> 5.1.0)
       rails (~> 5.0.1)
       sass-rails (~> 5.0.6)
-      simple_form (~> 3.2)
-      tinymce-rails (~> 4.5)
+      simple_form (~> 3.3.1)
+      tinymce-rails (~> 4.5.1)
 
 GEM
   remote: https://rubygems.org/

@@ -1,6 +1,8 @@
-<h1>Editing Page</h1>
+<% content_for :header do %>
+  <h3>Editing Page</h3>
+  <a href="<%= pages_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> Back to list</a>
+<% end %>
 
-<%= render 'form', page: @page %>
-
-<%= link_to 'Show', @page %> |
-<%= link_to 'Back', pages_path %>
+<% content_for :content do %>
+	<%= render 'form', page: @page %>
+<% end %>
