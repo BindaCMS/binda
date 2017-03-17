@@ -1,5 +1,5 @@
 # Binda
-A lightweight CMS for Ruby on Rails 5, inspired by Spina.
+A lightweight CMS for Ruby on Rails 5, inspired by [Spina](http://www.spinacms.com).
 
 ## Installation
 Add this line to your application's Gemfile:
