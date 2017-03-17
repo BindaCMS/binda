@@ -1,8 +1,5 @@
 # Binda
-Short description and motivation.
-
-## Usage
-How to use my plugin.
+A lightweight CMS for Ruby on Rails 5, inspired by Spina.
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -47,3 +44,7 @@ Please comment your code as much as possible.
 
 ## License
 The gem is available as open source under the terms of the [GNU General Public License v3.0](https://github.com/a-barbieri/binda/blob/master/LICENSE).
+
+## Who is Binda?
+Is [this guy here](https://en.wikipedia.org/wiki/Alfredo_Binda).
+![Alfredo Binda 1927](./Alfredo_Binda_1927.jpg)
