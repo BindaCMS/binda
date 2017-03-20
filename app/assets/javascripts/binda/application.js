@@ -12,6 +12,6 @@
 //
 
 
-
+//= require jquery
 //= require tinymce-jquery
 //= require binda/dist/binda.bundle.js

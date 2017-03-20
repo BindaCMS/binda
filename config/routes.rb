@@ -5,6 +5,7 @@ Binda::Engine.routes.draw do
   resources :settings
 
   post 'pages/sort'
+  post 'pages/fields_update'
   resources :pages
   resources :structures
   post 'field_groups/sort'

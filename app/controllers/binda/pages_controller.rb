@@ -50,6 +50,16 @@ module Binda
     #   head :ok
     # end
 
+  def fields_update
+    options = fields_params
+    # options.each do |option, content|
+    #   unless Admin::Option.friendly.find( option ).update_attributes( content: content )
+    #     redirect_to :back, alert: "Sorry. There has been a problem with #{ option }"
+    #   end
+    # end
+    redirect_to :back, notice: 'Page was successfully updated.'
+  end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_page
@@ -60,5 +70,10 @@ module Binda
       def page_params
         params.require(:page).permit( :name, :slug, :position, :publish_state )
       end
+
+      def multiple_params
+         params.require(:fields_params).permit()
+      end
   end
 end
+

@@ -1,0 +1,52 @@
+	<div class="row">
+		<div class="form-inputs col-sm-12">
+			
+			<%= simple_form_for :fields_params, url: pages_fields_update_path, defaults: { label: false } do |f| %>
+				<%= f.error_notification %>
+				
+				<div class="row">
+					<div class="col-sm-8">
+
+						<div class="form-inputs--row row">
+							<div class="col-sm-12">
+
+								<h4>Title</h4>
+								<%= f.input :'name', input_html: { value: page.name } %>
+								
+							</div>
+						</div>
+
+						<% if page.structure.present? && page.structure.field_groups.any? %>
+							<% page.structure.field_groups.each do |field_group| %>
+								<% field_group.field_settings.each do |field_setting| %>
+								<%# supposed that it's always a Binda::Text instance %>
+								<div class="form-inputs--row row">
+									<div class="col-sm-12">
+
+										<h4><%= field_setting.name %></h4>
+										<small class="text-muted"><%= field_setting.description %></small>
+										<%= f.input :text, input_html: { value: get_text( page, field_setting ), class: 'tinymce' }, as: :text %>
+										
+									</div>
+								</div>
+								<% end %>
+							<% end %>
+						<% end %>
+
+					</div>
+			  	<div class="col-sm-4">
+
+						<div class="form-inputs--row row">
+							<div class="col-sm-12">
+								<h4>Publish</h4>
+						    <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+						  </div>
+					  </div>
+					  
+			  	</div>
+		  	</div>
+	  	
+			<% end %>
+
+  	</div>
+  </div>

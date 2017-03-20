@@ -45,6 +45,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.integer          :position
       t.boolean          :required
       t.text             :default_text
+      t.string           :field_type
       t.belongs_to       :field_group
       t.timestamps
     end
