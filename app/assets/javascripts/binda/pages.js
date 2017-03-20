@@ -9,6 +9,6 @@ export class Name {
 
 	sayYourName()
 	{
-		alert( 'My name is ' + this.name )
+		// alert( 'My name is ' + this.name )
 	}
 }

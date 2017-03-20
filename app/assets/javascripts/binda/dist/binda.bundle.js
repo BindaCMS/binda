@@ -89,7 +89,7 @@ var Name = function () {
 	_createClass(Name, [{
 		key: "sayYourName",
 		value: function sayYourName() {
-			alert('My name is ' + this.name);
+			// alert( 'My name is ' + this.name )
 		}
 	}]);
 
