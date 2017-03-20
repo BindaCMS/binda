@@ -1,5 +1,8 @@
-<h1>New Setting</h1>
-
-<%= render 'form', setting: @setting %>
-
-<%= link_to 'Back', settings_path %>
+<% content_for :header do %>
+	<h3>New Setting</h3>
+  <a href="<%= settings_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> Back to list</a>
+<% end %>
+		
+<% content_for :content do %> 
+	<%= render 'form', setting: @setting %>
+<% end %>

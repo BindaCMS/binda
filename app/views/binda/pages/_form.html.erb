@@ -4,7 +4,7 @@
 <%= simple_form_for page , defaults: { label: false } do |f| %>
   <% if page.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize( page.errors.count, "error") %> prohibited this admin_page from being saved:</h2>
+      <h2><%= pluralize( page.errors.count, "error") %> prohibited this page from being saved:</h2>
 
       <ul>
       <% page.errors.full_messages.each do |message| %>

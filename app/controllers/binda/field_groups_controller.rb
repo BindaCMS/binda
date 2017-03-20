@@ -11,6 +11,7 @@ module Binda
 
     # GET /field_groups/1
     def show
+      redirect_to action: :edit
     end
 
     # GET /field_groups/new

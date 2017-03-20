@@ -1,33 +1,34 @@
-<p id="notice"><%= notice %></p>
+<% content_for :header do %>
+  <div class="main-header--buttons">
+    <%= link_to 'New Setting', new_setting_path, class: 'main-header--link btn btn-primary' %>    
+  </div>
+  <h3>Settings</h3>
+<% end %>
 
-<h1>Settings</h1>
+<% content_for :content do %> 
+  <div class="main-table--row row">
+    <div class="col-sm-12">
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Content</th>
-      <th>Slug</th>
-      <th>Position</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @settings.each do |setting| %>
-      <tr>
-        <td><%= setting.name %></td>
-        <td><%= setting.content %></td>
-        <td><%= setting.slug %></td>
-        <td><%= setting.position %></td>
-        <td><%= link_to 'Show', setting %></td>
-        <td><%= link_to 'Edit', edit_setting_path(setting) %></td>
-        <td><%= link_to 'Destroy', setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Setting', new_setting_path %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th colspan="3">Setting</th>
+            <th></th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <% @settings.each do |setting| %>
+            <tr id="setting_<%= setting.id %>">    
+              <td colspan="3"><%= setting.name %></td>
+              <td><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <%= link_to 'Edit', edit_setting_path(setting) %> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <%= link_to 'Destroy', setting, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %></td>
+            </tr>
+          <% end %>
+        <tbody>
+      </table>
+    
+    <%= link_to 'New Setting', new_setting_path, class: 'main-header--link btn btn-default' %>    
+        
+  </div>
+</div>
+<% end %>

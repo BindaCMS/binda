@@ -1,7 +1,10 @@
-<%= form_for(setting) do |f| %>
+<div class="row">
+<div class="form-inputs col-sm-12">
+
+<%= simple_form_for setting , defaults: { label: false } do |f| %>
   <% if setting.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+      <h2><%= pluralize( setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
 
       <ul>
       <% setting.errors.full_messages.each do |message| %>
@@ -11,27 +14,39 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+  <div class="row">
+    <div class="col-sm-8">
 
-  <div class="field">
-    <%= f.label :content %>
-    <%= f.text_area :content %>
-  </div>
+      <div class="form-inputs--row row">
+        <div class="col-sm-12">
 
-  <div class="field">
-    <%= f.label :slug %>
-    <%= f.text_field :slug %>
-  </div>
+          <h4>Page Details</h4>
+          
+          <h5>Title</h5>
+          <%= f.input :name %>
+          
+          <h5>Slug</h5>
+          <%= f.input :slug %>
+          
+          <h5>Content</h5>
+          <%= f.input :content %>
 
-  <div class="field">
-    <%= f.label :position %>
-    <%= f.number_field :position %>
-  </div>
+        </div>
+      </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-inputs--row row">
+        <div class="col-sm-12">
+          <div class="form-actions">
+            <h4>Setting</h4>
+            <hr>
+            <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+    </div>
 <% end %>
+
+</div>
+</div>

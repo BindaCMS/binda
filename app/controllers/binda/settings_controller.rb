@@ -11,6 +11,7 @@ module Binda
 
     # GET /settings/1
     def show
+      redirect_to action: :edit
     end
 
     # GET /settings/new
@@ -51,7 +52,7 @@ module Binda
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_setting
-        @setting = Setting.find(params[:id])
+        @setting = Setting.friendly.find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.

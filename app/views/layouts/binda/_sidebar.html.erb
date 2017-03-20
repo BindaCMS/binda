@@ -5,8 +5,18 @@
       <h3><%= link_to Binda::Setting.website_name, '/' %></h3>
     </li>
     <li>
-      <a href="<%# admin_dashboard_path %>">
+      <a href="<%= settings_path %>">
         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Dashboard
+      </a>
+    </li>
+    <li>
+      <a href="<%= pages_path %>">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Pages
+      </a>
+    </li>
+    <li>
+      <a href="<%= structures_path %>">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Structures
       </a>
     </li>
   </ul>

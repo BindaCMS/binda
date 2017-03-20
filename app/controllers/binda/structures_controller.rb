@@ -11,6 +11,7 @@ module Binda
 
     # GET /structures/1
     def show
+      redirect_to action: :edit
     end
 
     # GET /structures/new
