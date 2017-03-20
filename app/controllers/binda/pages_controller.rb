@@ -58,7 +58,7 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def page_params
-        params.fetch(:page, {}).permit( :name, :slug, :position, :publish_state )
+        params.require(:page).permit( :name, :slug, :position, :publish_state )
       end
   end
 end
