@@ -1,3 +1,4 @@
+# This migration comes from binda (originally 1)
 class CreateBindaTables < ActiveRecord::Migration[5.0]
   def change
 

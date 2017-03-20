@@ -1,11 +1,12 @@
 module Binda
-  class Setting < ApplicationRecord
+  class Structure < ApplicationRecord
 
   	# Associations
-	  # has_many :bindings
-	  # has_many :assets, class_name: 'Admin::Asset', through: :bindings
+  	has_many :pages
+  	has_many :field_groups
 
 		# Validations
+		validates :name, presence: true
 
   	# Slug
 		extend FriendlyId
@@ -18,10 +19,6 @@ module Binda
 	  def should_generate_new_friendly_id?
 	    slug.blank? || name_changed?
 	  end
-
-	  def self.website_name
-	  	Setting.find_by(name: 'website_name').content
-	  end
-
+	  
   end
 end

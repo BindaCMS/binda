@@ -56,7 +56,7 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def text_params
-        params.require(:text).permit(:content)
+        params.require(:text).permit(:content, :position)
       end
   end
 end

@@ -1,11 +1,12 @@
 module Binda
-  class Setting < ApplicationRecord
+  class FieldSetting < ApplicationRecord
 
   	# Associations
-	  # has_many :bindings
-	  # has_many :assets, class_name: 'Admin::Asset', through: :bindings
+  	belongs_to :field_group
+  	has_many :texts, as: :fieldable
 
 		# Validations
+		validates :name, presence: true
 
   	# Slug
 		extend FriendlyId
@@ -17,10 +18,6 @@ module Binda
 	  # https://github.com/norman/friendly_id/issues/436
 	  def should_generate_new_friendly_id?
 	    slug.blank? || name_changed?
-	  end
-
-	  def self.website_name
-	  	Setting.find_by(name: 'website_name').content
 	  end
 
   end

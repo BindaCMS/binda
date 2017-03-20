@@ -10,19 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317171733) do
+ActiveRecord::Schema.define(version: 20170320170918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "binda_field_groups", force: :cascade do |t|
+    t.string   "name",         null: false
+    t.string   "slug"
+    t.text     "description"
+    t.integer  "position"
+    t.string   "layout"
+    t.integer  "structure_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["slug"], name: "index_binda_field_groups_on_slug", unique: true, using: :btree
+    t.index ["structure_id"], name: "index_binda_field_groups_on_structure_id", using: :btree
+  end
+
+  create_table "binda_field_settings", force: :cascade do |t|
+    t.string   "name",           null: false
+    t.string   "slug"
+    t.text     "description"
+    t.integer  "position"
+    t.boolean  "required"
+    t.text     "default_text"
+    t.integer  "field_group_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["field_group_id"], name: "index_binda_field_settings_on_field_group_id", using: :btree
+    t.index ["slug"], name: "index_binda_field_settings_on_slug", unique: true, using: :btree
+  end
 
   create_table "binda_pages", force: :cascade do |t|
     t.string   "name",          null: false
     t.string   "slug"
     t.string   "publish_state"
     t.integer  "position"
+    t.integer  "structure_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["slug"], name: "index_binda_pages_on_slug", unique: true, using: :btree
+    t.index ["structure_id"], name: "index_binda_pages_on_structure_id", using: :btree
   end
 
   create_table "binda_settings", force: :cascade do |t|
@@ -33,13 +62,23 @@ ActiveRecord::Schema.define(version: 20170317171733) do
     t.index ["slug"], name: "index_binda_settings_on_slug", unique: true, using: :btree
   end
 
+  create_table "binda_structures", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_binda_structures_on_slug", unique: true, using: :btree
+  end
+
   create_table "binda_texts", force: :cascade do |t|
     t.text     "content"
     t.integer  "position"
+    t.integer  "field_setting_id"
     t.string   "fieldable_type"
     t.integer  "fieldable_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["field_setting_id"], name: "index_binda_texts_on_field_setting_id", using: :btree
     t.index ["fieldable_type", "fieldable_id"], name: "index_binda_texts_on_fieldable_type_and_fieldable_id", using: :btree
   end
 

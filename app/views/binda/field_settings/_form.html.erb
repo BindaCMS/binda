@@ -1,0 +1,32 @@
+<%= form_for(field_setting) do |f| %>
+  <% if field_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(field_setting.errors.count, "error") %> prohibited this field_setting from being saved:</h2>
+
+      <ul>
+      <% field_setting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :field_type %>
+    <%= f.text_field :field_type %>
+  </div>
+
+  <div class="field">
+    <%= f.label :position %>
+    <%= f.number_field :position %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

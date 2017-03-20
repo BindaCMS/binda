@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Field Settings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Field type</th>
+      <th>Position</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @field_settings.each do |field_setting| %>
+      <tr>
+        <td><%= field_setting.name %></td>
+        <td><%= field_setting.field_type %></td>
+        <td><%= field_setting.position %></td>
+        <td><%= link_to 'Show', field_setting %></td>
+        <td><%= link_to 'Edit', edit_field_setting_path(field_setting) %></td>
+        <td><%= link_to 'Destroy', field_setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Field Setting', new_field_setting_path %>

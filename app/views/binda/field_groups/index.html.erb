@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Field Groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Field type</th>
+      <th>Position</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @field_groups.each do |field_group| %>
+      <tr>
+        <td><%= field_group.name %></td>
+        <td><%= field_group.field_type %></td>
+        <td><%= field_group.position %></td>
+        <td><%= link_to 'Show', field_group %></td>
+        <td><%= link_to 'Edit', edit_field_group_path(field_group) %></td>
+        <td><%= link_to 'Destroy', field_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Field Group', new_field_group_path %>
