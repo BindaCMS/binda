@@ -18,18 +18,23 @@
 
 						<% if page.structure.present? && page.structure.field_groups.any? %>
 							<% page.structure.field_groups.each do |field_group| %>
-								<% field_group.field_settings.each do |field_setting| %>
-								<%# supposed that it's always a Binda::Text instance %>
-								<div class="form-inputs--row row">
-									<div class="col-sm-12">
+							<div class="form-inputs--row row">
+								<div class="col-sm-12">
 
-										<h4><%= field_setting.name %></h4>
-										<small class="text-muted"><%= field_setting.description %></small>
+									<h4><%= field_group.name.capitalize %></h4>
+
+									<% field_group.field_settings.each do |field_setting| %>
+									<%# supposed that it's always a Binda::Text instance %>
+
+										<h5><%= field_setting.name.capitalize %></h5>
+										<% unless field_setting.description.blank? %>
+											<small class="text-muted"><%= field_setting.description %></small>
+										<% end %>
 										<%= f.input :text, input_html: { value: get_text( page, field_setting ), class: 'tinymce' }, as: :text %>
+									<% end %>
 										
-									</div>
 								</div>
-								<% end %>
+							</div>
 							<% end %>
 						<% end %>
 

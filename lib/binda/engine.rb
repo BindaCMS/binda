@@ -17,5 +17,8 @@ module Binda
     # config.assets.paths << config.root.join("vendor", "assets", "fonts")
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
 
+    # Setup tinymce configuration file
+    config.tinymce.config_path = ::Binda::Engine.root.join("config/tinymce.yml")
+
   end
 end
