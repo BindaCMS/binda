@@ -57,6 +57,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
+    autoprefixer-rails (6.5.3.1)
+      execjs
     builder (3.2.3)
     coderay (1.1.1)
     coffee-rails (4.2.1)
@@ -180,6 +182,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autoprefixer-rails
   binda!
   pg
   pry-rails (~> 0.3.5)

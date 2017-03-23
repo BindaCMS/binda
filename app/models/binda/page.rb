@@ -41,5 +41,9 @@ module Binda
 	    slug.blank? || name_changed?
 	  end
 	  
+	  def get_text( field_slug )
+	  	field_setting = Binda::FieldSetting.friendly.find( field_slug ).first
+	  	self.texts.where({ 'field_setting_id': field_setting.id }).first
+	  end
   end
 end
