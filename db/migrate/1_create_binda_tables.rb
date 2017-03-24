@@ -66,7 +66,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    create_table :categories_pages, id: false do ||
+    create_table :categories_pages, id: false do |t|
       t.belongs_to       :category, index: true
       t.belongs_to       :page, index: true
     end
