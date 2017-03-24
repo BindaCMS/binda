@@ -7,7 +7,6 @@ module Binda
 
 		# Validations
 		validates :name, presence: true
-		validates :publish_state, presence: true, inclusion: { in: %w( draft published )}
 
   	# Slug
 		extend FriendlyId
