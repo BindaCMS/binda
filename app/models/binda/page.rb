@@ -3,6 +3,7 @@ module Binda
 
   	# Associations
   	belongs_to :structure
+  	has_and_belongs_to_many :categories
 		has_many :texts, as: :fieldable
 
 	  # has_many :bindings

@@ -1,5 +1,6 @@
 Binda::Engine.routes.draw do
 
+  resources :categories
 	root 'settings#index'
 
   resources :settings

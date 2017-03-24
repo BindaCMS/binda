@@ -58,6 +58,19 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
+    create_table :binda_categories do |t|
+      t.string           :name, null: false
+      t.string           :slug
+      t.index            :slug, unique: true
+      t.belongs_to       :structure
+      t.timestamps
+    end
+
+    create_table :categories_pages, id: false do ||
+      t.belongs_to       :category, index: true
+      t.belongs_to       :page, index: true
+    end
+
     create_table :friendly_id_slugs do |t|
       t.string           :slug,           :null => false
       t.integer          :sluggable_id,   :null => false
