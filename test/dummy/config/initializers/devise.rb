@@ -5,16 +5,16 @@ Devise.setup do |config|
   # https://github.com/plataformatec/devise/wiki/How-To:-Use-devise-inside-a-mountable-engine
   # You probably want Devise's controllers to inherit from 
   # your engine's controller and not the main controller. 
-  # Set this in config/initializers/devise.rb:
+  # ============== DON'T CHANGE IT ===============
   config.parent_controller = 'Binda::ApplicationController'
-
+  # ============== =============== ===============
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '477d441c458294ec4cef0652a0e96f1c5587593a3897c5459a43ccf8c7cc0f0e44003d17f7e5019ffa651806d22c24fb568096b56824f07df1dcad0ecd81bc2b'
+  config.secret_key = 'bf77fc7f777c41783faf62d9f1c8862b259d14f0d268e47bae0863af098339af2f813577de859d0eef96d4e334f897535bff7bf3da943c22245955c87e319e70'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -110,7 +110,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '3ae686c27e0413bd5b0a863730f082714caff4c040d987fd64367f0041e7e99f221a583cd3b0eaeb85408ce97d56ea59c00907a61b69988148f83d30f7ff92c3'
+  config.pepper = 'c31ef095880bb43eba20de35efa29821f8d29c565099953c02e98ddf32c4cb9c1f0e4675c1939d1cf47fcc25ce4395d2687e832330ff2500e9a3af1f26354346'
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false
@@ -156,7 +156,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length.
-  config.password_length = 6..128
+  config.password_length = 8..128
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
@@ -270,8 +270,10 @@ Devise.setup do |config|
   #     mount MyEngine, at: '/my_engine'
   #
   # The router that invoked `devise_for`, in the example above, would be:
+  # ============== DON'T CHANGE IT ===============
   config.router_name = :binda
-  #
+  # ============== =============== ===============
+
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'

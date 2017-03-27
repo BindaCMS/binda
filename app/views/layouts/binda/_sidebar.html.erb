@@ -5,7 +5,7 @@
 # https://github.com/plataformatec/devise/wiki/How-To:-Use-devise-inside-a-mountable-engine#path-helpers 
 %>
 
-<%# unless is_devise_controller %>
+<% unless is_devise_controller %>
 <div id="main-sidebar">
   <ul class="main-sidebar--nav">
     <li class = "main-sidebar--brand">
@@ -26,6 +26,11 @@
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Structures
       </a>
     </li>
+    <li>
+      <a href="<%= binda.destroy_user_session_path %>">
+        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Log out
+      </a>
+    </li>
   </ul>
 </div>
-<%# end %>
+<% end %>

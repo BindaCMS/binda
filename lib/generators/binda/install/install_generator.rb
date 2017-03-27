@@ -1,4 +1,5 @@
 require 'colorize'
+require 'securerandom'
 
 module Binda
   class InstallGenerator < Rails::Generators::Base
@@ -32,13 +33,15 @@ module Binda
         rake 'db:migrate'
       end
 
-      def amend_devise
-        # initializer "devise.rb" do
-        #   "puts 'this is the beginning'"
-        #   "config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'"
-        #   "config.pepper = '3ae686c27e0413bd5b0a863730f082714caff4c040d987fd64367f0041e7e99f221a583cd3b0eaeb85408ce97d56ea59c00907a61b69988148f83d30f7ff92c3'"
-        # end
-        # 
+      def setup_devise
+        return if Rails.env.production?
+        template 'config/initializers/devise.rb'
+        inject_into_file 'config/initializers/devise.rb', after: "config.secret_key = '" do 
+          SecureRandom.hex(64)
+        end
+        inject_into_file 'config/initializers/devise.rb', after: "config.pepper = '" do 
+          SecureRandom.hex(64)
+        end
       end
 
       def setup_settings

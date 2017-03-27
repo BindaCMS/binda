@@ -8,7 +8,7 @@
 	  <%= javascript_include_tag "binda/application" %>
   </head>
 
-  <body class="<%= action_name %> <%= "#{controller_name}-#{action_name}" %> <%# 'devise-view' if is_devise_controller%>">
+  <body class="<%= action_name %> <%= "#{controller_name}-#{action_name}" %> <%= 'devise-view' if is_devise_controller %>">
     
     <div id="main-container">
       
