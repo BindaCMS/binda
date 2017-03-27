@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form",          "~> 3.3.1"
   s.add_dependency "tinymce-rails",        "~> 4.5.1"
   s.add_dependency "tinymce-rails-langs"
-  # s.add_dependency "devise",               "~> 4.1.1"
+  s.add_dependency "devise",               "~> 4.1.1"
   # s.add_dependency "cancancan"
   # s.add_dependency "meta-tags"
   # s.add_dependency "carrierwave",          "~> 1.0"

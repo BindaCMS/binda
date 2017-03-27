@@ -1,3 +1,10 @@
+<%
+# If this partial is run from Devise 
+# keep in mind to add "binda." to path helpers
+# 
+# https://github.com/plataformatec/devise/wiki/How-To:-Use-devise-inside-a-mountable-engine#path-helpers 
+%>
+
 <%# unless is_devise_controller %>
 <div id="main-sidebar">
   <ul class="main-sidebar--nav">
@@ -5,17 +12,17 @@
       <h3><%= link_to Binda::Setting.website_name, '/' %></h3>
     </li>
     <li>
-      <a href="<%= settings_path %>">
+      <a href="<%= binda.settings_path %>">
         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Dashboard
       </a>
     </li>
     <li>
-      <a href="<%= pages_path %>">
+      <a href="<%= binda.pages_path %>">
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Pages
       </a>
     </li>
     <li>
-      <a href="<%= structures_path %>">
+      <a href="<%= binda.structures_path %>">
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Structures
       </a>
     </li>

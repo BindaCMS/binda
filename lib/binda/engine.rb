@@ -7,6 +7,7 @@ require 'aasm'
 require 'ffaker'
 require 'simple_form'
 require 'tinymce-rails'
+require 'devise'
 
 module Binda
   class Engine < ::Rails::Engine

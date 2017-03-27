@@ -1,7 +1,8 @@
 Binda::Engine.routes.draw do
-
-  resources :categories
+  
 	root 'settings#index'
+
+  devise_for :users, class_name: "Binda::User", module: :devise
 
   resources :settings
 
@@ -14,5 +15,6 @@ Binda::Engine.routes.draw do
   post 'field_settings/sort'
   resources :field_settings, except: [ :show, :index ]
   resources :texts, except: [ :show, :index ]
+  resources :categories
 
 end
