@@ -1,3 +1,6 @@
+# Does it need require_dependecy? Maybe not
+# require_dependency "binda/application_controller"
+
 module Binda
   class Users::SessionsController < Devise::SessionsController
     # before_action :configure_sign_in_params, only: [:create]

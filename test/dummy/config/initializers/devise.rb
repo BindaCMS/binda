@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  config.secret_key = 'bf77fc7f777c41783faf62d9f1c8862b259d14f0d268e47bae0863af098339af2f813577de859d0eef96d4e334f897535bff7bf3da943c22245955c87e319e70'
+  config.secret_key = 'bd35f57961d013ac63c1a92c357b87e0e4fb27e5307adb894ace48060868360b94a2c8e2949680bfb02d5cf783cf8092d52db3c73196b0c6eff1c63817ca8cb4'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -110,7 +110,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  config.pepper = 'c31ef095880bb43eba20de35efa29821f8d29c565099953c02e98ddf32c4cb9c1f0e4675c1939d1cf47fcc25ce4395d2687e832330ff2500e9a3af1f26354346'
+  config.pepper = '13b0576c1b7c1593650f2bf5d314b931ae85a5a43a61aba7266449c3d09527c381f361734973220b9a1ef8f3a1c4084056956032ea7afb3b9c3a37d27fb49cdf'
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false
@@ -222,9 +222,7 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # ============== DON'T CHANGE IT ===============
-  config.scoped_views = true
-  # ============== =============== ===============
+  # config.scoped_views = false
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
@@ -246,7 +244,7 @@ Devise.setup do |config|
   # config.navigational_formats = ['*/*', :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :get
+  config.sign_out_via = :delete
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting

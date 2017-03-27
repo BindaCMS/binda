@@ -1,4 +1,5 @@
 require 'jquery-rails'
+require 'jquery-ui-rails'
 require 'sass-rails'
 require 'coffee-rails'
 require 'colorize'

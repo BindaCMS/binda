@@ -1,3 +1,6 @@
+# Does it need require_dependecy? Maybe not
+# require_dependency "binda/application_controller"
+
 module Binda
   class Users::ConfirmationsController < Devise::ConfirmationsController
     # GET /resource/confirmation/new

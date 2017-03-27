@@ -1,3 +1,6 @@
+# Does it need require_dependecy? Maybe not
+# require_dependency "binda/application_controller"
+
 module Binda
   class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # You should configure your model like this:

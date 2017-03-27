@@ -11,7 +11,7 @@
 // about supported directives.
 //
 
-
 //= require jquery
+//= require jquery_ujs
 //= require tinymce-jquery
 //= require binda/dist/binda.bundle.js
