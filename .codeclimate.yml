@@ -9,7 +9,7 @@ engines:
   coffeelint:
     enabled: true
   duplication:
-    enabled: true
+    enabled: false
     config:
       languages:
       - ruby
