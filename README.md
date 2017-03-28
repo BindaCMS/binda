@@ -1,6 +1,10 @@
 # Binda
 A lightweight CMS for Ruby on Rails 5, inspired by [Spina](http://www.spinacms.com).
 
+[![Code Climate](https://codeclimate.com/github/a-barbieri/binda/badges/gpa.svg)](https://codeclimate.com/github/a-barbieri/binda)
+[![Issue Count](https://codeclimate.com/github/a-barbieri/binda/badges/issue_count.svg)](https://codeclimate.com/github/a-barbieri/binda)
+[![Test Coverage](https://codeclimate.com/github/a-barbieri/binda/badges/coverage.svg)](https://codeclimate.com/github/a-barbieri/binda/coverage)
+
 ## Installation
 Add this line to your application's Gemfile:
 
@@ -18,6 +22,13 @@ Or install it yourself as:
 $ gem install binda
 $ rails generate binda:install
 ```
+
+## Requirements
+Binda has some dependencies which you might need to update if you have a very specific environment.
+
+If you are not going to use Rails default ORM please check [Carrierwave documentation](https://github.com/carrierwaveuploader/carrierwave#datamapper-mongoid-sequel) and [Devise documentation](https://github.com/plataformatec/devise#other-orms).
+
+In order to use Carrierwave to process images you need to run MiniMagik. Please refer to [Carrierwave documentation](https://github.com/carrierwaveuploader/carrierwave#using-minimagick) to find more information.
 
 ## Bug reporting
 Please refer to this [guide](http://yourbugreportneedsmore.info).
