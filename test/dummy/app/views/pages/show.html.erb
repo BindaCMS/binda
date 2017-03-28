@@ -1,5 +1,6 @@
-
-<img src="<%= @page.get_image_url('ft_image', 'thumb') %>" alt="">
+<% if @page.has_image('ft_image')%>
+	<img src="<%= @page.get_image_url('ft_image', 'thumb') %>" alt="">
+<% end %>
 
 <h1>Pages#show</h1>
 <p>Find me in app/views/pages/show.html.erb</p>

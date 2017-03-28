@@ -58,6 +58,16 @@ module Binda
 				obj.url
 			end
 	  end
+
+	  def has_image( field_slug )
+	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
+	  	obj = self.assets.where( field_setting_id: field_setting.id )
+	  	if obj.any?
+	  		return true unless obj.first.image.nil?
+  		else
+  			return false
+  		end
+	  end
  
   end
 end
