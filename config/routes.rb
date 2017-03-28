@@ -1,5 +1,8 @@
 Binda::Engine.routes.draw do
 
+  resources :bindings
+  resources :galleries
+  resources :assets
   # ROOT
   # ----
   # https://github.com/plataformatec/devise/wiki/How-To:-Require-authentication-for-all-pages

@@ -65,16 +65,25 @@ module Binda
         Setting.find_or_create_by( name: 'website_description' ).update_attribute( :content, @website_description )
       end
 
+      def create_credentials
+        @username = ask("What's your email? ['admin@domain.com']").presence || 'admin@domain.com'
+        @password = ask("What's your password? ['password']").presence || 'password'
+        Binda::User.create({ email: @username, password: @password })
+      end
+
       def feedback
         puts
         puts "Binda CMS has been succesfully installed! ".colorize(:green)
         puts
-        puts "    Site name: #{ @website_name }"
-        puts "    Site description: #{ @website_description }"
+        puts "    Title:              #{ @website_name }"
+        puts "    Description:        #{ @website_description }"
+        puts "    Username:           #{ @username }"
+        puts "    Password:           #{ @password }"
         puts
         puts "Restart your server and visit http://localhost:3000 in your browser!"
         puts "The admin panel is located at http://localhost:3000/admin_panel."
         puts
+        puts "======================================================"
       end
 
   end

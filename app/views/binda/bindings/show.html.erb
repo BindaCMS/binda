@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @binding.position %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @binding.description %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @binding.title %>
+</p>
+
+<%= link_to 'Edit', edit_binding_path(@binding) %> |
+<%= link_to 'Back', bindings_path %>

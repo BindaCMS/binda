@@ -58,6 +58,27 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
+     create_table :binda_galleries do |t|
+      t.integer          :position
+      t.belongs_to       :field_setting
+      t.references       :fieldable, polymorphic: true, index: true
+      t.timestamps
+    end
+
+    create_table :binda_assets do |t|
+      t.string           :image
+      t.belongs_to       :field_setting
+      t.references       :fieldable, polymorphic: true, index: true
+      t.timestamps
+    end
+
+    create_table :binda_bindings do |t|
+      t.string           :title
+      t.text             :description
+      t.integer          :position
+      t.timestamps
+    end
+
     create_table :binda_categories do |t|
       t.string           :name, null: false
       t.string           :slug
@@ -78,6 +99,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :scope
       t.datetime         :created_at
     end
+
     add_index :friendly_id_slugs, :sluggable_id
     add_index :friendly_id_slugs, [:slug, :sluggable_type]
     add_index :friendly_id_slugs, [:slug, :sluggable_type, :scope], :unique => true
@@ -124,6 +146,6 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     add_index :binda_users, :reset_password_token, unique: true
     # add_index :binda_users, :confirmation_token,   unique: true
     # add_index :binda_users, :unlock_token,         unique: true
-    
+
   end
 end

@@ -1,11 +1,9 @@
 module Binda
-  class FieldSetting < ApplicationRecord
+  class Binding < ApplicationRecord
 
   	# Associations
-  	belongs_to :field_group
-  	has_many :texts,     as: :fieldable
-  	has_many :galleries, as: :fieldable
-  	has_many :assets,    as: :fieldable
+  	belongs_to :asset
+  	belongs_to :gallery
 
 		# Validations
 		validates :name, presence: true

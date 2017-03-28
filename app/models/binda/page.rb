@@ -4,7 +4,9 @@ module Binda
   	# Associations
   	belongs_to :structure
   	has_and_belongs_to_many :categories
-		has_many :texts, as: :fieldable
+		has_many :texts,     as: :fieldable
+		has_many :assets,    as: :fieldable
+		has_many :galleries, as: :fieldable
 
 	  # has_many :bindings
 	  # has_many :assets, class_name: 'Admin::Asset', through: :bindings
