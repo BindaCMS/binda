@@ -28,7 +28,7 @@ module Binda
       @structure = Structure.new(structure_params)
 
       if @structure.save
-        redirect_to @structure, only_path: true, notice: 'Structure was successfully created.'
+        redirect_to @structure.merge(:only_path => true), notice: 'Structure was successfully created.'
       else
         render :new
       end
@@ -37,7 +37,7 @@ module Binda
     # PATCH/PUT /structures/1
     def update
       if @structure.update(structure_params)
-        redirect_to @structure, only_path: true, notice: 'Structure was successfully updated.'
+        redirect_to @structure.merge(:only_path => true), notice: 'Structure was successfully updated.'
       else
         render :edit
       end
