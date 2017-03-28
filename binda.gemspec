@@ -31,8 +31,8 @@ Gem::Specification.new do |s|
   s.add_dependency "devise",               "~> 4.1.1"
   # s.add_dependency "cancancan"
   # s.add_dependency "meta-tags"
-  # s.add_dependency "carrierwave",          "~> 1.0"
-  # s.add_dependency "mini_magick",          "~> 4.5"
+  s.add_dependency "carrierwave",          "~> 1.0"
+  s.add_dependency "mini_magick",          "~> 4.5"
 
   # s.add_development_dependency "sqlite3"
 end

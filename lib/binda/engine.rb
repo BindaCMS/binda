@@ -9,6 +9,8 @@ require 'ffaker'
 require 'simple_form'
 require 'tinymce-rails'
 require 'devise'
+require 'carrierwave'
+require 'mini_magick'
 
 module Binda
   class Engine < ::Rails::Engine

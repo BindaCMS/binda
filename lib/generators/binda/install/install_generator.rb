@@ -44,6 +44,11 @@ module Binda
         end
       end
 
+      def setup_carrierwave
+        return if Rails.env.production?
+        template 'config/initializers/carrierwave.rb'
+      end
+
       def setup_settings
         puts "======================================================"
         puts "                    BINDA SETUP"
