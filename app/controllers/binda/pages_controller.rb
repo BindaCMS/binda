@@ -51,7 +51,7 @@ module Binda
     # end
 
   def fields_update
-    options = fields_params
+    # options = fields_params
     # options.each do |option, content|
     #   unless Admin::Option.friendly.find( option ).update_attributes( content: content )
     #     redirect_to :back, alert: "Sorry. There has been a problem with #{ option }"
