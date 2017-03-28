@@ -35,7 +35,9 @@ module Binda
 
       def setup_devise
         return if Rails.env.production?
+        
         template 'config/initializers/devise.rb'
+
         inject_into_file 'config/initializers/devise.rb', after: "config.secret_key = '" do 
           SecureRandom.hex(64)
         end
@@ -74,7 +76,7 @@ module Binda
 
       def create_credentials
         @username = ask("What's your email? ['admin@domain.com']").presence || 'admin@domain.com'
-        @password = ask("What's your password? ['password']").presence || 'password'
+        @password = ask("What's your password? ['123456789']").presence || '123456789'
         Binda::User.create({ email: @username, password: @password })
       end
 

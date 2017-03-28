@@ -27,7 +27,7 @@ module Binda
       @gallery = Gallery.new(gallery_params)
 
       if @gallery.save
-        redirect_to @gallery, notice: 'Gallery was successfully created.'
+        redirect_to gallery_path( @gallery.id ), notice: 'Gallery was successfully created.'
       else
         render :new
       end
@@ -36,7 +36,7 @@ module Binda
     # PATCH/PUT /galleries/1
     def update
       if @gallery.update(gallery_params)
-        redirect_to @gallery, notice: 'Gallery was successfully updated.'
+        redirect_to gallery_path( @gallery.id ), notice: 'Gallery was successfully updated.'
       else
         render :edit
       end

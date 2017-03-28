@@ -27,7 +27,7 @@ module Binda
       @category = Category.new(category_params)
 
       if @category.save
-        redirect_to @category.merge(:only_path => true), notice: 'Category was successfully created.'
+        redirect_to category_path( @category.slug ), notice: 'Category was successfully created.'
       else
         render :new
       end
@@ -36,7 +36,7 @@ module Binda
     # PATCH/PUT /categories/1
     def update
       if @category.update(category_params)
-        redirect_to @category.merge(:only_path => true), notice: 'Category was successfully updated.'
+        redirect_to category_path( @category.slug ), notice: 'Category was successfully updated.'
       else
         render :edit
       end
@@ -51,7 +51,7 @@ module Binda
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_category
-        @category = Category.find(params[:id])
+        @category = Category.friendly.find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.

@@ -27,7 +27,7 @@ module Binda
       @asset = Asset.new(asset_params)
 
       if @asset.save
-        redirect_to @asset, notice: 'Asset was successfully created.'
+        redirect_to asset_path( @asset.id ), notice: 'Asset was successfully created.'
       else
         render :new
       end
@@ -36,7 +36,7 @@ module Binda
     # PATCH/PUT /assets/1
     def update
       if @asset.update(asset_params)
-        redirect_to @asset, notice: 'Asset was successfully updated.'
+        redirect_to asset_path( @asset.id ), notice: 'Asset was successfully updated.'
       else
         render :edit
       end

@@ -27,7 +27,7 @@ module Binda
       @binding = Binding.new(binding_params)
 
       if @binding.save
-        redirect_to @binding, notice: 'Binding was successfully created.'
+        redirect_to binding_path( @binding.id ), notice: 'Binding was successfully created.'
       else
         render :new
       end
@@ -36,7 +36,7 @@ module Binda
     # PATCH/PUT /bindings/1
     def update
       if @binding.update(binding_params)
-        redirect_to @binding, notice: 'Binding was successfully updated.'
+        redirect_to binding_path( @binding.id ), notice: 'Binding was successfully updated.'
       else
         render :edit
       end

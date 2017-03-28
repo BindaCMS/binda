@@ -34,6 +34,7 @@ Binda::Engine.routes.draw do
   post 'pages/sort'
   post 'pages/fields_update'
   resources :pages
+  post 'structures/fields_update'
   resources :structures
   post 'field_groups/sort'
   resources :field_groups

@@ -28,7 +28,7 @@ module Binda
       @field_group = FieldGroup.new(field_group_params)
 
       if @field_group.save
-        redirect_to @field_group.merge(:only_path => true), notice: 'Field group was successfully created.'
+        redirect_to field_group_path( @field_group.slug ), notice: 'Field group was successfully created.'
       else
         render :new
       end
@@ -37,7 +37,7 @@ module Binda
     # PATCH/PUT /field_groups/1
     def update
       if @field_group.update(field_group_params)
-        redirect_to @field_group.merge(:only_path => true), notice: 'Field group was successfully updated.'
+        redirect_to field_group_path( @field_group.slug ), notice: 'Field group was successfully updated.'
       else
         render :edit
       end
