@@ -44,7 +44,7 @@ module Binda
 	  
 	  def get_text( field_slug )
 	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
-	  	self.texts.where({ 'field_setting_id': field_setting.id }).first.content
+	  	self.texts.where( field_setting_id: field_setting.id ).first.content
 	  end
   end
 end
