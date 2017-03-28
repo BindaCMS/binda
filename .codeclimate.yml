@@ -17,7 +17,7 @@ engines:
       - python
       - php
   eslint:
-    enabled: true
+    enabled: false
   fixme:
     enabled: true
   rubocop:
