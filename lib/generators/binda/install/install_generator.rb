@@ -42,6 +42,13 @@ module Binda
         inject_into_file 'config/initializers/devise.rb', after: "config.pepper = '" do 
           SecureRandom.hex(64)
         end
+
+        application( nil, env: [ "development", "test" ] ) do
+          "\n  config.action_mailer.default_url_options = { host: 'localhost:3000' }\n"
+        end
+        application( nil, env: "production" ) do
+          "\n  # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN\n  # config.action_mailer.default_url_options = { host: 'yourdomain.com' }\n"
+        end
       end
 
       def setup_carrierwave
@@ -82,6 +89,9 @@ module Binda
         puts
         puts "Restart your server and visit http://localhost:3000 in your browser!"
         puts "The admin panel is located at http://localhost:3000/admin_panel."
+        puts
+        puts "Please uncomment and update the 'config.action_mailer.default_url_options'".colorize(:red)
+        puts "in config/environments/production.rb".colorize(:red)
         puts
         puts "======================================================"
       end

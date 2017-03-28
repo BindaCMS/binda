@@ -1,4 +1,8 @@
 Rails.application.configure do
+  
+  # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN
+  # config.action_mailer.default_url_options = { host: 'yourdomain.com' }
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
