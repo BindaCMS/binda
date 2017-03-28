@@ -23,7 +23,7 @@ module Binda
       @page = Page.new(page_params)
 
       if @page.save
-        redirect_to @page, notice: 'Page was successfully created.'
+        redirect_to @page, only_path: true, notice: 'Page was successfully created.'
       else
         render :new
       end
@@ -31,7 +31,7 @@ module Binda
 
     def update
       if @page.update(page_params)
-        redirect_to @page, notice: 'Page was successfully updated.'
+        redirect_to @page, only_path: true, notice: 'Page was successfully updated.'
       else
         render :edit
       end

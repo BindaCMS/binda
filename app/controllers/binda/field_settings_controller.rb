@@ -27,7 +27,7 @@ module Binda
       @field_setting = FieldSetting.new(field_setting_params)
 
       if @field_setting.save
-        redirect_to @field_setting, notice: 'Field setting was successfully created.'
+        redirect_to @field_setting, only_path: true, notice: 'Field setting was successfully created.'
       else
         render :new
       end
@@ -36,7 +36,7 @@ module Binda
     # PATCH/PUT /field_settings/1
     def update
       if @field_setting.update(field_setting_params)
-        redirect_to @field_setting, notice: 'Field setting was successfully updated.'
+        redirect_to @field_setting, only_path: true, notice: 'Field setting was successfully updated.'
       else
         render :edit
       end

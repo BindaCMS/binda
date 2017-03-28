@@ -27,7 +27,7 @@ module Binda
       @text = Text.new(text_params)
 
       if @text.save
-        redirect_to @text, notice: 'Text was successfully created.'
+        redirect_to @text, only_path: true, notice: 'Text was successfully created.'
       else
         render :new
       end
@@ -36,7 +36,7 @@ module Binda
     # PATCH/PUT /texts/1
     def update
       if @text.update(text_params)
-        redirect_to @text, notice: 'Text was successfully updated.'
+        redirect_to @text, only_path: true, notice: 'Text was successfully updated.'
       else
         render :edit
       end

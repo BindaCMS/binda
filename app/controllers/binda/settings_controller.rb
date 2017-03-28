@@ -28,7 +28,7 @@ module Binda
       @setting = Setting.new(setting_params)
 
       if @setting.save
-        redirect_to @setting, notice: 'Setting was successfully created.'
+        redirect_to @setting, only_path: true, notice: 'Setting was successfully created.'
       else
         render :new
       end
@@ -37,7 +37,7 @@ module Binda
     # PATCH/PUT /settings/1
     def update
       if @setting.update(setting_params)
-        redirect_to @setting, notice: 'Setting was successfully updated.'
+        redirect_to @setting, only_path: true, notice: 'Setting was successfully updated.'
       else
         render :edit
       end
