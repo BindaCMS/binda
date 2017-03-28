@@ -1,5 +1,8 @@
-<img src="<%= Binda::Asset.last.image.url %>" alt="">
-
-
 <h1>Pages#index</h1>
 <p>Find me in app/views/pages/index.html.erb</p>
+
+<ul>
+<% @pages.each do |page| %>
+	<li><%= link_to page.name, page_path( page.id ) %></li>
+<% end %>
+</ul>

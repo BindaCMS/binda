@@ -48,5 +48,16 @@ module Binda
 	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
 	  	self.texts.where( field_setting_id: field_setting.id ).first.content
 	  end
+
+	  def get_image_url( field_slug, size = '' )
+	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
+	  	obj = self.assets.where( field_setting_id: field_setting.id ).first.image
+	  	if obj.respond_to?(size) && %w[thumb medium large].include?(size)
+			  obj.send(size).url
+			else
+				obj.url
+			end
+	  end
+ 
   end
 end

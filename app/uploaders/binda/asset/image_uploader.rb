@@ -39,6 +39,10 @@ module Binda
     # version :thumb do
     #   process resize_to_fit: [50, 50]
     # end
+
+    # ========== IMPORTANT ===========
+    # If you change this remember to change the methods on app/models/binda/page.rb
+
     version :thumb do
       process resize_to_fit: [200, 200]
     end
@@ -50,6 +54,8 @@ module Binda
     version :large do
       process resize_to_fit: [1400, 1400]
     end
+
+    # ================================
 
     # Add a white list of extensions which are allowed to be uploaded.
     # For images you might use something like this:
