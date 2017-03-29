@@ -25,7 +25,7 @@ module Binda
         # Clean the application from any previous Binda installation
         prev_migrations = Dir.glob( Rails.root.join('db', 'migrate', '*_binda_*.rb' )) 
         FileUtils.rm_rf( prev_migrations ) if prev_migrations.any?
-        # Make a fresch copy of Binda migrations
+        # Make a fresh copy of Binda migrations
         rake 'binda:install:migrations'
       end
       
@@ -35,14 +35,16 @@ module Binda
 
       def setup_devise
         return if Rails.env.production?
-        
+        # Copy the initilializer on the application folder
         template 'config/initializers/devise.rb'
 
-        inject_into_file 'config/initializers/devise.rb', after: "config.secret_key = '" do 
-          SecureRandom.hex(64)
+        # Add secret key
+        inject_into_file 'config/initializers/devise.rb', after: "# binda.hook.1" do 
+          "\n  config.secret_key = '#{ SecureRandom.hex(64) }'"
         end
-        inject_into_file 'config/initializers/devise.rb', after: "config.pepper = '" do 
-          SecureRandom.hex(64)
+        # Add pepper
+        inject_into_file 'config/initializers/devise.rb', after: "# binda.hook.2" do 
+          "\n  config.pepper = '#{ SecureRandom.hex(64) }'"
         end
 
         application( nil, env: [ "development", "test" ] ) do
@@ -75,9 +77,7 @@ module Binda
       end
 
       def create_credentials
-        @username = ask("What's your email? ['mail@domain.com']").presence || 'mail@domain.com'
-        @password = ask("What's your password? ['password']").presence || 'password'
-        Binda::User.create( email: @username, password: @password, password_confirmation: @password )
+        rake 'binda_create_initial_user'
       end
 
       def feedback
@@ -86,8 +86,7 @@ module Binda
         puts
         puts "    Title:              #{ @website_name }"
         puts "    Description:        #{ @website_description }"
-        puts "    Username:           #{ @username }"
-        puts "    Password:           #{ @password }"
+        puts "    Username:           #{ Binda::User.first.email }"
         puts
         puts "Restart your server and visit http://localhost:3000 in your browser!"
         puts "The admin panel is located at http://localhost:3000/admin_panel."
