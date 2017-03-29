@@ -25,14 +25,14 @@ contact_group = Binda::FieldGroup.create({ name: 'contact' })
 p "Creating Field Settings"
 
 # Default
-main_content = default_group.field_settings.create({ name: 'Main Content' })
+main_content = default_group.field_settings.create({ name: 'Main Content', field_type: 'text' })
 project_structure.field_groups << default_group
 contact_structure.field_groups << default_group
 
 # Contact
-address  = contact_group.field_settings.create({ name: 'Address' })
-phone    = contact_group.field_settings.create({ name: 'Phone' })
-mail     = contact_group.field_settings.create({ name: 'Mail' })
+address  = contact_group.field_settings.create({ name: 'Address', field_type: 'text' })
+phone    = contact_group.field_settings.create({ name: 'Phone', field_type: 'text' })
+mail     = contact_group.field_settings.create({ name: 'Mail', field_type: 'text' })
 contact_structure.field_groups << contact_group
 
 

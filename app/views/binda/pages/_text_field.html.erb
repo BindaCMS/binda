@@ -1,0 +1,9 @@
+<h5><%= field_setting.name.capitalize %></h5>
+<% unless field_setting.description.blank? %>
+	<small class="text-muted"><%= field_setting.description %></small>
+<% end %>
+<% if page.has_text( field_setting ) %>
+	<%= f.input "#{ field_group.slug }_#{ field_setting.slug }_text_#{ index }".to_s, input_html: { value: page.get_text( field_setting ), class: 'tinymce' }, as: :text %>
+<% else %>
+	<%= f.input "#{ field_group.slug }_#{ field_setting.slug }_text_#{ index }".to_s, input_html: { class: 'tinymce' }, as: :text %>
+<% end %>

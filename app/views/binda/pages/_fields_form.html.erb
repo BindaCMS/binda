@@ -24,14 +24,8 @@
 								<h4><%= field_group.name.capitalize %></h4>
 
 								<% field_group.field_settings.each do |field_setting| %>
-								<%# supposed that it's always a Binda::Text instance %>
-
-									<h5><%= field_setting.name.capitalize %></h5>
-									<% unless field_setting.description.blank? %>
-										<small class="text-muted"><%= field_setting.description %></small>
-									<% end %>
-									<% if page.has_text( field_setting ) %>
-										<%= f.input "#{ field_group.slug }_#{ field_setting.slug }_text_#{ index }".to_s, input_html: { value: page.get_text( field_setting ), class: 'tinymce' }, as: :text %>
+									<% if field_setting.field_type == 'text' %>
+										<%= render 'text_field', f: f, page: page, field_group: field_group, field_setting: field_setting, index: index %>
 									<% end %>
 								<% end %>
 									
