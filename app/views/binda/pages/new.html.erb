@@ -1,8 +1,8 @@
 <% content_for :header do %>
-	<h3>New Page</h3>
-  <a href="<%= pages_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> Back to list</a>
+	<h3>New <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %></h3>
+  <a href="<%= structure_pages_path( @structure.slug ) %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> Back to list</a>
 <% end %>
 		
 <% content_for :content do %> 
-	<%= render 'form', page: @page %>
+	<%= render 'fields_form', page: @page %>
 <% end %>

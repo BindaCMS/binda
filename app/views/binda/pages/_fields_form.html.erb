@@ -1,7 +1,7 @@
 	<div class="row">
 		<div class="form-inputs col-sm-12">
 			
-			<%= simple_form_for :fields_params, url: pages_fields_update_path, defaults: { label: false } do |f| %>
+			<%= simple_form_for :fields_params, url: structure_pages_fields_update_path, defaults: { label: false } do |f| %>
 				<%= f.error_notification %>
 				
 				<div class="row">
@@ -11,33 +11,32 @@
 							<div class="col-sm-12">
 
 								<h4>Title</h4>
-								<%= f.input :'name', input_html: { value: page.name } %>
+								<%= f.input :name, input_html: { value: page.name } %>
+								<%= f.input :slug, as: :hidden, input_html: { value: page.slug } %>
 								
 							</div>
 						</div>
 
-						<% if page.structure.present? && page.structure.field_groups.any? %>
-							<% page.structure.field_groups.each do |field_group| %>
-							<div class="form-inputs--row row">
-								<div class="col-sm-12">
+						<% @structure.field_groups.each_with_index do |field_group, index| %>
+						<div class="form-inputs--row row">
+							<div class="col-sm-12">
 
-									<h4><%= field_group.name.capitalize %></h4>
+								<h4><%= field_group.name.capitalize %></h4>
 
-									<% field_group.field_settings.each do |field_setting| %>
-									<%# supposed that it's always a Binda::Text instance %>
+								<% field_group.field_settings.each do |field_setting| %>
+								<%# supposed that it's always a Binda::Text instance %>
 
-										<h5><%= field_setting.name.capitalize %></h5>
-										<% unless field_setting.description.blank? %>
-											<small class="text-muted"><%= field_setting.description %></small>
-										<% end %>
-										<% if page.has_text( field_setting ) %>
-											<%= f.input :text, input_html: { value: page.get_text( field_setting ), class: 'tinymce' }, as: :text %>
-										<% end %>
+									<h5><%= field_setting.name.capitalize %></h5>
+									<% unless field_setting.description.blank? %>
+										<small class="text-muted"><%= field_setting.description %></small>
 									<% end %>
-										
-								</div>
+									<% if page.has_text( field_setting ) %>
+										<%= f.input "#{ field_group.slug }_#{ field_setting.slug }_text_#{ index }".to_s, input_html: { value: page.get_text( field_setting ), class: 'tinymce' }, as: :text %>
+									<% end %>
+								<% end %>
+									
 							</div>
-							<% end %>
+						</div>
 						<% end %>
 
 					</div>

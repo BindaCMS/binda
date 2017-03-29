@@ -16,11 +16,13 @@
         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Dashboard
       </a>
     </li>
-    <li>
-      <a href="<%= binda.pages_path %>">
-        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Pages
-      </a>
-    </li>
+    <% Binda::Structure.all.each do |structure| %>
+      <li>
+        <a href="<%= binda.structure_pages_path( structure.slug ) %>">
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <%= structure.name.humanize.pluralize %> 
+        </a>
+      </li>
+    <% end %>
     <li>
       <a href="<%= binda.structures_path %>">
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Structures

@@ -2,7 +2,7 @@ module Binda
   class Page < ApplicationRecord
 
   	# Associations
-  	belongs_to :structure
+  	belongs_to :structure, required: true
   	has_and_belongs_to_many :categories
 		has_many :texts,     as: :fieldable
 		has_many :assets,    as: :fieldable

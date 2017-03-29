@@ -1,8 +1,5 @@
 Binda::Engine.routes.draw do
 
-  resources :bindings
-  resources :galleries
-  resources :assets
   # ROOT
   # ----
   # https://github.com/plataformatec/devise/wiki/How-To:-Require-authentication-for-all-pages
@@ -31,16 +28,20 @@ Binda::Engine.routes.draw do
   # --------------------
   resources :settings
 
-  post 'pages/sort'
-  post 'pages/fields_update'
-  resources :pages
+
   post 'structures/fields_update'
-  resources :structures
+  resources :structures do
+    post 'pages/sort'
+    post 'pages/fields_update'
+    resources :pages
+  end
   post 'field_groups/sort'
   resources :field_groups
   post 'field_settings/sort'
   resources :field_settings, except: [ :show, :index ]
   resources :texts, except: [ :show, :index ]
   resources :categories
-
+  resources :bindings
+  resources :galleries
+  resources :assets
 end
