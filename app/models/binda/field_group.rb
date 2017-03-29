@@ -3,6 +3,7 @@ module Binda
 
   	# Associations
   	belongs_to :structure
+  	belongs_to :repeater
   	has_many :field_settings
 
 		# Validations

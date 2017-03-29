@@ -44,4 +44,6 @@ Binda::Engine.routes.draw do
   resources :bindings
   resources :galleries
   resources :assets
+  resources :repeaters
+  
 end

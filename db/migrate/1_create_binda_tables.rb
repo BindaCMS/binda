@@ -34,6 +34,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.integer          :position
       t.string           :layout
       t.belongs_to       :structure
+      t.belongs_to       :repeater
       t.timestamps
     end
 
@@ -47,6 +48,13 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.text             :default_text
       t.string           :field_type
       t.belongs_to       :field_group
+      t.timestamps
+    end
+
+    create_table :binda_repeaters do |t|
+      t.integer          :position
+      t.belongs_to       :field_setting
+      t.references       :fieldable, polymorphic: true, index: true
       t.timestamps
     end
 

@@ -6,6 +6,7 @@ module Binda
   	has_many :texts,     as: :fieldable
   	has_many :galleries, as: :fieldable
   	has_many :assets,    as: :fieldable
+  	has_many :repeaters, as: :fieldable
 
 		# Validations
 		validates :name, presence: true

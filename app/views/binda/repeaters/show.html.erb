@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @repeater.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @repeater.slug %>
+</p>
+
+<%= link_to 'Edit', edit_repeater_path(@repeater) %> |
+<%= link_to 'Back', repeaters_path %>

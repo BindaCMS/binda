@@ -1,0 +1,27 @@
+<%= form_for(repeater) do |f| %>
+  <% if repeater.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(repeater.errors.count, "error") %> prohibited this repeater from being saved:</h2>
+
+      <ul>
+      <% repeater.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :slug %>
+    <%= f.text_field :slug %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
