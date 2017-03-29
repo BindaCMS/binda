@@ -23,15 +23,15 @@ module Binda
 		include AASM
 
 	  	aasm :column => 'publish_state' do
-	      	state :draft, :initial => true
+	      	state :draft, initial: true
 	      	state :published    
 
-	    	event :is_published do
-	      	transitions :from => :draft, :to => :published
+	    	event :publish do
+	      	transitions from: :draft, to: :published
 	    	end
 
-	    	event :is_draft do
-	    	  transitions :from => :published, :to => :draft
+	    	event :unpublish do
+	    	  transitions from: :published, to: :draft
 	    	end
 
 	  	end
@@ -49,6 +49,16 @@ module Binda
 	  	self.texts.where( field_setting_id: field_setting.id ).first.content
 	  end
 
+	  def has_text( field_slug )
+	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
+	  	obj = self.texts.where( field_setting_id: field_setting.id )
+	  	if obj.any?
+	  		!obj.first.content.nil?
+  		else
+  			return false
+  		end
+	  end
+
 	  def get_image_url( field_slug, size = '' )
 	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
 	  	obj = self.assets.where( field_setting_id: field_setting.id ).first.image
@@ -63,7 +73,7 @@ module Binda
 	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
 	  	obj = self.assets.where( field_setting_id: field_setting.id )
 	  	if obj.any?
-	  		return true unless obj.first.image.nil?
+	  		!obj.first.image.nil?
   		else
   			return false
   		end

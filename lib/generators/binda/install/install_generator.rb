@@ -84,17 +84,18 @@ module Binda
         puts
         puts "Binda CMS has been succesfully installed! ".colorize(:green)
         puts
-        puts "    Title:              #{ @website_name }"
-        puts "    Description:        #{ @website_description }"
-        puts "    Username:           #{ Binda::User.first.email }"
-        puts
-        puts "Restart your server and visit http://localhost:3000 in your browser!"
-        puts "The admin panel is located at http://localhost:3000/admin_panel."
-        puts
-        puts "Please uncomment and update the 'config.action_mailer.default_url_options'".colorize(:red)
+        # puts "    Title:              #{ @website_name }"
+        # puts "    Description:        #{ @website_description }"
+        # puts "    Username:           #{ Binda::User.first.email }"
+        # puts
+        # puts "Restart your server and visit http://localhost:3000 in your browser!"
+        # puts "The admin panel is located at http://localhost:3000/admin_panel."
+        # puts
+        puts "Before deploying to production, uncomment and update the "
+        puts "'config.action_mailer.default_url_options'".colorize(:red)
         puts "in config/environments/production.rb".colorize(:red)
         puts
-        puts "======================================================"
+        puts "============================================================================="
       end
 
   end

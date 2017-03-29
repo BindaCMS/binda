@@ -30,7 +30,9 @@
 										<% unless field_setting.description.blank? %>
 											<small class="text-muted"><%= field_setting.description %></small>
 										<% end %>
-										<%= f.input :text, input_html: { value: get_text( page, field_setting ), class: 'tinymce' }, as: :text %>
+										<% if page.has_text( field_setting ) %>
+											<%= f.input :text, input_html: { value: page.get_text( field_setting ), class: 'tinymce' }, as: :text %>
+										<% end %>
 									<% end %>
 										
 								</div>
