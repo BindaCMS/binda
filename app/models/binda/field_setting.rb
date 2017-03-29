@@ -10,7 +10,7 @@ module Binda
 
 		# Validations
 		validates :name, presence: true
-		validates :field_type, presence: true, inclusion: { in: %w( text asset gallery )}
+		validates :field_type, presence: true, inclusion: { in: %w( text asset gallery repeater )}
 
   	# Slug
 		extend FriendlyId
