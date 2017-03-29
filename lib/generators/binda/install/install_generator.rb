@@ -77,8 +77,7 @@ module Binda
       def create_credentials
         @username = ask("What's your email? ['mail@domain.com']").presence || 'mail@domain.com'
         @password = ask("What's your password? ['password']").presence || 'password'
-        # Binda::User.create( email: @username, password: @password, password_confirmation: @password )
-        Binda::User.create( email: 'mail@domain.com', password: 'password', password_confirmation: 'password' )
+        Binda::User.create( email: @username, password: @password, password_confirmation: @password )
       end
 
       def feedback
