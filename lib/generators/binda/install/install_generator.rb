@@ -59,9 +59,9 @@ module Binda
       end
 
       def setup_settings
-        puts "======================================================"
-        puts "                    BINDA SETUP"
-        puts "======================================================"
+        puts "============================================================================="
+        puts "                               BINDA SETUP"
+        puts "============================================================================="
         puts 
         puts "We need few details. Don't worry you can modify them later. \n\n"
 
@@ -75,9 +75,10 @@ module Binda
       end
 
       def create_credentials
-        @username = ask("What's your email? ['admin@domain.com']").presence || 'admin@domain.com'
-        @password = ask("What's your password? ['123456789']").presence || '123456789'
-        Binda::User.create({ email: @username, password: @password })
+        @username = ask("What's your email? ['mail@domain.com']").presence || 'mail@domain.com'
+        @password = ask("What's your password? ['password']").presence || 'password'
+        # Binda::User.create( email: @username, password: @password, password_confirmation: @password )
+        Binda::User.create( email: 'mail@domain.com', password: 'password', password_confirmation: 'password' )
       end
 
       def feedback
