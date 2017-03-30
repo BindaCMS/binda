@@ -60,6 +60,7 @@ module Binda
         template 'config/initializers/carrierwave.rb'
       end
 
+
       def setup_settings
         puts 
         puts "============================================================================="
@@ -67,6 +68,9 @@ module Binda
         puts "============================================================================="
         puts 
         puts "We need few details. Don't worry you can modify them later. \n\n"
+
+        # MAINTENANCE MODE
+        Setting.find_or_create_by( name: 'Maintenance Mode' )
 
         # WEBSITE NAME
         @website_name = ask("What would you like to name your website? ['MySite']").presence || 'MySite'

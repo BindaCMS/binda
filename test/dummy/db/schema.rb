@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329160530) do
+ActiveRecord::Schema.define(version: 20170330180048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,10 +116,11 @@ ActiveRecord::Schema.define(version: 20170329160530) do
   end
 
   create_table "binda_settings", force: :cascade do |t|
-    t.string  "name",     null: false
+    t.string  "name",                     null: false
     t.string  "slug"
     t.text    "content"
     t.integer "position"
+    t.boolean "switcher", default: false
     t.index ["slug"], name: "index_binda_settings_on_slug", unique: true, using: :btree
   end
 
