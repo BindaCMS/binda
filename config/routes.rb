@@ -29,17 +29,20 @@ Binda::Engine.routes.draw do
   resources :settings
 
 
-  post 'structures/fields_update'
   resources :structures do
+
     post 'pages/sort'
-    post 'pages/fields_update'
     resources :pages
+    
+    post 'field_groups/sort'
+    resources :field_groups do
+      post 'field_settings/sort'
+      resources :field_settings
+    end
+
   end
-  post 'field_groups/sort'
-  resources :field_groups
-  post 'field_settings/sort'
-  resources :field_settings, except: [ :show, :index ]
-  resources :texts, except: [ :show, :index ]
+  
+  resources :texts
   resources :categories
   resources :bindings
   resources :galleries

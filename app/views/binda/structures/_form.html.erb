@@ -1,45 +1,54 @@
-<div class="row">
-<div class="form-inputs col-sm-12">
-
-<%= simple_form_for structure , defaults: { label: false } do |f| %>
-  <% if structure.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize( structure.errors.count, "error") %> prohibited this structure from being saved:</h2>
-
-      <ul>
-      <% structure.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="row">
-    <div class="col-sm-8">
+    <div class="form-inputs col-sm-12">
+      
+      <%= simple_form_for structure, defaults: { label: false } do |f| %>
+        <%= f.error_notification %>
+        
+        <div class="row">
+          <div class="col-sm-8">
 
-      <div class="form-inputs--row row">
-        <div class="col-sm-12">
+            <div class="form-inputs--row row">
+              <div class="col-sm-12">
 
-          <h4>Page Details</h4>
-          
-          <h5>Name</h5>
-          <%= f.input :name %>
+                <h4><%= "#{ t :details }".capitalize %></h4>
 
-        </div>
-      </div>
+                <h5><%= "#{ t :title }".capitalize %></h5>
+                <%= f.input :name %>
+                
+                <% if structure.slug.nil? %>
+                  <%= f.input :slug, as: :hidden %>
+                <% else %>
+                  <h5><%= "#{ t :slug }".capitalize %></h5>
+                  <%= f.input :slug, disabled: true, hint: "#{ t :slug_disable_hint }" %>
+                <% end %>
+                
+              </div>
+            </div>
 
-    </div>
-    <div class="col-sm-4">
-      <div class="form-inputs--row row">
-        <div class="col-sm-12">
-          <div class="form-actions">
-            <h4>Settings</h4>
-            <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+            <div class="form-inputs--row row">
+              <div class="col-sm-12">
+
+                <%= render "parent_group", parent_group: structure, f: f %>
+
+                <a class="main-header--link btn btn-default" href="<%= new_structure_field_group_path( structure.slug ) %>"><%= "#{ t :new }".capitalize %> <%= t :field_group %></a>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="col-sm-4">
+
+            <div class="form-inputs--row row">
+              <div class="col-sm-12">
+                <h4><%= "#{ t :publish }".capitalize %></h4>
+                <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+              </div>
+            </div>
+            
           </div>
         </div>
-      </div>
-    </div>
-<% end %>
+      
+      <% end %>
 
-</div>
-</div>
+    </div>
+  </div>

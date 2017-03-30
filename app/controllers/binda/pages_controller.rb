@@ -14,14 +14,14 @@ module Binda
     end
 
     def new
-      @page = Page.new
+      @page = @structure.pages.build()
     end
 
     def edit
     end
 
     def create
-      @page = Page.new(page_params)
+      @page = @structure.pages.build(page_params)
 
       if @page.save
         redirect_to structure_page_path( @structure.slug, @page.slug ), notice: 'Page was successfully created.'
@@ -77,10 +77,6 @@ module Binda
         @page = Page.friendly.find(params[:id])
       end
 
-      def multiple_fields_page
-        @page = Page.friendly.find( params[:fields_params][:slug] )
-      end
-
       # Only allow a trusted parameter "white list" through.
       def page_params
         params.require(:page).permit( 
@@ -113,11 +109,6 @@ module Binda
             :field_setting_id, 
             :field_group_id 
             ])
-      end
-
-      def multiple_fields_params
-        # TO DO add multiple params for all fields
-        params.require(:fields_params).permit( :name, :slug, :position, :publish_state )
       end
 
       def multiple_params

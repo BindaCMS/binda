@@ -1,6 +1,8 @@
-<h1>Editing Field Setting</h1>
-
-<%= render 'form', field_setting: @field_setting %>
-
-<%= link_to 'Show', @field_setting %> |
-<%= link_to 'Back', field_settings_path %>
+<% content_for :header do %>
+	<h3><%= "#{ t :edit }".capitalize %><%= @field_group.name.humanize.split.map(&:capitalize).join(' ') %></h3>
+  <a href="<%= structure_field_group_path( id: @field_group.slug ) %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= "#{ t :back_to }".capitalize %> <%= @field_group.name.capitalize %></a>
+<% end %>
+		
+<% content_for :content do %> 
+	<%= render 'form', field_group: @field_group, structure: @structure, field_setting: @field_setting %>
+<% end %>

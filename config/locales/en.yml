@@ -5,5 +5,13 @@ en:
   publish: publish
   new: new
   edit: edit
+  setting: setting
   back_to_index: back to list
-  slug_disable_hint: 'Editing slug is not possible. If you want a specific slug create new an item and slug will be deduced from the title.'
+  back_to: back to
+  slug_disable_hint: 'Editing slug is not possible. If you want a specific slug create a new item and a slug will be extracted from the title.'
+  field_type: field type
+  field_group_title: field group title
+  go_to: go to 
+  field_group: field group
+  field_setting: field setting
+  hint_create_parent_before_child: you need to create the %{arg1} before being able to add any %{arg2}

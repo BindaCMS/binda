@@ -13,13 +13,13 @@
                 <h4><%= "#{ t :details }".capitalize %></h4>
 
                 <h5><%= "#{ t :title }".capitalize %></h5>
-                <%= f.input :name, input_html: { value: page.name } %>
+                <%= f.input :name %>
                 
                 <% if page.slug.nil? %>
-                  <%= f.input :slug, as: :hidden, input_html: { value: page.slug } %>
+                  <%= f.input :slug, as: :hidden %>
                 <% else %>
                   <h5><%= "#{ t :slug }".capitalize %></h5>
-                  <%= f.input :slug, input_html: { value: page.slug }, disabled: true, hint: "#{ t :slug_disable_hint }" %>
+                  <%= f.input :slug, disabled: true, hint: "#{ t :slug_disable_hint }" %>
                 <% end %>
 
                 <%= f.input :structure_id, as: :hidden, input_html: { value: @structure.id } %>

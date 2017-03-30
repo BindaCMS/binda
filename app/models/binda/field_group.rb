@@ -8,6 +8,8 @@ module Binda
 
 		# Validations
 		validates :name, presence: true
+		validates :slug, uniqueness: true
+		accepts_nested_attributes_for :field_settings, allow_destroy: true
 
   	# Slug
 		extend FriendlyId
