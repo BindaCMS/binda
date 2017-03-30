@@ -1,2 +1,9 @@
 en:
+  details: details
+  slug: slug
+  title: title
+  publish: publish
+  new: new
+  edit: edit
+  back_to_index: back to list
   slug_disable_hint: 'Editing slug is not possible. If you want a specific slug create new an item and slug will be deduced from the title.'

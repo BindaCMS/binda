@@ -10,15 +10,15 @@
             <div class="form-inputs--row row">
               <div class="col-sm-12">
 
-                <h4>Details</h4>
+                <h4><%= "#{ t :details }".capitalize %></h4>
 
-                <h5>Title</h5>
+                <h5><%= "#{ t :title }".capitalize %></h5>
                 <%= f.input :name, input_html: { value: page.name } %>
                 
                 <% if page.slug.nil? %>
                   <%= f.input :slug, as: :hidden, input_html: { value: page.slug } %>
                 <% else %>
-                  <h5>Slug</h5>
+                  <h5><%= "#{ t :slug }".capitalize %></h5>
                   <%= f.input :slug, input_html: { value: page.slug }, disabled: true, hint: "#{ t :slug_disable_hint }" %>
                 <% end %>
 
@@ -34,7 +34,7 @@
 
             <div class="form-inputs--row row">
               <div class="col-sm-12">
-                <h4>Publish</h4>
+                <h4><%= "#{ t :publish }".capitalize %></h4>
                 <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
               </div>
             </div>
