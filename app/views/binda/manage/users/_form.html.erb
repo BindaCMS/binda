@@ -1,9 +1,19 @@
 <div class="row">
 <div class="form-inputs col-sm-12">
 
-<%= simple_form_for( @user, url: manage_users_path ) do |f| %>
-  <%= f.error_notification %>
-	
+<%= simple_form_for manage_user, url: get_form_manage_user_url do |f| %>
+  <% if manage_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize( manage_user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% manage_user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
   <div class="row">
 		<div class="col-sm-8">
 
@@ -20,6 +30,12 @@
 
 					<h5>Password confirmation</h5>
 			  	<%= f.input :password_confirmation, label: false %>
+
+
+			  	<% if !current_user.is_superadmin %>
+						<h5>Administrator priviledges</h5>
+				  	<%= f.input :is_superadmin, label: false, as: :radio_buttons %>
+			  	<% end %>
 
 			  </div>
 		  </div>

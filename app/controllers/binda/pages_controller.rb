@@ -26,7 +26,7 @@ module Binda
       if @page.save
         redirect_to structure_page_path( @structure.slug, @page.slug ), notice: 'Page was successfully created.'
       else
-        render :new
+        redirect_to new_structure_page_path( @structure.slug ), flash: { alert: @page.errors }
       end
     end
 
@@ -34,7 +34,7 @@ module Binda
       if @page.update(page_params)
         redirect_to structure_page_path( @structure.slug, @page.slug ), notice: 'Page was successfully updated.'
       else
-        render :edit
+        redirect_to edit_structure_page_path( @structure.slug, @page.slug ), flash: { alert: @page.errors }
       end
     end
 

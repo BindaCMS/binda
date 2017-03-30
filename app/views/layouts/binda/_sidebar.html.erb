@@ -23,11 +23,13 @@
         </a>
       </li>
     <% end %>
-    <li>
-      <a href="<%= binda.structures_path %>">
-        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Structures
-      </a>
-    </li>
+    <% if current_user.is_superadmin %>
+      <li>
+        <a href="<%= binda.structures_path %>">
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Structures
+        </a>
+      </li>
+    <% end %>
     <li>
       <a href="<%= binda.manage_users_path %>">
         <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users

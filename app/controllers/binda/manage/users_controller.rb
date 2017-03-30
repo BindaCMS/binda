@@ -10,7 +10,7 @@ module Binda
     end
 
     def show
-    redirect_to action: :edit
+      redirect_to action: :edit
     end
 
     def new
@@ -29,7 +29,7 @@ module Binda
           format.xml  { head :ok }
           format.json { render :show, status: :created, location: @user }
         else
-          format.html { render :new }
+          format.html { redirect_to new_manage_user_path, flash: { alert: @user.errors } }
           format.xml  { head :bad_request }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
@@ -37,25 +37,28 @@ module Binda
     end
 
     def update
-      respond_to do |format|
-        if @user.update(manage_user_params)
-          format.html { redirect_to manage_user_path( @user.id ), notice: 'User was successfully updated.' }
-          format.xml  { head :ok }
-          format.json { render :show, status: :ok, location: @user }
-        else
-          format.html { render :edit }
-          format.xml  { head :bad_request }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
+      if @user.is_superadmin && !current_user.is_superadmin
+        redirect_to manage_users_url, notice: 'Sorry, you cannot edit a administrator.'
+      else
+        respond_to do |format|
+          if @user.update(user_params)
+            format.html { redirect_to manage_user_path( @user.id ), notice: 'User was successfully updated.' }
+            format.xml  { head :ok }
+            format.json { render :show, status: :ok, location: @user }
+          else
+            format.html { redirect_to edit_manage_user_path( @user.id ), flash: { alert: @user.errors } }
+            format.xml  { head :bad_request }
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+          end
         end
       end
     end
 
     def destroy
       if current_user.email == @user.email
-        redirect_to manage_users_url, notice: 'Sorry, you cannot delete your own account.'
-      # Utilizzare CANCANCAN
-      # elsif User.find( params['id'] ).is_admin?
-      #   redirect_to manage_users_url, notice: 'Sorry, you cannot delete a super admin account.'
+        redirect_to manage_users_url, flash: { alert: 'Sorry, you cannot delete your own account.' }
+      elsif !current_user.is_superadmin
+        redirect_to manage_users_url, flash: { alert: 'Sorry, you cannot delete an administrator.' }
       else
         @user.destroy
         respond_to do |format|
@@ -74,7 +77,7 @@ module Binda
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def user_params
-        params.fetch(:user, {}).permit( :email, :password, :password_confirmation )
+        params.fetch(:user, {}).permit( :email, :password, :password_confirmation, :is_superadmin )
       end
 
       # https://github.com/plataformatec/devise/wiki/How-To%3a-Manage-users-through-a-CRUD-interface

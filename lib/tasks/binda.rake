@@ -11,5 +11,5 @@ task :binda_create_initial_user => :environment do
 	STDOUT.puts "What is your password? [password]"
   password = STDIN.gets.strip
   password = 'password' if password.blank?
-  Binda::User.create!( email: username, password: password, password_confirmation: password )
+  Binda::User.create!( email: username, password: password, password_confirmation: password, is_superadmin: true )
 end

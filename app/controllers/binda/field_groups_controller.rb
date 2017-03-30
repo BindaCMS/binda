@@ -31,7 +31,7 @@ module Binda
       if @field_group.save
         redirect_to structure_field_group_path( @structure.slug, @field_group.slug ), notice: 'Field group was successfully created.'
       else
-        render :new
+        redirect_to new_structure_field_group_path( @structure.slug ), flash: { alert: @field_group.errors }
       end
     end
 
@@ -40,7 +40,7 @@ module Binda
       if @field_group.update(field_group_params)
         redirect_to structure_field_group_path( @structure.slug, @field_group.slug ), notice: 'Field group was successfully updated.'
       else
-        render :edit
+        redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { alert: @field_group.errors }
       end
     end
 
