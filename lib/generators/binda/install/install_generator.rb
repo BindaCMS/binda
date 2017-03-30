@@ -61,6 +61,7 @@ module Binda
       end
 
       def setup_settings
+        puts 
         puts "============================================================================="
         puts "                               BINDA SETUP"
         puts "============================================================================="
@@ -91,9 +92,8 @@ module Binda
         # puts "Restart your server and visit http://localhost:3000 in your browser!"
         # puts "The admin panel is located at http://localhost:3000/admin_panel."
         # puts
-        puts "Before deploying to production, remember to uncomment".colorize(:red)
-        puts "and update the 'config.action_mailer.default_url_options'".colorize(:red)
-        puts "in 'config/environments/production.rb'".colorize(:red)
+        puts "Before deploying to production, remember to uncomment and update the"
+        puts "'config.action_mailer.default_url_options' in 'config/environments/production.rb'"
         puts
         puts "============================================================================="
       end

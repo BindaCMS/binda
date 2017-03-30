@@ -1,54 +1,48 @@
-<div class="row">
-<div class="form-inputs col-sm-12">
-
-<%= simple_form_for page, url: structure_page_path( @structure.slug, page.id ) , defaults: { label: false } do |f| %>
-  <% if page.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize( page.errors.count, "error") %> prohibited this <%= @structure.name.humanize.downcase %> from being saved:</h2>
-
-      <ul>
-      <% page.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="row">
-    <div class="col-sm-8">
+    <div class="form-inputs col-sm-12">
+      
+      <%= simple_form_for page, url: get_form_page_url, defaults: { label: false } do |f| %>
+        <%= f.error_notification %>
+        
+        <div class="row">
+          <div class="col-sm-8">
 
-      <div class="form-inputs--row row">
-        <div class="col-sm-12">
+            <div class="form-inputs--row row">
+              <div class="col-sm-12">
 
-          <h4><%= @structure.name.humanize.split.map(&:capitalize).join(' ') %> Details</h4>
-          
-          <h5>Title</h5>
-          <%= f.input :name %>
+                <h4>Details</h4>
 
-          <h5>Content</h5>
-          <%# f.input :content, input_html: { rows: 10, class: "tinymce" } %>
+                <h5>Title</h5>
+                <%= f.input :name, input_html: { value: page.name } %>
+                
+                <% if page.slug.nil? %>
+                  <%= f.input :slug, as: :hidden, input_html: { value: page.slug } %>
+                <% else %>
+                  <h5>Slug</h5>
+                  <%= f.input :slug, input_html: { value: page.slug } %>
+                <% end %>
 
-        </div>
-      </div>
+                <%= f.input :structure_id, as: :hidden, input_html: { value: @structure.id } %>
+                
+              </div>
+            </div>
 
-    </div>
-    <div class="col-sm-4">
-      <div class="form-inputs--row row">
-        <div class="col-sm-12">
-          <div class="form-actions">
-            <h4>Settings</h4>
-            <h5>Publish status</h5>
-            <%= f.input :publish_state, as: :radio_buttons, collection: ['published', 'draft'], include_blank: false %>
-            <hr>
-            <h5>Append page link to navigation menu</h5>
-            <%# f.input :in_menu, as: :radio_buttons, include_blank: false, checked: page.in_menu %>
-            <hr>
-            <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+            <%= render "parent_group", parent_group: @structure, f: f, page: page %>
+
+          </div>
+          <div class="col-sm-4">
+
+            <div class="form-inputs--row row">
+              <div class="col-sm-12">
+                <h4>Publish</h4>
+                <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+              </div>
+            </div>
+            
           </div>
         </div>
-      </div>
-    </div>
-<% end %>
+      
+      <% end %>
 
-</div>
-</div>
+    </div>
+  </div>

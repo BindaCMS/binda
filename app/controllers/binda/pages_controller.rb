@@ -83,7 +83,36 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def page_params
-        params.require(:page).permit( :name, :slug, :position, :publish_state )
+        params.require(:page).permit( 
+          :name, 
+          :slug, 
+          :position, 
+          :publish_state, 
+          :structure_id, 
+          structure_attributes: [ 
+            :id
+            ], 
+          categories_attributes: [ 
+            :id, 
+            :field_setting_id, 
+            :category_id 
+            ], 
+          texts_attributes: [ 
+            :id, 
+            :field_setting_id, 
+            :content 
+            ], 
+          assets_attributes: [ 
+            :id 
+            ], 
+          galleries_attributes: [ 
+            :id 
+            ], 
+          repeaters_attributes: [ 
+            :id, 
+            :field_setting_id, 
+            :field_group_id 
+            ])
       end
 
       def multiple_fields_params

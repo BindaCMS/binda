@@ -1,9 +1,22 @@
-<h5><%= field_setting.name.capitalize %></h5>
-<% unless field_setting.description.blank? %>
-	<small class="text-muted"><%= field_setting.description %></small>
+<% current_text = page.texts.where( field_setting_id: field_setting.id ).first %>
+<% unless current_text.present? %>
+	<% current_text = page.texts.create!()%>
 <% end %>
-<% if page.has_text( field_setting ) %>
-	<%= f.input "#{ field_group.slug }_#{ field_setting.slug }_text_#{ index }".to_s, input_html: { value: page.get_text( field_setting ), class: 'tinymce' }, as: :text %>
-<% else %>
-	<%= f.input "#{ field_group.slug }_#{ field_setting.slug }_text_#{ index }".to_s, input_html: { class: 'tinymce' }, as: :text %>
+
+<%= f.simple_fields_for "texts_attributes[]", current_text do |ff|%>
+	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+	<%= ff.input :id, as: :hidden, input_html: { value: current_text.id } %>
+
+	<h5><%= field_setting.name.capitalize %></h5>
+
+	<% unless field_setting.description.blank? %>
+		<small class="text-muted"><%= field_setting.description %></small>
+	<% end %>
+
+	<% if page.has_text( field_setting ) %>
+		<%= ff.input :content, input_html: { value: page.get_text( field_setting ), class: 'tinymce' }, as: :text %>
+	<% else %>
+		<%= ff.input :content, input_html: { class: 'tinymce' }, as: :text %>
+	<% end %>
+
 <% end %>

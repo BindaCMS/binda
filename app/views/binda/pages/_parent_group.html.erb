@@ -1,0 +1,21 @@
+<% parent_group.field_groups.each_with_index do |field_group, index| %>
+<div class="form-inputs--row row">
+  <div class="col-sm-12">
+
+    <h4><%= field_group.name.capitalize %></h4>
+
+    <% field_group.field_settings.each do |field_setting| %>
+
+      <% if field_setting.field_type == 'text' %>
+        <%= render 'text_field', f: f, page: page, field_group: field_group, field_setting: field_setting, index: index %>
+      <% end %>
+
+      <% if field_setting.field_type == 'repeater' %>
+        <%= render 'repeater_field', f: f, page: page, field_group: field_group, field_setting: field_setting, index: index %>
+      <% end %>
+
+    <% end %>
+      
+  </div>
+</div>
+<% end %>

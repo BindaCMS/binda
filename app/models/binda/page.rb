@@ -7,6 +7,9 @@ module Binda
 		has_many :texts,     as: :fieldable
 		has_many :assets,    as: :fieldable
 		has_many :galleries, as: :fieldable
+		has_many :repeaters, as: :fieldable
+
+		accepts_nested_attributes_for :structure, :categories, :texts, :assets, :galleries, :repeaters, allow_destroy: true
 
 	  # has_many :bindings
 	  # has_many :assets, class_name: 'Admin::Asset', through: :bindings
