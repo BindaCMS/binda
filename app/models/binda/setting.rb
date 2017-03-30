@@ -6,6 +6,8 @@ module Binda
 	  # has_many :assets, class_name: 'Admin::Asset', through: :bindings
 
 		# Validations
+		validates :name, presence: true
+
 
   	# Slug
 		extend FriendlyId
@@ -20,7 +22,19 @@ module Binda
 	  end
 
 	  def self.website_name
-	  	Setting.find_by(name: 'website_name').content
+	  	self.friendly.find('website-name')
+	  end
+
+	  def self.website_description
+	  	self.friendly.find('website-description')
+	  end
+
+	  def self.maintenance_mode
+	  	self.friendly.find('maintenance-mode')
+	  end
+
+	  def self.is_maintenance_mode
+	  	self.friendly.find('maintenance-mode').is_true
 	  end
 
   end

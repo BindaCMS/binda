@@ -9,10 +9,10 @@
 <div id="main-sidebar">
   <ul class="main-sidebar--nav">
     <li class = "main-sidebar--brand">
-      <h3><%= link_to Binda::Setting.website_name, '/' %></h3>
+      <h3><%= link_to get_website_name, '/' %></h3>
     </li>
     <li>
-      <a href="<%= binda.settings_path %>">
+      <a href="<%= binda.dashboard_path %>">
         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Dashboard
       </a>
     </li>

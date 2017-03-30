@@ -14,7 +14,7 @@ module Binda
 
   	# Slug
 		extend FriendlyId
-		friendly_id :name, use: [:slugged, :finders]
+		friendly_id :default_slug, use: [:slugged, :finders]
 
 
 		# CUSTOM METHODS
@@ -22,6 +22,13 @@ module Binda
 	  # https://github.com/norman/friendly_id/issues/436
 	  def should_generate_new_friendly_id?
 	    slug.blank? || name_changed?
+	  end
+
+	  def default_slug
+	  	[ "#{ self.field_group.name }-#{ self.name }",
+	  		"#{ self.field_group.name }-#{ self.name }-1",
+	  		"#{ self.field_group.name }-#{ self.name }-2",
+	  		"#{ self.field_group.name }-#{ self.name }-3" ]
 	  end
 
   end

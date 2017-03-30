@@ -20,9 +20,5 @@ module Binda
 	    slug.blank? || name_changed?
 	  end
 
-	  def maintenance_mode
-	  	self.friendly.find('maintenance-mode')
-	  end
-
   end
 end

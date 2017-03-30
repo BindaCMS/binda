@@ -13,3 +13,9 @@
 	<hr>
 
 <% end %>
+
+<% if parent_group.slug.nil? %>
+  <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :structure }", arg2: "#{ t :field_group }" ).capitalize %></h5>
+<% else %>
+  <a class="main-header--link btn btn-default" href="<%= new_structure_field_group_path( @structure.slug ) %>"><%= "#{ t :new }".capitalize %> <%= t :field_group %></a>
+<% end %>

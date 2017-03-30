@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330180048) do
+ActiveRecord::Schema.define(version: 20170330192334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 20170330180048) do
     t.string  "slug"
     t.text    "content"
     t.integer "position"
-    t.boolean "switcher", default: false
+    t.boolean "is_true",  default: false
     t.index ["slug"], name: "index_binda_settings_on_slug", unique: true, using: :btree
   end
 

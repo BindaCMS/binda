@@ -8,7 +8,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
   		t.index            :slug, unique: true
     	t.text             :content
     	t.integer          :position
-      t.boolean          :switcher, default: false
+      t.boolean          :is_true, default: false
     end
 
     create_table :binda_pages do |t|

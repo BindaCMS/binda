@@ -14,4 +14,7 @@ en:
   go_to: go to 
   field_group: field group
   field_setting: field setting
+  structure: structure
   hint_create_parent_before_child: you need to create the %{arg1} before being able to add any %{arg2}
+  dashboard_title: website settings
+  dashboard: dashboard

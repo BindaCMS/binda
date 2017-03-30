@@ -74,11 +74,11 @@ module Binda
 
         # WEBSITE NAME
         @website_name = ask("What would you like to name your website? ['MySite']").presence || 'MySite'
-        Setting.find_or_create_by( name: 'website_name' ).update_attribute( :content, @website_name )
+        Setting.find_or_create_by( name: 'Website Name' ).update_attribute( :content, @website_name )
 
         # WEBSITE CONTENT
         @website_description = ask("What is it about? ['A website about the world']").presence || 'A website about the world'
-        Setting.find_or_create_by( name: 'website_description' ).update_attribute( :content, @website_description )
+        Setting.find_or_create_by( name: 'Website Description' ).update_attribute( :content, @website_description )
       end
 
       def create_credentials

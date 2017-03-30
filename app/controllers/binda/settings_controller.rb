@@ -4,26 +4,21 @@ module Binda
   class SettingsController < ApplicationController
     before_action :set_setting, only: [:show, :edit, :update, :destroy]
 
-    # GET /settings
     def index
       @settings = Setting.all
     end
 
-    # GET /settings/1
     def show
       redirect_to action: :edit
     end
 
-    # GET /settings/new
     def new
       @setting = Setting.new
     end
 
-    # GET /settings/1/edit
     def edit
     end
 
-    # POST /settings
     def create
       @setting = Setting.new(setting_params)
 
@@ -34,7 +29,6 @@ module Binda
       end
     end
 
-    # PATCH/PUT /settings/1
     def update
       if @setting.update(setting_params)
         redirect_to setting_path( @setting.slug ), notice: 'Setting was successfully updated.'
@@ -43,10 +37,24 @@ module Binda
       end
     end
 
-    # DELETE /settings/1
     def destroy
       @setting.destroy
       redirect_to settings_url, notice: 'Setting was successfully destroyed.'
+    end
+
+    def dashboard
+      @settings  = Setting.all
+      @dashboard = Setting
+    end
+
+    def update_dashboard
+      dashboard_params[:settings].each do |id|
+        setting = Setting.find(id)
+        unless setting.update( dashboard_params[:settings][id.to_s] )
+          return redirect_to dashboard_path, flash: { error: setting.errors }
+        end
+      end
+      redirect_to dashboard_path, flash: { notice: 'Dashboard was successfully updated.' } 
     end
 
     private
@@ -55,9 +63,13 @@ module Binda
         @setting = Setting.friendly.find(params[:id])
       end
 
+      def dashboard_params
+        params.require(:dashboard).permit( settings: [ :id, :name, :content, :slug, :position, :is_true ] )
+      end
+
       # Only allow a trusted parameter "white list" through.
       def setting_params
-        params.require(:setting).permit(:name, :content, :slug, :position)
+        params.require(:setting).permit(:name, :content, :slug, :position, :dashboard )
       end
   end
 end

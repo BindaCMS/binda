@@ -26,8 +26,9 @@ Binda::Engine.routes.draw do
 
   # ADMINISTRATION PANEL
   # --------------------
+  get  'dashboard', to: 'settings#dashboard',         as: :dashboard
+  post 'dashboard', to: 'settings#update_dashboard'
   resources :settings
-
 
   resources :structures do
 

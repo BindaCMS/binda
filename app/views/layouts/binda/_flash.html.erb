@@ -1,12 +1,12 @@
 <% unless notice.blank? %>
 	<div class="form-inputs--row-transparent row">
   	<div class="alert alert-success col-sm-12">
-		<%= notice if notice.is_a? String %>
-		<% if notice.is_a? Hash %>
-			<% notice.each do |key, message| %>
-				<p><%= key %> <%= message.to_sentence %></p>
+			<%= notice if notice.is_a? String %>
+			<% if notice.is_a? Hash %>
+				<% notice.each do |key, message| %>
+					<p><%= key %> <%= message.to_sentence %></p>
+				<% end %>
 			<% end %>
-		<% end %>
 		</div>
 	</div>
 <% end %>
@@ -14,12 +14,13 @@
 <% unless alert.blank? %>
 	<div class="form-inputs--row-transparent row">
   	<div class="alert alert-danger col-sm-12">
-		<%= alert if alert.is_a? String %>
-		<% if alert.is_a? Hash %>
-			<% alert.each do |key, message| %>
-				<p><%= key %> <%= message.to_sentence %></p>
+			<%= alert if alert.is_a? String %>
+			<% if alert.is_a? Hash %>
+				<% alert.each do |key, message| %>
+					<p><%= key %> <%= message.to_sentence %></p>
+				<% end %>
 			<% end %>
-		<% end %>
 		</div>
 	</div>
 <% end %>
+
