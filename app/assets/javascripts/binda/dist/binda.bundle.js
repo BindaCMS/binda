@@ -67,23 +67,7 @@
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__ = __webpack_require__(2);
-
-
-$(document).ready(function () {
-	if (__WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__["a" /* _ParentGroupForm */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__["a" /* _ParentGroupForm */].setEvents();
-	}
-});
-
-/***/ }),
-/* 2 */
+/* 0 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -135,6 +119,21 @@ var ParentGroupForm = function () {
 }();
 
 var _ParentGroupForm = new ParentGroupForm();
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__ = __webpack_require__(0);
+
+
+$(document).ready(function () {
+	if (__WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__["a" /* _ParentGroupForm */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__["a" /* _ParentGroupForm */].setEvents();
+	}
+});
 
 /***/ })
 /******/ ]);

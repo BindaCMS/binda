@@ -5,6 +5,7 @@ en:
   title: title
   name: name
   description: description
+  position: position
   publish: publish
   new: new
   edit: edit

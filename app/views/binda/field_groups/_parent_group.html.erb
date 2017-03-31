@@ -3,7 +3,7 @@
 
     <h4><%= "#{ t :field_setting }".pluralize.capitalize %></h4>
 
-    <%= f.simple_fields_for :field_settings do |ff| %>
+    <%= f.simple_fields_for :field_settings, f.object.field_settings.order( :position ) do |ff| %>
 
       <div class="parent-group-form--child <%= "parent-group-form--child-#{ ff.object.field_type }" unless ff.object.field_type.nil? %>">
   	
@@ -25,6 +25,9 @@
         <h5 class="parent-group-form--child-name"><%= "#{ t :field_type }".capitalize %></h5>
         <%= ff.input :field_type, as: :select, collection: get_type_of_fields, include_blank: false, prompt: "#{ t :select_field_type}", selected: ff.object.field_type, input_html: { class: 'parent-group-form--select' } %>
 
+        <h5 class="parent-group-form--child-name"><%= "#{ t :position }".capitalize %></h5>
+        <%= ff.input :position, as: :integer, input_html: { class: "parent-group-form--child-input" } %>
+        <div class="clearfix"></div>
 
       </div>
 	
@@ -41,6 +44,9 @@
         <div class="clearfix"></div>
         <h5 class="parent-group-form--child-name"><%= "#{ t :field_type }".capitalize %></h5>
         <%= ff.input :field_type, as: :select, collection: get_type_of_fields, include_blank: false, prompt: "#{ t :select_field_type}", input_html: { class: 'parent-group-form--select' } %>
+        <h5 class="parent-group-form--child-name"><%= "#{ t :position }".capitalize %></h5>
+        <%= ff.input :position, as: :integer, input_html: { class: "parent-group-form--child-input" } %>
+        <div class="clearfix"></div>
       </div>
     <% end %>
 
