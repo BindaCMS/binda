@@ -21,14 +21,14 @@ module Binda
 		# --------------
 	  # https://github.com/norman/friendly_id/issues/436
 	  def should_generate_new_friendly_id?
-	    slug.blank? || name_changed?
+	    slug.blank?
 	  end
 
 	  def default_slug
-	  	[ "#{ self.field_group.name }-#{ self.name }",
-	  		"#{ self.field_group.name }-#{ self.name }-1",
-	  		"#{ self.field_group.name }-#{ self.name }-2",
-	  		"#{ self.field_group.name }-#{ self.name }-3" ]
+	  	[ "#{ self.field_group.structure.name }-#{ self.field_group.name }-#{ self.name }",
+	  		"#{ self.field_group.structure.name }-#{ self.field_group.name }-#{ self.name }-1",
+	  		"#{ self.field_group.structure.name }-#{ self.field_group.name }-#{ self.name }-2",
+	  		"#{ self.field_group.structure.name }-#{ self.field_group.name }-#{ self.name }-3" ]
 	  end
 
 	  def type_of_fields

@@ -19,7 +19,7 @@
                   <%= f.input :slug, as: :hidden %>
                 <% else %>
                   <h5><%= "#{ t :slug }".capitalize %></h5>
-                  <%= f.input :slug, disabled: true, hint: "#{ t :slug_disable_hint }" %>
+                  <%= f.input :slug %>
                 <% end %>
                 
               </div>
