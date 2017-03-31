@@ -32,6 +32,8 @@ Binda::Engine.routes.draw do
 
   resources :structures do
 
+    resources :categories
+
     post 'pages/sort'
     resources :pages
     
@@ -47,7 +49,6 @@ Binda::Engine.routes.draw do
   end
   
   resources :texts
-  resources :categories
   resources :bindings
   resources :galleries
   resources :assets

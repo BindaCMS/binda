@@ -2,50 +2,44 @@ require_dependency "binda/application_controller"
 
 module Binda
   class CategoriesController < ApplicationController
+    before_action :set_structure
     before_action :set_category, only: [:show, :edit, :update, :destroy]
 
-    # GET /categories
     def index
-      @categories = Category.all
+      @categories = @structure.categories.order(:name).all
     end
 
-    # GET /categories/1
     def show
+      redirect_to action: :edit
     end
 
-    # GET /categories/new
     def new
-      @category = Category.new
+      @category = @structure.categories.build()
     end
 
-    # GET /categories/1/edit
     def edit
     end
 
-    # POST /categories
     def create
-      @category = Category.new(category_params)
-
+      @category = @structure.categories.build(category_params)
       if @category.save
-        redirect_to category_path( @category.slug ), notice: 'Category was successfully created.'
+        redirect_to structure_category_path( @structure.slug, @category.slug ), notice: 'Category was successfully created.'
       else
-        render :new
+        redirect_to structure_category_path( @structure.slug, @category.slug )
       end
     end
 
-    # PATCH/PUT /categories/1
     def update
       if @category.update(category_params)
-        redirect_to category_path( @category.slug ), notice: 'Category was successfully updated.'
+        redirect_to structure_category_path( @structure.slug, @category.slug ), notice: 'Category was successfully updated.'
       else
-        render :edit
+        redirect_to structure_category_path( @structure.slug, @category.slug )
       end
     end
 
-    # DELETE /categories/1
     def destroy
       @category.destroy
-      redirect_to categories_url, notice: 'Category was successfully destroyed.'
+      redirect_to structure_categories_url( @structure.slug ), notice: 'Category was successfully destroyed.'
     end
 
     private
@@ -57,6 +51,10 @@ module Binda
       # Only allow a trusted parameter "white list" through.
       def category_params
         params.require(:category).permit(:name, :slug, :structure_id)
+      end
+
+      def set_structure
+        @structure = Structure.friendly.find(params[:structure_id])
       end
   end
 end

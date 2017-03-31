@@ -99,18 +99,15 @@ var ParentGroupForm = function () {
 	}, {
 		key: 'setEvents',
 		value: function setEvents() {
-			var _this = this;
-
 			$(document).on('click', this.target + '--add-child', function (event) {
+				// Stop default behaviour
 				event.preventDefault();
-				var $newChild = $(_this.target + '--new-child');
+				// Get the child to clone
+				var id = $(event.target).data('new-child-id');
+				var $newChild = $('#' + id);
+				// Clone child and remove id and styles from cloned child
 				$newChild.clone().insertAfter($newChild);
-				$newChild.removeClass('parent-group-form--new-child');
-				// let url = $( event.target ).data('add-child-path')
-				// $.post( url, '', function( response ) 
-				// {
-				//	// some code...
-				// })
+				$newChild.removeClass('parent-group-form--new-child').removeAttr('id');
 			});
 		}
 	}]);

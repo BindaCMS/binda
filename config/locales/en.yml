@@ -9,6 +9,7 @@ en:
   publish: publish
   new: new
   edit: edit
+  create: create
   delete: delete
   setting: setting
   back_to_index: back to list
@@ -25,3 +26,6 @@ en:
   dashboard_title: website settings
   dashboard: dashboard
   page: page
+  category: category
+  select_category: select one category
+  create_category: create a new category

@@ -3,6 +3,7 @@ module Binda
 
   	# Associations
   	has_many :pages
+  	has_many :categories
   	has_many :field_groups
 
 		# Validations

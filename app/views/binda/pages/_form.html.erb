@@ -1,13 +1,13 @@
   <div class="row">
     <div class="form-inputs col-sm-12">
       
-      <%= simple_form_for page, url: get_form_page_url, defaults: { label: false } do |f| %>
+      <%= simple_form_for page, url: get_form_page_url, defaults: { label: false }, html: { class: 'parent-group-form' } do |f| %>
         <%= f.error_notification %>
         
         <div class="row">
           <div class="col-sm-8">
 
-            <div class="form-inputs--row row">
+            <div class="form-inputs--row form-inputs--wide row">
               <div class="col-sm-12">
 
                 <h4><%= "#{ t :details }".capitalize %></h4>
@@ -32,9 +32,29 @@
           </div>
           <div class="col-sm-4">
 
-            <div class="form-inputs--row row">
+            <div class="form-inputs--row form-inputs--narrow row">
               <div class="col-sm-12">
                 <h4><%= "#{ t :publish }".capitalize %></h4>
+
+                <% if @structure.categories.any? %>
+
+                  <h5><%= t(:category).capitalize %></h5>
+                  <%# binding.pry%>
+                  <%= f.association :categories, as: :radio_buttons, collection: @structure.categories ,checked: page.category_ids, include_blank: false %>
+
+                <% end %>
+
+                <% if page.slug.nil? %>
+                  <h5>
+                    <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :page }" ).capitalize %>  
+                  </h5>
+                <% else %>
+                  <a class="main-header--link btn btn-default" href="<%= new_structure_category_path %>">
+                    <%= "#{ t :new }".capitalize %> <%= t :category %>  
+                  </a>
+                <% end %>
+                <hr>
+
                 <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
               </div>
             </div>

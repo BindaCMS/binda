@@ -9,22 +9,30 @@
 	> * {
 		display: block;
 	}
-
-	h5 {
-		width: 15%;
-		float: left;
+	.form-group {
+		margin-bottom: $font-size-base*1.5;	
 	}
-	
-	input {
-		display: inline-block;
-		width: 70%;
-		margin-left: 5%;
-	}
+}
 
-	a {
-		float: right;
-		margin-top: $font-size-base/2;
-		margin-left: $font-size-base;
+.form-inputs--wide {
+	.parent-group-form--child { 
+
+		h5 {
+			width: 15%;
+			float: left;
+		}
+		
+		input {
+			display: inline-block;
+			width: 70%;
+			margin-left: 5%;
+		}
+
+		a {
+			float: right;
+			margin-top: $font-size-base/2;
+			margin-left: $font-size-base;
+		}
 	}
 
 	.form-group {
@@ -51,4 +59,21 @@
 	display: inline-block;
 	width: 70%;
 	margin-left: 5%;
+}
+
+.parent-group-form--child-category {
+	padding-bottom: $font-size-base*1.5;	
+	margin-bottom: $font-size-base*1.5;	
+
+	input[type=submit] {
+		width: 20%;
+		float: left;
+	}
+
+	.form-group {
+		width: 70%;
+		margin: 0;
+		margin-right: 10%;
+		float: left;
+	}
 }

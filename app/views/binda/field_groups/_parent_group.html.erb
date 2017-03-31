@@ -1,4 +1,4 @@
-<div class="form-inputs--row row">
+<div class="form-inputs--row form-inputs--wide row">
   <div class="col-sm-12">
 
     <h4><%= "#{ t :field_setting }".pluralize.capitalize %></h4>
@@ -15,17 +15,17 @@
     			<a href="<%= structure_field_group_field_setting_path( field_group_id: parent_group.slug, id: ff.object.slug ) %>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
         <% end %>
 
-        <h5 class="parent-group-form--child-name"><%= "#{ t :name }".capitalize %></h5>
+        <h5><%= "#{ t :name }".capitalize %></h5>
         <%= ff.input :name, as: :string, input_html: { class: "parent-group-form--child-input" } %>
 
-        <h5 class="parent-group-form--child-name"><%= "#{ t :description }".capitalize %></h5>
+        <h5><%= "#{ t :description }".capitalize %></h5>
         <%= ff.input :description, input_html: { class: "parent-group-form--child-textarea" } %>
         <div class="clearfix"></div>
   
-        <h5 class="parent-group-form--child-name"><%= "#{ t :field_type }".capitalize %></h5>
+        <h5><%= "#{ t :field_type }".capitalize %></h5>
         <%= ff.input :field_type, as: :select, collection: get_type_of_fields, include_blank: false, prompt: "#{ t :select_field_type}", selected: ff.object.field_type, input_html: { class: 'parent-group-form--select' } %>
 
-        <h5 class="parent-group-form--child-name"><%= "#{ t :position }".capitalize %></h5>
+        <h5><%= "#{ t :position }".capitalize %></h5>
         <%= ff.input :position, as: :integer, input_html: { class: "parent-group-form--child-input" } %>
         <div class="clearfix"></div>
 
@@ -34,26 +34,30 @@
     <% end %>
 
     <%= f.simple_fields_for 'new_field_settings[]', @field_group.field_settings.build() do |ff| %>
-      <div class="parent-group-form--child parent-group-form--new-child">
+      <div id="new-child-1" class="parent-group-form--child parent-group-form--new-child-1">
         <%= ff.input :field_group_id, as: :hidden %>
         <%= ff.input :id, as: :hidden %>
-        <h5 class="parent-group-form--child-name"><%= "#{ t :name }".capitalize %></h5>
+        <h5><%= "#{ t :name }".capitalize %></h5>
         <%= ff.input :name %>
-        <h5 class="parent-group-form--child-name"><%= "#{ t :description }".capitalize %></h5>
+        <h5><%= "#{ t :description }".capitalize %></h5>
         <%= ff.input :description, input_html: { class: "parent-group-form--child-textarea" } %>
         <div class="clearfix"></div>
-        <h5 class="parent-group-form--child-name"><%= "#{ t :field_type }".capitalize %></h5>
+        <h5><%= "#{ t :field_type }".capitalize %></h5>
         <%= ff.input :field_type, as: :select, collection: get_type_of_fields, include_blank: false, prompt: "#{ t :select_field_type}", input_html: { class: 'parent-group-form--select' } %>
-        <h5 class="parent-group-form--child-name"><%= "#{ t :position }".capitalize %></h5>
+        <h5><%= "#{ t :position }".capitalize %></h5>
         <%= ff.input :position, as: :integer, input_html: { class: "parent-group-form--child-input" } %>
         <div class="clearfix"></div>
       </div>
     <% end %>
 
     <% if parent_group.slug.nil? %>
-      <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ).capitalize %></h5>
+      <h5>
+        <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ).capitalize %>  
+      </h5>
     <% else %>
-      <a class="parent-group-form--add-child main-header--link btn btn-default" href="<%= new_structure_field_group_field_setting_path( field_group_id: parent_group.slug ) %>"><%= "#{ t :new }".capitalize %> <%= t :field_setting %></a>
+      <a class="parent-group-form--add-child main-header--link btn btn-default" href="<%= new_structure_field_group_field_setting_path( field_group_id: parent_group.slug ) %>" data-new-child-id="new-child-1">
+        <%= "#{ t :new }".capitalize %> <%= t :field_setting %>  
+      </a>
     <% end %>
 
   </div>

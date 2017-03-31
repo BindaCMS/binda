@@ -51,22 +51,6 @@ module Binda
     #   head :ok
     # end
 
-  def fields_update
-    # options = fields_params
-    # options.each do |option, content|
-    #   unless Admin::Option.friendly.find( option ).update_attributes( content: content )
-    #     redirect_to :back, alert: "Sorry. There has been a problem with #{ option }"
-    #   end
-    # end
-    multiple_fields_page
-
-    if @page.update(multiple_fields_params)
-      redirect_to structure_page_path( @structure.slug, @page.slug ), notice: 'Page was successfully updated.'
-    else
-      redirect_to edit_structure_page_path( @structure.slug, @page.slug )
-    end
-  end
-
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_structure
@@ -85,6 +69,7 @@ module Binda
           :position, 
           :publish_state, 
           :structure_id, 
+          :category_ids,
           structure_attributes: [ 
             :id
             ], 

@@ -1,7 +1,10 @@
-<%= form_for(category) do |f| %>
+<div class="row">
+<div class="form-inputs col-sm-12">
+
+<%= simple_form_for category, url: get_form_category_url, defaults: { label: false } do |f| %>
   <% if category.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h2>
+      <h2><%= pluralize( category.errors.count, "error") %> prohibited this category from being saved:</h2>
 
       <ul>
       <% category.errors.full_messages.each do |message| %>
@@ -11,22 +14,39 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+  <div class="row">
+    <div class="col-sm-8">
 
-  <div class="field">
-    <%= f.label :slug %>
-    <%= f.text_field :slug %>
-  </div>
+      <div class="form-inputs--row form-inputs--wide row">
+        <div class="col-sm-12">
 
-  <div class="field">
-    <%= f.label :structure_id %>
-    <%= f.number_field :structure_id %>
-  </div>
+          <h4><%= "#{ t :details }".capitalize %></h4>
+          
+          <h5><%= t(:name).capitalize %></h5>
+          <%= f.input :name %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+          <% if category.slug.nil? %>
+            <%= f.input :slug, as: :hidden %>
+          <% else %>
+            <h5><%= "#{ t :slug }".capitalize %></h5>
+            <%= f.input :slug, disabled: true, hint: "#{ t :slug_disable_hint }" %>
+          <% end %>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-4">
+      <div class="form-inputs--row form-inputs--wide row">
+        <div class="col-sm-12">
+          <div class="form-actions">
+            <h4><%= t(:setting).capitalize.pluralize %></h4>
+            <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+    </div>
 <% end %>
+
+</div>
+</div>

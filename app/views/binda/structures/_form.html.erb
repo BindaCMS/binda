@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-sm-8">
 
-            <div class="form-inputs--row row">
+            <div class="form-inputs--row form-inputs--wide row">
               <div class="col-sm-12">
 
                 <h4><%= "#{ t :details }".capitalize %></h4>
@@ -25,7 +25,7 @@
               </div>
             </div>
 
-            <div class="form-inputs--row row">
+            <div class="form-inputs--row form-inputs--wide row">
               <div class="col-sm-12">
 
                 <%= render "parent_group", parent_group: structure, f: f %>
@@ -36,7 +36,7 @@
           </div>
           <div class="col-sm-4">
 
-            <div class="form-inputs--row row">
+            <div class="form-inputs--row form-inputs--narrow row">
               <div class="col-sm-12">
                 <h4><%= "#{ t :publish }".capitalize %></h4>
                 <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>

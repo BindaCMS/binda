@@ -18,15 +18,14 @@ class ParentGroupForm {
 	setEvents()
 	{
 		$(document).on('click', this.target + '--add-child', ( event )=>{
+			// Stop default behaviour
 			event.preventDefault()
-			let $newChild = $( this.target + '--new-child' )
+			// Get the child to clone
+			let id = $( event.target ).data( 'new-child-id' )
+			let $newChild = $( '#' + id )
+			// Clone child and remove id and styles from cloned child
 			$newChild.clone().insertAfter( $newChild )
-			$newChild.removeClass( 'parent-group-form--new-child' )
-			// let url = $( event.target ).data('add-child-path')
-			// $.post( url, '', function( response ) 
-			// {
-			//	// some code...
-			// })
+			$newChild.removeClass( 'parent-group-form--new-child' ).removeAttr( 'id' )
 		})
 	}
 }
