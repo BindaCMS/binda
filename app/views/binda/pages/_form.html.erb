@@ -52,6 +52,12 @@
                     <%= "#{ t :new }".capitalize %> <%= t :category %>  
                   </a>
                 <% end %>
+
+                <hr>
+
+                <h5><%= t(:publish).capitalize %></h5>
+                <%= f.input :publish_state, as: :radio_buttons, collection: [ 'draft', 'published' ], checked: f.object.publish_state %>
+
                 <hr>
 
                 <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
