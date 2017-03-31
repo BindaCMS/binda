@@ -31,6 +31,16 @@ module Binda
     end
 
     def update
+      # Create new fields if any
+      new_params[:new_field_settings].each do |field_setting|
+        unless field_setting[:name].blank?
+          new_field_setting = @field_group.field_settings.create( name: field_setting[:name], field_type: field_setting[:field_type] )
+          unless new_field_setting  
+            return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_field_setting.errors }
+          end
+        end
+      end
+      # Update the other ones
       if @field_group.update(field_group_params)
         redirect_to structure_field_group_path( @structure.slug, @field_group.slug ), notice: 'Field group was successfully updated.'
       else
@@ -40,7 +50,7 @@ module Binda
 
     def destroy
       @field_group.destroy
-      redirect_to structure_field_groups_url( @structure.slug ), notice: 'Field group was successfully destroyed.'
+      redirect_to structure_path( @structure.slug ), notice: 'Field group was successfully destroyed.'
     end
 
     private
@@ -72,6 +82,10 @@ module Binda
             :required,
             :default_text
             ])
+      end
+
+      def new_params
+        params.require(:field_group).permit( new_field_settings:[ :name, :field_group_id, :field_type ] )
       end
   end
 end

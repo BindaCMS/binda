@@ -3,6 +3,15 @@ body {
 	background-color: $gray-lighter;
 }
 
+// this could be avoided using more recent version of bootstrap or with bourbon
+.clearfix {
+	&::after {
+	  clear: both;
+	  content: "";
+	  display: table;
+	}
+}
+
 // useful to debug
 .bordered {
 	border: 2px solid red;

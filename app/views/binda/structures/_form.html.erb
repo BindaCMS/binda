@@ -1,7 +1,7 @@
   <div class="row">
     <div class="form-inputs col-sm-12">
       
-      <%= simple_form_for structure, defaults: { label: false } do |f| %>
+      <%= simple_form_for structure, defaults: { label: false }, html: { class: 'parent-group-form' } do |f| %>
         <%= f.error_notification %>
         
         <div class="row">

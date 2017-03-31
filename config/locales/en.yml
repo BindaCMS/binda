@@ -1,16 +1,21 @@
 en:
+  detail: detail
   details: details
   slug: slug
   title: title
+  name: name
+  description: description
   publish: publish
   new: new
   edit: edit
+  delete: delete
   setting: setting
   back_to_index: back to list
   back_to: back to
   slug_disable_hint: 'Editing slug is not possible. If you want a specific slug create a new item and a slug will be extracted from the title.'
   field_type: field type
   field_group_title: field group title
+  select_field_type: select a field type
   go_to: go to 
   field_group: field group
   field_setting: field setting
@@ -18,3 +23,4 @@ en:
   hint_create_parent_before_child: you need to create the %{arg1} before being able to add any %{arg2}
   dashboard_title: website settings
   dashboard: dashboard
+  page: page

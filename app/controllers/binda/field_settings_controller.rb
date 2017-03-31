@@ -6,26 +6,21 @@ module Binda
     before_action :set_field_group
     before_action :set_field_setting, only: [:show, :edit, :update, :destroy]
 
-    # GET /field_settings
     def index
       @field_settings = @field_group.field_settings.order('position').all
     end
 
-    # GET /field_settings/1
     def show
       redirect_to action: :edit
     end
 
-    # GET /field_settings/new
     def new
       @field_setting = @field_group.field_settings.build()
     end
 
-    # GET /field_settings/1/edit
     def edit
     end
 
-    # POST /field_settings
     def create
       @field_setting = @field_group.field_settings.build(field_setting_params)
 
@@ -36,7 +31,6 @@ module Binda
       end
     end
 
-    # PATCH/PUT /field_settings/1
     def update
       if @field_setting.update(field_setting_params)
         redirect_to structure_field_group_field_setting_path( @structure.slug, @field_group.slug, @field_setting.slug ), notice: 'Field group was successfully updated.'
@@ -45,10 +39,9 @@ module Binda
       end
     end
 
-    # DELETE /field_settings/1
     def destroy
       @field_setting.destroy
-      redirect_to structure_field_groupsfield_settings_url( @structure.slug, @field_group.slug ), notice: 'Field group was successfully destroyed.'
+      redirect_to structure_field_group_path( @structure.slug, @field_group.slug ), notice: 'Field group was successfully destroyed.'
     end
 
     private

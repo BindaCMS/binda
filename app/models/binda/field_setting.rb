@@ -10,7 +10,7 @@ module Binda
 
 		# Validations
 		validates :name, presence: true
-		validates :field_type, presence: true, inclusion: { in: %w( text asset gallery repeater )}
+		validates :field_type, presence: true, inclusion: { in: :type_of_fields }
 
   	# Slug
 		extend FriendlyId
@@ -30,6 +30,15 @@ module Binda
 	  		"#{ self.field_group.name }-#{ self.name }-2",
 	  		"#{ self.field_group.name }-#{ self.name }-3" ]
 	  end
+
+	  def type_of_fields
+	  	%w( string text asset gallery repeater )
+	  end
+
+	  def self.type_of_fields
+	  	%w( string text asset gallery repeater )
+	  end
+
 
   end
 end

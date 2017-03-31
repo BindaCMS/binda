@@ -1,7 +1,7 @@
 <div class="row">
 <div class="form-inputs col-sm-12">
 
-<%= simple_form_for field_group, url: get_form_field_group_url, defaults: { label: false } do |f| %>
+<%= simple_form_for field_group, url: get_form_field_group_url, defaults: { label: false }, html: { class: 'parent-group-form' } do |f| %>
   <% if field_group.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize( field_group.errors.count, "error") %> prohibited this field_group from being saved:</h2>
@@ -35,9 +35,7 @@
         </div>
       </div>
 
-      <%# binding.pry %>
       <%= render "parent_group", parent_group: field_group, f: f, structure: @structure %>
-
 
     </div>
     <div class="col-sm-4">

@@ -33,14 +33,10 @@
           <% end %>
 
           <h5><%= "#{ t :field_type }".capitalize %></h5>
-          <%= f.input :field_type, as: :select, collection: [ 'text', 'asset', 'gallery', 'repeater' ], include_blank: false %>
+          <%= f.input :field_type, as: :select, collection: get_type_of_fields, include_blank: false %>
 
         </div>
       </div>
-
-      <%# binding.pry %>
-      <%# render "parent_group", parent_group: field_setting, f: f %>
-
 
     </div>
     <div class="col-sm-4">

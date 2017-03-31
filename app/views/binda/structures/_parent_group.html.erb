@@ -2,20 +2,35 @@
 
 <%= f.simple_fields_for :field_groups do |ff| %>
 
-	<%= ff.input :structure_id, as: :hidden %>
-	<%= ff.input :id, as: :hidden %>
+  <div class="parent-group-form--child">
 
-  <h5><%= "#{ t :field_group_title }".capitalize %></h5>
-	<%= ff.input :name %>
+		<%= ff.input :structure_id, as: :hidden %>
+		<%= ff.input :id, as: :hidden %>
 
-	<a href="<%= structure_field_group_path( @structure.slug, ff.object.slug ) %>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <%= "#{ t :edit }".capitalize %> <%= ff.object.name.capitalize %> <%= t :field_group %></a>
+	  <% unless ff.object.slug.nil? %>
+			<a href="<%= structure_field_group_path( @structure.slug, ff.object.slug ) %>" data-method="delete" data-confirm="Are you sure?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+			<a href="<%= structure_field_group_path( @structure.slug, ff.object.slug ) %>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+	  <% end %>
 
-	<hr>
+	  <h5 class="parent-group-form--child-name"><%= "#{ t :name }".capitalize %></h5>
+		<%= ff.input :name %>
+
+	</div>
 
 <% end %>
+
+<%= f.simple_fields_for 'new_field_groups[]', @structure.field_groups.build() do |ff| %>
+	<div class="parent-group-form--child parent-group-form--new-child">
+		<%= ff.input :structure_id, as: :hidden %>
+		<%= ff.input :id, as: :hidden %>
+	  <h5 class="parent-group-form--child-name"><%= "#{ t :name }".capitalize %></h5>
+		<%= ff.input :name %>
+	</div>
+<% end %>
+
 
 <% if parent_group.slug.nil? %>
   <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :structure }", arg2: "#{ t :field_group }" ).capitalize %></h5>
 <% else %>
-  <a class="main-header--link btn btn-default" href="<%= new_structure_field_group_path( @structure.slug ) %>"><%= "#{ t :new }".capitalize %> <%= t :field_group %></a>
+  <a class="parent-group-form--add-child main-header--link btn btn-default" href="<%= new_structure_field_group_path( @structure.slug ) %>"><%= "#{ t :new }".capitalize %> <%= t :field_group %></a>
 <% end %>

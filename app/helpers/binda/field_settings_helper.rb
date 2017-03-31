@@ -6,5 +6,9 @@ module Binda
   		return structure_field_group_field_setting_path  if action_name == 'edit'
   	end
 
+  	def get_type_of_fields
+  		FieldSetting.type_of_fields
+  	end
+
   end
 end

@@ -4,16 +4,21 @@
 
     <h4><%= field_group.name.capitalize %></h4>
 
-    <% field_group.field_settings.each do |field_setting| %>
+    <% if page.new_record? %>
 
-      <% if field_setting.field_type == 'text' %>
-        <%= render 'text_field', f: f, page: page, field_group: field_group, field_setting: field_setting, index: index %>
+      <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :page }", arg2: "#{ t :detail }" ).capitalize %></h5>
+    
+    <% else %>
+
+      <% field_group.field_settings.each do |field_setting| %>
+        <% if field_setting.field_type == 'text' || field_setting.field_type == 'string' %>
+          <%= render 'text_field', f: f, page: page, field_group: field_group, field_setting: field_setting, index: index %>
+        <% end %>
+        <% if field_setting.field_type == 'repeater' %>
+          <%= render 'repeater_field', f: f, page: page, field_group: field_group, field_setting: field_setting, index: index %>
+        <% end %>
       <% end %>
-
-      <% if field_setting.field_type == 'repeater' %>
-        <%= render 'repeater_field', f: f, page: page, field_group: field_group, field_setting: field_setting, index: index %>
-      <% end %>
-
+    
     <% end %>
       
   </div>

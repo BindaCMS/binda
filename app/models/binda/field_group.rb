@@ -9,7 +9,7 @@ module Binda
 		# Validations
 		validates :name, presence: true
 		validates :slug, uniqueness: true
-		accepts_nested_attributes_for :field_settings, allow_destroy: true
+		accepts_nested_attributes_for :field_settings, allow_destroy: true, reject_if: :is_rejected
 
   	# Slug
 		extend FriendlyId
@@ -29,5 +29,10 @@ module Binda
 	  		"#{ self.structure.name }-#{ self.name }-2",
 	  		"#{ self.structure.name }-#{ self.name }-3" ]
 	  end
+
+		def is_rejected( attributes )
+	    attributes['name'].blank? && attributes['field_type'].blank?
+	  end
+
   end
 end

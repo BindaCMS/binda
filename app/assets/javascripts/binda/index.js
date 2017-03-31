@@ -1,5 +1,6 @@
-import * as P from './pages.js'
+import { _ParentGroupForm } from './components/parent_group_form.js'
 
-let John = new P.Name("John")
-
-John.sayYourName()
+$(document).ready( function()
+{
+	if ( _ParentGroupForm.isSet() ) { _ParentGroupForm.setEvents() }
+})

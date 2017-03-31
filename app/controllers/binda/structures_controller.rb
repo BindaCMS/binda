@@ -4,26 +4,21 @@ module Binda
   class StructuresController < ApplicationController
     before_action :set_structure, only: [:show, :edit, :update, :destroy]
 
-    # GET /structures
     def index
       @structures = Structure.all
     end
 
-    # GET /structures/1
     def show
       redirect_to action: :edit
     end
 
-    # GET /structures/new
     def new
       @structure = Structure.new
     end
 
-    # GET /structures/1/edit
     def edit
     end
 
-    # POST /structures
     def create
       @structure = Structure.new(structure_params)
 
@@ -34,8 +29,17 @@ module Binda
       end
     end
 
-    # PATCH/PUT /structures/1
     def update
+      # Create new fields if any
+      new_params[:new_field_groups].each do |field_group|
+        unless field_group[:name].blank?
+          new_field_group = @structure.field_groups.create( name: field_group[:name] )
+          unless new_field_group
+            return redirect_to structure_path( @structure.slug ), flash: { error: new_field_group.errors }
+          end
+        end
+      end
+      # Update the other ones
       if @structure.update(structure_params)
         redirect_to structure_path( @structure.slug ), notice: 'Structure was successfully updated.'
       else
@@ -43,7 +47,6 @@ module Binda
       end
     end
 
-    # DELETE /structures/1
     def destroy
       @structure.destroy
       redirect_to structures_url, notice: 'Structure was successfully destroyed.'
@@ -61,7 +64,11 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def structure_params
-        params.require(:structure).permit(:name, :slug)
+        params.require(:structure).permit(:name, :slug, field_groups_attributes: [ :id, :name, :structure_id ] )
+      end
+
+      def new_params
+        params.require(:structure).permit( new_field_groups:[ :name, :structure_id ] )
       end
   end
 end

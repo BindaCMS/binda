@@ -8,7 +8,7 @@ module Binda
 		# Validations
 		validates :name, presence: true
 		validates :slug, uniqueness: true
-		accepts_nested_attributes_for :field_groups, allow_destroy: true
+		accepts_nested_attributes_for :field_groups, allow_destroy: true, reject_if: :is_rejected
 
   	# Slug
 		extend FriendlyId
@@ -20,6 +20,10 @@ module Binda
 	  # https://github.com/norman/friendly_id/issues/436
 	  def should_generate_new_friendly_id?
 	    slug.blank? || name_changed?
+	  end
+
+		def is_rejected( attributes )
+	    attributes['name'].blank?
 	  end
 
   end

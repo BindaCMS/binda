@@ -36,11 +36,14 @@ Binda::Engine.routes.draw do
     resources :pages
     
     post 'field_groups/sort'
+    post 'field_groups/add_child'
     resources :field_groups do
+
+      post 'field_settings/add_child'
       post 'field_settings/sort'
       resources :field_settings
-    end
 
+    end
   end
   
   resources :texts

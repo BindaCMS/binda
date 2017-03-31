@@ -67,47 +67,74 @@
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export message */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Name; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var message = "I'm a message";
-
-var Name = function () {
-	function Name(name) {
-		_classCallCheck(this, Name);
-
-		this.name = name;
-	}
-
-	_createClass(Name, [{
-		key: "sayYourName",
-		value: function sayYourName() {
-			// alert( 'My name is ' + this.name )
-		}
-	}]);
-
-	return Name;
-}();
-
-/***/ }),
+/* 0 */,
 /* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pages_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__ = __webpack_require__(2);
 
 
-var John = new __WEBPACK_IMPORTED_MODULE_0__pages_js__["a" /* Name */]("John");
+$(document).ready(function () {
+	if (__WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__["a" /* _ParentGroupForm */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__["a" /* _ParentGroupForm */].setEvents();
+	}
+});
 
-John.sayYourName();
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _ParentGroupForm; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+///- - - - - - - - - - - - - - - - - - - -
+/// PARENT GROUP FORM
+///- - - - - - - - - - - - - - - - - - - -
+
+var ParentGroupForm = function () {
+	function ParentGroupForm() {
+		_classCallCheck(this, ParentGroupForm);
+
+		this.target = '.parent-group-form';
+	}
+
+	_createClass(ParentGroupForm, [{
+		key: 'isSet',
+		value: function isSet() {
+			if ($(this.target).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			var _this = this;
+
+			$(document).on('click', this.target + '--add-child', function (event) {
+				event.preventDefault();
+				var $newChild = $(_this.target + '--new-child');
+				$newChild.clone().insertAfter($newChild);
+				$newChild.removeClass('parent-group-form--new-child');
+				// let url = $( event.target ).data('add-child-path')
+				// $.post( url, '', function( response ) 
+				// {
+				//	// some code...
+				// })
+			});
+		}
+	}]);
+
+	return ParentGroupForm;
+}();
+
+var _ParentGroupForm = new ParentGroupForm();
 
 /***/ })
 /******/ ]);
