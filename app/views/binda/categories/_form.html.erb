@@ -32,6 +32,12 @@
             <%= f.input :slug, disabled: true, hint: "#{ t :slug_disable_hint }" %>
           <% end %>
 
+          <h5><%= t(:description).capitalize %></h5>
+          <%= f.input :description %>
+
+          <h5><%= t(:position).capitalize %></h5>
+          <%= f.input :position %>
+
         </div>
       </div>
 

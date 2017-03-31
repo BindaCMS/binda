@@ -50,7 +50,7 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def category_params
-        params.require(:category).permit(:name, :slug, :structure_id)
+        params.require(:category).permit(:name, :slug, :structure_id, :description, :position)
       end
 
       def set_structure
