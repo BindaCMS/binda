@@ -18,6 +18,9 @@
         <h5><%= "#{ t :name }".capitalize %></h5>
         <%= ff.input :name, as: :string, input_html: { class: "parent-group-form--child-input" } %>
 
+        <h5><%= "#{ t :slug }".capitalize %></h5>
+        <%= ff.input :slug, as: :string, input_html: { class: "parent-group-form--child-input" }, disabled: true %>
+
         <h5><%= "#{ t :description }".capitalize %></h5>
         <%= ff.input :description, input_html: { class: "parent-group-form--child-textarea" } %>
         <div class="clearfix"></div>
