@@ -20,7 +20,7 @@
 <% end %>
 
 <%= f.simple_fields_for 'new_field_groups[]', @structure.field_groups.build() do |ff| %>
-	<div class="parent-group-form--child parent-group-form--new-child">
+	<div id="new-child-1" class="parent-group-form--child parent-group-form--new-child">
 		<%= ff.input :structure_id, as: :hidden %>
 		<%= ff.input :id, as: :hidden %>
 	  <h5 class="parent-group-form--child-name"><%= "#{ t :name }".capitalize %></h5>
@@ -32,5 +32,5 @@
 <% if parent_group.slug.nil? %>
   <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :structure }", arg2: "#{ t :field_group }" ).capitalize %></h5>
 <% else %>
-  <a class="parent-group-form--add-child main-header--link btn btn-default" href="<%= new_structure_field_group_path( @structure.slug ) %>"><%= "#{ t :new }".capitalize %> <%= t :field_group %></a>
+  <a class="parent-group-form--add-child main-header--link btn btn-default" href="<%= new_structure_field_group_path( @structure.slug ) %>" data-new-child-id="new-child-1"><%= "#{ t :new }".capitalize %> <%= t :field_group %></a>
 <% end %>
