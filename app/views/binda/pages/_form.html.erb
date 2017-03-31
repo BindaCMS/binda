@@ -34,7 +34,7 @@
 
             <div class="form-inputs--row form-inputs--narrow row">
               <div class="col-sm-12">
-                <h4><%= "#{ t :publish }".capitalize %></h4>
+                <h4><%= "#{ t :setting }".pluralize.capitalize %></h4>
 
                 <% if @structure.categories.any? %>
 
@@ -55,7 +55,7 @@
 
                 <hr>
 
-                <h5><%= t(:publish).capitalize %></h5>
+                <h5><%= t(:publish_settings).capitalize %></h5>
                 <%= f.input :publish_state, as: :radio_buttons, collection: [ 'draft', 'published' ], checked: f.object.publish_state %>
 
                 <hr>

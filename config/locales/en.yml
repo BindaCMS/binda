@@ -7,6 +7,7 @@ en:
   description: description
   position: position
   publish: publish
+  publish_settings: publication setting
   new: new
   edit: edit
   create: create
