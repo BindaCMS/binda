@@ -64,7 +64,7 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def structure_params
-        params.require(:structure).permit(:name, :slug, field_groups_attributes: [ :id, :name, :structure_id ] )
+        params.require(:structure).permit(:name, :slug, field_groups_attributes: [ :id, :name, :structure_id, :slug ] )
       end
 
       def new_params

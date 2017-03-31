@@ -37,7 +37,7 @@
     <% end %>
 
     <%= f.simple_fields_for 'new_field_settings[]', @field_group.field_settings.build() do |ff| %>
-      <div id="new-child-1" class="parent-group-form--child parent-group-form--new-child-1">
+      <div id="new-child-1" class="parent-group-form--child parent-group-form--new-child">
         <%= ff.input :field_group_id, as: :hidden %>
         <%= ff.input :id, as: :hidden %>
         <h5><%= "#{ t :name }".capitalize %></h5>

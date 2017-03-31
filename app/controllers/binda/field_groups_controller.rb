@@ -74,6 +74,7 @@ module Binda
           :structure_id,
           field_settings_attributes: [
             :id, 
+            :slug,
             :field_group_id, 
             :name, 
             :description,
