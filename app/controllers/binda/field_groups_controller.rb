@@ -34,7 +34,7 @@ module Binda
       # Create new fields if any
       new_params[:new_field_settings].each do |field_setting|
         unless field_setting[:name].blank?
-          new_field_setting = @field_group.field_settings.create( name: field_setting[:name], field_type: field_setting[:field_type] )
+          new_field_setting = @field_group.field_settings.create( field_setting )
           unless new_field_setting  
             return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_field_setting.errors }
           end
@@ -85,7 +85,7 @@ module Binda
       end
 
       def new_params
-        params.require(:field_group).permit( new_field_settings:[ :name, :field_group_id, :field_type ] )
+        params.require(:field_group).permit( new_field_settings:[ :name, :field_group_id, :field_type, :description, :position ] )
       end
   end
 end
