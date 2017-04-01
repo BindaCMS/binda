@@ -19,7 +19,7 @@
         </thead>
         
         <tbody class="sortable" data-update-url="<%= structure_pages_sort_path( @structure.slug ) %>">
-          <% @pages.each do |page| %>
+          <% @pages.order( :position, :name ).each do |page| %>
             <tr id="page_<%= page.id %>">    
               <td><%= page.name %></td>
               <td><%= page.publish_state %></td>

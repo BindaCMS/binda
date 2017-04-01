@@ -18,7 +18,7 @@
         </thead>
         <tbody>
 
-          <% @users.each.with_index(1) do |manage_user, index| %>
+          <% @users.order( :email ).each.with_index(1) do |manage_user, index| %>
 
             <tr>
               <td colspan="3"><%= manage_user.email %></td>
