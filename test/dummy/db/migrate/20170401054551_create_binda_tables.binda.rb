@@ -94,6 +94,8 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :slug
       t.index            :slug, unique: true
       t.belongs_to       :structure
+      t.integer          :position
+      t.text             :description
       t.timestamps
     end
 
