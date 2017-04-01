@@ -1,0 +1,19 @@
+<% current_date = page.dates.where( field_setting_id: field_setting.id ).first %>
+<% unless current_date.present? %>
+	<% current_date = page.dates.create()%>
+<% end %>
+
+<%= f.simple_fields_for "dates_attributes[]", current_date do |ff|%>
+
+	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+	<%= ff.input :id, as: :hidden, input_html: { value: current_date.id } %>
+
+	<h5><%= field_setting.name.capitalize %></h5>
+
+	<% unless field_setting.description.blank? %>
+		<small class="text-muted"><%= field_setting.description %></small>
+	<% end %>
+
+	<%= ff.input :date %>
+
+<% end %>

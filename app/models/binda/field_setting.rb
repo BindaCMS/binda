@@ -44,7 +44,7 @@ module Binda
 	  end
 
 	  def self.type_of_fields
-	  	type_of_fields
+	  	%w( string text asset gallery repeater date )
 	  end
 
 

@@ -86,7 +86,7 @@ module Binda
             :id,
             :field_setting_id
             ], 
-          assets_attributes: [ 
+          dates_attributes: [ 
             :id,
             :field_setting_id,
             :date

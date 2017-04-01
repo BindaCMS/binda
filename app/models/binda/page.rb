@@ -8,8 +8,9 @@ module Binda
 		has_many :assets,    as: :fieldable
 		has_many :galleries, as: :fieldable
 		has_many :repeaters, as: :fieldable
+		has_many :dates,     as: :fieldable
 
-		accepts_nested_attributes_for :structure, :categories, :texts, :assets, :galleries, :repeaters, allow_destroy: true
+		accepts_nested_attributes_for :structure, :categories, :texts, :dates, :assets, :galleries, :repeaters, allow_destroy: true
 
 	  # has_many :bindings
 	  # has_many :assets, class_name: 'Admin::Asset', through: :bindings
@@ -81,6 +82,21 @@ module Binda
   		else
   			return false
   		end
+	  end
+
+	  def has_date( field_slug )
+	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
+	  	obj = self.assets.where( field_setting_id: field_setting.id )
+	  	if obj.any?
+	  		!obj.first.date.nil?
+  		else
+  			return false
+  		end
+	  end
+
+	  def get_date( field_slug )
+	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
+	  	self.dates.where( field_setting_id: field_setting.id ).first.date
 	  end
  
   end
