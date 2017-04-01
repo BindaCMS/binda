@@ -7,18 +7,35 @@ module Binda
   	# Fields Associations 
   	# -------------------
   	# If you add a new field remember to update:
-  	#   - type_of_fields method (see here below)
-  	#   - pages controller page_params method
-  	has_many :texts,     as: :fieldable
-  	has_many :galleries, as: :fieldable
-  	has_many :assets,    as: :fieldable
-  	has_many :repeaters, as: :fieldable
-  	has_many :dates,     as: :fieldable
+  	#   - get_fieldables (see here below)
+  	#   - get_field_types (see here below)
+  	#   - page_params (app/controllers/binda/pages_controller.rb)
+  	has_many :texts,         as: :fieldable
+  	has_many :dates,         as: :fieldable
+  	has_many :repeaters,     as: :fieldable
+  	has_many :galleries,     as: :fieldable
+  	has_many :assets,        as: :fieldable 
+  	# The following direct association is used to securely delete associated fields
+  	# Infact via `fieldable` the associated fields might not be deleted 
+  	# as the fieldable_id is related to the `page` rather than the `field_setting`
+  	has_many :texts,         dependent: :delete_all
+  	has_many :dates,         dependent: :delete_all
+  	has_many :repeaters,     dependent: :delete_all
+  	has_many :galleries,     dependent: :delete_all
 
+
+  	def self.get_fieldables
+  		%w( Text Date Repeater Gallery Asset )
+  	end
+
+  	# Field types are't fieldable! watch out! They might use the same model (eg `string` and `text`)
+	  def get_field_types
+	  	%w( string text asset gallery repeater date )
+	  end
 
 		# Validations
 		validates :name, presence: true
-		validates :field_type, presence: true, inclusion: { in: :type_of_fields }
+		validates :field_type, presence: true, inclusion: { in: :get_field_types }
 
   	# Slug
 		extend FriendlyId
@@ -39,13 +56,18 @@ module Binda
 	  		"#{ self.field_group.structure.name }-#{ self.field_group.name }-#{ self.name }-3" ]
 	  end
 
-	  def type_of_fields
-	  	%w( string text asset gallery repeater date )
-	  end
+  	# This will be use to overcome cascade delete on fieldable polymorphic association
+  	# Infact fieldables aren't actually associated in the DB, they are associated with pages!
+  	# def self.get_deletable_fieldables
+  	# 	self.get_fieldables - %w( Asset )
+  	# end
 
-	  def self.type_of_fields
-	  	%w( string text asset gallery repeater date )
-	  end
+  	# def delete_fieldables
+  	# 	self.get_deletable_fieldables.each do |fieldable|
+  	# 		F = fieldable.constantize
+  	# 		F.where( field_setting_id:  )
+  	# 	end
+  	# end
 
 
   end

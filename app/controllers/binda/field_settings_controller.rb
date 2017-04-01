@@ -25,7 +25,7 @@ module Binda
       @field_setting = @field_group.field_settings.build(field_setting_params)
 
       if @field_setting.save
-        redirect_to structure_field_group_field_setting_path( @structure.slug, @field_group.slug, @field_setting.slug ), notice: 'Field group was successfully created.'
+        redirect_to structure_field_group_field_setting_path( @structure.slug, @field_group.slug, @field_setting.slug ), notice: 'Field setting was successfully created.'
       else
         redirect_to new_structure_field_group_field_setting_path( @structure.slug, @field_group.slug ), flash: { alert: @field_setting.errors }
       end
@@ -33,7 +33,7 @@ module Binda
 
     def update
       if @field_setting.update(field_setting_params)
-        redirect_to structure_field_group_field_setting_path( @structure.slug, @field_group.slug, @field_setting.slug ), notice: 'Field group was successfully updated.'
+        redirect_to structure_field_group_field_setting_path( @structure.slug, @field_group.slug, @field_setting.slug ), notice: 'Field setting was successfully updated.'
       else
         redirect_to edit_structure_field_group_field_setting_path( @structure.slug, @field_group.slug, @field_setting.slug ), flash: { alert: @field_setting.errors }
       end
@@ -41,7 +41,7 @@ module Binda
 
     def destroy
       @field_setting.destroy
-      redirect_to structure_field_group_path( @structure.slug, @field_group.slug ), notice: 'Field group was successfully destroyed.'
+      redirect_to structure_field_group_path( @structure.slug, @field_group.slug ), notice: 'Field setting and all dependent content were successfully destroyed.'
     end
 
     private

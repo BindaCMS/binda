@@ -5,10 +5,10 @@ module Binda
   	belongs_to :structure, required: true
   	has_and_belongs_to_many :categories
 		has_many :texts,     as: :fieldable
-		has_many :assets,    as: :fieldable
-		has_many :galleries, as: :fieldable
-		has_many :repeaters, as: :fieldable
 		has_many :dates,     as: :fieldable
+		has_many :repeaters, as: :fieldable
+		has_many :galleries, as: :fieldable
+		has_many :assets,    as: :fieldable
 
 		accepts_nested_attributes_for :structure, :categories, :texts, :dates, :assets, :galleries, :repeaters, allow_destroy: true
 

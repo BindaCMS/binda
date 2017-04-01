@@ -33,7 +33,12 @@
           <% end %>
 
           <h5><%= "#{ t :field_type }".capitalize %></h5>
-          <%= f.input :field_type, as: :select, collection: get_type_of_fields, include_blank: false %>
+          <% if field_setting.field_type.nil? %>
+            <%= f.input :field_type, as: :select, collection: get_field_types, include_blank: false %>
+          <% else %>
+            <%= f.input :field_type, as: :string, disabled: true %>
+          <% end %>
+
 
         </div>
       </div>
