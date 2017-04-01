@@ -3,10 +3,18 @@ module Binda
 
   	# Associations
   	belongs_to :field_group
+
+  	# Fields Associations 
+  	# -------------------
+  	# If you add a new field remember to update:
+  	#   - type_of_fields method (see here below)
+  	#   - pages controller page_params method
   	has_many :texts,     as: :fieldable
   	has_many :galleries, as: :fieldable
   	has_many :assets,    as: :fieldable
   	has_many :repeaters, as: :fieldable
+  	has_many :dates,     as: :fieldable
+
 
 		# Validations
 		validates :name, presence: true
@@ -32,11 +40,11 @@ module Binda
 	  end
 
 	  def type_of_fields
-	  	%w( string text asset gallery repeater )
+	  	%w( string text asset gallery repeater date )
 	  end
 
 	  def self.type_of_fields
-	  	%w( string text asset gallery repeater )
+	  	type_of_fields
 	  end
 
 

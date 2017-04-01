@@ -74,20 +74,26 @@ module Binda
             :id
             ], 
           categories_attributes: [ 
-            :id, 
-            :field_setting_id, 
+            :id,
             :category_id 
             ], 
           texts_attributes: [ 
             :id, 
             :field_setting_id, 
-            :content 
+            :content
             ], 
           assets_attributes: [ 
-            :id 
+            :id,
+            :field_setting_id
+            ], 
+          assets_attributes: [ 
+            :id,
+            :field_setting_id,
+            :date
             ], 
           galleries_attributes: [ 
-            :id 
+            :id,
+            :field_setting_id
             ], 
           repeaters_attributes: [ 
             :id, 
