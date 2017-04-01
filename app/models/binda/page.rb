@@ -4,11 +4,11 @@ module Binda
   	# Associations
   	belongs_to :structure, required: true
   	has_and_belongs_to_many :categories
-		has_many :texts,     as: :fieldable
-		has_many :dates,     as: :fieldable
-		has_many :repeaters, as: :fieldable
-		has_many :galleries, as: :fieldable
-		has_many :assets,    as: :fieldable
+		has_many :texts,     as: :fieldable, dependent: :delete_all
+		has_many :dates,     as: :fieldable, dependent: :delete_all
+		has_many :repeaters, as: :fieldable, dependent: :delete_all
+		has_many :galleries, as: :fieldable, dependent: :delete_all
+		has_many :assets,    as: :fieldable, dependent: :delete_all
 
 		accepts_nested_attributes_for :structure, :categories, :texts, :dates, :assets, :galleries, :repeaters, allow_destroy: true
 
