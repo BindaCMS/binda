@@ -14,6 +14,6 @@
 		<small class="text-muted"><%= field_setting.description %></small>
 	<% end %>
 
-	<%= ff.input :date %>
+	<%= ff.input :date, start_year: Date.today.year - 200, end_year: Date.today.year + 200 %>
 
 <% end %>
