@@ -3,6 +3,10 @@
 	border-bottom: 1px solid $gray-lighter;
 	@extend .clearfix;
 
+	small {
+		float: left;
+	}
+
 	img {
 		max-width: 20%;
 		height: auto;
@@ -13,6 +17,8 @@
 }
 
 .asset-form--uploader {
-	width: 50%;
+	display:inline-block;
 	margin: 0;
+	float: left;
+	clear: both;
 }
