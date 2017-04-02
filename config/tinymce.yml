@@ -3,10 +3,13 @@ toolbar:
 plugins:
   - link
   - paste
+  - nonbreaking
+  - autolink
+  - code
   # - image
 
 forced_root_block: false
-paste_text_sticky_default: true 
+paste_text_sticky_default: true
 paste_text_sticky: true
-menubar: false
+menubar: edit format tools
 selector: '.tinymce'

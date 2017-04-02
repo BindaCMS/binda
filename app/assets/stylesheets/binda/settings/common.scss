@@ -75,3 +75,15 @@ body#tinymce {
 	border: 1px solid #CCC !important;
 	border-top: none !important;
 }
+
+.mce-menubar {
+	margin-top: $font-size-base !important;
+	padding-top: 2px !important; 
+	padding-bottom: 2px !important; 
+	border-top: 1px solid rgba(0, 0, 0, 0.075) !important;
+
+	.mce-btn {
+		margin-right: 4px !important;
+		background-color: rgba(0, 0, 0, 0.075) !important;
+	}
+}
