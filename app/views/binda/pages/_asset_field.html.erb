@@ -8,8 +8,8 @@
 
 		<h5><%= field_setting.name.capitalize %></h5>
 
-		<% if ff.object.image.medium.file.exists? %>
-      <%= image_tag ff.object.image.medium.url %>
+		<% if current_asset.image.medium.file.exists? %>
+      <%= image_tag current_asset.image.medium.url %>
 		<% end %>
 
 		<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
