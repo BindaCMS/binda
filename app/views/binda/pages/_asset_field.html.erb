@@ -8,7 +8,7 @@
 
 		<h5><%= field_setting.name.capitalize %></h5>
 
-		<% if current_asset.image.medium.file.exists? %>
+		<% if current_asset.image.exists? && current_asset.image.medium.file.exists? %>
       <%= image_tag current_asset.image.medium.url %>
 		<% end %>
 
