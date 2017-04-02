@@ -7,7 +7,7 @@ module Binda
 
 		# _ indicates that we are not using the argument in the method
 	  def after_sign_in_path_for(_)
-	 	  binda.settings_path
+ 	  binda.dashboard_path
 	  end
 
 		# _ indicates that we are not using the argument in the method
