@@ -8,12 +8,12 @@
 
 		<h5><%= field_setting.name.capitalize %></h5>
 
-		<% unless field_setting.description.blank? %>
-			<small class="text-muted"><%= field_setting.description %></small>
-		<% end %>
-
 		<% if current_asset.image.present? && current_asset.image.thumb.file.exists? %>
       <%= image_tag current_asset.image.thumb.url %>
+		<% end %>
+
+		<% unless field_setting.description.blank? %>
+			<small class="text-muted"><%= field_setting.description %></small>
 		<% end %>
 
 		<%= ff.input :image, input_html: { class: 'asset-form--uploader'} %>
