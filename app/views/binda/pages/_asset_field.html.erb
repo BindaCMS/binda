@@ -8,20 +8,19 @@
 
 		<h5><%= field_setting.name.capitalize %></h5>
 
-		<% if current_asset.image.exists? && current_asset.image.medium.file.exists? %>
-      <%= image_tag current_asset.image.medium.url %>
-		<% end %>
-
-		<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-		<%= ff.input :id, as: :hidden, input_html: { value: current_asset.id } %>
-
-
 		<% unless field_setting.description.blank? %>
 			<small class="text-muted"><%= field_setting.description %></small>
 		<% end %>
 
+		<% if current_asset.image.present? && current_asset.image.thumb.file.exists? %>
+      <%= image_tag current_asset.image.thumb.url %>
+		<% end %>
+
 		<%= ff.input :image, input_html: { class: 'asset-form--uploader'} %>
+
     <%= ff.input :image_cache, as: :hidden %>
+		<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+		<%= ff.input :id, as: :hidden, input_html: { value: current_asset.id } %>
 
 	</div>
 <% end %>

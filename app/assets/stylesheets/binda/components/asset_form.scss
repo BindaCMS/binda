@@ -1,15 +1,18 @@
 .asset-form {
-	padding-bottom: $font-size-base;
 	margin-bottom: $font-size-base;
 	border-bottom: 1px solid $gray-lighter;
+	@extend .clearfix;
 
 	img {
-		max-width: 50%;
+		max-width: 20%;
 		height: auto;
 		margin-bottom: $font-size-base;
+		margin-right: $font-size-base;
+		float: left;
 	}
 }
 
 .asset-form--uploader {
+	width: 50%;
 	margin: 0;
 }
