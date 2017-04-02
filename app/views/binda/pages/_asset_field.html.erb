@@ -1,0 +1,27 @@
+<% current_asset = page.assets.where( field_setting_id: field_setting.id ).first %>
+<% unless current_asset.present? %>
+	<% current_asset = page.assets.create()%>
+<% end %>
+
+<%= f.simple_fields_for "assets_attributes[]", current_asset do |ff|%>
+	<div class="asset-form">
+
+		<h5><%= field_setting.name.capitalize %></h5>
+
+		<% if ff.object.image.medium.file.exists? %>
+      <%= image_tag ff.object.image.medium.url %>
+		<% end %>
+
+		<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+		<%= ff.input :id, as: :hidden, input_html: { value: current_asset.id } %>
+
+
+		<% unless field_setting.description.blank? %>
+			<small class="text-muted"><%= field_setting.description %></small>
+		<% end %>
+
+		<%= ff.input :image, input_html: { class: 'asset-form--uploader'} %>
+    <%= ff.input :image_cache, as: :hidden %>
+
+	</div>
+<% end %>

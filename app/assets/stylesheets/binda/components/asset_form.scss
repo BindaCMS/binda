@@ -1,0 +1,15 @@
+.asset-form {
+	padding-bottom: $font-size-base;
+	margin-bottom: $font-size-base;
+	border-bottom: 1px solid $gray-lighter;
+
+	img {
+		max-width: 50%;
+		height: auto;
+		margin-bottom: $font-size-base;
+	}
+}
+
+.asset-form--uploader {
+	margin: 0;
+}

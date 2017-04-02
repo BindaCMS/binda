@@ -21,7 +21,10 @@
         <% if field_setting.field_type == 'repeater' %>
           <%= render 'repeater_field', f: f, page: page, field_setting: field_setting %>
         <% end %>
-        
+        <% if field_setting.field_type == 'asset' %>
+          <%= render 'asset_field', f: f, page: page, field_setting: field_setting %>
+        <% end %>
+
       <% end %>
     
     <% end %>

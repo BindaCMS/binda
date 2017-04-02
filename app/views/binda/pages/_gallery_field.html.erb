@@ -1,0 +1,72 @@
+
+<% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # %>
+<% # # # # # # # # # # # # # TUTTO DA FARE # # # # # # # # # # # # # # # %>
+<% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # %>
+
+<% current_gallery = page.galleries.where( field_setting_id: field_setting.id ).first %>
+<% unless current_gallery.present? %>
+	<% current_gallery = page.galleries.create()%>
+<% end %>
+
+
+<%= f.simple_fields_for "assets_attributes[]", current_gallery do |ff|%>
+  <div class="parent-group-form--child">
+
+		<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+		<%= ff.input :id, as: :hidden, input_html: { value: current_gallery.id } %>
+
+		<h5><%= field_setting.name.capitalize %></h5>
+
+		<% unless field_setting.description.blank? %>
+			<small class="text-muted"><%= field_setting.description %></small>
+		<% end %>
+
+		<%= ff.input :position %>
+    <%= ff.input :image_cache %>
+
+  </div>
+<% end %>
+
+
+
+
+
+
+
+
+
+<% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # %>
+<% if false %>
+
+
+<%= f.simple_fields_for 'new_galleries[]', page.galleries.build() do |ff| %>
+  <div id="new-child-1" class="parent-group-form--child parent-group-form--new-child">
+
+		<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+		<%= ff.input :id, as: :hidden, input_html: { value: current_gallery.id } %>
+
+		<h5><%= field_setting.name.capitalize %></h5>
+
+		<% unless field_setting.description.blank? %>
+			<small class="text-muted"><%= field_setting.description %></small>
+		<% end %>
+
+		<%= ff.input :image %>
+
+  </div>
+<% end %>
+
+<% if page.slug.nil? %>
+  <h5>
+    <%= t( :hint_create_parent_before_child, arg1: "#{ t :page }", arg2: "#{ t :gallery }" ).capitalize %>  
+  </h5>
+<% else %>
+  <a class="parent-group-form--add-child main-header--link btn btn-default" href="<%= new_structure_page_path( page_id: page.slug ) %>" data-new-child-id="new-child-1">
+    <%= "#{ t :new }".capitalize %> <%= t :gallery %>  
+  </a>
+<% end %>
+
+
+
+<% end %>
+<% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # %>

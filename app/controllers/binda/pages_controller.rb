@@ -31,6 +31,15 @@ module Binda
     end
 
     def update
+      # Create new fields if any
+      # new_params[:new_assets].each do |asset|
+      #   unless asset[:image].blank?
+      #     new_asset = @page.assets.create( asset )
+      #     unless new_asset  
+      #       return redirect_to edit_structure_page_path( @structure.slug, @page.slug ), flash: { error: new_asset.errors }
+      #     end
+      #   end
+      # end
       if @page.update(page_params)
         redirect_to structure_page_path( @structure.slug, @page.slug ), notice: 'Page was successfully updated.'
       else
@@ -84,7 +93,8 @@ module Binda
             ], 
           assets_attributes: [ 
             :id,
-            :field_setting_id
+            :field_setting_id,
+            :image
             ], 
           dates_attributes: [ 
             :id,
@@ -102,9 +112,9 @@ module Binda
             ])
       end
 
-      def multiple_params
-         params.require(:fields_params).permit()
-      end
+      # def new_params
+      #   params.require(:page).permit( new_assets:[ :id, :field_setting_id, :image, :fieldable_id ] )
+      # end
   end
 end
 
