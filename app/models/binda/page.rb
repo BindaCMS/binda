@@ -78,7 +78,7 @@ module Binda
 	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
 	  	obj = self.assets.where( field_setting_id: field_setting.id )
 	  	if obj.any?
-	  		!obj.first.image.nil?
+	  		obj.first.image.present? && obj.first.image.file.exists?
   		else
   			return false
   		end
