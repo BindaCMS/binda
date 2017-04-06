@@ -50,11 +50,11 @@ module Binda
 	  end
 	  
 	  def get_text( field_slug )
-	  	obj = self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first.content
+	  	obj = self.texts.joins(:field_setting).where('binda_field_settings.slug': field_slug).first.content
 	  end
 
 	  def has_text( field_slug )
-	  	obj = self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first
+	  	obj = self.texts.joins(:field_setting).where('binda_field_settings.slug': field_slug).first
 	  	if obj.present?
 	  		!obj.content.nil?
   		else
@@ -81,7 +81,7 @@ module Binda
 	  end
 
 	  def has_date( field_slug )
-	  	obj = self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first
+	  	obj = self.dates.joins(:field_setting).where('binda_field_settings.slug': field_slug).first
 	  	if obj.present?
 	  		!obj.date.nil?
   		else
@@ -90,7 +90,7 @@ module Binda
 	  end
 
 	  def get_date( field_slug )
-	  	self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first.date
+	  	self.dates.joins(:field_setting).where('binda_field_settings.slug': field_slug).first.date
 	  end
  
   end
