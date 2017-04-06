@@ -50,15 +50,13 @@ module Binda
 	  end
 	  
 	  def get_text( field_slug )
-	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
-	  	self.texts.where( field_setting_id: field_setting.id ).first.content
+	  	obj = self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first.content
 	  end
 
 	  def has_text( field_slug )
-	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
-	  	obj = self.texts.where( field_setting_id: field_setting.id )
-	  	if obj.any?
-	  		!obj.first.content.nil?
+	  	obj = self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first
+	  	if obj.present?
+	  		!obj.content.nil?
   		else
   			return false
   		end
