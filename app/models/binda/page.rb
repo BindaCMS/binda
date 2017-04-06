@@ -65,8 +65,7 @@ module Binda
 	  end
 
 	  def get_image_url( field_slug, size = '' )
-	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
-	  	obj = self.assets.where( field_setting_id: field_setting.id ).first.image
+	  	obj = self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first.image
 	  	if obj.respond_to?(size) && %w[thumb medium large].include?(size)
 			  obj.send(size).url
 			else
@@ -75,28 +74,25 @@ module Binda
 	  end
 
 	  def has_image( field_slug )
-	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
-	  	obj = self.assets.where( field_setting_id: field_setting.id )
-	  	if obj.any?
-	  		obj.first.image.present? && obj.first.image.file.exists?
+	  	obj = self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first
+	  	if obj.present?
+	  		obj.image.present? && obj.image.file.exists?
   		else
   			return false
   		end
 	  end
 
 	  def has_date( field_slug )
-	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
-	  	obj = self.assets.where( field_setting_id: field_setting.id )
-	  	if obj.any?
-	  		!obj.first.date.nil?
+	  	obj = self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first
+	  	if obj.present?
+	  		!obj.date.nil?
   		else
   			return false
   		end
 	  end
 
 	  def get_date( field_slug )
-	  	field_setting = Binda::FieldSetting.friendly.find( field_slug )
-	  	self.dates.where( field_setting_id: field_setting.id ).first.date
+	  	self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first.date
 	  end
  
   end
