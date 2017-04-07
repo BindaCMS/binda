@@ -14,11 +14,11 @@
 		<small class="text-muted"><%= field_setting.description %></small>
 	<% end %>
 
-	<% if page.has_text( field_setting ) %>
+	<% if page.has_text( field_setting.slug ) %>
 		<% if field_setting.field_type == 'text' %>
-			<%= ff.input :content, input_html: { value: page.get_text( field_setting ), class: 'tinymce' }, as: :text %>
+			<%= ff.input :content, input_html: { value: page.get_text( field_setting.slug ), class: 'tinymce' }, as: :text %>
 		<% else %>
-			<%= ff.input :content, input_html: { value: page.get_text( field_setting ) }, as: :string %>
+			<%= ff.input :content, input_html: { value: page.get_text( field_setting.slug ) }, as: :string %>
 		<% end %>
 	<% else %>
 		<% if field_setting.field_type == 'text' %>

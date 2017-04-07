@@ -50,11 +50,13 @@ module Binda
 	  end
 	  
 	  def get_text( field_slug )
-	  	obj = self.texts.joins(:field_setting).where('binda_field_settings.slug': field_slug).first.content
+	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
+	  	obj = self.texts.detect{ |t| t.field_setting_id == field_setting_id }.content
 	  end
 
 	  def has_text( field_slug )
-	  	obj = self.texts.joins(:field_setting).where('binda_field_settings.slug': field_slug).first
+	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
+	  	obj = self.texts.detect{ |t| t.field_setting_id == field_setting_id }
 	  	if obj.present?
 	  		!obj.content.nil?
   		else
@@ -63,7 +65,8 @@ module Binda
 	  end
 
 	  def get_image_url( field_slug, size = '' )
-	  	obj = self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first.image
+	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
+	  	obj = self.assets.detect{ |t| t.field_setting_id == field_setting_id }.image
 	  	if obj.respond_to?(size) && %w[thumb medium large].include?(size)
 			  obj.send(size).url
 			else
@@ -72,7 +75,8 @@ module Binda
 	  end
 
 	  def has_image( field_slug )
-	  	obj = self.assets.joins(:field_setting).where('binda_field_settings.slug': field_slug).first
+	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
+	  	obj = self.assets.detect{ |t| t.field_setting_id == field_setting_id }
 	  	if obj.present?
 	  		obj.image.present? && obj.image.file.exists?
   		else
@@ -81,7 +85,8 @@ module Binda
 	  end
 
 	  def has_date( field_slug )
-	  	obj = self.dates.joins(:field_setting).where('binda_field_settings.slug': field_slug).first
+	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
+	  	obj = self.dates.detect{ |t| t.field_setting_id == field_setting_id }
 	  	if obj.present?
 	  		!obj.date.nil?
   		else
@@ -90,7 +95,8 @@ module Binda
 	  end
 
 	  def get_date( field_slug )
-	  	self.dates.joins(:field_setting).where('binda_field_settings.slug': field_slug).first.date
+	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
+	  	obj = self.dates.detect{ |t| t.field_setting_id == field_setting_id }.date
 	  end
  
   end
