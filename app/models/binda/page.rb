@@ -50,13 +50,13 @@ module Binda
 	  end
 	  
 	  def get_text( field_slug )
-	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
-	  	obj = self.texts.detect{ |t| t.field_setting_id == field_setting_id }.content
+	  	# Get the object related to that field setting
+	  	obj = self.texts.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }.content
 	  end
 
 	  def has_text( field_slug )
-	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
-	  	obj = self.texts.detect{ |t| t.field_setting_id == field_setting_id }
+	  	# Get the object related to that field setting
+	  	obj = self.texts.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
 	  	if obj.present?
 	  		!obj.content.nil?
   		else
@@ -65,8 +65,8 @@ module Binda
 	  end
 
 	  def get_image_url( field_slug, size = '' )
-	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
-	  	obj = self.assets.detect{ |t| t.field_setting_id == field_setting_id }.image
+	  	# Get the object related to that field setting
+	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }.image
 	  	if obj.respond_to?(size) && %w[thumb medium large].include?(size)
 			  obj.send(size).url
 			else
@@ -75,8 +75,8 @@ module Binda
 	  end
 
 	  def has_image( field_slug )
-	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
-	  	obj = self.assets.detect{ |t| t.field_setting_id == field_setting_id }
+	  	# Get the object related to that field setting
+	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
 	  	if obj.present?
 	  		obj.image.present? && obj.image.file.exists?
   		else
@@ -85,8 +85,8 @@ module Binda
 	  end
 
 	  def has_date( field_slug )
-	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
-	  	obj = self.dates.detect{ |t| t.field_setting_id == field_setting_id }
+	  	# Get the object related to that field setting
+	  	obj = self.dates.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
 	  	if obj.present?
 	  		!obj.date.nil?
   		else
@@ -95,9 +95,17 @@ module Binda
 	  end
 
 	  def get_date( field_slug )
-	  	field_setting_id = Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
-	  	obj = self.dates.detect{ |t| t.field_setting_id == field_setting_id }.date
+	  	# Get the object related to that field setting
+	  	obj = self.dates.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }.date
 	  end
+
+	  private 
+
+		  def get_field_setting_id( field_slug )
+		  	# Get field setting id from slug, without multiple calls to database 
+		  	# (the query runs once and caches the result, then any further call uses the cached result)
+		  	Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
+		  end
  
   end
 end

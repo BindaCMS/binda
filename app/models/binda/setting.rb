@@ -22,19 +22,19 @@ module Binda
 	  end
 
 	  def self.website_name
-	  	self.friendly.find('website-name')
+	  	self.all.detect { |s| s.slug == 'website-name' }
 	  end
 
 	  def self.website_description
-	  	self.friendly.find('website-description')
+	  	self.all.detect { |s| s.slug == 'website-description' }
 	  end
 
 	  def self.maintenance_mode
-	  	self.friendly.find('maintenance-mode')
+	  	self.all.detect { |s| s.slug == 'maintenance-mode' }
 	  end
 
 	  def self.is_maintenance_mode
-	  	self.friendly.find('maintenance-mode').is_true
+	  	self.maintenance_mode.is_true
 	  end
 
   end
