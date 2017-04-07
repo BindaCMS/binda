@@ -64,28 +64,25 @@ module Binda
   		end
 	  end
 
+	  def has_image( field_slug )
+	  	# Check if the field has an attached image
+	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }.image.present?
+	  end
+
 	  def get_image_url( field_slug, size = '' )
 	  	# Get the object related to that field setting
-	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }.image
-	  	if obj.respond_to?(size) && %w[thumb medium large].include?(size)
-			  obj.send(size).url
-			else
-				obj.url
+	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
+  		if obj.image.present? && obj.image.file.exists?
+		  	if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
+				  obj.image.send(size).url
+				else
+					obj.image.url
+				end
 			end
 	  end
 
-	  def has_image( field_slug )
-	  	# Get the object related to that field setting
-	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
-	  	if obj.present?
-	  		obj.image.present? && obj.image.file.exists?
-  		else
-  			return false
-  		end
-	  end
-
 	  def has_date( field_slug )
-	  	# Get the object related to that field setting
+	  	# Check if the field has an attached date
 	  	obj = self.dates.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
 	  	if obj.present?
 	  		!obj.date.nil?
