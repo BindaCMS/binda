@@ -12,6 +12,8 @@ module Binda
 
 		accepts_nested_attributes_for :structure, :categories, :texts, :dates, :assets, :galleries, :repeaters, allow_destroy: true
 
+  	cattr_accessor :field_settings_array
+
 	  # has_many :bindings
 	  # has_many :assets, class_name: 'Admin::Asset', through: :bindings
 
@@ -99,14 +101,12 @@ module Binda
 	  private 
 
 		  def get_field_setting_id( field_slug )
-		  	p "- - - - - - - - - - - - > #{field_slug}"
 		  	# Get field setting id from slug, without multiple calls to database 
 		  	# (the query runs once and caches the result, then any further call uses the cached result)
-		  	if instance_variable_get("@@#{ field_slug.underscore }_id").nil?
-			  	return instance_variable_set "@@#{ field_slug.underscore }_id", Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
-			  else
-			  	return instance_variable_get("@@#{ field_slug.underscore }_id")
+		  	if @@field_settings_array.nil?
+			  	 @@field_settings_array = Binda::FieldSetting.all
 			  end
+				@@field_settings_array.detect { |fs| fs.slug == field_slug }.id
 		  end
  
   end
