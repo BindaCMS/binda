@@ -102,7 +102,7 @@
 li.main-sidebar--brand {
 	padding-bottom: $font-size-base;
 	margin-bottom: $font-size-base * 2;
-	border-bottom: 1px solid $gray-lighter;
+	// border-bottom: 1px solid $gray-lighter;
 	background: #FFF;
 	// background: -moz-linear-gradient(top, #FFF 0%, $gray-lighter 100%);
 	// background: -webkit-linear-gradient(top, #FFF 0%,$gray-lighter 100%);
@@ -116,4 +116,16 @@ li.main-sidebar--brand {
 
 .main-sidebar--nav li a.main-sidebar--logout {
 	color: $color-danger;
+}
+
+.main-sidebar--structure {
+	border-bottom: 1px solid $gray-lighter;
+}
+
+.main-sidebar--first-structure {
+	border-top: 1px solid $gray-lighter;
+}
+
+.main-sidebar--nav li:last-child {
+	border-bottom: 1px solid $gray-lighter;
 }
