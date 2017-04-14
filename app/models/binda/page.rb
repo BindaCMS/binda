@@ -103,9 +103,7 @@ module Binda
 		  def get_field_setting_id( field_slug )
 		  	# Get field setting id from slug, without multiple calls to database 
 		  	# (the query runs once and caches the result, then any further call uses the cached result)
-		  	if @@field_settings_array.nil?
-			  	 @@field_settings_array = Binda::FieldSetting.all
-			  end
+				@@field_settings_array = Binda::FieldSetting.all if @@field_settings_array.nil?
 				@@field_settings_array.detect { |fs| fs.slug == field_slug }.id
 		  end
  
