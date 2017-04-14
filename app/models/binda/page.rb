@@ -101,7 +101,11 @@ module Binda
 		  def get_field_setting_id( field_slug )
 		  	# Get field setting id from slug, without multiple calls to database 
 		  	# (the query runs once and caches the result, then any further call uses the cached result)
-		  	Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
+		  	if instance_variable_get("@#{ field_slug.underscore }_id").nil?
+			  	return instance_variable_set "@#{ field_slug.underscore }_id", Binda::FieldSetting.all.detect { |fs| fs.slug == field_slug }.id
+			  else
+			  	return instance_variable_get("@#{ field_slug.underscore }_id")
+			  end
 		  end
  
   end
