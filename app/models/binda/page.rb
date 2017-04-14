@@ -99,6 +99,7 @@ module Binda
 	  private 
 
 		  def get_field_setting_id( field_slug )
+		  	p "- - - - - - - - - - - - > #{field_slug}"
 		  	# Get field setting id from slug, without multiple calls to database 
 		  	# (the query runs once and caches the result, then any further call uses the cached result)
 		  	if instance_variable_get("@#{ field_slug.underscore }_id").nil?
