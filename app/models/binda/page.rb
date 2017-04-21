@@ -73,14 +73,16 @@ module Binda
 
 	  def get_image_url( field_slug, size = '' )
 	  	self.class.benchmark("Get image info (url)") do
-		  	get_image_info( field_slug, size, 'url' )
+		  	output = get_image_info( field_slug, size, 'url' )
 		  end
+		  return output
 	  end
 
 	  def get_image_path( field_slug, size = '' )
 	  	self.class.benchmark("Get image info (path)") do
-		  	get_image_info( field_slug, size, 'path' )
+		  	output = get_image_info( field_slug, size, 'path' )
 		  end
+		  return output
 	  end
 
 	  def get_image_info( field_slug, size, info )
@@ -105,14 +107,15 @@ module Binda
 		  	# if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
 		  	if re && ar
 			  	self.class.benchmark("get resized image") do
-					  obj.image.send(size).send(info)
+					  result = obj.image.send(size).send(info)
 					end
 				else
 			  	self.class.benchmark("get default image") do
-						obj.image.send(info)
+						result = obj.image.send(info)
 					end
 				end
 			end
+			return result
 	  end
 
 	  def has_date( field_slug )
