@@ -72,23 +72,47 @@ module Binda
 	  end
 
 	  def get_image_url( field_slug, size = '' )
-	  	get_image_info( field_slug, size, 'url' )
+	  	self.class.benchmark("Get image info (url)") do
+		  	get_image_info( field_slug, size, 'url' )
+		  end
 	  end
 
 	  def get_image_path( field_slug, size = '' )
-	  	get_image_info( field_slug, size, 'path' )
+	  	self.class.benchmark("Get image info (path)") do
+		  	get_image_info( field_slug, size, 'path' )
+		  end
 	  end
 
 	  def get_image_info( field_slug, size, info )
 	  	# Get the object related to that field setting
-	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
+	  	self.class.benchmark("Get field setting id") do
+		  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
+		  end
+	  	self.class.benchmark("Check if image is present") do
+	  		pr = obj.image.present?
+	  	end
+	  	self.class.benchmark("Check if file exists") do
+	  		ex = obj.image.file.exists?
+	  	end
   		# if obj.image.present? && obj.image.file.exists?
-		  	if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
-				  obj.image.send(size).send(info)
+  		if pr && ex
+		  	self.class.benchmark("Check if image respond to size") do
+		  		re = obj.image.respond_to?(size)
+		  	end
+		  	self.class.benchmark("Check if size is in array") do
+			  	ar = %w[thumb medium large].include?(size)
+		  	end
+		  	# if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
+		  	if re && ar
+			  	self.class.benchmark("get resized image") do
+					  obj.image.send(size).send(info)
+					end
 				else
-					obj.image.send(info)
+			  	self.class.benchmark("get default image") do
+						obj.image.send(info)
+					end
 				end
-			# end
+			end
 	  end
 
 	  def has_date( field_slug )
