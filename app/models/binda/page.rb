@@ -72,23 +72,32 @@ module Binda
 	  end
 
 	  def get_image_url( field_slug, size = '' )
-	  	get_image_info( field_slug, size, 'url' )
+	  	p "Get image url === #{ Time.now.strftime('%H:%M:%S.%3N') }"
+	  	o = get_image_info( field_slug, size, 'url' )
+	  	p "END Get image url === #{ Time.now.strftime('%H:%M:%S.%3N') }"
+	  	return o
 	  end
 
 	  def get_image_path( field_slug, size = '' )
-	  	get_image_info( field_slug, size, 'path' )
+	  	p "Get image path === #{ Time.now.strftime('%H:%M:%S.%3N') }"
+	  	0 = et_image_info( field_slug, size, 'path' )
+	  	p "END Get image path === #{ Time.now.strftime('%H:%M:%S.%3N') }"
+	  	return o
 	  end
 
 	  def get_image_info( field_slug, size, info )
+	  	p "Get image info === #{ Time.now.strftime('%H:%M:%S.%3N') }"
 	  	# Get the object related to that field setting
 	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
   		if obj.image.present?
 		  	if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
-				  obj.image.send(size).send(info)
+				  o = obj.image.send(size).send(info)
 				else
-					obj.image.send(info)
+					o = obj.image.send(info)
 				end
 			end
+	  	p "Get image info === #{ Time.now.strftime('%H:%M:%S.%3N') }"
+	  	return o
 	  end
 
 	  def has_date( field_slug )
@@ -115,6 +124,17 @@ module Binda
 				@@field_settings_array.detect { |fs| fs.slug == field_slug }.id
 		  end
 
+# benchmark do
+# 	id = Binda::Page.field_settings_array.detect { |fs| fs.slug == 'home-slides-project-image' }.id
+# 	obj = slide.assets.detect{ |t| t.field_setting_id == id }
+# 	if obj.image.present?
+# 		if obj.image.respond_to?('') && %w[thumb medium large].include?('')
+# 		  obj.image.send('').send('path')
+# 		else
+# 			obj.image.send('path')
+# 		end
+# 	end
+# end
 		  # BENCHMARK GET_IMAGE METHODS
 		  # ---------------------------
 		  # def get_image_benchmark( field_slug, size, info )
