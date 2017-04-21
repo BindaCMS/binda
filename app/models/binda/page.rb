@@ -75,7 +75,7 @@ module Binda
 	  	get_image_info( field_slug, size, 'url' )
 	  end
 
-	  def get_image_url( field_slug, size = '' )
+	  def get_image_path( field_slug, size = '' )
 	  	get_image_info( field_slug, size, 'path' )
 	  end
 
