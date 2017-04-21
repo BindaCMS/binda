@@ -82,13 +82,13 @@ module Binda
 	  def get_image_info( field_slug, size, info )
 	  	# Get the object related to that field setting
 	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
-  		if obj.image.present? && obj.image.file.exists?
+  		# if obj.image.present? && obj.image.file.exists?
 		  	if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
 				  obj.image.send(size).send(info)
 				else
 					obj.image.send(info)
 				end
-			end
+			# end
 	  end
 
 	  def has_date( field_slug )
