@@ -80,7 +80,7 @@ module Binda
 
 	  def get_image_path( field_slug, size = '' )
 	  	p "Get image path === #{ Time.now.strftime('%H:%M:%S.%3N') }"
-	  	0 = et_image_info( field_slug, size, 'path' )
+	  	o = get_image_info( field_slug, size, 'path' )
 	  	p "END Get image path === #{ Time.now.strftime('%H:%M:%S.%3N') }"
 	  	return o
 	  end
@@ -90,13 +90,15 @@ module Binda
 	  	# Get the object related to that field setting
 	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
   		if obj.image.present?
+		  	p "Get obj.image === #{ Time.now.strftime('%H:%M:%S.%3N') }"
 		  	if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
 				  o = obj.image.send(size).send(info)
 				else
 					o = obj.image.send(info)
 				end
+		  	p "END Get obj.image === #{ Time.now.strftime('%H:%M:%S.%3N') }"
 			end
-	  	p "Get image info === #{ Time.now.strftime('%H:%M:%S.%3N') }"
+	  	p "END Get image info === #{ Time.now.strftime('%H:%M:%S.%3N') }"
 	  	return o
 	  end
 
