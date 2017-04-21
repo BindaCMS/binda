@@ -116,7 +116,7 @@ module Binda
 	  	self.class.benchmark("Check if size is in array") do
 		  	%w[thumb medium large].include?(size)
 	  	end
-	  	if %w[thumb medium large].include?(size) do
+	  	if %w[thumb medium large].include?(size)
 		  	self.class.benchmark("get resized image") do
 				  obj.image.send(size).send(info)
 				end
