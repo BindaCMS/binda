@@ -7,6 +7,12 @@ require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
+# https://github.com/teamcapybara/capybara#using-capybara-with-rspec
+require 'capybara/rspec'
+
+# https://github.com/thoughtbot/factory_girl_rails/issues/167#issuecomment-226360492
+require 'factory_girl_rails'
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -30,6 +36,14 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
+  # https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md
+  config.include FactoryGirl::Syntax::Methods
+
+  # http://stackoverflow.com/a/19930700/1498118
+  config.before(:suite) do
+    Rails.application.load_seed # loading seeds
+  end
+  
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.

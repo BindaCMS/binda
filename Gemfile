@@ -18,4 +18,6 @@ group :development, :test do
   gem 'pry-rails', '~> 0.3.5'
 	gem 'rspec-rails', '~> 3.5'
 	gem 'autoprefixer-rails'
+	gem 'capybara'
+	gem 'factory_girl_rails'
 end
