@@ -103,7 +103,7 @@ module Binda
 		  end
 	  	
 	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
-	  	
+
 	  	self.class.benchmark("Check if image is present") do
 	  		obj.image.present?
 	  	end
@@ -116,11 +116,14 @@ module Binda
 	  	self.class.benchmark("Check if size is in array") do
 		  	%w[thumb medium large].include?(size)
 	  	end
-	  	self.class.benchmark("get resized image") do
-			  obj.image.send(size).send(info)
-			end
-	  	self.class.benchmark("get default image") do
-				obj.image.send(info)
+	  	if %w[thumb medium large].include?(size) do
+		  	self.class.benchmark("get resized image") do
+				  obj.image.send(size).send(info)
+				end
+			else
+		  	self.class.benchmark("get default image") do
+					obj.image.send(info)
+				end
 			end
 	  end
 
