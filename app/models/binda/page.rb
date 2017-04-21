@@ -72,13 +72,21 @@ module Binda
 	  end
 
 	  def get_image_url( field_slug, size = '' )
+	  	get_image_info( field_slug, size, 'url' )
+	  end
+
+	  def get_image_url( field_slug, size = '' )
+	  	get_image_info( field_slug, size, 'path' )
+	  end
+
+	  def get_image_info( field_slug, size, info )
 	  	# Get the object related to that field setting
 	  	obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
   		if obj.image.present? && obj.image.file.exists?
 		  	if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
-				  obj.image.send(size).url
+				  obj.image.send(size).send(info)
 				else
-					obj.image.url
+					obj.image.send(info)
 				end
 			end
 	  end
