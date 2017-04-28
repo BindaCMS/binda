@@ -9,7 +9,7 @@ A lightweight CMS for Ruby on Rails 5, inspired by [Spina](http://www.spinacms.c
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'binda', github: 'a-barbieri/binda'
+gem 'binda', github: 'lacolonia/binda'
 ```
 
 And then execute:
