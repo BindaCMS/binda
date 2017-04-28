@@ -5,6 +5,8 @@ A lightweight CMS for Ruby on Rails 5, inspired by [Spina](http://www.spinacms.c
 [![Issue Count](https://codeclimate.com/github/a-barbieri/binda/badges/issue_count.svg)](https://codeclimate.com/github/a-barbieri/binda)
 [![Test Coverage](https://codeclimate.com/github/a-barbieri/binda/badges/coverage.svg)](https://codeclimate.com/github/a-barbieri/binda/coverage)
 
+<script async defer src="https://slack.yourdomain.com/slackin.js"></script>
+
 ## Installation
 Add this line to your application's Gemfile:
 
