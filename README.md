@@ -1,9 +1,9 @@
 # Binda
 A lightweight CMS for Ruby on Rails 5, inspired by [Spina](http://www.spinacms.com).
 
-[![Code Climate](https://codeclimate.com/github/a-barbieri/binda/badges/gpa.svg)](https://codeclimate.com/github/a-barbieri/binda)
-[![Issue Count](https://codeclimate.com/github/a-barbieri/binda/badges/issue_count.svg)](https://codeclimate.com/github/a-barbieri/binda)
-[![Test Coverage](https://codeclimate.com/github/a-barbieri/binda/badges/coverage.svg)](https://codeclimate.com/github/a-barbieri/binda/coverage)
+[![Code Climate](https://codeclimate.com/github/lacolonia/binda/badges/gpa.svg)](https://codeclimate.com/github/lacolonia/binda)
+[![Issue Count](https://codeclimate.com/github/lacolonia/binda/badges/issue_count.svg)](https://codeclimate.com/github/lacolonia/binda)
+[![Test Coverage](https://codeclimate.com/github/lacolonia/binda/badges/coverage.svg)](https://codeclimate.com/github/lacolonia/binda/coverage)
 
 ## Installation
 Add this line to your application's Gemfile:
