@@ -2,6 +2,22 @@ Rails.application.configure do
   
   # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN
   # config.action_mailer.default_url_options = { host: 'yourdomain.com' }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.raise_delivery_errors = false
+  # config.action_mailer.default :charset => 'utf-8'
+  # config.action_mailer.smtp_settings = {
+  #   address: 'smtp.gmail.com',
+  #   port: 587,
+  #   domain: ENV['MAIL_DOMAIN'],
+  #   authentication: 'plain',
+  #   enable_starttls_auto: true,
+  #   user_name: ENV['MAIL_USERNAME'],
+  #   password: ENV['MAIL_PASSWORD']
+  # }
+  
+  # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN
+  # config.action_mailer.default_url_options = { host: 'yourdomain.com' }
 
   # Settings specified here will take precedence over those in config/application.rb.
 

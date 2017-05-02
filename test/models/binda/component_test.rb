@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Binda
-  class PageTest < ActiveSupport::TestCase
+  class ComponentTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true
     # end

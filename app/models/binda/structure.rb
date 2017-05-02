@@ -2,7 +2,7 @@ module Binda
   class Structure < ApplicationRecord
 
   	# Associations
-  	has_many :pages
+  	has_many :components
   	has_many :categories
   	has_many :field_groups
 

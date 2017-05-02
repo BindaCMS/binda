@@ -1,13 +1,13 @@
 <div class="row">
 <div class="form-inputs col-sm-12">
 
-<%= simple_form_for page , defaults: { label: false } do |f| %>
-  <% if page.errors.any? %>
+<%= simple_form_for component , defaults: { label: false } do |f| %>
+  <% if component.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize( page.errors.count, "error") %> prohibited this page from being saved:</h2>
+      <h2><%= pluralize( component.errors.count, "error") %> prohibited this component from being saved:</h2>
 
       <ul>
-      <% page.errors.full_messages.each do |message| %>
+      <% component.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -40,8 +40,8 @@
             <h5>Publish status</h5>
             <%= f.input :publish_state, as: :radio_buttons, collection: ['published', 'draft'], include_blank: false %>
             <hr>
-            <h5>Append page link to navigation menu</h5>
-            <%# f.input :in_menu, as: :radio_buttons, include_blank: false, checked: page.in_menu %>
+            <h5>Append component link to navigation menu</h5>
+            <%# f.input :in_menu, as: :radio_buttons, include_blank: false, checked: component.in_menu %>
             <hr>
             <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
           </div>

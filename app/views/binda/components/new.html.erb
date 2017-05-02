@@ -1,0 +1,8 @@
+<% content_for :header do %>
+	<h3><%= "#{ t :new }".capitalize %> <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %></h3>
+  <a href="<%= structure_components_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= "#{ t :back_to_index }".capitalize %></a>
+<% end %>
+		
+<% content_for :content do %> 
+	<%= render 'form', component: @component %>
+<% end %>

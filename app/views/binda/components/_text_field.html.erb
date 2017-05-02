@@ -1,6 +1,6 @@
-<% current_text = page.texts.where( field_setting_id: field_setting.id ).first %>
+<% current_text = component.texts.where( field_setting_id: field_setting.id ).first %>
 <% unless current_text.present? %>
-	<% current_text = page.texts.create( field_setting_id: field_setting.id )%>
+	<% current_text = component.texts.create( field_setting_id: field_setting.id )%>
 <% end %>
 
 <%= f.simple_fields_for "texts_attributes[]", current_text do |ff|%>
@@ -14,11 +14,11 @@
 		<small class="text-muted"><%= field_setting.description %></small>
 	<% end %>
 
-	<% if page.has_text( field_setting.slug ) %>
+	<% if component.has_text( field_setting.slug ) %>
 		<% if field_setting.field_type == 'text' %>
-			<%= ff.input :content, input_html: { value: page.get_text( field_setting.slug ), class: 'tinymce' }, as: :text %>
+			<%= ff.input :content, input_html: { value: component.get_text( field_setting.slug ), class: 'tinymce' }, as: :text %>
 		<% else %>
-			<%= ff.input :content, input_html: { value: page.get_text( field_setting.slug ) }, as: :string %>
+			<%= ff.input :content, input_html: { value: component.get_text( field_setting.slug ) }, as: :string %>
 		<% end %>
 	<% else %>
 		<% if field_setting.field_type == 'text' %>

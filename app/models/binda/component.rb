@@ -1,5 +1,5 @@
 module Binda
-  class Page < ApplicationRecord
+  class Component < ApplicationRecord
 
   	# Associations
   	belongs_to :structure, required: true
@@ -116,7 +116,7 @@ module Binda
 		  end
 
 # benchmark do
-# 	id = Binda::Page.field_settings_array.detect { |fs| fs.slug == 'home-slides-project-image' }.id
+# 	id = Binda::Component.field_settings_array.detect { |fs| fs.slug == 'home-slides-project-image' }.id
 # 	obj = slide.assets.detect{ |t| t.field_setting_id == id }
 # 	if obj.image.present?
 # 		if obj.image.respond_to?('') && %w[thumb medium large].include?('')

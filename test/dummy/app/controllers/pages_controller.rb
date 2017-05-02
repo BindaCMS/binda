@@ -1,9 +1,9 @@
 class PagesController < ApplicationController
   def index
-  	@pages = Binda::Page.all
+  	@pages = Binda::Component.all
   end
 
   def show
-  	@page = Binda::Page.find(params[:id])
+  	@page = Binda::Component.find(params[:id])
   end
 end
