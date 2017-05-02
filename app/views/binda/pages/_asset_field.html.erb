@@ -1,6 +1,6 @@
 <% current_asset = page.assets.where( field_setting_id: field_setting.id ).first %>
 <% unless current_asset.present? %>
-	<% current_asset = page.assets.create()%>
+	<% current_asset = page.assets.create( field_setting_id: field_setting.id )%>
 <% end %>
 
 <%= f.simple_fields_for "assets_attributes[]", current_asset do |ff|%>

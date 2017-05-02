@@ -23,6 +23,13 @@ module Binda
       @structure = Structure.new(structure_params)
 
       if @structure.save
+        # Creates a default empty field group 
+        @fiedl_group = @structure.field_groups.build( name: 'General Details' )
+        # Unless there is a problem...
+        unless @fiedl_group.save
+          return redirect_to structure_path( @structure.slug ), flash: { error: 'General Details group hasn\'t been created' }
+        end
+        # ... redirect to the new structure path
         redirect_to structure_path( @structure.slug ), notice: 'Structure was successfully created.'
       else
         render :new

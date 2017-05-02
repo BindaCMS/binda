@@ -1,6 +1,6 @@
 <% current_date = page.dates.where( field_setting_id: field_setting.id ).first %>
 <% unless current_date.present? %>
-	<% current_date = page.dates.create()%>
+	<% current_date = page.dates.create( field_setting_id: field_setting.id )%>
 <% end %>
 
 <%= f.simple_fields_for "dates_attributes[]", current_date do |ff|%>

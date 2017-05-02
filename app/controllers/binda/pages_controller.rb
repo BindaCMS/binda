@@ -31,15 +31,6 @@ module Binda
     end
 
     def update
-      # Create new fields if any
-      # new_params[:new_assets].each do |asset|
-      #   unless asset[:image].blank?
-      #     new_asset = @page.assets.create( asset )
-      #     unless new_asset  
-      #       return redirect_to edit_structure_page_path( @structure.slug, @page.slug ), flash: { error: new_asset.errors }
-      #     end
-      #   end
-      # end
       if @page.update(page_params)
         redirect_to structure_page_path( @structure.slug, @page.slug ), notice: 'Page was successfully updated.'
       else
@@ -51,7 +42,6 @@ module Binda
       @page.destroy
       redirect_to structure_pages_url( @structure.slug ), notice: 'Page was successfully destroyed.'
     end
-
 
     # def sort
     #   params[:admin_page].each_with_index do |id, i|
@@ -112,9 +102,6 @@ module Binda
             ])
       end
 
-      # def new_params
-      #   params.require(:page).permit( new_assets:[ :id, :field_setting_id, :image, :fieldable_id ] )
-      # end
   end
 end
 

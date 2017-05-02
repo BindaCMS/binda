@@ -5,7 +5,7 @@
 
 <% current_gallery = page.galleries.where( field_setting_id: field_setting.id ).first %>
 <% unless current_gallery.present? %>
-	<% current_gallery = page.galleries.create()%>
+	<% current_gallery = page.galleries.create( field_setting_id: field_setting.id )%>
 <% end %>
 
 
