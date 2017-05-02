@@ -3,6 +3,7 @@ en:
   details: details
   slug: slug
   title: title
+  title_hint: Title should be singular.
   name: name
   description: description
   position: position

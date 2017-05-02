@@ -13,6 +13,7 @@
                 <h4><%= "#{ t :details }".capitalize %></h4>
 
                 <h5><%= "#{ t :title }".capitalize %></h5>
+                <p class="text-muted"><%= t :title_hint %></p>
                 <%= f.input :name %>
                 
                 <% if structure.slug.nil? %>
