@@ -16,6 +16,10 @@ end
 
 desc "Update Binda::Page to Binda::Component"
 task :binda_update_page_to_component => :environment do
-	ActiveRecord::Base.connection.execute("SELECT fieldable_type, CASE WHEN fieldable_type = 'Binda::Page' THEN 'Binda::Component' END AS fieldable_type FROM binda_assets, binda_texts, binda_dates")
+	ActiveRecord::Base.connection.execute("UPDATE binda_assets SET fieldable_type = 'Binda::Component' WHERE  fieldable_type = 'Binda::Page'")
+	ActiveRecord::Base.connection.execute("UPDATE binda_texts SET fieldable_type = 'Binda::Component' WHERE  fieldable_type = 'Binda::Page'")
+	ActiveRecord::Base.connection.execute("UPDATE binda_dates SET fieldable_type = 'Binda::Component' WHERE  fieldable_type = 'Binda::Page'")
+	ActiveRecord::Base.connection.execute("UPDATE binda_galleries SET fieldable_type = 'Binda::Component' WHERE  fieldable_type = 'Binda::Page'")
+	ActiveRecord::Base.connection.execute("UPDATE binda_repeaters SET fieldable_type = 'Binda::Component' WHERE  fieldable_type = 'Binda::Page'")
 	p "Binda has been updated"
 end
