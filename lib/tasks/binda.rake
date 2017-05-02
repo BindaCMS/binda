@@ -16,8 +16,6 @@ end
 
 desc "Update Binda::Page to Binda::Component"
 task :binda_update_page_to_component => :environment do
-	ActiveRecord::Base.connection.execute("ALTER TABLE binda_pages RENAME TO binda_components")
-	ActiveRecord::Base.connection.execute("ALTER TABLE binda_categories_pages RENAME TO binda_categories_components")
-	ActiveRecord::Base.connection.execute("ALTER TABLE binda_categories_components RENAME COLUMN page_id TO component_id")
-	p "Binda updated"
+	ActiveRecord::Base.connection.execute("SELECT fieldable_type CASE WHEN fieldable_type = 'Binda::Page' THEN 'Binda::Component' AS fieldable_type FROM binda_assets, binda_texts, binda_dates")
+	p "Binda has been updated"
 end
