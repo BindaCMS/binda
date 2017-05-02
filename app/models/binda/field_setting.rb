@@ -9,7 +9,7 @@ module Binda
   	# If you add a new field remember to update:
   	#   - get_fieldables (see here below)
   	#   - get_field_types (see here below)
-  	#   - page_params (app/controllers/binda/pages_controller.rb)
+  	#   - component_params (app/controllers/binda/components_controller.rb)
   	has_many :texts,         as: :fieldable
   	has_many :dates,         as: :fieldable
   	has_many :repeaters,     as: :fieldable
@@ -17,7 +17,7 @@ module Binda
   	has_many :assets,        as: :fieldable 
   	# The following direct association is used to securely delete associated fields
   	# Infact via `fieldable` the associated fields might not be deleted 
-  	# as the fieldable_id is related to the `page` rather than the `field_setting`
+  	# as the fieldable_id is related to the `component` rather than the `field_setting`
   	has_many :texts,         dependent: :delete_all
   	has_many :dates,         dependent: :delete_all
   	has_many :repeaters,     dependent: :delete_all
@@ -57,7 +57,7 @@ module Binda
 	  end
 
   	# This will be use to overcome cascade delete on fieldable polymorphic association
-  	# Infact fieldables aren't actually associated in the DB, they are associated with pages!
+  	# Infact fieldables aren't actually associated in the DB, they are associated with components!
   	# def self.get_deletable_fieldables
   	# 	self.get_fieldables - %w( Asset )
   	# end

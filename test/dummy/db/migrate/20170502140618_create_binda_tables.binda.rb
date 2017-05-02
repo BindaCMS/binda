@@ -11,7 +11,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.boolean          :is_true, default: false
     end
 
-    create_table :binda_pages do |t|
+    create_table :binda_components do |t|
       t.string           :name, null: false
       t.string           :slug
       t.index            :slug, unique: true
@@ -106,9 +106,9 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    create_table :binda_categories_pages, id: false do |t|
+    create_table :binda_categories_components, id: false do |t|
       t.belongs_to       :category, index: true
-      t.belongs_to       :page, index: true
+      t.belongs_to       :component, index: true
     end
 
     create_table :friendly_id_slugs do |t|
@@ -145,15 +145,15 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string   :last_sign_in_ip
 
       ## Confirmable
-      # t.string   :confirmation_token
-      # t.datetime :confirmed_at
-      # t.datetime :confirmation_sent_at
-      # t.string   :unconfirmed_email # Only if using reconfirmable
+      t.string   :confirmation_token
+      t.datetime :confirmed_at
+      t.datetime :confirmation_sent_at
+      t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Lockable
-      # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
-      # t.string   :unlock_token # Only if unlock strategy is :email or :both
-      # t.datetime :locked_at
+      t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
+      t.string   :unlock_token # Only if unlock strategy is :email or :both
+      t.datetime :locked_at
 
       ## Custom Binda setup
       t.boolean :is_superadmin, default: false
@@ -163,8 +163,8 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
 
     add_index :binda_users, :email,                unique: true
     add_index :binda_users, :reset_password_token, unique: true
-    # add_index :binda_users, :confirmation_token,   unique: true
-    # add_index :binda_users, :unlock_token,         unique: true
+    add_index :binda_users, :confirmation_token,   unique: true
+    add_index :binda_users, :unlock_token,         unique: true
 
   end
 end

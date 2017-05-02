@@ -41,7 +41,7 @@ module Binda
     # end
 
     # ========== IMPORTANT ===========
-    # If you change this remember to change the methods on app/models/binda/page.rb
+    # If you change this remember to change the methods on app/models/binda/component.rb
 
     version :thumb do
       process resize_to_fit: [200, 200]

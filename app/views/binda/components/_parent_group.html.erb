@@ -4,25 +4,25 @@
 
     <h4><%= field_group.name.capitalize %></h4>
 
-    <% if page.new_record? %>
+    <% if component.new_record? %>
 
-      <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :page }", arg2: "#{ t :detail }" ).capitalize %></h5>
+      <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :component }", arg2: "#{ t :detail }" ).capitalize %></h5>
     
     <% else %>
 
       <% field_group.field_settings.order( :position ).each do |field_setting| %>
 
         <% if field_setting.field_type == 'text' || field_setting.field_type == 'string' %>
-          <%= render 'text_field', f: f, page: page, field_setting: field_setting %>
+          <%= render 'text_field', f: f, component: component, field_setting: field_setting %>
         <% end %>
         <% if field_setting.field_type == 'date' %>
-          <%# render 'date_field', f: f, page: page, field_setting: field_setting %>
+          <%= render 'date_field', f: f, component: component, field_setting: field_setting %>
         <% end %>
         <% if field_setting.field_type == 'repeater' %>
-          <%# render 'repeater_field', f: f, page: page, field_setting: field_setting %>
+          <%= render 'repeater_field', f: f, component: component, field_setting: field_setting %>
         <% end %>
         <% if field_setting.field_type == 'asset' %>
-          <%# render 'asset_field', f: f, page: page, field_setting: field_setting %>
+          <%= render 'asset_field', f: f, component: component, field_setting: field_setting %>
         <% end %>
 
       <% end %>

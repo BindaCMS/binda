@@ -3,9 +3,9 @@
 <% # # # # # # # # # # # # # TUTTO DA FARE # # # # # # # # # # # # # # # %>
 <% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # %>
 
-<% current_gallery = page.galleries.where( field_setting_id: field_setting.id ).first %>
+<% current_gallery = component.galleries.where( field_setting_id: field_setting.id ).first %>
 <% unless current_gallery.present? %>
-	<% current_gallery = page.galleries.create( field_setting_id: field_setting.id )%>
+	<% current_gallery = component.galleries.create( field_setting_id: field_setting.id )%>
 <% end %>
 
 
@@ -39,7 +39,7 @@
 <% if false %>
 
 
-<%= f.simple_fields_for 'new_galleries[]', page.galleries.build() do |ff| %>
+<%= f.simple_fields_for 'new_galleries[]', component.galleries.build() do |ff| %>
   <div id="new-child-1" class="parent-group-form--child parent-group-form--new-child">
 
 		<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
@@ -56,12 +56,12 @@
   </div>
 <% end %>
 
-<% if page.slug.nil? %>
+<% if component.slug.nil? %>
   <h5>
-    <%= t( :hint_create_parent_before_child, arg1: "#{ t :page }", arg2: "#{ t :gallery }" ).capitalize %>  
+    <%= t( :hint_create_parent_before_child, arg1: "#{ t :component }", arg2: "#{ t :gallery }" ).capitalize %>  
   </h5>
 <% else %>
-  <a class="parent-group-form--add-child main-header--link btn btn-default" href="<%= new_structure_page_path( page_id: page.slug ) %>" data-new-child-id="new-child-1">
+  <a class="parent-group-form--add-child main-header--link btn btn-default" href="<%= new_structure_component_path( component_id: component.slug ) %>" data-new-child-id="new-child-1">
     <%= "#{ t :new }".capitalize %> <%= t :gallery %>  
   </a>
 <% end %>

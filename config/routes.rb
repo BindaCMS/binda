@@ -3,7 +3,7 @@ Binda::Engine.routes.draw do
   resources :dates
   # ROOT
   # ----
-  # https://github.com/plataformatec/devise/wiki/How-To:-Require-authentication-for-all-pages
+  # https://github.com/plataformatec/devise/wiki/How-To:-Require-authentication-for-all-components
   # authenticated :user, class_name: "Binda::User", module: :devise do
   #   root to: 'settings#index', as: :authenticated_root
   # end
@@ -35,8 +35,8 @@ Binda::Engine.routes.draw do
 
     resources :categories
 
-    post 'pages/sort'
-    resources :pages
+    post 'components/sort'
+    resources :components
     
     post 'field_groups/sort'
     post 'field_groups/add_child'

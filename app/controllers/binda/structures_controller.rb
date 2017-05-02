@@ -60,7 +60,7 @@ module Binda
     end
 
     def fields_update
-      redirect_to :back, notice: 'Page was successfully updated.'
+      redirect_to :back, notice: 'Components was successfully updated.'
     end
 
     private

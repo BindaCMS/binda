@@ -1,7 +1,7 @@
   <div class="row">
     <div class="form-inputs col-sm-12">
       
-      <%= simple_form_for page, url: get_form_page_url, defaults: { label: false }, html: { class: 'parent-group-form' } do |f| %>
+      <%= simple_form_for component, url: get_form_component_url, defaults: { label: false }, html: { class: 'parent-group-form' } do |f| %>
         <%= f.error_notification %>
         
         <div class="row">
@@ -15,7 +15,7 @@
                 <h5><%= "#{ t :title }".capitalize %></h5>
                 <%= f.input :name %>
                 
-                <% if page.slug.nil? %>
+                <% if component.slug.nil? %>
                   <%= f.input :slug, as: :hidden %>
                 <% else %>
                   <h5><%= "#{ t :slug }".capitalize %></h5>
@@ -27,7 +27,7 @@
               </div>
             </div>
             
-            <%= render "parent_group", parent_group: @structure, f: f, page: page %>
+            <%= render "parent_group", parent_group: @structure, f: f, component: component %>
 
           </div>
           <div class="col-sm-4">
@@ -39,13 +39,13 @@
                 <% if @structure.categories.any? %>
 
                   <h5><%= t(:category).capitalize %></h5>
-                  <%= f.association :categories, as: :radio_buttons, collection: @structure.categories ,checked: page.category_ids, include_blank: false %>
+                  <%= f.association :categories, as: :radio_buttons, collection: @structure.categories ,checked: component.category_ids, include_blank: false %>
 
                 <% end %>
 
-                <% if page.slug.nil? %>
+                <% if component.slug.nil? %>
                   <h5>
-                    <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :page }" ).capitalize %>  
+                    <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :component }" ).capitalize %>  
                   </h5>
                 <% else %>
                   <a class="main-header--link btn btn-default" href="<%= new_structure_category_path %>">

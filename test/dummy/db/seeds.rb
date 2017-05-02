@@ -20,7 +20,7 @@ end
 
 # p "Creating Structures"
 
-# static_page_structure = Binda::Structure.create({ name: 'Static Page' })
+# static_component_structure = Binda::Structure.create({ name: 'Static Component' })
 # project_structure     = Binda::Structure.create({ name: 'Project' })
 # contact_structure     = Binda::Structure.create({ name: 'Contact' })
 
@@ -67,41 +67,41 @@ end
 # # - - - - - - - - - - - - - - - - - - - -
 
 
-# p "Creating Pages"
+# p "Creating Components"
 
-# # Static Pages
+# # Static Components
 # for i in 1..6
-# 	page = Binda::Page.create({
+# 	component = Binda::Component.create({
 # 		name:             FFaker::CheesyLingo.title,
-# 		structure_id:     static_page_structure.id
+# 		structure_id:     static_component_structure.id
 # 	})
-# 	page.categories << Binda::Category.find( rand(1..4) )
-# 	page.texts.create({ 
+# 	component.categories << Binda::Category.find( rand(1..4) )
+# 	component.texts.create({ 
 # 		content:          FFaker::CheesyLingo.paragraph,
 # 		field_setting_id: main_content.id
 # 	})
-# 	page.publish! unless i%3 == 0
+# 	component.publish! unless i%3 == 0
 # end
 
-# # Contact Pages
+# # Contact Components
 # for i in 1..4
-# 	page = Binda::Page.create({
+# 	component = Binda::Component.create({
 # 		name:             FFaker::CheesyLingo.title,
 # 		structure_id:     contact_structure.id
 # 	})
-# 	page.texts.create({ 
+# 	component.texts.create({ 
 # 		content:          FFaker::CheesyLingo.paragraph,
 # 		field_setting_id: address.id
 # 	})
-# 	page.texts.create({ 
+# 	component.texts.create({ 
 # 		content:          FFaker::PhoneNumber.phone_number,
 # 		field_setting_id: phone.id
 # 	})
-# 	page.texts.create({ 
+# 	component.texts.create({ 
 # 		content:          "#{ FFaker::CheesyLingo.word }@#{ FFaker::CheesyLingo.word }.com",
 # 		field_setting_id: mail.id
 # 	})
-# 	page.publish! unless i%3 == 0
+# 	component.publish! unless i%3 == 0
 # end
 
 

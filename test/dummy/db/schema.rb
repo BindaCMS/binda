@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170401112510) do
+ActiveRecord::Schema.define(version: 20170502140618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,11 +46,23 @@ ActiveRecord::Schema.define(version: 20170401112510) do
     t.index ["structure_id"], name: "index_binda_categories_on_structure_id", using: :btree
   end
 
-  create_table "binda_categories_pages", id: false, force: :cascade do |t|
+  create_table "binda_categories_components", id: false, force: :cascade do |t|
     t.integer "category_id"
-    t.integer "page_id"
-    t.index ["category_id"], name: "index_binda_categories_pages_on_category_id", using: :btree
-    t.index ["page_id"], name: "index_binda_categories_pages_on_page_id", using: :btree
+    t.integer "component_id"
+    t.index ["category_id"], name: "index_binda_categories_components_on_category_id", using: :btree
+    t.index ["component_id"], name: "index_binda_categories_components_on_component_id", using: :btree
+  end
+
+  create_table "binda_components", force: :cascade do |t|
+    t.string   "name",          null: false
+    t.string   "slug"
+    t.string   "publish_state"
+    t.integer  "position"
+    t.integer  "structure_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["slug"], name: "index_binda_components_on_slug", unique: true, using: :btree
+    t.index ["structure_id"], name: "index_binda_components_on_structure_id", using: :btree
   end
 
   create_table "binda_dates", force: :cascade do |t|
@@ -105,18 +117,6 @@ ActiveRecord::Schema.define(version: 20170401112510) do
     t.index ["fieldable_type", "fieldable_id"], name: "index_binda_galleries_on_fieldable_type_and_fieldable_id", using: :btree
   end
 
-  create_table "binda_pages", force: :cascade do |t|
-    t.string   "name",          null: false
-    t.string   "slug"
-    t.string   "publish_state"
-    t.integer  "position"
-    t.integer  "structure_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["slug"], name: "index_binda_pages_on_slug", unique: true, using: :btree
-    t.index ["structure_id"], name: "index_binda_pages_on_structure_id", using: :btree
-  end
-
   create_table "binda_repeaters", force: :cascade do |t|
     t.integer  "position"
     t.integer  "field_setting_id"
@@ -168,11 +168,20 @@ ActiveRecord::Schema.define(version: 20170401112510) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",        default: 0,     null: false
+    t.string   "unlock_token"
+    t.datetime "locked_at"
     t.boolean  "is_superadmin",          default: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.index ["confirmation_token"], name: "index_binda_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_binda_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_binda_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["unlock_token"], name: "index_binda_users_on_unlock_token", unique: true, using: :btree
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

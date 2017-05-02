@@ -1,12 +1,12 @@
 require_dependency "binda/application_controller"
 
 module Binda
-  class PagesController < ApplicationController
+  class ComponentsController < ApplicationController
     before_action :set_structure
-    before_action :set_page, only: [:show, :edit, :update, :destroy]
+    before_action :set_component, only: [:show, :edit, :update, :destroy]
 
     def index
-      @pages = @structure.pages.order('position').all
+      @components = @structure.components.order('position').all
     end
 
     def show
@@ -14,38 +14,38 @@ module Binda
     end
 
     def new
-      @page = @structure.pages.build()
+      @component = @structure.components.build()
     end
 
     def edit
     end
 
     def create
-      @page = @structure.pages.build(page_params)
+      @component = @structure.components.build(component_params)
 
-      if @page.save
-        redirect_to structure_page_path( @structure.slug, @page.slug ), notice: 'Page was successfully created.'
+      if @component.save
+        redirect_to structure_component_path( @structure.slug, @component.slug ), notice: 'Component was successfully created.'
       else
-        redirect_to new_structure_page_path( @structure.slug ), flash: { alert: @page.errors }
+        redirect_to new_structure_component_path( @structure.slug ), flash: { alert: @component.errors }
       end
     end
 
     def update
-      if @page.update(page_params)
-        redirect_to structure_page_path( @structure.slug, @page.slug ), notice: 'Page was successfully updated.'
+      if @component.update(component_params)
+        redirect_to structure_component_path( @structure.slug, @component.slug ), notice: 'Component was successfully updated.'
       else
-        redirect_to edit_structure_page_path( @structure.slug, @page.slug ), flash: { alert: @page.errors }
+        redirect_to edit_structure_component_path( @structure.slug, @component.slug ), flash: { alert: @component.errors }
       end
     end
 
     def destroy
-      @page.destroy
-      redirect_to structure_pages_url( @structure.slug ), notice: 'Page was successfully destroyed.'
+      @component.destroy
+      redirect_to structure_components_url( @structure.slug ), notice: 'Component was successfully destroyed.'
     end
 
     # def sort
-    #   params[:admin_page].each_with_index do |id, i|
-    #     Admin::Page.find( id ).update({ position: i + 1 })
+    #   params[:admin_component].each_with_index do |id, i|
+    #     Admin::Component.find( id ).update({ position: i + 1 })
     #   end
     #   head :ok
     # end
@@ -56,13 +56,13 @@ module Binda
         @structure = Structure.friendly.find( params[:structure_id] )
       end
 
-      def set_page
-        @page = Page.friendly.find(params[:id])
+      def set_component
+        @component = Component.friendly.find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.
-      def page_params
-        params.require(:page).permit( 
+      def component_params
+        params.require(:component).permit( 
           :name, 
           :slug, 
           :position, 

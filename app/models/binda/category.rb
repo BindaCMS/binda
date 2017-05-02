@@ -3,7 +3,7 @@ module Binda
 
   	# Associations
   	belongs_to :structure
-  	has_and_belongs_to_many :pages
+  	has_and_belongs_to_many :components
 
 		# Validations
 		validates :name, presence: true
