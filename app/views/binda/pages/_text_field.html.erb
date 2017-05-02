@@ -1,6 +1,6 @@
 <% current_text = page.texts.where( field_setting_id: field_setting.id ).first %>
 <% unless current_text.present? %>
-	<% current_text = page.texts.create()%>
+	<% current_text = page.texts.create( field_setting_id: field_setting.id )%>
 <% end %>
 
 <%= f.simple_fields_for "texts_attributes[]", current_text do |ff|%>
