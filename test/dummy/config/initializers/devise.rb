@@ -16,10 +16,8 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = 'a8395fa034e067da620d70f7f39ad4765d163e44ce05d5c243393e1bbfdc10f9a464aaf34fcac3291a6746424ea2b9f9564a01c31820e28bf1737c16d139cd5c'
   # binda.hook.1
-  config.secret_key = '64d9ada926ed390d2f716eb558565106a5ca4523ef40f3d972b32b2e4ae475f5cc9a0666ac9a31745dff419c853e697c776ec17de828a8df621132fb18e78dac'
-  config.secret_key = '14cca9842c2240066153edbc47c02afa469d40a96d3b75ecc4bd3e6fe1ca8e36e333ed2e52d64ae47fbbb18098f8c2cc75788d1c72ac0aa705997c59bf0c2166'
-  config.secret_key = '70bfaf569544eade26478115a1b3d46a0b71bac68e2a13134ae0754958bbf7caa9ed2d93337d22d43cdc662a1f16575dbdb4273c52eca255de95d2157823951e'
-  config.secret_key = '5cc62be15a07f5100ddb24db11be164195cc23e95016de22214e5618ce4802ff46f3e7e6225956f06bc7fe4b10be4f45145acc2c4bd29879f5e509a6421061fb'
+  config.secret_key = '5c9ca45f77463708f888adbeae7641b10abce38c132d6d4362a2a3825b471b9dbd967e514823bd66ae23ae6c1bbad78499e9e8af3bc9e0962088373b71bd3792'
+  config.secret_key = '528fabafe78579739aff35db9802c45d22aa0c54c764670f62c6ce3abdf34ce95e4f803477b9fbe74af31e444680f508b1befee0f8b2f8f98c09c32c6bebb8a6'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -117,10 +115,8 @@ Devise.setup do |config|
   # Set up a pepper to generate the hashed password.
   # config.pepper = '124ef1b08a92f891a392a9594b868887c945ca8438bd7852f8ac4d91e51f2cc699b8b6c7b12057c0f0e6dc03d04f8ee4eab72278b0f948e2c1e43f8b449c2262'
   # binda.hook.2
-  config.pepper = 'c250f44fb4eb1aab973e5245f68cfdd1e5e896d372204961b47b26a7405ebeef393acb049463abfe339ade61ad7c499af938bb539a4ebe666dc14f6bdd20a607'
-  config.pepper = '5910271431b01420a4016723fa46360a4ae8060a523f0f6bd0b00c0fbfa356ae88ca3165ccc6de3c830bace410b94fb6425efa5b435b69d69c00dc1a5cf5c018'
-  config.pepper = 'e61335de102e90ba3fb5dabe3dabe51d752de2a7d59e82a11df71ee5c561de3dd374acd7b44dff2e65bf78c63871f85ad02ddcc11fb47f3b55f23f88f71fe335'
-  config.pepper = 'cf54aaf1d49428103ea49f5b86f088c4886014f4a1db53d702cded8a8dddc977214a84d804db6903082d489b6f98818c682b579b26cebf91f3fb9177fb5be8a4'
+  config.pepper = '245439a418095a25372d7259acf50e0913a502821de8573b2ea7b63e2c27a26e6e68bc631b03163d5e6d22c39ec99762eae5fa81f6a993a622b627b7c3299460'
+  config.pepper = '1e6b6306dc4d00ad06138572cd8f7358aa07247a8d1c148877003b5126fe65827783603eaf0ae101be96f1552fd77d0828ec07e56acc6d269f6203de924c1de0'
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false

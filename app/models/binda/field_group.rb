@@ -3,7 +3,6 @@ module Binda
 
   	# Associations
   	belongs_to :structure
-  	belongs_to :repeater
 
 		# use destroy not delete_all otherwise the field settings 
 		# won't be able to delete all their dependent content

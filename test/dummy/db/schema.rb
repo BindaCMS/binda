@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503142928) do
+ActiveRecord::Schema.define(version: 20170503171001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,16 +83,14 @@ ActiveRecord::Schema.define(version: 20170503142928) do
     t.integer  "position"
     t.string   "layout"
     t.integer  "structure_id"
-    t.integer  "repeater_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.index ["repeater_id"], name: "index_binda_field_groups_on_repeater_id", using: :btree
     t.index ["slug"], name: "index_binda_field_groups_on_slug", unique: true, using: :btree
     t.index ["structure_id"], name: "index_binda_field_groups_on_structure_id", using: :btree
   end
 
   create_table "binda_field_settings", force: :cascade do |t|
-    t.string   "name",           null: false
+    t.string   "name",             null: false
     t.string   "slug"
     t.text     "description"
     t.integer  "position"
@@ -100,9 +98,11 @@ ActiveRecord::Schema.define(version: 20170503142928) do
     t.text     "default_text"
     t.string   "field_type"
     t.integer  "field_group_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer  "field_setting_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.index ["field_group_id"], name: "index_binda_field_settings_on_field_group_id", using: :btree
+    t.index ["field_setting_id"], name: "index_binda_field_settings_on_field_setting_id", using: :btree
     t.index ["slug"], name: "index_binda_field_settings_on_slug", unique: true, using: :btree
   end
 

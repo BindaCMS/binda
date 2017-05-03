@@ -3,6 +3,7 @@ module Binda
 
   	# Associations
   	belongs_to :field_group
+    has_many   :field_children, class_name: 'Binda::FieldSetting'
 
   	# Fields Associations 
   	# -------------------
@@ -36,6 +37,7 @@ module Binda
 		# Validations
 		validates :name, presence: true
 		validates :field_type, presence: true, inclusion: { in: :get_field_types }
+    validates :field_group_id, presence: true
 
   	# Slug
 		extend FriendlyId
