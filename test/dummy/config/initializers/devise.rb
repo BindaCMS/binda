@@ -16,7 +16,10 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = 'a8395fa034e067da620d70f7f39ad4765d163e44ce05d5c243393e1bbfdc10f9a464aaf34fcac3291a6746424ea2b9f9564a01c31820e28bf1737c16d139cd5c'
   # binda.hook.1
-  config.secret_key = '9b6c0290edfae9c2c6c7c639499dc1d8e438478bef918704863c59c935c3d65eb45503db848865817a9874bae88c6b1d56da6cc3572b7dacd4fa9222d7c1b8f8'
+  config.secret_key = '64d9ada926ed390d2f716eb558565106a5ca4523ef40f3d972b32b2e4ae475f5cc9a0666ac9a31745dff419c853e697c776ec17de828a8df621132fb18e78dac'
+  config.secret_key = '14cca9842c2240066153edbc47c02afa469d40a96d3b75ecc4bd3e6fe1ca8e36e333ed2e52d64ae47fbbb18098f8c2cc75788d1c72ac0aa705997c59bf0c2166'
+  config.secret_key = '70bfaf569544eade26478115a1b3d46a0b71bac68e2a13134ae0754958bbf7caa9ed2d93337d22d43cdc662a1f16575dbdb4273c52eca255de95d2157823951e'
+  config.secret_key = '5cc62be15a07f5100ddb24db11be164195cc23e95016de22214e5618ce4802ff46f3e7e6225956f06bc7fe4b10be4f45145acc2c4bd29879f5e509a6421061fb'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -114,7 +117,10 @@ Devise.setup do |config|
   # Set up a pepper to generate the hashed password.
   # config.pepper = '124ef1b08a92f891a392a9594b868887c945ca8438bd7852f8ac4d91e51f2cc699b8b6c7b12057c0f0e6dc03d04f8ee4eab72278b0f948e2c1e43f8b449c2262'
   # binda.hook.2
-  config.pepper = 'a9eb6043ae8861e7dbf0cc37f77be6de0fa6b69fe74c5578b71fae43a6f400b2bad3def5801f10ef04304a627964bc61cc726670aa2c99b187adbd49f597dfa4'
+  config.pepper = 'c250f44fb4eb1aab973e5245f68cfdd1e5e896d372204961b47b26a7405ebeef393acb049463abfe339ade61ad7c499af938bb539a4ebe666dc14f6bdd20a607'
+  config.pepper = '5910271431b01420a4016723fa46360a4ae8060a523f0f6bd0b00c0fbfa356ae88ca3165ccc6de3c830bace410b94fb6425efa5b435b69d69c00dc1a5cf5c018'
+  config.pepper = 'e61335de102e90ba3fb5dabe3dabe51d752de2a7d59e82a11df71ee5c561de3dd374acd7b44dff2e65bf78c63871f85ad02ddcc11fb47f3b55f23f88f71fe335'
+  config.pepper = 'cf54aaf1d49428103ea49f5b86f088c4886014f4a1db53d702cded8a8dddc977214a84d804db6903082d489b6f98818c682b579b26cebf91f3fb9177fb5be8a4'
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false

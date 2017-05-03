@@ -1,0 +1,8 @@
+Description:
+    Explain the generator
+
+Example:
+    rails generate binda:setup
+
+    This will populate the database with initial settings.
+        
