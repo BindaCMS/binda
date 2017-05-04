@@ -2,9 +2,9 @@
 <%= ff.input :id, as: :hidden %>
 
 <% if ff.object.slug.nil? %>
-  <a class="form-item--remove-item-with-js" href="#" data-method="delete" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	<a class="form-item--remove-item-with-js" href="#" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 <% else %>
-  <a href="<%= structure_field_group_field_setting_path( field_group_id: section.slug, id: ff.object.slug ) %>" data-method="delete" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	<a href="<%= structure_field_group_field_setting_path( field_group_id: section.slug, id: ff.object.slug ) %>" data-method="delete" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 <% end %>
 
 <h5><%= "#{ t :name }".capitalize %></h5>

@@ -129,6 +129,12 @@ var FormItem = function () {
 				$newChild.clone().insertAfter($newChild);
 				$newChild.removeClass('form-item--new').removeAttr('id');
 			});
+
+			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
+				// Stop default behaviour
+				event.preventDefault();
+				$(this).parent('.form-item').remove();
+			});
 		}
 	}]);
 
