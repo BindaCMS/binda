@@ -5,13 +5,13 @@
 
     <%= f.simple_fields_for :field_settings, f.object.field_settings.order( :position ) do |ff| %>
       <div class="form-item <%= "form-item--#{ ff.object.field_type }" unless ff.object.field_type.nil? %>">
-        <%= render 'field_setting_input_fields', ff: ff, section: section %>
+        <%= render 'form_item', ff: ff, section: section %>
       </div>
     <% end %>
 
     <%= f.simple_fields_for 'new_field_settings[]', @field_group.field_settings.build() do |ff| %>
       <div id="new-child-1" class="form-item form-item--new">
-        <%= render 'field_setting_input_fields', ff: ff, section: section %>
+        <%= render 'form_item', ff: ff, section: section %>
       </div>
     <% end %>
 
