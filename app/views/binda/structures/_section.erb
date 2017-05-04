@@ -2,7 +2,7 @@
 
 <%= f.simple_fields_for :field_groups do |ff| %>
 
-  <div class="parent-group-form--child">
+  <div class="form-item">
 
 		<%= ff.input :structure_id, as: :hidden %>
 		<%= ff.input :id, as: :hidden %>
@@ -14,13 +14,13 @@
 
 	  <% end %>
 
-	  <h5 class="parent-group-form--child-name"><%= "#{ t :name }".capitalize %></h5>
+	  <h5 class="form-item--name"><%= "#{ t :name }".capitalize %></h5>
 		<%= ff.input :name %>
 
 	  <% unless ff.object.slug.nil? %>
 
       <h5><%= "#{ t :slug }".capitalize %></h5>
-      <%= ff.input :slug, as: :string, input_html: { class: "parent-group-form--child-input" } %>
+      <%= ff.input :slug, as: :string, input_html: { class: "form-item--input" } %>
 
 	  <% end %>
 
@@ -29,17 +29,17 @@
 <% end %>
 
 <%= f.simple_fields_for 'new_field_groups[]', @structure.field_groups.build() do |ff| %>
-	<div id="new-child-1" class="parent-group-form--child parent-group-form--new-child">
+	<div id="new-child-1" class="form-item form-item--new">
 		<%= ff.input :structure_id, as: :hidden %>
 		<%= ff.input :id, as: :hidden %>
-	  <h5 class="parent-group-form--child-name"><%= "#{ t :name }".capitalize %></h5>
+	  <h5 class="form-item--name"><%= "#{ t :name }".capitalize %></h5>
 		<%= ff.input :name %>
 	</div>
 <% end %>
 
 
-<% if parent_group.slug.nil? %>
+<% if section.slug.nil? %>
   <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :structure }", arg2: "#{ t :field_group }" ).capitalize %></h5>
 <% else %>
-  <a class="parent-group-form--add-child main-header--link btn btn-default" href="<%= new_structure_field_group_path( @structure.slug ) %>" data-new-child-id="new-child-1"><%= "#{ t :new }".capitalize %> <%= t :field_group %></a>
+  <a class="form-item--add-new main-header--link btn btn-default" href="<%= new_structure_field_group_path( @structure.slug ) %>" data-new-child-id="new-child-1"><%= "#{ t :new }".capitalize %> <%= t :field_group %></a>
 <% end %>

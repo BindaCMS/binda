@@ -1,12 +1,12 @@
 ///- - - - - - - - - - - - - - - - - - - -
-/// PARENT GROUP FORM
+/// FORM ITEM
 ///- - - - - - - - - - - - - - - - - - - -
 
-class ParentGroupForm {
+class FormItem {
 	
 	constructor()
 	{
-		this.target = '.parent-group-form'
+		this.target = '.form-item'
 	}
 
 	isSet()
@@ -17,7 +17,7 @@ class ParentGroupForm {
 
 	setEvents()
 	{
-		$(document).on('click', this.target + '--add-child', ( event )=>{
+		$(document).on('click', this.target + '--add-new', ( event )=>{
 			// Stop default behaviour
 			event.preventDefault()
 			// Get the child to clone
@@ -25,9 +25,9 @@ class ParentGroupForm {
 			let $newChild = $( '#' + id )
 			// Clone child and remove id and styles from cloned child
 			$newChild.clone().insertAfter( $newChild )
-			$newChild.removeClass( 'parent-group-form--new-child' ).removeAttr( 'id' )
+			$newChild.removeClass( 'form-item--new' ).removeAttr( 'id' )
 		})
 	}
 }
 
-export let _ParentGroupForm = new ParentGroupForm()
+export let _FormItem = new FormItem()

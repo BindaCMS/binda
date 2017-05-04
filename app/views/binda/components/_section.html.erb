@@ -1,5 +1,5 @@
-<% parent_group.field_groups.order( :position ).each_with_index do |field_group, index| %>
-<div class="form-inputs--row form-inputs--wide row">
+<% section.field_groups.order( :position ).each_with_index do |field_group, index| %>
+<div class="form-section--wide-container row">
   <div class="col-sm-12">
 
     <h4><%= field_group.name.capitalize %></h4>

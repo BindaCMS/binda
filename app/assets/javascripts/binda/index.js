@@ -1,6 +1,11 @@
-import { _ParentGroupForm } from './components/parent_group_form.js'
+///- - - - - - - - - - - - - - - - - - - -
+/// INDEX OF BINDA'S SCRIPTS
+///- - - - - - - - - - - - - - - - - - - -
+
+import { _FormItem } from './components/form_item'
+
 
 $(document).ready( function()
 {
-	if ( _ParentGroupForm.isSet() ) { _ParentGroupForm.setEvents() }
+	if ( _FormItem.isSet() ) { _FormItem.setEvents() }
 })

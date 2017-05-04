@@ -1,4 +1,4 @@
-.parent-group-form--child { 
+.form-item { 
 	@extend .clearfix;
 	display: block;
 	margin-bottom: $font-size-base*1.5;	
@@ -14,8 +14,13 @@
 	}
 }
 
-.form-inputs--wide {
-	.parent-group-form--child { 
+
+.form-section--wide-container {
+
+	.form-item {
+		max-height: 6666px;
+		overflow-y: hidden;
+		transition: max-height 1s ease;
 
 		h5 {
 			width: 15%;
@@ -35,33 +40,30 @@
 		}
 	}
 
+	.form-item--new {
+		position: absolute;
+		top: 101%;
+		max-height: 0;
+	}
+
 	.form-group {
 		margin-bottom: $font-size-base*1.5;	
 	}
 }
 
-.parent-group-form--new-child {
-	transition: all 0.3s linear;
-	transform: scaleY(0);
-	transform-origin: top;
-	* {
-		display: none;
-	}
-}
-
-.parent-group-form--select {
+.form-item--select {
 	display: inline-block;
 	width: 240px;
 	margin-left: 5%;
 }
 
-.parent-group-form--child-textarea {
+.form-item--textarea {
 	display: inline-block;
 	width: 70%;
 	margin-left: 5%;
 }
 
-.parent-group-form--child-category {
+.form-item--category {
 	padding-bottom: $font-size-base*1.5;	
 	margin-bottom: $font-size-base*1.5;	
 

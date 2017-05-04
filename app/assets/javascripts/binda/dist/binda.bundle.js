@@ -67,27 +67,47 @@
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
+/* 0 */,
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _ParentGroupForm; });
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(2);
+///- - - - - - - - - - - - - - - - - - - -
+/// INDEX OF BINDA'S SCRIPTS
+///- - - - - - - - - - - - - - - - - - - -
+
+
+
+$(document).ready(function () {
+	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].setEvents();
+	}
+});
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 ///- - - - - - - - - - - - - - - - - - - -
-/// PARENT GROUP FORM
+/// FORM ITEM
 ///- - - - - - - - - - - - - - - - - - - -
 
-var ParentGroupForm = function () {
-	function ParentGroupForm() {
-		_classCallCheck(this, ParentGroupForm);
+var FormItem = function () {
+	function FormItem() {
+		_classCallCheck(this, FormItem);
 
-		this.target = '.parent-group-form';
+		this.target = '.form-item';
 	}
 
-	_createClass(ParentGroupForm, [{
+	_createClass(FormItem, [{
 		key: 'isSet',
 		value: function isSet() {
 			if ($(this.target).length > 0) {
@@ -99,7 +119,7 @@ var ParentGroupForm = function () {
 	}, {
 		key: 'setEvents',
 		value: function setEvents() {
-			$(document).on('click', this.target + '--add-child', function (event) {
+			$(document).on('click', this.target + '--add-new', function (event) {
 				// Stop default behaviour
 				event.preventDefault();
 				// Get the child to clone
@@ -107,30 +127,15 @@ var ParentGroupForm = function () {
 				var $newChild = $('#' + id);
 				// Clone child and remove id and styles from cloned child
 				$newChild.clone().insertAfter($newChild);
-				$newChild.removeClass('parent-group-form--new-child').removeAttr('id');
+				$newChild.removeClass('form-item--new').removeAttr('id');
 			});
 		}
 	}]);
 
-	return ParentGroupForm;
+	return FormItem;
 }();
 
-var _ParentGroupForm = new ParentGroupForm();
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__ = __webpack_require__(0);
-
-
-$(document).ready(function () {
-	if (__WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__["a" /* _ParentGroupForm */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__["a" /* _ParentGroupForm */].setEvents();
-	}
-});
+var _FormItem = new FormItem();
 
 /***/ })
 /******/ ]);

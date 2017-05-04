@@ -10,7 +10,7 @@
 
 
 <%= f.simple_fields_for "assets_attributes[]", current_gallery do |ff|%>
-  <div class="parent-group-form--child">
+  <div class="form-item">
 
 		<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 		<%= ff.input :id, as: :hidden, input_html: { value: current_gallery.id } %>
@@ -40,7 +40,7 @@
 
 
 <%= f.simple_fields_for 'new_galleries[]', component.galleries.build() do |ff| %>
-  <div id="new-child-1" class="parent-group-form--child parent-group-form--new-child">
+  <div id="new-child-1" class="form-item form-item--new">
 
 		<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 		<%= ff.input :id, as: :hidden, input_html: { value: current_gallery.id } %>
@@ -61,7 +61,7 @@
     <%= t( :hint_create_parent_before_child, arg1: "#{ t :component }", arg2: "#{ t :gallery }" ).capitalize %>  
   </h5>
 <% else %>
-  <a class="parent-group-form--add-child main-header--link btn btn-default" href="<%= new_structure_component_path( component_id: component.slug ) %>" data-new-child-id="new-child-1">
+  <a class="form-item--add-new main-header--link btn btn-default" href="<%= new_structure_component_path( component_id: component.slug ) %>" data-new-child-id="new-child-1">
     <%= "#{ t :new }".capitalize %> <%= t :gallery %>  
   </a>
 <% end %>
