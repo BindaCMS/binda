@@ -51,6 +51,8 @@ module Binda
 
       def setup_devise
         return if Rails.env.production?
+        return if Dir.glob( Rails.root.join('config', 'initializers', 'devise.rb' )).any?
+
         # Copy the initilializer on the application folder
         template 'config/initializers/devise.rb'
 
@@ -92,6 +94,8 @@ module Binda
 
       def setup_carrierwave
         return if Rails.env.production?
+        return if Dir.glob( Rails.root.join('config', 'initializers', 'carrierwave.rb' )).any?
+        
         template 'config/initializers/carrierwave.rb'
       end
 
