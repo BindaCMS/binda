@@ -49,15 +49,13 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.text             :default_text
       t.string           :field_type
       t.belongs_to       :field_group
-      t.belongs_to       :field_setting
-      # add_column :binda_field_settings, :field_setting_id, :integer
-      # add_index :binda_field_settings, :field_setting_id
+      t.string           :ancestry
+      t.index            :ancestry
       t.timestamps
     end
 
     create_table :binda_repeaters do |t|
       t.integer          :position
-      t.belongs_to       :field_setting
       t.references       :fieldable, polymorphic: true, index: true
       t.timestamps
     end

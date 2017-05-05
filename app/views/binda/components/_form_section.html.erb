@@ -13,16 +13,16 @@
       <% field_group.field_settings.order( :position ).each do |field_setting| %>
 
         <% if field_setting.field_type == 'text' || field_setting.field_type == 'string' %>
-          <%= render 'text_field', f: f, component: component, field_setting: field_setting %>
+          <%= render 'form_item_text', f: f, component: component, field_setting: field_setting %>
         <% end %>
         <% if field_setting.field_type == 'date' %>
-          <%= render 'date_field', f: f, component: component, field_setting: field_setting %>
+          <%= render 'form_item_date', f: f, component: component, field_setting: field_setting %>
         <% end %>
         <% if field_setting.field_type == 'repeater' %>
-          <%= render 'repeater_field', f: f, component: component, field_setting: field_setting %>
+          <%= render 'form_item_repeater', f: f, component: component, field_setting: field_setting %>
         <% end %>
         <% if field_setting.field_type == 'asset' %>
-          <%= render 'asset_field', f: f, component: component, field_setting: field_setting %>
+          <%= render 'form_item_asset', f: f, component: component, field_setting: field_setting %>
         <% end %>
 
       <% end %>

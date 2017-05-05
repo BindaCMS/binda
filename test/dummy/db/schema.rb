@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503171001) do
+ActiveRecord::Schema.define(version: 20170505172746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20170503171001) do
   end
 
   create_table "binda_field_settings", force: :cascade do |t|
-    t.string   "name",             null: false
+    t.string   "name",           null: false
     t.string   "slug"
     t.text     "description"
     t.integer  "position"
@@ -98,11 +98,11 @@ ActiveRecord::Schema.define(version: 20170503171001) do
     t.text     "default_text"
     t.string   "field_type"
     t.integer  "field_group_id"
-    t.integer  "field_setting_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "ancestry"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["ancestry"], name: "index_binda_field_settings_on_ancestry", using: :btree
     t.index ["field_group_id"], name: "index_binda_field_settings_on_field_group_id", using: :btree
-    t.index ["field_setting_id"], name: "index_binda_field_settings_on_field_setting_id", using: :btree
     t.index ["slug"], name: "index_binda_field_settings_on_slug", unique: true, using: :btree
   end
 
@@ -119,12 +119,10 @@ ActiveRecord::Schema.define(version: 20170503171001) do
 
   create_table "binda_repeaters", force: :cascade do |t|
     t.integer  "position"
-    t.integer  "field_setting_id"
     t.string   "fieldable_type"
     t.integer  "fieldable_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.index ["field_setting_id"], name: "index_binda_repeaters_on_field_setting_id", using: :btree
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.index ["fieldable_type", "fieldable_id"], name: "index_binda_repeaters_on_fieldable_type_and_fieldable_id", using: :btree
   end
 

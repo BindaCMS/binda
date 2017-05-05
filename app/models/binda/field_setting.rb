@@ -3,9 +3,10 @@ module Binda
 
   	# Associations
   	belongs_to :field_group
-    has_many   :field_children, class_name: 'Binda::FieldSetting'
+    # has_many   :field_children, class_name: ::Binda::FieldSetting, dependent: :delete_all
+    has_ancestry orphan_strategy: :destroy
 
-  	# Fields Associations 
+  	# Fields Associations
   	# -------------------
   	# If you add a new field remember to update:
   	#   - get_fieldables (see here below)
@@ -13,20 +14,21 @@ module Binda
   	#   - component_params (app/controllers/binda/components_controller.rb)
   	has_many :texts,         as: :fieldable
   	has_many :dates,         as: :fieldable
-  	has_many :repeaters,     as: :fieldable
   	has_many :galleries,     as: :fieldable
-  	has_many :assets,        as: :fieldable 
+  	has_many :assets,        as: :fieldable
+
   	# The following direct association is used to securely delete associated fields
   	# Infact via `fieldable` the associated fields might not be deleted 
   	# as the fieldable_id is related to the `component` rather than the `field_setting`
   	has_many :texts,         dependent: :delete_all
   	has_many :dates,         dependent: :delete_all
-  	has_many :repeaters,     dependent: :delete_all
   	has_many :galleries,     dependent: :delete_all
+
+    # accepts_nested_attributes_for :children, allow_destroy: true, reject_if: :is_rejected
 
 
   	def self.get_fieldables
-  		%w( Text Date Repeater Gallery Asset )
+  		%w( Text Date Gallery Asset )
   	end
 
   	# Field types are't fieldable! watch out! They might use the same model (eg `string` and `text`)
@@ -36,7 +38,7 @@ module Binda
 
 		# Validations
 		validates :name, presence: true
-		validates :field_type, presence: true, inclusion: { in: :get_field_types }
+		# validates :field_type, presence: true, inclusion: { in: :get_field_types }
     validates :field_group_id, presence: true
 
   	# Slug
@@ -52,10 +54,24 @@ module Binda
 	  end
 
 	  def default_slug
-	  	[ "#{ self.field_group.structure.name }-#{ self.field_group.name }-#{ self.name }",
-	  		"#{ self.field_group.structure.name }-#{ self.field_group.name }-#{ self.name }-1",
-	  		"#{ self.field_group.structure.name }-#{ self.field_group.name }-#{ self.name }-2",
-	  		"#{ self.field_group.structure.name }-#{ self.field_group.name }-#{ self.name }-3" ]
+      breadcrumb = self.field_group.structure.name
+      
+      breadcrumb << '-'
+      breadcrumb << self.field_group.name
+
+      unless self.parent.nil?
+        breadcrumb << '-' 
+        breadcrumb << self.parent.name 
+      end
+
+	  	possible_names = [ 
+        "#{ breadcrumb }--#{ self.name }",
+	  		"#{ breadcrumb }--#{ self.name }-1",
+	  		"#{ breadcrumb }--#{ self.name }-2",
+	  		"#{ breadcrumb }--#{ self.name }-3" 
+      ]
+
+      return possible_names
 	  end
 
   	# This will be use to overcome cascade delete on fieldable polymorphic association

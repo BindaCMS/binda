@@ -1,0 +1,28 @@
+<%# - - - - - - - - - - - - %>
+<%# FORM ITEM               %>
+<%# - - - - - - - - - - - - %>
+<%= f.simple_fields_for :field_settings, repeater.children.order( :position ) do |ff| %>
+	<div class="form-item <%= "form-item--#{ ff.object.field_type }" unless ff.object.field_type.nil? %>">
+		<%= ff.input :ancestry, as: :hidden %>
+	  <%= render 'form_item', ff: ff, section: section %>
+	</div>
+<% end %>
+
+
+<%# - - - - - - - - - - - - %>
+<%# NEW FORM ITEM           %>
+<%# - - - - - - - - - - - - %>
+<%= f.simple_fields_for 'new_field_settings[]', repeater.children.build( field_group: @field_group ) do |ff| %>
+  <div id="new-child--repeater-<%= repeater.id %>" class="form-item form-item--new">
+		<%= ff.input :ancestry, as: :hidden %>
+    <%= render 'form_item', ff: ff, section: section %>
+  </div>
+<% end %>
+
+
+<%# - - - - - - - - - - - - - - %>
+<%# ADD NEW FIELD TO REPEATER   %>
+<%# - - - - - - - - - - - - - - %>
+<a class="form-item-repeater--add-new main-header--link btn btn-default" href="#" data-new-child-id="new-child--repeater-<%= repeater.id %>">
+  <%= t :new_item_in_repeater %>
+</a>

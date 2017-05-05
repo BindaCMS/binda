@@ -12,7 +12,7 @@ module Binda
 		validates :name, presence: true
 		validates :slug, uniqueness: true
 		accepts_nested_attributes_for :field_settings, allow_destroy: true, reject_if: :is_rejected
-
+		
   	# Slug
 		extend FriendlyId
 		friendly_id :default_slug, use: [:slugged, :finders]

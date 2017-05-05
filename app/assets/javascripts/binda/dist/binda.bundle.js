@@ -67,27 +67,7 @@
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(2);
-///- - - - - - - - - - - - - - - - - - - -
-/// INDEX OF BINDA'S SCRIPTS
-///- - - - - - - - - - - - - - - - - - - -
-
-
-
-$(document).ready(function () {
-	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].setEvents();
-	}
-});
-
-/***/ }),
-/* 2 */
+/* 0 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -119,16 +99,8 @@ var FormItem = function () {
 	}, {
 		key: 'setEvents',
 		value: function setEvents() {
-			$(document).on('click', this.target + '--add-new', function (event) {
-				// Stop default behaviour
-				event.preventDefault();
-				// Get the child to clone
-				var id = $(event.target).data('new-child-id');
-				var $newChild = $('#' + id);
-				// Clone child and remove id and styles from cloned child
-				$newChild.clone().insertAfter($newChild);
-				$newChild.removeClass('form-item--new').removeAttr('id');
-			});
+			$(document).on('click', this.target + '--add-new', addNewItem);
+			$(document).on('click', this.target + '-repeater--add-new', addNewItem);
 
 			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
 				// Stop default behaviour
@@ -142,6 +114,36 @@ var FormItem = function () {
 }();
 
 var _FormItem = new FormItem();
+
+function addNewItem(event) {
+	// Stop default behaviour
+	event.preventDefault();
+	// Get the child to clone
+	var id = $(event.target).data('new-child-id');
+	var $newChild = $('#' + id);
+	// Clone child and remove id and styles from cloned child
+	$newChild.clone().insertAfter($newChild);
+	$newChild.removeClass('form-item--new').removeAttr('id');
+}
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(0);
+///- - - - - - - - - - - - - - - - - - - -
+/// INDEX OF BINDA'S SCRIPTS
+///- - - - - - - - - - - - - - - - - - - -
+
+
+
+$(document).ready(function () {
+	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].setEvents();
+	}
+});
 
 /***/ })
 /******/ ]);
