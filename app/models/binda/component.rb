@@ -106,14 +106,19 @@ module Binda
 	  	obj = self.dates.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }.date
 	  end
 
-	  private 
+	  def get_field_setting_id( field_slug )
+	  	# Get field setting id from slug, without multiple calls to database 
+	  	# (the query runs once and caches the result, then any further call uses the cached result)
+			@@field_settings_array = Binda::FieldSetting.all if @@field_settings_array.nil?
+			@@field_settings_array.detect { |fs| fs.slug == field_slug }.id
+	  end
 
-		  def get_field_setting_id( field_slug )
-		  	# Get field setting id from slug, without multiple calls to database 
-		  	# (the query runs once and caches the result, then any further call uses the cached result)
-				@@field_settings_array = Binda::FieldSetting.all if @@field_settings_array.nil?
-				@@field_settings_array.detect { |fs| fs.slug == field_slug }.id
-		  end
+	  def self.reset_get_field_setting_id_method
+	  	# Reset the result of the query taken with the above method,
+	  	# this is needed when a user creates a new field_setting but 
+	  	# `get_field_setting_id` has already run once
+	  	@@field_settings_array = nil
+	  end
 
 # benchmark do
 # 	id = Binda::Component.field_settings_array.detect { |fs| fs.slug == 'home-slides-project-image' }.id

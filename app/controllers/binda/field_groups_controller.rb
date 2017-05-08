@@ -102,5 +102,10 @@ module Binda
             :ancestry
             ])
       end
+
+      def reset_component_cache
+        Binda::Component.reset_get_field_setting_id_method
+      end
+
   end
 end
