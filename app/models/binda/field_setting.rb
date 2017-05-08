@@ -15,7 +15,8 @@ module Binda
   	has_many :texts,         as: :fieldable
   	has_many :dates,         as: :fieldable
   	has_many :galleries,     as: :fieldable
-  	has_many :assets,        as: :fieldable
+    has_many :assets,        as: :fieldable
+  	has_many :repeater,      as: :fieldable
 
   	# The following direct association is used to securely delete associated fields
   	# Infact via `fieldable` the associated fields might not be deleted 
@@ -23,12 +24,13 @@ module Binda
   	has_many :texts,         dependent: :delete_all
   	has_many :dates,         dependent: :delete_all
   	has_many :galleries,     dependent: :delete_all
+    has_many :repeater,      dependent: :delete_all
 
     # accepts_nested_attributes_for :children, allow_destroy: true, reject_if: :is_rejected
 
 
   	def self.get_fieldables
-  		%w( Text Date Gallery Asset )
+  		%w( Text Date Gallery Asset Repeater )
   	end
 
   	# Field types are't fieldable! watch out! They might use the same model (eg `string` and `text`)

@@ -1,4 +1,4 @@
-.asset-form {
+.form-item-asset {
 	margin-bottom: $font-size-base;
 	border-bottom: 1px solid $gray-lighter;
 	@extend .clearfix;
@@ -22,7 +22,7 @@
 	}
 }
 
-.asset-form--uploader {
+.form-item-asset--uploader {
 	display:inline-block;
 	margin: 0;
 	float: left;

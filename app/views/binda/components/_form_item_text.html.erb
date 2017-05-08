@@ -1,31 +1,27 @@
-<% current_text = component.texts.where( field_setting_id: field_setting.id ).first %>
-<% unless current_text.present? %>
-	<% current_text = component.texts.create( field_setting_id: field_setting.id )%>
+<%# HEADING %>
+
+<h5><%= field_setting.name.capitalize %></h5>
+
+<% unless field_setting.description.blank? %>
+	<small class="text-muted"><%= field_setting.description %></small>
 <% end %>
 
-<%= f.simple_fields_for "texts_attributes[]", current_text do |ff|%>
 
-	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-	<%= ff.input :id, as: :hidden, input_html: { value: current_text.id } %>
-
-	<h5><%= field_setting.name.capitalize %></h5>
-
-	<% unless field_setting.description.blank? %>
-		<small class="text-muted"><%= field_setting.description %></small>
-	<% end %>
-
-	<% if component.has_text( field_setting.slug ) %>
-		<% if field_setting.field_type == 'text' %>
-			<%= ff.input :content, input_html: { value: component.get_text( field_setting.slug ), class: 'tinymce' }, as: :text %>
-		<% else %>
-			<%= ff.input :content, input_html: { value: component.get_text( field_setting.slug ) }, as: :string %>
-		<% end %>
+<%# INPUT / TEXTAREA %>
+<% if @component.has_text( field_setting.slug ) %>
+	<% if field_setting.field_type == 'text' %>
+		<%= ff.input :content, input_html: { value: @component.get_text( field_setting.slug ), class: 'tinymce' }, as: :text %>
 	<% else %>
-		<% if field_setting.field_type == 'text' %>
-			<%= ff.input :content, input_html: { class: 'tinymce' }, as: :text %>
-		<% else %>
-			<%= ff.input :content, as: :string %>
-		<% end %>
+		<%= ff.input :content, input_html: { value: @component.get_text( field_setting.slug ) }, as: :string %>
 	<% end %>
-
+<% else %>
+	<% if field_setting.field_type == 'text' %>
+		<%= ff.input :content, input_html: { class: 'tinymce' }, as: :text %>
+	<% else %>
+		<%= ff.input :content, as: :string %>
+	<% end %>
 <% end %>
+
+
+<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>

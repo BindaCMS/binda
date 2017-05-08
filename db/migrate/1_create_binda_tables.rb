@@ -55,6 +55,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
 
     create_table :binda_repeaters do |t|
       t.integer          :position
+      t.belongs_to       :field_setting
       t.references       :fieldable, polymorphic: true, index: true
       t.timestamps
     end

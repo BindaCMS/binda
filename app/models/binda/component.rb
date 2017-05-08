@@ -50,6 +50,14 @@ module Binda
 	  def should_generate_new_friendly_id?
 	    slug.blank?
 	  end
+
+	  def find_or_create_a_field_by field_setting_id, field_type
+	  	if Binda::FieldSetting.get_fieldables.include?( field_type.capitalize ) && field_setting_id.is_a?( Integer )
+		  	self.send( field_type.pluralize ).find_or_create_by( field_setting_id: field_setting_id )
+		  else
+		  	raise ArgumentError, "A parameter of the method 'find_or_create_a_field_by' is not correct.", caller
+		  end
+	  end
 	  
 	  def get_text( field_slug )
 	  	# Get the object related to that field setting
@@ -106,14 +114,19 @@ module Binda
 	  	obj = self.dates.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }.date
 	  end
 
-	  private 
+	  def get_field_setting_id( field_slug )
+	  	# Get field setting id from slug, without multiple calls to database 
+	  	# (the query runs once and caches the result, then any further call uses the cached result)
+			@@field_settings_array = Binda::FieldSetting.all if @@field_settings_array.nil?
+			@@field_settings_array.detect { |fs| fs.slug == field_slug }.id
+	  end
 
-		  def get_field_setting_id( field_slug )
-		  	# Get field setting id from slug, without multiple calls to database 
-		  	# (the query runs once and caches the result, then any further call uses the cached result)
-				@@field_settings_array = Binda::FieldSetting.all if @@field_settings_array.nil?
-				@@field_settings_array.detect { |fs| fs.slug == field_slug }.id
-		  end
+	  def self.reset_get_field_setting_id_method
+	  	# Reset the result of the query taken with the above method,
+	  	# this is needed when a user creates a new field_setting but 
+	  	# `get_field_setting_id` has already run once
+	  	@@field_settings_array = nil
+	  end
 
 # benchmark do
 # 	id = Binda::Component.field_settings_array.detect { |fs| fs.slug == 'home-slides-project-image' }.id

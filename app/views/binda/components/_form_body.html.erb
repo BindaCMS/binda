@@ -1,12 +1,15 @@
   <div class="row">
     <div class="form-body--container col-sm-12">
       
-      <%= simple_form_for component, url: get_form_component_url, defaults: { label: false }, html: { class: 'form-body' } do |f| %>
+      <%= simple_form_for @component, url: get_form_component_url, defaults: { label: false }, html: { class: 'form-body' } do |f| %>
         <%= f.error_notification %>
         
         <div class="row">
           <div class="col-sm-8">
 
+            <%# - - - - - - - - - - - - %>
+            <%# NOTICE / ERRORS         %>
+            <%# - - - - - - - - - - - - %>
             <div class="form-section--wide-container row">
               <div class="col-sm-12">
 
@@ -15,7 +18,7 @@
                 <h5><%= "#{ t :title }".capitalize %></h5>
                 <%= f.input :name %>
                 
-                <% if component.slug.nil? %>
+                <% if @component.slug.nil? %>
                   <%= f.input :slug, as: :hidden %>
                 <% else %>
                   <h5><%= "#{ t :slug }".capitalize %></h5>
@@ -26,41 +29,44 @@
                 
               </div>
             </div>
-            
-            <%= render "form_section", section: @structure, f: f, component: component %>
+
+            <%# - - - - - - - - - - - - %>
+            <%# FIELD GROUP LOOP        %>
+            <%# - - - - - - - - - - - - %>
+            <% @structure.field_groups.order( :position ).each_with_index do |field_group, index| %>
+            <div class="form-section--wide-container row">
+              <div class="col-sm-12">
+
+                <h4><%= field_group.name.capitalize %></h4>
+
+                <% if @component.new_record? %>
+
+                  <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :component }", arg2: "#{ t :detail }" ).capitalize %></h5>
+                
+                <% else %>
+
+                  <% field_group.field_settings.order( :position ).each do |field_setting| %>
+                    <% next unless field_setting.is_root? %>
+                    <%= render "form_section", f: f, field_setting: field_setting, field_group: field_group %>
+                  <% end %>
+
+                <% end %>
+
+              </div>
+            </div>
+            <% end %>
 
           </div>
           <div class="col-sm-4">
 
+            <%# - - - - - - - - - - - - %>
+            <%# SIDEBAR                 %>
+            <%# - - - - - - - - - - - - %>
             <div class="form-section--narrow-container row">
               <div class="col-sm-12">
-                <h4><%= "#{ t :setting }".pluralize.capitalize %></h4>
 
-                <% if @structure.categories.any? %>
+                <%= render "form_sidebar", f: f %>
 
-                  <h5><%= t(:category).capitalize %></h5>
-                  <%= f.association :categories, as: :radio_buttons, collection: @structure.categories ,checked: component.category_ids, include_blank: false %>
-
-                <% end %>
-
-                <% if component.slug.nil? %>
-                  <h5>
-                    <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :component }" ).capitalize %>  
-                  </h5>
-                <% else %>
-                  <a class="main-header--link btn btn-default" href="<%= new_structure_category_path %>">
-                    <%= "#{ t :new }".capitalize %> <%= t :category %>  
-                  </a>
-                <% end %>
-
-                <hr>
-
-                <h5><%= t(:publish_settings).capitalize %></h5>
-                <%= f.input :publish_state, as: :radio_buttons, collection: [ 'draft', 'published' ], checked: f.object.publish_state %>
-
-                <hr>
-
-                <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
               </div>
             </div>
             

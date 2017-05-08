@@ -41,5 +41,6 @@ function addNewItem( event )
 	let $newChild = $( '#' + id )
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter( $newChild )
+	console.log('asldf')
 	$newChild.removeClass( 'form-item--new' ).removeAttr( 'id' )
 }
