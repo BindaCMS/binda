@@ -54,21 +54,21 @@ module Binda
 	  end
 
 	  def default_slug
-      breadcrumb = self.field_group.structure.name
+      slug = self.field_group.structure.name
       
-      breadcrumb << '-'
-      breadcrumb << self.field_group.name
+      slug << '-'
+      slug << self.field_group.name
 
       unless self.parent.nil?
-        breadcrumb << '-' 
-        breadcrumb << self.parent.name 
+        slug << '-' 
+        slug << self.parent.name 
       end
 
 	  	possible_names = [ 
-        "#{ breadcrumb }--#{ self.name }",
-	  		"#{ breadcrumb }--#{ self.name }-1",
-	  		"#{ breadcrumb }--#{ self.name }-2",
-	  		"#{ breadcrumb }--#{ self.name }-3" 
+        "#{ slug }--#{ self.name }",
+	  		"#{ slug }--#{ self.name }-1",
+	  		"#{ slug }--#{ self.name }-2",
+	  		"#{ slug }--#{ self.name }-3"
       ]
 
       return possible_names

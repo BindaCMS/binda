@@ -60,7 +60,7 @@ module Binda
 	  	# Get the object related to that field setting
 	  	obj = self.texts.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
 	  	if obj.present?
-	  		!obj.content.nil?
+	  		!obj.content.blank?
   		else
   			return false
   		end
@@ -120,17 +120,18 @@ module Binda
 	  	@@field_settings_array = nil
 	  end
 
-# benchmark do
-# 	id = Binda::Component.field_settings_array.detect { |fs| fs.slug == 'home-slides-project-image' }.id
-# 	obj = slide.assets.detect{ |t| t.field_setting_id == id }
-# 	if obj.image.present?
-# 		if obj.image.respond_to?('') && %w[thumb medium large].include?('')
-# 		  obj.image.send('').send('path')
-# 		else
-# 			obj.image.send('path')
-# 		end
-# 	end
-# end
+			# benchmark do
+			# 	id = Binda::Component.field_settings_array.detect { |fs| fs.slug == 'home-slides-project-image' }.id
+			# 	obj = slide.assets.detect{ |t| t.field_setting_id == id }
+			# 	if obj.image.present?
+			# 		if obj.image.respond_to?('') && %w[thumb medium large].include?('')
+			# 		  obj.image.send('').send('path')
+			# 		else
+			# 			obj.image.send('path')
+			# 		end
+			# 	end
+			# end
+
 		  # BENCHMARK GET_IMAGE METHODS
 		  # ---------------------------
 		  # def get_image_benchmark( field_slug, size, info )
