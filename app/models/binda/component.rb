@@ -50,6 +50,14 @@ module Binda
 	  def should_generate_new_friendly_id?
 	    slug.blank?
 	  end
+
+	  def find_or_create_a_field_by field_setting_id, field_type
+	  	if Binda::FieldSetting.get_fieldables.include?( field_type.capitalize ) && field_setting_id.is_a?( Integer )
+		  	self.send( field_type.pluralize ).find_or_create_by( field_setting_id: field_setting_id )
+		  else
+		  	raise ArgumentError, "A parameter of the method 'find_or_create_a_field_by' is not correct.", caller
+		  end
+	  end
 	  
 	  def get_text( field_slug )
 	  	# Get the object related to that field setting

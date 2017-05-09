@@ -1,34 +1,40 @@
-<% section.field_groups.order( :position ).each_with_index do |field_group, index| %>
-<div class="form-section--wide-container row">
-  <div class="col-sm-12">
+<%# - - - - - - - - - - - - %>
+<%# TEXT / STRING           %>
+<%# - - - - - - - - - - - - %>
+<% if field_setting.field_type == 'text' || field_setting.field_type == 'string' %>
+  <% current = @component.find_or_create_a_field_by( field_setting.id, 'text' ) %>
+  <%= f.simple_fields_for "texts_attributes[]", current do |ff| %>
+    <%= render 'form_item_text', ff: ff, field_setting: field_setting %>
+  <% end %>
 
-    <h4><%= field_group.name.capitalize %></h4>
 
-    <% if component.new_record? %>
+<%# - - - - - - - - - - - - %>
+<%# DATE                    %>
+<%# - - - - - - - - - - - - %>
+<% elsif field_setting.field_type == 'date' %>
+  <% current = @component.find_or_create_a_field_by( field_setting.id, 'date' ) %>
+  <%= f.simple_fields_for "dates_attributes[]", current do |ff| %>
+    <%= render 'form_item_date', ff: ff, field_setting: field_setting %>
+  <% end %>
 
-      <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :component }", arg2: "#{ t :detail }" ).capitalize %></h5>
-    
-    <% else %>
 
-      <% field_group.field_settings.order( :position ).each do |field_setting| %>
+<%# - - - - - - - - - - - - %>
+<%# ASSET                   %>
+<%# - - - - - - - - - - - - %>
+<% elsif field_setting.field_type == 'asset' %>
+  <% current = @component.find_or_create_a_field_by( field_setting.id, 'asset' ) %>
+  <%= f.simple_fields_for "assets_attributes[]", current do |ff| %>
+    <%= render 'form_item_asset', ff: ff, field_setting: field_setting %>
+  <% end %>
 
-        <% if field_setting.field_type == 'text' || field_setting.field_type == 'string' %>
-          <%= render 'form_item_text', f: f, component: component, field_setting: field_setting %>
-        <% end %>
-        <% if field_setting.field_type == 'date' %>
-          <%= render 'form_item_date', f: f, component: component, field_setting: field_setting %>
-        <% end %>
-        <% if field_setting.field_type == 'repeater' %>
-          <%= render 'form_item_repeater', f: f, component: component, field_setting: field_setting %>
-        <% end %>
-        <% if field_setting.field_type == 'asset' %>
-          <%= render 'form_item_asset', f: f, component: component, field_setting: field_setting %>
-        <% end %>
 
-      <% end %>
-    
-    <% end %>
-      
-  </div>
-</div>
+<%# - - - - - - - - - - - - %>
+<%# REPEATER                %>
+<%# - - - - - - - - - - - - %>
+<% elsif field_setting.field_type == 'repeater' %>
+  <% current = @component.find_or_create_a_field_by( field_setting.id, 'repeater' ) %>
+  <%= f.simple_fields_for "repeater_attributes[]", current do |ff| %>
+    <%= render 'form_section_repeater', ff: ff, field_setting: field_setting %>
+  <% end %>
+
 <% end %>

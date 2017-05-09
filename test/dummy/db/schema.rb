@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505172746) do
+ActiveRecord::Schema.define(version: 20170508164711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,10 +119,12 @@ ActiveRecord::Schema.define(version: 20170505172746) do
 
   create_table "binda_repeaters", force: :cascade do |t|
     t.integer  "position"
+    t.integer  "field_setting_id"
     t.string   "fieldable_type"
     t.integer  "fieldable_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["field_setting_id"], name: "index_binda_repeaters_on_field_setting_id", using: :btree
     t.index ["fieldable_type", "fieldable_id"], name: "index_binda_repeaters_on_fieldable_type_and_fieldable_id", using: :btree
   end
 
