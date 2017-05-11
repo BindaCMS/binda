@@ -1,0 +1,13 @@
+<%# - - - - - - - - - - - - - - %>
+<%# REPEATER NEW FIELDS         %>
+<%# - - - - - - - - - - - - - - %>
+<%= simple_form_for @component, url: structure_component_path( structure_id: @component.structure.id, id: @component.id ), defaults: { label: false } do |f| %>
+<!-- SPLIT -->
+	<% repeater = @component.repeaters.create( field_setting: @repeater_setting ) %>
+	<%= f.simple_fields_for "repeaters_attributes[]", repeater do |ff| %>
+		<% @repeater_setting.children.order( :position ).each do |repeater_setting_child| %>
+		  <%= render "form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child, repeater: repeater %>
+	  <% end %>
+	<% end %>
+<!-- SPLIT -->
+<% end %>

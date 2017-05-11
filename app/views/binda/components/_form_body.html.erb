@@ -47,7 +47,7 @@
 
                   <% field_group.field_settings.order( :position ).each do |field_setting| %>
                     <% next unless field_setting.is_root? %>
-                    <%= render "form_section", f: f, field_setting: field_setting, field_group: field_group %>
+                    <%= render "form_section", f: f, field_setting: field_setting %>
                   <% end %>
 
                 <% end %>

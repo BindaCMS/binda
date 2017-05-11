@@ -1,0 +1,51 @@
+<%# - - - - - - - - - - - - - - %>
+<%# REPEATER FIELDS             %>
+<%# - - - - - - - - - - - - - - %>
+<div id="form-item-repeater-<%= repeater_setting.id %>" class="form-item form-item-repeater">
+	<h4><%= repeater_setting.name %></h4>
+
+<% if repeaters.size == 0 %>
+
+		<% repeater = @component.find_or_create_a_field_by( repeater_setting.id, 'repeater' ) %>
+    <%= f.simple_fields_for "repeaters_attributes[]", repeater do |ff| %>
+			<%= ff.input :fieldable_id, as: :hidden %>
+			<%= ff.input :fieldable_type, as: :hidden %>
+    	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: repeater_setting.id } %>
+			<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+			<% repeater_setting.children.order( :position ).each do |repeater_setting_child| %>
+			  <%= render "form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child, repeater: repeater %>
+		  <% end %>
+		<% end %>
+
+<% else %>
+
+  <% repeaters.each do |repeater| %>
+
+    <%= f.simple_fields_for "repeaters_attributes[]", repeater do |ff| %>
+    	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: repeater_setting.id } %>
+			<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+			<%= ff.input :fieldable_id, as: :hidden %>
+			<%= ff.input :fieldable_type, as: :hidden %>
+			<% repeater_setting.children.order( :position ).each do |repeater_setting_child| %>
+			  <%= render "form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child, repeater: repeater %>
+		  <% end %>
+	  <% end %>
+
+		<%# - - - - - - - - - - - - %>
+		<%# REMOVE BUTTON           %>
+		<%# - - - - - - - - - - - - %>
+		<a href="<%= repeater_path( id: repeater.id ) %>" data-method="delete" data-confirm="This operation will delete this group of fields. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+
+  <% end %>
+
+<% end %>
+
+</div>
+
+
+<%# - - - - - - - - - - - - - - %>
+<%# ADD NEW REPEATER FIELDS     %>
+<%# - - - - - - - - - - - - - - %>
+<a class="form-item-repeater--add-new main-header--link btn btn-default" href="#" data-url="<%= structure_component_new_repeater_path( structure_id: @structure.id, component_id: @component.id ) %>" data-id="<%= repeater_setting.id %>">
+  <%= t :new_item_in_repeater %>
+</a>

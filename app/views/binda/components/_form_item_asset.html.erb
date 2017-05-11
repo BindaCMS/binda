@@ -18,5 +18,6 @@
   <%= ff.input :image_cache, as: :hidden %>
 	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 	<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-
+	<%= ff.input :fieldable_id, as: :hidden %>
+	<%= ff.input :fieldable_type, as: :hidden %>
 </div>

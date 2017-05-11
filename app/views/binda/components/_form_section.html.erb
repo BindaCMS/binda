@@ -32,9 +32,6 @@
 <%# REPEATER                %>
 <%# - - - - - - - - - - - - %>
 <% elsif field_setting.field_type == 'repeater' %>
-  <% current = @component.find_or_create_a_field_by( field_setting.id, 'repeater' ) %>
-  <%= f.simple_fields_for "repeater_attributes[]", current do |ff| %>
-    <%= render 'form_section_repeater', ff: ff, field_setting: field_setting %>
-  <% end %>
-
+  <% repeaters = @component.repeaters.where( field_setting: field_setting ) %>
+  <%= render 'form_item_repeater', f: f, repeater_setting: field_setting, repeaters: repeaters %>
 <% end %>

@@ -1,33 +1,11 @@
-<%# - - - - - - - - - - - - - - %>
-<%# REPEATER FIELDS             %>
-<%# - - - - - - - - - - - - - - %>
-<div class="form-item">
+<%# - - - - - - - - - - - - %>
+<%# TEXT / STRING           %>
+<%# - - - - - - - - - - - - %>
 
+<% if repeater_setting_child.field_type == 'text' || repeater_setting_child.field_type == 'string' %>
+  <%# current = repeater.texts.build( field_setting: repeater_setting_child ) %>
+  <%=f.simple_fields_for "texts_attributes[]", repeater.find_or_create_a_field_by( repeater_setting_child.id, 'text' ) do |ff| %>
+		<%# ff.input :repeater_id, as: :hidden, input_html: { value: repeater.id } %>
+    <%= render 'form_item_text', ff: ff, field_setting: repeater_setting_child %>
+  <% end %>
 <% end %>
-</div>
-
-
-
-
-
-
-
-<!-- 
-<%# - - - - - - - - - - - - - - %>
-<%# REPEATER NEW FIELDS         %>
-<%# - - - - - - - - - - - - - - %>
-<div id="new-child--repeater-<%= repeater.id %>" class="form-item form-item--new">
-<%# repeater.children.order( :position ).each do |field_setting| %>
-
-  <%# next unless field_setting.root_id == repeater.id %>
-  <%# render "form_section", f: f, field_setting: field_setting, field_group: field_group %>
-
-<%# end %>
-</div>
-
-<%# - - - - - - - - - - - - - - %>
-<%# ADD NEW REPEATER FIELDS     %>
-<%# - - - - - - - - - - - - - - %>
-<a class="form-item-repeater--add-new main-header--link btn btn-default" href="#" data-new-child-id="new-child--repeater-<%= repeater.id %>">
-  <%= t :new_item_in_repeater %>
-</a> -->

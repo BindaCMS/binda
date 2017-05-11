@@ -3,7 +3,7 @@ require_dependency "binda/application_controller"
 module Binda
   class ComponentsController < ApplicationController
     before_action :set_structure
-    before_action :set_component, only: [:show, :edit, :update, :destroy]
+    before_action :set_component, only: [:show, :edit, :update, :destroy, :new_repeater]
 
     def index
       @components = @structure.components.order('position').all
@@ -31,6 +31,7 @@ module Binda
     end
 
     def update
+
       if @component.update(component_params)
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: 'Component was successfully updated.'
       else
@@ -41,6 +42,12 @@ module Binda
     def destroy
       @component.destroy
       redirect_to structure_components_url( @structure.slug ), notice: 'Component was successfully destroyed.'
+    end
+
+    def new_repeater
+      # @repeater_setting = Binda::FieldSetting.find( '3' )
+      @repeater_setting = Binda::FieldSetting.find( params[:repeater_setting_id] )
+      render 'binda/components/_form_item_new_repeater', layout: false
     end
 
     # def sort
@@ -57,7 +64,11 @@ module Binda
       end
 
       def set_component
-        @component = Component.friendly.find(params[:id])
+        if params[:component_id].nil?
+          return @component = Component.friendly.find(params[:id])
+        else
+          return @component = Component.friendly.find(params[:component_id])
+        end
       end
 
       # Only allow a trusted parameter "white list" through.
@@ -74,31 +85,125 @@ module Binda
             ], 
           categories_attributes: [ 
             :id,
-            :category_id 
+            :category_id
             ], 
           texts_attributes: [ 
             :id, 
             :field_setting_id, 
+            :fieldable_type,
+            :fieldable_id,
             :content
             ], 
           assets_attributes: [ 
             :id,
             :field_setting_id,
+            :fieldable_type,
+            :fieldable_id,
             :image
             ], 
           dates_attributes: [ 
             :id,
             :field_setting_id,
+            :fieldable_type,
+            :fieldable_id,
             :date
             ], 
           galleries_attributes: [ 
             :id,
-            :field_setting_id
+            :field_setting_id,
+            :fieldable_type,
+            :fieldable_id
             ], 
           repeaters_attributes: [ 
             :id, 
             :field_setting_id, 
-            :field_group_id 
+            :field_group_id,
+            :fieldable_type,
+            :fieldable_id,
+            texts_attributes: [ 
+              :id, 
+              :repeater_id,
+              :field_setting_id, 
+              :fieldable_type,
+              :fieldable_id,
+              :content
+              ], 
+            assets_attributes: [ 
+              :id,
+              :repeater_id,
+              :field_setting_id,
+              :fieldable_type,
+              :fieldable_id,
+              :image
+              ], 
+            dates_attributes: [ 
+              :id,
+              :repeater_id,
+              :field_setting_id,
+              :fieldable_type,
+              :fieldable_id,
+              :date
+              ], 
+            galleries_attributes: [ 
+              :id,
+              :repeater_id,
+              :field_setting_id,
+              :fieldable_type,
+              :fieldable_id
+              ], 
+            repeaters_attributes: [ 
+              :id, 
+              :repeater_id,
+              :field_setting_id, 
+              :field_group_id,
+              :fieldable_type,
+              :fieldable_id
+              ]
+            ])
+      end
+
+      def repeater_params
+        params.require(:repeater).permit( 
+          new_repeaters_attributes: [ 
+            :id, 
+            :field_setting_id, 
+            :field_group_id,
+            :fieldable_type,
+            :fieldable_id,
+            texts_attributes: [ 
+              :id, 
+              :field_setting_id, 
+              :fieldable_type,
+              :fieldable_id,
+              :content
+              ], 
+            assets_attributes: [ 
+              :id,
+              :field_setting_id,
+              :fieldable_type,
+              :fieldable_id,
+              :image
+              ], 
+            dates_attributes: [ 
+              :id,
+              :field_setting_id,
+              :fieldable_type,
+              :fieldable_id,
+              :date
+              ], 
+            galleries_attributes: [ 
+              :id,
+              :field_setting_id,
+              :fieldable_type,
+              :fieldable_id
+              ], 
+            repeaters_attributes: [ 
+              :id, 
+              :field_setting_id, 
+              :field_group_id,
+              :fieldable_type,
+              :fieldable_id
+              ]
             ])
       end
 

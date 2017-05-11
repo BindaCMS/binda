@@ -18,13 +18,12 @@ class FormItem {
 	setEvents()
 	{
 		$(document).on('click', this.target + '--add-new', addNewItem )
-		$(document).on('click', this.target + '-repeater--add-new', addNewItem )
 
 		$(document).on('click', '.form-item--remove-item-with-js', function( event )
 		{
 			// Stop default behaviour
 			event.preventDefault()
-			$( this ).parent('.form-item').remove()
+			$( this ).parent( this.target ).remove()
 		})
 	}
 }
@@ -41,6 +40,5 @@ function addNewItem( event )
 	let $newChild = $( '#' + id )
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter( $newChild )
-	console.log('asldf')
-	$newChild.removeClass( 'form-item--new' ).removeAttr( 'id' )
+	$newChild.removeClass( this.target + '--new' ).removeAttr( 'id' )
 }
