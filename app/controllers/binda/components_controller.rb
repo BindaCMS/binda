@@ -32,6 +32,8 @@ module Binda
 
     def update
 
+      # binding.pry
+      
       if @component.update(component_params)
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: 'Component was successfully updated.'
       else
