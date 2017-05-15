@@ -38,7 +38,6 @@ Binda::Engine.routes.draw do
     post 'components/sort'
     resources :components do
       post 'new_repeater'
-      get 'new_repeater'
     end
 
     post 'field_groups/sort'

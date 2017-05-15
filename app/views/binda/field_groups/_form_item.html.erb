@@ -5,49 +5,57 @@
 <%# REMOVE BUTTON           %>
 <%# - - - - - - - - - - - - %>
 <% if ff.object.slug.nil? %>
-	<a class="form-item--remove-item-with-js" href="#" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	<a class="form-item--remove-item-with-js" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 <% else %>
 	<a href="<%= structure_field_group_field_setting_path( field_group_id: section.slug, id: ff.object.slug ) %>" data-method="delete" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	<a class="form-item--close-button"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+	<a class="form-item--open-button"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+	<div class="form-item--label">
+		<h4><%= ff.object.name %></h4>
+	</div>
 <% end %>
 
+<div class="form-item--editor">
 
-<%# - - - - - - - - - - - - %>
-<%# NAME                    %>
-<%# - - - - - - - - - - - - %>
-<h5><%= "#{ t :name }".capitalize %></h5>
-<%= ff.input :name, as: :string, input_html: { class: "form-item--input" } %>
-
-
-<%# - - - - - - - - - - - - %>
-<%# SLUG                    %>
-<%# - - - - - - - - - - - - %>
-<h5><%= "#{ t :slug }".capitalize %></h5>
-<%= ff.input :slug, as: :string, input_html: { class: "form-item--input" } %>
+	<%# - - - - - - - - - - - - %>
+	<%# NAME                    %>
+	<%# - - - - - - - - - - - - %>
+	<h5><%= "#{ t :name }".capitalize %></h5>
+	<%= ff.input :name, as: :string, input_html: { class: "form-item--input" } %>
 
 
-<%# - - - - - - - - - - - - %>
-<%# DESCRIPTION             %>
-<%# - - - - - - - - - - - - %>
-<h5><%= "#{ t :description }".capitalize %></h5>
-<%= ff.input :description, input_html: { class: "form-item--textarea" } %>
-<div class="clearfix"></div>
+	<%# - - - - - - - - - - - - %>
+	<%# SLUG                    %>
+	<%# - - - - - - - - - - - - %>
+	<h5><%= "#{ t :slug }".capitalize %></h5>
+	<%= ff.input :slug, as: :string, input_html: { class: "form-item--input" } %>
 
 
-<%# - - - - - - - - - - - - %>
-<%# POSITION                %>
-<%# - - - - - - - - - - - - %>
-<h5><%= "#{ t :position }".capitalize %></h5>
-<%= ff.input :position, as: :integer, input_html: { class: "form-item--input" } %>
+	<%# - - - - - - - - - - - - %>
+	<%# DESCRIPTION             %>
+	<%# - - - - - - - - - - - - %>
+	<h5><%= "#{ t :description }".capitalize %></h5>
+	<%= ff.input :description, input_html: { class: "form-item--textarea" } %>
+	<div class="clearfix"></div>
 
 
-<%# - - - - - - - - - - - - %>
-<%# FIELD TYPE              %>
-<%# - - - - - - - - - - - - %>
-<h5><%= "#{ t :field_type }".capitalize %></h5>
-<% if ff.object.field_type.nil? %>
-  <%= ff.input :field_type, as: :select, collection: get_field_types, include_blank: false, prompt: "#{ t :select_field_type}", input_html: { class: 'form-item--select' } %>
-<% else %>
-  <%= ff.input :field_type, as: :string, disabled: true, input_html: { class: "form-item--input" } %>
-<% end %>
+	<%# - - - - - - - - - - - - %>
+	<%# POSITION                %>
+	<%# - - - - - - - - - - - - %>
+	<h5><%= "#{ t :position }".capitalize %></h5>
+	<%= ff.input :position, as: :integer, input_html: { class: "form-item--input" } %>
+
+
+	<%# - - - - - - - - - - - - %>
+	<%# FIELD TYPE              %>
+	<%# - - - - - - - - - - - - %>
+	<h5><%= "#{ t :field_type }".capitalize %></h5>
+	<% if ff.object.field_type.nil? %>
+	  <%= ff.input :field_type, as: :select, collection: get_field_types, include_blank: false, prompt: "#{ t :select_field_type}", input_html: { class: 'form-item--select' } %>
+	<% else %>
+	  <%= ff.input :field_type, as: :string, disabled: true, input_html: { class: "form-item--input" } %>
+	<% end %>
+
+</div>
 
 <div class="clearfix"></div>

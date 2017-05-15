@@ -6,7 +6,7 @@ class FormItemRepeater {
 	
 	constructor()
 	{
-		this.target = '.form-item-repeater'
+		this.target = '.form-item--repeater'
 	}
 
 	isSet()
@@ -41,11 +41,6 @@ function addNewItem( event )
 	{
 		let parts = data.split('<!-- SPLIT -->')
 		let newRepeater = parts[1]
-		// console.log({newRepeater})
-		// $('#form-item-repeater-' + id ).append('<div>Hello</div>')
-		$('#form-item-repeater-' + id ).append(newRepeater)
+		$('#form-item--repeater-' + id ).append(newRepeater)
 	})
-	// // Clone child and remove id and styles from cloned child
-	// $newChild.clone().insertAfter( $newChild )
-	// $newChild.removeClass( 'form-item--new' ).removeAttr( 'id' )
 }

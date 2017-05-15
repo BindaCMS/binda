@@ -18,9 +18,9 @@
 .form-section--wide-container {
 
 	.form-item {
-		max-height: 6666px;
+		max-height: 2000px;
 		overflow-y: hidden;
-		transition: max-height 1s ease;
+		transition: max-height 1s ease-out;
 
 		h5 {
 			width: 15%;
@@ -78,4 +78,23 @@
 		margin-right: 10%;
 		float: left;
 	}
+}
+
+.form-item--open-button,
+.form-item--close-button {
+	cursor: pointer;
+}
+
+.form-item--open-button {
+	display: none;
+}
+
+.form-item--editor {
+	max-height: 1000px;
+	overflow-y: hidden;
+	transition: max-height 0.6s ease-out;
+}
+
+.form-item--editor-close {
+	max-height: 0;
 }

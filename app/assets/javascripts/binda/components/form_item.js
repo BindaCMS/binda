@@ -25,6 +25,12 @@ class FormItem {
 			event.preventDefault()
 			$( this ).parent( this.target ).remove()
 		})
+
+		$(document).on('click', '.form-item--open-button, .form-item--close-button', function()
+		{
+			$( this ).parent('.form-item').children('.form-item--editor').toggleClass('form-item--editor-close')
+			$( this ).parent('.form-item').children('.form-item--open-button, .form-item--close-button').toggle()
+		})
 	}
 }
 
@@ -40,5 +46,6 @@ function addNewItem( event )
 	let $newChild = $( '#' + id )
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter( $newChild )
-	$newChild.removeClass( this.target + '--new' ).removeAttr( 'id' )
+	$newChild.removeClass( 'form-item--new' ).removeAttr( 'id' )
+	console.log({$newChild})
 }

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -106,6 +106,11 @@ var FormItem = function () {
 				event.preventDefault();
 				$(this).parent(this.target).remove();
 			});
+
+			$(document).on('click', '.form-item--open-button, .form-item--close-button', function () {
+				$(this).parent('.form-item').children('.form-item--editor').toggleClass('form-item--editor-close');
+				$(this).parent('.form-item').children('.form-item--open-button, .form-item--close-button').toggle();
+			});
 		}
 	}]);
 
@@ -122,35 +127,12 @@ function addNewItem(event) {
 	var $newChild = $('#' + id);
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter($newChild);
-	$newChild.removeClass(this.target + '--new').removeAttr('id');
+	$newChild.removeClass('form-item--new').removeAttr('id');
+	console.log({ $newChild: $newChild });
 }
 
 /***/ }),
 /* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(2);
-///- - - - - - - - - - - - - - - - - - - -
-/// INDEX OF BINDA'S SCRIPTS
-///- - - - - - - - - - - - - - - - - - - -
-
-
-
-
-$(document).ready(function () {
-	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].setEvents();
-	}
-});
-
-/***/ }),
-/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -167,7 +149,7 @@ var FormItemRepeater = function () {
 	function FormItemRepeater() {
 		_classCallCheck(this, FormItemRepeater);
 
-		this.target = '.form-item-repeater';
+		this.target = '.form-item--repeater';
 	}
 
 	_createClass(FormItemRepeater, [{
@@ -205,14 +187,33 @@ function addNewItem(event) {
 	$.post(url, { repeater_setting_id: id }, function (data) {
 		var parts = data.split('<!-- SPLIT -->');
 		var newRepeater = parts[1];
-		// console.log({newRepeater})
-		// $('#form-item-repeater-' + id ).append('<div>Hello</div>')
-		$('#form-item-repeater-' + id).append(newRepeater);
+		$('#form-item--repeater-' + id).append(newRepeater);
 	});
-	// // Clone child and remove id and styles from cloned child
-	// $newChild.clone().insertAfter( $newChild )
-	// $newChild.removeClass( 'form-item--new' ).removeAttr( 'id' )
 }
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(1);
+///- - - - - - - - - - - - - - - - - - - -
+/// INDEX OF BINDA'S SCRIPTS
+///- - - - - - - - - - - - - - - - - - - -
+
+
+
+
+$(document).ready(function () {
+	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].setEvents();
+	}
+});
 
 /***/ })
 /******/ ]);
