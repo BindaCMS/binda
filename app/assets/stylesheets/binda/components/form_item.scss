@@ -10,7 +10,7 @@
 		display: block;
 	}
 	.form-group {
-		margin-bottom: $font-size-base*1.5;	
+		margin-bottom: $font-size-base;	
 	}
 }
 
@@ -36,7 +36,7 @@
 		a {
 			float: right;
 			margin-top: $font-size-base/2;
-			margin-left: $font-size-base;
+			margin-left: $font-size-base/2;
 		}
 	}
 
@@ -47,7 +47,7 @@
 	}
 
 	.form-group {
-		margin-bottom: $font-size-base*1.5;	
+		margin-bottom: $font-size-base;	
 	}
 }
 
@@ -109,8 +109,10 @@
 }
 
 .form-item--repeater-fields {
-	margin-bottom: $font-size-base * 2;
+  padding-left: $font-size-base/2;
+	margin-bottom: $font-size-base;
 	border-bottom: 1px solid $gray-lighter;
+  border-left: 2px solid $gray-lighter;
 }
 
 .form-item--repeater-section {
