@@ -1,6 +1,5 @@
 <%# HEADING %>
-
-<h5><%= field_setting.name.capitalize %></h5>
+<h5 class="form-item--<%= field_setting.field_type.underscore %>-caption"><%= field_setting.name.capitalize %></h5>
 
 <% unless field_setting.description.blank? %>
 	<small class="text-muted"><%= field_setting.description %></small>

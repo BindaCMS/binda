@@ -35,7 +35,7 @@
 	<%# DESCRIPTION             %>
 	<%# - - - - - - - - - - - - %>
 	<h5><%= "#{ t :description }".capitalize %></h5>
-	<%= ff.input :description, input_html: { class: "form-item--textarea" } %>
+	<%= ff.input :description, input_html: { class: "form-item--input" } %>
 	<div class="clearfix"></div>
 
 
@@ -51,7 +51,7 @@
 	<%# - - - - - - - - - - - - %>
 	<h5><%= "#{ t :field_type }".capitalize %></h5>
 	<% if ff.object.field_type.nil? %>
-	  <%= ff.input :field_type, as: :select, collection: get_field_types, include_blank: false, prompt: "#{ t :select_field_type}", input_html: { class: 'form-item--select' } %>
+	  <%= ff.input :field_type, as: :select, collection: get_field_types, include_blank: false, prompt: "#{ t :select_field_type}", input_html: { class: 'form-item--select-input' } %>
 	<% else %>
 	  <%= ff.input :field_type, as: :string, disabled: true, input_html: { class: "form-item--input" } %>
 	<% end %>

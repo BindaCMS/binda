@@ -34,6 +34,7 @@ module Binda
 	  end
 
 	  def self.is_maintenance_mode
+	  	# maybe this should have question mark at the end...
 	  	self.maintenance_mode.is_true
 	  end
 

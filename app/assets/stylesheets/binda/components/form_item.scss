@@ -28,9 +28,9 @@
 		}
 		
 		input {
-			display: inline-block;
-			width: 70%;
-			margin-left: 5%;
+			// display: inline-block;
+			// width: 70%;
+			// margin-left: 5%;
 		}
 
 		a {
@@ -51,7 +51,7 @@
 	}
 }
 
-.form-item--select {
+.form-item--select-input {
 	display: inline-block;
 	width: 240px;
 	margin-left: 5%;
@@ -97,4 +97,23 @@
 
 .form-item--editor-close {
 	max-height: 0;
+}
+
+.form-item--label-on-top .form-group {
+}
+
+.form-item--label-on-left .form-group {
+	display: inline-block;
+	width: 70%;
+	margin-left: 5%;
+}
+
+.form-item--repeater-fields {
+	margin-bottom: $font-size-base * 2;
+	border-bottom: 1px solid $gray-lighter;
+}
+
+.form-item--repeater-section {
+	border: none;
+	margin-bottom: 0;
 }
