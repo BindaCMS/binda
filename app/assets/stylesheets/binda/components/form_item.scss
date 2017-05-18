@@ -26,7 +26,7 @@
 			width: 15%;
 			float: left;
 		}
-		
+
 		input {
 			// display: inline-block;
 			// width: 70%;
@@ -118,4 +118,13 @@
 .form-item--repeater-section {
 	border: none;
 	margin-bottom: 0;
+
+	h5.form-item--repeater-section--h5 {
+		width: 100%;
+		padding: $font-size-base / 2;
+		margin-bottom: $font-size-base / 2;
+		background-color: $gray-lighter;
+		font-weight: normal;
+		float: none;
+	}
 }

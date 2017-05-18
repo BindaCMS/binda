@@ -1,5 +1,5 @@
 <div id="form-item--repeater-section-<%= repeater_setting.id %>" class="form-item form-item--label-on-left form-item--repeater-section">
-	<h4><%= repeater_setting.name %></h4>
+	<h5 class="form-item--repeater-section--h5"><%= repeater_setting.name %></h5>
 
 <% if repeaters.size == 0 %>
 
@@ -60,7 +60,7 @@
 <%# ADD NEW REPEATER FIELDS     %>
 <%# - - - - - - - - - - - - - - %>
 <a class="form-item--repeater-section--add-new main-header--link btn btn-default" href="#" data-url="<%= structure_component_new_repeater_path( structure_id: @structure.id, component_id: @component.id ) %>" data-id="<%= repeater_setting.id %>">
-  <%= t :new_item_in_repeater %>
+  <%= t(:new_item_in_repeater, arg1: repeater_setting.name.capitalize ) %>
 </a>
 
 <hr>

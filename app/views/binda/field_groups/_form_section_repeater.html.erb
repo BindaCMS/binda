@@ -21,5 +21,5 @@
 <%# ADD NEW FIELD TO REPEATER   %>
 <%# - - - - - - - - - - - - - - %>
 <a class="form-item--add-new main-header--link btn btn-default" data-new-child-id="new-child--repeater-<%= repeater.id %>">
-  <%= t :new_item_in_repeater %>
+  <%= t :new_item_in_repeater, arg1: repeater.name.capitalize %>
 </a>
