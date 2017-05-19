@@ -6,9 +6,11 @@ module Binda
 		has_and_belongs_to_many :categories
 		has_many :texts,     as: :fieldable, dependent: :delete_all
 		has_many :dates,     as: :fieldable, dependent: :delete_all
-		has_many :repeaters, as: :fieldable, dependent: :delete_all
 		has_many :galleries, as: :fieldable, dependent: :delete_all
-		has_many :assets,    as: :fieldable, dependent: :delete_all
+		has_many :assets,    as: :fieldable, dependent: :delete_all 
+		# Repeaters need destroy_all, not delete_all
+		has_many :repeaters, as: :fieldable, dependent: :destroy
+
 
 		accepts_nested_attributes_for :structure, :categories, :texts, :dates, :assets, :galleries, :repeaters, allow_destroy: true
 
@@ -61,12 +63,12 @@ module Binda
 		
 		def get_text( field_slug )
 			# Get the object related to that field setting
-			self.texts.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }.content
+			self.texts.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.content
 		end
 
 		def has_text( field_slug )
 			# Get the object related to that field setting
-			obj = self.texts.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
+			obj = self.texts.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
 			if obj.present?
 				!obj.content.blank?
 			else
@@ -76,7 +78,7 @@ module Binda
 
 		def has_image( field_slug )
 			# Check if the field has an attached image
-			obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }.image.present?
+			obj = self.assets.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.image.present?
 		end
 
 		def get_image_url( field_slug, size = '' )
@@ -89,7 +91,7 @@ module Binda
 
 		def get_image_info( field_slug, size, info )
 			# Get the object related to that field setting
-			obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
+			obj = self.assets.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
 			if obj.image.present?
 				if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
 					obj.image.send(size).send(info)
@@ -101,7 +103,7 @@ module Binda
 
 		def has_date( field_slug )
 			# Check if the field has an attached date
-			obj = self.dates.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
+			obj = self.dates.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
 			if obj.present?
 				!obj.date.nil?
 			else
@@ -111,26 +113,22 @@ module Binda
 
 		def get_date( field_slug )
 			# Get the object related to that field setting
-			self.dates.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }.date
+			self.dates.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.date
 		end
 
-		def get_field_setting_id( field_slug )
-			# Get field setting id from slug, without multiple calls to database 
-			# (the query runs once and caches the result, then any further call uses the cached result)
-			@@field_settings_array = Binda::FieldSetting.all if @@field_settings_array.nil?
-			@@field_settings_array.detect { |fs| fs.slug == field_slug }.id
+		def has_repeater( field_slug )
+			obj = self.repeaters.find_all{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
+			return obj.present?
 		end
 
-		def self.reset_get_field_setting_id_method
-			# Reset the result of the query taken with the above method,
-			# this is needed when a user creates a new field_setting but 
-			# `get_field_setting_id` has already run once
-			@@field_settings_array = nil
+		def get_repeater( field_slug )
+			self.repeaters.find_all{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
 		end
+
 
 			# benchmark do
-			# 	id = Binda::Component.field_settings_array.detect { |fs| fs.slug == 'home-slides-project-image' }.id
-			# 	obj = slide.assets.detect{ |t| t.field_setting_id == id }
+			# 	id = Binda::FieldSetting.field_settings_array.find { |fs| fs.slug == 'home-slides-project-image' }.id
+			# 	obj = slide.assets.find{ |t| t.field_setting_id == id }
 			# 	if obj.image.present?
 			# 		if obj.image.respond_to?('') && %w[thumb medium large].include?('')
 			# 		  obj.image.send('').send('path')
@@ -145,7 +143,7 @@ module Binda
 			# def get_image_benchmark( field_slug, size, info )
 				# # Best is to run this group of test alone (i.e. without TestA and TestB) 
 				# 
-				# obj = self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
+				# obj = self.assets.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
 				#
 				# self.class.benchmark("Check if image is present") do
 				# 	obj.image.present?
@@ -179,7 +177,7 @@ module Binda
 				# end
 
 				# self.class.benchmark("Get field setting id") do
-				# 	self.assets.detect{ |t| t.field_setting_id == get_field_setting_id( field_slug ) }
+				# 	self.assets.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
 				# end
 			# end
  

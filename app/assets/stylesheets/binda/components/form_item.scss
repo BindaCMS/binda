@@ -6,9 +6,6 @@
 	transition: all 0.3s linear;
 	transform: scaleY(1);
 
-	> * {
-		display: block;
-	}
 	.form-group {
 		margin-bottom: $font-size-base;	
 	}
@@ -25,12 +22,6 @@
 		h5 {
 			width: 15%;
 			float: left;
-		}
-
-		input {
-			// display: inline-block;
-			// width: 70%;
-			// margin-left: 5%;
 		}
 
 		a {
@@ -119,12 +110,60 @@
 	border: none;
 	margin-bottom: 0;
 
-	h5.form-item--repeater-section--h5 {
+	> *,
+	ul.sortable li > * {
+		display: block;
+		background-color: $body-bg;
+	}
+
+  ul.sortable--disabled li {
+  	cursor: default;
+  }
+
+  ul.sortable {
+  	margin-bottom: $font-size-base/2;
+
+  	li {
+  		border-bottom: none;
+  		padding-bottom: 0;
+  	}
+  }
+	
+	.sortable--toggle {
+    margin-top: 0;
+  }
+
+  .sortable--toggle-text:first-child {
+		display: none;
+  }
+
+	h5 {
+		width: 15%;
+		float: left;
+	}
+
+	h5.form-item--repeater-title {
 		width: 100%;
 		padding: $font-size-base / 2;
 		margin-bottom: $font-size-base / 2;
 		background-color: $gray-lighter;
 		font-weight: normal;
 		float: none;
+	}
+
+	a {
+		float: right;
+		margin-top: $font-size-base/2;
+		margin-left: $font-size-base/2;
+	}
+
+	.form-item--new {
+		position: absolute;
+		top: 101%;
+		max-height: 0;
+	}
+
+	.form-group {
+		margin-bottom: $font-size-base;	
 	}
 }

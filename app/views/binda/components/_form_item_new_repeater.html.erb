@@ -5,24 +5,29 @@
 <!-- SPLIT -->
 	<% repeater = @component.repeaters.create( field_setting: @repeater_setting ) %>
 
-	<%# - - - - - - - - - - - - %>
-	<%# REMOVE BUTTON           %>
-	<%# - - - - - - - - - - - - %>
-	<a href="<%= repeater_path( id: repeater.id ) %>" data-method="delete" data-confirm="This operation will delete this group of fields. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	<li id="repeater_<%= repeater.id %>">
 
-	<%# - - - - - - - - - - - - - - %>
-	<%# FIRST REPEATER              %>
-	<%# - - - - - - - - - - - - - - %>
-	<div class="form-item--repeater-fields">
-		<%= f.simple_fields_for "repeaters_attributes[]", repeater do |ff| %>
-			<%= ff.input :fieldable_id, as: :hidden %>
-			<%= ff.input :fieldable_type, as: :hidden %>
-	  	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: @repeater_setting.id } %>
-			<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-			<% @repeater_setting.children.order( :position ).each do |repeater_setting_child| %>
-			  <%= render "form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child, repeater: repeater %>
-		  <% end %>
-		<% end %>
-	</div>
+		<%# - - - - - - - - - - - - %>
+		<%# REMOVE BUTTON           %>
+		<%# - - - - - - - - - - - - %>
+		<a href="<%= repeater_path( id: repeater.id ) %>" data-method="delete" data-confirm="This operation will delete this group of fields. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+
+		<%# - - - - - - - - - - - - - - %>
+		<%# FIRST REPEATER              %>
+		<%# - - - - - - - - - - - - - - %>
+		<div class="form-item--repeater-fields">
+			<%= f.simple_fields_for "repeaters_attributes[]", repeater do |ff| %>
+				<%= ff.input :fieldable_id, as: :hidden %>
+				<%= ff.input :fieldable_type, as: :hidden %>
+		  	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: @repeater_setting.id } %>
+				<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+				<% @repeater_setting.children.order( :position ).each do |repeater_setting_child| %>
+				  <%= render "form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child, repeater: repeater %>
+			  <% end %>
+			<% end %>
+		</div>
+
+	</li>
+
 <!-- SPLIT -->
 <% end %>

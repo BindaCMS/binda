@@ -9,13 +9,28 @@ export function sortableInit()
 					$.post(
 						$(this).data('update-url'),
 						$(this).sortable('serialize')
-					// ).done( 
-					// 	function( data ) {
-					// 		$('body').append( data );
-					// 	}
 					)
 		  	}
 		  })
 		  .disableSelection()
+
+	  $('.sortable--disabled').sortable('disable')
 	}
+
+	$(document).on( 'click', '.sortable--toggle', function( event )
+	{
+		event.preventDefault()
+		let id = '#' + $( this ).data( 'repeater-id' )
+
+		if ( $( id ).hasClass('sortable--disabled') )
+			{ $( id ).sortable('enable') }
+		else
+			{ $( id ).sortable('disable') }
+
+
+		console.log('oi')
+	 	$( id ).toggleClass('sortable--disabled')
+	 	$( id ).toggleClass('sortable--enabled')
+	 	$( this ).children('.sortable--toggle-text').toggle()
+	})
 }

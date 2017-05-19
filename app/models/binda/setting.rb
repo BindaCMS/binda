@@ -22,15 +22,15 @@ module Binda
 	  end
 
 	  def self.website_name
-	  	self.all.detect { |s| s.slug == 'website-name' }
+	  	self.all.find { |s| s.slug == 'website-name' }
 	  end
 
 	  def self.website_description
-	  	self.all.detect { |s| s.slug == 'website-description' }
+	  	self.all.find { |s| s.slug == 'website-description' }
 	  end
 
 	  def self.maintenance_mode
-	  	self.all.detect { |s| s.slug == 'maintenance-mode' }
+	  	self.all.find { |s| s.slug == 'maintenance-mode' }
 	  end
 
 	  def self.is_maintenance_mode
