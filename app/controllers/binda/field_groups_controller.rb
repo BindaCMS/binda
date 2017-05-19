@@ -24,7 +24,7 @@ module Binda
       @field_group = @structure.field_groups.build(field_group_params)
 
       if @field_group.save
-        reset_component_cache
+        reset_field_settings_cache
         redirect_to structure_field_group_path( @structure.slug, @field_group.slug ), notice: 'Field group was successfully created.'
       else
         redirect_to new_structure_field_group_path( @structure.slug ), flash: { alert: @field_group.errors }
@@ -44,7 +44,7 @@ module Binda
 
       # Update the other ones
       if @field_group.update(field_group_params)
-        reset_component_cache
+        reset_field_settings_cache
         redirect_to structure_field_group_path( @structure.slug, @field_group.slug ), notice: 'Field group was successfully updated.'
       else
         redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { alert: @field_group.errors }
@@ -53,7 +53,7 @@ module Binda
 
     def destroy
       @field_group.destroy
-      reset_component_cache
+      reset_field_settings_cache
       redirect_to structure_path( @structure.slug ), notice: 'Field group was successfully destroyed.'
     end
 
@@ -106,8 +106,8 @@ module Binda
             ])
       end
 
-      def reset_component_cache
-        Binda::Component.reset_get_field_setting_id_method
+      def reset_field_settings_cache
+        Binda::FieldSetting.reset_field_settings_array
       end
 
   end

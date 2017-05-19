@@ -52,6 +52,13 @@ module Binda
       render 'binda/components/_form_item_new_repeater', layout: false
     end
 
+    def sort_repeaters
+      params[:repeater].each_with_index do |id, i|
+        Binda::Repeater.find( id ).update({ position: i + 1 })
+      end
+      head :ok
+    end
+
     def sort
       params[:component].each_with_index do |id, i|
         Binda::Component.find( id ).update({ position: i + 1 })

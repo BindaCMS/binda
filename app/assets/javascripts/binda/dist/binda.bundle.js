@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -183,24 +183,14 @@ function addNewItem(event) {
 	event.preventDefault();
 	// Get the child to clone
 	var id = $(event.target).data('id');
+	var $list = $('#form-item--repeater-setting-' + id);
 	var url = $(event.target).data('url');
 	$.post(url, { repeater_setting_id: id }, function (data) {
 		var parts = data.split('<!-- SPLIT -->');
 		var newRepeater = parts[1];
-		$('#form-item--repeater-section-' + id).append(newRepeater);
-		// tinyMCE.remove({ selector: 'tinymce' })
-		// tinyMCE.init({ selector: 'tinymce' })
-
-		console.log({ tinyMCE: tinyMCE });
-
-		var editor_id = $('#form-item--repeater-section-' + id).find('textarea').last('textarea').attr('id');
-
+		$list.append(newRepeater);
+		var editor_id = $list.find('textarea').last('textarea').attr('id');
 		tinyMCE.EditorManager.execCommand('mceAddEditor', true, editor_id);
-
-		// console.log({selector: $('#form-item--repeater-' + id ).find('textarea').last('textarea')})
-		// tinyMCE.init({
-		//   selector: $('#form-item--repeater-' + id ).find('textarea').last('textarea')
-		// });
 	});
 }
 
@@ -209,10 +199,45 @@ function addNewItem(event) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = sortableInit;
+function sortableInit() {
+	if ($('.sortable').length > 0) {
+		$('.sortable').sortable({
+			placeholder: "ui-state-highlight",
+			update: function update() {
+				$.post($(this).data('update-url'), $(this).sortable('serialize'));
+			}
+		}).disableSelection();
+
+		$('.sortable--disabled').sortable('disable');
+	}
+
+	$(document).on('click', '.sortable--toggle', function (event) {
+		event.preventDefault();
+		var id = '#' + $(this).data('repeater-id');
+
+		if ($(id).hasClass('sortable--disabled')) {
+			$(id).sortable('enable');
+		} else {
+			$(id).sortable('disable');
+		}
+
+		console.log('oi');
+		$(id).toggleClass('sortable--disabled');
+		$(id).toggleClass('sortable--enabled');
+		$(this).children('.sortable--toggle-text').toggle();
+	});
+}
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_sortable__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_sortable__ = __webpack_require__(2);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
@@ -230,28 +255,6 @@ $(document).ready(function () {
 	}
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_sortable__["a" /* sortableInit */])();
 });
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = sortableInit;
-function sortableInit() {
-	if ($('.sortable').length > 0) {
-		$('.sortable').sortable({
-			placeholder: "ui-state-highlight",
-			update: function update() {
-				$.post($(this).data('update-url'), $(this).sortable('serialize')
-				// ).done( 
-				// 	function( data ) {
-				// 		$('body').append( data );
-				// 	}
-				);
-			}
-		}).disableSelection();
-	}
-}
 
 /***/ })
 /******/ ]);
