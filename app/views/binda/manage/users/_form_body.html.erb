@@ -1,5 +1,5 @@
 <div class="row">
-<div class="form-inputs col-sm-12">
+<div class="form-body--container col-sm-12">
 
 <%= simple_form_for manage_user, url: get_form_manage_user_url do |f| %>
   <% if manage_user.errors.any? %>
@@ -17,7 +17,7 @@
   <div class="row">
 		<div class="col-sm-8">
 
-			<div class="form-inputs--row form-inputs--wide row">
+			<div class="form-section--wide-container row">
 				<div class="col-sm-12">
 				
 					<h4>Edit User Details</h4>
@@ -43,7 +43,7 @@
 
 		<div class="col-sm-4">
 
-			<div class="form-inputs--row form-inputs--narrow row">
+			<div class="form-section--narrow-container row">
 				<div class="col-sm-12">
 					<h4>Publish</h4>
 			    <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>

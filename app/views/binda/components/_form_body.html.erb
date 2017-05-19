@@ -1,0 +1,79 @@
+  <div class="row">
+    <div class="form-body--container col-sm-12">
+      
+      <%= simple_form_for @component, url: get_form_component_url, defaults: { label: false }, html: { class: 'form-body' } do |f| %>
+        <%= f.error_notification %>
+        
+        <div class="row">
+          <div class="col-sm-8">
+
+            <%# - - - - - - - - - - - - %>
+            <%# NOTICE / ERRORS         %>
+            <%# - - - - - - - - - - - - %>
+            <div class="form-section--wide-container row">
+              <div class="col-sm-12">
+
+                <h4><%= "#{ t :details }".capitalize %></h4>
+
+                <h5><%= "#{ t :title }".capitalize %></h5>
+                <%= f.input :name %>
+                
+                <% if @component.slug.nil? %>
+                  <%= f.input :slug, as: :hidden %>
+                <% else %>
+                  <h5><%= "#{ t :slug }".capitalize %></h5>
+                  <%= f.input :slug, disabled: true, hint: "#{ t :slug_disable_hint }" %>
+                <% end %>
+
+                <%= f.input :structure_id, as: :hidden, input_html: { value: @structure.id } %>
+                
+              </div>
+            </div>
+
+            <%# - - - - - - - - - - - - %>
+            <%# FIELD GROUP LOOP        %>
+            <%# - - - - - - - - - - - - %>
+            <% @structure.field_groups.order( :position ).each_with_index do |field_group, index| %>
+            <div class="form-section--wide-container row">
+              <div class="col-sm-12">
+
+                <h4><%= field_group.name.capitalize %></h4>
+
+                <% if @component.new_record? %>
+
+                  <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :component }", arg2: "#{ t :detail }" ).capitalize %></h5>
+                
+                <% else %>
+
+                  <% field_group.field_settings.order( :position ).each do |field_setting| %>
+                    <% next unless field_setting.is_root? %>
+                    <%= render "form_section", f: f, field_setting: field_setting %>
+                  <% end %>
+
+                <% end %>
+
+              </div>
+            </div>
+            <% end %>
+
+          </div>
+          <div class="col-sm-4">
+
+            <%# - - - - - - - - - - - - %>
+            <%# SIDEBAR                 %>
+            <%# - - - - - - - - - - - - %>
+            <div class="form-section--narrow-container row">
+              <div class="col-sm-12">
+
+                <%= render "form_sidebar", f: f %>
+
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      
+      <% end %>
+
+    </div>
+  </div>

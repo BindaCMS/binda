@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,23 +71,23 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _ParentGroupForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 ///- - - - - - - - - - - - - - - - - - - -
-/// PARENT GROUP FORM
+/// FORM ITEM
 ///- - - - - - - - - - - - - - - - - - - -
 
-var ParentGroupForm = function () {
-	function ParentGroupForm() {
-		_classCallCheck(this, ParentGroupForm);
+var FormItem = function () {
+	function FormItem() {
+		_classCallCheck(this, FormItem);
 
-		this.target = '.parent-group-form';
+		this.target = '.form-item';
 	}
 
-	_createClass(ParentGroupForm, [{
+	_createClass(FormItem, [{
 		key: 'isSet',
 		value: function isSet() {
 			if ($(this.target).length > 0) {
@@ -99,38 +99,159 @@ var ParentGroupForm = function () {
 	}, {
 		key: 'setEvents',
 		value: function setEvents() {
-			$(document).on('click', this.target + '--add-child', function (event) {
+			$(document).on('click', this.target + '--add-new', addNewItem);
+
+			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
 				// Stop default behaviour
 				event.preventDefault();
-				// Get the child to clone
-				var id = $(event.target).data('new-child-id');
-				var $newChild = $('#' + id);
-				// Clone child and remove id and styles from cloned child
-				$newChild.clone().insertAfter($newChild);
-				$newChild.removeClass('parent-group-form--new-child').removeAttr('id');
+				$(this).parent(this.target).remove();
+			});
+
+			$(document).on('click', '.form-item--open-button, .form-item--close-button', function () {
+				$(this).parent('.form-item').children('.form-item--editor').toggleClass('form-item--editor-close');
+				$(this).parent('.form-item').children('.form-item--open-button, .form-item--close-button').toggle();
 			});
 		}
 	}]);
 
-	return ParentGroupForm;
+	return FormItem;
 }();
 
-var _ParentGroupForm = new ParentGroupForm();
+var _FormItem = new FormItem();
+
+function addNewItem(event) {
+	// Stop default behaviour
+	event.preventDefault();
+	// Get the child to clone
+	var id = $(event.target).data('new-child-id');
+	var $newChild = $('#' + id);
+	// Clone child and remove id and styles from cloned child
+	$newChild.clone().insertAfter($newChild);
+	$newChild.removeClass('form-item--new').removeAttr('id');
+	console.log({ $newChild: $newChild });
+}
 
 /***/ }),
 /* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+///- - - - - - - - - - - - - - - - - - - -
+/// FORM ITEM
+///- - - - - - - - - - - - - - - - - - - -
+
+var FormItemRepeater = function () {
+	function FormItemRepeater() {
+		_classCallCheck(this, FormItemRepeater);
+
+		this.target = '.form-item--repeater-section';
+	}
+
+	_createClass(FormItemRepeater, [{
+		key: 'isSet',
+		value: function isSet() {
+			if ($(this.target).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			$(document).on('click', this.target + '--add-new', addNewItem);
+			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
+				// Stop default behaviour
+				event.preventDefault();
+				$(this).parent(this.target).remove();
+			});
+		}
+	}]);
+
+	return FormItemRepeater;
+}();
+
+var _FormItemRepeater = new FormItemRepeater();
+
+function addNewItem(event) {
+	// Stop default behaviour
+	event.preventDefault();
+	// Get the child to clone
+	var id = $(event.target).data('id');
+	var url = $(event.target).data('url');
+	$.post(url, { repeater_setting_id: id }, function (data) {
+		var parts = data.split('<!-- SPLIT -->');
+		var newRepeater = parts[1];
+		$('#form-item--repeater-section-' + id).append(newRepeater);
+		// tinyMCE.remove({ selector: 'tinymce' })
+		// tinyMCE.init({ selector: 'tinymce' })
+
+		console.log({ tinyMCE: tinyMCE });
+
+		var editor_id = $('#form-item--repeater-section-' + id).find('textarea').last('textarea').attr('id');
+
+		tinyMCE.EditorManager.execCommand('mceAddEditor', true, editor_id);
+
+		// console.log({selector: $('#form-item--repeater-' + id ).find('textarea').last('textarea')})
+		// tinyMCE.init({
+		//   selector: $('#form-item--repeater-' + id ).find('textarea').last('textarea')
+		// });
+	});
+}
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_sortable__ = __webpack_require__(3);
+///- - - - - - - - - - - - - - - - - - - -
+/// INDEX OF BINDA'S SCRIPTS
+///- - - - - - - - - - - - - - - - - - - -
+
+
+
 
 
 $(document).ready(function () {
-	if (__WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__["a" /* _ParentGroupForm */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_0__components_parent_group_form_js__["a" /* _ParentGroupForm */].setEvents();
+	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].setEvents();
 	}
+	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].setEvents();
+	}
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_sortable__["a" /* sortableInit */])();
 });
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = sortableInit;
+function sortableInit() {
+	if ($('.sortable').length > 0) {
+		$('.sortable').sortable({
+			placeholder: "ui-state-highlight",
+			update: function update() {
+				$.post($(this).data('update-url'), $(this).sortable('serialize')
+				// ).done( 
+				// 	function( data ) {
+				// 		$('body').append( data );
+				// 	}
+				);
+			}
+		}).disableSelection();
+	}
+}
 
 /***/ })
 /******/ ]);

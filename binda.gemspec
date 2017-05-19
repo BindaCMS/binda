@@ -11,14 +11,14 @@ Gem::Specification.new do |s|
   s.email       = ["alessandro@lacolonia.studio"]
   s.homepage    = "http://lacolonia.studio"
   s.summary     = "Binda CMS"
-  s.description = "A lightweight CMS for Ruby on Rails 5, inspired by Spina"
+  s.description = "A dynamic CMS for Ruby on Rails 5, inspired by Spina"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails",                "~> 5.0.1"
   s.add_dependency "jquery-rails"
-  s.add_dependency "jquery-ui-rails",     "~> 5.0.5"
+  s.add_dependency "jquery-ui-rails",      "~> 5.0.5"
   s.add_dependency "sass-rails",           "~> 5.0.6"
   s.add_dependency "coffee-rails",         "~> 4.2.1"
   s.add_dependency "colorize",             "~> 0.8.1"
@@ -29,10 +29,11 @@ Gem::Specification.new do |s|
   s.add_dependency "tinymce-rails",        "~> 4.5.1"
   s.add_dependency "tinymce-rails-langs"
   s.add_dependency "devise",               "~> 4.1.1"
-  # s.add_dependency "cancancan"
-  # s.add_dependency "meta-tags"
   s.add_dependency "carrierwave",          "~> 1.0"
   s.add_dependency "mini_magick",          "~> 4.5"
+  s.add_dependency "ancestry",             "~> 2.1.0"
+  # s.add_dependency "meta-tags"
+  # s.add_dependency "cancancan"
 
   # s.add_development_dependency "sqlite3"
 end

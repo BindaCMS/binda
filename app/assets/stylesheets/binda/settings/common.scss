@@ -86,4 +86,8 @@ body#tinymce {
 		margin-right: 4px !important;
 		background-color: rgba(0, 0, 0, 0.075) !important;
 	}
+
+	&:first-child {
+		margin-top: 0 !important;
+	}
 }

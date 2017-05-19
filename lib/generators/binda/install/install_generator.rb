@@ -9,7 +9,7 @@ module Binda
         # Ensure Binda is not installed
         if Component.table_exists?
           puts "Binda has already been installed on this database.".colorize(:red)
-          puts "Please ensure Binda is completely removed from the database before trying to install it again."
+          puts "Please ensure Binda is completely removed from the database before trying to install it again.".colorize(:red)
           exit
         end
       end
@@ -22,11 +22,27 @@ module Binda
 
       def copy_migrations
         return if Rails.env.production?
-        # Clean the application from any previous Binda installation
-        prev_migrations = Dir.glob( Rails.root.join('db', 'migrate', '*_binda_*.rb' )) 
-        FileUtils.rm_rf( prev_migrations ) if prev_migrations.any?
-        # Make a fresh copy of Binda migrations
-        rake 'binda:install:migrations'
+
+        # Check if there is any previous Binda migration
+        previous_binda_migrations = Dir.glob( Rails.root.join('db', 'migrate', '*.binda.rb' ))
+        previous_migrations = Dir.glob( Rails.root.join('db', 'migrate', '*.rb' ))
+
+        # If it's the first time you run the installation
+        unless previous_binda_migrations.any?
+          rake 'binda:install:migrations'
+        else
+          # If there is any previous Binda migration
+          if previous_migrations.size != previous_binda_migrations.size
+            puts "You have several migrations, please manually delete Binda's ones then run 'rails g binda:install' again.".colorize(:red)
+            puts "Keep in mind that Binda will place the new migration after the existing ones.".colorize(:red)
+            exit
+          else
+            # Remove previous Binda migrations
+            FileUtils.rm_rf( previous_binda_migrations )
+            # Install Binda migrations
+            rake 'binda:install:migrations'
+          end
+        end
       end
       
       def run_migrations
@@ -35,6 +51,8 @@ module Binda
 
       def setup_devise
         return if Rails.env.production?
+        return if Dir.glob( Rails.root.join('config', 'initializers', 'devise.rb' )).any?
+
         # Copy the initilializer on the application folder
         template 'config/initializers/devise.rb'
 
@@ -76,49 +94,13 @@ module Binda
 
       def setup_carrierwave
         return if Rails.env.production?
+        return if Dir.glob( Rails.root.join('config', 'initializers', 'carrierwave.rb' )).any?
+        
         template 'config/initializers/carrierwave.rb'
       end
 
-
       def setup_settings
-        puts 
-        puts "============================================================================="
-        puts "                               BINDA SETUP"
-        puts "============================================================================="
-        puts 
-        puts "We need few details. Don't worry you can modify them later. \n\n"
-
-        # MAINTENANCE MODE
-        Setting.find_or_create_by( name: 'Maintenance Mode' )
-
-        # WEBSITE NAME
-        @website_name = ask("What would you like to name your website? ['MySite']").presence || 'MySite'
-        Setting.find_or_create_by( name: 'Website Name' ).update_attribute( :content, @website_name )
-
-        # WEBSITE CONTENT
-        @website_description = ask("What is it about? ['A website about the world']").presence || 'A website about the world'
-        Setting.find_or_create_by( name: 'Website Description' ).update_attribute( :content, @website_description )
-      end
-
-      def create_credentials
-        rake 'binda_create_initial_user'
-      end
-
-      def feedback
-        puts
-        puts "Binda CMS has been succesfully installed! ".colorize(:green)
-        puts
-        # puts "    Title:              #{ @website_name }"
-        # puts "    Description:        #{ @website_description }"
-        # puts "    Username:           #{ Binda::User.first.email }"
-        # puts
-        # puts "Restart your server and visit http://localhost:3000 in your browser!"
-        # puts "The admin panel is located at http://localhost:3000/admin_panel."
-        # puts
-        puts "Before deploying to production, remember to uncomment and update the"
-        puts "'config.action_mailer.default_url_options' in 'config/environments/production.rb'"
-        puts
-        puts "============================================================================="
+        exec 'rails g binda:setup'
       end
 
   end

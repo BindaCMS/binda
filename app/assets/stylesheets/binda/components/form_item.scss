@@ -1,0 +1,130 @@
+.form-item { 
+	@extend .clearfix;
+	display: block;
+	margin-bottom: $font-size-base*1.5;	
+	border-bottom: 1px solid $gray-lighter;
+	transition: all 0.3s linear;
+	transform: scaleY(1);
+
+	> * {
+		display: block;
+	}
+	.form-group {
+		margin-bottom: $font-size-base;	
+	}
+}
+
+
+.form-section--wide-container {
+
+	.form-item {
+		max-height: 2000px;
+		overflow-y: hidden;
+		transition: max-height 1s ease-out;
+
+		h5 {
+			width: 15%;
+			float: left;
+		}
+
+		input {
+			// display: inline-block;
+			// width: 70%;
+			// margin-left: 5%;
+		}
+
+		a {
+			float: right;
+			margin-top: $font-size-base/2;
+			margin-left: $font-size-base/2;
+		}
+	}
+
+	.form-item--new {
+		position: absolute;
+		top: 101%;
+		max-height: 0;
+	}
+
+	.form-group {
+		margin-bottom: $font-size-base;	
+	}
+}
+
+.form-item--select-input {
+	display: inline-block;
+	width: 240px;
+	margin-left: 5%;
+}
+
+.form-item--textarea {
+	display: inline-block;
+	width: 70%;
+	margin-left: 5%;
+}
+
+.form-item--category {
+	padding-bottom: $font-size-base*1.5;	
+	margin-bottom: $font-size-base*1.5;	
+
+	input[type=submit] {
+		width: 20%;
+		float: left;
+	}
+
+	.form-group {
+		width: 70%;
+		margin: 0;
+		margin-right: 10%;
+		float: left;
+	}
+}
+
+.form-item--open-button,
+.form-item--close-button {
+	cursor: pointer;
+}
+
+.form-item--open-button {
+	display: none;
+}
+
+.form-item--editor {
+	max-height: 1000px;
+	overflow-y: hidden;
+	transition: max-height 0.6s ease-out;
+}
+
+.form-item--editor-close {
+	max-height: 0;
+}
+
+.form-item--label-on-top .form-group {
+}
+
+.form-item--label-on-left .form-group {
+	display: inline-block;
+	width: 70%;
+	margin-left: 5%;
+}
+
+.form-item--repeater-fields {
+  padding-left: $font-size-base/2;
+	margin-bottom: $font-size-base;
+	border-bottom: 1px solid $gray-lighter;
+  border-left: 2px solid $gray-lighter;
+}
+
+.form-item--repeater-section {
+	border: none;
+	margin-bottom: 0;
+
+	h5.form-item--repeater-section--h5 {
+		width: 100%;
+		padding: $font-size-base / 2;
+		margin-bottom: $font-size-base / 2;
+		background-color: $gray-lighter;
+		font-weight: normal;
+		float: none;
+	}
+}

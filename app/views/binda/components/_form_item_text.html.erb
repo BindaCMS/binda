@@ -1,0 +1,28 @@
+<%# HEADING %>
+<h5 class="form-item--<%= field_setting.field_type.underscore %>-caption"><%= field_setting.name.capitalize %></h5>
+
+<% unless field_setting.description.blank? %>
+	<small class="text-muted"><%= field_setting.description %></small>
+<% end %>
+
+
+<%# INPUT / TEXTAREA %>
+<% if @component.has_text( field_setting.slug ) %>
+	<% if field_setting.field_type == 'text' %>
+		<%= ff.input :content, input_html: { value: @component.get_text( field_setting.slug ), class: 'tinymce' }, as: :text %>
+	<% else %>
+		<%= ff.input :content, input_html: { value: @component.get_text( field_setting.slug ) }, as: :string %>
+	<% end %>
+<% else %>
+	<% if field_setting.field_type == 'text' %>
+		<%= ff.input :content, input_html: { class: 'tinymce' }, as: :text %>
+	<% else %>
+		<%= ff.input :content, as: :string %>
+	<% end %>
+<% end %>
+
+
+<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+<%= ff.input :fieldable_id, as: :hidden %>
+<%= ff.input :fieldable_type, as: :hidden %>

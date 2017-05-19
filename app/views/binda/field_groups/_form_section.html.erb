@@ -1,0 +1,37 @@
+<h4><%= "#{ t :field_setting }".pluralize.capitalize %></h4>
+
+
+<%# - - - - - - - - - - - - %>
+<%# FORM ITEM               %>
+<%# - - - - - - - - - - - - %>
+<%# This form is only for settings which are not part of any repeater. %>
+<%# This is done using `where( ancestry: nil )` %>
+<%= f.simple_fields_for :field_settings, f.object.field_settings.where( ancestry: nil ).order( :position ) do |ff| %>
+  <div class="form-item <%= "form-item--#{ ff.object.field_type }" unless ff.object.field_type.nil? %>">
+    <%= render 'form_item', ff: ff, section: section %>
+  </div>
+<% end %>
+
+
+<%# - - - - - - - - - - - - %>
+<%# NEW FORM ITEM           %>
+<%# - - - - - - - - - - - - %>
+<%= f.simple_fields_for 'new_field_settings[]', @field_group.field_settings.build( field_group: @field_group ) do |ff| %>
+  <div id="new-child-<%= f.object.id %>" class="form-item form-item--new">
+    <%= render 'form_item', ff: ff, section: section %>
+  </div>
+<% end %>
+
+
+<%# - - - - - - - - - - - - - - %>
+<%# 'ADD NEW FORM ITEM' BUTTON  %>
+<%# - - - - - - - - - - - - - - %>
+<% if section.slug.nil? %>
+  <h5>
+    <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ).capitalize %>  
+  </h5>
+<% else %>
+  <a class="form-item--add-new main-header--link btn btn-default" href="<%= new_structure_field_group_field_setting_path( field_group_id: section.slug ) %>" data-new-child-id="new-child-<%= f.object.id %>">
+    <%= "#{ t :new }".capitalize %> <%= t :field_setting %>  
+  </a>
+<% end %>

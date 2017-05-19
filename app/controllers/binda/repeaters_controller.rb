@@ -45,7 +45,8 @@ module Binda
     # DELETE /repeaters/1
     def destroy
       @repeater.destroy
-      redirect_to repeaters_url, notice: 'Repeater was successfully destroyed.'
+      # redirect_to repeaters_url, notice: 'Repeater was successfully destroyed.'
+      redirect_to :back, notice: 'Field group was successfully destroyed.'
     end
 
     private

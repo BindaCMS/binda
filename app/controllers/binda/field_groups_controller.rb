@@ -14,7 +14,7 @@ module Binda
     end
 
     def new
-      @field_group = @structure.field_groups.build(  )
+      @field_group = @structure.field_groups.build()
     end
 
     def edit
@@ -24,6 +24,7 @@ module Binda
       @field_group = @structure.field_groups.build(field_group_params)
 
       if @field_group.save
+        reset_component_cache
         redirect_to structure_field_group_path( @structure.slug, @field_group.slug ), notice: 'Field group was successfully created.'
       else
         redirect_to new_structure_field_group_path( @structure.slug ), flash: { alert: @field_group.errors }
@@ -35,13 +36,15 @@ module Binda
       new_params[:new_field_settings].each do |field_setting|
         unless field_setting[:name].blank?
           new_field_setting = @field_group.field_settings.create( field_setting )
-          unless new_field_setting  
+          unless new_field_setting
             return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_field_setting.errors }
           end
         end
       end
+
       # Update the other ones
       if @field_group.update(field_group_params)
+        reset_component_cache
         redirect_to structure_field_group_path( @structure.slug, @field_group.slug ), notice: 'Field group was successfully updated.'
       else
         redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { alert: @field_group.errors }
@@ -50,6 +53,7 @@ module Binda
 
     def destroy
       @field_group.destroy
+      reset_component_cache
       redirect_to structure_path( @structure.slug ), notice: 'Field group was successfully destroyed.'
     end
 
@@ -74,19 +78,37 @@ module Binda
           :structure_id,
           field_settings_attributes: [
             :id, 
-            :slug,
-            :field_group_id, 
+            :field_group_id,
+            :field_setting_id,
             :name, 
+            :slug,
             :description,
             :field_type,
             :position,
             :required,
-            :default_text
-            ])
+            :default_text,
+            :ancestry
+          ])
       end
 
       def new_params
-        params.require(:field_group).permit( new_field_settings:[ :name, :field_group_id, :field_type, :description, :position ] )
+        params.require(:field_group).permit( 
+          new_field_settings:[ 
+            :field_group_id, 
+            :field_setting_id,
+            :name, 
+            :slug,
+            :description, 
+            :field_type, 
+            :position,
+            :required,
+            :ancestry
+            ])
       end
+
+      def reset_component_cache
+        Binda::Component.reset_get_field_setting_id_method
+      end
+
   end
 end
