@@ -57,7 +57,7 @@ module Binda
 
     def has_image( field_slug )
       # Check if the field has an attached image
-      obj = self.assets.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.image.present?
+      self.assets.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.image.present?
     end
 
     def get_image_url( field_slug, size = '' )
