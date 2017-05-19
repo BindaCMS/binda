@@ -1,5 +1,6 @@
 <%= ff.input :field_group_id, as: :hidden %>
 <%= ff.input :id, as: :hidden %>
+<%= ff.input :ancestry, as: :hidden unless ff.object.is_root? %>
 
 <%# - - - - - - - - - - - - %>
 <%# REMOVE BUTTON           %>

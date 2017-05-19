@@ -9,7 +9,7 @@ Binda::Engine.routes.draw do
   # end
   # root to: redirect( "users/sign_in")
 
-  root 'settings#index'
+  root 'settings#dashboard'
 
   # DEVISE
   # ------
