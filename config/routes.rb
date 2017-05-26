@@ -31,6 +31,7 @@ Binda::Engine.routes.draw do
   post 'dashboard', to: 'settings#update_dashboard'
   resources :settings
 
+  post 'structures/sort'
   resources :structures do
 
     resources :categories

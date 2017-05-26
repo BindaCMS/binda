@@ -170,6 +170,20 @@ var FormItemRepeater = function () {
 				event.preventDefault();
 				$(this).parent(this.target).remove();
 			});
+			$(document).on('click', '.form-item--delete-repeater-item', function (event) {
+				var _this = this;
+
+				// Stop default behaviour
+				event.preventDefault();
+
+				$.ajax({
+					url: $(this).attr('href'),
+					data: { id: $(this).data('id'), isAjax: true },
+					method: "DELETE"
+				}).done(function () {
+					$(_this).parent('li').remove();
+				});
+			});
 		}
 	}]);
 

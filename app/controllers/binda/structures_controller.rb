@@ -5,7 +5,7 @@ module Binda
     before_action :set_structure, only: [:show, :edit, :update, :destroy]
 
     def index
-      @structures = Structure.all
+      @structures = Structure.order('position').all
     end
 
     def show
@@ -46,6 +46,7 @@ module Binda
           end
         end
       end
+
       # Update the other ones
       if @structure.update(structure_params)
         redirect_to structure_path( @structure.slug ), notice: 'Structure was successfully updated.'
@@ -63,6 +64,13 @@ module Binda
       redirect_to :back, notice: 'Components was successfully updated.'
     end
 
+    def sort
+      params[:structure].each_with_index do |id, i|
+        Binda::Structure.find( id ).update({ position: i + 1 })
+      end
+      head :ok
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_structure
@@ -71,7 +79,7 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def structure_params
-        params.require(:structure).permit(:name, :slug, field_groups_attributes: [ :id, :name, :structure_id, :slug ] )
+        params.require(:structure).permit(:name, :slug, :position, :has_categories, field_groups_attributes: [ :id, :name, :structure_id, :slug ] )
       end
 
       def new_params
