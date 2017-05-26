@@ -23,6 +23,8 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     create_table :binda_structures do |t|
       t.string           :name, null: false
       t.string           :slug
+      t.integer          :position
+      t.boolean          :has_categories, default: true
       t.index            :slug, unique: true
       t.timestamps
     end

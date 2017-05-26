@@ -24,6 +24,19 @@ class FormItemRepeater {
 			event.preventDefault()
 			$( this ).parent( this.target ).remove()
 		})
+		$(document).on('click', '.form-item--delete-repeater-item', function( event )
+		{
+			// Stop default behaviour
+			event.preventDefault()
+
+			$.ajax({
+				url: $( this ).attr('href'),
+				data: { id: $( this ).data('id'), isAjax: true },
+				method: "DELETE"
+			}).done( ()=>{
+				$( this ).parent('li').remove()
+			})
+		})
 	}
 }
 

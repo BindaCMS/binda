@@ -4,6 +4,15 @@
       <%= simple_form_for @component, url: get_form_component_url, defaults: { label: false }, html: { class: 'form-body' } do |f| %>
         <%= f.error_notification %>
         
+        <%# - - - - - - - - - - - - %>
+        <%# SET POSITION            %>
+        <%# - - - - - - - - - - - - %>
+        <% if f.object.position.nil? && !@structure.components.order('position').last.position.nil? %>
+          <%= f.input :position, as: :hidden, value: @structure.components.order('position').last.position %>
+        <% else %>
+          <%= f.input :position, as: :hidden, value: 0 %>
+        <% end %>
+
         <div class="row">
           <div class="col-sm-8">
 

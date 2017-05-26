@@ -16,13 +16,16 @@
         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Dashboard
       </a>
     </li>
-    <% Binda::Structure.all.order(:name).each_with_index do |structure, index| %>
+    <% Binda::Structure.all.order(:position).each_with_index do |structure, index| %>
       <li class="main-sidebar--structure <%= 'main-sidebar--first-structure' if index == 0 %>">
         <a href="<%= structure_components_path( structure.slug ) %>">
           <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <%= structure.name.humanize.pluralize %> 
         </a>
-        <a class="main-sidebar--sub-link" href="<%= structure_categories_path( structure.slug ) %>">
-          <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <%= structure.name.humanize %> <%= t(:category).capitalize.pluralize %></a>
+        <% if structure.has_categories %>
+          <a class="main-sidebar--sub-link" href="<%= structure_categories_path( structure.slug ) %>">
+            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <%= structure.name.humanize %> <%= t(:category).capitalize.pluralize %>
+          </a>
+        <% end %>
       </li>
     <% end %>
     <% if current_user.is_superadmin %>

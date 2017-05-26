@@ -1,10 +1,8 @@
 <h4><%= "#{ t :setting }".pluralize.capitalize %></h4>
 
 <% if @structure.categories.any? %>
-
   <h5><%= t(:category).capitalize %></h5>
   <%= f.association :categories, as: :radio_buttons, collection: @structure.categories ,checked: @component.category_ids, include_blank: false %>
-
 <% end %>
 
 <% if @component.slug.nil? %>
@@ -25,3 +23,5 @@
 <hr>
 
 <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+
+<a class="form-body--delete btn btn-default" href="<%= structure_component_path( structure_id: @structure.id, id: @component.id ) %>" data-method="delete" data-confirm="This operation will delete this <%= @structure.name %> and there is no coming back. Are you ok with that?">Delete <%= @structure.name.capitalize %> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>

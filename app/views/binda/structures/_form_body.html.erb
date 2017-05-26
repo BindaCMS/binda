@@ -40,6 +40,9 @@
             <div class="form-section--narrow-container row">
               <div class="col-sm-12">
                 <h4><%= "#{ t :publish }".capitalize %></h4>
+                <h5><%= "#{ t :structure_has_categories }".capitalize %></h5>
+                <%= f.input :has_categories, as: :radio_buttons %>
+                <hr>
                 <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
               </div>
             </div>
