@@ -1,4 +1,4 @@
-export function sortableInit() 
+export default function() 
 {
 	if ( $('.sortable').length > 0 ) 
 	{
@@ -37,8 +37,6 @@ export function sortableInit()
 		else
 			{ $( id ).sortable('disable') }
 
-
-		console.log('oi')
 	 	$( id ).toggleClass('sortable--disabled')
 	 	$( id ).toggleClass('sortable--enabled')
 	 	$( this ).children('.sortable--toggle-text').toggle()

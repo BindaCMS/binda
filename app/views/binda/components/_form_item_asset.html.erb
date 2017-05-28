@@ -1,10 +1,10 @@
 <%# HEADING %>
 <h5><%= field_setting.name.capitalize %></h5>
 
-<%= ff.input :image, input_html: { class: 'form-asset--uploader'} %>
+<%= ff.input :image, input_html: { class: 'form-item--asset--uploader'} %>
 
-<% if ff.object.image.present? && ff.object.image.thumb.file.exists? %>
-  <%= image_tag ff.object.image.thumb.url, class: 'form-asset--image' %>
+<% if ff.object.image.present? %>
+  <%= image_tag ff.object.image.thumb.url, class: 'form-item--asset--image' %>
 <% end %>
 
 <% unless field_setting.description.blank? %>
@@ -17,4 +17,4 @@
 <%= ff.input :fieldable_id, as: :hidden %>
 <%= ff.input :fieldable_type, as: :hidden %>
 
-<div class="form-asset--clearfix"></div>
+<div class="form-item--asset--clearfix"></div>

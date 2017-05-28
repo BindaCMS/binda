@@ -37,6 +37,10 @@ class FormItem {
 export let _FormItem = new FormItem()
 
 
+///- - - - - - - - - - - - - - - - - - - -
+/// COMPONENT HELPER FUNCTIONS
+///- - - - - - - - - - - - - - - - - - - -
+
 function addNewItem( event ) 
 {
 	// Stop default behaviour
@@ -47,5 +51,4 @@ function addNewItem( event )
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter( $newChild )
 	$newChild.removeClass( 'form-item--new' ).removeAttr( 'id' )
-	console.log({$newChild})
 }

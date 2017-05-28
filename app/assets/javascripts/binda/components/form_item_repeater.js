@@ -43,6 +43,10 @@ class FormItemRepeater {
 export let _FormItemRepeater = new FormItemRepeater()
 
 
+///- - - - - - - - - - - - - - - - - - - -
+/// COMPONENT HELPER FUNCTIONS
+///- - - - - - - - - - - - - - - - - - - -
+
 function addNewItem( event ) 
 {
 	// Stop default behaviour
