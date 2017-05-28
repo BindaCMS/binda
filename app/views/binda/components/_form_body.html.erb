@@ -7,10 +7,8 @@
         <%# - - - - - - - - - - - - %>
         <%# SET POSITION            %>
         <%# - - - - - - - - - - - - %>
-        <% if f.object.position.nil? && !@structure.components.order('position').last.position.nil? %>
-          <%= f.input :position, as: :hidden, value: @structure.components.order('position').last.position %>
-        <% else %>
-          <%= f.input :position, as: :hidden, value: 0 %>
+        <% unless @component.new_record? %>
+          <%= f.input :position, as: :hidden %>
         <% end %>
 
         <div class="row">
