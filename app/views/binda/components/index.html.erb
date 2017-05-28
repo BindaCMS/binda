@@ -22,7 +22,7 @@
         <tbody class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
           <% @components.order( :position, :name ).each do |component| %>
             <tr id="component_<%= component.id %>">  
-              <td><span class="sortable--handle"></span></td>  
+              <td><span class="sortable--handle"></span></td>
               <td><%= link_to component.name, structure_component_path( @structure.slug, component ) %></td>
               <td><%= component.publish_state %></td>
               <td>

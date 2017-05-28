@@ -222,12 +222,16 @@ function sortableInit() {
 			update: function update() {
 				$.post($(this).data('update-url'), $(this).sortable('serialize'));
 			}
-		}).disableSelection().addClass('sortable--no-handle');
+		}).disableSelection();
 
 		// Check if sortable item needs handles
-		if ($('.sortable--handle').length > 0) {
-			$('.sortable--handle').parents('.sortable').removeClass('sortable--no-handle').sortable('option', 'handle', '.sortable--handle');
-		}
+		$('.sortable').each(function () {
+			if ($(this).find('.sortable--handle').length > 0) {
+				$(this).sortable('option', 'handle', '.sortable--handle');
+			} else {
+				$(this).addClass('sortable--no-handle');
+			}
+		});
 
 		$('.sortable--disabled').sortable('disable');
 	}
