@@ -64,6 +64,12 @@ tbody.sortable {
       margin-right: 32px;
     }
   }
+
+  &.sortable--with-handle { 
+    tr {
+      cursor: pointer;
+    }
+  }
 }
 
 tbody#sortable > tr > *,
@@ -71,17 +77,21 @@ tbody.sortable > tr > * {
   // display: inline-block;
 }
 
+
+
 .sortable-placeholder {
   height: 48px;
 }
 
-.sortable-handle {
+.sortable--handle {
+  display: inline-block;
   width: 12px;
   height: 12px;
   margin-left: 8px;
   margin-right: 16px;
   border-radius: 6px;
   background-color: #CCC;
+  cursor: move;
 }
 
 .ui-state-highlight {

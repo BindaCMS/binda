@@ -216,12 +216,18 @@ function addNewItem(event) {
 /* harmony export (immutable) */ __webpack_exports__["a"] = sortableInit;
 function sortableInit() {
 	if ($('.sortable').length > 0) {
+		// Initialize sortable item
 		$('.sortable').sortable({
 			placeholder: "ui-state-highlight",
 			update: function update() {
 				$.post($(this).data('update-url'), $(this).sortable('serialize'));
 			}
-		}).disableSelection();
+		}).disableSelection().addClass('sortable--no-handle');
+
+		// Check if sortable item needs handles
+		if ($('.sortable--handle').length > 0) {
+			$('.sortable--handle').parents('.sortable').removeClass('sortable--no-handle').sortable('option', 'handle', '.sortable--handle');
+		}
 
 		$('.sortable--disabled').sortable('disable');
 	}

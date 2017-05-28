@@ -4,6 +4,7 @@ module Binda
   class ComponentsController < ApplicationController
     before_action :set_structure
     before_action :set_component, only: [:show, :edit, :update, :destroy, :new_repeater]
+    before_action :set_position, only: [:create]
 
     def index
       @components = @structure.components.order('position').all
@@ -22,7 +23,7 @@ module Binda
 
     def create
       @component = @structure.components.build(component_params)
-
+      @component.position = @position
       if @component.save
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: 'Component was successfully created.'
       else
@@ -31,9 +32,6 @@ module Binda
     end
 
     def update
-
-      # binding.pry
-      
       if @component.update(component_params)
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: 'Component was successfully updated.'
       else
@@ -214,6 +212,10 @@ module Binda
               :fieldable_id
               ]
             ])
+      end
+
+      def set_position
+        @position = @structure.components.order(:position).pluck(:position).last + 1 unless @position.to_i > 0
       end
 
   end

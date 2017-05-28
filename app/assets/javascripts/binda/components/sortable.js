@@ -2,6 +2,7 @@ export function sortableInit()
 {
 	if ( $('.sortable').length > 0 ) 
 	{
+		// Initialize sortable item
 		$('.sortable')
 			.sortable({
 		  	placeholder: "ui-state-highlight",
@@ -13,6 +14,16 @@ export function sortableInit()
 		  	}
 		  })
 		  .disableSelection()
+		  .addClass('sortable--no-handle')
+
+		// Check if sortable item needs handles
+		if ( $('.sortable--handle').length > 0 ) 
+		{
+			$('.sortable--handle')
+				.parents('.sortable')
+				.removeClass('sortable--no-handle')
+				.sortable('option', 'handle', '.sortable--handle')
+		}
 
 	  $('.sortable--disabled').sortable('disable')
 	}
