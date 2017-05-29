@@ -1,18 +1,22 @@
 <h4><%= "#{ t :setting }".pluralize.capitalize %></h4>
 
-<% if @structure.categories.any? %>
-  <h5><%= t(:category).capitalize %></h5>
-  <%= f.association :categories, as: :radio_buttons, collection: @structure.categories ,checked: @component.category_ids, include_blank: false %>
-<% end %>
+<% if @structure.has_categories %>
 
-<% if @component.slug.nil? %>
-  <h5>
-    <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :component }" ).capitalize %>  
-  </h5>
-<% else %>
-  <a class="main-header--link btn btn-default" href="<%= new_structure_category_path %>">
-    <%= "#{ t :new }".capitalize %> <%= t :category %>  
-  </a>
+	<% if @structure.categories.any? %>
+	  <h5><%= t(:category).capitalize %></h5>
+	  <%= f.association :categories, as: :radio_buttons, collection: @structure.categories ,checked: @component.category_ids, include_blank: false %>
+	<% end %>
+
+	<% if @component.slug.nil? %>
+	  <h5>
+	    <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :component }" ).capitalize %>  
+	  </h5>
+	<% else %>
+	  <a class="main-header--link btn btn-default" href="<%= new_structure_category_path %>">
+	    <%= "#{ t :new }".capitalize %> <%= t :category %>  
+	  </a>
+	<% end %>
+
 <% end %>
 
 <hr>
