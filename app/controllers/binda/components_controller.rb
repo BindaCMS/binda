@@ -215,7 +215,7 @@ module Binda
       end
 
       def set_position
-        @position = @structure.components.order(:position).pluck(:position).last + 1 unless @position.to_i > 0
+        @position = @structure.components.order(:position).pluck(:position).last.to_i + 1 unless @position.to_i > 0
       end
 
   end
