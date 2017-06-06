@@ -1,4 +1,4 @@
-export function sortableInit() 
+export default function() 
 {
 	if ( $('.sortable').length > 0 ) 
 	{
@@ -14,16 +14,15 @@ export function sortableInit()
 		  	}
 		  })
 		  .disableSelection()
-		  .addClass('sortable--no-handle')
 
 		// Check if sortable item needs handles
-		if ( $('.sortable--handle').length > 0 ) 
-		{
-			$('.sortable--handle')
-				.parents('.sortable')
-				.removeClass('sortable--no-handle')
-				.sortable('option', 'handle', '.sortable--handle')
-		}
+		$('.sortable').each( function()
+		{			
+			if ( $(this).find('.sortable--handle').length > 0 ) 
+				{ $(this).sortable('option', 'handle', '.sortable--handle') }
+			else
+				{ $(this).addClass('sortable--no-handle') }
+		})
 
 	  $('.sortable--disabled').sortable('disable')
 	}
@@ -38,8 +37,6 @@ export function sortableInit()
 		else
 			{ $( id ).sortable('disable') }
 
-
-		console.log('oi')
 	 	$( id ).toggleClass('sortable--disabled')
 	 	$( id ).toggleClass('sortable--enabled')
 	 	$( this ).children('.sortable--toggle-text').toggle()

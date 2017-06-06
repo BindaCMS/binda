@@ -51,7 +51,6 @@ tbody.sortable {
     padding-bottom: 8px;
     margin-bottom: 8px;
     border-bottom: 1px solid rgba( 0, 0, 0, 0.1 );
-    cursor: move;
 
     &:first-child {
       padding-top: 8px;
@@ -65,9 +64,9 @@ tbody.sortable {
     }
   }
 
-  &.sortable--with-handle { 
+  &.sortable--no-handle { 
     tr {
-      cursor: pointer;
+      cursor: move;
     }
   }
 }

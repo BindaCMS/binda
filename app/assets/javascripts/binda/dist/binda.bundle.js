@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -119,6 +119,10 @@ var FormItem = function () {
 
 var _FormItem = new FormItem();
 
+///- - - - - - - - - - - - - - - - - - - -
+/// COMPONENT HELPER FUNCTIONS
+///- - - - - - - - - - - - - - - - - - - -
+
 function addNewItem(event) {
 	// Stop default behaviour
 	event.preventDefault();
@@ -128,11 +132,52 @@ function addNewItem(event) {
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter($newChild);
 	$newChild.removeClass('form-item--new').removeAttr('id');
-	console.log({ $newChild: $newChild });
 }
 
 /***/ }),
 /* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemAsset; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+///- - - - - - - - - - - - - - - - - - - -
+/// FORM ITEM ASSET
+///- - - - - - - - - - - - - - - - - - - -
+
+var FormItemAsset = function () {
+	function FormItemAsset() {
+		_classCallCheck(this, FormItemAsset);
+
+		this.target = '.form-item--asset';
+	}
+
+	_createClass(FormItemAsset, [{
+		key: 'isSet',
+		value: function isSet() {
+			if ($(this.target).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			// here code to setup assets via ajax
+		}
+	}]);
+
+	return FormItemAsset;
+}();
+
+var _FormItemAsset = new FormItemAsset();
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -192,6 +237,10 @@ var FormItemRepeater = function () {
 
 var _FormItemRepeater = new FormItemRepeater();
 
+///- - - - - - - - - - - - - - - - - - - -
+/// COMPONENT HELPER FUNCTIONS
+///- - - - - - - - - - - - - - - - - - - -
+
 function addNewItem(event) {
 	// Stop default behaviour
 	event.preventDefault();
@@ -209,12 +258,11 @@ function addNewItem(event) {
 }
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = sortableInit;
-function sortableInit() {
+/* harmony default export */ __webpack_exports__["a"] = function () {
 	if ($('.sortable').length > 0) {
 		// Initialize sortable item
 		$('.sortable').sortable({
@@ -222,12 +270,16 @@ function sortableInit() {
 			update: function update() {
 				$.post($(this).data('update-url'), $(this).sortable('serialize'));
 			}
-		}).disableSelection().addClass('sortable--no-handle');
+		}).disableSelection();
 
 		// Check if sortable item needs handles
-		if ($('.sortable--handle').length > 0) {
-			$('.sortable--handle').parents('.sortable').removeClass('sortable--no-handle').sortable('option', 'handle', '.sortable--handle');
-		}
+		$('.sortable').each(function () {
+			if ($(this).find('.sortable--handle').length > 0) {
+				$(this).sortable('option', 'handle', '.sortable--handle');
+			} else {
+				$(this).addClass('sortable--no-handle');
+			}
+		});
 
 		$('.sortable--disabled').sortable('disable');
 	}
@@ -242,25 +294,26 @@ function sortableInit() {
 			$(id).sortable('disable');
 		}
 
-		console.log('oi');
 		$(id).toggleClass('sortable--disabled');
 		$(id).toggleClass('sortable--enabled');
 		$(this).children('.sortable--toggle-text').toggle();
 	});
-}
+};
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_sortable__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_asset__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_sortable__ = __webpack_require__(3);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
+
 
 
 
@@ -273,7 +326,10 @@ $(document).ready(function () {
 	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].setEvents();
 	}
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__components_sortable__["a" /* sortableInit */])();
+	if (__WEBPACK_IMPORTED_MODULE_2__components_form_item_asset__["a" /* _FormItemAsset */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_2__components_form_item_asset__["a" /* _FormItemAsset */].setEvents();
+	}
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__components_sortable__["a" /* default */])();
 });
 
 /***/ })

@@ -1,17 +1,17 @@
-.form-asset--clearfix {
+.form-item--asset--clearfix {
 	margin-bottom: $font-size-base;
 	border-bottom: 1px solid $gray-lighter;
 	@extend .clearfix;
 }
 
-.form-asset--image {
+.form-item--asset--image {
 	max-width: 20%;
 	height: auto;
 	margin-left: 20%;
 	margin-bottom: $font-size-base;
 }
 
-.form-asset--uploader {
+.form-item--asset--uploader {
 	display: inline-block;
 	margin: 0;
 	margin-top: 9px;
