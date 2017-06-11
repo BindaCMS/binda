@@ -116,14 +116,14 @@ module Binda
 			self.dates.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.date
 		end
 
-		def has_repeater( field_slug )
-			obj = self.repeaters.find_all{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
-			return obj.present?
-		end
+    def has_repeater( field_slug )
+      obj = self.repeaters.find_all{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
+      return obj.present?
+    end
 
-		def get_repeater( field_slug )
-			self.repeaters.find_all{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
-		end
+    def get_repeater( field_slug )
+      self.repeaters.find_all{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.sort_by(&:position)
+    end
 
 
 			# benchmark do
