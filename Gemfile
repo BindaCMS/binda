@@ -16,7 +16,7 @@ gemspec
 group :development, :test do
   gem 'pg'
   gem 'pry-rails', '~> 0.3.5'
-	gem 'rspec-rails', '~> 3.5'
+	gem 'rspec-rails', '>= 3.5', '< 3.7'
 	gem 'autoprefixer-rails'
 	gem 'capybara'
 	gem 'factory_girl_rails'
