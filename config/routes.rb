@@ -4,11 +4,11 @@ Binda::Engine.routes.draw do
   # ----
   # https://github.com/plataformatec/devise/wiki/How-To:-Require-authentication-for-all-components
   authenticated :user, class_name: "Binda::User", module: :devise do
-    root to: 'settings#index', as: :authenticated_root
+    root to: 'settings#dashboard', as: :authenticated_root
   end
   root to: redirect( "users/sign_in" )
 
-  root 'settings#dashboard'
+  # root 'settings#dashboard'
 
   # DEVISE
   # ------

@@ -4,7 +4,7 @@ require "rails_helper"
 # https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara
 include Warden::Test::Helpers
 
-describe "managing structures", type: :feature do
+describe "When use modifies the structures,", type: :feature do
 	it "redirects user if he isn't logged in" do
 		visit binda.structures_path
 		expect(page).not_to have_current_path( binda.structures_path )
