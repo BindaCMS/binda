@@ -43,5 +43,14 @@ Gem::Specification.new do |s|
   s.add_dependency "ffaker",               "~> 2.5.0"
 
 
-  # s.add_development_dependency "sqlite3"
+  # DEVELOPMENT GEMS
+  # ----------------
+  s.add_development_dependency "listen",                   "~> 3.1.5"
+  s.add_development_dependency "pg",                       "~> 0.21"
+  s.add_development_dependency "pry-rails",                "~> 0.3.5"
+  s.add_development_dependency "rspec-rails",              ">= 3.5",       "< 3.7"
+  s.add_development_dependency "autoprefixer-rails",       "~> 7.1"
+  s.add_development_dependency "capybara",                 "~> 2.14"
+  s.add_development_dependency "factory_girl_rails",       "~> 4.8"
+  
 end

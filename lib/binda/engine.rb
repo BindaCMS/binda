@@ -1,3 +1,4 @@
+require 'devise'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'sass-rails'
@@ -8,7 +9,6 @@ require 'aasm'
 require 'ffaker'
 require 'simple_form'
 require 'tinymce-rails'
-require 'devise'
 require 'carrierwave'
 require 'mini_magick'
 require 'ancestry'
@@ -27,3 +27,4 @@ module Binda
 
   end
 end
+
