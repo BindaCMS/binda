@@ -3,22 +3,27 @@ Binda::Engine.routes.draw do
   # ROOT
   # ----
   # https://github.com/plataformatec/devise/wiki/How-To:-Require-authentication-for-all-components
-  authenticated :user, class_name: "Binda::User", module: :devise do
-    root to: 'settings#dashboard', as: :authenticated_root
-  end
-  root to: redirect( "users/sign_in" )
-
-  # root 'settings#dashboard'
+  # authenticated :user, class_name: "Binda::User", module: :devise do
+  #   root to: 'settings#dashboard', as: :authenticated_root
+  # end
+  # root to: 'users/sessions#new'
+  root to: 'settings#dashboard'
 
   # DEVISE
   # ------
-  devise_for :users, class_name: "Binda::User", module: :devise, controllers: { 
-        sessions:       'binda/users/sessions',
-        confirmations:  'binda/users/confirmations',
-        passwords:      'binda/users/passwords',
-        registrations:  'binda/users/registrations',
-        unlocks:        'binda/users/unlocks'
-      }
+  # scope "admindd_ddpanel" do
+    # https://github.com/plataformatec/devise/blob/88724e10adaf9ffd1d8dbfbaadda2b9d40de756a/lib/devise/rails/routes.rb#L143
+    devise_for :users, class_name: "Binda::User", module: 'binda/users',
+    path_names: { 
+      sign_in: 'login', 
+      sign_out: 'logout', 
+      password: 'secret', 
+      confirmation: 'verification', 
+      unlock: 'unblock', 
+      registration: 'register',
+      sign_up: 'signup'
+    }
+  # end
 
   namespace :manage do
     resources :users

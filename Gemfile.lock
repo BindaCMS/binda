@@ -106,6 +106,7 @@ GEM
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
     ffaker (2.5.0)
+    ffi (1.9.18)
     friendly_id (5.2.1)
       activerecord (>= 4.0.0)
     globalid (0.4.0)
@@ -117,6 +118,10 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.6)
@@ -167,6 +172,9 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (12.0.0)
+    rb-fsevent (0.9.8)
+    rb-inotify (0.9.8)
+      ffi (>= 0.5.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -187,6 +195,7 @@ GEM
       rspec-mocks (~> 3.6.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
+    ruby_dep (1.5.0)
     sass (3.4.24)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -226,11 +235,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  autoprefixer-rails
+  autoprefixer-rails (~> 7.1)
   binda!
-  capybara
-  factory_girl_rails
-  pg
+  capybara (~> 2.14)
+  factory_girl_rails (~> 4.8)
+  listen (~> 3.1.5)
+  pg (~> 0.21)
   pry-rails (~> 0.3.5)
   rspec-rails (>= 3.5, < 3.7)
 

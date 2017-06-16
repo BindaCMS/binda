@@ -7,9 +7,10 @@ require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
+# https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-3-and-4-%28and-RSpec%29#controller-specs
+require 'devise'
 # https://github.com/teamcapybara/capybara#using-capybara-with-rspec
 require 'capybara/rspec'
-
 # https://github.com/thoughtbot/factory_girl_rails/issues/167#issuecomment-226360492
 require 'factory_girl_rails'
 
@@ -35,6 +36,14 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+
+  # https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-3-and-4-%28and-RSpec%29#controller-specs
+  # config.include Devise::TestHelpers, :type => :controller
+  # config.include Devise::TestHelpers, :type => :feature
+
+  # Include Devise Helper
+  # https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara
+  include Warden::Test::Helpers
 
   # https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md
   config.include FactoryGirl::Syntax::Methods

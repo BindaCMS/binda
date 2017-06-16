@@ -267,7 +267,7 @@ Devise.setup do |config|
   # is mountable, there are some extra configurations to be taken into account.
   # The following options are available, assuming the engine is mounted as:
   #
-  #     mount MyEngine, at: '/my_engine'
+  #     mount MyEngine, at: '/binda'
   #
   # The router that invoked `devise_for`, in the example above, would be:
   config.router_name = :binda
