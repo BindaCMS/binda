@@ -70,7 +70,7 @@ module Binda
 			# Get the object related to that field setting
 			obj = self.texts.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
 			if obj.present?
-				!obj.content.blank?
+				return !obj.content.blank?
 			else
 				return false
 			end
@@ -78,7 +78,8 @@ module Binda
 
 		def has_image( field_slug )
 			# Check if the field has an attached image
-			obj = self.assets.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.image.present?
+			obj = self.assets.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.image
+			return obj.present?
 		end
 
 		def get_image_url( field_slug, size = '' )
@@ -105,7 +106,7 @@ module Binda
 			# Check if the field has an attached date
 			obj = self.dates.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
 			if obj.present?
-				!obj.date.nil?
+				return !obj.date.nil?
 			else
 				return false
 			end
