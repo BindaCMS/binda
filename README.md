@@ -23,9 +23,11 @@ To install Binda run the installer from terminal.
 $ rails g binda:install
 ```
 
-**Warning: run the installer once.** Running the installer for each application environment will cause issues with users' passwords. Also remember that if you need to re-install Binda you need to drop all Binda database tables first.
+Now you are good to go. Good job!
 
 To get into details read [Binda Guidelines](https://github.com/lacolonia/binda/wiki).
+
+**Warning: run the installer once.** Running the installer for each application environment will cause issues with users' passwords. Also remember that if you need to re-install Binda you need to drop all Binda database tables first.
 
 
 ## Bug reporting
