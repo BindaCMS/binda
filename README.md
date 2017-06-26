@@ -1,5 +1,5 @@
 # Binda
-A lightweight CMS for Ruby on Rails 5, inspired by [Spina](http://www.spinacms.com).
+A modular CMS for Ruby on Rails 5.
 
 [![Code Climate](https://codeclimate.com/github/lacolonia/binda/badges/gpa.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Issue Count](https://codeclimate.com/github/lacolonia/binda/badges/issue_count.svg)](https://codeclimate.com/github/lacolonia/binda)
