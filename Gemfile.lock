@@ -91,6 +91,7 @@ GEM
     coffee-script-source (1.12.2)
     colorize (0.8.1)
     concurrent-ruby (1.0.5)
+    database_cleaner (1.6.1)
     devise (4.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -238,6 +239,7 @@ DEPENDENCIES
   autoprefixer-rails (~> 7.1)
   binda!
   capybara (~> 2.14)
+  database_cleaner (~> 1.6)
   factory_girl_rails (~> 4.8)
   listen (~> 3.1)
   pg (~> 0.21)

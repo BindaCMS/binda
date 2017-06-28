@@ -52,5 +52,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "autoprefixer-rails",       "~> 7.1"
   s.add_development_dependency "capybara",                 "~> 2.14"
   s.add_development_dependency "factory_girl_rails",       "~> 4.8"
+  s.add_development_dependency "database_cleaner",         "~> 1.6"
   
 end
