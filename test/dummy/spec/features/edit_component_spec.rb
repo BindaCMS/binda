@@ -1,22 +1,31 @@
 require "rails_helper"
 
-describe "Editing a component", type: :feature do
+describe "Editing component:", type: :feature do
 
-	before(:context) do
-		login_as( Binda::User.first, :scope => :user )
-		@structure = FactoryGirl.create(:structure)
+	let(:user){ Binda::User.first }
+
+	before(:each) do
+		@structure = create(:structure)
+	end
+
+	it "fails if you try to create a component with no name" do
+		login_as( user, :scope => :user )
+		visit binda.new_structure_component_path( structure_id: @structure.slug )
+		expect( page ).to have_current_path( binda.new_structure_component_path( structure_id: @structure.slug ) )
+		previous_components_quantity = @structure.components.length
+		click_button "Save changes"
+		current_components_quantity = @structure.components.length
+		expect( current_components_quantity ).to eq( previous_components_quantity )
 	end
 
 	it "creates a new component if name is provided" do
-		# remember we are using friendly id :finders
-		# see https://github.com/norman/friendly_id#what-changed-in-version-50
+		login_as( user, :scope => :user )
 		visit binda.new_structure_component_path( structure_id: @structure.slug )
 		expect( page ).to have_current_path( binda.new_structure_component_path( structure_id: @structure.slug ) )
-		# fill_in "component_name", with: "My first component"
-		# click_on "Save changes"
-		# component = get_components( @structure.slug ).find{ |c| c.slug == 'my-first-component' }
-		# visit binda.structure_component_path( strcuture_id: @structure.slug, component_id: component.slug )
-		# expect( page ).to have_content('My first component')
+		fill_in "component_name", with: "Hello"
+		expect(page).to have_selector "#component_name[value='Hello']"
+		click_button "Save changes"
+		expect( page ).not_to have_content "You need to create the component before being able to add any detail"
 	end
 
 	it "lets edit a text field" do
@@ -28,7 +37,7 @@ describe "Editing a component", type: :feature do
 	end
 
 	it "lets reorder repeater elements" do
-		pending "not implemented yet"
+		skip "not implemented yet"
 	end
 
 end
