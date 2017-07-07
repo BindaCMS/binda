@@ -1,8 +1,13 @@
 FactoryGirl.define do
+  
   factory :user, class: Binda::User do
-  	pw = 'abcDEF123$£@'
-    email "admin@binda.com"
+
+    email "mail@domain.com"
+  	
+  	pw = "abcDEF123$£@"
     password pw
     password_confirmation pw
+  
   end
+
 end

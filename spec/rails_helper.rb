@@ -13,9 +13,9 @@ require 'devise'
 require 'capybara/rspec'
 # https://github.com/thoughtbot/factory_girl_rails/issues/167#issuecomment-226360492
 require 'factory_girl_rails'
-
+# https://github.com/DatabaseCleaner/database_cleaner#how-to-use
 require 'database_cleaner'
-
+require 'pry'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -35,6 +35,7 @@ require 'database_cleaner'
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -65,10 +66,22 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+
+  # DEVISE
+  # ------
   # Include Devise Helper
   # https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara
+  # (are u sure that the following line is working?)
   include Warden::Test::Helpers
+  # https://github.com/plataformatec/devise#test-helpers
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+  # https://github.com/plataformatec/devise#integration-tests
+  config.include Devise::Test::IntegrationHelpers, type: :feature
 
+
+  # FACTORY GIRL
+  # ------------
   # Include Factory Girl Methods
   # https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md
   config.include FactoryGirl::Syntax::Methods
@@ -77,7 +90,7 @@ RSpec.configure do |config|
   # CLEAN TEST DATABASE BEFORE TESTING
   # ----------------------------------
   # https://github.com/DatabaseCleaner/database_cleaner#rspec-with-capybara-example
-
+  # https://github.com/DatabaseCleaner/database_cleaner#rspec-example
   config.before(:suite) do
 
     DatabaseCleaner.strategy = :truncation
@@ -87,7 +100,6 @@ RSpec.configure do |config|
     Rails.application.load_seed # loading seeds
     
     FactoryGirl.create(:user)
-    # FactoryGirl.create(:structure)
   end
 
 end

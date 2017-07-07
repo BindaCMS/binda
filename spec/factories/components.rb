@@ -1,16 +1,21 @@
 FactoryGirl.define do
 
-	sequence :article_title, class: Binda::Component do |n|
-	 	"Article number #{ n }"
+  sequence :article_structure_title do |n|
+    "N.#{n} Article"
+  end
+
+	sequence :article_title do |n|
+	 	"This is article number #{ n }"
 	end
 
 	factory :article_component, class: Binda::Component do
 		name { generate :article_title }
+    slug { "#{name}".parameterize }
 	 	association :structure, factory: :article_structure
 	end
 
   factory :article_structure, class: Binda::Structure do
-  	name 'Article'
+  	name { generate :article_structure_title }
     slug { "#{name}".parameterize }
     
 		# https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#associations

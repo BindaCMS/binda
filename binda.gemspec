@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails",      ">= 5.0",      "< 6.1"
   s.add_dependency "sass-rails",           "~> 5.0"
   s.add_dependency "coffee-rails",         ">= 4.1",      "< 4.3"
-  s.add_dependency "friendly_id",          ">= 5.1",      "< 5.3"
   s.add_dependency "aasm",                 ">= 4.11",     "< 4.13"
   s.add_dependency "simple_form",          ">= 3.3",      "< 3.6"
   s.add_dependency "tinymce-rails",        ">= 4.1",      "< 4.7"
@@ -41,6 +40,7 @@ Gem::Specification.new do |s|
   # The following gems could be avoided and they'll soon or late be discarded
   s.add_dependency "colorize",             "~> 0.8"
   s.add_dependency "ffaker",               "~> 2.5"
+  s.add_dependency "friendly_id",          ">= 5.1",      "< 5.3"
 
 
   # DEVELOPMENT GEMS
