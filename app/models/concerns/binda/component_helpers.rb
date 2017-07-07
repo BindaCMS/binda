@@ -1,14 +1,18 @@
 module Binda
-	module ComponentHelpers 
+	module ComponentHelpers
+		# Component helpers are supposed to simplify common operation like 
+		# retrieving data belonging to the component instance (texts, assets, dates and so on)
+
 		extend ActiveSupport::Concern
 
+
+		# Get the object related to that field setting
 		def get_text( field_slug )
-			# Get the object related to that field setting
 			self.texts.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.content
 		end
 
+		# Get the object related to that field setting
 		def has_text( field_slug )
-			# Get the object related to that field setting
 			obj = self.texts.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
 			if obj.present?
 				return !obj.content.blank?
@@ -17,8 +21,8 @@ module Binda
 			end
 		end
 
+		# Check if the field has an attached image
 		def has_image( field_slug )
-			# Check if the field has an attached image
 			obj = self.assets.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.image
 			return obj.present?
 		end
@@ -31,8 +35,8 @@ module Binda
 			get_image_info( field_slug, size, 'path' )
 		end
 
+		# Get the object related to that field setting
 		def get_image_info( field_slug, size, info )
-			# Get the object related to that field setting
 			obj = self.assets.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
 			if obj.image.present?
 				if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
@@ -43,8 +47,8 @@ module Binda
 			end
 		end
 
+		# Check if the field has an attached date
 		def has_date( field_slug )
-			# Check if the field has an attached date
 			obj = self.dates.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
 			if obj.present?
 				return !obj.date.nil?
@@ -53,8 +57,8 @@ module Binda
 			end
 		end
 
+		# Get the object related to that field setting
 		def get_date( field_slug )
-			# Get the object related to that field setting
 			self.dates.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.date
 		end
 

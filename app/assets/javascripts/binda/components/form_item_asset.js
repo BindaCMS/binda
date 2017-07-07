@@ -18,6 +18,7 @@ class FormItemAsset
 	setEvents()
 	{
 		// here code to setup assets via ajax
+		// 
 	}
 }
 

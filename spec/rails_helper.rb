@@ -95,7 +95,7 @@ RSpec.configure do |config|
 
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean
-
+    
     # http://stackoverflow.com/a/19930700/1498118
     Rails.application.load_seed # loading seeds
     

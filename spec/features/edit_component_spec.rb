@@ -9,7 +9,7 @@ describe "Editing component:", type: :feature do
 	end
 
 	it "fails if you try to create a component with no name" do
-		login_as( user, :scope => :user )
+    sign_in user
 		visit binda.new_structure_component_path( structure_id: @structure.slug )
 		expect( page ).to have_current_path( binda.new_structure_component_path( structure_id: @structure.slug ) )
 		previous_components_quantity = @structure.components.length
@@ -19,7 +19,7 @@ describe "Editing component:", type: :feature do
 	end
 
 	it "creates a new component if name is provided" do
-		login_as( user, :scope => :user )
+    sign_in user
 		visit binda.new_structure_component_path( structure_id: @structure.slug )
 		expect( page ).to have_current_path( binda.new_structure_component_path( structure_id: @structure.slug ) )
 		fill_in "component_name", with: "Hello"

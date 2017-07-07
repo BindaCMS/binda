@@ -10,7 +10,7 @@ describe "User session", type: :feature do
 	end
 
 	it "allows logged in user to visit the structure page " do
-		login_as( user, :scope => :user )
+    sign_in user
 		visit binda.structures_path
 		expect( page ).to have_current_path( binda.structures_path )
 	end

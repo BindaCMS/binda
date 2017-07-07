@@ -168,6 +168,7 @@ var FormItemAsset = function () {
 		key: 'setEvents',
 		value: function setEvents() {
 			// here code to setup assets via ajax
+			// 
 		}
 	}]);
 
@@ -270,7 +271,7 @@ function addNewItem(event) {
 			update: function update() {
 				$.post($(this).data('update-url'), $(this).sortable('serialize'));
 			}
-		}).disableSelection();
+		});
 
 		// Check if sortable item needs handles
 		$('.sortable').each(function () {

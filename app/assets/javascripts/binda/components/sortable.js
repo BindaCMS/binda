@@ -13,7 +13,6 @@ export default function()
 					)
 		  	}
 		  })
-		  .disableSelection()
 
 		// Check if sortable item needs handles
 		$('.sortable').each( function()
