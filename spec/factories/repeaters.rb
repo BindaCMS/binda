@@ -1,10 +1,15 @@
 FactoryGirl.define do
+
+	sequence(:repeater_name){ |n| "##{n} Repeater" }
   
 	# Article repeater
-  factory :article_repeater, class: Binda::Repeater do
-    name "#{ generate :article_title } gallery"
-    slug { "#{name}".parameterize }
-    association :component, factory: :article_component
+  factory :repeater, class: Binda::Repeater do
+  end
+
+  factory :repeater_with_fields, parent: :repeater do
+		after(:create) do
+			create :string
+		end
   end
 
 end

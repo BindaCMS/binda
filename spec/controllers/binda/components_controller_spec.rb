@@ -9,7 +9,7 @@ module Binda
     let(:user){ Binda::User.first }
 
     before(:context) do
-      @structure = create(:article_structure_with_components)
+      @structure = create(:article_structure_with_components_and_fields)
     end
 
     describe "GET #index" do
@@ -38,8 +38,10 @@ module Binda
 
     describe "POST #sort_repeaters" do
       it "reorder data belonging to a component repeater" do
-        sign_in user
-        post :sort_repeaters, { repeater: ["4", "2", "3"] }
+        skip "TODO"
+        # sign_in user
+        # post :sort_repeaters, { repeater: ["4", "2", "3"] }
+        # expect()
         # "repeater"=>["1", "2"], "controller"=>"binda/components", "action"=>"sort_repeaters", "structure_id"=>"page", "component_id"=>"hello-1"
         # expect()
       end
