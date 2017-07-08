@@ -1,5 +1,5 @@
 module Binda
-	module ComponentHelpers
+	module ComponentModelHelper
 		# Component helpers are supposed to simplify common operation like 
 		# retrieving data belonging to the component instance (texts, assets, dates and so on)
 

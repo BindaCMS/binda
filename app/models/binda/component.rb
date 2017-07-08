@@ -1,7 +1,7 @@
 module Binda
 	class Component < ApplicationRecord
 
-		include Binda::ComponentHelpers
+		include ComponentModelHelper
 
 		# Associations
 		belongs_to :structure, required: true
