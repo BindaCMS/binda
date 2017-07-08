@@ -8,7 +8,12 @@ spec/dummy/tmp/
 spec/dummy/public/uploads/
 
 spec/dummy/db/migrate/
+spec/dummy/db/schema.rb
+spec/dummy/config/initializers/devise.rb
 
 node_modules
 npm-debug.log
 .DS_Store
+
+.yardoc
+doc
