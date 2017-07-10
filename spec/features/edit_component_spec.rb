@@ -4,8 +4,9 @@ describe "Editing component:", type: :feature do
 
 	let(:user){ Binda::User.first }
 
-	before(:each) do
-		@structure = create(:structure)
+	before(:context) do
+		@structure = create(:article_structure_with_components_and_fields)
+		@component = @structure.components.first
 	end
 
 	it "fails if you try to create a component with no name" do
@@ -26,6 +27,13 @@ describe "Editing component:", type: :feature do
 		expect(page).to have_selector "#component_name[value='Hello']"
 		click_button "Save changes"
 		expect( page ).not_to have_content "You need to create the component before being able to add any detail"
+	end
+
+	it "isn't block by any rails error" do
+		sign_in user
+		visit binda.edit_structure_component_path( structure_id: @structure.slug, id: @component.slug )
+		expect( page ).to have_current_path( binda.edit_structure_component_path( structure_id: @structure.slug, id: @component.slug ) )
+		expect( page ).to have_selector "#component_name[value='#{ @component.name }']"
 	end
 
 	it "lets edit a text field" do

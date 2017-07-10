@@ -1,7 +1,8 @@
 FactoryGirl.define do
 
+
 	factory :field_group, class: Binda::FieldGroup do
-		name "Default details"
+		sequence(:name) { |n| "Default details ##{n}" }
 		slug { "#{name}".parameterize }
 		
 		after(:create) do |field_group|
