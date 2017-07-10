@@ -18,12 +18,14 @@ class FormItemRepeater {
 	setEvents()
 	{
 		$(document).on('click', this.target + '--add-new', addNewItem )
+		
 		$(document).on('click', '.form-item--remove-item-with-js', function( event )
 		{
 			// Stop default behaviour
 			event.preventDefault()
 			$( this ).parent( this.target ).remove()
 		})
+
 		$(document).on('click', '.form-item--delete-repeater-item', function( event )
 		{
 			// Stop default behaviour

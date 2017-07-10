@@ -5,7 +5,6 @@ module Binda
 
 		extend ActiveSupport::Concern
 
-
 		# Get the object related to that field setting
 		def get_text( field_slug )
 			self.texts.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.content
@@ -71,4 +70,16 @@ module Binda
 	    self.repeaters.find_all{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.sort_by(&:position)
 	  end
 	end
+
+
+	private 
+
+		def find_or_create_a_field_by field_setting_id, field_type
+			if Binda::FieldSetting.get_fieldables.include?( field_type.capitalize ) && field_setting_id.is_a?( Integer )
+				self.send( field_type.pluralize ).find_or_create_by( field_setting_id: field_setting_id )
+			else
+				raise ArgumentError, "A parameter of the method 'find_or_create_a_field_by' is not correct.", caller
+			end
+		end
+
 end

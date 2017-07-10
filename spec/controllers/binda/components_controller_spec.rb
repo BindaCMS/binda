@@ -10,6 +10,7 @@ module Binda
 
     before(:context) do
       @structure = create(:article_structure_with_components_and_fields)
+      @component = @structure.components.first
     end
 
     describe "GET #index" do
@@ -36,14 +37,41 @@ module Binda
       end
     end
 
+    describe "POST #new_repeater" do
+      it "create a new repeater with correct position" do
+        sign_in user
+        initial_repeaters_length = @component.repeaters.length
+        repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
+
+        post :new_repeater, params: { 
+          repeater_setting_id: repeater_setting_id, 
+          structure_id: @structure.slug, 
+          component_id: @component.slug
+        }
+        @component.reload
+        
+        expect( @component.repeaters.length ).to eq( initial_repeaters_length + 1 )
+        expect( @component.repeaters.last.position ).to eq( @component.repeaters.length )
+      end
+    end
+
     describe "POST #sort_repeaters" do
       it "reorder data belonging to a component repeater" do
-        skip "TODO"
-        # sign_in user
-        # post :sort_repeaters, { repeater: ["4", "2", "3"] }
-        # expect()
-        # "repeater"=>["1", "2"], "controller"=>"binda/components", "action"=>"sort_repeaters", "structure_id"=>"page", "component_id"=>"hello-1"
-        # expect()
+        # skip "TODO"
+        sign_in user
+        
+        post :sort_repeaters, params: { 
+          repeater: ["2", "3", "1", "5", "4"], 
+          structure_id: @structure.slug,
+          component_id: @component.slug 
+        }
+        @component.reload
+        
+        repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
+        repeaters = @component.repeaters.find_all{ |r| r.field_setting_id = repeater_setting_id }
+        
+        expect( repeaters.first.position ).not_to eq(0)
+        expect( repeaters.first.position ).to eq(3)
       end
     end
   end

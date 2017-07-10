@@ -5,8 +5,8 @@ FactoryGirl.define do
 		slug { "#{name}".parameterize }
 		
 		after(:create) do |field_group|
-			create :repeater_setting, field_group: field_group
 			create :string_setting, field_group: field_group
+			create :repeater_setting_with_fields, field_group: field_group
 		end
 	end
 
