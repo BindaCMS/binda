@@ -4,7 +4,7 @@ module Binda
   RSpec.describe Component, type: :model do
 		
 		before(:all) do
-			@structure = FactoryGirl.create(:structure)
+			@structure = build(:structure)
 		end
 
 		let( :new_component ) { Binda::Component.new }
