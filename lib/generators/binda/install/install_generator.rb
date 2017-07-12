@@ -49,19 +49,16 @@ module Binda
         rake 'db:migrate'
       end
 
-      def reset
-        initializers_path = Rails.root.join('config', 'initializers' )
-        if File.exist?( "#{ initializers_path }/devise.rb" )
+      def setup_devise
+        return if Rails.env.production?
+
+        # Check if devise is already setup and if so, create a backup before overwrite it
+        if File.exist?( Rails.root.join('config', 'initializers', 'devise.rb' ))
           puts "We have detected a configuration file for Devise: config/initializers/devise.rb".colorize(:green)
           puts "In order to avoid any conflict that file has been renamed".colorize(:green)
           File.rename( "#{ initializers_path }/devise.rb" , "#{ initializers_path }/devise_backup_#{ Time.now.strftime('%Y%m%d-%H%M%S-%3N') }.rb" )
         end
-      end
-
-      def setup_devise
-        return if Rails.env.production?
-        return if File.exist?( Rails.root.join('config', 'initializers', 'devise.rb' ))
-
+        
         # Copy the initilializer on the application folder
         template 'config/initializers/devise.rb'
 

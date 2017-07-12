@@ -45,8 +45,9 @@ module Binda
     end
 
     def new_repeater
-      # @repeater_setting = Binda::FieldSetting.find( '3' )
       @repeater_setting = Binda::FieldSetting.find( params[:repeater_setting_id] )
+      position = @component.repeaters.find_all{|r| r.field_setting_id=@repeater_setting.id }.length + 1
+      @repeater = @component.repeaters.create( field_setting: @repeater_setting, position: position )
       render 'binda/components/_form_item_new_repeater', layout: false
     end
 

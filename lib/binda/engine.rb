@@ -25,6 +25,12 @@ module Binda
     # Setup tinymce configuration file
     config.tinymce.config_path = ::Binda::Engine.root.join("config/tinymce.yml")
 
+    # https://stackoverflow.com/a/17718926/1498118
+    config.generators do |g|
+      g.integration_tool :rspec
+      g.test_framework :rspec
+    end
+
   end
 end
 

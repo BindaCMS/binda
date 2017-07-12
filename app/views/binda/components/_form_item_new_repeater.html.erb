@@ -3,14 +3,12 @@
 <%# - - - - - - - - - - - - - - %>
 <%= simple_form_for @component, url: structure_component_path( structure_id: @component.structure.id, id: @component.id ), defaults: { label: false } do |f| %>
 <!-- SPLIT -->
-	<% repeater = @component.repeaters.create( field_setting: @repeater_setting ) %>
-
-	<li id="repeater_<%= repeater.id %>">
+	<li id="repeater_<%= @repeater.id %>">
 
 		<%# - - - - - - - - - - - - %>
 		<%# REMOVE BUTTON           %>
 		<%# - - - - - - - - - - - - %>
-		<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>" data-id="<%= repeater.id %>""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+		<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 
 		<%# - - - - - - - - - - - - - - %>
 		<%# FIRST REPEATER              %>
@@ -22,7 +20,7 @@
 		  	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: @repeater_setting.id } %>
 				<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
 				<% @repeater_setting.children.order( :position ).each do |repeater_setting_child| %>
-				  <%= render "form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child, repeater: repeater %>
+				  <%= render "form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child, repeater: @repeater %>
 			  <% end %>
 			<% end %>
 		</div>

@@ -14,24 +14,30 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-APP_RAKEFILE = File.expand_path("../test/dummy/Rakefile", __FILE__)
+APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
 load 'rails/tasks/engine.rake'
 
 
 load 'rails/tasks/statistics.rake'
 
 
-
 require 'bundler/gem_tasks'
 
-require 'rake/testtask'
-
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = false
-end
 
 
-task default: :test
+# # I guess this generate test file every time you use `rails g` command
+# require 'rake/testtask'
+# Rake::TestTask.new(:test) do |t|
+#   t.libs << 'lib'
+#   t.libs << 'test'
+#   t.pattern = 'test/**/*_test.rb'
+#   t.verbose = false
+# end
+# task default: :test
+
+# This should ensure creation of spec instead of test (partially true)
+# https://stackoverflow.com/a/4632188/1498118
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new('spec')
+# If you want to make this the default task
+task :default => :spec
