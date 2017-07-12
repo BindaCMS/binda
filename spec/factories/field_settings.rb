@@ -5,6 +5,7 @@ FactoryGirl.define do
 	factory :field_setting, class: Binda::FieldSetting do
 		name { generate :field_name }
 		slug { "#{name}".parameterize }
+		association :field_group
 	end
 
 	factory :repeater_setting, parent: :field_setting do
@@ -24,6 +25,13 @@ FactoryGirl.define do
 
 	factory :text_setting, parent: :field_setting do
 		field_type 'text'
+	end
+
+	factory :radio_setting, parent: :field_setting do
+		field_type 'radio'
+		choices '{ "fruit_1": "apple", "fruit_2": "banana", "fruit_3": "cucumber" }'
+		default_choice "fruit_1"
+		allow_null false
 	end
 
 end

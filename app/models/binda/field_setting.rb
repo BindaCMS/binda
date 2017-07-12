@@ -17,6 +17,11 @@ module Binda
 		has_many :galleries,     as: :fieldable
 		has_many :assets,        as: :fieldable
 		has_many :repeater,      as: :fieldable
+		has_many :radio,         as: :fieldable
+		has_many :select,        as: :fieldable
+		has_many :checkbox,      as: :fieldable
+		has_many :truefalse,     as: :fieldable
+
 
 		# The following direct association is used to securely delete associated fields
 		# Infact via `fieldable` the associated fields might not be deleted 
@@ -25,18 +30,22 @@ module Binda
 		has_many :dates,         dependent: :delete_all
 		has_many :galleries,     dependent: :delete_all
 		has_many :repeater,      dependent: :delete_all
+		has_many :radio,         dependent: :delete_all
+		has_many :select,        dependent: :delete_all
+		has_many :checkbox,      dependent: :delete_all
+		has_many :truefalse,     dependent: :delete_all
 
 		# accepts_nested_attributes_for :children, allow_destroy: true, reject_if: :is_rejected
 
 		cattr_accessor :field_settings_array
 
 		def self.get_fieldables
-			%w( Text Date Gallery Asset Repeater )
+			%w( Text Date Gallery Asset Repeater Radio Select Checkbox Truefalse )
 		end
 
 		# Field types are't fieldable! watch out! They might use the same model (eg `string` and `text`)
 		def get_field_types
-			%w( string text asset gallery repeater date )
+			%w( string text asset gallery repeater date radio select checkbox truefalse )
 		end
 
 		# Validations
