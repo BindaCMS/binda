@@ -11,10 +11,10 @@ module Binda
 		it "should let you create a radio item with choices" do
 			choices = @radio.get_choices
 			expect( choices.length ).to eq(3)
-			expect( @radio.content ).to eq('fruit_1')
-			@radio.update_attribute( 'content', 'fruit_3' )
-			expect( @radio.content ).to eq('fruit_3')
-			expect( @radio.get_choice ).to eq('cucumber')
+			expect( @radio.content ).to eq('f1')
+			@radio.update_attribute( 'content', 'f3' )
+			expect( @radio.content ).to eq('f3')
+			expect( @radio.get_choice ).to eq('f3')
 		end
 
 	end

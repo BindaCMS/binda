@@ -29,8 +29,8 @@ FactoryGirl.define do
 
 	factory :radio_setting, parent: :field_setting do
 		field_type 'radio'
-		choices '{ "fruit_1": "apple", "fruit_2": "banana", "fruit_3": "cucumber" }'
-		default_choice "fruit_1"
+		choices '{ "apple": "f1", "banana": "f2", "cucumber": "f3" }'
+		default_choice "f1"
 		allow_null false
 	end
 
