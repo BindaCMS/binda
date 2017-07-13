@@ -34,7 +34,11 @@
 	  <%= ff.input :field_type, as: :string, disabled: true, input_html: { class: "form-item--input" } %>
 	<% end %>
 
-	<% unless ff.object.new_record? %>
+	<% if ff.object.new_record? %>
+
+		<%= ff.input :slug, as: :hidden, input_html: { class: "form-item--input" } %>
+
+	<% else %>
 
 		<%# - - - - - - - - - - - - %>
 		<%# SLUG                    %>

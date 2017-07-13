@@ -7,7 +7,7 @@ module Binda
 		has_ancestry orphan_strategy: :destroy
 
 		# Fields Associations
-		# -------------------
+		# 
 		# If you add a new field remember to update:
 		#   - get_fieldables (see here below)
 		#   - get_field_types (see here below)
@@ -67,8 +67,9 @@ module Binda
 
 
 		# CUSTOM METHODS
-		# --------------
-		# https://github.com/norman/friendly_id/issues/436
+		# 
+		# @see https://github.com/norman/friendly_id/issues/436
+
 		def should_generate_new_friendly_id?
 			slug.blank?
 		end
