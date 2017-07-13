@@ -25,12 +25,20 @@ module Binda
 			expect( @repeater_text.fieldable ).to eq( @repeater )
 		end
 
-		it 'it returns blank on get_text() if there is no content' do 
+		it 'returns blank on get_text() if there is no content' do 
 			slug = @component_text.field_setting.slug
 			expect( @component.get_text( slug ) ).to eq( @component_text.content )
 			@component_text.update_attribute( 'content', '' )
 			expect( @component.get_text( slug ) ).to eq('')
 		end
 		
+		it "returns nil on get_text() if the text field has been recently created but the component doesn't have any text belonging to that text field" do
+			@text_field_setting = @structure.field_groups.first.field_settings.create({ name: 'Testing sting', field_type: 'string' })
+			expect( @component.get_text( @text_field_setting.slug ) ).not_to eq('')
+			expect( @component.get_text( @text_field_setting.slug ) ).to eq(nil)
+			@component.texts.create({ content: 'Lorem', field_setting_id: @text_field_setting.id })
+			expect( @component.get_text( @text_field_setting.slug ) ).to eq('Lorem')
+		end
+
 	end
 end

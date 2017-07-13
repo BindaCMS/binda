@@ -6,8 +6,12 @@ module Binda
 		extend ActiveSupport::Concern
 
 		# Get the object related to that field setting
+		# If the object doesn't exists yet it will return nil
+		# 
+		# @return [string] The content of the string/text or nil if it's empty or it doesn't exists
 		def get_text( field_slug )
-			self.texts.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }.content
+			text = self.texts.find{ |t| t.field_setting_id == Binda::FieldSetting.get_id( field_slug ) }
+			text.content unless text.nil?
 		end
 
 		# Get the object related to that field setting
