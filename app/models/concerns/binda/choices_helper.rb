@@ -38,7 +38,7 @@ module Binda
 		# 
 		# @return [string] the key of the default choice
 		def set_default_choice
-			self.content = self.field_setting.default_choice
+			self.content = self.field_setting.default_choice.parameterize.underscore.to_sym
 		end
 
 	end
