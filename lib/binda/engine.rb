@@ -17,10 +17,6 @@ module Binda
   class Engine < ::Rails::Engine
     isolate_namespace Binda
 
-    ActiveSupport::Inflector.inflections do |inflect|
-      inflect.irregular 'radio', 'radio'
-    end
-
     # Add vendor files to pipeline
     config.assets.paths << config.root.join("vendor", "assets" )
     # config.assets.paths << config.root.join("vendor", "assets", "fonts")

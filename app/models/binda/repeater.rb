@@ -17,14 +17,14 @@ module Binda
     has_many :dates,         as: :fieldable, dependent: :delete_all
     has_many :galleries,     as: :fieldable, dependent: :delete_all
     has_many :assets,        as: :fieldable, dependent: :delete_all
-    has_many :radio,         as: :fieldable, dependent: :delete_all 
-    has_many :select,        as: :fieldable, dependent: :delete_all 
-    has_many :checkbox,      as: :fieldable, dependent: :delete_all 
-    has_many :truefalse,     as: :fieldable, dependent: :delete_all 
+    has_many :radios,        as: :fieldable, dependent: :delete_all 
+    has_many :selects,       as: :fieldable, dependent: :delete_all 
+    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
+    has_many :truefalses,    as: :fieldable, dependent: :delete_all 
     # Repeaters need destroy_all, not delete_all
     has_many :repeaters,     as: :fieldable, dependent: :destroy
 
-    accepts_nested_attributes_for :texts, :dates, :assets, :galleries, :repeaters, :radio, :select, :checkbox, :truefalse,allow_destroy: true
+    accepts_nested_attributes_for :texts, :dates, :assets, :galleries, :repeaters, :radios, :selects, :checkboxes, :truefalses, allow_destroy: true
 
     # The following direct association is used to securely delete associated fields
     # Infact via `fieldable` the associated fields might not be deleted 

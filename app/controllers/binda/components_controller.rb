@@ -121,7 +121,39 @@ module Binda
             :field_setting_id,
             :fieldable_type,
             :fieldable_id
-            ], 
+            ],
+          radios_attributes: [ 
+            :id, 
+            :repeater_id,
+            :field_setting_id, 
+            :fieldable_type,
+            :fieldable_id,
+            :content
+            ],
+          selects_attributes: [ 
+            :id, 
+            :repeater_id,
+            :field_setting_id, 
+            :fieldable_type,
+            :fieldable_id,
+            :content
+            ],
+          checkboxes_attributes: [ 
+            :id, 
+            :repeater_id,
+            :field_setting_id, 
+            :fieldable_type,
+            :fieldable_id,
+            :content
+            ],
+          truefalses_attributes: [ 
+            :id, 
+            :repeater_id,
+            :field_setting_id, 
+            :fieldable_type,
+            :fieldable_id,
+            :content
+            ],
           repeaters_attributes: [ 
             :id, 
             :field_setting_id, 
@@ -167,7 +199,7 @@ module Binda
               :fieldable_type,
               :fieldable_id
               ],
-            radio_attributes: [ 
+            radios_attributes: [ 
               :id, 
               :repeater_id,
               :field_setting_id, 
@@ -244,7 +276,7 @@ module Binda
               :fieldable_type,
               :fieldable_id
               ],
-            radio_attributes: [ 
+            radios_attributes: [ 
               :id, 
               :repeater_id,
               :field_setting_id, 
