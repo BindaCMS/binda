@@ -39,6 +39,14 @@ module Binda
 
 		cattr_accessor :field_settings_array
 
+    after_create do 
+    	self.class.reset_field_settings_array 
+    end
+
+    after_destroy do 
+    	self.class.reset_field_settings_array 
+    end
+
 		def self.get_fieldables
 			%w( Text Date Gallery Asset Repeater Radio Select Checkbox Truefalse )
 		end
@@ -86,6 +94,11 @@ module Binda
 			return possible_names
 		end
 
+		# Retrieve the ID if a slug is provided and update the field_settings_array 
+		#   in order to avoid calling the database (or the cached response) every time.
+		#   This way Rails logs are much cleaner
+		# 
+		# @return [integer] The ID of the field setting
 		def self.get_id( field_slug )
 			# Get field setting id from slug, without multiple calls to database 
 			# (the query runs once and caches the result, then any further call uses the cached result)
@@ -93,6 +106,10 @@ module Binda
 			@@field_settings_array.find { |fs| fs.slug == field_slug }.id
 		end
 
+		# Reset the field_settings_array. It's called every time 
+		#   the user creates or destroyes a Binda::FieldSetting
+		# 
+		# @return [null]
 		def self.reset_field_settings_array
 			# Reset the result of the query taken with the above method,
 			# this is needed when a user creates a new field_setting but 
