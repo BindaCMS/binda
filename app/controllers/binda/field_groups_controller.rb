@@ -87,7 +87,10 @@ module Binda
             :position,
             :required,
             :default_text,
-            :ancestry
+            :ancestry,
+            :choices,
+            :default_choice, 
+            :allow_null
           ])
       end
 
@@ -102,7 +105,10 @@ module Binda
             :field_type, 
             :position,
             :required,
-            :ancestry
+            :ancestry,
+            :choices,
+            :default_choice, 
+            :allow_null
             ])
       end
 

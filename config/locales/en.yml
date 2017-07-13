@@ -35,3 +35,6 @@ en:
   create_category: create a new category
   structure_has_categories: Enable categories
   asset: asset
+  choices: choices
+  default_choice: default choice
+  allow_null: allow null?

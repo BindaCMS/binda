@@ -166,6 +166,38 @@ module Binda
               :field_group_id,
               :fieldable_type,
               :fieldable_id
+              ],
+            radio_attributes: [ 
+              :id, 
+              :repeater_id,
+              :field_setting_id, 
+              :fieldable_type,
+              :fieldable_id,
+              :content
+              ],
+            selects_attributes: [ 
+              :id, 
+              :repeater_id,
+              :field_setting_id, 
+              :fieldable_type,
+              :fieldable_id,
+              :content
+              ],
+            checkboxes_attributes: [ 
+              :id, 
+              :repeater_id,
+              :field_setting_id, 
+              :fieldable_type,
+              :fieldable_id,
+              :content
+              ],
+            truefalses_attributes: [ 
+              :id, 
+              :repeater_id,
+              :field_setting_id, 
+              :fieldable_type,
+              :fieldable_id,
+              :content
               ]
             ])
       end
@@ -211,6 +243,38 @@ module Binda
               :field_group_id,
               :fieldable_type,
               :fieldable_id
+              ],
+            radio_attributes: [ 
+              :id, 
+              :repeater_id,
+              :field_setting_id, 
+              :fieldable_type,
+              :fieldable_id,
+              :content
+              ],
+            selects_attributes: [ 
+              :id, 
+              :repeater_id,
+              :field_setting_id, 
+              :fieldable_type,
+              :fieldable_id,
+              :content
+              ],
+            checkboxes_attributes: [ 
+              :id, 
+              :repeater_id,
+              :field_setting_id, 
+              :fieldable_type,
+              :fieldable_id,
+              :content
+              ],
+            truefalses_attributes: [ 
+              :id, 
+              :repeater_id,
+              :field_setting_id, 
+              :fieldable_type,
+              :fieldable_id,
+              :content
               ]
             ])
       end

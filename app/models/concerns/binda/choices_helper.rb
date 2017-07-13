@@ -10,6 +10,14 @@ module Binda
 			after_create :set_default_choice
 		end
 
+		# Check if there is any choice available
+		# 
+		# NOTE: It doesn't check if the choices are a valid object or not
+		# @return [boolean] true if there's anything to return, false if it's blank
+		def has_choices 
+			!self.field_setting.choices.blank?
+		end
+
 		# Get all choices in an object with key/value pairs
 		# 
 		# @return [object] object with a pair key/value for each choice

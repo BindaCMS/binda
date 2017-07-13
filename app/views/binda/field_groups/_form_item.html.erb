@@ -24,29 +24,6 @@
 	<h5><%= "#{ t :name }".capitalize %></h5>
 	<%= ff.input :name, as: :string, input_html: { class: "form-item--input" } %>
 
-
-	<%# - - - - - - - - - - - - %>
-	<%# SLUG                    %>
-	<%# - - - - - - - - - - - - %>
-	<h5><%= "#{ t :slug }".capitalize %></h5>
-	<%= ff.input :slug, as: :string, input_html: { class: "form-item--input" } %>
-
-
-	<%# - - - - - - - - - - - - %>
-	<%# DESCRIPTION             %>
-	<%# - - - - - - - - - - - - %>
-	<h5><%= "#{ t :description }".capitalize %></h5>
-	<%= ff.input :description, input_html: { class: "form-item--input" } %>
-	<div class="clearfix"></div>
-
-
-	<%# - - - - - - - - - - - - %>
-	<%# POSITION                %>
-	<%# - - - - - - - - - - - - %>
-	<h5><%= "#{ t :position }".capitalize %></h5>
-	<%= ff.input :position, as: :integer, input_html: { class: "form-item--input" } %>
-
-
 	<%# - - - - - - - - - - - - %>
 	<%# FIELD TYPE              %>
 	<%# - - - - - - - - - - - - %>
@@ -56,6 +33,56 @@
 	<% else %>
 	  <%= ff.input :field_type, as: :string, disabled: true, input_html: { class: "form-item--input" } %>
 	<% end %>
+
+	<% unless ff.object.new_record? %>
+
+		<%# - - - - - - - - - - - - %>
+		<%# SLUG                    %>
+		<%# - - - - - - - - - - - - %>
+		<h5><%= "#{ t :slug }".capitalize %></h5>
+		<%= ff.input :slug, as: :string, input_html: { class: "form-item--input" } %>
+
+
+		<%# - - - - - - - - - - - - %>
+		<%# DESCRIPTION             %>
+		<%# - - - - - - - - - - - - %>
+		<h5><%= "#{ t :description }".capitalize %></h5>
+		<%= ff.input :description, input_html: { class: "form-item--input" } %>
+
+
+		<%# - - - - - - - - - - - - %>
+		<%# POSITION                %>
+		<%# - - - - - - - - - - - - %>
+		<h5><%= "#{ t :position }".capitalize %></h5>
+		<%= ff.input :position, as: :integer, input_html: { class: "form-item--input" } %>
+
+		<% choiceables = ['radio', 'select', 'checkbox'] %>
+		<% if choiceables.include? ff.object.field_type %>
+
+			<%# - - - - - - - - - - - - %>
+			<%# CHOICES                 %>
+			<%# - - - - - - - - - - - - %>
+			<h5><%= "#{ t :choices }".capitalize %></h5>
+			<%= ff.input :choices, input_html: { class: "form-item--input" } %>
+
+
+			<%# - - - - - - - - - - - - %>
+			<%# DEFAULT CHOICE          %>
+			<%# - - - - - - - - - - - - %>
+			<h5><%= "#{ t :default_choice }".capitalize %></h5>
+			<%= ff.input :default_choice, as: :string, input_html: { class: "form-item--input" } %>
+
+
+			<%# - - - - - - - - - - - - %>
+			<%# ALLOW NULL              %>
+			<%# - - - - - - - - - - - - %>
+			<h5><%= "#{ t :allow_null }".capitalize %></h5>
+			<%= ff.input :allow_null, as: :boolean, boolean_style: :inline, input_html: { class: "form-item--input" }, selected: false %>
+
+		<% end %>
+
+	<% end %>
+	<div class="clearfix"></div>
 
 </div>
 
