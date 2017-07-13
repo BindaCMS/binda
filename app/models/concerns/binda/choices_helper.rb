@@ -29,9 +29,7 @@ module Binda
 		# 
 		# @return [string] the value of the choice
 		def get_choice
-			# self.get_choices[ self.content ]
-			choices = self.get_choices
-			choices[ self.content.parameterize.underscore.to_sym ]
+			self.content
 		end
 
 		# Set the default key
