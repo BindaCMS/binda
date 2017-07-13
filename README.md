@@ -4,7 +4,6 @@ A modular CMS for Ruby on Rails 5.
 [![Code Climate](https://codeclimate.com/github/lacolonia/binda/badges/gpa.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Issue Count](https://codeclimate.com/github/lacolonia/binda/badges/issue_count.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Test Coverage](https://codeclimate.com/github/lacolonia/binda/badges/coverage.svg)](https://codeclimate.com/github/lacolonia/binda/coverage)
-[![Slack](https://binda.herokuapp.com/badge.svg)](https://binda.herokuapp.com)
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -32,7 +31,7 @@ To get into details read [Binda Guidelines](https://github.com/lacolonia/binda/w
 
 ## Bug reporting
 Please refer to this [guide](http://yourbugreportneedsmore.info).
-If you need direct help you can join [Binda Slack Community](https://binda.herokuapp.com).
+If you need direct help you can join [Binda Slack Community](https://bindacms.slack.com).
 
 
 ## License
