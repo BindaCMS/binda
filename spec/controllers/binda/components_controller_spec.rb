@@ -57,8 +57,7 @@ module Binda
     end
 
     describe "POST #sort_repeaters" do
-      it "reorder data belonging to a component repeater" do
-        # skip "TODO"
+      it "reorder repeater based on position value" do
         sign_in user
         
         post :sort_repeaters, params: { 
@@ -74,6 +73,22 @@ module Binda
         expect( repeaters.first.position ).not_to eq(0)
         expect( repeaters.first.position ).to eq(1)
         expect( repeaters.find{ |r| r.id == 1 }.position ).to eq(3)
+      end
+    end
+
+    describe "POST #sort" do
+      it "reorder components based on position value" do
+        sign_in user
+
+        component_one = @structure.components.find(1)
+        expect( component_one.position ).to eq(1)
+
+        post :sort, params: {
+          component: [ 2, 3, 1, 5, 4 ],
+          structure_id: @structure.slug
+        }
+        component_one.reload
+        expect( component_one.position ).to eq(3)
       end
     end
   end

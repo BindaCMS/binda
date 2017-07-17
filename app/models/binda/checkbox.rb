@@ -1,5 +1,5 @@
 module Binda
-	class Checkbox < Binda::Text
+	class Checkbox < Text
 
 		include ChoicesHelper
 

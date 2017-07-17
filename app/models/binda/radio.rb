@@ -1,5 +1,5 @@
 module Binda
-	class Radio < Binda::Text
+	class Radio < Text
 
 		include ChoicesHelper
 

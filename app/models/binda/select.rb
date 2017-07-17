@@ -1,5 +1,5 @@
 module Binda
-	class Select < Binda::Text
+	class Select < Text
 
 		include ChoicesHelper
 
