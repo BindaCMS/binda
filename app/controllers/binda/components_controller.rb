@@ -25,7 +25,7 @@ module Binda
       @component = @structure.components.build(component_params)
       @component.position = @position
       if @component.save
-        redirect_to structure_component_path( @structure.slug, @component.slug ), notice: 'Component was successfully created.'
+        redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "A #{ @component.name } was successfully created."
       else
         redirect_to new_structure_component_path( @structure.slug ), flash: { alert: @component.errors }
       end
@@ -33,7 +33,7 @@ module Binda
 
     def update
       if @component.update(component_params)
-        redirect_to structure_component_path( @structure.slug, @component.slug ), notice: 'Component was successfully updated.'
+        redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "A #{ @component.name } was successfully updated."
       else
         redirect_to edit_structure_component_path( @structure.slug, @component.slug ), flash: { alert: @component.errors }
       end
@@ -41,7 +41,7 @@ module Binda
 
     def destroy
       @component.destroy
-      redirect_to structure_components_url( @structure.slug ), notice: 'Component was successfully destroyed.'
+      redirect_to structure_components_url( @structure.slug ), notice: "A #{ @component.name } was successfully destroyed."
     end
 
     def new_repeater
