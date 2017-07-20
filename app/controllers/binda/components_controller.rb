@@ -45,7 +45,7 @@ module Binda
     end
 
     def new_repeater
-      @repeater_setting = Binda::FieldSetting.find( params[:repeater_setting_id] )
+      @repeater_setting = FieldSetting.find( params[:repeater_setting_id] )
       position = @component.repeaters.find_all{|r| r.field_setting_id=@repeater_setting.id }.length + 1
       @repeater = @component.repeaters.create( field_setting: @repeater_setting, position: position )
       render 'binda/components/_form_item_new_repeater', layout: false
@@ -53,14 +53,14 @@ module Binda
 
     def sort_repeaters
       params[:repeater].each_with_index do |id, i|
-        Binda::Repeater.find( id ).update({ position: i + 1 })
+        Repeater.find( id ).update({ position: i + 1 })
       end
       head :ok
     end
 
     def sort
       params[:component].each_with_index do |id, i|
-        Binda::Component.find( id ).update({ position: i + 1 })
+        Component.find( id ).update({ position: i + 1 })
       end
       head :ok
     end

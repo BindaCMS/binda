@@ -26,10 +26,8 @@ describe "Indexing components:", type: :feature do
 		last_component.reload
 
 		visit binda.structure_components_path( structure_id: @structure.id )
-		expect( page.body.index( first_component.name ) ).to be > page.body.index( last_component.name ) 
-
+		expect( page.body.index( first_component.name ) ).to be > page.body.index( last_component.name )
 	end
-
 end
 
 describe "Editing component:", type: :feature do

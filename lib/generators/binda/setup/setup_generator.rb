@@ -31,7 +31,11 @@ module Binda
 
     def feedback
       puts
-      puts "Binda CMS has been succesfully installed! ".colorize(:green)
+      puts "============================================================================="
+      puts
+      puts "                Binda CMS has been succesfully installed! ".colorize(:green)
+      puts
+      puts "============================================================================="
       puts
       puts "Before deploying to production, remember to uncomment and update the"
       puts "'config.action_mailer.default_url_options' in 'config/environments/production.rb'"

@@ -66,7 +66,7 @@ module Binda
 
     def sort
       params[:structure].each_with_index do |id, i|
-        Binda::Structure.find( id ).update({ position: i + 1 })
+        Structure.find( id ).update({ position: i + 1 })
       end
       head :ok
     end

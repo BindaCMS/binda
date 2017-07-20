@@ -113,7 +113,7 @@ module Binda
       end
 
       def reset_field_settings_cache
-        Binda::FieldSetting.reset_field_settings_array
+        FieldSetting.reset_field_settings_array
       end
 
   end
