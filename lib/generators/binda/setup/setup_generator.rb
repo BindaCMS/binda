@@ -14,15 +14,15 @@ module Binda
       puts "We need few details. Don't worry you can modify them later. \n\n"
 
       # MAINTENANCE MODE
-      Setting.find_or_create_by( name: 'Maintenance Mode' )
+      ::Binda::Setting.find_or_create_by( name: 'Maintenance Mode' )
 
       # WEBSITE NAME
       @website_name = ask("What would you like to name your website? ['MySite']\n").presence || 'MySite'
-      Setting.find_or_create_by( name: 'Website Name' ).update_attribute( :content, @website_name )
+      ::Binda::Setting.find_or_create_by( name: 'Website Name' ).update_attribute( :content, @website_name )
 
       # WEBSITE CONTENT
       @website_description = ask("What is it about? ['A website about the world']\n").presence || 'A website about the world'
-      Setting.find_or_create_by( name: 'Website Description' ).update_attribute( :content, @website_description )
+      ::Binda::Setting.find_or_create_by( name: 'Website Description' ).update_attribute( :content, @website_description )
     end
 
     def create_credentials
