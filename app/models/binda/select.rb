@@ -1,7 +1,7 @@
 module Binda
-	class Select < Text
+	class Select < ApplicationRecord
 
-		include ChoicesHelper
+		has_many :choices, as: :selectable
 
 	end
 end

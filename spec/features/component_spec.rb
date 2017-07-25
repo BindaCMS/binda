@@ -59,7 +59,7 @@ describe "Editing component:", type: :feature do
 		expect( page ).not_to have_content "You need to create the component before being able to add any detail"
 	end
 
-	it "isn't blocked by any rails error" do
+	it "isn't blocked by any Rails error" do
 		sign_in user
 		visit binda.edit_structure_component_path( structure_id: @structure.slug, id: @component.slug )
 		expect( page ).to have_current_path( binda.edit_structure_component_path( structure_id: @structure.slug, id: @component.slug ) )

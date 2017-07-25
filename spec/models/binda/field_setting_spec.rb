@@ -25,7 +25,7 @@ module Binda
 		end
 
 		it "can create new choice and set it as default" do
-			@field_setting.choices.create({ label: 'First chioce', content: 'Lorem ipsum' })
+			@field_setting.choices.create({ label: 'First chioce', value: 'Lorem ipsum' })
 		end
 
 	end

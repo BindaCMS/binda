@@ -1,7 +1,7 @@
 module Binda
-	class Radio < Text
+	class Radio < Select
 
-		include ChoicesHelper
+		has_one :choice, as: :selectable
 
 	end
 end

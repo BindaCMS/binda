@@ -6,8 +6,16 @@
 
     create_table :binda_choices do |t|
       t.string           :label
-      t.string           :content
+      t.string           :value
       t.belongs_to       :field_setting
+      t.references       :selectable, polymorphic: true, index: true
+      t.timestamps
+    end
+
+    create_table :binda_selects do |t|
+      t.belongs_to       :field_setting
+      t.references       :fieldable, polymorphic: true, index: true
+      t.string           :type
       t.timestamps
     end
   end

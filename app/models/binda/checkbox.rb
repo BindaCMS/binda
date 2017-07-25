@@ -1,7 +1,7 @@
 module Binda
-	class Checkbox < Text
+	class Checkbox < Select
 
-		include ChoicesHelper
+		has_many :choices, as: :selectable
 
 	end
 end

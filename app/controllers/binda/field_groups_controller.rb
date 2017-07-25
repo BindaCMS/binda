@@ -43,14 +43,16 @@ module Binda
       end
 
       # Create new fields if any
-      new_params[:new_choices].each do |choice|
-        unless choice[:label].blank? || choice[:content].blank?
-          new_choice = Choice.create( choice )
-          unless new_choice
-            return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_choice.errors }
+      unless new_params[:new_choices].nil? 
+        new_params[:new_choices].each do |choice|
+          unless choice[:label].blank? || choice[:value].blank?
+            new_choice = Choice.create( choice )
+            unless new_choice
+              return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_choice.errors }
+            end
           end
         end
-      end
+      end 
 
       # Update the other ones
       if @field_group.update(field_group_params)
@@ -104,7 +106,7 @@ module Binda
             choices_attributes: [
               :field_setting_id,
               :label,
-              :content
+              :value
             ]
           ])
       end
@@ -128,7 +130,7 @@ module Binda
           new_choices: [
             :field_setting_id,
             :label,
-            :content
+            :value
           ])
       end
 
