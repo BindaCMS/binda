@@ -2,6 +2,8 @@
 /// FORM ITEM
 ///- - - - - - - - - - - - - - - - - - - -
 
+import { _FormItemEditor } from './form_item_editor'
+
 class FormItem {
 	
 	constructor()
@@ -28,7 +30,15 @@ class FormItem {
 
 		$(document).on('click', '.form-item--open-button, .form-item--close-button', function()
 		{
-			$( this ).parent('.form-item').children('.form-item--editor').toggleClass('form-item--editor-close')
+			var formItemEditor = $( this ).parent('.form-item').children('.form-item--editor')
+
+			// Make sure form-item--editor max-height correspond to the actual height
+			// this is needed for the CSS transition which is trigger clicking open/close button
+			if ( !formItemEditor.hasClass('form-item--editor-close') )
+				{ _FormItemEditor.resize() }
+
+			// Update classes
+			formItemEditor.toggleClass('form-item--editor-close')
 			$( this ).parent('.form-item').children('.form-item--open-button, .form-item--close-button').toggle()
 		})
 	}
@@ -51,4 +61,5 @@ function addNewItem( event )
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter( $newChild )
 	$newChild.removeClass( 'form-item--new' ).removeAttr( 'id' )
+	_FormItemEditor.resize()
 }

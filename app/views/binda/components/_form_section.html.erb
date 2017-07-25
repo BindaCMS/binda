@@ -34,4 +34,9 @@
 <% elsif field_setting.field_type == 'repeater' %>
   <% repeaters = @component.repeaters.where( field_setting: field_setting ).order('position') %>
   <%= render 'form_item_repeater', f: f, repeater_setting: field_setting, repeaters: repeaters %>
+
+
+<% elsif ['radio', 'select', 'checkbox'].include? field_setting.field_type %>
+  <%= render 'form_item_selectable', f: f, field_setting: field_setting %>
+
 <% end %>

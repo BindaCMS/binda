@@ -2,7 +2,7 @@ require_dependency "binda/application_controller"
 
 module Binda
   class StructuresController < ApplicationController
-    before_action :set_structure, only: [:show, :edit, :update, :destroy]
+    before_action :set_structure, only: [:show, :edit, :update, :destroy, :fields_update ]
 
     def index
       @structures = Structure.order('position').all
@@ -30,7 +30,7 @@ module Binda
           return redirect_to structure_path( @structure.slug ), flash: { error: 'General Details group hasn\'t been created' }
         end
         # ... redirect to the new structure path
-        redirect_to structure_path( @structure.slug ), notice: 'Structure was successfully created.'
+        redirect_to structure_path( @structure.slug ), notice: "#{ @structure.name } structure was successfully created."
       else
         render :new
       end
@@ -49,7 +49,7 @@ module Binda
 
       # Update the other ones
       if @structure.update(structure_params)
-        redirect_to structure_path( @structure.slug ), notice: 'Structure was successfully updated.'
+        redirect_to structure_path( @structure.slug ), notice: "#{ @structure.name } structure was successfully updated."
       else
         render :edit
       end
@@ -57,16 +57,16 @@ module Binda
 
     def destroy
       @structure.destroy
-      redirect_to structures_url, notice: 'Structure was successfully destroyed.'
+      redirect_to structures_url, notice: "#{ @structure.name } structure was successfully destroyed."
     end
 
     def fields_update
-      redirect_to :back, notice: 'Components was successfully updated.'
+      redirect_to :back, notice: "#{ @structure.name } structure was successfully updated."
     end
 
     def sort
       params[:structure].each_with_index do |id, i|
-        Binda::Structure.find( id ).update({ position: i + 1 })
+        Structure.find( id ).update({ position: i + 1 })
       end
       head :ok
     end

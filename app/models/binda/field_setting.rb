@@ -3,11 +3,10 @@ module Binda
 
 		# Associations
 		belongs_to :field_group
-		# has_many   :field_children, class_name: ::Binda::FieldSetting, dependent: :delete_all
 		has_ancestry orphan_strategy: :destroy
 
 		# Fields Associations
-		# -------------------
+		# 
 		# If you add a new field remember to update:
 		#   - get_fieldables (see here below)
 		#   - get_field_types (see here below)
@@ -17,6 +16,10 @@ module Binda
 		has_many :galleries,     as: :fieldable
 		has_many :assets,        as: :fieldable
 		has_many :repeater,      as: :fieldable
+		has_many :radio,         as: :fieldable
+		has_many :select,        as: :fieldable
+		has_many :checkbox,      as: :fieldable
+
 
 		# The following direct association is used to securely delete associated fields
 		# Infact via `fieldable` the associated fields might not be deleted 
@@ -25,18 +28,36 @@ module Binda
 		has_many :dates,         dependent: :delete_all
 		has_many :galleries,     dependent: :delete_all
 		has_many :repeater,      dependent: :delete_all
+		has_many :radio,         dependent: :delete_all
+		has_many :select,        dependent: :delete_all
+		has_many :checkbox,      dependent: :delete_all
 
-		# accepts_nested_attributes_for :children, allow_destroy: true, reject_if: :is_rejected
+		has_many :choices,       dependent: :delete_all
+		has_one  :default_choice, class_name: 'Binda::Choice', dependent: :delete
+
+		accepts_nested_attributes_for :choices, allow_destroy: true, reject_if: :is_rejected
+
+		def is_rejected( attributes )
+			attributes['label'].blank? || attributes['content'].blank?
+		end
 
 		cattr_accessor :field_settings_array
 
+    after_create do 
+    	self.class.reset_field_settings_array 
+    end
+
+    after_destroy do 
+    	self.class.reset_field_settings_array 
+    end
+
 		def self.get_fieldables
-			%w( Text Date Gallery Asset Repeater )
+			%w( Text Date Gallery Asset Repeater Radio Select Checkbox )
 		end
 
 		# Field types are't fieldable! watch out! They might use the same model (eg `string` and `text`)
 		def get_field_types
-			%w( string text asset gallery repeater date )
+			%w( string text asset gallery repeater date radio select checkbox )
 		end
 
 		# Validations
@@ -48,10 +69,10 @@ module Binda
 		extend FriendlyId
 		friendly_id :default_slug, use: [:slugged, :finders]
 
-
 		# CUSTOM METHODS
-		# --------------
-		# https://github.com/norman/friendly_id/issues/436
+		# 
+		# @see https://github.com/norman/friendly_id/issues/436
+
 		def should_generate_new_friendly_id?
 			slug.blank?
 		end
@@ -77,6 +98,11 @@ module Binda
 			return possible_names
 		end
 
+		# Retrieve the ID if a slug is provided and update the field_settings_array 
+		#   in order to avoid calling the database (or the cached response) every time.
+		#   This way Rails logs are much cleaner
+		# 
+		# @return [integer] The ID of the field setting
 		def self.get_id( field_slug )
 			# Get field setting id from slug, without multiple calls to database 
 			# (the query runs once and caches the result, then any further call uses the cached result)
@@ -84,6 +110,10 @@ module Binda
 			@@field_settings_array.find { |fs| fs.slug == field_slug }.id
 		end
 
+		# Reset the field_settings_array. It's called every time 
+		#   the user creates or destroyes a Binda::FieldSetting
+		# 
+		# @return [null]
 		def self.reset_field_settings_array
 			# Reset the result of the query taken with the above method,
 			# this is needed when a user creates a new field_setting but 

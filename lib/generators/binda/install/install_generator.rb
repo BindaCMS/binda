@@ -7,7 +7,7 @@ module Binda
       
       def check_previous_install
         # Ensure Binda is not installed
-        if Component.table_exists?
+        if ::Binda::Component.table_exists?
           puts "Binda has already been installed on this database.".colorize(:red)
           puts "Please ensure Binda is completely removed from the database before trying to install it again.".colorize(:red)
           exit
@@ -53,7 +53,8 @@ module Binda
         return if Rails.env.production?
 
         # Check if devise is already setup and if so, create a backup before overwrite it
-        if File.exist?( Rails.root.join('config', 'initializers', 'devise.rb' ))
+        initializers_path = Rails.root.join('config', 'initializers' )
+        if File.exist?( "#{ initializers_path }/devise.rb" )
           puts "We have detected a configuration file for Devise: config/initializers/devise.rb".colorize(:green)
           puts "In order to avoid any conflict that file has been renamed".colorize(:green)
           File.rename( "#{ initializers_path }/devise.rb" , "#{ initializers_path }/devise_backup_#{ Time.now.strftime('%Y%m%d-%H%M%S-%3N') }.rb" )

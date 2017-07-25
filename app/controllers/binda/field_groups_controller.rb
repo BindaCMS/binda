@@ -42,6 +42,18 @@ module Binda
         end
       end
 
+      # Create new fields if any
+      unless new_params[:new_choices].nil? 
+        new_params[:new_choices].each do |choice|
+          unless choice[:label].blank? || choice[:value].blank?
+            new_choice = Choice.create( choice )
+            unless new_choice
+              return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_choice.errors }
+            end
+          end
+        end
+      end 
+
       # Update the other ones
       if @field_group.update(field_group_params)
         reset_field_settings_cache
@@ -87,7 +99,15 @@ module Binda
             :position,
             :required,
             :default_text,
-            :ancestry
+            :ancestry,
+            :choices,
+            :default_choice_id_id, 
+            :allow_null,
+            choices_attributes: [
+              :field_setting_id,
+              :label,
+              :value
+            ]
           ])
       end
 
@@ -102,12 +122,20 @@ module Binda
             :field_type, 
             :position,
             :required,
-            :ancestry
-            ])
+            :ancestry,
+            :choices,
+            :default_choice_id, 
+            :allow_null
+          ],
+          new_choices: [
+            :field_setting_id,
+            :label,
+            :value
+          ])
       end
 
       def reset_field_settings_cache
-        Binda::FieldSetting.reset_field_settings_array
+        FieldSetting.reset_field_settings_array
       end
 
   end

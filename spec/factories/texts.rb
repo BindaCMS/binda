@@ -6,4 +6,8 @@ FactoryGirl.define do
 		content { generate :text_name }
 	end
 
+	factory :text, class: Binda::Text do
+		content { generate :text_name }
+	end
+
 end

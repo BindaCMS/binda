@@ -56,10 +56,11 @@ Binda::Engine.routes.draw do
 
     end
   end
+
+  resources :choices, only: [:destroy]
   
   resources :texts
   resources :bindings
-  resources :galleries
   resources :assets
   resources :repeaters
   resources :dates

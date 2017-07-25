@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,6 +71,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(6);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -79,6 +80,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 ///- - - - - - - - - - - - - - - - - - - -
 /// FORM ITEM
 ///- - - - - - - - - - - - - - - - - - - -
+
+
 
 var FormItem = function () {
 	function FormItem() {
@@ -108,7 +111,16 @@ var FormItem = function () {
 			});
 
 			$(document).on('click', '.form-item--open-button, .form-item--close-button', function () {
-				$(this).parent('.form-item').children('.form-item--editor').toggleClass('form-item--editor-close');
+				var formItemEditor = $(this).parent('.form-item').children('.form-item--editor');
+
+				// Make sure form-item--editor max-height correspond to the actual height
+				// this is needed for the CSS transition which is trigger clicking open/close button
+				if (!formItemEditor.hasClass('form-item--editor-close')) {
+					__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+				}
+
+				// Update classes
+				formItemEditor.toggleClass('form-item--editor-close');
 				$(this).parent('.form-item').children('.form-item--open-button, .form-item--close-button').toggle();
 			});
 		}
@@ -132,6 +144,7 @@ function addNewItem(event) {
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter($newChild);
 	$newChild.removeClass('form-item--new').removeAttr('id');
+	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 }
 
 /***/ }),
@@ -182,6 +195,82 @@ var _FormItemAsset = new FormItemAsset();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(6);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemChoice; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+///- - - - - - - - - - - - - - - - - - - -
+/// FORM ITEM
+///- - - - - - - - - - - - - - - - - - - -
+
+
+
+var FormItemChoice = function () {
+	function FormItemChoice() {
+		_classCallCheck(this, FormItemChoice);
+
+		this.target = '.form-item--choice';
+	}
+
+	_createClass(FormItemChoice, [{
+		key: 'isSet',
+		value: function isSet() {
+			if ($(this.target).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			$(document).on('click', '.form-item--add-choice', function (event) {
+				event.preventDefault();
+				// Clone the new choice field
+				var choices = $(this).parent('.form-item--choices');
+				var newchoice = choices.find('.form-item--new-choice');
+				var clone = newchoice.clone().removeClass('form-item--new-choice').toggle();
+				clone.find('.form-item--toggle-choice').toggle();
+				// Append the clone right after
+				choices.prepend(clone);
+				// Update form item editor size
+				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+			});
+
+			$(document).on('click', '.form-item--delete-choice', function (event) {
+				event.preventDefault();
+
+				var choice = $(this).parent('.form-item--choice');
+				var destination = $(this).attr('href');
+
+				$.ajax({
+					url: destination,
+					type: 'DELETE',
+					success: function success() {
+						choice.remove();
+					}
+				});
+			});
+			$(document).on('click', '.form-item--js-delete-choice', function (event) {
+				event.preventDefault();
+				$(this).parent('.form-item--choice').remove();
+			});
+		}
+	}]);
+
+	return FormItemChoice;
+}();
+
+var _FormItemChoice = new FormItemChoice();
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(6);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -190,6 +279,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 ///- - - - - - - - - - - - - - - - - - - -
 /// FORM ITEM
 ///- - - - - - - - - - - - - - - - - - - -
+
+
 
 var FormItemRepeater = function () {
 	function FormItemRepeater() {
@@ -216,6 +307,7 @@ var FormItemRepeater = function () {
 				// Stop default behaviour
 				event.preventDefault();
 				$(this).parent(this.target).remove();
+				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 			});
 
 			$(document).on('click', '.form-item--delete-repeater-item', function (event) {
@@ -230,6 +322,7 @@ var FormItemRepeater = function () {
 					method: "DELETE"
 				}).done(function () {
 					$(_this).parent('li').remove();
+					__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 				});
 			});
 		}
@@ -257,11 +350,12 @@ function addNewItem(event) {
 		$list.append(newRepeater);
 		var editor_id = $list.find('textarea').last('textarea').attr('id');
 		tinyMCE.EditorManager.execCommand('mceAddEditor', true, editor_id);
+		__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 	});
 }
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -304,18 +398,22 @@ function addNewItem(event) {
 };
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_asset__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_sortable__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(4);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
+
+
 
 
 
@@ -332,8 +430,74 @@ $(document).ready(function () {
 	if (__WEBPACK_IMPORTED_MODULE_2__components_form_item_asset__["a" /* _FormItemAsset */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_2__components_form_item_asset__["a" /* _FormItemAsset */].setEvents();
 	}
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__components_sortable__["a" /* default */])();
+	if (__WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__["a" /* _FormItemChoice */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__["a" /* _FormItemChoice */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].setEvents();
+	}
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__components_sortable__["a" /* default */])();
 });
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemEditor; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+///- - - - - - - - - - - - - - - - - - - -
+/// FORM ITEM
+///- - - - - - - - - - - - - - - - - - - -
+
+var FormItemEditor = function () {
+	function FormItemEditor() {
+		_classCallCheck(this, FormItemEditor);
+
+		this.target = '.form-item--editor';
+	}
+
+	_createClass(FormItemEditor, [{
+		key: 'isSet',
+		value: function isSet() {
+			if ($(this.target).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			var _this = this;
+
+			// run resize to set initial size
+			this.resize();
+			// run resize on each of these events
+			$(window).resize(function () {
+				_this.resize();
+			});
+		}
+	}, {
+		key: 'resize',
+		value: function resize() {
+			$(this.target).each(function () {
+				// If the form item edito is closed don't go any further
+				if ($(this).height() === 0) return;
+				// otherwise update the max-height which is needed for the CSS transition
+				// NOTE you need to remove the max-height (inside 'style' attribute) to get the real height
+				$(this).css("max-height", $(this).removeAttr('style').height());
+			});
+		}
+	}]);
+
+	return FormItemEditor;
+}();
+
+var _FormItemEditor = new FormItemEditor();
 
 /***/ })
 /******/ ]);

@@ -1,5 +1,35 @@
 require "rails_helper"
 
+describe "Indexing components:", type: :feature do
+	let(:user) { Binda::User.first }
+
+	before(:context) do
+		@structure = create(:article_structure_with_components)
+	end
+
+	it "reorder components based on position" do
+		sign_in user
+
+		first_component = @structure.components.order(:position).first
+		first_position = first_component.position
+		last_component = @structure.components.order(:position).last
+		last_position = last_component.position
+
+		visit binda.structure_components_path( structure_id: @structure.id )
+		expect( page ).to have_current_path( binda.structure_components_path( structure_id: @structure.id ) )
+		expect( page.body.index( first_component.name ) ).to be < page.body.index( last_component.name ) 
+
+		first_component.update_attribute( 'position', last_position )
+		last_component.update_attribute( 'position', first_position )
+
+		first_component.reload
+		last_component.reload
+
+		visit binda.structure_components_path( structure_id: @structure.id )
+		expect( page.body.index( first_component.name ) ).to be > page.body.index( last_component.name )
+	end
+end
+
 describe "Editing component:", type: :feature do
 
 	let(:user){ Binda::User.first }
@@ -29,7 +59,7 @@ describe "Editing component:", type: :feature do
 		expect( page ).not_to have_content "You need to create the component before being able to add any detail"
 	end
 
-	it "isn't block by any rails error" do
+	it "isn't blocked by any Rails error" do
 		sign_in user
 		visit binda.edit_structure_component_path( structure_id: @structure.slug, id: @component.slug )
 		expect( page ).to have_current_path( binda.edit_structure_component_path( structure_id: @structure.slug, id: @component.slug ) )

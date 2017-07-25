@@ -40,38 +40,55 @@ module Binda
     describe "POST #new_repeater" do
       it "create a new repeater with correct position" do
         sign_in user
+
         initial_repeaters_length = @component.repeaters.length
         repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
 
         post :new_repeater, params: { 
-          repeater_setting_id: repeater_setting_id, 
+          repeater_setting_id: 3, 
           structure_id: @structure.slug, 
           component_id: @component.slug
         }
         @component.reload
         
-        expect( @component.repeaters.length ).to eq( initial_repeaters_length + 1 )
-        expect( @component.repeaters.last.position ).to eq( @component.repeaters.length )
+        expect( @component.repeaters.order('position').length ).to eq( initial_repeaters_length + 1 )
+        expect( @component.repeaters.order('position').last.position ).to eq( @component.repeaters.length )
       end
     end
 
     describe "POST #sort_repeaters" do
-      it "reorder data belonging to a component repeater" do
-        # skip "TODO"
+      it "reorder repeater based on position value" do
         sign_in user
         
         post :sort_repeaters, params: { 
-          repeater: ["2", "3", "1", "5", "4"], 
+          repeater: ["2", "3", "1"], 
           structure_id: @structure.slug,
           component_id: @component.slug 
         }
         @component.reload
-        
+
         repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
-        repeaters = @component.repeaters.find_all{ |r| r.field_setting_id = repeater_setting_id }
+        repeaters = @component.repeaters.order('position').find_all{ |r| r.field_setting_id = repeater_setting_id }
         
         expect( repeaters.first.position ).not_to eq(0)
-        expect( repeaters.first.position ).to eq(3)
+        expect( repeaters.first.position ).to eq(1)
+        expect( repeaters.find{ |r| r.id == 1 }.position ).to eq(3)
+      end
+    end
+
+    describe "POST #sort" do
+      it "reorder components based on position value" do
+        sign_in user
+
+        component_one = @structure.components.find(1)
+        expect( component_one.position ).to eq(1)
+
+        post :sort, params: {
+          component: [ 2, 3, 1, 5, 4 ],
+          structure_id: @structure.slug
+        }
+        component_one.reload
+        expect( component_one.position ).to eq(3)
       end
     end
   end

@@ -1,0 +1,96 @@
+<%# - - - - - - - - - - - - %>
+<%# CHOICES                 %>
+<%# - - - - - - - - - - - - %>
+<h5><%= t(:choices).capitalize %></h5>
+<div class="form-item--choices">
+
+	<%= ff.simple_fields_for :choices, ff.object.choices.order( :label ) do |fff| %>
+	  <div class="form-item--choice">
+			<%= fff.input :id, as: :hidden %>
+			<%= fff.association :field_setting, as: :hidden %>
+	  	<div class="form-item--choice-label">
+				<small class="text-muted"><%= t(:choice_label).capitalize %></small>
+				<%= fff.input :label %>
+			</div>
+			<div class="form-item--choice-content">
+				<small class="text-muted"><%= t(:choice_value).capitalize %></small>
+				<%= fff.input :value %>
+			</div>
+			<a href="<%= choice_path( fff.object ) %>" class="form-item--delete-choice">
+				<span><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></span>
+			</a>
+			<div class="clearfix"></div>
+	  </div>
+	<% end %>
+
+	<%# - - - - - - - - - - - - %>
+	<%# DEFAULT INITIAL CHOICE  %>
+	<%# - - - - - - - - - - - - %>
+	<% unless ff.object.choices.find_all{|c| c.persisted? }.any? %>
+		<%= f.simple_fields_for "new_choices[]", ff.object.choices.build() do |fff| %>
+		  <div class="form-item--choice">
+				<%= fff.association :field_setting, as: :hidden %>
+		  	<div class="form-item--choice-label">
+					<small class="text-muted"><%= t(:choice_label).capitalize %></small>
+					<%= fff.input :label %>
+				</div>
+				<div class="form-item--choice-content">
+					<small class="text-muted"><%= t(:choice_value).capitalize %></small>
+					<%= fff.input :value %>
+				</div>
+				<a href="#" class="form-item--toggle-choice form-item--js-delete-choice">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+				</a>
+				<div class="clearfix"></div>
+		  </div>
+		<% end %>
+	<% end %>
+
+	<%# - - - - - - - - - - - - %>
+	<%# NEW CHOICE              %>
+	<%# - - - - - - - - - - - - %>
+	<%= f.simple_fields_for "new_choices[]", ff.object.choices.build() do |fff| %>
+	  <div class="form-item--choice form-item--new-choice">
+			<%= fff.association :field_setting, as: :hidden %>
+	  	<div class="form-item--choice-label">
+				<small class="text-muted"><%= t(:choice_label).capitalize %></small>
+				<%= fff.input :label %>
+			</div>
+			<div class="form-item--choice-content">
+				<small class="text-muted"><%= t(:choice_value).capitalize %></small>
+				<%= fff.input :value %>
+			</div>
+			<a href="#" class="form-item--toggle-choice form-item--js-delete-choice">
+				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+			</a>
+			<div class="clearfix"></div>
+	  </div>
+	<% end %>
+
+	<a href="#" class="form-item--toggle-choice form-item--add-choice">
+		<%= t(:add_choice).capitalize %>&nbsp;&nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	</a>
+
+</div>
+
+<div class="clearfix"></div>
+
+
+<%# - - - - - - - - - - - - %>
+<%# DEFAULT CHOICE          %>
+<%# - - - - - - - - - - - - %>
+<% if ff.object.choices.find_all{|c| c.persisted? }.any? %>
+	<div class="form-item--half-size">
+		<h5><%= t(:default_choice).capitalize %></h5>
+		<%= ff.input :default_choice_id, as: :select, collection: ff.object.choices.find_all{|c| c.persisted? }, label_method: :label, include_blank: false, selected: ff.object.default_choice.id, hint: t(:default_choice_description).capitalize %>
+	</div>
+<% end %>
+
+
+<%# - - - - - - - - - - - - %>
+<%# ALLOW NULL              %>
+<%# - - - - - - - - - - - - %>
+<div class="form-item--half-size">
+	<h5><%= t(:allow_null).capitalize %></h5>
+	<%= ff.input :allow_null, as: :boolean, boolean_style: :inline, input_html: { class: "form-item--input" }, checked_value: true, unchecked_value: false, selected: ff.object.allow_null, default: false %>
+</div>

@@ -31,7 +31,7 @@ FactoryGirl.define do
       components_count 5
     end
     after(:create) do |structure, evaluator|
-      create(:field_group, structure: structure)
+      create(:field_group_with_fields, structure: structure)
       create_list( :article_component_with_fields, evaluator.components_count, structure: structure)
     end
   end
