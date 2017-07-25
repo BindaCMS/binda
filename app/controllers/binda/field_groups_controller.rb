@@ -101,7 +101,7 @@ module Binda
             :default_text,
             :ancestry,
             :choices,
-            :default_choice, 
+            :default_choice_id_id, 
             :allow_null,
             choices_attributes: [
               :field_setting_id,
@@ -124,7 +124,7 @@ module Binda
             :required,
             :ancestry,
             :choices,
-            :default_choice, 
+            :default_choice_id, 
             :allow_null
           ],
           new_choices: [

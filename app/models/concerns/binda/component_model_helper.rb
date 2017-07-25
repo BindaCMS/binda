@@ -159,8 +159,8 @@ module Binda
 		# @return [object] The active record object of the selected choice
 		def get_radio_choice field_slug
 			# select cannot be chosen has variable name, therefore is prefixed with '_'
-			radio = self.selects.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
-			radio.choice
+			radio = self.radios.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
+			radio.choices.first
 		end
 
 	end

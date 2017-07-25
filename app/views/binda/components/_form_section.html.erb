@@ -36,13 +36,7 @@
   <%= render 'form_item_repeater', f: f, repeater_setting: field_setting, repeaters: repeaters %>
 
 
-<%# - - - - - - - - - - - - %>
-<%# RADIO                   %>
-<%# - - - - - - - - - - - - %>
-<% elsif field_setting.field_type == 'radio' %>
-  <% current = @component.find_or_create_a_field_by( field_setting.id, 'radio' ) %>
-  <%= f.simple_fields_for "radios_attributes[]", current do |ff| %>
-    <%= render 'form_item_radio', ff: ff, field_setting: field_setting %>
-  <% end %>
+<% elsif ['radio', 'select', 'checkbox'].include? field_setting.field_type %>
+  <%= render 'form_item_selectable', f: f, field_setting: field_setting %>
 
 <% end %>

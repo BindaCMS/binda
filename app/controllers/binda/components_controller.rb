@@ -32,6 +32,8 @@ module Binda
     end
 
     def update
+
+      binding.pry 
       if @component.update(component_params)
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "A #{ @component.name } was successfully updated."
       else
@@ -124,27 +126,24 @@ module Binda
             ],
           radios_attributes: [ 
             :id, 
-            :repeater_id,
             :field_setting_id, 
             :fieldable_type,
             :fieldable_id,
-            :content
+            :choice_ids
             ],
           selects_attributes: [ 
             :id, 
-            :repeater_id,
             :field_setting_id, 
             :fieldable_type,
             :fieldable_id,
-            :content
+            choice_ids: []
             ],
           checkboxes_attributes: [ 
             :id, 
-            :repeater_id,
             :field_setting_id, 
             :fieldable_type,
             :fieldable_id,
-            :content
+            choice_ids: []
             ],
           repeaters_attributes: [ 
             :id, 
@@ -154,38 +153,33 @@ module Binda
             :fieldable_id,
             texts_attributes: [ 
               :id, 
-              :repeater_id,
               :field_setting_id, 
               :fieldable_type,
               :fieldable_id,
-              :content
+              choice_ids: []
               ], 
             assets_attributes: [ 
               :id,
-              :repeater_id,
               :field_setting_id,
               :fieldable_type,
               :fieldable_id,
-              :image
+              choice_ids: []
               ], 
             dates_attributes: [ 
               :id,
-              :repeater_id,
               :field_setting_id,
               :fieldable_type,
               :fieldable_id,
-              :date
+              choice_ids: []
               ], 
             galleries_attributes: [ 
               :id,
-              :repeater_id,
               :field_setting_id,
               :fieldable_type,
               :fieldable_id
               ], 
             repeaters_attributes: [ 
               :id, 
-              :repeater_id,
               :field_setting_id, 
               :field_group_id,
               :fieldable_type,
@@ -193,27 +187,24 @@ module Binda
               ],
             radios_attributes: [ 
               :id, 
-              :repeater_id,
               :field_setting_id, 
               :fieldable_type,
               :fieldable_id,
-              :content
+              :choice_ids
               ],
             selects_attributes: [ 
               :id, 
-              :repeater_id,
               :field_setting_id, 
               :fieldable_type,
               :fieldable_id,
-              :content
+              choice_ids: []
               ],
             checkboxes_attributes: [ 
               :id, 
-              :repeater_id,
               :field_setting_id, 
               :fieldable_type,
               :fieldable_id,
-              :content
+              choice_ids: []
               ]
             ])
       end
@@ -262,27 +253,24 @@ module Binda
               ],
             radios_attributes: [ 
               :id, 
-              :repeater_id,
               :field_setting_id, 
               :fieldable_type,
               :fieldable_id,
-              :content
+              :choice_ids
               ],
             selects_attributes: [ 
               :id, 
-              :repeater_id,
               :field_setting_id, 
               :fieldable_type,
               :fieldable_id,
-              :content
+              choice_ids: []
               ],
             checkboxes_attributes: [ 
               :id, 
-              :repeater_id,
               :field_setting_id, 
               :fieldable_type,
               :fieldable_id,
-              :content
+              choice_ids: []
               ]
             ])
       end

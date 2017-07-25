@@ -12,9 +12,9 @@ module Binda
 
 		it "should let you choose a value" do
 			# clean choice selection
-			@radio.choice = nil
-			@radio.choice = @radio_setting.choices.first
-			expect( @radio.choice.id ).to be( @radio_setting.choices.first.id )
+			@radio.choices = []
+			@radio.choices << @radio_setting.choices.first
+			expect( @radio.choices.first.id ).to be( @radio_setting.choices.first.id )
 		end
 
 		it "shouldn't let you choose more than a value" do
@@ -23,10 +23,10 @@ module Binda
 
 		it "should let you see the choosen value" do
 			# clean choice selection
-			@radio.choice = nil
-			@radio.choice = @radio_setting.choices.first
+			@radio.choices = []
+			@radio.choices << @radio_setting.choices.first
 			selection = @component.get_radio_choice( @radio_setting.slug )
-			expect( selection ).to eq( @radio.choice )
+			expect( selection ).to eq( @radio.choices.first )
 		end
 
 	end
