@@ -29,9 +29,17 @@ FactoryGirl.define do
 
 	factory :radio_setting, parent: :field_setting do
 		field_type 'radio'
-		choices '{ "apple": "f1", "banana": "f2", "cucumber": "f3" }'
-		default_choice "f1"
 		allow_null false
+	end
+
+	factory :radio_setting_with_choices, parent: :radio_setting do
+    transient do
+      _count 3
+    end
+		after(:create) do |radio_setting, evaluator|
+      create_list( :choice, evaluator._count, field_setting: radio_setting )
+      radio_setting.default_choice = radio_setting.choices.first
+		end
 	end
 
 end

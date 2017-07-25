@@ -31,6 +31,27 @@
 		}
 	}
 
+	.form-item--half-size {
+		position: relative;
+		width: 46%;
+		margin-right: 4%;
+		float: left;
+
+		h5 {
+			width: 100%;
+		}
+
+		.form-item--select-input {
+			margin-left: 0;
+		}
+	}
+
+	.form-item--full-size { 
+		position: relative;
+		width: 96%;
+		clear: both;
+	}
+
 	.form-item--new {
 		position: absolute;
 		top: 101%;
@@ -81,13 +102,13 @@
 }
 
 .form-item--editor {
-	max-height: 1000px;
+	// max-height: is set via javascript in app/assets/javscripts/components/form_item_editor.js;
 	overflow-y: hidden;
 	transition: max-height 0.6s ease-out;
 }
 
 .form-item--editor-close {
-	max-height: 0;
+	max-height: 0 !important;
 }
 
 .form-item--label-on-top .form-group {
@@ -166,4 +187,45 @@
 	.form-group {
 		margin-bottom: $font-size-base;	
 	}
+}
+
+.form-item--choices {
+	position: relative;
+}
+
+.form-item--editor .form-item--choice {
+	position: relative;
+	clear: left;
+
+	&:last-child {
+		padding-bottom: $font-size-base/2;
+		border-bottom: 1px solid $gray-lighter;
+		margin-bottom: $font-size-base;		
+	}
+}
+
+.form-item--new-choice {
+	display: none;
+}
+
+.form-item--choice-label,
+.form-item--choice-content {
+	@extend .form-item--half-size;
+}
+
+.form-item--delete-choice,
+.form-item--js-delete-choice {
+	position: absolute;
+	top: 32px;
+	right: 0;
+}
+
+.form-item--add-choice {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.form-item--new-choice .form-item--delete-choice {
+	display: none;
 }

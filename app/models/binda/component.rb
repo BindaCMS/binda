@@ -13,12 +13,11 @@ module Binda
 		has_many :radios,     as: :fieldable, dependent: :delete_all 
 		has_many :selects,    as: :fieldable, dependent: :delete_all 
 		has_many :checkboxes, as: :fieldable, dependent: :delete_all 
-		has_many :truefalses, as: :fieldable, dependent: :delete_all 
 		# Repeaters need destroy_all, not delete_all
 		has_many :repeaters, as: :fieldable, dependent: :destroy
 
 
-		accepts_nested_attributes_for :structure, :categories, :texts, :dates, :assets, :galleries, :repeaters, :radios, :selects, :checkboxes, :truefalses, allow_destroy: true
+		accepts_nested_attributes_for :structure, :categories, :texts, :dates, :assets, :galleries, :repeaters, :radios, :selects, :checkboxes, allow_destroy: true
 
 		cattr_accessor :field_settings_array
 

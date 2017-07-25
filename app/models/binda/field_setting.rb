@@ -3,7 +3,6 @@ module Binda
 
 		# Associations
 		belongs_to :field_group
-		# has_many   :field_children, class_name: ::Binda::FieldSetting, dependent: :delete_all
 		has_ancestry orphan_strategy: :destroy
 
 		# Fields Associations
@@ -20,7 +19,6 @@ module Binda
 		has_many :radio,         as: :fieldable
 		has_many :select,        as: :fieldable
 		has_many :checkbox,      as: :fieldable
-		has_many :truefalse,     as: :fieldable
 
 
 		# The following direct association is used to securely delete associated fields
@@ -33,9 +31,15 @@ module Binda
 		has_many :radio,         dependent: :delete_all
 		has_many :select,        dependent: :delete_all
 		has_many :checkbox,      dependent: :delete_all
-		has_many :truefalse,     dependent: :delete_all
 
-		# accepts_nested_attributes_for :children, allow_destroy: true, reject_if: :is_rejected
+		has_many :choices,       dependent: :delete_all
+		has_one  :default_choice, class_name: 'Binda::Choice', dependent: :delete
+
+		accepts_nested_attributes_for :choices, allow_destroy: true, reject_if: :is_rejected
+
+		def is_rejected( attributes )
+			attributes['label'].blank? || attributes['content'].blank?
+		end
 
 		cattr_accessor :field_settings_array
 
@@ -48,12 +52,12 @@ module Binda
     end
 
 		def self.get_fieldables
-			%w( Text Date Gallery Asset Repeater Radio Select Checkbox Truefalse )
+			%w( Text Date Gallery Asset Repeater Radio Select Checkbox )
 		end
 
 		# Field types are't fieldable! watch out! They might use the same model (eg `string` and `text`)
 		def get_field_types
-			%w( string text asset gallery repeater date radio select checkbox truefalse )
+			%w( string text asset gallery repeater date radio select checkbox )
 		end
 
 		# Validations
@@ -64,7 +68,6 @@ module Binda
 		# Slug
 		extend FriendlyId
 		friendly_id :default_slug, use: [:slugged, :finders]
-
 
 		# CUSTOM METHODS
 		# 

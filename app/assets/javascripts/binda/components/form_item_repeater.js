@@ -2,6 +2,8 @@
 /// FORM ITEM
 ///- - - - - - - - - - - - - - - - - - - -
 
+import { _FormItemEditor } from './form_item_editor'
+
 class FormItemRepeater {
 	
 	constructor()
@@ -24,6 +26,7 @@ class FormItemRepeater {
 			// Stop default behaviour
 			event.preventDefault()
 			$( this ).parent( this.target ).remove()
+			_FormItemEditor.resize()
 		})
 
 		$(document).on('click', '.form-item--delete-repeater-item', function( event )
@@ -37,6 +40,7 @@ class FormItemRepeater {
 				method: "DELETE"
 			}).done( ()=>{
 				$( this ).parent('li').remove()
+				_FormItemEditor.resize()
 			})
 		})
 	}
@@ -64,5 +68,6 @@ function addNewItem( event )
 		$list.append( newRepeater )
 		var editor_id = $list.find('textarea').last('textarea').attr('id')
 		tinyMCE.EditorManager.execCommand('mceAddEditor',true, editor_id);
+		_FormItemEditor.resize()
 	})
 }

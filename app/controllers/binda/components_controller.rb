@@ -146,14 +146,6 @@ module Binda
             :fieldable_id,
             :content
             ],
-          truefalses_attributes: [ 
-            :id, 
-            :repeater_id,
-            :field_setting_id, 
-            :fieldable_type,
-            :fieldable_id,
-            :content
-            ],
           repeaters_attributes: [ 
             :id, 
             :field_setting_id, 
@@ -216,14 +208,6 @@ module Binda
               :content
               ],
             checkboxes_attributes: [ 
-              :id, 
-              :repeater_id,
-              :field_setting_id, 
-              :fieldable_type,
-              :fieldable_id,
-              :content
-              ],
-            truefalses_attributes: [ 
               :id, 
               :repeater_id,
               :field_setting_id, 
@@ -293,14 +277,6 @@ module Binda
               :content
               ],
             checkboxes_attributes: [ 
-              :id, 
-              :repeater_id,
-              :field_setting_id, 
-              :fieldable_type,
-              :fieldable_id,
-              :content
-              ],
-            truefalses_attributes: [ 
               :id, 
               :repeater_id,
               :field_setting_id, 
