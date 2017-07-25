@@ -146,11 +146,21 @@ module Binda
 		# Get the select choices
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [object] The active record object of the selected choices
+		# @return [array] An array containing the selected choices objects
 		def get_select_choices field_slug
 			# select cannot be chosen has variable name, therefore is prefixed with '_'
 			_select = self.selects.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
 			_select.choices
+		end
+
+		# Get the radio choice
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [object] The active record object of the selected choice
+		def get_radio_choice field_slug
+			# select cannot be chosen has variable name, therefore is prefixed with '_'
+			radio = self.selects.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
+			radio.choice
 		end
 
 	end
