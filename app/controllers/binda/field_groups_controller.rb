@@ -124,9 +124,9 @@ module Binda
               :position, 
               :required, 
               :ancestry, 
-              choices: [], 
-              :default_choice_id, 
-              :allow_null 
+              :default_choice_id,
+              :allow_null,
+              choices: [] 
             ],
           new_choices: 
             [ :field_setting_id, 

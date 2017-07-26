@@ -17,6 +17,7 @@ module Binda
 		extend FriendlyId
 		friendly_id :default_slug, use: [:slugged, :finders]
 
+		after_create :update_position
 
 		# CUSTOM METHODS
 		# --------------
@@ -35,6 +36,14 @@ module Binda
 		def is_rejected( attributes )
 			attributes['name'].blank? && attributes['field_type'].blank?
 		end
+
+		private 
+
+			def update_position
+				if self.position.nil?
+					self.update_attribute( 'position', self.structure.field_groups.length )
+				end
+			end
 
 	end
 end
