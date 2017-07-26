@@ -86,52 +86,54 @@ module Binda
           :slug, 
           :description, 
           :position, 
-          :layout,
-          :structure_id,
-          field_settings_attributes: [
-            :id, 
-            :field_group_id,
-            :field_setting_id,
-            :name, 
-            :slug,
-            :description,
-            :field_type,
-            :position,
-            :required,
-            :default_text,
-            :ancestry,
-            :choices,
-            :default_choice_id_id, 
-            :allow_null,
-            choices_attributes: [
-              :field_setting_id,
-              :label,
-              :value
+          :layout, 
+          :structure_id, 
+          field_settings_attributes: 
+            [ :id, 
+              :field_group_id, 
+              :field_setting_id, 
+              :name, 
+              :slug, 
+              :description, 
+              :field_type, 
+              :position, 
+              :required, 
+              :default_text, 
+              :ancestry, 
+              :default_choice_id_id, 
+              :allow_null, 
+              choices: [], 
+              choices_attributes: 
+              [ :field_setting_id, 
+                :label, 
+                :value 
+              ]
             ]
-          ])
+          )
       end
 
       def new_params
         params.require(:field_group).permit( 
-          new_field_settings:[ 
-            :field_group_id, 
-            :field_setting_id,
-            :name, 
-            :slug,
-            :description, 
-            :field_type, 
-            :position,
-            :required,
-            :ancestry,
-            :choices,
-            :default_choice_id, 
-            :allow_null
-          ],
-          new_choices: [
-            :field_setting_id,
-            :label,
-            :value
-          ])
+          new_field_settings:
+            [ :field_group_id, 
+              :field_setting_id, 
+              :name, 
+              :slug, 
+              :description, 
+              :field_type, 
+              :position, 
+              :required, 
+              :ancestry, 
+              choices: [], 
+              :default_choice_id, 
+              :allow_null 
+            ],
+          new_choices: 
+            [ :field_setting_id, 
+              :label, 
+              :value 
+            ]
+          )
       end
 
       def reset_field_settings_cache

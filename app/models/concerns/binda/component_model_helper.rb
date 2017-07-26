@@ -13,8 +13,8 @@ module Binda
 		# @return [string] Returns the content of the string/text 
 		# @return [nil]    Returns null if it's empty or it doesn't exists
 		def get_text field_slug 
-			text = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			text.content unless text.nil?
+			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj.content unless obj.nil?
 		end
 
 		# Get the object related to that field setting
@@ -45,7 +45,7 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
 		#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
- 		# @return [string] The url of the image
+		# @return [string] The url of the image
 		def get_image_url field_slug, size = '' 
 			get_image_info( field_slug, size, 'url' )
 		end
@@ -56,7 +56,7 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
 		#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
- 		# @return [string] The url of the image
+		# @return [string] The url of the image
 		def get_image_path field_slug, size = '' 
 			get_image_info( field_slug, size, 'path' )
 		end
@@ -67,7 +67,7 @@ module Binda
 		# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
 		#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
 		# @param info [string] String of the info to be retrieved
- 		# @return [string] The info requested if present
+		# @return [string] The info requested if present
 		# @return [boolean] Returns false if no info is found or if image isn't found
 		def get_image_info field_slug, size, info 
 			obj = self.assets.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
@@ -85,7 +85,7 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [datetime] The date
 		# @return [boolean] Reutrn false if nothing is found
- 		def has_date field_slug 
+		def has_date field_slug 
 			obj = self.dates.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			if obj.present?
 				return !obj.date.nil?
@@ -99,27 +99,27 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def get_date field_slug 
-			date = self.dates.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			date.date unless date.nil?
+			obj = self.dates.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj.date unless obj.nil?
 		end
 
 		# Check if exists any repeater with that slug
 		# 
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
-	  def has_repeater field_slug 
-	    obj = self.repeaters.find_all{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-	    return obj.present?
-	  end
+		def has_repeater field_slug 
+			obj = self.repeaters.find_all{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			return obj.present?
+		end
 
-	  # Get the all repeater instances
-	  # 
+		# Get the all repeater instances
+		# 
 		# @param field_slug [string] The slug of the field setting
 		# @return [hash]
-	  def get_repeater field_slug 
-	    repeater = self.repeaters.find_all{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-	    repeater.sort_by(&:position) unless repeater.nil?
-	  end
+		def get_repeater field_slug 
+			obj = self.repeaters.find_all{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj.sort_by(&:position) unless obj.nil?
+		end
 
 		# Find or create a field by field setting and field type
 		# This is used in Binda's form
@@ -134,13 +134,16 @@ module Binda
 			end
 		end
 
-		# Get the raidio choice
+		# Get the radio choice
+		# 
+		# If by mistake the Radio instance has many choices associated, 
+		#   only the first one will be retrieved.
 		# 
 		# @param field_slug [string] The slug of the field setting
 		# @return [object] The active record object of the selected choice
 		def get_radio_choice field_slug
-			radio = self.radios.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			radio.chioce
+			obj = self.radios.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj.choices.first
 		end
 
 		# Get the select choices
@@ -148,19 +151,19 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [array] An array containing the selected choices objects
 		def get_select_choices field_slug
-			# select cannot be chosen has variable name, therefore is prefixed with '_'
-			_select = self.selects.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
-			_select.choices
+			# select cannot be chosen has variable name, therefore is prefixed with 's'
+			obj = self.selects.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
+			obj.choices
 		end
 
-		# Get the radio choice
+		# Get the checkbox choice
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [object] The active record object of the selected choice
-		def get_radio_choice field_slug
+		# @return [array] The active record object of the selected choice
+		def get_checkbox_choices field_slug
 			# select cannot be chosen has variable name, therefore is prefixed with '_'
-			radio = self.radios.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
-			radio.choices.first
+			obj = self.checkboxes.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
+			obj.choices
 		end
 
 	end

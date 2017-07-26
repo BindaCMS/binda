@@ -9,7 +9,7 @@ A modular CMS for Ruby on Rails 5.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'binda', '~> 0.0.3'
+gem 'binda', '~> 0.0.5'
 ```
 
 Then execute:
