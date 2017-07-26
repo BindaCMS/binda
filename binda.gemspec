@@ -3,8 +3,6 @@ $:.push File.expand_path("../lib", __FILE__)
 # Maintain your gem's version:
 require "binda/version"
 
-require "binda/description"
-
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "binda"
@@ -13,10 +11,13 @@ Gem::Specification.new do |s|
   s.email       = ["alessandro@lacolonia.studio"]
   s.homepage    = "http://lacolonia.studio"
   s.summary     = "Binda CMS"
-  s.description = Binda::DESCRIPTION
+  s.description = "A modular CMS for Ruby on Rails 5 with an intuitive out-of-the-box interface to manage and customize components. \n Use Binda if you want to speed up your setup process and concentrate directly on what your application is about. \n Please read the documentation for more information and a quick"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+
+  s.required_ruby_version = '>= 2.3.1'
+
 
   # PRIMARY GEMS
   # ------------
