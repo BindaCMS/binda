@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    binda (0.0.3)
+    binda (0.0.5)
       aasm (>= 4.11, < 4.13)
       ancestry (>= 2.1, < 3.1)
       carrierwave (>= 0.10, < 1.12)
@@ -22,7 +22,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    aasm (4.12.0)
+    aasm (4.12.1)
       concurrent-ruby (~> 1.0)
     actioncable (5.1.1)
       actionpack (= 5.1.1)
@@ -63,7 +63,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    ancestry (3.0.0)
+    ancestry (3.0.1)
       activerecord (>= 3.2.0)
     arel (8.0.0)
     autoprefixer-rails (7.1.1.2)
@@ -106,7 +106,7 @@ GEM
     factory_girl_rails (4.8.0)
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
-    ffaker (2.5.0)
+    ffaker (2.6.0)
     ffi (1.9.18)
     friendly_id (5.2.1)
       activerecord (>= 4.0.0)
@@ -197,7 +197,11 @@ GEM
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
     ruby_dep (1.5.0)
-    sass (3.4.24)
+    sass (3.5.1)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
@@ -249,4 +253,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   1.15.1
+   1.15.2

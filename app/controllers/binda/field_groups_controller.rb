@@ -32,27 +32,10 @@ module Binda
     end
 
     def update
-      # Create new fields if any
-      new_params[:new_field_settings].each do |field_setting|
-        unless field_setting[:name].blank?
-          new_field_setting = @field_group.field_settings.create( field_setting )
-          unless new_field_setting
-            return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_field_setting.errors }
-          end
-        end
-      end
 
-      # Create new fields if any
-      unless new_params[:new_choices].nil? 
-        new_params[:new_choices].each do |choice|
-          unless choice[:label].blank? || choice[:value].blank?
-            new_choice = Choice.create( choice )
-            unless new_choice
-              return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_choice.errors }
-            end
-          end
-        end
-      end 
+      # Add nested classes
+      add_new_field_settings
+      add_new_choices
 
       # Update the other ones
       if @field_group.update(field_group_params)
@@ -124,9 +107,9 @@ module Binda
               :position, 
               :required, 
               :ancestry, 
-              choices: [], 
-              :default_choice_id, 
-              :allow_null 
+              :default_choice_id,
+              :allow_null,
+              choices: [] 
             ],
           new_choices: 
             [ :field_setting_id, 
@@ -138,6 +121,32 @@ module Binda
 
       def reset_field_settings_cache
         FieldSetting.reset_field_settings_array
+      end
+
+      def add_new_field_settings
+        # Create new fields if any
+        new_params[:new_field_settings].each do |field_setting|
+          unless field_setting[:name].blank?
+            new_field_setting = @field_group.field_settings.create( field_setting )
+            unless new_field_setting
+              return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_field_setting.errors }
+            end
+          end
+        end
+      end
+
+      def add_new_choices
+        # Create new fields if any
+        unless new_params[:new_choices].nil? 
+          new_params[:new_choices].each do |choice|
+            unless choice[:label].blank? || choice[:value].blank?
+              new_choice = Choice.create( choice )
+              unless new_choice
+                return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_choice.errors }
+              end
+            end
+          end
+        end 
       end
 
   end
