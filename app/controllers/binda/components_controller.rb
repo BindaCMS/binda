@@ -32,8 +32,6 @@ module Binda
     end
 
     def update
-
-      binding.pry 
       if @component.update(component_params)
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "A #{ @component.name } was successfully updated."
       else
@@ -84,195 +82,40 @@ module Binda
       # Only allow a trusted parameter "white list" through.
       def component_params
         params.require(:component).permit( 
-          :name, 
-          :slug, 
-          :position, 
-          :publish_state, 
-          :structure_id, 
-          :category_ids,
-          structure_attributes: [ 
-            :id
-            ], 
-          categories_attributes: [ 
-            :id,
-            :category_id
-            ], 
-          texts_attributes: [ 
-            :id, 
-            :field_setting_id, 
-            :fieldable_type,
-            :fieldable_id,
-            :content
-            ], 
-          assets_attributes: [ 
-            :id,
-            :field_setting_id,
-            :fieldable_type,
-            :fieldable_id,
-            :image
-            ], 
-          dates_attributes: [ 
-            :id,
-            :field_setting_id,
-            :fieldable_type,
-            :fieldable_id,
-            :date
-            ], 
-          galleries_attributes: [ 
-            :id,
-            :field_setting_id,
-            :fieldable_type,
-            :fieldable_id
-            ],
-          radios_attributes: [ 
-            :id, 
-            :field_setting_id, 
-            :fieldable_type,
-            :fieldable_id,
-            :choice_ids
-            ],
-          selects_attributes: [ 
-            :id, 
-            :field_setting_id, 
-            :fieldable_type,
-            :fieldable_id,
-            choice_ids: []
-            ],
-          checkboxes_attributes: [ 
-            :id, 
-            :field_setting_id, 
-            :fieldable_type,
-            :fieldable_id,
-            choice_ids: []
-            ],
-          repeaters_attributes: [ 
-            :id, 
-            :field_setting_id, 
-            :field_group_id,
-            :fieldable_type,
-            :fieldable_id,
-            texts_attributes: [ 
-              :id, 
-              :field_setting_id, 
-              :fieldable_type,
-              :fieldable_id,
-              choice_ids: []
-              ], 
-            assets_attributes: [ 
-              :id,
-              :field_setting_id,
-              :fieldable_type,
-              :fieldable_id,
-              choice_ids: []
-              ], 
-            dates_attributes: [ 
-              :id,
-              :field_setting_id,
-              :fieldable_type,
-              :fieldable_id,
-              choice_ids: []
-              ], 
-            galleries_attributes: [ 
-              :id,
-              :field_setting_id,
-              :fieldable_type,
-              :fieldable_id
-              ], 
-            repeaters_attributes: [ 
-              :id, 
-              :field_setting_id, 
-              :field_group_id,
-              :fieldable_type,
-              :fieldable_id
-              ],
-            radios_attributes: [ 
-              :id, 
-              :field_setting_id, 
-              :fieldable_type,
-              :fieldable_id,
-              :choice_ids
-              ],
-            selects_attributes: [ 
-              :id, 
-              :field_setting_id, 
-              :fieldable_type,
-              :fieldable_id,
-              choice_ids: []
-              ],
-            checkboxes_attributes: [ 
-              :id, 
-              :field_setting_id, 
-              :fieldable_type,
-              :fieldable_id,
-              choice_ids: []
-              ]
-            ])
+          :name, :slug, :position, :publish_state, :structure_id, :category_ids,
+          structure_attributes:  [ :id ], 
+          categories_attributes: [ :id, :category_id ], 
+          texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
+          assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image ], 
+          dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
+          galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ],
+          radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
+          selects_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
+          checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
+          repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id,
+            texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ], 
+            assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ], 
+            dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ], 
+            galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ], 
+            repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id ],
+            radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
+            selects_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
+            checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ]
+          ])
       end
 
       def repeater_params
         params.require(:repeater).permit( 
-          new_repeaters_attributes: [ 
-            :id, 
-            :field_setting_id, 
-            :field_group_id,
-            :fieldable_type,
-            :fieldable_id,
-            texts_attributes: [ 
-              :id, 
-              :field_setting_id, 
-              :fieldable_type,
-              :fieldable_id,
-              :content
-              ], 
-            assets_attributes: [ 
-              :id,
-              :field_setting_id,
-              :fieldable_type,
-              :fieldable_id,
-              :image
-              ], 
-            dates_attributes: [ 
-              :id,
-              :field_setting_id,
-              :fieldable_type,
-              :fieldable_id,
-              :date
-              ], 
-            galleries_attributes: [ 
-              :id,
-              :field_setting_id,
-              :fieldable_type,
-              :fieldable_id
-              ], 
-            repeaters_attributes: [ 
-              :id, 
-              :field_setting_id, 
-              :field_group_id,
-              :fieldable_type,
-              :fieldable_id
-              ],
-            radios_attributes: [ 
-              :id, 
-              :field_setting_id, 
-              :fieldable_type,
-              :fieldable_id,
-              :choice_ids
-              ],
-            selects_attributes: [ 
-              :id, 
-              :field_setting_id, 
-              :fieldable_type,
-              :fieldable_id,
-              choice_ids: []
-              ],
-            checkboxes_attributes: [ 
-              :id, 
-              :field_setting_id, 
-              :fieldable_type,
-              :fieldable_id,
-              choice_ids: []
-              ]
-            ])
+          new_repeaters_attributes: [ :id, :field_setting_id, :field_group_id, :fieldable_type, :fieldable_id,
+            texts_attributes:         [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
+            assets_attributes:        [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image ], 
+            dates_attributes:         [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
+            galleries_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id ], 
+            repeaters_attributes:     [ :id, :field_setting_id, :field_group_id, :fieldable_type, :fieldable_id ],
+            radios_attributes:        [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
+            selects_attributes:       [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
+            checkboxes_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ]
+          ])
       end
 
       def set_position

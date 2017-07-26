@@ -52,12 +52,14 @@ module Binda
     end
 
 		def self.get_fieldables
-			%w( Text Date Gallery Asset Repeater Radio Select Checkbox )
+			# TODO add 'Gallery' to this list
+			%w( Text Date Asset Repeater Radio Select Checkbox )
 		end
 
 		# Field types are't fieldable! watch out! They might use the same model (eg `string` and `text`)
 		def get_field_types
-			%w( string text asset gallery repeater date radio select checkbox )
+			# TODO add 'gallery' to this list
+			%w( string text asset repeater date radio select checkbox )
 		end
 
 		# Validations
