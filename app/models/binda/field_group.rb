@@ -19,13 +19,17 @@ module Binda
 
 		after_create :update_position
 
-		# CUSTOM METHODS
-		# --------------
-		# https://github.com/norman/friendly_id/issues/436
-		def should_generate_new_friendly_id?
-			slug.blank?
-		end
+		# Friendly id preference on slug generation
+		#
+		# Method inherited from friendly id 
+		# @see https://github.com/norman/friendly_id/issues/436
+	  def should_generate_new_friendly_id?
+	    slug.blank? || name_changed?
+	  end
 
+		# Set slug name
+		#
+		# It generates 4 possible slugs before falling back to FriendlyId default behaviour
 		def default_slug
 			[ "#{ self.structure.name }-#{ self.name }",
 				"#{ self.structure.name }-#{ self.name }-1",
@@ -33,6 +37,8 @@ module Binda
 				"#{ self.structure.name }-#{ self.name }-3" ]
 		end
 
+		#
+		# Sets the validation rules to accept and save an attribute
 		def is_rejected( attributes )
 			attributes['name'].blank? && attributes['field_type'].blank?
 		end

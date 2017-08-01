@@ -6,6 +6,8 @@ module Binda
     before_action :set_component, only: [:show, :edit, :update, :destroy, :new_repeater]
     before_action :set_position, only: [:create]
 
+    include FieldableHelper
+
     def index
       @components = @structure.components.order('position').all
     end
@@ -81,41 +83,13 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def component_params
-        params.require(:component).permit( 
+        default_params = params.require(:component).permit( 
           :name, :slug, :position, :publish_state, :structure_id, :category_ids,
           structure_attributes:  [ :id ], 
-          categories_attributes: [ :id, :category_id ], 
-          texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
-          assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image ], 
-          dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
-          galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ],
-          radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-          selects_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
-          checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
-          repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id,
-            texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ], 
-            assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ], 
-            dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ], 
-            galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ], 
-            repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id ],
-            radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-            selects_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
-            checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ]
-          ])
-      end
+          categories_attributes: [ :id, :category_id ])
 
-      def repeater_params
-        params.require(:repeater).permit( 
-          new_repeaters_attributes: [ :id, :field_setting_id, :field_group_id, :fieldable_type, :fieldable_id,
-            texts_attributes:         [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
-            assets_attributes:        [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image ], 
-            dates_attributes:         [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
-            galleries_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id ], 
-            repeaters_attributes:     [ :id, :field_setting_id, :field_group_id, :fieldable_type, :fieldable_id ],
-            radios_attributes:        [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-            selects_attributes:       [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
-            checkboxes_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ]
-          ])
+        # merge component default params with fieldable params
+        default_params.reverse_merge!(fieldable_params(:component))
       end
 
       def set_position

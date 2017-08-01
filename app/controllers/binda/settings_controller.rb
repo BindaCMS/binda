@@ -2,10 +2,14 @@ require_dependency "binda/application_controller"
 
 module Binda
   class SettingsController < ApplicationController
-    before_action :set_setting, only: [:show, :edit, :update, :destroy]
+    before_action :set_setting, only: [:show, :edit, :update, :destroy, :new_repeater]
+    before_action :set_structure
+
+    include FieldableHelper
 
     def index
-      @settings = Setting.all
+      # TODO this is a temporary workaround
+      redirect_to action: :edit
     end
 
     def show
@@ -13,33 +17,33 @@ module Binda
     end
 
     def new
-      @setting = Setting.new
+      @setting = @structure.setting.build()
     end
 
     def edit
     end
 
     def create
-      @setting = Setting.new(setting_params)
+      @setting = @structure.setting.build(setting_params)
 
       if @setting.save
-        redirect_to setting_path( @setting.slug ), notice: 'Setting was successfully created.'
+        redirect_to setting_path( @structure.slug, @setting.slug ), notice: 'Setting was successfully created.'
       else
-        render :new
+        redirect_to new_structure_setting_path( @structure.slug ), flash: { alert: @setting.errors }
       end
     end
 
     def update
       if @setting.update(setting_params)
-        redirect_to setting_path( @setting.slug ), notice: 'Setting was successfully updated.'
+        redirect_to setting_path( @structure.slug, @setting.slug ), notice: 'Setting was successfully updated.'
       else
-        render :edit
+        redirect_to edit_structure_setting_path( @structure.slug, @setting.slug ), flash: { alert: @setting.errors }
       end
     end
 
     def destroy
       @setting.destroy
-      redirect_to settings_url, notice: 'Setting was successfully destroyed.'
+      redirect_to root_url, notice: 'Setting was successfully destroyed.'
     end
 
     def dashboard
@@ -57,10 +61,21 @@ module Binda
       redirect_to dashboard_path, flash: { notice: 'Dashboard was successfully updated.' } 
     end
 
+    def sort
+      params[:component].each_with_index do |id, i|
+        Component.find( id ).update({ position: i + 1 })
+      end
+      head :ok
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_setting
         @setting = Setting.friendly.find(params[:id])
+      end
+
+      def set_structure
+        @structure = Structure.friendly.find( params[:structure_id] )
       end
 
       def dashboard_params

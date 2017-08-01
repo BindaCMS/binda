@@ -1,10 +1,38 @@
 module Binda
-	module ComponentModelHelper
+	module FieldableAssociations
+		# Fieldable associations are Binda's core feature. 
 		# 
-		# Component helpers are supposed to simplify common operation like 
-		#   retrieving data belonging to the component instance (texts, assets, dates and so on)
+		# They provide model classes with a collection of fields (texts, assets, dates and so on)
+		#   to store data in a simple yet powerful way. It's possible to make use of a set of helpers to 
+		#   retrieve fields data belonging to each model instance. See the following methods. 
 
 		extend ActiveSupport::Concern
+
+		included do 
+	    # Fieldable Associations 
+	    # 
+	    # If you add a new field remember to update:
+	    #   - get_fieldables (see here below)
+	    #   - get_field_types (see here below)
+	    #   - component_params (app/controllers/binda/components_controller.rb)
+	    has_many :texts,         as: :fieldable, dependent: :delete_all
+	    has_many :dates,         as: :fieldable, dependent: :delete_all
+	    has_many :galleries,     as: :fieldable, dependent: :delete_all
+	    has_many :assets,        as: :fieldable, dependent: :delete_all
+	    has_many :radios,        as: :fieldable, dependent: :delete_all 
+	    has_many :selects,       as: :fieldable, dependent: :delete_all 
+	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
+	    # Repeaters need destroy_all, not delete_all
+	    has_many :repeaters,     as: :fieldable, dependent: :destroy
+
+			# has_many :bindings
+			# has_many :assets, class_name: 'Admin::Asset', through: :bindings
+
+	    accepts_nested_attributes_for :texts, :dates, :assets, :galleries, :repeaters, :radios, :selects, :checkboxes, allow_destroy: true
+
+	    # TODO not sure this is needed
+			# cattr_accessor :field_settings_array
+		end
 
 		# Get the object related to that field setting
 		# If the object doesn't exists yet it will return nil

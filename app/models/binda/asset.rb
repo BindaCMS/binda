@@ -9,13 +9,5 @@ module Binda
 
     mount_uploader :image, ImageUploader
 
-		# Validations
-
-  	# Slug
-
-
-		# CUSTOM METHODS
-		# --------------
-
   end
 end

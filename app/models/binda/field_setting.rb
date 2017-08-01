@@ -37,6 +37,9 @@ module Binda
 
 		accepts_nested_attributes_for :choices, allow_destroy: true, reject_if: :is_rejected
 
+
+		#
+		# Sets the validation rules to accept and save an attribute
 		def is_rejected( attributes )
 			attributes['label'].blank? || attributes['content'].blank?
 		end
@@ -71,14 +74,18 @@ module Binda
 		extend FriendlyId
 		friendly_id :default_slug, use: [:slugged, :finders]
 
-		# CUSTOM METHODS
-		# 
+
+		# Friendly id preference on slug generation
+		#
+		# Method inherited from friendly id 
 		# @see https://github.com/norman/friendly_id/issues/436
+	  def should_generate_new_friendly_id?
+	    slug.blank? || name_changed?
+	  end
 
-		def should_generate_new_friendly_id?
-			slug.blank?
-		end
-
+		# Set slug name
+		#
+		# It generates 4 possible slugs before falling back to FriendlyId default behaviour
 		def default_slug
 			slug = self.field_group.structure.name
 			

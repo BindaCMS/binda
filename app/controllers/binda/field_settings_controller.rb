@@ -6,6 +6,8 @@ module Binda
     before_action :set_field_group
     before_action :set_field_setting, only: [:show, :edit, :update, :destroy]
 
+    include FieldableHelper
+
     def index
       @field_settings = @field_group.field_settings.order('position').all
     end
