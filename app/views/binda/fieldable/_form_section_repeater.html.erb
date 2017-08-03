@@ -2,9 +2,9 @@
 <%# TEXT / STRING           %>
 <%# - - - - - - - - - - - - %>
 <% if repeater_setting_child.field_type == 'text' || repeater_setting_child.field_type == 'string' %>
-  <% current = repeater.find_or_create_a_field_by( repeater_setting_child.id, 'text' ) %>
+  <% current = f.object.find_or_create_a_field_by( repeater_setting_child.id, 'text' ) %>
   <%= f.simple_fields_for "texts_attributes[]", current do |ff| %>
-    <%= render 'form_item_text', ff: ff, field_setting: repeater_setting_child %>
+    <%= render 'binda/fieldable/form_item_text', ff: ff, field_setting: repeater_setting_child %>
   <% end %>
 
 
@@ -12,9 +12,9 @@
 <%# DATE                    %>
 <%# - - - - - - - - - - - - %>
 <% elsif repeater_setting_child.field_type == 'date' %>
-  <% current = repeater.find_or_create_a_field_by( repeater_setting_child.id, 'date' ) %>
+  <% current = f.object.find_or_create_a_field_by( repeater_setting_child.id, 'date' ) %>
   <%= f.simple_fields_for "dates_attributes[]", current do |ff| %>
-    <%= render 'form_item_date', ff: ff, field_setting: repeater_setting_child %>
+    <%= render 'binda/fieldable/form_item_date', ff: ff, field_setting: repeater_setting_child %>
   <% end %>
 
 
@@ -22,9 +22,9 @@
 <%# ASSET                   %>
 <%# - - - - - - - - - - - - %>
 <% elsif repeater_setting_child.field_type == 'asset' %>
-  <% current = repeater.find_or_create_a_field_by( repeater_setting_child.id, 'asset' ) %>
+  <% current = f.object.find_or_create_a_field_by( repeater_setting_child.id, 'asset' ) %>
   <%= f.simple_fields_for "assets_attributes[]", current do |ff| %>
-    <%= render 'form_item_asset', ff: ff, field_setting: repeater_setting_child %>
+    <%= render 'binda/fieldable/form_item_asset', ff: ff, field_setting: repeater_setting_child %>
   <% end %>
 
 
@@ -32,9 +32,9 @@
 <%# RADIO                   %>
 <%# - - - - - - - - - - - - %>
 <% elsif repeater_setting_child.field_type == 'radio' %>
-  <% current = repeater.find_or_create_a_field_by( repeater_setting_child.id, 'radio' ) %>
+  <% current = f.object.find_or_create_a_field_by( repeater_setting_child.id, 'radio' ) %>
   <%= f.simple_fields_for "radios_attributes[]", current do |ff| %>
-    <%= render 'form_item_radio', ff: ff, field_setting: repeater_setting_child %>
+    <%= render 'binda/fieldable/form_item_radio', ff: ff, field_setting: repeater_setting_child %>
   <% end %>
 
 

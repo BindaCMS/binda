@@ -7,11 +7,11 @@
 
 
 <%# INPUT / TEXTAREA %>
-<% if @component.has_text( field_setting.slug ) %>
+<% if @instance.has_text( field_setting.slug ) %>
 	<% if field_setting.field_type == 'text' %>
-		<%= ff.input :content, input_html: { value: @component.get_text( field_setting.slug ), class: 'tinymce' }, as: :text %>
+		<%= ff.input :content, input_html: { value: @instance.get_text( field_setting.slug ), class: 'tinymce' }, as: :text %>
 	<% else %>
-		<%= ff.input :content, input_html: { value: @component.get_text( field_setting.slug ) }, as: :string %>
+		<%= ff.input :content, input_html: { value: @instance.get_text( field_setting.slug ) }, as: :string %>
 	<% end %>
 <% else %>
 	<% if field_setting.field_type == 'text' %>

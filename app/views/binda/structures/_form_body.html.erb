@@ -40,6 +40,8 @@
             <div class="form-section--narrow-container row">
               <div class="col-sm-12">
                 <h4><%= "#{ t :publish }".capitalize %></h4>
+                <h5><%= "#{ t :structure_instance_type }".capitalize %></h5>
+                <%= f.input :instance_type, as: :radio_buttons, collection: ['component','setting'] %>
                 <h5><%= "#{ t :structure_has_categories }".capitalize %></h5>
                 <%= f.input :has_categories, as: :radio_buttons %>
                 <hr>

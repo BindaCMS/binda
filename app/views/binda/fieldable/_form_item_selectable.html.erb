@@ -11,7 +11,7 @@
 	<%# RADIO                   %>
 	<%# - - - - - - - - - - - - %>
 	<% if field_setting.field_type === 'radio' %>
-	  <% current = @component.find_or_create_a_field_by( field_setting.id, 'radio' ) %>
+	  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'radio' ) %>
 	  <%= f.simple_fields_for "radios_attributes[]", current do |ff| %>
 			<% if ff.object.choices.any? %>
 				<%= ff.input :choice_ids, as: :radio_buttons, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: ff.object.choices.first.id, include_blank: false %>
@@ -29,7 +29,7 @@
 	<%# SELECT                  %>
 	<%# - - - - - - - - - - - - %>
 	<% elsif field_setting.field_type === 'select' %>
-	  <% current = @component.find_or_create_a_field_by( field_setting.id, 'select' ) %>
+	  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'select' ) %>
 	  <%= f.simple_fields_for "selects_attributes[]", current do |ff| %>
 			<% if ff.object.choices.any? %>
 				<%= ff.input :choice_ids, as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: ff.object.choice_ids, include_blank: false %>
@@ -47,7 +47,7 @@
 	<%# CHECKBOX                %>
 	<%# - - - - - - - - - - - - %>
 	<% elsif field_setting.field_type === 'checkbox' %>
-	  <% current = @component.find_or_create_a_field_by( field_setting.id, 'checkbox' ) %>
+	  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'checkbox' ) %>
 	  <%= f.simple_fields_for "checkboxes_attributes[]", current do |ff| %>
 			<% if ff.object.choices.any? %>
 				<%= ff.input :choice_ids, as: :check_boxes, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: ff.object.choice_ids, include_blank: false %>

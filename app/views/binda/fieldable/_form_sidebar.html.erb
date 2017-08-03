@@ -1,0 +1,35 @@
+<h4><%= "#{ t :setting }".pluralize.capitalize %></h4>
+
+<% if @structure.has_categories %>
+
+	<% if @structure.categories.any? %>
+	  <h5><%= t(:category).capitalize %></h5>
+	  <%= f.association :categories, as: :radio_buttons, collection: @structure.categories ,checked: @instance.category_ids, include_blank: false %>
+	<% end %>
+
+	<% if @instance.slug.nil? %>
+	  <h5>
+	    <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :instance }" ).capitalize %>  
+	  </h5>
+	<% else %>
+	  <a class="main-header--link btn btn-default" href="<%= new_structure_category_path( @structure ) %>">
+	    <%= "#{ t :new }".capitalize %> <%= t :category %>  
+	  </a>
+	<% end %>
+
+<% end %>
+
+<hr>
+
+<% if @instance.respond_to? :publish_state %>
+	<h5><%= t(:publish_settings).capitalize %></h5>
+	<%= f.input :publish_state, as: :radio_buttons, collection: [ 'draft', 'published' ], checked: f.object.publish_state %>
+	<hr>
+<% end %>
+
+<%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+
+
+<% unless @instance.new_record? || @instance.structure.instance_type == 'setting' %>
+	<a class="form-body--delete btn btn-default" href="<%= url_for([@structure, @instance]) %>" data-method="delete" data-confirm="This operation will delete this <%= @structure.name %> and there is no coming back. Are you ok with that?">Delete <%= @structure.name.capitalize %> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+<% end %>

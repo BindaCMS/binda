@@ -33,36 +33,34 @@ Binda::Engine.routes.draw do
   # --------------------
   get  'dashboard', to: 'settings#dashboard',         as: :dashboard
   post 'dashboard', to: 'settings#update_dashboard'
-  resources :settings
 
   post 'structures/sort'
   resources :structures do
-
-    resources :categories
-
+    post 'field_groups/sort'
+    post 'field_groups/add_child'
+    resources :field_groups do
+      post 'field_settings/add_child'
+      post 'field_settings/sort'
+      resources :field_settings
+    end
+    resources :settings, only: [:show, :edit, :update, :destroy] do
+      post 'sort_repeaters'
+      post 'new_repeater'
+    end
     post 'components/sort'
     resources :components do
       post 'sort_repeaters'
       post 'new_repeater'
     end
-
-    post 'field_groups/sort'
-    post 'field_groups/add_child'
-    resources :field_groups do
-
-      post 'field_settings/add_child'
-      post 'field_settings/sort'
-      resources :field_settings
-
-    end
+    resources :categories
   end
 
   resources :choices, only: [:destroy]
   
-  resources :texts
-  resources :bindings
-  resources :assets
-  resources :repeaters
-  resources :dates
+  # resources :texts
+  # resources :bindings
+  # resources :assets
+  resources :repeaters, only: [:destroy]
+  # resources :dates
   
 end

@@ -42,3 +42,5 @@ en:
   default_choice: default choice
   default_choice_description: if you have added/removed any choice you need to click save to update the list of choices
   allow_null: allow null?
+  instance: instance
+  structure_instance_type: 'This structure is for:'

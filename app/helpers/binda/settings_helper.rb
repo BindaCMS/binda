@@ -2,11 +2,11 @@ module Binda
   module SettingsHelper
 
   	def get_website_name
-  		Setting.friendly.find('website-name').content
+  		Setting.friendly.find('dashboard').get_text('website-name')
   	end
 
   	def get_website_description
-  		Setting.friendly.find('website-description').content
+  		Setting.friendly.find('dashboard').get_text('website-description')
   	end
 
   end

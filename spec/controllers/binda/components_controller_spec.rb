@@ -50,7 +50,6 @@ module Binda
           component_id: @component.slug
         }
         @component.reload
-        
         expect( @component.repeaters.order('position').length ).to eq( initial_repeaters_length + 1 )
         expect( @component.repeaters.order('position').last.position ).to eq( @component.repeaters.length )
       end

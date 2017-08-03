@@ -2,9 +2,9 @@
 <%# TEXT / STRING           %>
 <%# - - - - - - - - - - - - %>
 <% if field_setting.field_type == 'text' || field_setting.field_type == 'string' %>
-  <% current = @component.find_or_create_a_field_by( field_setting.id, 'text' ) %>
+  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'text' ) %>
   <%= f.simple_fields_for "texts_attributes[]", current do |ff| %>
-    <%= render 'form_item_text', ff: ff, field_setting: field_setting %>
+    <%= render 'binda/fieldable/form_item_text', ff: ff, field_setting: field_setting %>
   <% end %>
 
 
@@ -12,9 +12,9 @@
 <%# DATE                    %>
 <%# - - - - - - - - - - - - %>
 <% elsif field_setting.field_type == 'date' %>
-  <% current = @component.find_or_create_a_field_by( field_setting.id, 'date' ) %>
+  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'date' ) %>
   <%= f.simple_fields_for "dates_attributes[]", current do |ff| %>
-    <%= render 'form_item_date', ff: ff, field_setting: field_setting %>
+    <%= render 'binda/fieldable/form_item_date', ff: ff, field_setting: field_setting %>
   <% end %>
 
 
@@ -22,9 +22,9 @@
 <%# ASSET                   %>
 <%# - - - - - - - - - - - - %>
 <% elsif field_setting.field_type == 'asset' %>
-  <% current = @component.find_or_create_a_field_by( field_setting.id, 'asset' ) %>
+  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'asset' ) %>
   <%= f.simple_fields_for "assets_attributes[]", current do |ff| %>
-    <%= render 'form_item_asset', ff: ff, field_setting: field_setting %>
+    <%= render 'binda/fieldable/form_item_asset', ff: ff, field_setting: field_setting %>
   <% end %>
 
 
@@ -32,11 +32,11 @@
 <%# REPEATER                %>
 <%# - - - - - - - - - - - - %>
 <% elsif field_setting.field_type == 'repeater' %>
-  <% repeaters = @component.repeaters.where( field_setting: field_setting ).order('position') %>
-  <%= render 'form_item_repeater', f: f, repeater_setting: field_setting, repeaters: repeaters %>
+  <% repeaters = @instance.repeaters.where( field_setting: field_setting ).order('position') %>
+  <%= render 'binda/fieldable/form_item_repeater', f: f, repeater_setting: field_setting, repeaters: repeaters %>
 
 
 <% elsif ['radio', 'select', 'checkbox'].include? field_setting.field_type %>
-  <%= render 'form_item_selectable', f: f, field_setting: field_setting %>
+  <%= render 'binda/fieldable/form_item_selectable', f: f, field_setting: field_setting %>
 
 <% end %>
