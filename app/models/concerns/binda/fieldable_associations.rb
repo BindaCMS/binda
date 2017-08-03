@@ -149,19 +149,6 @@ module Binda
 			obj.sort_by(&:position) unless obj.nil?
 		end
 
-		# Find or create a field by field setting and field type
-		# This is used in Binda's form
-		# 
-		# @param field_setting_id [string] The field setting id
-		# @param field_type [string] THe field type
-		def find_or_create_a_field_by field_setting_id, field_type
-			if FieldSetting.get_fieldables.include?( field_type.capitalize ) && field_setting_id.is_a?( Integer )
-				self.send( field_type.pluralize ).find_or_create_by( field_setting_id: field_setting_id )
-			else
-				raise ArgumentError, "One parameter of find_or_create_a_field_by() is not correct.", caller
-			end
-		end
-
 		# Get the radio choice
 		# 
 		# If by mistake the Radio instance has many choices associated, 
@@ -194,5 +181,17 @@ module Binda
 			obj.choices
 		end
 
+		# Find or create a field by field setting and field type
+		# This is used in Binda's form
+		# 
+		# @param field_setting_id [string] The field setting id
+		# @param field_type [string] THe field type
+		def find_or_create_a_field_by field_setting_id, field_type
+			if FieldSetting.get_fieldables.include?( field_type.capitalize ) && field_setting_id.is_a?( Integer )
+				self.send( field_type.pluralize ).find_or_create_by( field_setting_id: field_setting_id )
+			else
+				raise ArgumentError, "One parameter of find_or_create_a_field_by() is not correct.", caller
+			end
+		end
 	end
 end
