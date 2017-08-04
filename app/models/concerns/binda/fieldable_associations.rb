@@ -168,7 +168,6 @@ module Binda
 		def get_select_choices field_slug
 			# select cannot be chosen has variable name, therefore is prefixed with 's'
 			obj = self.selects.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
-			binding.pry
 			arr = [ label: obj.choices.first.label, value: obj.choices.first.value ]
 		end
 
