@@ -41,7 +41,7 @@
         
         </div>
       </div>
-      <% @field_group.field_settings.where( field_type: 'repeater' ).order( :position ).each do |repeater| %>
+      <% @field_group.field_settings.where( field_type: 'repeater' ).order( :position, :id ).each do |repeater| %>
         <div class="form-section--wide-container row">
           <div class="col-sm-12 form-section">
           
