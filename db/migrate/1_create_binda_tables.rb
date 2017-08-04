@@ -52,7 +52,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.belongs_to       :field_group
       t.string           :ancestry
       t.index            :ancestry
-      t.boolean          :allow_null
+      t.boolean          :allow_null, default: false
       t.references       :default_choice, index: true
       t.timestamps
     end

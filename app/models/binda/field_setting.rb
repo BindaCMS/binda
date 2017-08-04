@@ -46,6 +46,8 @@ module Binda
 
 		cattr_accessor :field_settings_array
 
+		after_create :set_allow_null
+
     after_create do 
     	self.class.reset_field_settings_array 
     end
@@ -133,6 +135,10 @@ module Binda
 			# this is needed when a user creates a new field_setting but 
 			# `get_field_setting_id` has already run once
 			@@field_settings_array = nil
+		end
+
+		def set_allow_null
+			self.allow_null = false if self.allow_null.nil?
 		end
 
 	end

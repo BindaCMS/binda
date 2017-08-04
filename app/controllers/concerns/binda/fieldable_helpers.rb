@@ -37,5 +37,6 @@ module Binda
             checkboxes_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ]
           ])
       end
+
   end
 end

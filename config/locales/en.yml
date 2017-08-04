@@ -44,3 +44,4 @@ en:
   allow_null: allow null?
   instance: instance
   structure_instance_type: 'This structure is for:'
+  null_is_not_allowed: You need to select at least one choice

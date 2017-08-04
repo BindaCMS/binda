@@ -87,7 +87,8 @@ module Binda
               :allow_null, 
               choices: [], 
               choices_attributes: 
-              [ :field_setting_id, 
+              [ :id, 
+                :field_setting_id, 
                 :label, 
                 :value 
               ]
@@ -98,7 +99,8 @@ module Binda
       def new_params
         params.require(:field_group).permit( 
           new_field_settings:
-            [ :field_group_id, 
+            [ :id,
+              :field_group_id, 
               :field_setting_id, 
               :name, 
               :slug, 
@@ -112,7 +114,8 @@ module Binda
               choices: [] 
             ],
           new_choices: 
-            [ :field_setting_id, 
+            [ :id,
+              :field_setting_id, 
               :label, 
               :value 
             ]

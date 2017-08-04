@@ -14,9 +14,17 @@
 	  <% current = f.object.find_or_create_a_field_by( field_setting.id, 'radio' ) %>
 	  <%= f.simple_fields_for "radios_attributes[]", current do |ff| %>
 			<% if ff.object.choices.any? %>
-				<%= ff.input :choice_ids, as: :radio_buttons, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: ff.object.choices.first.id, include_blank: false %>
+				<% unless field_setting.allow_null %>
+					<%= ff.input :choice_ids, as: :radio_buttons, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: ff.object.choices.first.id %>
+				<% else %>
+					<%= ff.input :choice_ids, as: :radio_buttons, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: ff.object.choices.first.id, include_blank: false %>
+				<% end %>
 			<% else %>
-				<%= ff.input :choice_ids, as: :radio_buttons, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: field_setting.default_choice.id, include_blank: false %>
+				<% unless field_setting.allow_null %>
+					<%= ff.input :choice_ids, as: :radio_buttons, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: field_setting.default_choice.id %>
+				<% else %>
+					<%= ff.input :choice_ids, as: :radio_buttons, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: field_setting.default_choice.id, include_blank: false %>
+				<% end %>
 			<% end %>
 			<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 			<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
@@ -32,9 +40,17 @@
 	  <% current = f.object.find_or_create_a_field_by( field_setting.id, 'select' ) %>
 	  <%= f.simple_fields_for "selects_attributes[]", current do |ff| %>
 			<% if ff.object.choices.any? %>
-				<%= ff.input :choice_ids, as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: ff.object.choice_ids, include_blank: false %>
+				<% unless field_setting.allow_null %>
+					<%= ff.input :choice_ids, as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: ff.object.choice_ids %>
+				<% else %>
+					<%= ff.input :choice_ids, as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: ff.object.choice_ids, include_blank: false %>
+				<% end %>
 			<% else %>
-				<%= ff.input :choice_ids, as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: field_setting.default_choice.id, include_blank: false %>
+				<% unless field_setting.allow_null %>
+					<%= ff.input :choice_ids, as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: field_setting.default_choice.id %>
+				<% else %>
+					<%= ff.input :choice_ids, as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: field_setting.default_choice.id, include_blank: false %>
+				<% end %>
 			<% end %>
 			<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 			<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
@@ -50,9 +66,19 @@
 	  <% current = f.object.find_or_create_a_field_by( field_setting.id, 'checkbox' ) %>
 	  <%= f.simple_fields_for "checkboxes_attributes[]", current do |ff| %>
 			<% if ff.object.choices.any? %>
-				<%= ff.input :choice_ids, as: :check_boxes, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: ff.object.choice_ids, include_blank: false, include_hidden: false %>
+				<% if field_setting.allow_null %>
+					<%= ff.input :choice_ids, as: :check_boxes, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id %>
+				<% else %>
+					<small class="text-muted"><%= t('null_is_not_allowed') %></small>
+					<%= ff.input :choice_ids, as: :check_boxes, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: ff.object.choice_ids, include_blank: false, include_hidden: false %>
+				<% end %>
 			<% else %>
-				<%= ff.input :choice_ids, as: :check_boxes, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: field_setting.default_choice.id, include_blank: false, include_hidden: false %>
+				<% if field_setting.allow_null %>
+					<%= ff.input :choice_ids, as: :check_boxes, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id %>
+				<% else %>
+					<small class="text-muted"><%= t('null_is_not_allowed') %></small>
+					<%= ff.input :choice_ids, as: :check_boxes, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: field_setting.default_choice.id, include_blank: false, include_hidden: false %>
+				<% end %>
 			<% end %>
 			<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 			<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
@@ -70,3 +96,4 @@
 		<% end %>
 	</p>
 <% end %>
+<hr>
