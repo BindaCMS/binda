@@ -25,8 +25,8 @@ module Binda
 
 
       # MAINTENANCE MODE
-      p Setting up maintenance mode
-      p
+      puts "Setting up maintenance mode"
+      puts
 
       # Use radio field_type untill truefalse isn't available
       maintenance_mode = field_settings.find_or_create_by( name: 'Maintenance Mode', field_type: 'radio')
@@ -38,7 +38,7 @@ module Binda
 
 
       # WEBSITE NAME
-      p Setting up website name
+      puts "Setting up website name"
 
       website_name = field_settings.find_or_create_by( name: 'Website Name', field_type: 'string' )
       website_name.update_attributes( slug: 'website-name' )
@@ -47,7 +47,7 @@ module Binda
 
 
       # WEBSITE CONTENT
-      p Setting up website description
+      puts "Setting up website description"
 
       website_description = field_settings.find_or_create_by( name: 'Website Description', field_type: 'string' )
       website_description.update_attributes( slug: 'website-description' )
