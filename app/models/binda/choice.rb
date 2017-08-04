@@ -2,7 +2,7 @@ module Binda
   class Choice < ApplicationRecord
 
   	belongs_to :field_setting
-  	belongs_to :selectable, polymorphic: true, optional: true
+  	has_and_belongs_to_many :selects
 
 		validates :label, presence: true
 		validates :value, presence: true
