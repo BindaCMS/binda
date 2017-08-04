@@ -37,6 +37,7 @@ module Binda
 
     def update
       if @component.update(component_params)
+        binding.pry
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "#{ @component.name.capitalize } was successfully updated."
       else
         redirect_to edit_structure_component_path( @structure.slug, @component.slug ), flash: { alert: @component.errors }
