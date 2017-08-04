@@ -10,7 +10,7 @@ module Binda
           dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
           galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ],
           radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-          selects_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
+          selects_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
           checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
           repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id,
             texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
@@ -19,7 +19,7 @@ module Binda
             galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ], 
             repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id ],
             radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-            selects_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
+            selects_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
             checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ]
           ]]
       end
