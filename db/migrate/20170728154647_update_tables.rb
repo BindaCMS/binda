@@ -9,6 +9,7 @@ class UpdateTables < ActiveRecord::Migration[5.1]
     # 
   end
 
+
 	def up
 		dashboard_structure = ::Binda::Structure.find_or_create_by( name: 'dashboard', slug: 'dashboard', instance_type: 'setting' )
 		unless dashboard_structure.setting.nil?
