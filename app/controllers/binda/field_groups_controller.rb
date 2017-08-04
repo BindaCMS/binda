@@ -83,7 +83,7 @@ module Binda
               :required, 
               :default_text, 
               :ancestry, 
-              :default_choice_id_id, 
+              :default_choice_id, 
               :allow_null, 
               choices: [], 
               choices_attributes: 

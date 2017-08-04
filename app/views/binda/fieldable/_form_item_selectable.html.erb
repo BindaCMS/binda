@@ -50,9 +50,9 @@
 	  <% current = f.object.find_or_create_a_field_by( field_setting.id, 'checkbox' ) %>
 	  <%= f.simple_fields_for "checkboxes_attributes[]", current do |ff| %>
 			<% if ff.object.choices.any? %>
-				<%= ff.input :choice_ids, as: :check_boxes, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: ff.object.choice_ids, include_blank: false %>
+				<%= ff.input :choice_ids, as: :check_boxes, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: ff.object.choice_ids, include_blank: false, include_hidden: false %>
 			<% else %>
-				<%= ff.input :choice_ids, as: :check_boxes, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: field_setting.default_choice.id, include_blank: false %>
+				<%= ff.input :choice_ids, as: :check_boxes, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, checked: field_setting.default_choice.id, include_blank: false, include_hidden: false %>
 			<% end %>
 			<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 			<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
