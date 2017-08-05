@@ -155,33 +155,33 @@ module Binda
 		#   only the first one will be retrieved.
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [array] An array of containing the label and value of the selected choice.
+		# @return [hash] A hash of containing the label and value of the selected choice.
 		def get_radio_choice field_slug
 			obj = self.radios.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			arr = [ label: obj.choices.first.label, value: obj.choices.first.value ]
+			obj_hash = { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
 		# Get the select choices
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [array] An array of containing the label and value of the selected choice.
+		# @return [hash] A hash of containing the label and value of the selected choice.
 		def get_select_choices field_slug
 			# select cannot be chosen has variable name, therefore is prefixed with 's'
 			obj = self.selects.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
-			arr = [ label: obj.choices.first.label, value: obj.choices.first.value ]
+			obj_hash = { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
 		# Get the checkbox choice
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [array] An array of labels and values of the selected choices.
+		# @return [hash] A hash of labels and values of the selected choices.
 		def get_checkbox_choices field_slug
 			obj = self.checkboxes.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
-			arr = []
+			obj_hash = {}
 			obj.choices.order('label').each do |o|
-				arr << [ label: obj.choices.first.label, value: obj.choices.first.value ]
+				obj_hash << { label: obj.choices.first.label, value: obj.choices.first.value }
 			end
-			return arr
+			return obj_hash
 		end
 
 		# Find or create a field by field setting and field type
