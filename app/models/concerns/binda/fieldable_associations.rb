@@ -165,7 +165,7 @@ module Binda
 		# 
 		# @param field_slug [string] The slug of the field setting
 		# @return [hash] A hash of containing the label and value of the selected choice.
-		def get_select_choices field_slug
+		def get_select_choice field_slug
 			# select cannot be chosen has variable name, therefore is prefixed with 's'
 			obj = self.selects.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
 			obj_hash = { label: obj.choices.first.label, value: obj.choices.first.value }
