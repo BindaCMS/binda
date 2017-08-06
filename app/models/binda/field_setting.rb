@@ -140,6 +140,6 @@ module Binda
 		def set_allow_null
 			self.allow_null = false if self.allow_null.nil?
 		end
-
+		
 	end
 end

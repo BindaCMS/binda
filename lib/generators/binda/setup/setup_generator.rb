@@ -34,7 +34,7 @@ module Binda
         active   = maintenance_mode.choices.create( label: 'active', value: 'true' )
         disabled = maintenance_mode.choices.create( label: 'disabled', value: 'false' )
         maintenance_mode.default_choice = disabled
-        @dashboard.radios.find_or_create_by( field_setting_id: maintenance_mode.id ).choices << maintenance_mode.default_choice
+        @dashboard.radios.find_or_create_by( field_setting_id: maintenance_mode.id )
       end
       puts "The maintenance-mode option has been set up."
       puts
