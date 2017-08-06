@@ -30,8 +30,7 @@ class UpdateTables < ActiveRecord::Migration[5.1]
 			maintenance_mode.update_attributes( slug: 'maintenance-mode' )
 			active   = maintenance_mode.choices.create( label: 'active', value: 'true' )
 			disabled = maintenance_mode.choices.create( label: 'disabled', value: 'false' )
-			maintenance_mode.default_choice = disabled
-			@dashboard.radios.find_or_create_by( field_setting_id: maintenance_mode.id ).choices << maintenance_mode.default_choice
+			@dashboard.radios.find_or_create_by( field_setting_id: maintenance_mode.id ).choices << disabled
 		end
 
 
