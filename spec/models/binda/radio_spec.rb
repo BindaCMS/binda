@@ -26,7 +26,7 @@ module Binda
 			@radio.choices = []
 			@radio.choices << @radio_setting.choices.first
 			selection = @component.get_radio_choice( @radio_setting.slug )
-			expect( selection ).to eq( @radio.choices.first )
+			expect( selection ).to eq( { label: @radio.choices.first.label, value: @radio.choices.first.value } )
 		end
 
 	end

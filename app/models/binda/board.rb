@@ -1,5 +1,5 @@
 module Binda
-  class Setting < ApplicationRecord
+  class Board < ApplicationRecord
 
   	include FieldableAssociations
 

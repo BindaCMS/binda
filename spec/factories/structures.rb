@@ -40,7 +40,7 @@ FactoryGirl.define do
       create :text_setting, field_group: default_field_group
       create :repeater_setting_with_fields, field_group: default_field_group
       create :radio_setting_with_choices, field_group: default_field_group
-      create :select_setting_with_choices, field_group: default_field_group
+      create :selection_setting_with_choices, field_group: default_field_group
       # Generate a list of article components which will use those fields
       create_list( :article_component_with_fields, evaluator.components_count, structure: structure)
     end

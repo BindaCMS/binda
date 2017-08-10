@@ -1,8 +1,8 @@
 require_dependency "binda/application_controller"
 
 module Binda
-  class SettingsController < ApplicationController
-    before_action :set_setting, only: [:edit, :update, :destroy, :new_repeater]
+  class BoardsController < ApplicationController
+    before_action :set_board, only: [:edit, :update, :destroy, :new_repeater]
     before_action :set_structure, only: [:edit, :update, :destroy, :new_repeater]
 
     include FieldableHelpers
@@ -15,29 +15,21 @@ module Binda
     end
 
     def update
-      if @setting.update(setting_params)
-        redirect_to structure_setting_path( @structure.slug, @setting.slug ), notice: 'Setting was successfully updated.'
+      if @board.update(board_params)
+        redirect_to structure_board_path( @structure.slug, @board.slug ), notice: 'Setting was successfully updated.'
       else
-        redirect_to edit_structure_setting_path( @structure.slug, @setting.slug ), flash: { alert: @setting.errors }
+        redirect_to edit_structure_board_path( @structure.slug, @board.slug ), flash: { alert: @board.errors }
       end
     end
 
     def destroy
-      @setting.destroy
+      @board.destroy
       redirect_to root_url, notice: 'Setting was successfully destroyed.'
-    end
-
-    def dashboard
-      @structure = Structure.friendly.find('dashboard')
-      @setting = Setting.friendly.find('dashboard')
-      # The following variable will be used as wildcard by fieldable views
-      @instance = @setting
-      render :edit
     end
 
     def new_repeater
       @repeater_setting = FieldSetting.find( params[:repeater_setting_id] )
-      position = @instance.repeaters.find_all{|r| r.field_setting_id=@repeater_setting.id }.length + 1
+      position = @instance.repeaters.find_all{|r| r.field_setting_id = @repeater_setting.id }.length + 1
       @repeater = @instance.repeaters.create( field_setting: @repeater_setting, position: position )
       render 'binda/fieldable/_form_item_new_repeater', layout: false
     end
@@ -51,12 +43,12 @@ module Binda
 
     private
       # Use callbacks to share common setup or constraints between actions.
-      def set_setting
+      def set_board
         id ||= params[:id]
-        id ||= params[:setting_id] 
-        @setting = Setting.friendly.find(id)
+        id ||= params[:board_id] 
+        @board = Setting.friendly.find(id)
         # The following variable will be used as wildcard by fieldable views
-        @instance = @setting
+        @instance = @board
       end
 
       def set_structure
@@ -64,8 +56,8 @@ module Binda
       end
 
       # Only allow a trusted parameter "white list" through.
-      def setting_params
-        default_params = params.require(:setting).permit( 
+      def board_params
+        default_params = params.require(:board).permit( 
           :name, :slug, :position, :structure_id,
           { structure_attributes:  [ :id ] },
           *fieldable_params )

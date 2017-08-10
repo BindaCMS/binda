@@ -4,10 +4,10 @@ Binda::Engine.routes.draw do
   # ----
   # https://github.com/plataformatec/devise/wiki/How-To:-Require-authentication-for-all-components
   # authenticated :user, class_name: "Binda::User", module: :devise do
-  #   root to: 'settings#dashboard', as: :authenticated_root
+  #   root to: 'boards#dashboard', as: :authenticated_root
   # end
   # root to: 'users/sessions#new'
-  root to: 'settings#dashboard'
+  root to: 'boards#dashboard'
 
   # DEVISE
   # ------
@@ -31,8 +31,8 @@ Binda::Engine.routes.draw do
 
   # ADMINISTRATION PANEL
   # --------------------
-  get  'dashboard', to: 'settings#dashboard',         as: :dashboard
-  post 'dashboard', to: 'settings#update_dashboard'
+  get  'dashboard', to: 'boards#dashboard',         as: :dashboard
+  post 'dashboard', to: 'boards#update_dashboard'
 
   post 'structures/sort'
   resources :structures do
@@ -43,7 +43,7 @@ Binda::Engine.routes.draw do
       post 'field_settings/sort'
       resources :field_settings
     end
-    resources :settings, only: [:show, :edit, :update, :destroy] do
+    resources :boards, only: [:show, :edit, :update, :destroy] do
       post 'sort_repeaters'
       post 'new_repeater'
     end

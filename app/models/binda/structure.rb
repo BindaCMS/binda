@@ -3,14 +3,14 @@ module Binda
 
 		# Associations
 		has_many :components
-		has_one  :setting
+		has_one  :board
 		has_many :categories
 		has_many :field_groups
 
 		# Validations
 		validates :name, presence: true
 		validates :slug, uniqueness: true
-		validates :instance_type, presence: true, inclusion: { in: %w(component setting), message: "%{value} is not a valid instance" }
+		validates :instance_type, presence: true, inclusion: { in: %w(component board), message: "%{value} is not a valid instance" }
 		accepts_nested_attributes_for :field_groups, allow_destroy: true, reject_if: :is_rejected
 
 		# Slug
@@ -64,11 +64,11 @@ module Binda
     #   The generated instance will be associated to the structure and named after it.
     #   It also disable categories (this could be a different method, or method could be more explicit)
     def add_instance_details
-    	if self.instance_type == 'setting'
+    	if self.instance_type == 'board'
     		self.update_attribute 'has_categories', false
-	    	setting = self.build_setting( name: self.name )
-	      unless setting.save
-	        return redirect_to structure_path( self.slug ), flash: { error: 'The setting instance hasn\'t been created' }
+	    	board = self.build_board( name: self.name )
+	      unless board.save
+	        return redirect_to structure_path( self.slug ), flash: { error: 'The board instance hasn\'t been created' }
 	      end
 	    end
     end

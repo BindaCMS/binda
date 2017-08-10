@@ -16,11 +16,12 @@ module Binda
 	    #   - get_field_types (see here below)
 	    #   - component_params (app/controllers/binda/components_controller.rb)
 	    has_many :texts,         as: :fieldable, dependent: :delete_all
+	    has_many :strings,       as: :fieldable, dependent: :delete_all
 	    has_many :dates,         as: :fieldable, dependent: :delete_all
 	    has_many :galleries,     as: :fieldable, dependent: :delete_all
 	    has_many :assets,        as: :fieldable, dependent: :delete_all
 	    has_many :radios,        as: :fieldable, dependent: :delete_all 
-	    has_many :selects,       as: :fieldable, dependent: :delete_all 
+	    has_many :selections,       as: :fieldable, dependent: :delete_all 
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
 	    # Repeaters need destroy_all, not delete_all
 	    has_many :repeaters,     as: :fieldable, dependent: :destroy
@@ -28,7 +29,7 @@ module Binda
 			# has_many :bindings
 			# has_many :assets, class_name: 'Admin::Asset', through: :bindings
 
-	    accepts_nested_attributes_for :texts, :dates, :assets, :galleries, :repeaters, :radios, :selects, :checkboxes, allow_destroy: true
+	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
 
 	    # TODO not sure this is needed
 			# cattr_accessor :field_settings_array
@@ -38,7 +39,7 @@ module Binda
 		# If the object doesn't exists yet it will return nil
 		# 
 		# @param  field_slug [string] The slug of the field setting
-		# @return [string] Returns the content of the string/text 
+		# @return [string] Returns the content of the text 
 		# @return [nil]    Returns null if it's empty or it doesn't exists
 		def get_text field_slug 
 			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
@@ -51,6 +52,30 @@ module Binda
 		# @return [boolean]
 		def has_text field_slug 
 			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			if obj.present?
+				return !obj.content.blank?
+			else
+				return false
+			end
+		end
+
+		# Get the object related to that field setting
+		# If the object doesn't exists yet it will return nil
+		# 
+		# @param  field_slug [string] The slug of the field setting
+		# @return [string] Returns the content of the string 
+		# @return [nil]    Returns null if it's empty or it doesn't exists
+		def get_string field_slug 
+			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj.content unless obj.nil?
+		end
+
+		# Get the object related to that field setting
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [boolean]
+		def has_string field_slug 
+			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			if obj.present?
 				return !obj.content.blank?
 			else
@@ -165,9 +190,9 @@ module Binda
 		# 
 		# @param field_slug [string] The slug of the field setting
 		# @return [hash] A hash of containing the label and value of the selected choice.
-		def get_select_choice field_slug
+		def get_selection_choice field_slug
 			# select cannot be chosen has variable name, therefore is prefixed with 's'
-			obj = self.selects.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
+			obj = self.selections.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
 			obj_hash = { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 

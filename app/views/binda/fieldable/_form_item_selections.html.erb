@@ -36,14 +36,14 @@
 	<%# - - - - - - - - - - - - %>
 	<%# SELECT                  %>
 	<%# - - - - - - - - - - - - %>
-	<% elsif field_setting.field_type === 'select' %>
-	  <% current = f.object.find_or_create_a_field_by( field_setting.id, 'select' ) %>
-	  <%= f.simple_fields_for "selects_attributes[]", current do |ff| %>
+	<% elsif field_setting.field_type === 'selection' %>
+	  <% current = f.object.find_or_create_a_field_by( field_setting.id, 'selection' ) %>
+	  <%= f.simple_fields_for "selections_attributes[]", current do |ff| %>
 			<% if ff.object.choices.any? %>
 				<% unless field_setting.allow_null %>
-					<%= ff.input :choice_ids, as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: ff.object.choice_ids %>
+					<%= ff.input :choice_ids, as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: ff.object.choices.first.id %>
 				<% else %>
-					<%= ff.input :choice_ids, as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: ff.object.choice_ids, include_blank: false %>
+					<%= ff.input :choice_ids, as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: ff.object.choices.first.id, include_blank: false %>
 				<% end %>
 			<% else %>
 				<% unless field_setting.allow_null %>

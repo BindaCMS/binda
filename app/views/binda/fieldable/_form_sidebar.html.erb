@@ -30,6 +30,6 @@
 <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
 
 
-<% unless @instance.new_record? || @instance.structure.instance_type == 'setting' %>
+<% unless @instance.new_record? || @instance.structure.instance_type == 'board' %>
 	<a class="form-body--delete btn btn-default" href="<%= url_for([@structure, @instance]) %>" data-method="delete" data-confirm="This operation will delete this <%= @structure.name %> and there is no coming back. Are you ok with that?">Delete <%= @structure.name.capitalize %> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 <% end %>

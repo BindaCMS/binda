@@ -14,7 +14,7 @@ FactoryGirl.define do
 			create :text_setting, field_group: field_group
 			create :repeater_setting_with_fields, field_group: field_group
 			create :radio_setting_with_choices, field_group: field_group
-			create :select_setting_with_choices, field_group: field_group
+			create :selection_setting_with_choices, field_group: field_group
 		end
 	end
 

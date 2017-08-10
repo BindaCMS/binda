@@ -12,12 +12,13 @@ module Binda
 		#   - get_field_types (see here below)
 		#   - component_params (app/controllers/binda/components_controller.rb)
 		has_many :texts,         as: :fieldable
+		has_many :strings,       as: :fieldable
 		has_many :dates,         as: :fieldable
 		has_many :galleries,     as: :fieldable
 		has_many :assets,        as: :fieldable
 		has_many :repeater,      as: :fieldable
 		has_many :radio,         as: :fieldable
-		has_many :select,        as: :fieldable
+		has_many :selection,     as: :fieldable
 		has_many :checkbox,      as: :fieldable
 
 
@@ -25,11 +26,12 @@ module Binda
 		# Infact via `fieldable` the associated fields might not be deleted 
 		# as the fieldable_id is related to the `component` rather than the `field_setting`
 		has_many :texts,         dependent: :delete_all
+		has_many :strings,       dependent: :delete_all
 		has_many :dates,         dependent: :delete_all
 		has_many :galleries,     dependent: :delete_all
 		has_many :repeater,      dependent: :delete_all
 		has_many :radio,         dependent: :delete_all
-		has_many :select,        dependent: :delete_all
+		has_many :selection,     dependent: :delete_all
 		has_many :checkbox,      dependent: :delete_all
 
 		has_many :choices,       dependent: :delete_all
@@ -58,13 +60,13 @@ module Binda
 
 		def self.get_fieldables
 			# TODO add 'Gallery' to this list
-			%w( Text Date Asset Repeater Radio Select Checkbox )
+			%w( String Text Date Asset Repeater Radio Selection Checkbox )
 		end
 
 		# Field types are't fieldable! watch out! They might use the same model (eg `string` and `text`)
 		def get_field_types
 			# TODO add 'gallery' to this list
-			%w( string text asset repeater date radio select checkbox )
+			%w( string text asset repeater date radio selection checkbox )
 		end
 
 		# Validations

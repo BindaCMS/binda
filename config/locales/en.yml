@@ -14,6 +14,7 @@ en:
   create: create
   delete: delete
   setting: setting
+  board: board
   back_to_index: back to list
   back_to: back to
   slug_disable_hint: 'Editing slug is not possible. If you want a specific slug create a new item and a slug will be extracted from the title.'
