@@ -31,8 +31,7 @@ Binda::Engine.routes.draw do
 
   # ADMINISTRATION PANEL
   # --------------------
-  get  'dashboard', to: 'boards#dashboard',         as: :dashboard
-  post 'dashboard', to: 'boards#update_dashboard'
+  get  'dashboard', to: 'boards#dashboard', as: :dashboard
 
   post 'structures/sort'
   resources :structures do
@@ -43,7 +42,7 @@ Binda::Engine.routes.draw do
       post 'field_settings/sort'
       resources :field_settings
     end
-    resources :boards, only: [:show, :edit, :update, :destroy] do
+    resources :boards do
       post 'sort_repeaters'
       post 'new_repeater'
     end

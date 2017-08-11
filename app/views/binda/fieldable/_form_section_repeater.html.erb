@@ -14,7 +14,7 @@
 <% elsif repeater_setting_child.field_type == 'string' %>
   <% current = @instance.find_or_create_a_field_by( repeater_setting_child.id, 'string' ) %>
   <%= f.simple_fields_for "strings_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_text', ff: ff, field_setting: repeater_setting_child %>
+    <%= render 'binda/fieldable/form_item_string', ff: ff, field_setting: repeater_setting_child %>
   <% end %>
 
 

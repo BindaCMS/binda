@@ -2,8 +2,8 @@ require_dependency "binda/application_controller"
 
 module Binda
   class BoardsController < ApplicationController
-    before_action :set_board, only: [:edit, :update, :destroy, :new_repeater]
-    before_action :set_structure, only: [:edit, :update, :destroy, :new_repeater]
+    before_action :set_board, only: [:edit, :update, :destroy, :new_repeater ]
+    before_action :set_structure, only: [:edit, :update, :destroy, :new_repeater ]
 
     include FieldableHelpers
 
@@ -41,12 +41,19 @@ module Binda
       head :ok
     end
 
+    def dashboard
+      @structure = Structure.friendly.find('dashboard')
+      @board = Board.friendly.find('dashboard')
+      @instance = @board
+      render action: :edit
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_board
         id ||= params[:id]
         id ||= params[:board_id] 
-        @board = Setting.friendly.find(id)
+        @board = Board.friendly.find(id)
         # The following variable will be used as wildcard by fieldable views
         @instance = @board
       end

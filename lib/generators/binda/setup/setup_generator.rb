@@ -13,11 +13,11 @@ module Binda
       puts 
       puts "We need few details. Don't worry you can modify them later. \n\n"
 
-      dashboard_structure = ::Binda::Structure.find_or_create_by( name: 'dashboard', slug: 'dashboard', instance_type: 'setting' )
-      unless dashboard_structure.setting.nil?
-        @dashboard = dashboard_structure.setting
+      dashboard_structure = ::Binda::Structure.find_or_create_by( name: 'dashboard', slug: 'dashboard', instance_type: 'board' )
+      unless dashboard_structure.board.nil?
+        @dashboard = dashboard_structure.board
       else
-        @dashboard = dashboard_structure.create_setting( name: 'dashboard' )
+        @dashboard = dashboard_structure.create_board( name: 'dashboard' )
       end
 
       # By default each structure has a field group which will be used to store the default field settings
@@ -28,12 +28,12 @@ module Binda
       puts "Setting up maintenance mode"
 
       # Use radio field_type untill truefalse isn't available
-      maintenance_mode = field_settings.find_or_create_by( name: 'Maintenance Mode', slug: 'maintenance-mode', field_type: 'radio')
+      maintenance_mode = field_settings.find_or_create_by!( name: 'Maintenance Mode', slug: 'maintenance-mode', field_type: 'radio')
       # make sure slug works
       maintenance_mode.update_attributes( slug: 'maintenance-mode' )
-      active   = maintenance_mode.choices.create( label: 'active', value: 'true' )
-      disabled = maintenance_mode.choices.create( label: 'disabled', value: 'false' )
-      @dashboard.radios.find_or_create_by( field_setting_id: maintenance_mode.id )
+      active   = maintenance_mode.choices.create!( label: 'active', value: 'true' )
+      disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
+      @dashboard.radios.find_or_create_by!( field_setting_id: maintenance_mode.id )
       puts "The maintenance-mode option has been set up."
       puts
 
@@ -41,25 +41,25 @@ module Binda
       # WEBSITE NAME
       puts "Setting up website name"
 
-      website_name = field_settings.find_or_create_by( name: 'Website Name', slug: 'website-name', field_type: 'string' )
+      website_name_obj = field_settings.find_or_create_by!( name: 'Website Name', slug: 'website-name', field_type: 'string' )
       # make sure slug works
-      website_name.update_attributes( slug: 'website-name' )
-      @name = ask("How would you like to name your website? ['MySite']\n").presence || 'MySite'
-      @dashboard.texts.find_or_create_by( field_setting_id: website_name.id ).update_attributes(content: @name )
+      website_name_obj.update_attribute( 'slug', 'website-name' )
+      website_name = ask("How would you like to name your website? ['MySite']\n").presence || 'MySite'
+      @dashboard.strings.find_or_create_by!( field_setting_id: website_name_obj.id ).update_attribute('content', website_name )
 
 
       # WEBSITE CONTENT
       puts "Setting up website description"
 
-      website_description = field_settings.find_or_create_by( name: 'Website Description', slug: 'website-description', field_type: 'string' )
+      website_description_obj = field_settings.find_or_create_by!( name: 'Website Description', slug: 'website-description', field_type: 'text' )
       # make sure slug works
-      website_description.update_attributes( slug: 'website-description' )
-      @description = ask("What is your website about? ['A website about the world']\n").presence || 'A website about the world'
-      @dashboard.texts.find_or_create_by( field_setting_id: website_description.id ).update_attributes( content: @description )
+      website_description_obj.update_attribute( 'slug', 'website-description' )
+      website_description = ask("What is your website about? ['A website about the world']\n").presence || 'A website about the world'
+      @dashboard.texts.find_or_create_by!( field_setting_id: website_description_obj.id ).update_attribute( 'content', website_description )
     end
 
     def create_credentials
-      rake 'binda:create_user'
+      rake 'binda:create_superadmin_user'
     end
 
     def feedback

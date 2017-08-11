@@ -31,8 +31,6 @@ module Binda
 
 	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
 
-	    # TODO not sure this is needed
-			# cattr_accessor :field_settings_array
 		end
 
 		# Get the object related to that field setting
@@ -40,10 +38,19 @@ module Binda
 		# 
 		# @param  field_slug [string] The slug of the field setting
 		# @return [string] Returns the content of the text 
-		# @return [nil]    Returns null if it's empty or it doesn't exists
+		# @return [error]  Raise an error if no record is found
 		def get_text field_slug 
-			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			obj.content unless obj.nil?
+			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }
+			unless obj.nil?
+				obj.content
+			else
+				you_mean_string = !self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::String' }.nil?
+				if you_mean_string
+					raise ArgumentError, "This slug is associated to a string not a text. Use get_string() instead.", caller
+				else
+					raise ArgumentError, "There isn't any string associated to the current slug.", caller
+				end
+			end
 		end
 
 		# Get the object related to that field setting
@@ -51,7 +58,7 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_text field_slug 
-			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }
 			if obj.present?
 				return !obj.content.blank?
 			else
@@ -64,10 +71,19 @@ module Binda
 		# 
 		# @param  field_slug [string] The slug of the field setting
 		# @return [string] Returns the content of the string 
-		# @return [nil]    Returns null if it's empty or it doesn't exists
+		# @return [error]  Raise an error if no record is found
 		def get_string field_slug 
-			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			obj.content unless obj.nil?
+			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::String' }
+			unless obj.nil?
+				obj.content
+			else
+				you_mean_text = !self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }.nil?
+				if you_mean_text
+					raise ArgumentError, "This slug is associated to a text not a string. Use get_text() instead.", caller
+				else
+					raise ArgumentError, "There isn't any string associated to the current slug.", caller
+				end
+			end
 		end
 
 		# Get the object related to that field setting
@@ -75,7 +91,7 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_string field_slug 
-			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::String' }
 			if obj.present?
 				return !obj.content.blank?
 			else
@@ -218,7 +234,7 @@ module Binda
 			if FieldSetting.get_fieldables.include?( field_type.capitalize ) && field_setting_id.is_a?( Integer )
 				self.send( field_type.pluralize ).find_or_create_by( field_setting_id: field_setting_id )
 			else
-				raise ArgumentError, "One parameter of find_or_create_a_field_by() is not correct.", caller
+				raise ArgumentError, "One parameter in find_or_create_a_field_by() is not correct.", caller
 			end
 		end
 	end
