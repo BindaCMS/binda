@@ -84,23 +84,21 @@ module Binda
 		# Method inherited from friendly id 
 		# @see https://github.com/norman/friendly_id/issues/436
 	  def should_generate_new_friendly_id?
-	    slug.blank? || name_changed?
+	    slug.blank?
 	  end
 
 		# Set slug name
 		#
 		# It generates 4 possible slugs before falling back to FriendlyId default behaviour
 		def default_slug
-			slug = self.field_group.structure.name
-			
+			slug = ''
+			slug << self.field_group.structure.name
 			slug << '-'
 			slug << self.field_group.name
-
 			unless self.parent.nil?
 				slug << '-' 
 				slug << self.parent.name 
 			end
-
 			possible_names = [ 
 				"#{ slug }--#{ self.name }",
 				"#{ slug }--#{ self.name }-1",
