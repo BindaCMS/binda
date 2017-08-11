@@ -35,6 +35,8 @@
           <% end %>
         <tbody>
       </table>
+
+    <%= paginate @components %>
     
     <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path, class: 'main-header--link btn btn-default', action: "new" %>    
         

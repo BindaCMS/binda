@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
   s.add_dependency "carrierwave",          ">= 0.10",     "< 1.12"
   s.add_dependency "mini_magick",          ">= 4.5",      "< 4.8"
   s.add_dependency "ancestry",             ">= 2.1",      "< 3.1"
+  s.add_dependency "kaminari",             "~> 1.0"
   # s.add_dependency "meta-tags"
   # s.add_dependency "cancancan"
 

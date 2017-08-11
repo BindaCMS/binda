@@ -12,6 +12,7 @@ require 'tinymce-rails'
 require 'carrierwave'
 require 'mini_magick'
 require 'ancestry'
+require 'kaminari'
 
 module Binda
   class Engine < ::Rails::Engine

@@ -46,6 +46,10 @@
                 <%= f.input :has_categories, as: :radio_buttons %>
                 <hr>
                 <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+
+                <% unless @structure.new_record? %>
+                  <a class="form-body--delete btn btn-default" href="<%= url_for([@structure]) %>" data-method="delete" data-confirm="This operation will delete this structure and there is no coming back. Are you ok with that?">Delete Structure <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                <% end %>
               </div>
             </div>
             

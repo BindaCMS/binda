@@ -9,7 +9,7 @@ module Binda
     include FieldableHelpers
 
     def index
-      @components = @structure.components.order('position').all
+      @components = @structure.components.order('position').all.page params[:page]
     end
 
     def show

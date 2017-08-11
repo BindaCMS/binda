@@ -5,7 +5,7 @@ module Binda
     before_action :set_structure, only: [:show, :edit, :update, :destroy, :fields_update ]
 
     def index
-      @structures = Structure.order('position').all
+      @structures = Structure.order('position').all.page params[:page]
     end
 
     def show
