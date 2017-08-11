@@ -19,6 +19,7 @@ module Binda
 
 		after_create :add_default_field_group
 		after_create :add_instance_details
+    after_create :set_default_position
 
 		# Friendly id preference on slug generation
 		#
@@ -71,6 +72,17 @@ module Binda
 	        return redirect_to structure_path( self.slug ), flash: { error: 'The board instance hasn\'t been created' }
 	      end
 	    end
+    end
+
+    # Set default position after create
+    # 
+    # This methods ensure that every repeater instance has an explicit position.
+    #   The latest repeater created gets the highest position number.
+    # 
+    # @return [object] Repeater instance
+    def set_default_position
+        position = Binda::Structure.all.length
+        self.update_attribute 'position', position
     end
 
 	end

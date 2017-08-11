@@ -99,6 +99,7 @@ module Binda
 				slug << '-' 
 				slug << self.parent.name 
 			end
+			
 			possible_names = [ 
 				"#{ slug }--#{ self.name }",
 				"#{ slug }--#{ self.name }-1",

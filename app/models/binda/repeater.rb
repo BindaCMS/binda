@@ -25,7 +25,7 @@ module Binda
         # as the former has always one repeater, the latter has all repeaters created so far
         # that's way we use the longer version
         instance = self.fieldable_type.constantize.find( self.fieldable_id )
-        position = instance.repeaters.find_all{ |r| r.field_setting_id == self.field_setting.id }.length + 1
+        position = instance.repeaters.find_all{ |r| r.field_setting_id == self.field_setting.id }.length
         self.update_attribute 'position', position
     end
 
