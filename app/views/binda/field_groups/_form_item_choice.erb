@@ -82,6 +82,7 @@
 <% if ff.object.choices.find_all{|c| c.persisted? }.any? %>
 	<div class="form-item--half-size">
 		<h5><%= t(:default_choice).capitalize %></h5>
+		<%= binding.pry %>
 		<%= ff.input :default_choice_id, as: :select, collection: ff.object.choices.find_all{|c| c.persisted? }, label_method: :label, include_blank: false, selected: ff.object.default_choice_id, hint: t(:default_choice_description).capitalize %>
 	</div>
 <% end %>

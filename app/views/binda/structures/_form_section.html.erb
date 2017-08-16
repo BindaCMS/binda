@@ -4,7 +4,7 @@
 <%# - - - - - - - - - - - - %>
 <%# FORM ITEM               %>
 <%# - - - - - - - - - - - - %>
-<%= f.simple_fields_for :field_groups, f.object.field_groups.order( :position ) do |ff| %>
+<%= f.simple_fields_for :field_groups, f.object.field_groups.order( :position, :name ) do |ff| %>
 
   <div class="form-item">
 

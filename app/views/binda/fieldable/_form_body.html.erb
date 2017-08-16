@@ -40,7 +40,7 @@
             <%# - - - - - - - - - - - - %>
             <%# FIELD GROUP LOOP        %>
             <%# - - - - - - - - - - - - %>
-            <% @structure.field_groups.order( :position ).each_with_index do |field_group, index| %>
+            <% @structure.field_groups.order( :position, :name ).each_with_index do |field_group, index| %>
             <div class="form-section--wide-container row">
               <div class="col-sm-12">
 
@@ -52,7 +52,7 @@
                 
                 <% else %>
 
-                  <% field_group.field_settings.order( :position ).each do |field_setting| %>
+                  <% field_group.field_settings.order( :position, :name ).each do |field_setting| %>
                     <% next unless field_setting.is_root? %>
                     <%= render "binda/fieldable/form_section", f: f, field_setting: field_setting %>
                   <% end %>

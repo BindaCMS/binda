@@ -6,7 +6,7 @@
 <%# - - - - - - - - - - - - %>
 <%# This form is only for settings which are not part of any repeater. %>
 <%# This is done using `where( ancestry: nil )` %>
-<%= f.simple_fields_for :field_settings, f.object.field_settings.where( ancestry: nil ).order( :position ) do |ff| %>
+<%= f.simple_fields_for :field_settings, f.object.field_settings.where( ancestry: nil ).order( :position, :name ) do |ff| %>
   <div class="form-item <%= "form-item--#{ ff.object.field_type }" unless ff.object.field_type.nil? %>">
     <%= render 'form_item', f: f, ff: ff %>
   </div>

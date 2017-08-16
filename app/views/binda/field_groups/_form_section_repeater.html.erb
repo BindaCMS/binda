@@ -1,7 +1,7 @@
 <%# - - - - - - - - - - - - %>
 <%# FORM ITEMS              %>
 <%# - - - - - - - - - - - - %>
-<%= f.simple_fields_for :field_settings, repeater.children.order( :position, :id ) do |ff| %>
+<%= f.simple_fields_for :field_settings, repeater.children.order( :position, :name ) do |ff| %>
 	<div class="form-item <%= "form-item--#{ ff.object.field_type }" unless ff.object.field_type.nil? %>">
 	  <%= render 'form_item', f: f, ff: ff %>
 	</div>
