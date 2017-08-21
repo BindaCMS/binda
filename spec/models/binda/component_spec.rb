@@ -7,7 +7,7 @@ module Binda
 			@structure = build(:structure)
 		end
 
-		let( :new_component ) { Binda::Component.new }
+		let( :new_component ) { Component.new }
 
 		it "cannot be saved when name is blank" do
 			expect { new_component.save! }.to raise_error ActiveRecord::RecordInvalid

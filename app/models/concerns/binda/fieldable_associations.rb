@@ -1,10 +1,10 @@
 module Binda
+	# Fieldable associations are Binda's core feature. 
+	# 
+	# They provide model classes with a collection of fields (texts, assets, dates and so on)
+	#   to store data in a simple yet powerful way. It's possible to make use of a set of helpers to 
+	#   retrieve fields data belonging to each model instance. See the following methods. 
 	module FieldableAssociations
-		# Fieldable associations are Binda's core feature. 
-		# 
-		# They provide model classes with a collection of fields (texts, assets, dates and so on)
-		#   to store data in a simple yet powerful way. It's possible to make use of a set of helpers to 
-		#   retrieve fields data belonging to each model instance. See the following methods. 
 
 		extend ActiveSupport::Concern
 
@@ -21,7 +21,7 @@ module Binda
 	    has_many :galleries,     as: :fieldable, dependent: :delete_all
 	    has_many :assets,        as: :fieldable, dependent: :delete_all
 	    has_many :radios,        as: :fieldable, dependent: :delete_all 
-	    has_many :selections,       as: :fieldable, dependent: :delete_all 
+	    has_many :selections,    as: :fieldable, dependent: :delete_all 
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
 	    # Repeaters need destroy_all, not delete_all
 	    has_many :repeaters,     as: :fieldable, dependent: :destroy
@@ -48,7 +48,7 @@ module Binda
 				if you_mean_string
 					raise ArgumentError, "This slug is associated to a string not a text. Use get_string() instead.", caller
 				else
-					raise ArgumentError, "There isn't any string associated to the current slug.", caller
+					raise ArgumentError, "There isn't any text associated to the current slug.", caller
 				end
 			end
 		end

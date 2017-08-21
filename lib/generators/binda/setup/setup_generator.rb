@@ -2,6 +2,13 @@ require 'colorize'
 require 'securerandom'
 
 module Binda
+  # Setup initial settings for the application.
+  # 
+  # This is setup is mandatory as sets the initial super admin user and 
+  #   the default dashboard where are stored the main application settings.
+  #   It is useful also when Binda has been already installed once but the
+  #   database has been reset. Runnin `rails g binda:setup` will populate 
+  #   the application database with new default settings.
   class SetupGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
@@ -14,11 +21,7 @@ module Binda
       puts "We need few details. Don't worry you can modify them later. \n\n"
 
       dashboard_structure = ::Binda::Structure.find_or_create_by( name: 'dashboard', slug: 'dashboard', instance_type: 'board' )
-      unless dashboard_structure.board.nil?
-        @dashboard = dashboard_structure.board
-      else
-        @dashboard = dashboard_structure.create_board( name: 'dashboard' )
-      end
+      @dashboard = dashboard_structure.board
 
       # By default each structure has a field group which will be used to store the default field settings
       field_settings = dashboard_structure.field_groups.first.field_settings
@@ -28,11 +31,11 @@ module Binda
       puts "Setting up maintenance mode"
 
       # Use radio field_type untill truefalse isn't available
-      maintenance_mode = field_settings.find_or_create_by!( name: 'Maintenance Mode', slug: 'maintenance-mode', field_type: 'radio')
+      maintenance_mode = field_settings.find_or_create_by!( name: 'Maintenance Mode', slug: 'maintenance-mode', field_type: 'radio' )
       # make sure slug works
       maintenance_mode.update_attributes( slug: 'maintenance-mode' )
-      active   = maintenance_mode.choices.create!( label: 'active', value: 'true' )
       disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
+      active   = maintenance_mode.choices.create!( label: 'active', value: 'true' )
       @dashboard.radios.find_or_create_by!( field_setting_id: maintenance_mode.id )
       puts "The maintenance-mode option has been set up."
       puts

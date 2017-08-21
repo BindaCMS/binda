@@ -98,7 +98,7 @@ RSpec.configure do |config|
     
     # http://stackoverflow.com/a/19930700/1498118
     Rails.application.load_seed # loading seeds
-    
+
     FactoryGirl.create(:user)
   end
 

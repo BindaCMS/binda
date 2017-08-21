@@ -81,7 +81,7 @@ module Binda
     # 
     # @return [object] Repeater instance
     def set_default_position
-        position = Binda::Structure.all.length
+        position = Structure.all.length
         self.update_attribute 'position', position
     end
 

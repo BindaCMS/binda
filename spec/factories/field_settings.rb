@@ -37,7 +37,6 @@ FactoryGirl.define do
     end
 		after(:create) do |radio_setting, evaluator|
       create_list( :choice, evaluator._count, field_setting: radio_setting )
-      radio_setting.default_choice = radio_setting.choices.first
 		end
 	end
 
@@ -52,7 +51,6 @@ FactoryGirl.define do
     end
 		after(:create) do |selection_setting, evaluator|
       create_list( :choice, evaluator._count, field_setting: selection_setting )
-      selection_setting.default_choice = selection_setting.choices.first
 		end
 	end
 

@@ -4,9 +4,9 @@ module Binda
   RSpec.describe ComponentsController, type: :controller do
 
     # https://content.pivotal.io/blog/writing-rails-engine-rspec-controller-tests
-    routes { Binda::Engine.routes }
+    routes { Engine.routes }
 
-    let(:user){ Binda::User.first }
+    let(:user){ User.first }
 
     before(:context) do
       @structure = create(:article_structure_with_components_and_fields)
@@ -51,7 +51,7 @@ module Binda
         }
         @component.reload
         expect( @component.repeaters.order('position').length ).to eq( initial_repeaters_length + 1 )
-        expect( @component.repeaters.order('position').last.position ).to eq( @component.repeaters.length )
+        expect( @component.repeaters.order('position').last.position ).to eq( @component.repeaters.length - 1 )
       end
     end
 

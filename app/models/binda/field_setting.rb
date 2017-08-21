@@ -35,7 +35,7 @@ module Binda
 		has_many :checkbox,      dependent: :delete_all
 
 		has_many :choices,       dependent: :delete_all
-		has_one  :default_choice, class_name: 'Binda::Choice', dependent: :delete
+		has_one  :default_choice, -> (field_setting) { where(id: field_setting.default_choice_id) }, class_name: 'Binda::Choice'
 
 		accepts_nested_attributes_for :choices, allow_destroy: true, reject_if: :is_rejected
 
@@ -138,9 +138,11 @@ module Binda
 			@@field_settings_array = nil
 		end
 
+		# Make sure that allow_null is set to false instead of nil.
+		#   This isn't done with a database constraint in order to gain flexibility
 		def set_allow_null
 			self.allow_null = false if self.allow_null.nil?
 		end
-		
+
 	end
 end

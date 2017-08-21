@@ -2,8 +2,8 @@ require 'test_helper'
 require 'generators/binda/install/install_generator'
 
 module Binda
-  class Binda::InstallGeneratorTest < Rails::Generators::TestCase
-    tests Binda::InstallGenerator
+  class InstallGeneratorTest < Rails::Generators::TestCase
+    tests InstallGenerator
     destination Rails.root.join('tmp/generators')
     setup :prepare_destination
 
