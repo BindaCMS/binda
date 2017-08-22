@@ -37,7 +37,7 @@ module Binda
 			
 			# expect error, use block with {} parethesis 
 			# see https://stackoverflow.com/questions/19960831/rspec-expect-vs-expect-with-block-whats-the-difference
-			expect{ @component.get_text( @text_field_setting.slug ) }.to raise_error
+			expect{ @component.get_text( @text_field_setting.slug ) }.to raise_error ArgumentError
 
 			@component.texts.create({ content: 'Lorem', field_setting_id: @text_field_setting.id })
 			expect( @component.get_text( @text_field_setting.slug ) ).to eq('Lorem')

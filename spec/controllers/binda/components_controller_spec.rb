@@ -58,9 +58,17 @@ module Binda
     describe "POST #sort_repeaters" do
       it "reorder repeater based on position value" do
         sign_in user
-        
+
+        # shuffle the order of the component repeaters
+        shuffle = [
+          @component.repeaters[2].id,
+          @component.repeaters[0].id,
+          @component.repeaters[1].id
+        ]
+
+        # call sort_repeaters method via post request
         post :sort_repeaters, params: { 
-          repeater: ["2", "3", "1"], 
+          repeater: shuffle,
           structure_id: @structure.slug,
           component_id: @component.slug 
         }
@@ -71,7 +79,7 @@ module Binda
         
         expect( repeaters.first.position ).not_to eq(0)
         expect( repeaters.first.position ).to eq(1)
-        expect( repeaters.find{ |r| r.id == 1 }.position ).to eq(3)
+        expect( @component.repeaters[1].position ).to eq(3)
       end
     end
 
@@ -79,11 +87,21 @@ module Binda
       it "reorder components based on position value" do
         sign_in user
 
-        component_one = @structure.components.find(1)
+        component_one = @structure.components[4]
         expect( component_one.position ).to eq(1)
 
+        # shuffle the order of the components
+        shuffle = [
+          @structure.components[1].id,
+          @structure.components[2].id,
+          @structure.components[4].id,
+          @structure.components[0].id,
+          @structure.components[3].id,
+        ]
+
+        # call sort method via post request
         post :sort, params: {
-          component: [ 2, 3, 1, 5, 4 ],
+          component: shuffle,
           structure_id: @structure.slug
         }
         component_one.reload
