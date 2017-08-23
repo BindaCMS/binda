@@ -110,13 +110,10 @@ module Binda
 		def self.get_id( field_slug )
 			# Get field setting id from slug, without multiple calls to database 
 			# (the query runs once and caches the result, then any further call uses the cached result)
-			@@field_settings_array = self.pluck(:id) if @@field_settings_array.nil?
-			obj = @@field_settings_array.find { |fs| fs.slug == field_slug }
-			if obj.nil?
-				raise ArgumentError, "There isn't any field setting with the current slug.", caller
-			else
-				obj.id
-			end
+			@@field_settings_array = self.pluck(:slug, :id) if @@field_settings_array.nil?
+			id = @@field_settings_array.select{ |fs| fs[0] == field_slug }[0][1]
+			raise ArgumentError, "There isn't any field setting with the current slug.", caller if id.nil?
+			return id
 		end
 
 		# Reset the field_settings_array. It's called every time 
