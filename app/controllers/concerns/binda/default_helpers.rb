@@ -5,10 +5,10 @@ module Binda
 
 	  # Get components
 	  # 
-		# This method retrieves all components belonging to a specific structure. 
+		# This method retrieves **all components** belonging to a specific structure. 
 		#   With this method you can optimize the query in order to avoid the infamous 
 		#   [N+1 issue](https://youtu.be/oJ4Ur5XPAF8) by specifing what field types
-		#   are going to be requested in the view. The list of field types available 
+		#   you are going to request in the view. The list of field types available 
 		#   can be found in the [official documentation](https://github.com/lacolonia/binda/wiki/Fields).
 		#   Field types must be listed as separated strings, lowercase and plural.
 		#   See the following examples.
@@ -42,38 +42,187 @@ module Binda
 		#   - `custom_order` (string) - Set the order parameter. Default is `position`, 
 		#   but you can use any of the following `created_at`, `updated_at`, `id`, `name`, `slug`.
 		#   Append `DESC` if you want to reverse the order, e.g. `position DESC`
+		#   - `fields` (array) - Include related field classes to the query. The list of field types available 
+		#   can be found in the [official documentation](https://github.com/lacolonia/binda/wiki/Fields).
+		#   Field types must be listed as separated strings, lowercase and plural.
 		#   
 		# @return [ActiveRecord Object]  
-	  def get_components( slug, args = { published: true, custom_order: 'position', fields: [] } )
+	  def get_components( slug, args = { published: true, custom_order: 'position', fields: [] })
 			
+			validate_provided_arguments( args )
+
 	  	# Sets defaults
 			args[:published]    = 'true'     if args[:published].nil?
 			args[:custom_order] = 'position' if args[:custom_order].nil?
-			args[:fields]       = []         if args[:fields].nil?
+			args[:fields] = [] if args[:fields].nil?
 
-			# Check if provided arguments are ok, otherwise help finding the error
-			raise ArgumentError, "Argument error in get_components(): custom_order should be a String, not a #{args[:custom_order].class.to_s}.", caller unless args[:custom_order].instance_of? ::String
-			raise ArgumentError, "Argument error in get_components(): #{args[:custom_order]} is not valid.", caller unless args[:custom_order].instance_of? ::String
-			raise ArgumentError, "Argument error in get_components(): fields should be an Array, not a #{args[:fields].class.to_s}.", caller unless args[:fields].instance_of? Array
-			args[:fields].each do |f|
-				raise ArgumentError, "Argument error in get_components(): #{f.to_s} is not a valid field type.", caller unless FieldSetting.get_field_classes.map{ |fc| fc.underscore.pluralize }.include? f.to_s
-			end
+			validate_provided_fields( args )
+			validate_provided_custom_order( args )
+
+			structure_id = Structure.where( slug: slug ).pluck(:id)
 
 			# Generate query
 			if args[:published]
 				if args[:fields].any?
-					components = Structure.where( slug: slug ).first.components.published.includes( args[:fields] )
+					Component.where( structure_id: structure_id ).published.includes( args[:fields] )
 				else
-					components = Structure.where( slug: slug ).first.components.published
+					Component.where( structure_id: structure_id ).published
 				end
 			else
 				if args[:fields].any?
-					components = Structure.where( slug: slug ).first.components.order( args[:custom_order] ).includes( args[:fields] )
+					Component.where( structure_id: structure_id ).order( args[:custom_order] ).includes( args[:fields] )
 				else
-					components = Structure.where( slug: slug ).first.components.order( args[:custom_order] )
+					Component.where( structure_id: structure_id ).order( args[:custom_order] )
 				end
 			end
-			return components
 		end
+
+		# This method retrieves a **single component**.
+		#   With this method you can optimize the query in order to avoid the infamous 
+		#   [N+1 issue](https://youtu.be/oJ4Ur5XPAF8) by specifing what field types
+		#   you are going to request in the view. The list of field types available 
+		#   can be found in the [official documentation](https://github.com/lacolonia/binda/wiki/Fields).
+		#   Field types must be listed as separated strings, lowercase and plural.
+		#   See the following examples.
+		#   
+		# @example Get a component with slug `my-first-post`
+		#   get_component('my-first-post')
+		#   # return the component
+		#   
+		#   get_component('my-first-post', { fields: ['strings', 'texts', 'assets', 'selections'] })
+		#   # return the component and optimize the query for any of the listed fields related to it
+		#   
+		#   
+		# @param slug [string] The slug of the component
+		# @param args [hash] A hash containing the options used to customize the query.
+		# 
+		#   The hash parameters are: 
+		#   
+		#   - `fields` (array) - Include related field classes to the query. The list of field types available 
+		#   can be found in the [official documentation](https://github.com/lacolonia/binda/wiki/Fields).
+		#   Field types must be listed as separated strings, lowercase and plural.
+		#   
+		# @return [ActiveRecord Object]  
+		def get_component( slug, args = { fields: [] })
+
+			validate_provided_arguments( args )
+
+	  	# Sets defaults
+			args[:fields] = [] if args[:fields].nil?
+
+			validate_provided_fields( args )
+
+			if args[:fields].any?
+				Component.where(slug: slug).first.inlcudes( args[:fields] )
+			else
+				Component.where(slug: slug).first
+			end
+		end
+
+		# This method retrieves a **board**.
+		#   With this method you can optimize the query in order to avoid the infamous 
+		#   [N+1 issue](https://youtu.be/oJ4Ur5XPAF8) by specifing what field types
+		#   you are going to request in the view. The list of field types available 
+		#   can be found in the [official documentation](https://github.com/lacolonia/binda/wiki/Fields).
+		#   Field types must be listed as separated strings, lowercase and plural.
+		#   See the following examples.
+		#   
+		# @example Get a board with slug `my-dashboard`
+		#   get_board('my-dashboard')
+		#   # return the board
+		#   
+		#   get_board('my-dashboard', { fields: ['strings', 'texts', 'assets', 'selections'] })
+		#   # return the board and optimize the query for any of the listed fields related to it
+		#   
+		#   
+		# @param slug [string] The slug of the board
+		# @param args [hash] A hash containing the options used to customize the query.
+		# 
+		#   The hash parameters are: 
+		#   
+		#   - `fields` (array) - Include related field classes to the query. The list of field types available 
+		#   can be found in the [official documentation](https://github.com/lacolonia/binda/wiki/Fields).
+		#   Field types must be listed as separated strings, lowercase and plural.
+		#   
+		# @return [ActiveRecord Object]  
+		def get_board( slug, args = { fields: [] })
+			
+			validate_provided_arguments( args )
+
+	  	# Sets defaults
+			args[:fields] = [] if args[:fields].nil?
+			
+			check_provided_fields( args )
+
+			if args[:fields].any?
+				Board.where(slug: slug).first.inlcudes( args[:fields] )
+			else
+				Board.where(slug: slug).first
+			end
+		end
+
+		# This method retrieves a **repeater**.
+		#   With this method you can optimize the query in order to avoid the infamous 
+		#   [N+1 issue](https://youtu.be/oJ4Ur5XPAF8) by specifing what field types
+		#   you are going to request in the view. The list of field types available 
+		#   can be found in the [official documentation](https://github.com/lacolonia/binda/wiki/Fields).
+		#   Field types must be listed as separated strings, lowercase and plural.
+		#   See the following examples.
+		#   
+		# @example Get a repeater with slug `slideshow`
+		#   get_repeater('slideshow')
+		#   # return the repeater
+		#   
+		#   get_repeater('slideshow', { fields: ['strings', 'assets'] })
+		#   # return the repeater and optimize the query for any of the listed fields related to it
+		#   
+		#   
+		# @param slug [string] The slug of the repeater
+		# @param args [hash] A hash containing the options used to customize the query.
+		# 
+		#   The hash parameters are: 
+		#   
+		#   - `fields` (array) - Include related field classes to the query. The list of field types available 
+		#   can be found in the [official documentation](https://github.com/lacolonia/binda/wiki/Fields).
+		#   Field types must be listed as separated strings, lowercase and plural.
+		#   
+		# @return [ActiveRecord Object]  
+		def get_repeater( slug, args = { fields: [] })
+			
+			validate_provided_arguments( args )
+
+	  	# Sets defaults
+			args[:fields] = [] if args[:fields].nil?
+			
+			check_provided_fields( args )
+
+			if args[:fields].any?
+				Repeater.where(slug: slug).first.inlcudes( args[:fields] )
+			else
+				Repeater.where(slug: slug).first
+			end
+		end
+
+		private 
+
+			# Check if provided `fields` are ok, otherwise raise an error
+			def validate_provided_fields( args )
+				raise ArgumentError, "Argument error in get_components(): fields should be an Array, not a #{args[:fields].class.to_s}.", caller unless args[:fields].instance_of? Array
+				args[:fields].each do |f|
+					raise ArgumentError, "Argument error in get_components(): #{f.to_s} is not a valid field type.", caller unless FieldSetting.get_field_classes.map{ |fc| fc.underscore.pluralize }.include? f.to_s
+				end
+			end
+
+			# Check if provided `custom_order` is ok, otherwise raise an error
+			def validate_provided_custom_order( args )
+				raise ArgumentError, "Argument error in get_components(): custom_order should be a String, not a #{args[:custom_order].class.to_s}.", caller unless args[:custom_order].instance_of? ::String
+			end
+
+			# Check if provided arguments are ok, otherwise raise an error
+			def validate_provided_arguments( args )
+				args.each do |key, value|
+					raise ArgumentError, "Argument error in get_components(): #{key.to_s} is not a valid key.", caller unless ['published', 'custom_order', 'fields'].include? key.to_s
+				end
+			end
 	end
 end

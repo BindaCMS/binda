@@ -5,7 +5,6 @@
 <% @pages.each do |page| %>
 	<li>
 		<%= link_to page.name, page_path( page.id ) %> <br>
-		<%= page.get_string('page-subtitle') %>
 	</li>
 <% end %>
 </ul>

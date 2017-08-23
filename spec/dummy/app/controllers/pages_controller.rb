@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 
   def index
-  	@pages = get_components('page', { published: false, fields: ['strings', 'radios'] })
+  	@pages = get_components('page', { published: false })
   end
 
   def show
