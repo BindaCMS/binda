@@ -21,11 +21,12 @@ module Binda
 		# end
 
 		before(:context) do 
-			@field_setting = create(:field_setting)
+			@field_setting = create(:radio_setting)
 		end
 
 		it "can create new choice and set it as default" do
 			@field_setting.choices.create({ label: 'First chioce', value: 'Lorem ipsum' })
+			expect( @field_setting.choices.any? ).to be_truthy
 		end
 
 	end

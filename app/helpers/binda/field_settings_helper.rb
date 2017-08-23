@@ -7,7 +7,7 @@ module Binda
   	end
 
   	def get_field_types
-  		FieldSetting.new.get_field_types
+  		FieldSetting.get_field_classes.map{ |fc| fc.to_s.underscore }
   	end
 
   end

@@ -199,7 +199,7 @@ module Binda
 		# @return [hash] A hash of containing the label and value of the selected choice.
 		def get_radio_choice field_slug
 			obj = self.radios.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			obj_hash = { label: obj.choices.first.label, value: obj.choices.first.value }
+			return { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
 		# Get the select choices
@@ -209,7 +209,7 @@ module Binda
 		def get_selection_choice field_slug
 			# select cannot be chosen has variable name, therefore is prefixed with 's'
 			obj = self.selections.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
-			obj_hash = { label: obj.choices.first.label, value: obj.choices.first.value }
+			return { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
 		# Get the checkbox choice
@@ -231,7 +231,7 @@ module Binda
 		# @param field_setting_id [string] The field setting id
 		# @param field_type [string] THe field type
 		def find_or_create_a_field_by field_setting_id, field_type
-			if FieldSetting.get_fieldables.include?( field_type.capitalize ) && field_setting_id.is_a?( Integer )
+			if FieldSetting.get_field_classes.include?( field_type.capitalize ) && field_setting_id.is_a?( Integer )
 				self.send( field_type.pluralize ).find_or_create_by( field_setting_id: field_setting_id )
 			else
 				raise ArgumentError, "One parameter in find_or_create_a_field_by() is not correct.", caller

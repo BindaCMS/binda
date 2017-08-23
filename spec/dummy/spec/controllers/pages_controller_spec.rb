@@ -4,15 +4,11 @@ RSpec.describe PagesController, type: :controller do
 
   describe "ApplicationController concerns" do
 
-    before(:each) do
-      @component = create(:article_component)
-    end
-
     it "returns list of components if get_components gets called" do
-      published_components = Binda::ApplicationController.new.get_components( @component.structure.slug )
+      published_components = controller.get_components( 'page' )
       expect( published_components.length ).to eq( 0 )
-      all_components = Binda::ApplicationController.new.get_components( @component.structure.slug, false )
-      expect( all_components.length ).to eq( 1 )
+      all_components = controller.get_components( 'page', { published: false } )
+      expect( all_components.length ).to eq( Binda::Structure.where(slug: 'page').first.components.length )
     end
   end
 

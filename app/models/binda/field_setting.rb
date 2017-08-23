@@ -8,8 +8,7 @@ module Binda
 		# Fields Associations
 		# 
 		# If you add a new field remember to update:
-		#   - get_fieldables (see here below)
-		#   - get_field_types (see here below)
+		#   - get_field_classes (see here below)
 		#   - component_params (app/controllers/binda/components_controller.rb)
 		has_many :texts,         as: :fieldable
 		has_many :strings,       as: :fieldable
@@ -24,7 +23,7 @@ module Binda
 
 		# The following direct association is used to securely delete associated fields
 		# Infact via `fieldable` the associated fields might not be deleted 
-		# as the fieldable_id is related to the `component` rather than the `field_setting`
+		# as the fieldable_id is related to the `component`, `board` or `repeater` rather than `field_setting`
 		has_many :texts,         dependent: :delete_all
 		has_many :strings,       dependent: :delete_all
 		has_many :dates,         dependent: :delete_all
@@ -58,20 +57,13 @@ module Binda
     	self.class.reset_field_settings_array 
     end
 
-		def self.get_fieldables
-			# TODO add 'Gallery' to this list
+		def self.get_field_classes
 			%w( String Text Date Asset Repeater Radio Selection Checkbox )
-		end
-
-		# Field types are't fieldable! watch out! They might use the same model (eg `string` and `text`)
-		def get_field_types
-			# TODO add 'gallery' to this list
-			%w( string text asset repeater date radio selection checkbox )
 		end
 
 		# Validations
 		validates :name, presence: true
-		# validates :field_type, presence: true, inclusion: { in: :get_field_types }
+		validates :field_type, inclusion: { in: FieldSetting.get_field_classes.map{ |fc| fc.to_s.underscore } } #presence: true
 		validates :field_group_id, presence: true
 
 		# Slug

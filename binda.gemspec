@@ -58,5 +58,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency "factory_girl_rails",       "~> 4.8"
   s.add_development_dependency "database_cleaner",         "~> 1.6"
   s.add_development_dependency "yard",                     "~> 0.9"
+  s.add_development_dependency "bullet",                   "~> 5.6"
+  s.add_development_dependency "rails-perftest",           "~> 0.0"
+  s.add_development_dependency "ruby-prof",                "~> 0.15.9"
+  s.add_development_dependency "test-unit",                "~> 3.1"
+  s.add_development_dependency "minitest-rails",           "~> 3.0"
   
 end
