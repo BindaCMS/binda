@@ -104,7 +104,7 @@ module Binda
 
 		# Retrieve the ID if a slug is provided and update the field_settings_array 
 		#   in order to avoid calling the database (or the cached response) every time.
-		#   This way Rails logs are much cleaner
+		#   This should speed up requests and make Rails logs are cleaner.
 		# 
 		# @return [integer] The ID of the field setting
 		def self.get_id( field_slug )
