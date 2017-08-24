@@ -43,7 +43,6 @@ Gem::Specification.new do |s|
   # --------------
   # The following gems could be avoided and they'll soon or late be discarded
   s.add_dependency "colorize",             "~> 0.8"
-  s.add_dependency "ffaker",               "~> 2.5"
   s.add_dependency "friendly_id",          ">= 5.1",      "< 5.3"
 
 
