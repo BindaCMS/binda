@@ -64,7 +64,7 @@ module Binda
 		# Validations
 		validates :name, presence: true
 		validates :field_type, presence: true
-		validates :field_type, inclusion: { in: [ *FieldSetting.get_field_classes.map{ |fc| fc.to_s.underscore }, '' ], message: "Field type must be one of the following #{ FieldSetting.get_field_classes.join(", ") }" }
+		validates :field_type, inclusion: { in: [ *FieldSetting.get_field_classes.map{ |fc| fc.to_s.underscore }, '' ], message: "Select field type among these: #{ FieldSetting.get_field_classes.join(", ") }" }
 		validates :field_group_id, presence: true
 
 		# Slug
