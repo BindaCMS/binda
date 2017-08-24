@@ -13,10 +13,10 @@ require 'carrierwave'
 require 'mini_magick'
 require 'ancestry'
 require 'kaminari'
-require 'bullet'
-require 'rails-perftest'
-require 'ruby-prof'
-require 'test-unit'
+# require 'bullet'
+# require 'rails-perftest'
+# require 'ruby-prof'
+# require 'test-unit'
 
 module Binda
   class Engine < ::Rails::Engine

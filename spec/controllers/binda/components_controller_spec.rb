@@ -45,13 +45,13 @@ module Binda
         repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
 
         post :new_repeater, params: { 
-          repeater_setting_id: 3, 
+          repeater_setting_id: repeater_setting_id, 
           structure_id: @structure.slug, 
           component_id: @component.slug
         }
         @component.reload
         expect( @component.repeaters.order('position').length ).to eq( initial_repeaters_length + 1 )
-        expect( @component.repeaters.order('position').last.position ).to eq( @component.repeaters.length - 1 )
+        expect( @component.repeaters.order('position').last.position ).to eq( @component.repeaters.length )
       end
     end
 
