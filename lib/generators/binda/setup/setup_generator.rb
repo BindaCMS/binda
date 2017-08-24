@@ -31,12 +31,14 @@ module Binda
       puts "Setting up maintenance mode"
 
       # Use radio field_type untill truefalse isn't available
-      maintenance_mode = field_settings.find_or_create_by!( name: 'Maintenance Mode', slug: 'maintenance-mode', field_type: 'radio' )
-      # make sure slug works
-      maintenance_mode.update_attributes( slug: 'maintenance-mode' )
-      disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
-      active   = maintenance_mode.choices.create!( label: 'active', value: 'true' )
-      @dashboard.radios.find_or_create_by!( field_setting_id: maintenance_mode.id )
+      unless field_settings.find_by(slug: 'maintenance-mode').present?
+        maintenance_mode = field_settings.create!( name: 'Maintenance Mode', field_type: 'radio' )
+        # make sure slug works
+        maintenance_mode.update_attributes( slug: 'maintenance-mode' )
+        disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
+        active   = maintenance_mode.choices.create!( label: 'active', value: 'true' )
+        @dashboard.radios.find_or_create_by!( field_setting_id: maintenance_mode.id )
+      end
       puts "The maintenance-mode option has been set up."
       puts
 
@@ -44,19 +46,24 @@ module Binda
       # WEBSITE NAME
       puts "Setting up website name"
 
-      website_name_obj = field_settings.find_or_create_by!( name: 'Website Name', slug: 'website-name', field_type: 'string' )
-      # make sure slug works
-      website_name_obj.update_attribute( 'slug', 'website-name' )
+      website_name_obj = field_settings.find_by(slug: 'website-name')
+      unless website_name_obj.present?
+        website_name_obj = field_settings.create!( name: 'Website Name', field_type: 'string' )
+        # make sure slug works
+        website_name_obj.update_attribute( 'slug', 'website-name' )
+      end
       website_name = ask("How would you like to name your website? ['MySite']\n").presence || 'MySite'
-      @dashboard.strings.find_or_create_by!( field_setting_id: website_name_obj.id ).update_attribute('content', website_name )
-
+      @dashboard.strings.find_or_create_by( field_setting_id: website_name_obj.id ).update_attribute('content', website_name )
 
       # WEBSITE CONTENT
       puts "Setting up website description"
 
-      website_description_obj = field_settings.find_or_create_by!( name: 'Website Description', slug: 'website-description', field_type: 'text' )
-      # make sure slug works
-      website_description_obj.update_attribute( 'slug', 'website-description' )
+      website_description_obj = field_settings.find_by(slug: 'website-description')
+      unless website_description_obj.present?
+        website_description_obj = field_settings.find_or_create_by( name: 'Website Description', field_type: 'text' )
+        # make sure slug works
+        website_description_obj.update_attribute( 'slug', 'website-description' )
+      end
       website_description = ask("What is your website about? ['A website about the world']\n").presence || 'A website about the world'
       @dashboard.texts.find_or_create_by!( field_setting_id: website_description_obj.id ).update_attribute( 'content', website_description )
     end
