@@ -1,5 +1,5 @@
 <%
-# If this partial is run from Devise 
+# If this partial is run from Devise controller
 # keep in mind to add "binda." to path helpers
 # 
 # https://github.com/plataformatec/devise/wiki/How-To:-Use-devise-inside-a-mountable-engine#path-helpers 
@@ -11,22 +11,27 @@
     <li class = "main-sidebar--brand">
       <h3><%= link_to get_website_name, '/' %></h3>
     </li>
-    <li>
-      <a href="<%= dashboard_path %>">
-        <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Dashboard
-      </a>
-    </li>
     <% Binda::Structure.all.order(:position).each_with_index do |structure, index| %>
-      <li class="main-sidebar--structure <%= 'main-sidebar--first-structure' if index == 0 %>">
-        <a href="<%= structure_components_path( structure.slug ) %>">
-          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <%= structure.name.humanize.pluralize %> 
-        </a>
-        <% if structure.has_categories %>
-          <a class="main-sidebar--sub-link" href="<%= structure_categories_path( structure.slug ) %>">
-            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <%= structure.name.humanize %> <%= t(:category).capitalize.pluralize %>
+      <% if structure.instance_type == 'component' %>
+        <li class="main-sidebar--structure <%= 'main-sidebar--first-structure' if index == 0 %>">
+          <a href="<%= structure_components_path( structure ) %>">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 
+            <%= structure.name.humanize.pluralize  %> 
           </a>
-        <% end %>
-      </li>
+          <% if structure.has_categories %>
+            <a class="main-sidebar--sub-link" href="<%= structure_categories_path( structure.slug ) %>">
+              <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <%= structure.name.humanize %> <%= t(:category).capitalize.pluralize %>
+            </a>
+          <% end %>
+        </li>
+      <% else %>
+        <li class="main-sidebar--structure <%= 'main-sidebar--first-structure' if index == 0 %>">
+          <a href="<%= structure_board_path( structure, structure.board ) %>">
+            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+            <%= structure.name.humanize %>
+          </a>
+        </li>
+      <% end %>
     <% end %>
     <% if current_user.is_superadmin %>
       <li>

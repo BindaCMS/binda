@@ -33,9 +33,12 @@ module Binda
 		end
 		
 		it "returns nil on get_text() if the text field has been recently created but the component doesn't have any text belonging to that text field" do
-			@text_field_setting = @structure.field_groups.first.field_settings.create({ name: 'Testing sting', field_type: 'string' })
-			expect( @component.get_text( @text_field_setting.slug ) ).not_to eq('')
-			expect( @component.get_text( @text_field_setting.slug ) ).to eq(nil)
+			@text_field_setting = @structure.field_groups.first.field_settings.create(name: 'Testing sting', field_type: 'text')
+			
+			# expect error, use block with {} parethesis 
+			# see https://stackoverflow.com/questions/19960831/rspec-expect-vs-expect-with-block-whats-the-difference
+			expect{ @component.get_text( @text_field_setting.slug ) }.to raise_error ArgumentError
+
 			@component.texts.create({ content: 'Lorem', field_setting_id: @text_field_setting.id })
 			expect( @component.get_text( @text_field_setting.slug ) ).to eq('Lorem')
 		end

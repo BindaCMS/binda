@@ -2,6 +2,13 @@ require 'colorize'
 require 'securerandom'
 
 module Binda
+  # Setup initial settings for the application.
+  # 
+  # This is setup is mandatory as sets the initial super admin user and 
+  #   the default dashboard where are stored the main application settings.
+  #   It is useful also when Binda has been already installed once but the
+  #   database has been reset. Runnin `rails g binda:setup` will populate 
+  #   the application database with new default settings.
   class SetupGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
@@ -13,27 +20,63 @@ module Binda
       puts 
       puts "We need few details. Don't worry you can modify them later. \n\n"
 
+      dashboard_structure = ::Binda::Structure.find_or_create_by( name: 'dashboard', slug: 'dashboard', instance_type: 'board' )
+      @dashboard = dashboard_structure.board
+
+      # By default each structure has a field group which will be used to store the default field settings
+      field_settings = dashboard_structure.field_groups.first.field_settings
+
+
       # MAINTENANCE MODE
-      ::Binda::Setting.find_or_create_by( name: 'Maintenance Mode' )
+      puts "Setting up maintenance mode"
+
+      # Use radio field_type untill truefalse isn't available
+      unless field_settings.find_by(slug: 'maintenance-mode').present?
+        maintenance_mode = field_settings.create!( name: 'Maintenance Mode', field_type: 'radio' )
+        # make sure slug works
+        maintenance_mode.update_attributes( slug: 'maintenance-mode' )
+        disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
+        active   = maintenance_mode.choices.create!( label: 'active', value: 'true' )
+        @dashboard.radios.find_or_create_by!( field_setting_id: maintenance_mode.id )
+      end
+      puts "The maintenance-mode option has been set up."
+      puts
+
 
       # WEBSITE NAME
-      @website_name = ask("What would you like to name your website? ['MySite']\n").presence || 'MySite'
-      ::Binda::Setting.find_or_create_by( name: 'Website Name' ).update_attribute( :content, @website_name )
+      puts "Setting up website name"
+
+      website_name_obj = field_settings.find_by(slug: 'website-name')
+      unless website_name_obj.present?
+        website_name_obj = field_settings.create!( name: 'Website Name', field_type: 'string' )
+        # make sure slug works
+        website_name_obj.update_attribute( 'slug', 'website-name' )
+      end
+      website_name = ask("How would you like to name your website? ['MySite']\n").presence || 'MySite'
+      @dashboard.strings.find_or_create_by( field_setting_id: website_name_obj.id ).update_attribute('content', website_name )
 
       # WEBSITE CONTENT
-      @website_description = ask("What is it about? ['A website about the world']\n").presence || 'A website about the world'
-      ::Binda::Setting.find_or_create_by( name: 'Website Description' ).update_attribute( :content, @website_description )
+      puts "Setting up website description"
+
+      website_description_obj = field_settings.find_by(slug: 'website-description')
+      unless website_description_obj.present?
+        website_description_obj = field_settings.find_or_create_by( name: 'Website Description', field_type: 'text' )
+        # make sure slug works
+        website_description_obj.update_attribute( 'slug', 'website-description' )
+      end
+      website_description = ask("What is your website about? ['A website about the world']\n").presence || 'A website about the world'
+      @dashboard.texts.find_or_create_by!( field_setting_id: website_description_obj.id ).update_attribute( 'content', website_description )
     end
 
     def create_credentials
-      rake 'binda_create_initial_user'
+      rake 'binda:create_superadmin_user'
     end
 
     def feedback
       puts
       puts "============================================================================="
       puts
-      puts "                Binda CMS has been succesfully installed! ".colorize(:green)
+      puts "                Binda CMS has been succesfully installed! "
       puts
       puts "============================================================================="
       puts

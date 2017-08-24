@@ -1,5 +1,5 @@
 module Binda
-	class Radio < Select
+	class Radio < Selection
 
 	end
 end

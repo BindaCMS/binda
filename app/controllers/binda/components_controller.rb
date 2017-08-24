@@ -6,8 +6,10 @@ module Binda
     before_action :set_component, only: [:show, :edit, :update, :destroy, :new_repeater]
     before_action :set_position, only: [:create]
 
+    include FieldableHelpers
+
     def index
-      @components = @structure.components.order('position').all
+      @components = @structure.components.order('position').all.page params[:page]
     end
 
     def show
@@ -16,6 +18,8 @@ module Binda
 
     def new
       @component = @structure.components.build()
+      # The following variable will be used as wildcard by fieldable views
+      @instance = @component
     end
 
     def edit
@@ -33,7 +37,7 @@ module Binda
 
     def update
       if @component.update(component_params)
-        redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "A #{ @component.name } was successfully updated."
+        redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "#{ @component.name.capitalize } was successfully updated."
       else
         redirect_to edit_structure_component_path( @structure.slug, @component.slug ), flash: { alert: @component.errors }
       end
@@ -41,14 +45,14 @@ module Binda
 
     def destroy
       @component.destroy
-      redirect_to structure_components_url( @structure.slug ), notice: "A #{ @component.name } was successfully destroyed."
+      redirect_to structure_components_url( @structure.slug ), notice: "#{ @component.name.capitalize } was successfully destroyed."
     end
 
     def new_repeater
       @repeater_setting = FieldSetting.find( params[:repeater_setting_id] )
-      position = @component.repeaters.find_all{|r| r.field_setting_id=@repeater_setting.id }.length + 1
-      @repeater = @component.repeaters.create( field_setting: @repeater_setting, position: position )
-      render 'binda/components/_form_item_new_repeater', layout: false
+      position = @instance.repeaters.find_all{|r| r.field_setting_id=@repeater_setting.id }.length + 1
+      @repeater = @instance.repeaters.create( field_setting: @repeater_setting, position: position )
+      render 'binda/fieldable/_form_item_new_repeater', layout: false
     end
 
     def sort_repeaters
@@ -57,6 +61,7 @@ module Binda
       end
       head :ok
     end
+    
 
     def sort
       params[:component].each_with_index do |id, i|
@@ -72,50 +77,19 @@ module Binda
       end
 
       def set_component
-        if params[:component_id].nil?
-          return @component = Component.friendly.find(params[:id])
-        else
-          return @component = Component.friendly.find(params[:component_id])
-        end
+        id ||= params[:id]
+        id ||= params[:component_id] 
+        @component = Component.friendly.find(id)
+        # The following variable will be used as wildcard by fieldable views
+        @instance = @component
       end
 
       # Only allow a trusted parameter "white list" through.
       def component_params
         params.require(:component).permit( 
           :name, :slug, :position, :publish_state, :structure_id, :category_ids,
-          structure_attributes:  [ :id ], 
-          categories_attributes: [ :id, :category_id ], 
-          texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
-          assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image ], 
-          dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
-          galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ],
-          radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-          selects_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
-          checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
-          repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id,
-            texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ], 
-            assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ], 
-            dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ], 
-            galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ], 
-            repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id ],
-            radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-            selects_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
-            checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ]
-          ])
-      end
-
-      def repeater_params
-        params.require(:repeater).permit( 
-          new_repeaters_attributes: [ :id, :field_setting_id, :field_group_id, :fieldable_type, :fieldable_id,
-            texts_attributes:         [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
-            assets_attributes:        [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image ], 
-            dates_attributes:         [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
-            galleries_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id ], 
-            repeaters_attributes:     [ :id, :field_setting_id, :field_group_id, :fieldable_type, :fieldable_id ],
-            radios_attributes:        [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-            selects_attributes:       [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
-            checkboxes_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ]
-          ])
+          {structure_attributes:  [ :id ]}, 
+          {categories_attributes: [ :id, :category_id ]}, *fieldable_params )
       end
 
       def set_position

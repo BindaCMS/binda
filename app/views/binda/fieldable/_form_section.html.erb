@@ -1,0 +1,52 @@
+<%# - - - - - - - - - - - - %>
+<%# TEXT                    %>
+<%# - - - - - - - - - - - - %>
+<% if field_setting.field_type == 'text' %>
+  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'text' ) %>
+  <%= f.simple_fields_for "texts_attributes[]", current do |ff| %>
+    <%= render 'binda/fieldable/form_item_text', ff: ff, field_setting: field_setting %>
+  <% end %>
+
+
+<%# - - - - - - - - - - - - %>
+<%# STRING                  %>
+<%# - - - - - - - - - - - - %>
+<% elsif field_setting.field_type == 'string' %>
+  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'string' ) %>
+  <%= f.simple_fields_for "strings_attributes[]", current do |ff| %>
+    <%= render 'binda/fieldable/form_item_string', ff: ff, field_setting: field_setting %>
+  <% end %>
+
+
+<%# - - - - - - - - - - - - %>
+<%# DATE                    %>
+<%# - - - - - - - - - - - - %>
+<% elsif field_setting.field_type == 'date' %>
+  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'date' ) %>
+  <%= f.simple_fields_for "dates_attributes[]", current do |ff| %>
+    <%= render 'binda/fieldable/form_item_date', ff: ff, field_setting: field_setting %>
+  <% end %>
+
+
+<%# - - - - - - - - - - - - %>
+<%# ASSET                   %>
+<%# - - - - - - - - - - - - %>
+<% elsif field_setting.field_type == 'asset' %>
+  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'asset' ) %>
+  <%= f.simple_fields_for "assets_attributes[]", current do |ff| %>
+    <%= render 'binda/fieldable/form_item_asset', ff: ff, field_setting: field_setting %>
+  <% end %>
+
+
+<%# - - - - - - - - - - - - %>
+<%# REPEATER                %>
+<%# - - - - - - - - - - - - %>
+<% elsif field_setting.field_type == 'repeater' %>
+  <% repeaters = @instance.repeaters.where( field_setting: field_setting ).order('position') %>
+  <%= render 'binda/fieldable/form_item_repeater', f: f, repeater_setting: field_setting, repeaters: repeaters %>
+
+
+<% elsif ['radio', 'selection', 'checkbox'].include? field_setting.field_type %>
+  <%= render 'binda/fieldable/form_item_selections', f: f, field_setting: field_setting %>
+
+<% end %>

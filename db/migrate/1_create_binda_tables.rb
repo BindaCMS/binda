@@ -1,13 +1,12 @@
 class CreateBindaTables < ActiveRecord::Migration[5.0]
   def change
 
-    create_table :binda_settings do |t|
+    create_table :binda_boards do |t|
     	t.string           :name, null: false
     	t.string           :slug
   		t.index            :slug, unique: true
-    	t.text             :content
     	t.integer          :position
-      t.boolean          :is_true, default: false
+      t.belongs_to       :structure
     end
 
     create_table :binda_components do |t|
@@ -26,6 +25,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.integer          :position
       t.boolean          :has_categories, default: true
       t.index            :slug, unique: true
+      t.string           :instance_type, null: false, default: 'component'
       t.timestamps
     end
 
@@ -52,7 +52,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.belongs_to       :field_group
       t.string           :ancestry
       t.index            :ancestry
-      t.boolean          :allow_null
+      t.boolean          :allow_null, default: false
       t.references       :default_choice, index: true
       t.timestamps
     end
@@ -69,6 +69,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.integer          :position
       t.belongs_to       :field_setting
       t.references       :fieldable, polymorphic: true, index: true
+      t.string           :type
       t.timestamps
     end
 
@@ -97,11 +98,16 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :label
       t.string           :value
       t.belongs_to       :field_setting
-      t.references       :selectable, polymorphic: true, index: true
       t.timestamps
     end
 
-    create_table :binda_selects do |t|
+    create_table :binda_choices_selections do |t|
+      t.belongs_to :choice, index: true
+      t.belongs_to :selection, index: true
+      t.timestamps
+    end
+    
+    create_table :binda_selections do |t|
       t.belongs_to       :field_setting
       t.references       :fieldable, polymorphic: true, index: true
       t.string           :type

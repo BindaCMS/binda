@@ -14,6 +14,7 @@ en:
   create: create
   delete: delete
   setting: setting
+  board: board
   back_to_index: back to list
   back_to: back to
   slug_disable_hint: 'Editing slug is not possible. If you want a specific slug create a new item and a slug will be extracted from the title.'
@@ -42,3 +43,6 @@ en:
   default_choice: default choice
   default_choice_description: if you have added/removed any choice you need to click save to update the list of choices
   allow_null: allow null?
+  instance: instance
+  structure_instance_type: 'This structure is for:'
+  null_is_not_allowed: You need to select at least one choice

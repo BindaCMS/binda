@@ -32,6 +32,7 @@ require 'bundler/gem_tasks'
 #   t.libs << 'test'
 #   t.pattern = 'test/**/*_test.rb'
 #   t.verbose = false
+#   t.warning = false
 # end
 # task default: :test
 
@@ -40,4 +41,4 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new('spec')
 # If you want to make this the default task
-task :default => :spec
+task default: :spec

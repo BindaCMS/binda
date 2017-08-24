@@ -6,12 +6,16 @@ require 'coffee-rails'
 require 'colorize'
 require 'friendly_id'
 require 'aasm'
-require 'ffaker'
 require 'simple_form'
 require 'tinymce-rails'
 require 'carrierwave'
 require 'mini_magick'
 require 'ancestry'
+require 'kaminari'
+# require 'bullet'
+# require 'rails-perftest'
+# require 'ruby-prof'
+# require 'test-unit'
 
 module Binda
   class Engine < ::Rails::Engine

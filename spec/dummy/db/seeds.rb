@@ -1,111 +1,55 @@
-p "- - - - - - - - - - - - - - - - - -"
-p "SEEDING DATABASE"
-p "- - - - - - - - - - - - - - - - - -"
+puts "- - - - - - - - - - - - - - - - - -"
+puts "SEEDING DATABASE"
+puts "- - - - - - - - - - - - - - - - - -"
 
+dashboard_structure = Binda::Structure.create( name: 'dashboard', slug: 'dashboard', instance_type: 'board' )
+@dashboard = dashboard_structure.board
+# By default each structure has a field group which will be used to store the default field settings
+field_settings = dashboard_structure.field_groups.first.field_settings
 
-p "Setting up defaults"
 
 # MAINTENANCE MODE
-Binda::Setting.find_or_create_by( name: 'Maintenance Mode' )
+puts "Setting up maintenance mode"
+
+# Use radio field_type untill truefalse isn't available
+maintenance_mode = field_settings.create!( name: 'Maintenance Mode', field_type: 'radio')
+maintenance_mode.update_attributes( slug: 'maintenance-mode' )
+disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
+active   = maintenance_mode.choices.create!( label: 'active', value: 'true' )
+
 
 # WEBSITE NAME
-unless Binda::Setting.where(slug: 'website-name').present?
-	Binda::Setting.create({ name: 'Website Name', content: 'My App'})
-end
+puts "Setting up website name"
+
+website_name = field_settings.create!( name: 'Website Name', field_type: 'string' )
+website_name.update_attributes( slug: 'website-name' )
+@dashboard.strings.create!( field_setting_id: website_name.id ).update_attributes(content: 'MySite' )
+
 
 # WEBSITE CONTENT
-unless Binda::Setting.where(slug: 'website-description').present?
-	Binda::Setting.create({ name: 'Website Description', content: 'Hello world'})
+puts "Setting up website description"
+
+website_description = field_settings.create!( name: 'Website Description', field_type: 'string' )
+website_description.update_attributes( slug: 'website-description' )
+@dashboard.texts.create!( field_setting_id: website_description.id ).update_attributes( content: 'A website about the world' )
+
+puts "Setting up page component"
+
+page_structure = Binda::Structure.create!( name: 'page', slug: 'page', instance_type: 'component' )
+subtitle_setting = page_structure.field_groups.first.field_settings.create!( name: 'subtitle', slug: 'page-subtitle', field_type: 'string' )
+description_setting = page_structure.field_groups.first.field_settings.create!( name: 'description', slug: 'page-description', field_type: 'text' )
+credits_setting = page_structure.field_groups.first.field_settings.create!( name: 'credits', slug: 'page-credits', field_type: 'repeater' )
+credits_name_setting = credits_setting.children.create!( name: 'name', slug: 'page-credits-name', field_type: 'string', field_group_id: page_structure.field_groups.first.id )
+
+puts "Populate application with 5 pages"
+
+for i in 0..4
+	component = page_structure.components.create!( name: "page n.#{i}" )
+	component.strings.create!( field_setting_id: subtitle_setting.id, content: "Subtitle page n.#{i}" )
+	component.texts.create!( field_setting_id: description_setting.id, content: "Lorem ipsum sit dolor amet n.#{i}" ) 
+	people = [ 'John', 'Jack', 'James' ]
+	for j in 0..2
+		repeater = component.repeaters.create!( field_setting_id: credits_setting.id )
+		repeater.strings.create!( field_setting_id: credits_name_setting.id, content: people[j] )
+	end
 end
-
-# p "Creating Structures"
-
-# static_component_structure = Binda::Structure.create({ name: 'Static Component' })
-# project_structure     = Binda::Structure.create({ name: 'Project' })
-# contact_structure     = Binda::Structure.create({ name: 'Contact' })
-
-
-# # - - - - - - - - - - - - - - - - - - - -
-
-
-# p "Creating Field Groups"
-
-# default_group = Binda::FieldGroup.create({ name: 'default' })
-# contact_group = Binda::FieldGroup.create({ name: 'contact' })
-
-
-# # - - - - - - - - - - - - - - - - - - - -
-
-
-# p "Creating Field Settings"
-
-# # Default
-# main_content = default_group.field_settings.create({ name: 'Main Content', field_type: 'text' })
-# project_structure.field_groups << default_group
-# contact_structure.field_groups << default_group
-
-# # Contact
-# address  = contact_group.field_settings.create({ name: 'Address', field_type: 'text' })
-# phone    = contact_group.field_settings.create({ name: 'Phone', field_type: 'text' })
-# mail     = contact_group.field_settings.create({ name: 'Mail', field_type: 'text' })
-# contact_structure.field_groups << contact_group
-
-
-# # - - - - - - - - - - - - - - - - - - - -
-
-
-# p "Creating Categories"
-
-# for i in 1..4
-# 	category = Binda::Category.create({ 
-# 		name: FFaker::CheesyLingo.word,
-# 		structure_id: project_structure.id
-# 	})
-# end
-
-
-# # - - - - - - - - - - - - - - - - - - - -
-
-
-# p "Creating Components"
-
-# # Static Components
-# for i in 1..6
-# 	component = Binda::Component.create({
-# 		name:             FFaker::CheesyLingo.title,
-# 		structure_id:     static_component_structure.id
-# 	})
-# 	component.categories << Binda::Category.find( rand(1..4) )
-# 	component.texts.create({ 
-# 		content:          FFaker::CheesyLingo.paragraph,
-# 		field_setting_id: main_content.id
-# 	})
-# 	component.publish! unless i%3 == 0
-# end
-
-# # Contact Components
-# for i in 1..4
-# 	component = Binda::Component.create({
-# 		name:             FFaker::CheesyLingo.title,
-# 		structure_id:     contact_structure.id
-# 	})
-# 	component.texts.create({ 
-# 		content:          FFaker::CheesyLingo.paragraph,
-# 		field_setting_id: address.id
-# 	})
-# 	component.texts.create({ 
-# 		content:          FFaker::PhoneNumber.phone_number,
-# 		field_setting_id: phone.id
-# 	})
-# 	component.texts.create({ 
-# 		content:          "#{ FFaker::CheesyLingo.word }@#{ FFaker::CheesyLingo.word }.com",
-# 		field_setting_id: mail.id
-# 	})
-# 	component.publish! unless i%3 == 0
-# end
-
-
-# # - - - - - - - - - - - - - - - - - - - -
-
-
-# p "- - - - - - - - - - - - - - - - - -"

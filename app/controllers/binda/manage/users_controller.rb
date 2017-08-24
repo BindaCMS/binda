@@ -3,7 +3,6 @@ require_dependency "binda/application_controller"
 module Binda
   class Manage::UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
-    before_action :check_if_is_superadmin, only: [:update, :destroy]
 
     def index
       @users = User.all
@@ -38,7 +37,7 @@ module Binda
 
     def update
       if @user.is_superadmin && !current_user.is_superadmin
-        redirect_to manage_users_url, notice: 'Sorry, you cannot edit a administrator.'
+        redirect_to manage_users_url, notice: 'Sorry, you cannot edit a super administrator.'
       else
         respond_to do |format|
           if @user.update(user_params)
@@ -57,7 +56,7 @@ module Binda
     def destroy
       if current_user.email == @user.email
         redirect_to manage_users_url, flash: { alert: 'Sorry, you cannot delete your own account.' }
-      elsif !current_user.is_superadmin
+      elsif @user.is_superadmin && !current_user.is_superadmin
         redirect_to manage_users_url, flash: { alert: 'Sorry, you cannot delete an administrator.' }
       else
         @user.destroy
@@ -85,12 +84,6 @@ module Binda
         if params[:user][:password].blank?
           params[:user].delete(:password)
           params[:user].delete(:password_confirmation)
-        end
-      end
-
-      def check_if_is_superadmin
-        if current_user.is_superadmin
-          redirect_to manage_users_url, alert: 'Sorry, it\'s forbidden to modify this account.'
         end
       end
   end

@@ -2,6 +2,7 @@
 <%# CHOICES                 %>
 <%# - - - - - - - - - - - - %>
 <h5><%= t(:choices).capitalize %></h5>
+
 <div class="form-item--choices">
 
 	<%= ff.simple_fields_for :choices, ff.object.choices.order( :label ) do |fff| %>
@@ -82,15 +83,17 @@
 <% if ff.object.choices.find_all{|c| c.persisted? }.any? %>
 	<div class="form-item--half-size">
 		<h5><%= t(:default_choice).capitalize %></h5>
-		<%= ff.input :default_choice_id, as: :select, collection: ff.object.choices.find_all{|c| c.persisted? }, label_method: :label, include_blank: false, selected: ff.object.default_choice.id, hint: t(:default_choice_description).capitalize %>
+		<%= ff.input :default_choice_id, as: :select, collection: ff.object.choices.find_all{|c| c.persisted? }, label_method: :label, include_blank: false, selected: ff.object.default_choice_id, hint: t(:default_choice_description).capitalize %>
 	</div>
 <% end %>
 
 
-<%# - - - - - - - - - - - - %>
-<%# ALLOW NULL              %>
-<%# - - - - - - - - - - - - %>
-<div class="form-item--half-size">
-	<h5><%= t(:allow_null).capitalize %></h5>
-	<%= ff.input :allow_null, as: :boolean, boolean_style: :inline, input_html: { class: "form-item--input" }, checked_value: true, unchecked_value: false, selected: ff.object.allow_null, default: false %>
-</div>
+<% if ff.object.field_type == 'checkbox' %>
+	<%# - - - - - - - - - - - - %>
+	<%# ALLOW NULL              %>
+	<%# - - - - - - - - - - - - %>
+	<div class="form-item--half-size">
+		<h5><%= t(:allow_null).capitalize %></h5>
+		<%= ff.input :allow_null, as: :boolean, boolean_style: :inline, input_html: { class: "form-item--input" }, checked_value: true, unchecked_value: false, selected: ff.object.allow_null, default: false %>
+	</div>
+<% end %>

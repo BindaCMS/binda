@@ -1,5 +1,5 @@
 # Binda
-A modular CMS for Ruby on Rails 5.
+A modular CMS for Ruby on Rails 5.1.
 
 [![Code Climate](https://codeclimate.com/github/lacolonia/binda/badges/gpa.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Issue Count](https://codeclimate.com/github/lacolonia/binda/badges/issue_count.svg)](https://codeclimate.com/github/lacolonia/binda)
@@ -9,15 +9,17 @@ A modular CMS for Ruby on Rails 5.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'binda', '~> 0.0.6'
+gem 'binda', '~> 0.0.7'
 ```
 
 Then execute:
+
 ```bash
 $ bundle
 ```
 
 To install Binda run the installer from terminal. 
+
 ``` bash
 $ rails g binda:install
 ```

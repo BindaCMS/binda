@@ -8,7 +8,7 @@
 <% if ff.object.slug.nil? %>
 	<a class="form-item--remove-item-with-js" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 <% else %>
-	<a href="<%= structure_field_group_field_setting_path( field_group_id: section.slug, id: ff.object.slug ) %>" data-method="delete" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	<a href="<%= structure_field_group_field_setting_path( @structure, @field_group, ff.object ) %>" data-method="delete" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 	<a class="form-item--close-button"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
 	<a class="form-item--open-button"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
 	<div class="form-item--label">
@@ -74,13 +74,13 @@
 			<%= ff.input :position, as: :integer, input_html: { class: "form-item--input" } %>
 		</div>
 
-		<% choiceables = ['radio', 'select', 'checkbox'] %>
+		<% choiceables = ['radio', 'selection', 'checkbox'] %>
 		<% if choiceables.include? ff.object.field_type %>
 
 			<%# - - - - - - - - - - - - %>
 			<%# CHOICES                 %>
 			<%# - - - - - - - - - - - - %>
-			<%= render 'form_item_choice', f: f, ff: ff, section: section  %>
+			<%= render 'form_item_choice', f: f, ff: ff  %>
 
 		<% end %>
 

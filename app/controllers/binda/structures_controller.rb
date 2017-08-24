@@ -5,7 +5,7 @@ module Binda
     before_action :set_structure, only: [:show, :edit, :update, :destroy, :fields_update ]
 
     def index
-      @structures = Structure.order('position').all
+      @structures = Structure.order('position').all.page params[:page]
     end
 
     def show
@@ -23,14 +23,7 @@ module Binda
       @structure = Structure.new(structure_params)
 
       if @structure.save
-        # Creates a default empty field group 
-        @field_group = @structure.field_groups.build( name: 'General Details', position: 1 )
-        # Unless there is a problem...
-        unless @field_group.save
-          return redirect_to structure_path( @structure.slug ), flash: { error: 'General Details group hasn\'t been created' }
-        end
-        # ... redirect to the new structure path
-        redirect_to structure_path( @structure.slug ), notice: "#{ @structure.name } structure was successfully created."
+        redirect_to structure_path( @structure.slug ), notice: "#{ @structure.name.capitalize } structure was successfully created."
       else
         render :new
       end
@@ -49,7 +42,7 @@ module Binda
 
       # Update the other ones
       if @structure.update(structure_params)
-        redirect_to structure_path( @structure.slug ), notice: "#{ @structure.name } structure was successfully updated."
+        redirect_to structure_path( @structure.slug ), notice: "#{ @structure.name.capitalize } structure was successfully updated."
       else
         render :edit
       end
@@ -57,11 +50,11 @@ module Binda
 
     def destroy
       @structure.destroy
-      redirect_to structures_url, notice: "#{ @structure.name } structure was successfully destroyed."
+      redirect_to structures_url, notice: "#{ @structure.name.capitalize } structure was successfully destroyed."
     end
 
     def fields_update
-      redirect_to :back, notice: "#{ @structure.name } structure was successfully updated."
+      redirect_to :back, notice: "#{ @structure.name.capitalize } structure was successfully updated."
     end
 
     def sort
@@ -79,7 +72,7 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def structure_params
-        params.require(:structure).permit(:name, :slug, :position, :has_categories, field_groups_attributes: [ :id, :name, :structure_id, :slug ] )
+        params.require(:structure).permit(:name, :slug, :position, :has_categories, :instance_type, field_groups_attributes: [ :id, :name, :structure_id, :slug ] )
       end
 
       def new_params

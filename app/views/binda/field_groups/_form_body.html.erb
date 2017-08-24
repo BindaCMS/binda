@@ -1,14 +1,14 @@
 <div class="row">
 <div class="form-body--container col-sm-12">
 
-<%= simple_form_for field_group, url: get_form_field_group_url, defaults: { label: false }, html: { class: 'form-body' } do |f| %>
+<%= simple_form_for @field_group, url: get_form_field_group_url, defaults: { label: false }, html: { class: 'form-body' } do |f| %>
 
-  <% if field_group.errors.any? %>
+  <% if @field_group.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize( field_group.errors.count, "error") %> prohibited this field_group from being saved:</h2>
+      <h2><%= pluralize( @field_group.errors.count, "error") %> prohibited this field_group from being saved:</h2>
 
       <ul>
-      <% field_group.errors.full_messages.each do |message| %>
+      <% @field_group.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -25,7 +25,7 @@
           <h5><%= "#{ t :title }".capitalize %></h5>
           <%= f.input :name %>
           
-          <% if field_group.slug.nil? %>
+          <% if @field_group.slug.nil? %>
             <%= f.input :slug, as: :hidden %>
           <% else %>
             <h5><%= "#{ t :slug }".capitalize %></h5>
@@ -37,17 +37,17 @@
       <div class="form-section--wide-container row">
         <div class="col-sm-12 form-section">
 
-          <%= render "form_section", section: field_group, f: f, structure: @structure %>
+          <%= render "form_section", f: f %>
         
         </div>
       </div>
-      <% field_group.field_settings.where( field_type: 'repeater' ).order( :position ).each do |repeater| %>
+      <% @field_group.field_settings.where( field_type: 'repeater' ).order( :position, :id ).each do |repeater| %>
         <div class="form-section--wide-container row">
           <div class="col-sm-12 form-section">
           
             <h4><%= repeater.name.capitalize %></h4>
 
-            <%= render "form_section_repeater", section: field_group, f: f, structure: @structure, repeater: repeater %>
+            <%= render "form_section_repeater", f: f, repeater: repeater %>
 
           </div>
         </div>

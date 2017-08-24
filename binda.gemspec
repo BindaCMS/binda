@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
   s.add_dependency "carrierwave",          ">= 0.10",     "< 1.12"
   s.add_dependency "mini_magick",          ">= 4.5",      "< 4.8"
   s.add_dependency "ancestry",             ">= 2.1",      "< 3.1"
+  s.add_dependency "kaminari",             "~> 1.0"
   # s.add_dependency "meta-tags"
   # s.add_dependency "cancancan"
 
@@ -42,7 +43,6 @@ Gem::Specification.new do |s|
   # --------------
   # The following gems could be avoided and they'll soon or late be discarded
   s.add_dependency "colorize",             "~> 0.8"
-  s.add_dependency "ffaker",               "~> 2.5"
   s.add_dependency "friendly_id",          ">= 5.1",      "< 5.3"
 
 
@@ -57,5 +57,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency "factory_girl_rails",       "~> 4.8"
   s.add_development_dependency "database_cleaner",         "~> 1.6"
   s.add_development_dependency "yard",                     "~> 0.9"
+  s.add_development_dependency "bullet",                   "~> 5.6"
+  s.add_development_dependency "rails-perftest",           "~> 0.0"
+  s.add_development_dependency "ruby-prof",                "~> 0.15.9"
+  s.add_development_dependency "test-unit",                "~> 3.1"
+  s.add_development_dependency "minitest-rails",           "~> 3.0"
   
 end

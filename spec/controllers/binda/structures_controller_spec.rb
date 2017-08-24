@@ -4,9 +4,9 @@ module Binda
 	RSpec.describe StructuresController, type: :controller do
 
 		# https://content.pivotal.io/blog/writing-rails-engine-rspec-controller-tests
-		routes { Binda::Engine.routes }
+		routes { Engine.routes }
 
-		let(:user){ Binda::User.first }
+		let(:user){ User.first }
 
 		describe "GET #index" do
 			it "retruns http success" do

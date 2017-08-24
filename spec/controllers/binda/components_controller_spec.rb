@@ -4,9 +4,9 @@ module Binda
   RSpec.describe ComponentsController, type: :controller do
 
     # https://content.pivotal.io/blog/writing-rails-engine-rspec-controller-tests
-    routes { Binda::Engine.routes }
+    routes { Engine.routes }
 
-    let(:user){ Binda::User.first }
+    let(:user){ User.first }
 
     before(:context) do
       @structure = create(:article_structure_with_components_and_fields)
@@ -45,12 +45,11 @@ module Binda
         repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
 
         post :new_repeater, params: { 
-          repeater_setting_id: 3, 
+          repeater_setting_id: repeater_setting_id, 
           structure_id: @structure.slug, 
           component_id: @component.slug
         }
         @component.reload
-        
         expect( @component.repeaters.order('position').length ).to eq( initial_repeaters_length + 1 )
         expect( @component.repeaters.order('position').last.position ).to eq( @component.repeaters.length )
       end
@@ -59,9 +58,17 @@ module Binda
     describe "POST #sort_repeaters" do
       it "reorder repeater based on position value" do
         sign_in user
-        
+
+        # shuffle the order of the component repeaters
+        shuffle = [
+          @component.repeaters[2].id,
+          @component.repeaters[0].id,
+          @component.repeaters[1].id
+        ]
+
+        # call sort_repeaters method via post request
         post :sort_repeaters, params: { 
-          repeater: ["2", "3", "1"], 
+          repeater: shuffle,
           structure_id: @structure.slug,
           component_id: @component.slug 
         }
@@ -72,7 +79,7 @@ module Binda
         
         expect( repeaters.first.position ).not_to eq(0)
         expect( repeaters.first.position ).to eq(1)
-        expect( repeaters.find{ |r| r.id == 1 }.position ).to eq(3)
+        expect( @component.repeaters[1].position ).to eq(3)
       end
     end
 
@@ -80,11 +87,21 @@ module Binda
       it "reorder components based on position value" do
         sign_in user
 
-        component_one = @structure.components.find(1)
+        component_one = @structure.components[4]
         expect( component_one.position ).to eq(1)
 
+        # shuffle the order of the components
+        shuffle = [
+          @structure.components[1].id,
+          @structure.components[2].id,
+          @structure.components[4].id,
+          @structure.components[0].id,
+          @structure.components[3].id,
+        ]
+
+        # call sort method via post request
         post :sort, params: {
-          component: [ 2, 3, 1, 5, 4 ],
+          component: shuffle,
           structure_id: @structure.slug
         }
         component_one.reload

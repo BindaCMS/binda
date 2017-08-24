@@ -1,7 +1,5 @@
 module Binda
-	class Checkbox < Select
-
-		has_many :choices, as: :selectable
+	class Checkbox < Selection
 
 	end
 end

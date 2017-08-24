@@ -20,6 +20,15 @@ module Binda
         route "mount Binda::Engine => '/admin_panel'"
       end
 
+      def add_helpers
+        ac_path = Rails.root.join('app', 'controllers', 'application_controller.rb' )
+        unless File.readlines(ac_path).grep(/::Binda::DefaultHelpers/).size > 0
+          inject_into_file ac_path, after: "ActionController::Base" do 
+            "\n  include ::Binda::DefaultHelpers"
+          end
+        end
+      end
+
       def copy_migrations
         return if Rails.env.production?
 

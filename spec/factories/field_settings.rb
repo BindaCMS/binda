@@ -37,22 +37,20 @@ FactoryGirl.define do
     end
 		after(:create) do |radio_setting, evaluator|
       create_list( :choice, evaluator._count, field_setting: radio_setting )
-      radio_setting.default_choice = radio_setting.choices.first
 		end
 	end
 
-	factory :select_setting, parent: :field_setting do
-		field_type 'select'
+	factory :selection_setting, parent: :field_setting do
+		field_type 'selection'
 		allow_null false
 	end
 
-	factory :select_setting_with_choices, parent: :select_setting do
+	factory :selection_setting_with_choices, parent: :selection_setting do
     transient do
       _count 3
     end
-		after(:create) do |select_setting, evaluator|
-      create_list( :choice, evaluator._count, field_setting: select_setting )
-      select_setting.default_choice = select_setting.choices.first
+		after(:create) do |selection_setting, evaluator|
+      create_list( :choice, evaluator._count, field_setting: selection_setting )
 		end
 	end
 

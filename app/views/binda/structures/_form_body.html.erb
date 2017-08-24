@@ -40,10 +40,16 @@
             <div class="form-section--narrow-container row">
               <div class="col-sm-12">
                 <h4><%= "#{ t :publish }".capitalize %></h4>
+                <h5><%= "#{ t :structure_instance_type }".capitalize %></h5>
+                <%= f.input :instance_type, as: :radio_buttons, collection: ['component','board'] %>
                 <h5><%= "#{ t :structure_has_categories }".capitalize %></h5>
                 <%= f.input :has_categories, as: :radio_buttons %>
                 <hr>
                 <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+
+                <% unless @structure.new_record? %>
+                  <a class="form-body--delete btn btn-default" href="<%= url_for([@structure]) %>" data-method="delete" data-confirm="This operation will delete this structure and there is no coming back. Are you ok with that?">Delete Structure <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                <% end %>
               </div>
             </div>
             
