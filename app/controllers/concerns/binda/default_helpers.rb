@@ -62,15 +62,15 @@ module Binda
 			# Generate query
 			if args[:published]
 				if args[:fields].any?
-					Component.where( structure_id: Binda::Structure.where( slug: slug ) ).published.includes( args[:fields] )
+					Component.where( structure_id: Structure.where( slug: slug ) ).published.includes( args[:fields] )
 				else
-					Component.where( structure_id: Binda::Structure.where( slug: slug ) ).published
+					Component.where( structure_id: Structure.where( slug: slug ) ).published
 				end
 			else
 				if args[:fields].any?
-					Component.where( structure_id: Binda::Structure.where( slug: slug ) ).order( args[:custom_order] ).includes( args[:fields] )
+					Component.where( structure_id: Structure.where( slug: slug ) ).order( args[:custom_order] ).includes( args[:fields] )
 				else
-					Component.where( structure_id: Binda::Structure.where( slug: slug ) ).order( args[:custom_order] )
+					Component.where( structure_id: Structure.where( slug: slug ) ).order( args[:custom_order] )
 				end
 			end
 		end
