@@ -35,15 +35,9 @@ Gem::Specification.new do |s|
   s.add_dependency "mini_magick",          ">= 4.5",      "< 4.8"
   s.add_dependency "ancestry",             ">= 2.1",      "< 3.1"
   s.add_dependency "kaminari",             "~> 1.0"
+  s.add_dependency "friendly_id",          ">= 5.1",      "< 5.3"
   # s.add_dependency "meta-tags"
   # s.add_dependency "cancancan"
-
-
-  # SECONDARY GEMS
-  # --------------
-  # The following gems could be avoided and they'll soon or late be discarded
-  s.add_dependency "colorize",             "~> 0.8"
-  s.add_dependency "friendly_id",          ">= 5.1",      "< 5.3"
 
 
   # DEVELOPMENT GEMS

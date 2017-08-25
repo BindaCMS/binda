@@ -1,4 +1,3 @@
-require 'colorize'
 require 'securerandom'
 
 module Binda
@@ -25,9 +24,9 @@ module Binda
 
       # By default each structure has a field group which will be used to store the default field settings
       field_settings = dashboard_structure.field_groups.first.field_settings
+    end
 
-
-      # MAINTENANCE MODE
+    def setup_maintenance_mode
       puts "Setting up maintenance mode"
 
       # Use radio field_type untill truefalse isn't available
@@ -35,15 +34,15 @@ module Binda
         maintenance_mode = field_settings.create!( name: 'Maintenance Mode', field_type: 'radio' )
         # make sure slug works
         maintenance_mode.update_attributes( slug: 'maintenance-mode' )
-        disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
-        active   = maintenance_mode.choices.create!( label: 'active', value: 'true' )
+        maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
+        maintenance_mode.choices.create!( label: 'active', value: 'true' )
         @dashboard.radios.find_or_create_by!( field_setting_id: maintenance_mode.id )
       end
       puts "The maintenance-mode option has been set up."
       puts
+    end
 
-
-      # WEBSITE NAME
+    def setup_website_name 
       puts "Setting up website name"
 
       website_name_obj = field_settings.find_by(slug: 'website-name')
@@ -54,8 +53,9 @@ module Binda
       end
       website_name = ask("How would you like to name your website? ['MySite']\n").presence || 'MySite'
       @dashboard.strings.find_or_create_by( field_setting_id: website_name_obj.id ).update_attribute('content', website_name )
+    end
 
-      # WEBSITE CONTENT
+    def setup_website_content
       puts "Setting up website description"
 
       website_description_obj = field_settings.find_by(slug: 'website-description')
