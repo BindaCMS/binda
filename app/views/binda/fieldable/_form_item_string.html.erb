@@ -5,7 +5,6 @@
 	<small class="text-muted"><%= field_setting.description %></small>
 <% end %>
 
-
 <% if @instance.has_string( field_setting.slug ) %>
 		<%= ff.input :content, input_html: { value: @instance.get_string( field_setting.slug ) }, as: :string %>
 <% else %>

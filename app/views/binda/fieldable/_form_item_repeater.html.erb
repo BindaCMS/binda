@@ -74,7 +74,7 @@
 <%# - - - - - - - - - - - - - - %>
 <%# ADD NEW REPEATER FIELDS     %>
 <%# - - - - - - - - - - - - - - %>
-<a class="form-item--repeater-section--add-new main-header--link btn btn-default" href="#" data-url="<%= url_for([@structure, @instance, :new_repeater]) %>" data-id="<%= repeater_setting.id %>">
+<a id="form-item--repeater-<%= repeater_setting.id %>--add-new-button" class="form-item--repeater-section--add-new main-header--link btn btn-default" href="#" data-url="<%= url_for([@structure, @instance, :new_repeater]) %>" data-id="<%= repeater_setting.id %>">
   <%= t(:new_item_in_repeater, arg1: repeater_setting.name.capitalize ) %>
 </a>
 <hr>

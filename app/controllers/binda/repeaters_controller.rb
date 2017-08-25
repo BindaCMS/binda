@@ -27,7 +27,7 @@ module Binda
       @repeater = Repeater.new(repeater_params)
 
       if @repeater.save
-        redirect_to @repeater, notice: 'Repeater was successfully created.', only_path: true
+        redirect_to @repeater, notice: 'Repeater was successfully created.', params.merge(only_path: true)
       else
         render :new
       end
@@ -36,7 +36,7 @@ module Binda
     # PATCH/PUT /repeaters/1
     def update
       if @repeater.update(repeater_params)
-        redirect_to @repeater, notice: 'Repeater was successfully updated.', only_path: true
+        redirect_to @repeater, notice: 'Repeater was successfully updated.', params.merge(only_path: true)
       else
         render :edit
       end

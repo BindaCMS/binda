@@ -16,6 +16,7 @@ require 'factory_girl_rails'
 # https://github.com/DatabaseCleaner/database_cleaner#how-to-use
 require 'database_cleaner'
 require 'pry'
+require 'capybara-webkit'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -36,6 +37,7 @@ require 'pry'
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+Capybara.javascript_driver = :selenium
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

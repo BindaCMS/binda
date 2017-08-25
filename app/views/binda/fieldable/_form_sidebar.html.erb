@@ -27,7 +27,7 @@
 	<hr>
 <% end %>
 
-<%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
+<%= f.button :submit, 'Save changes', class: 'btn btn-primary', id: 'form-body--save' %>
 
 
 <% unless @instance.new_record? || @instance.structure.instance_type == 'board' %>

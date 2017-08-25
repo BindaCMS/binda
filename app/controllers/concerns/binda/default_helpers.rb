@@ -3,8 +3,8 @@ module Binda
 	module DefaultHelpers
 		extend ActiveSupport::Concern
 
-	  # Get components
-	  # 
+		# Get components
+		# 
 		# This method retrieves **all components** belonging to a specific structure. 
 		#   With this method you can optimize the query in order to avoid the infamous 
 		#   [N+1 issue](https://youtu.be/oJ4Ur5XPAF8) by specifing what field types
@@ -47,7 +47,7 @@ module Binda
 		#   Field types must be listed as separated strings, lowercase and plural.
 		#   
 		# @return [ActiveRecord Object]  
-	  def get_components( slug, args = { published: true, custom_order: 'position', fields: [] })
+		def get_components( slug, args = { published: true, custom_order: 'position', fields: [] })
 			
 			validate_provided_arguments( args )
 			args = set_default_args( args )
@@ -59,7 +59,7 @@ module Binda
 				when args[:published] && args[:fields].any?
 					Component.where( structure_id: Structure.where( slug: slug ) ).published.includes( args[:fields] )
 				when args[:published]
-				 	Component.where( structure_id: Structure.where( slug: slug ) ).published
+					Component.where( structure_id: Structure.where( slug: slug ) ).published
 				when args[:fields].any?
 					Component.where( structure_id: Structure.where( slug: slug ) ).order( args[:custom_order] ).includes( args[:fields] )
 				else
@@ -97,7 +97,7 @@ module Binda
 
 			validate_provided_arguments( args )
 
-	  	# Sets defaults
+			# Sets defaults
 			args[:fields] = [] if args[:fields].nil?
 
 			validate_provided_fields( args )
@@ -139,7 +139,7 @@ module Binda
 			
 			validate_provided_arguments( args )
 
-	  	# Sets defaults
+			# Sets defaults
 			args[:fields] = [] if args[:fields].nil?
 			
 			check_provided_fields( args )
@@ -181,7 +181,7 @@ module Binda
 			
 			validate_provided_arguments( args )
 
-	  	# Sets defaults
+			# Sets defaults
 			args[:fields] = [] if args[:fields].nil?
 			
 			check_provided_fields( args )
@@ -216,7 +216,7 @@ module Binda
 			end
 
 			def set_default_args( args )
-		  	# Sets defaults
+				# Sets defaults
 				args[:published]    = 'true'     if args[:published].nil?
 				args[:custom_order] = 'position' if args[:custom_order].nil?
 				args[:fields]       = []         if args[:fields].nil?

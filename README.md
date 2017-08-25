@@ -5,33 +5,30 @@ A modular CMS for Ruby on Rails 5.1.
 [![Issue Count](https://codeclimate.com/github/lacolonia/binda/badges/issue_count.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Test Coverage](https://codeclimate.com/github/lacolonia/binda/badges/coverage.svg)](https://codeclimate.com/github/lacolonia/binda/coverage)
 
-- [Guidelines](#Guidelines)
-	- [Quick Start](#Quick-Start)
-	- [Installation](#Installation)
-	- [Settings](#Settings)
-	- [Structures](#Structures)
-	- [Components](#Components)
-	- [Boards](#Boards)
-	- [Fields](#Fields)
-	- [Repeaters](#Repeaters)
-	- [Users](#Users)
-	- [Plugins](#Plugins)
-- [Advanced topics](#Advanced-topics)
-	- [Upgrade](#Upgrade)
-	- [Create a Binda plugin](#Create-a-Binda-plugin)
-	- [How to create a form of nested components](#How-to-create-a-form-of-nested-components)
-- [Contributing](#Contributing)
-	- [How to contribute](#How-to-contribute)
+- [Quick Start](#Quick_Start)
+- [Installation](#Installation)
+- [Settings](#Settings)
+- [Structures](#Structures)
+- [Components](#Components)
+- [Boards](#Boards)
+- [Fields](#Fields)
+- [Repeaters](#Repeaters)
+- [Users](#Users)
+- [Plugins](#Plugins)
+- [Upgrade](#Upgrade)
+- [Create a Binda plugin](#Create_a_Binda_plugin)
+- [How to create a form of nested components](#How_to_create_a_form_of_nested_components)
+- [How to contribute](#How_to_contribute)
 
 ---
 
-# Guidelines
+
+
+# Quick Start
 
 **Binda** is a CMS with an intuitive out-of-the-box interface to manage and customize page components.
 
 The core element is the _structure_ element which is the finger print of any _component_ instance. Every _structure_ can have one or more _field-groups_ which can be populated with several _field-settings_. _Field-groups_ and _field-settings_ represent _components_ features, such as galleries, textareas, dates, repeaters and so on.
-
-## Quick Start
 
 Let's say your website needs a set of pages with a subtitle. That's super easy. 
 
@@ -45,10 +42,11 @@ It's easier learning by doing than by reading. ;-)
 
 ![Binda preview](https://www.dropbox.com/s/m7vwrou1homqc6p/binda-01.gif?raw=1)
 
+---
 
 
 
-## Installation
+# Installation
 
 Install Binda via terminal
 
@@ -78,7 +76,7 @@ rails g binda:install
 
 Now you are good to go. Good job!
 
-### Multiple installations
+## Multiple installations
 
 **In order to avoid conflicts execute the installer once.** Running the installer for each application environment will cause issues with users' passwords. We recommend to install Binda locally and then copy the local database on each environment.
 
@@ -88,16 +86,16 @@ If you need to re-install Binda and reset initial database settings (such as use
 rails g binda:setup
 ```
 
-### Specific needs
+## Specific needs
 In order to use Carrierwave to process images you need to run MiniMagik. Please refer to [Carrierwave documentation](https://github.com/carrierwaveuploader/carrierwave#using-minimagick) to find more information.
 
 If you are not going to use Rails default ORM please check [Carrierwave documentation](https://github.com/carrierwaveuploader/carrierwave#datamapper-mongoid-sequel) and [Devise documentation](https://github.com/plataformatec/devise#other-orms).
 
+---
 
 
 
-
-## Settings
+# Settings
 
 Binda comes with some default preferences.
 
@@ -109,15 +107,15 @@ You can customize the _Dashboard_ panel adding, removing and modifing fields, in
 
 You can also create new boards if you need it. See https://github.com/lacolonia/binda/wiki/Boards
 
+---
 
 
 
-
-## Structures
+# Structures
 
 _Structures_ are the DNA of the application _components_ and _boards_. Each _component_ and _board_ is defined by a _structure_. 
 
-### Create a structure
+## Create a structure
 
 Creating a _structure_ is fairly easy. Just click on the sidebar tab called _Structures_ and then on the _New structure_ button. You will be asked to provide a name which will be used from then on to call the relative component or board. You can also select the type of structure: _component_ or _board_. The former will let you create multiple instances for that structure whereas the latter will let you create only one instance. Why? A _component_ is great for something like posts, pages and so on. _Board_ are useful for content that is used once, for example the website description.
 
@@ -125,7 +123,7 @@ Once the _structure_ has been created it's possible to add field groups. By defa
 
 In order to add _field settings_ that will let you add content to your _component_ (or _board_) you need to enter on of the _structure's field groups_.
 
-### Retrive a structure
+## Retrive a structure
 
 Once you create a _structure_ you can call it from your controller like so:
 
@@ -158,17 +156,17 @@ Depending on the structure type, to retrieve all related _components_ or the rel
 @board = @my_structure.board
 ```
 
+---
 
 
 
-
-## Components
+# Components
 
 `Components` are instances of a `Structure`.
 
 In order to retrieve a single `Component` you can use one of the following methods:
 
-### Using the helper
+## Using the helper
 
 A useful helper is `get_components`. This helper will retrieve all _components_ from a specific _structure_. Find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda%2FDefaultHelpers:get_components). 
 
@@ -206,7 +204,7 @@ get_components('page', { published: true, custom_order: 'name', fields: ['string
 To retrieve a single _component_ you can use `get_component`. As the above one, this is included in `::Binda::DefaultHelpers`. Is as easy as the above one, find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda%2FDefaultHelpers:get_component)
 
 
-### Using the rails way
+## Using the rails way
 
 Retrieve a single component
 
@@ -241,11 +239,11 @@ You can add any other option to the query then:
 @components = Binda::Component.where( structure_id: Binda::Structure.where( slug: 'my-structure' ).pluck( :id ) ).published.order('name').includes( ['strings', 'texts', 'assets', 'selections'] )
 ```
 
+---
 
 
 
-
-## Boards
+# Boards
 
 _Boards_ give you the possibility to have a panel where to list some specific settings. 
 
@@ -261,7 +259,7 @@ To retrieve _board_ content you can do:
 @board = Binda::Board.find_by(slug: 'my_board')
 ```
 
-### Board Helpers
+## Board Helpers
 
 If you care about performance you can use the `get_board` helper to retrieve the _board_ object. To be able to use this helper you need to include the `::Binda::DefaultHelpers` in `app/controller/application_controller.rb`. This should be already there after the installation, but it's good to know in case you accidentaly delete it.
 
@@ -286,7 +284,7 @@ get_board('my-dashboard', { fields: ['strings', 'texts', 'assets', 'selections']
 
 _Boards_ can make use of all field helpers. See the [fields documentation](https://github.com/lacolonia/binda/wiki/Fields#helpers) for more information.
 
-### Using console
+## Using console
 
 If you are going to use Rails console you need to know that a _board_ is automatically generated once you create a _structure_ with an `instance_type` of `board`.
 
@@ -297,10 +295,11 @@ board_structure = Binda::Structure.create!(name: 'new dashboard', instance_type:
 board = board_structure.board
 ```
 
+---
 
 
 
-## Fields
+# Fields
 
 Every _field setting_ is based on a field type. You can create several field settings based on a single field type. 
 
@@ -318,7 +317,7 @@ Here below a list of field types available and their use:
 | Repeater | Store multiple instances of a field or a collection of fields |
 
 
-### How to get field content
+## How to get field content
 
 Every field setting has a unique `slug`. The default `slug` is made of the * structure name + field group name + field setting name *. If it's a child of a `repeater` the slug will include the `repeater` slug as well. You can customise the `slug` as you like keeping in mind that there every `slug` can be attach to only one field setting. 
 
@@ -337,7 +336,7 @@ Let's say you want to get a specific field from a `component` instance:
 
 This helpers will work for any instance of `Binda::Component`, `Binda::Board` and `Binda::Repeater`.
 
-### Field Helpers
+## Field Helpers
 
 Here below a list of helpers. 
 
@@ -360,13 +359,11 @@ You can retrieve field content from a instance of `Binda::Component`, `Binda::Bo
 |`get_radio_choice`| Returns an hash with label and value of the selected choice | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_radio_choice) |
 |`get_checkbox_choices`| Returns an hash of label/value pairs of all the selected choices | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_checkbox_choices) |
 
-If you want more information check the [gem documentation](http://www.rubydoc.info/gems/binda/FieldableHelpers).
+---
 
 
 
-
-
-## Repeaters
+# Repeaters
 
 Generally a _field setting_ is associated to a single content entry. Therefore if a _field setting_ has type `text` there will be only one `Binda::Text` related to it.
 
@@ -430,10 +427,11 @@ end
 
 The repeater model `Binda::Repeater` can make use of any of the [field helpers](https://github.com/lacolonia/binda/wiki/Fields#helpers).
 
+---
 
 
 
-## Users
+# Users
 
 Binda offers two main roles. The **super admin** which is capable of administrating the entire website and the **standard admin** user which cannot manage the structures, field groups and field settings.
 
@@ -443,38 +441,32 @@ In case you cannot access with your account anymore you can create a new **super
 rails binda:create_super_admin
 ```
 
+---
 
 
 
-
-## Plugins
+# Plugins
 
 Here a list of useful plugins:
 
 - [Binda Multilanguage](https://github.com/lacolonia/binda_multilanguage)
 
-
-
 ---
 
-# Advanced topics
-
-The following section covers particular cases in which you need a good understanding of Binda. Head over to [Binda slack channel](http://bindacms.slack.com) if you need more support.
 
 
-
-
-## Upgrade
+# Upgrade
 
 Here some upgrade instruction.
 
 
 To upgrade from 0.0.6 to 0.0.7 please refer to the [release documentation](https://github.com/lacolonia/binda/releases/tag/0.0.7)
 
+---
 
 
 
-## Create a Binda plugin
+# Create a Binda plugin
 
 You can create a plugin to add new features to Binda. This is the most suitable and correct way to develop a new feature that will be possibly shared and use by everyone in the future.
 
@@ -486,7 +478,7 @@ This will create a folder `binda_new_feature` which will contain your plugin `Bi
 
 We will `--skip-test` as we are going to use Rspec instead of standard Ruby on Rails test suite. For the same reason the `--dummy-path` will change to `spec/dummy`. Ultimately we want the plugin to be `--mountable`.
 
-### Add dependencies
+## Add dependencies
 Populate `binda_new_feature.gemspec` with dependencies and replace every `TODO` with a content that makes sense.
 
 ```ruby
@@ -520,7 +512,7 @@ end
 
 Make sure all dependencies are versioned in order to avoid issues due to deprecation in future releases. (The above versions are dated 07/2017)
 
-### Prepare plugin for testing
+## Prepare plugin for testing
 Before coding anything make sure you complete the following steps: 
 
 
@@ -564,7 +556,7 @@ This makes sure Rails uses Rspec to create test specs every time you generate so
 require File.expand_path('../dummy/config/environment', __FILE__)
 ```
 
-### Create a first test
+## Create a first test
 Let's create a fake controller to see if the plugin works.
 
 ```
@@ -612,7 +604,7 @@ end
 
 Now running `rspec` the test should pass. (you might have 2 pending examples for foo helper and view, but that's not a problem for now).
 
-### Extend a Binda models and controllers
+## Extend a Binda models and controllers
 Sometimes you want to add new methods to Binda models with your plugin. In order to do it you need to make your plugin aware of Binda and its models. To achive it require Binda at the top of the `lib/binda_new_feature/engine.rb` like so:
 
 ```ruby
@@ -636,10 +628,11 @@ module BindaNewFeature
 end
 ```
 
+---
 
 
 
-## How to create a form of nested components
+# How to create a form of nested components
 
 Let's say you have a component which depends on another components and you want your user to edit both of them in the same form. No problem.
 
@@ -670,32 +663,46 @@ Let's say you have a component which depends on another components and you want 
 <% end %>
 ```
 
+---
 
 
 
-# Contributing
+# How to contribute
 
 Any contribution is more than welcome.
 
-## How to contribute
-
 To contribute [fork this project](https://github.com/lacolonia/binda/wiki/_new#fork-destination-box) and clone the fork in your local machine. There you are free to experiment following this principles:
-- before diving into the code [open a issue](https://github.com/lacolonia/binda/issues/new) to explain what you 'd like to do
+- before diving into the code [open a issue](https://github.com/lacolonia/binda/issues/new) to explain what you'd like to do
 - don't add gem dependencies unless it's absolutely necessary
 - keep it simple and be DRY
-- add [tests](#how-to-test)
+- add [tests](#How_to_test)
 - comment your code following [Yard guidelines](http://www.rubydoc.info/gems/yard/file/docs/GettingStarted.md) principles (use `yard server -t` to see the HTML version at `http://localhost:8808`, if you make any change to the doc just refresh the page and the documentaion page gets updated automagically)
-- add/update the README.rb file
+- update the README.rb file, use Github markdown
 - if you are not adding a core feature consider writing a plugin instead
 - improve and/or add new I18n translations
 - when fixing a bug, provide a failing test case that your patch solves
 
-### How to work locally
+## How to work locally
 To see what you are actually doing you can make use of the **dummy application** which is shipped with Binda.
 
 ```bash
 cd spec/dummy
 rails g binda:install
+```
+
+In order to edit javascript files you need to run Webpack and leave the terminal window open, so Webpack can compile everytime you save a file. To install Webpack run `npm install` from the root of your application. Then everytime you want to edit a javascript file run:
+
+```bash
+webpack
+```
+
+If you need to reset your database run the following commands
+
+```
+cd spec/dummy
+rails db:drop
+rails db:create
+rails g binda:setup
 ```
 
 In order to make the dummy application flexible Binda's settings aren't save in the repository, which means that every time you clone the Binda repository you will need to run the installer again on a clean database.
@@ -710,19 +717,9 @@ spec/dummy/log/*.log
 spec/dummy/tmp/
 ```
 
-If you need to reset your database:
 
-```
-cd spec/dummy
-rails db:drop
-rails db:create
-rails g binda:setup
-```
-
-### How to test
-Binda use RSpec, FactoryGirl and Capibara to run tests. You can find all specs in `spec` folder. 
-
-Some specs are run against the database. If you haven't installed Binda on the dummy application yet run:
+## How to test
+Binda use RSpec, FactoryGirl and Capybara to run tests. You can find all specs in `spec` folder. Some specs are run against the database. If you haven't installed Binda on the dummy application yet run:
 
 ```bash
 rails db:migrate RAILS_ENV=test
@@ -730,20 +727,27 @@ rails db:migrate RAILS_ENV=test
 
 If you have already installed Binda on the dummy application run this line instead:
 
-```
+```bash
 rails db:schema:load RAILS_ENV=test
 ```
 
-Then just run RSpec every time you update the specs:
+Another important note. Capybara needs Firefox and [Geckodriver](https://github.com/mozilla/geckodriver) to run so make sure you have it installed in your machine. If you have Node you can install Geckodriver via npm:
+
+```bash
+npm install --global geckodriver
+```
+
+Once all setup is done run RSpec every time you update the specs:
 
 ```
 rpsec
 ```
 
-
-
+Please consider that tests are slow and you might end up waiting a minute or so everytime you run them.
 
 ---
+
+
 
 ### Bug reporting
 Please refer to this [guide](http://yourbugreportneedsmore.info).
