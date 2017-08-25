@@ -23,15 +23,15 @@ module Binda
       @dashboard = dashboard_structure.board
 
       # By default each structure has a field group which will be used to store the default field settings
-      field_settings = dashboard_structure.field_groups.first.field_settings
+      @field_settings = dashboard_structure.field_groups.first.field_settings
     end
 
     def setup_maintenance_mode
       puts "Setting up maintenance mode"
 
       # Use radio field_type untill truefalse isn't available
-      unless field_settings.find_by(slug: 'maintenance-mode').present?
-        maintenance_mode = field_settings.create!( name: 'Maintenance Mode', field_type: 'radio' )
+      unless @field_settings.find_by(slug: 'maintenance-mode').present?
+        maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio' )
         # make sure slug works
         maintenance_mode.update_attributes( slug: 'maintenance-mode' )
         maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
@@ -45,9 +45,9 @@ module Binda
     def setup_website_name 
       puts "Setting up website name"
 
-      website_name_obj = field_settings.find_by(slug: 'website-name')
+      website_name_obj = @field_settings.find_by(slug: 'website-name')
       unless website_name_obj.present?
-        website_name_obj = field_settings.create!( name: 'Website Name', field_type: 'string' )
+        website_name_obj = @field_settings.create!( name: 'Website Name', field_type: 'string' )
         # make sure slug works
         website_name_obj.update_attribute( 'slug', 'website-name' )
       end
@@ -58,9 +58,9 @@ module Binda
     def setup_website_content
       puts "Setting up website description"
 
-      website_description_obj = field_settings.find_by(slug: 'website-description')
+      website_description_obj = @field_settings.find_by(slug: 'website-description')
       unless website_description_obj.present?
-        website_description_obj = field_settings.find_or_create_by( name: 'Website Description', field_type: 'text' )
+        website_description_obj = @field_settings.find_or_create_by( name: 'Website Description', field_type: 'text' )
         # make sure slug works
         website_description_obj.update_attribute( 'slug', 'website-description' )
       end
