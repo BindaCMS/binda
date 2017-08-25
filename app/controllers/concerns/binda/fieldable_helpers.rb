@@ -15,6 +15,7 @@ module Binda
           checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
           repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id,
             texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
+            strings_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
             assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image ], 
             dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
             galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ], 

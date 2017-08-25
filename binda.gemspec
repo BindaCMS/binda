@@ -48,6 +48,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec-rails",              ">= 3.5",       "< 3.7"
   s.add_development_dependency "autoprefixer-rails",       "~> 7.1"
   s.add_development_dependency "capybara",                 "~> 2.14"
+  s.add_development_dependency "selenium-webdriver",       "~> 3.5"
+  s.add_development_dependency "capybara-webkit",          "~> 1.1"
   s.add_development_dependency "factory_girl_rails",       "~> 4.8"
   s.add_development_dependency "database_cleaner",         "~> 1.6"
   s.add_development_dependency "yard",                     "~> 0.9"
@@ -56,5 +58,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "ruby-prof",                "~> 0.15.9"
   s.add_development_dependency "test-unit",                "~> 3.1"
   s.add_development_dependency "minitest-rails",           "~> 3.0"
-  
+  s.add_development_dependency "redcarpet"
+  s.add_development_dependency "github-markup"
+
 end
