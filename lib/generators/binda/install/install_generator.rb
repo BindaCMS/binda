@@ -1,4 +1,4 @@
-require 'colorize'
+
 require 'securerandom'
 
 module Binda
@@ -8,8 +8,8 @@ module Binda
       def check_previous_install
         # Ensure Binda is not installed
         if ::Binda::Component.table_exists?
-          puts "Binda has already been installed on this database.".colorize(:red)
-          puts "Please ensure Binda is completely removed from the database before trying to install it again.".colorize(:red)
+          puts "Binda has already been installed on this database."
+          puts "Please ensure Binda is completely removed from the database before trying to install it again."
           exit
         end
       end
@@ -42,8 +42,8 @@ module Binda
         else
           # If there is any previous Binda migration
           if previous_migrations.size != previous_binda_migrations.size
-            puts "You have several migrations, please manually delete Binda's ones then run 'rails g binda:install' again.".colorize(:red)
-            puts "Keep in mind that Binda will place the new migration after the existing ones.".colorize(:red)
+            puts "You have several migrations, please manually delete Binda's ones then run 'rails g binda:install' again."
+            puts "Keep in mind that Binda will place the new migration after the existing ones."
             exit
           else
             # Remove previous Binda migrations
@@ -64,8 +64,8 @@ module Binda
         # Check if devise is already setup and if so, create a backup before overwrite it
         initializers_path = Rails.root.join('config', 'initializers' )
         if File.exist?( "#{ initializers_path }/devise.rb" )
-          puts "We have detected a configuration file for Devise: config/initializers/devise.rb".colorize(:green)
-          puts "In order to avoid any conflict that file has been renamed".colorize(:green)
+          puts "We have detected a configuration file for Devise: config/initializers/devise.rb"
+          puts "In order to avoid any conflict that file has been renamed"
           File.rename( "#{ initializers_path }/devise.rb" , "#{ initializers_path }/devise_backup_#{ Time.now.strftime('%Y%m%d-%H%M%S-%3N') }.rb" )
         end
         
