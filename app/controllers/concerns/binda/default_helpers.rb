@@ -54,25 +54,22 @@ module Binda
 	  	# Sets defaults
 			args[:published]    = 'true'     if args[:published].nil?
 			args[:custom_order] = 'position' if args[:custom_order].nil?
-			args[:fields] = [] if args[:fields].nil?
+			args[:fields]       = []         if args[:fields].nil?
 
 			validate_provided_fields( args )
 			validate_provided_custom_order( args )
 
 			# Generate query
-			if args[:published]
-				if args[:fields].any?
+			case 
+				when args[:published] && args[:fields].any?
 					Component.where( structure_id: Structure.where( slug: slug ) ).published.includes( args[:fields] )
-				else
-					Component.where( structure_id: Structure.where( slug: slug ) ).published
-				end
-			else
-				if args[:fields].any?
+				when args[:published]
+				 	Component.where( structure_id: Structure.where( slug: slug ) ).published
+				when args[:fields].any?
 					Component.where( structure_id: Structure.where( slug: slug ) ).order( args[:custom_order] ).includes( args[:fields] )
 				else
 					Component.where( structure_id: Structure.where( slug: slug ) ).order( args[:custom_order] )
-				end
-			end
+			end	 
 		end
 
 		# This method retrieves a **single component**.
@@ -205,21 +202,21 @@ module Binda
 
 			# Check if provided `fields` are ok, otherwise raise an error
 			def validate_provided_fields( args )
-				raise ArgumentError, "Argument error in get_components(): fields should be an Array, not a #{args[:fields].class.to_s}.", caller unless args[:fields].instance_of? Array
+				raise ArgumentError, "Error in get_components(): fields should be an Array, not a #{args[:fields].class.to_s}.", caller unless args[:fields].instance_of? Array
 				args[:fields].each do |f|
-					raise ArgumentError, "Argument error in get_components(): #{f.to_s} is not a valid field type.", caller unless FieldSetting.get_field_classes.map{ |fc| fc.underscore.pluralize }.include? f.to_s
+					raise ArgumentError, "Error in get_components(): #{f.to_s} is not a valid field type.", caller unless FieldSetting.get_field_classes.map{ |fc| fc.underscore.pluralize }.include? f.to_s
 				end
 			end
 
 			# Check if provided `custom_order` is ok, otherwise raise an error
 			def validate_provided_custom_order( args )
-				raise ArgumentError, "Argument error in get_components(): custom_order should be a String, not a #{args[:custom_order].class.to_s}.", caller unless args[:custom_order].instance_of? ::String
+				raise ArgumentError, "Error in get_components(): custom_order should be a String, not a #{args[:custom_order].class.to_s}.", caller unless args[:custom_order].instance_of? ::String
 			end
 
 			# Check if provided arguments are ok, otherwise raise an error
 			def validate_provided_arguments( args )
 				args.each do |key, value|
-					raise ArgumentError, "Argument error in get_components(): #{key.to_s} is not a valid key.", caller unless ['published', 'custom_order', 'fields'].include? key.to_s
+					raise ArgumentError, "Error in get_components(): #{key.to_s} is not a valid key.", caller unless ['published', 'custom_order', 'fields'].include? key.to_s
 				end
 			end
 	end
