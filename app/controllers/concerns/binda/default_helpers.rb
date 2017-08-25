@@ -50,12 +50,7 @@ module Binda
 	  def get_components( slug, args = { published: true, custom_order: 'position', fields: [] })
 			
 			validate_provided_arguments( args )
-
-	  	# Sets defaults
-			args[:published]    = 'true'     if args[:published].nil?
-			args[:custom_order] = 'position' if args[:custom_order].nil?
-			args[:fields]       = []         if args[:fields].nil?
-
+			args = set_default_args( args )
 			validate_provided_fields( args )
 			validate_provided_custom_order( args )
 
@@ -202,22 +197,30 @@ module Binda
 
 			# Check if provided `fields` are ok, otherwise raise an error
 			def validate_provided_fields( args )
-				raise ArgumentError, "Error in get_components(): fields should be an Array, not a #{args[:fields].class.to_s}.", caller unless args[:fields].instance_of? Array
+				raise ArgumentError, "Error in get_components(): fields should be an Array, not a #{args[:fields].class}.", caller unless args[:fields].instance_of? Array
 				args[:fields].each do |f|
-					raise ArgumentError, "Error in get_components(): #{f.to_s} is not a valid field type.", caller unless FieldSetting.get_field_classes.map{ |fc| fc.underscore.pluralize }.include? f.to_s
+					raise ArgumentError, "Error in get_components(): #{f} is not a valid field type.", caller unless FieldSetting.get_field_classes.map{ |fc| fc.underscore.pluralize }.include? f.to_s
 				end
 			end
 
 			# Check if provided `custom_order` is ok, otherwise raise an error
 			def validate_provided_custom_order( args )
-				raise ArgumentError, "Error in get_components(): custom_order should be a String, not a #{args[:custom_order].class.to_s}.", caller unless args[:custom_order].instance_of? ::String
+				raise ArgumentError, "Error in get_components(): custom_order should be a String, not a #{args[:custom_order].class}.", caller unless args[:custom_order].instance_of? ::String
 			end
 
 			# Check if provided arguments are ok, otherwise raise an error
 			def validate_provided_arguments( args )
-				args.each do |key, value|
-					raise ArgumentError, "Error in get_components(): #{key.to_s} is not a valid key.", caller unless ['published', 'custom_order', 'fields'].include? key.to_s
+				args.each do |key, _|
+					raise ArgumentError, "Error in get_components(): #{key} is not a valid key.", caller unless ['published', 'custom_order', 'fields'].include? key.to_s
 				end
+			end
+
+			def set_default_args( args )
+		  	# Sets defaults
+				args[:published]    = 'true'     if args[:published].nil?
+				args[:custom_order] = 'position' if args[:custom_order].nil?
+				args[:fields]       = []         if args[:fields].nil?
+				return args
 			end
 	end
 end
