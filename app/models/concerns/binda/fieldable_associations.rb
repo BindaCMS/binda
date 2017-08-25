@@ -220,7 +220,7 @@ module Binda
 			obj = self.checkboxes.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
 			obj_hash = {}
 			obj.choices.order('label').each do |o|
-				obj_hash << { label: obj.choices.first.label, value: obj.choices.first.value }
+				obj_hash << { label: o.label, value: o.value }
 			end
 			return obj_hash
 		end

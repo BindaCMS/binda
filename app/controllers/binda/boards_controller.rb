@@ -64,7 +64,7 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def board_params
-        default_params = params.require(:board).permit( 
+        params.require(:board).permit( 
           :name, :slug, :position, :structure_id,
           { structure_attributes:  [ :id ] },
           *fieldable_params )
