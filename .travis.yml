@@ -1,6 +1,12 @@
 language: ruby
 rvm:
 - 2.3.4
+addons:
+  firefox: "49.0"
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
 script:
-  - bundle exec rake db:setup
+  - bin/rails db:migrate RAILS_ENV=test
   - bundle exec rake spec
