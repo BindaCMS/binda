@@ -7,8 +7,15 @@ addons:
 services:
   - postgresql
 before_script:
+  # setup database
   - cp config/database.yml.travis spec/dummy/config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres
+  # install Geckodriver
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.18.0/geckodriver-v0.18.0-linux64.tar.gz
+  - mkdir geckodriver
+  - tar -xzf geckodriver-v0.18.0-linux64.tar.gz -C geckodriver
+  - export PATH=$PATH:$PWD/geckodriver
+  # run Firefox
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
