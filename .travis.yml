@@ -3,7 +3,7 @@ rvm:
 - 2.3.4
 addons:
   firefox: "49.0"
-  postgresql: "9.4"
+  postgresql: "9.6"
 services:
   - postgresql
 before_script:
