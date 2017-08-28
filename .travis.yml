@@ -1,8 +1,6 @@
 language: ruby
 rvm:
 - 2.3.4
-- jruby-19mode
-- rbx-2
 script:
   - bundle exec rake db:setup
   - bundle exec rake spec
