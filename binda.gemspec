@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.required_ruby_version = '>= 2.3.4'
+  s.required_ruby_version = '>= 2.3.1'
 
 
   # PRIMARY GEMS
