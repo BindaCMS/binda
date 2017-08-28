@@ -157,6 +157,7 @@ describe "Editing component:", type: :feature, js: true do
 		click_link "form-item--repeater-#{@component.repeaters.first.field_setting.id}--add-new-button"
 		# This find method forces Capybara to wait for Ajax request
 		find "#repeater_#{@component.repeaters.pluck(:id).last}"
+		sleep 3
 		expect( all('.form-item--repeater-fields').count ).to eq( initial_repeaters_count + 1 )
 	end
 

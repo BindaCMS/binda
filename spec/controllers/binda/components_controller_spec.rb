@@ -88,7 +88,7 @@ module Binda
       it "reorder components based on position value" do
         sign_in user
 
-        component_one = @structure.components[4]
+        component_one = Component.where( structure_id: @structure ).order('created_at').first
         expect( component_one.position ).to eq(1)
 
         # shuffle the order of the components
