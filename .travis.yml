@@ -7,7 +7,7 @@ addons:
 services:
   - postgresql
 before_script:
-  - cp config/database.yml.travis config/database.yml
+  - cp config/database.yml.travis spec/dummy/config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
