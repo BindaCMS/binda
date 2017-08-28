@@ -3,6 +3,7 @@ A modular CMS for Ruby on Rails 5.1.
 
 [![Code Climate](https://codeclimate.com/github/lacolonia/binda/badges/gpa.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Issue Count](https://codeclimate.com/github/lacolonia/binda/badges/issue_count.svg)](https://codeclimate.com/github/lacolonia/binda)
+[![Build Status](https://travis-ci.org/a-barbieri/binda.svg?branch=master)](https://travis-ci.org/lacolonia/binda)
 [![Test Coverage](https://codeclimate.com/github/lacolonia/binda/badges/coverage.svg)](https://codeclimate.com/github/lacolonia/binda/coverage)
 
 - [Quick Start](#Quick_Start)
