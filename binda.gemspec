@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.required_ruby_version = '>= 2.3.1'
+  s.required_ruby_version = '>= 2.3.4'
 
 
   # PRIMARY GEMS
@@ -60,6 +60,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "minitest-rails",           "~> 3.0"
   s.add_development_dependency "redcarpet",                "~> 3.4"
   s.add_development_dependency "github-markup",            "~> 1.6"
-  s.add_development_dependency "travis"
+  s.add_development_dependency "travis",                   "~> 1.8"
 
 end
