@@ -9,6 +9,7 @@ A modular CMS for Ruby on Rails 5.1.
 > This documentation has been written for the Official Documentation, not the Github README. 
 > If you still prefer to read Github README be aware that internal links might not work properly.
 
+
 - [Quick Start](#Quick_Start)
 - [Installation](#Installation)
 - [Settings](#Settings)
