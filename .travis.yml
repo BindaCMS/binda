@@ -1,9 +1,24 @@
 language: ruby
 rvm:
-- 2.0.0
-- 1.9.3
-- jruby-19mode
-- rbx-2
+- 2.3.4
+addons:
+  firefox: "49.0"
+  postgresql: "9.6"
+services:
+  - postgresql
+before_script:
+  # setup database
+  - cp config/database.yml.travis spec/dummy/config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
+  # install Geckodriver
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.18.0/geckodriver-v0.18.0-linux64.tar.gz
+  - mkdir geckodriver
+  - tar -xzf geckodriver-v0.18.0-linux64.tar.gz -C geckodriver
+  - export PATH=$PATH:$PWD/geckodriver
+  # run Firefox
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
 script:
-  - bundle exec rake db:setup
+  - bin/rails db:migrate RAILS_ENV=test
   - bundle exec rake spec

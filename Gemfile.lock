@@ -331,7 +331,7 @@ DEPENDENCIES
   ruby-prof (~> 0.15.9)
   selenium-webdriver (~> 3.5)
   test-unit (~> 3.1)
-  travis
+  travis (~> 1.8)
   yard (~> 0.9)
 
 BUNDLED WITH
