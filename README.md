@@ -6,24 +6,8 @@ A modular CMS for Ruby on Rails 5.1.
 [![Build Status](https://travis-ci.org/a-barbieri/binda.svg?branch=master)](https://travis-ci.org/lacolonia/binda)
 [![Test Coverage](https://codeclimate.com/github/lacolonia/binda/badges/coverage.svg)](https://codeclimate.com/github/lacolonia/binda/coverage)
 
-> This documentation has been written for the Official Documentation, not the Github README. 
-> If you still prefer to read Github README be aware that internal links might not work properly.
-
-
-- [Quick Start](#Quick_Start)
-- [Installation](#Installation)
-- [Settings](#Settings)
-- [Structures](#Structures)
-- [Components](#Components)
-- [Boards](#Boards)
-- [Fields](#Fields)
-- [Repeaters](#Repeaters)
-- [Users](#Users)
-- [Plugins](#Plugins)
-- [Upgrade](#Upgrade)
-- [Create a Binda plugin](#Create_a_Binda_plugin)
-- [How to create a form of nested components](#How_to_create_a_form_of_nested_components)
-- [How to contribute](#How_to_contribute)
+> This documentation has been written for the [Official Documentation](http://www.rubydoc.info/gems/binda), not the Github README. 
+> If you still prefer to read Github README be aware that links might not work properly.
 
 ---
 
@@ -151,7 +135,7 @@ From that you can do all sorts of things.
 end
 ```
 
-Depending on the structure type, to retrieve all related _components_ or the related _board_ you can use the Binda helper (which is suggested if you care about performance, see [component](https://github.com/lacolonia/binda/wiki/Components) or [board wiki](https://github.com/lacolonia/binda/wiki/Boards)) or do it the usual Ruby on Rails way like so:
+Depending on the structure type, to retrieve all related _components_ or the related _board_ you can use the Binda helper (which is suggested if you care about performance, see [component](#Components) or [board](#Boards)) or do it the usual Ruby on Rails way like so:
 
 ```ruby
 # if structure is a component type
@@ -277,7 +261,7 @@ end
 
 This method retrieves a **board**. Find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda%2FDefaultHelpers:get_board). 
 
-With this method you can optimize the query in order to avoid the infamous  [N+1 issue](https://youtu.be/oJ4Ur5XPAF8) by specifing what field types you are going to request in the view. The list of field types available can be found in the [official documentation](https://github.com/lacolonia/binda/wiki/Fields). Field types must be listed as separated strings, lowercase and plural. See the following examples.
+With this method you can optimize the query in order to avoid the infamous  [N+1 issue](https://youtu.be/oJ4Ur5XPAF8) by specifing what field types you are going to request in the view. The list of field types available can be found in the [official documentation](#Fields). Field types must be listed as separated strings, lowercase and plural. See the following examples.
 
 ```ruby
 get_board('my-dashboard')
@@ -287,7 +271,7 @@ get_board('my-dashboard', { fields: ['strings', 'texts', 'assets', 'selections']
 # return the board and optimize the query for any of the listed fields related to it
 ```
 
-_Boards_ can make use of all field helpers. See the [fields documentation](https://github.com/lacolonia/binda/wiki/Fields#helpers) for more information.
+_Boards_ can make use of all field helpers. See the [fields documentation](#Field_Helpers) for more information.
 
 ## Using console
 
@@ -345,7 +329,7 @@ This helpers will work for any instance of `Binda::Component`, `Binda::Board` an
 
 Here below a list of helpers. 
 
-You can retrieve field content from a instance of `Binda::Component`, `Binda::Board` or `Binda::Repeater`. See [How to get field content](How-to-get-field-content).
+You can retrieve field content from a instance of `Binda::Component`, `Binda::Board` or `Binda::Repeater`. See [How to get field content](#How_to_get_field_content).
 
 | Helper |||
 |---|---|---|
@@ -430,7 +414,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-The repeater model `Binda::Repeater` can make use of any of the [field helpers](https://github.com/lacolonia/binda/wiki/Fields#helpers).
+The repeater model `Binda::Repeater` can make use of any of the [field helpers](#Field_Helpers).
 
 ---
 
@@ -681,7 +665,7 @@ To contribute [fork this project](https://github.com/lacolonia/binda/wiki/_new#f
 - don't add gem dependencies unless it's absolutely necessary
 - keep it simple and be DRY
 - add [tests](#How_to_test)
-- comment your code following [Yard guidelines](http://www.rubydoc.info/gems/yard/file/docs/GettingStarted.md) principles (use `yard server -t` to see the HTML version at `http://localhost:8808`, if you make any change to the doc just refresh the page and the documentaion page gets updated automagically)
+- comment your code following [Yard guidelines](http://www.rubydoc.info/gems/yard/file/docs/GettingStarted.md) principles (use `yard server -r` to see the HTML version at `http://localhost:8808`, if you make any change to the doc just refresh the page and the documentaion page gets updated automagically)
 - update the README.rb file, use Github markdown
 - if you are not adding a core feature consider writing a plugin instead
 - improve and/or add new I18n translations
@@ -724,7 +708,15 @@ spec/dummy/tmp/
 
 
 ## How to test
-Binda use RSpec, FactoryGirl and Capybara to run tests. You can find all specs in `spec` folder. Some specs are run against the database. If you haven't installed Binda on the dummy application yet run:
+In order to avoid the *it works on my machine* issue, test are run via Travis every time a commit is pushed. Make sure you register your forked version on Travis in order to test every commit. If you don't the forked version will be tested once you make a pull request to the original repository.
+
+If you want (and you should) test locally Binda use RSpec, FactoryGirl and Capybara to run tests. You can find all specs in `spec` folder. Capybara needs Firefox and [Geckodriver](https://github.com/mozilla/geckodriver) to run so make sure you have it installed in your machine. If you have Node you can install Geckodriver via npm:
+
+```bash
+npm install --global geckodriver
+```
+
+Some specs are run against the database. If you haven't installed Binda on the dummy application yet run:
 
 ```bash
 rails db:migrate RAILS_ENV=test
@@ -733,13 +725,7 @@ rails db:migrate RAILS_ENV=test
 If you have already installed Binda on the dummy application run this line instead:
 
 ```bash
-rails db:schema:load RAILS_ENV=test
-```
-
-Another important note. Capybara needs Firefox and [Geckodriver](https://github.com/mozilla/geckodriver) to run so make sure you have it installed in your machine. If you have Node you can install Geckodriver via npm:
-
-```bash
-npm install --global geckodriver
+rails db:schema:load RAILS_ENV=test 
 ```
 
 Once all setup is done run RSpec every time you update the specs:
@@ -747,8 +733,6 @@ Once all setup is done run RSpec every time you update the specs:
 ```
 rpsec
 ```
-
-Please consider that tests are slow and you might end up waiting a minute or so everytime you run them.
 
 ---
 
