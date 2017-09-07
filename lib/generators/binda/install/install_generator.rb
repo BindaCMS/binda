@@ -3,7 +3,14 @@ require 'securerandom'
 module Binda
   class InstallGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
-      
+
+      def check_if_production
+        if Rails.env.production?
+          puts "Sorry Binda can only be installed in development mode"
+          exit
+        end
+      end
+
       def check_previous_install
         # Ensure Binda is not installed
         if ActiveRecord::Base.connection.table_exists? 'binda_components'
@@ -12,9 +19,13 @@ module Binda
           exit
         end
       end
+      
+      def run_migrations
+        rake 'binda:install:migrations'
+        rake 'db:migrate'
+      end
 
       def add_route
-        return if Rails.env.production?
         return if Rails.application.routes.routes.detect { |route| route.app.app == Binda::Engine }
         route "mount Binda::Engine => '/admin_panel'"
       end
@@ -26,35 +37,6 @@ module Binda
             "\n  include ::Binda::DefaultHelpers"
           end
         end
-      end
-
-      def copy_migrations
-        return if Rails.env.production?
-
-        # Check if there is any previous Binda migration
-        previous_binda_migrations = Dir.glob( Rails.root.join('db', 'migrate', '*.binda.rb' ))
-        previous_migrations = Dir.glob( Rails.root.join('db', 'migrate', '*.rb' ))
-
-        # If it's the first time you run the installation
-        unless previous_binda_migrations.any?
-          rake 'binda:install:migrations'
-        else
-          # If there is any previous Binda migration
-          if previous_migrations.size != previous_binda_migrations.size
-            puts "You have several migrations, please manually delete Binda's ones then run 'rails g binda:install' again."
-            puts "Keep in mind that Binda will place the new migration after the existing ones."
-            exit
-          else
-            # Remove previous Binda migrations
-            FileUtils.rm_rf( previous_binda_migrations )
-            # Install Binda migrations
-            rake 'binda:install:migrations'
-          end
-        end
-      end
-      
-      def run_migrations
-        rake 'db:migrate'
       end
 
 
@@ -81,12 +63,10 @@ module Binda
       #  }
       #  ```
       def setup_devise
-        return if Rails.env.production?
-
         # Check if devise is already setup and if so, create a backup before overwrite it
         initializers_path = Rails.root.join('config', 'initializers' )
         if File.exist?( "#{ initializers_path }/devise.rb" )
-          puts "We have detected a configuration file for Devise: config/initializers/devise.rb"
+          puts "Binda has detected a configuration file for Devise: config/initializers/devise.rb"
           puts "In order to avoid any conflict that file has been renamed"
           File.rename( "#{ initializers_path }/devise.rb" , "#{ initializers_path }/devise_backup_#{ Time.now.strftime('%Y%m%d-%H%M%S-%3N') }.rb" )
         end
@@ -115,9 +95,7 @@ module Binda
       # 
       # It generates this {file:lib/generators/binda/install/templates/confic/initializers/carrierwave.rb}
       def setup_carrierwave
-        return if Rails.env.production?
         return if File.exist?( Rails.root.join('config', 'initializers', 'carrierwave.rb' ))
-        
         template 'config/initializers/carrierwave.rb'
       end
 
