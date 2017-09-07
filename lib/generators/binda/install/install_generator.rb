@@ -1,4 +1,3 @@
-
 require 'securerandom'
 
 module Binda
@@ -7,7 +6,7 @@ module Binda
       
       def check_previous_install
         # Ensure Binda is not installed
-        if ::Binda::Component.table_exists?
+        if ActiveRecord::Base.connection.table_exists? 'binda_components'
           puts "Binda has already been installed on this database."
           puts "Please ensure Binda is completely removed from the database before trying to install it again."
           exit
@@ -58,6 +57,29 @@ module Binda
         rake 'db:migrate'
       end
 
+
+      # Setup Devise initializer
+      # 
+      # It append the snippet below to `config/initializers/devise.rb` of your application:
+      # 
+      # ```ruby
+      #  # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN
+      #  # for setup see https://rubyonrailshelp.wordpress.com/2014/01/02/setting-up-mailer-using-devise-for-forgot-password/
+      #  config.action_mailer.default_url_options = { host: 'yourdomain.com' }
+      #  config.action_mailer.delivery_method = :smtp
+      #  config.action_mailer.perform_deliveries = true
+      #  config.action_mailer.raise_delivery_errors = false
+      #  config.action_mailer.default :charset => 'utf-8'
+      #  config.action_mailer.smtp_settings = {
+      #    address: 'smtp.gmail.com',
+      #    port: 587,
+      #    domain: ENV['MAIL_DOMAIN'],
+      #    authentication: 'plain',
+      #    enable_starttls_auto: true,
+      #    user_name: ENV['MAIL_USERNAME'],
+      #    password: ENV['MAIL_PASSWORD']
+      #  }
+      #  ```
       def setup_devise
         return if Rails.env.production?
 
@@ -86,28 +108,12 @@ module Binda
         end
         application( nil, env: "production" ) do
           "\n  # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN\n  # config.action_mailer.default_url_options = { host: 'yourdomain.com' }\n  # config.action_mailer.delivery_method = :smtp\n  # config.action_mailer.perform_deliveries = true\n  # config.action_mailer.raise_delivery_errors = false\n  # config.action_mailer.default :charset => 'utf-8'\n  # config.action_mailer.smtp_settings = {\n  #   address: 'smtp.gmail.com',\n  #   port: 587,\n  #   domain: ENV['MAIL_DOMAIN'],\n  #   authentication: 'plain',\n  #   enable_starttls_auto: true,\n  #   user_name: ENV['MAIL_USERNAME'],\n  #   password: ENV['MAIL_PASSWORD']\n  # }"
-
-            # which returns the snippet below:
-            # 
-            #  # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN
-            #  # for setup see https://rubyonrailshelp.wordpress.com/2014/01/02/setting-up-mailer-using-devise-for-forgot-password/
-            #  config.action_mailer.default_url_options = { host: 'yourdomain.com' }
-            #  config.action_mailer.delivery_method = :smtp
-            #  config.action_mailer.perform_deliveries = true
-            #  config.action_mailer.raise_delivery_errors = false
-            #  config.action_mailer.default :charset => 'utf-8'
-            #  config.action_mailer.smtp_settings = {
-            #    address: 'smtp.gmail.com',
-            #    port: 587,
-            #    domain: ENV['MAIL_DOMAIN'],
-            #    authentication: 'plain',
-            #    enable_starttls_auto: true,
-            #    user_name: ENV['MAIL_USERNAME'],
-            #    password: ENV['MAIL_PASSWORD']
-            #  }
         end
       end
 
+      # Setup Carrierwave
+      # 
+      # It generates this {file:lib/generators/binda/install/templates/confic/initializers/carrierwave.rb}
       def setup_carrierwave
         return if Rails.env.production?
         return if File.exist?( Rails.root.join('config', 'initializers', 'carrierwave.rb' ))
@@ -116,7 +122,7 @@ module Binda
       end
 
       def setup_settings
-        exec 'rails g binda:setup'
+        exec 'rails generate binda:setup'
       end
 
   end
