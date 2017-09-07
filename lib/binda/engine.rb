@@ -11,11 +11,10 @@ require 'carrierwave'
 require 'mini_magick'
 require 'ancestry'
 require 'kaminari'
-# require 'bullet'
-# require 'rails-perftest'
-# require 'ruby-prof'
-# require 'test-unit'
 
+# **Binda** is a CMS with an intuitive out-of-the-box interface to manage and customize page components.
+# 
+# For more information check [Binda's guidelines](/docs/file/README.md)
 module Binda
   class Engine < ::Rails::Engine
     isolate_namespace Binda
@@ -36,4 +35,3 @@ module Binda
 
   end
 end
-

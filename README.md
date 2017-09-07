@@ -5,6 +5,7 @@ A modular CMS for Ruby on Rails 5.1.
 [![Issue Count](https://codeclimate.com/github/lacolonia/binda/badges/issue_count.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Build Status](https://travis-ci.org/a-barbieri/binda.svg?branch=master)](https://travis-ci.org/lacolonia/binda)
 [![Test Coverage](https://codeclimate.com/github/lacolonia/binda/badges/coverage.svg)](https://codeclimate.com/github/lacolonia/binda/coverage)
+[![Dependency Status](https://gemnasium.com/badges/github.com/lacolonia/binda.svg)](https://gemnasium.com/github.com/lacolonia/binda)
 
 > This documentation has been written for the [Official Documentation](http://www.rubydoc.info/gems/binda), not the Github README. 
 > If you still prefer to read Github README be aware that links might not work properly.

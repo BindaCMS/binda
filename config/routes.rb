@@ -61,5 +61,5 @@ Binda::Engine.routes.draw do
   # resources :assets
   resources :repeaters, only: [:destroy]
   # resources :dates
-  
+
 end
