@@ -56,7 +56,7 @@ namespace :binda do
       website_name_obj.update_attribute( 'slug', 'website-name' )
 			old_name_record = Binda::Board.where(slug: 'website-name')
 			if old_name_record.any?
-				@dashboard.texts.find_or_create_by( field_setting_id: website_name.id ).update_attribute('content', old_name_record.first.content )
+				@dashboard.texts.find_or_create_by( field_setting_id: website_name_obj.id ).update_attribute('content', old_name_record.first.content )
 			else
 	      website_name = ask("How would you like to name your website? ['MySite']\n").presence || 'MySite'
 	      @dashboard.strings.find_or_create_by( field_setting_id: website_name_obj.id ).update_attribute('content', website_name )
