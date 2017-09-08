@@ -93,9 +93,24 @@ During the installation process you will be asked to provide the _website name_,
 
 This two preferences can be changed later on inside _Dashboard_ panel visible in the sidebar. 
 
-You can customize the _Dashboard_ panel adding, removing and modifing fields, infact in _Structures_ you can find the one related to _Dashboard_ which you can edit as you like. The only thing you shouldn't is to turn it into a `component`!
+You can customize the _Dashboard_ panel adding, removing and modifing fields as you prefer. As a matter of fact in _Structures_ you can find the one related to _Dashboard_ which you can edit as you like. The only thing you shouldn't is to turn it into a `component`!
 
 You can also create new boards if you need it. See https://github.com/lacolonia/binda/wiki/Boards
+
+By default after the installation a `Binda::Board` called `dashboard` will be populated with three fields: a `Binda::Radio` called `maintenance-mode`, a `Binda::String` called `website-name` and `Binda::Text` called `webiste-description`.
+
+You can retrieve them this way:
+
+```ruby
+get_board('dashboard').get_radio_choice('maintenance-mode')
+# => return string which can be 'true' or 'false'
+get_board('dashboard').get_string('website-name')
+# => return string with website name
+get_board('dashboard').get_text('website-description')
+# => return text with website description
+```
+
+NOTE: make sure you `include ::Binda::DefaultHelpers` in your `app/controllers/application_controller.rb`.
 
 ---
 

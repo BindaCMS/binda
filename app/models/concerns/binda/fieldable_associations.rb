@@ -40,7 +40,7 @@ module Binda
 		# @return [string] Returns the content of the text 
 		# @return [error]  Raise an error if no record is found
 		def get_text field_slug 
-			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }
+			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }	
 			unless obj.nil?
 				obj.content
 			else

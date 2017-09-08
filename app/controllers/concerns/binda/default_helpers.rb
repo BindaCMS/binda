@@ -103,7 +103,7 @@ module Binda
 			validate_provided_fields( args )
 
 			if args[:fields].any?
-				Component.where(slug: slug).first.inlcudes( args[:fields] )
+				Component.where(slug: slug).includes( args[:fields] ).first
 			else
 				Component.where(slug: slug).first
 			end
@@ -142,10 +142,10 @@ module Binda
 			# Sets defaults
 			args[:fields] = [] if args[:fields].nil?
 			
-			check_provided_fields( args )
+			validate_provided_fields( args )
 
 			if args[:fields].any?
-				Board.where(slug: slug).first.inlcudes( args[:fields] )
+				Board.where(slug: slug).includes( args[:fields] ).first
 			else
 				Board.where(slug: slug).first
 			end
@@ -184,7 +184,7 @@ module Binda
 			# Sets defaults
 			args[:fields] = [] if args[:fields].nil?
 			
-			check_provided_fields( args )
+			validate_provided_fields( args )
 
 			if args[:fields].any?
 				Repeater.where(slug: slug).first.inlcudes( args[:fields] )
