@@ -8,7 +8,7 @@ module Binda
 		has_and_belongs_to_many :categories
 
 		# Validations
-		validates :name, presence: true
+		# validates :name, presence: true
 		validates :slug, uniqueness: true
 		validates :publish_state, presence: true, inclusion: { in: %w( draft published )}
 

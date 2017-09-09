@@ -16,7 +16,6 @@ require 'factory_girl_rails'
 # https://github.com/DatabaseCleaner/database_cleaner#how-to-use
 require 'database_cleaner'
 require 'pry'
-require 'capybara-webkit'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

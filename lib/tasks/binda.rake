@@ -29,7 +29,7 @@ namespace :binda do
 		end
 
 		# DASHBOARD
-		dashboard_structure = Binda::Structure.create( name: 'dashboard', slug: 'dashboard', instance_type: 'board' )
+		dashboard_structure = Binda::Structure.create( name: 'Dashboard', slug: 'dashboard', instance_type: 'board' )
 	  @dashboard = dashboard_structure.board
 
 		# By default each structure has a field group which will be used to store the default field settings
@@ -37,7 +37,7 @@ namespace :binda do
 
 		# MAINTENANCE MODE
 		puts "Setting up maintenance mode"
-    unless field_settings.find_by(slug: 'maintenance-mode').present?
+    unless Binda::FieldSetting.find_by(slug: 'maintenance-mode').present?
       maintenance_mode = field_settings.create!( name: 'Maintenance Mode', field_type: 'radio' )
       # make sure slug works
       maintenance_mode.update_attributes( slug: 'maintenance-mode' )
@@ -49,14 +49,14 @@ namespace :binda do
 
 		# WEBSITE NAME
 		puts "Setting up website name"
-    website_name_obj = field_settings.find_by(slug: 'website-name')
+    website_name_obj = Binda::FieldSetting.find_by(slug: 'website-name')
     unless website_name_obj.present?
       website_name_obj = field_settings.create!( name: 'Website Name', field_type: 'string' )
       # make sure slug works
       website_name_obj.update_attribute( 'slug', 'website-name' )
 			old_name_record = Binda::Board.where(slug: 'website-name')
 			if old_name_record.any?
-				@dashboard.texts.find_or_create_by( field_setting_id: website_name.id ).update_attribute('content', old_name_record.first.content )
+				@dashboard.texts.find_or_create_by( field_setting_id: website_name_obj.id ).update_attribute('content', old_name_record.first.content )
 			else
 	      website_name = ask("How would you like to name your website? ['MySite']\n").presence || 'MySite'
 	      @dashboard.strings.find_or_create_by( field_setting_id: website_name_obj.id ).update_attribute('content', website_name )
@@ -65,14 +65,14 @@ namespace :binda do
 
 		# WEBSITE CONTENT
 		puts "Setting up website description"
-    website_description_obj = field_settings.find_by(slug: 'website-description')
+    website_description_obj = Binda::FieldSetting.find_by(slug: 'website-description')
     unless website_description_obj.present?
       website_description_obj = field_settings.find_or_create_by( name: 'Website Description', field_type: 'text' )
       # make sure slug works
       website_description_obj.update_attribute( 'slug', 'website-description' )
-			old_description_record = Binda::Board.where(slug: 'website-name')
+			old_description_record = Binda::Board.where(slug: 'website-description')
 			if old_description_record.any?
-				@dashboard.texts.find_or_create_by( field_setting_id: website_description.id ).update_attribute( 'content', old_description_record.first.content )
+				@dashboard.texts.find_or_create_by( field_setting_id: website_description_obj.id ).update_attribute( 'content', old_description_record.first.content )
 			else
 		    website_description = ask("What is your website about? ['A website about the world']\n").presence || 'A website about the world'
 		    @dashboard.texts.find_or_create_by!( field_setting_id: website_description_obj.id ).update_attribute( 'content', website_description )

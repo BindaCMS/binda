@@ -11,29 +11,27 @@ require 'carrierwave'
 require 'mini_magick'
 require 'ancestry'
 require 'kaminari'
-# require 'bullet'
-# require 'rails-perftest'
-# require 'ruby-prof'
-# require 'test-unit'
 
+# **Binda** is a CMS with an intuitive out-of-the-box interface to manage and customize page components.
+# 
+# For more information check [Binda's guidelines](/docs/file/README.md)
 module Binda
-  class Engine < ::Rails::Engine
-    isolate_namespace Binda
+	class Engine < ::Rails::Engine
+		isolate_namespace Binda
 
-    # Add vendor files to pipeline
-    config.assets.paths << config.root.join("vendor", "assets" )
-    # config.assets.paths << config.root.join("vendor", "assets", "fonts")
-    config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
+		# Add vendor files to pipeline
+		config.assets.paths << config.root.join("vendor", "assets" )
+		# config.assets.paths << config.root.join("vendor", "assets", "fonts")
+		config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
 
-    # Setup tinymce configuration file
-    config.tinymce.config_path = ::Binda::Engine.root.join("config/tinymce.yml")
+		# Setup tinymce configuration file
+		config.tinymce.config_path = self.root.join("config/tinymce.yml")
 
-    # https://stackoverflow.com/a/17718926/1498118
-    config.generators do |g|
-      g.integration_tool :rspec
-      g.test_framework :rspec
-    end
+		# https://stackoverflow.com/a/17718926/1498118
+		config.generators do |g|
+			g.integration_tool :rspec
+			g.test_framework :rspec
+		end
 
-  end
+	end
 end
-

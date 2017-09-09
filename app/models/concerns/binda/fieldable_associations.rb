@@ -40,7 +40,7 @@ module Binda
 		# @return [string] Returns the content of the text 
 		# @return [error]  Raise an error if no record is found
 		def get_text field_slug 
-			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }
+			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }	
 			unless obj.nil?
 				obj.content
 			else
@@ -196,7 +196,7 @@ module Binda
 		#   only the first one will be retrieved.
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [hash] A hash of containing the label and value of the selected choice.
+		# @return [hash] A hash of containing the label and value of the selected choice. `{ label: 'the label', 'value': 'the value'}`
 		def get_radio_choice field_slug
 			obj = self.radios.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			return { label: obj.choices.first.label, value: obj.choices.first.value }
@@ -205,24 +205,23 @@ module Binda
 		# Get the select choices
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [hash] A hash of containing the label and value of the selected choice.
+		# @return [hash] A hash of containing the label and value of the selected choice. `{ label: 'the label', 'value': 'the value'}`
 		def get_selection_choice field_slug
-			# select cannot be chosen has variable name, therefore is prefixed with 's'
-			obj = self.selections.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
+			obj = self.selections.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			return { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
 		# Get the checkbox choice
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [hash] A hash of labels and values of the selected choices.
+		# @return [array] An array of labels and values of the selected choices. `[{ label: '1st label', 'value': '1st-value'}, { label: '2nd label', 'value': '2nd-value'}]`
 		def get_checkbox_choices field_slug
-			obj = self.checkboxes.find{ |t| t.field_setting_id = FieldSetting.get_id( field_slug ) }
-			obj_hash = {}
+			obj = self.checkboxes.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj_array = []
 			obj.choices.order('label').each do |o|
-				obj_hash << { label: o.label, value: o.value }
+				obj_array << { label: o.label, value: o.value }
 			end
-			return obj_hash
+			return obj_array
 		end
 
 		# Find or create a field by field setting and field type

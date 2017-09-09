@@ -13,11 +13,10 @@ module Binda
 
     def setup_settings
       puts 
-      puts "============================================================================="
-      puts "                               BINDA SETUP"
-      puts "============================================================================="
+      puts "==============================================================================="
+      puts "                                BINDA SETUP"
+      puts "==============================================================================="
       puts 
-      puts "We need few details. Don't worry you can modify them later. \n\n"
 
       dashboard_structure = ::Binda::Structure.find_or_create_by( name: 'dashboard', slug: 'dashboard', instance_type: 'board' )
       @dashboard = dashboard_structure.board
@@ -26,7 +25,14 @@ module Binda
       @field_settings = dashboard_structure.field_groups.first.field_settings
     end
 
+    def create_credentials
+      rake 'binda:create_superadmin_user'
+    end
+
     def setup_maintenance_mode
+      puts 
+      puts "We need few details. Don't worry you can modify them later."
+      puts 
       puts "Setting up maintenance mode"
 
       # Use radio field_type untill truefalse isn't available
@@ -68,22 +74,18 @@ module Binda
       @dashboard.texts.find_or_create_by!( field_setting_id: website_description_obj.id ).update_attribute( 'content', website_description )
     end
 
-    def create_credentials
-      rake 'binda:create_superadmin_user'
-    end
-
     def feedback
       puts
-      puts "============================================================================="
+      puts "==============================================================================="
       puts
-      puts "                Binda CMS has been succesfully installed! "
+      puts "                 Binda CMS has been succesfully installed! "
       puts
-      puts "============================================================================="
+      puts "==============================================================================="
       puts
       puts "Before deploying to production, remember to uncomment and update the"
       puts "'config.action_mailer.default_url_options' in 'config/environments/production.rb'"
       puts
-      puts "============================================================================="
+      puts "==============================================================================="
     end
 
   end
