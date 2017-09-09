@@ -362,7 +362,7 @@ You can retrieve field content from a instance of `Binda::Component`, `Binda::Bo
 |`get_repeater`| Returns an array of repeaters. See next session for more details. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_repeater) |
 |`get_selection_choice`| Returns an hash with label and value of the selected choice | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_selection_choice) |
 |`get_radio_choice`| Returns an hash with label and value of the selected choice | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_radio_choice) |
-|`get_checkbox_choices`| Returns an hash of label/value pairs of all the selected choices | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_checkbox_choices) |
+|`get_checkbox_choices`| Returns an array of label/value pairs of all the selected choices | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_checkbox_choices) |
 
 ---
 
