@@ -29,7 +29,7 @@ namespace :binda do
 		end
 
 		# DASHBOARD
-		dashboard_structure = Binda::Structure.create( name: 'dashboard', slug: 'dashboard', instance_type: 'board' )
+		dashboard_structure = Binda::Structure.create( name: 'Dashboard', slug: 'dashboard', instance_type: 'board' )
 	  @dashboard = dashboard_structure.board
 
 		# By default each structure has a field group which will be used to store the default field settings
@@ -70,7 +70,7 @@ namespace :binda do
       website_description_obj = field_settings.find_or_create_by( name: 'Website Description', field_type: 'text' )
       # make sure slug works
       website_description_obj.update_attribute( 'slug', 'website-description' )
-			old_description_record = Binda::Board.where(slug: 'website-name')
+			old_description_record = Binda::Board.where(slug: 'website-description')
 			if old_description_record.any?
 				@dashboard.texts.find_or_create_by( field_setting_id: website_description_obj.id ).update_attribute( 'content', old_description_record.first.content )
 			else
