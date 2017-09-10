@@ -1,13 +1,13 @@
 require "rails_helper"
 
-describe "Indexing components:", type: :feature do
+describe "GET components#index:", type: :feature do
 	let(:user) { Binda::User.first }
 
 	before(:context) do
 		@structure = create(:article_structure_with_components)
 	end
 
-	it "reorder components based on position" do
+	it "display components sorted by position" do
 		sign_in user
 
 		first_component = @structure.components.order(:position).first
@@ -31,38 +31,13 @@ describe "Indexing components:", type: :feature do
 	end
 end
 
-describe "Editing component:", type: :feature, js: true do
+describe "GET component#edit", type: :feature, js: true do
 
 	let(:user){ Binda::User.first }
 
 	before(:context) do
 		@structure = create(:article_structure_with_components_and_fields)
 		@component = @structure.components.first
-	end
-
-	it "fails if you try to create a component with no name" do
-    sign_in user
-    path = binda.new_structure_component_path( structure_id: @structure.slug )
-		visit path
-		expect( page ).to have_current_path( path )
-		previous_components_quantity = @structure.components.length
-		click_button "form-body--save"
-		current_components_quantity = @structure.components.length
-		expect( current_components_quantity ).to eq( previous_components_quantity )
-	end
-
-	it "creates a new component if name is provided" do
-    sign_in user
-    path = binda.new_structure_component_path( structure_id: @structure.slug )
-		visit path
-		expect( page ).to have_current_path( path )
-		string_value = 'hello'
-		fill_in "component_name", with: 'hello'
-		expect( find('#component_name').value ).to eq string_value
-		click_button "form-body--save"
-		# @todo this should be changed
-		expect( page ).not_to have_content "You need to create the component before being able to add any detail"
-		expect( Binda::Component.where( structure_id: @structure, name: string_value ).count ).to eq 1
 	end
 
 	it "isn't blocked by any Rails error" do
@@ -73,7 +48,7 @@ describe "Editing component:", type: :feature, js: true do
 		expect( page ).to have_selector "#component_name[value='#{ @component.name }']"
 	end
 
-	it "lets edit a string field" do
+	it "allows to edit a string field" do
 		sign_in user
 		path = binda.edit_structure_component_path( @structure, @component )
 		visit path
@@ -86,7 +61,7 @@ describe "Editing component:", type: :feature, js: true do
 		expect( @component.strings.first.content ).to eq string_value
 	end
 
-	it "lets edit a string field in a repeater" do
+	it "allows to edit a string field in a repeater" do
 		# sign_in user
 		# path = binda.edit_structure_component_path( @structure, @component )
 		# visit path
@@ -100,55 +75,55 @@ describe "Editing component:", type: :feature, js: true do
 		skip "not implemented yet"
 	end
 
-	it "lets edit a text field" do
+	it "allows to edit a text field" do
 		skip "not implemeted yet"
 	end
 
-	it "lets edit a text field in a repeater" do
+	it "allows to edit a text field in a repeater" do
 		skip "not implemeted yet"
 	end
 
-	it "lets edit a selection field" do
+	it "allows to edit a selection field" do
 		skip "not implemeted yet"
 	end
 
-	it "lets edit a selection field in a repeater" do
+	it "allows to edit a selection field in a repeater" do
 		skip "not implemeted yet"
 	end
 
-	it "lets edit a radio field" do
+	it "allows to edit a radio field" do
 		skip "not implemeted yet"
 	end
 
-	it "lets edit a radio field in a repeater" do
+	it "allows to edit a radio field in a repeater" do
 		skip "not implemeted yet"
 	end
 
-	it "lets edit a checkbox field" do
+	it "allows to edit a checkbox field" do
 		skip "not implemeted yet"
 	end
 
-	it "lets edit a checkbox field in a repeater" do
+	it "allows to edit a checkbox field in a repeater" do
 		skip "not implemeted yet"
 	end
 
-	it "lets add an image to an asset field" do
+	it "allows to add an image to an asset field" do
 		skip "not implemeted yet"
 	end
 
-	it "lets add an image to an asset field in a repeater" do
+	it "allows to add an image to an asset field in a repeater" do
 		skip "not implemeted yet"
 	end
 
-	it "lets remove an image to an asset field" do
+	it "allows to remove an image to an asset field" do
 		skip "not implemeted yet"
 	end
 
-	it "lets remove an image to an asset field in a repeater" do
+	it "allows to remove an image to an asset field in a repeater" do
 		skip "not implemeted yet"
 	end
 
-	it "lets add a new repeater element" do
+	it "allows to add a new repeater element" do
 		# sign_in user
 		# path = binda.edit_structure_component_path( @structure, @component )
 		# visit path
@@ -163,7 +138,7 @@ describe "Editing component:", type: :feature, js: true do
 		skip "not implemented yet"
 	end
 
-	it "lets reorder repeater elements" do
+	it "allows to reorder repeater elements" do
 		# This is pretty difficult, probably not reliable either
 		skip "not implemented yet"
 	end
