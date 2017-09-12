@@ -15,7 +15,7 @@ module Binda
 		has_many :dates,         as: :fieldable
 		has_many :galleries,     as: :fieldable
 		has_many :assets,        as: :fieldable
-		has_many :repeater,      as: :fieldable
+		has_many :repeaters,     as: :fieldable
 		has_many :radios,        as: :fieldable
 		has_many :selections,    as: :fieldable
 		has_many :checkboxes,    as: :fieldable
@@ -28,7 +28,7 @@ module Binda
 		has_many :strings,       dependent: :delete_all
 		has_many :dates,         dependent: :delete_all
 		has_many :galleries,     dependent: :delete_all
-		has_many :repeater,      dependent: :delete_all
+		has_many :repeaters,     dependent: :delete_all
 		has_many :radios,        dependent: :delete_all
 		has_many :selections,    dependent: :delete_all
 		has_many :checkboxes,    dependent: :delete_all
