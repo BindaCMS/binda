@@ -41,7 +41,7 @@
 <%# - - - - - - - - - - - - %>
 <%# SELECTABLES             %>
 <%# - - - - - - - - - - - - %>
-<% elsif ['radio', 'select', 'checkbox'].include? repeater_setting_child.field_type %>
+<% elsif ['radio', 'selection', 'checkbox'].include? repeater_setting_child.field_type %>
   <%# current = f.object.find_or_create_a_field_by( repeater_setting_child.id, 'radio' ) %>
   <%= render 'binda/fieldable/form_item_selections', f: f, field_setting: repeater_setting_child %>
 
