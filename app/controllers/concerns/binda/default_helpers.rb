@@ -151,48 +151,6 @@ module Binda
 			end
 		end
 
-		# This method retrieves a **repeater**.
-		#   With this method you can optimize the query in order to avoid the infamous 
-		#   [N+1 issue](https://youtu.be/oJ4Ur5XPAF8) by specifing what field types
-		#   you are going to request in the view. The list of field types available 
-		#   can be found in the [official documentation](https://github.com/lacolonia/binda/wiki/Fields).
-		#   Field types must be listed as separated strings, lowercase and plural.
-		#   See the following examples.
-		#   
-		# @example Get a repeater with slug `slideshow`
-		#   get_repeater('slideshow')
-		#   # return the repeater
-		#   
-		#   get_repeater('slideshow', { fields: ['strings', 'assets'] })
-		#   # return the repeater and optimize the query for any of the listed fields related to it
-		#   
-		#   
-		# @param slug [string] The slug of the repeater
-		# @param args [hash] A hash containing the options used to customize the query.
-		# 
-		#   The hash parameters are: 
-		#   
-		#   - `fields` (array) - Include related field classes to the query. The list of field types available 
-		#   can be found in the [official documentation](https://github.com/lacolonia/binda/wiki/Fields).
-		#   Field types must be listed as separated strings, lowercase and plural.
-		#   
-		# @return [ActiveRecord Object]  
-		def get_repeater( slug, args = { fields: [] })
-			
-			validate_provided_arguments( args )
-
-			# Sets defaults
-			args[:fields] = [] if args[:fields].nil?
-			
-			validate_provided_fields( args )
-
-			if args[:fields].any?
-				Repeater.where(slug: slug).first.inlcudes( args[:fields] )
-			else
-				Repeater.where(slug: slug).first
-			end
-		end
-
 		private 
 
 			# Check if provided `fields` are ok, otherwise raise an error
