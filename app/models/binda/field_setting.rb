@@ -15,10 +15,10 @@ module Binda
 		has_many :dates,         as: :fieldable
 		has_many :galleries,     as: :fieldable
 		has_many :assets,        as: :fieldable
-		has_many :repeater,      as: :fieldable
-		has_many :radio,         as: :fieldable
-		has_many :selection,     as: :fieldable
-		has_many :checkbox,      as: :fieldable
+		has_many :repeaters,     as: :fieldable
+		has_many :radios,        as: :fieldable
+		has_many :selections,    as: :fieldable
+		has_many :checkboxes,    as: :fieldable
 
 
 		# The following direct association is used to securely delete associated fields
@@ -28,10 +28,10 @@ module Binda
 		has_many :strings,       dependent: :delete_all
 		has_many :dates,         dependent: :delete_all
 		has_many :galleries,     dependent: :delete_all
-		has_many :repeater,      dependent: :delete_all
-		has_many :radio,         dependent: :delete_all
-		has_many :selection,     dependent: :delete_all
-		has_many :checkbox,      dependent: :delete_all
+		has_many :repeaters,     dependent: :delete_all
+		has_many :radios,        dependent: :delete_all
+		has_many :selections,    dependent: :delete_all
+		has_many :checkboxes,    dependent: :delete_all
 
 		has_many :choices,       dependent: :delete_all
 		has_one  :default_choice, -> (field_setting) { where(id: field_setting.default_choice_id) }, class_name: 'Binda::Choice'
