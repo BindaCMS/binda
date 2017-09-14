@@ -14,5 +14,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui/widgets/sortable
+//= require jquery-ui/widget
 //= require tinymce-jquery
+//= require jquery-file-upload/jquery.fileupload
+//= require jquery-file-upload/jquery.iframe-transport
 //= require binda/dist/binda.bundle.js
