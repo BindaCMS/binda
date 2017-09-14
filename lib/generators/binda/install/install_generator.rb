@@ -13,7 +13,7 @@ module Binda
 
       def check_previous_install
         # Ensure Binda is not installed
-        if ActiveRecord::Base.connection.table_exists? 'binda_components'
+        if ActiveRecord::Base.connection.data_source_exists? 'binda_components'
           puts "Binda has already been installed on this database."
           puts "Please ensure Binda is completely removed from the database before trying to install it again."
           exit
@@ -21,8 +21,28 @@ module Binda
       end
       
       def run_migrations
-        rake 'binda:install:migrations'
+        # Check if there is any previous Binda migration
+        previous_binda_migrations = Dir.glob( Rails.root.join('db', 'migrate', '*.binda.rb' ))
+        previous_migrations = Dir.glob( Rails.root.join('db', 'migrate', '*.rb' ))
+
+        # If it's the first time you run the installation
+        unless previous_binda_migrations.any?
+          rake 'binda:install:migrations'
+        else
+          # If there is any previous Binda migration
+          if previous_migrations.size != previous_binda_migrations.size
+            puts "You have several migrations, please manually delete Binda's ones then run 'rails g binda:install' again."
+            puts "Keep in mind that Binda will place the new migration after the existing ones."
+            exit
+          else
+            # Remove previous Binda migrations
+            FileUtils.rm_rf( previous_binda_migrations )
+            # Install Binda migrations
+            rake 'binda:install:migrations'
+          end
+        end
         rake 'db:migrate'
+        
       end
 
       def add_route
