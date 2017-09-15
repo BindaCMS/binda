@@ -72,9 +72,7 @@ module Binda
 
     def upload
       if @component.update( upload_params(:component) )
-      # if @component.update(component_params)
         respond_to do |format|
-          logger.debug("The upload process has succeded.")
           format.json { render json: upload_details_for(@component) }
         end
       else
