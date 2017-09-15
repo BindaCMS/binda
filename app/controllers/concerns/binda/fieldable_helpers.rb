@@ -57,7 +57,7 @@ module Binda
       #     url: 'url/to/my_image.png'
       #   ]}
       #
-      def upload_details_for fieldable_instance
+      def upload_details
         # get the latest uploaded image which should be the one the user just uploaded
         asset = Asset.order('updated_at').last
         return { files: [{ name: asset.image_identifier,

@@ -51,7 +51,7 @@ module Binda
     def upload
       if @board.update( upload_params(:board) )
         respond_to do |format|
-          format.json { render json: upload_details_for(@board) }
+          format.json { render json: upload_details }
         end
       else
         logger.debug("The upload process has failed. #{ @board.errors }")
