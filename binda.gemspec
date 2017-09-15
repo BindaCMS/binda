@@ -6,7 +6,7 @@ require "binda/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "binda"
-  s.version     = Binda::VERSION
+  s.version     = Binda::VERSION.dup
   s.authors     = ["Alessandro Barbieri"]
   s.email       = ["alessandro@lacolonia.studio"]
   s.homepage    = "http://lacolonia.studio"
