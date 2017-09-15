@@ -2,7 +2,7 @@ require_dependency "binda/application_controller"
 
 module Binda
   class AssetsController < ApplicationController
-    before_action :set_asset, only: [:show, :edit, :update, :destroy]
+    before_action :set_asset, only: [:show, :edit, :update, :destroy, :remove_image]
 
     # GET /assets
     def index
@@ -46,6 +46,12 @@ module Binda
     def destroy
       @asset.destroy
       redirect_to assets_url, notice: 'Asset was successfully destroyed.'
+    end
+
+    def remove_image
+      @asset.remove_image!
+      render js: "$('#fileupload-#{@asset.id} .form-item--asset--image').removeAttr('src').removeAttr('alt');
+      $('#fileupload-#{@asset.id} .fileupload--remove-image-btn').addClass('invisible')"
     end
 
     private

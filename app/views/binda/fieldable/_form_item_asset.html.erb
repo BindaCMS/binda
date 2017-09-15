@@ -1,20 +1,41 @@
 <%# HEADING %>
 <h5><%= field_setting.name.capitalize %></h5>
 
-<%= ff.input :image, input_html: { class: 'form-item--asset--uploader'} %>
+<div id="fileupload-<%= ff.object.id %>" class="fileupload" data-url="<%= url_for([@instance.structure, @instance, action: :upload]) %>">
 
-<% if ff.object.image.present? %>
-  <%= image_tag ff.object.image.thumb.url, class: 'form-item--asset--image' %>
-<% end %>
+  <span class="btn btn-primary fileinput-button">
+    <span>Upload image</span>
+      <%= ff.input :image, input_html: { class: 'form-item--asset--uploader'} %>
+      <%# ff.input :image, input_html: { multiple: true, class: 'form-item--asset--uploader'} %>
+      <%= ff.input :image_cache, as: :hidden %>
+      <%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+      <%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+      <%= ff.input :fieldable_id, as: :hidden %>
+      <%= ff.input :fieldable_type, as: :hidden %>
+  </span>
+	<a class="btn btn-default fileupload--remove-image-btn <%= 'invisible' unless ff.object.image.present? %>" href="<%= url_for([ff.object, action: :remove_image]) %>" data-method="delete" data-remote="true" data-confirm="Do you really want to remove it?">Delete image <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+  </span>
+  <!-- The global progress bar -->
+  <div class="fileupload--details fileupload--details--hidden">
+	  <div class="progress">
+	    <div class="progress-bar progress-bar-striped"></div>
+	  </div>
+	  <!-- The container for the uploaded files -->
+	  <div class="fileupload--files">
+	  	<p class="fileupload--filename">&nbsp;</p>
+	  </div>
+  </div>
 
-<% unless field_setting.description.blank? %>
-	<small class="text-muted"><%= field_setting.description %></small>
-<% end %>
+	<% if ff.object.image.present? %>
+	  <%= image_tag ff.object.image.thumb.url, class: "form-item--asset--image form-item--asset-#{ ff.object.id }--image" %>
+	<% else %>
+		<img class="form-item--asset--image">
+	<% end %>
 
-<%= ff.input :image_cache, as: :hidden %>
-<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-<%= ff.input :fieldable_id, as: :hidden %>
-<%= ff.input :fieldable_type, as: :hidden %>
+	<% unless field_setting.description.blank? %>
+		<small class="text-muted"><%= field_setting.description %></small>
+	<% end %>
+
+</div>
 
 <div class="form-item--asset--clearfix"></div>

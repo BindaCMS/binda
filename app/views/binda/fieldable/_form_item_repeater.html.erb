@@ -14,12 +14,15 @@
 
 			<% repeater = @instance.find_or_create_a_field_by( repeater_setting.id, 'repeater' ) %>
 			
-			<li id="repeater_<%= repeater.id %>">
+			<li id="repeater_<%= repeater.id %>" class="form-item--repeater">
 
 				<%# - - - - - - - - - - - - %>
-				<%# REMOVE BUTTON           %>
+				<%# REPEATER HEADER         %>
 				<%# - - - - - - - - - - - - %>
-				<a href="<%= repeater_path( id: repeater.id ) %>" data-method="delete" data-confirm="This operation will delete this group of fields. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+				<div class="form-item--repeater-header">
+					<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>" data-method="delete" data-confirm="This operation will delete this group of fields. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+					<p>Repeater ID: #<%= repeater.id %></p>
+				</div>
 
 				<%# - - - - - - - - - - - - - - %>
 				<%# FIRST REPEATER              %>
@@ -40,13 +43,15 @@
 		<% else %>
 
 		  <% repeaters.each do |repeater| %>
-				<li id="repeater_<%= repeater.id %>">
+				<li id="repeater_<%= repeater.id %>" class="form-item--repeater">
 
 					<%# - - - - - - - - - - - - %>
-					<%# REMOVE BUTTON           %>
+					<%# REPEATER HEADER         %>
 					<%# - - - - - - - - - - - - %>
-					<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>" data-id="<%= repeater.id %>""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-
+					<div class="form-item--repeater-header">
+						<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>" data-id="<%= repeater.id %>""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+						<p>Repeater ID: #<%= repeater.id %></p>
+					</div>
 					<%# - - - - - - - - - - - - - - %>
 					<%# EACH REPEATER               %>
 					<%# - - - - - - - - - - - - - - %>

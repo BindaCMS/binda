@@ -7,8 +7,9 @@
 .form-item--asset--image {
 	max-width: 20%;
 	height: auto;
-	margin-left: 20%;
 	margin-bottom: $font-size-base;
+	float: left;
+	clear: both;
 }
 
 .form-item--asset--uploader {

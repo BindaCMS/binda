@@ -2,8 +2,8 @@ require_dependency "binda/application_controller"
 
 module Binda
   class BoardsController < ApplicationController
-    before_action :set_board, only: [:edit, :update, :destroy, :new_repeater ]
-    before_action :set_structure, only: [:edit, :update, :destroy, :new_repeater ]
+    before_action :set_board, only: [:edit, :update, :destroy, :new_repeater, :upload ]
+    before_action :set_structure, only: [:edit, :update, :destroy, :new_repeater, :upload ]
 
     include FieldableHelpers
 
@@ -46,6 +46,17 @@ module Binda
       @board = Board.friendly.find('dashboard')
       @instance = @board
       render action: :edit
+    end
+
+    def upload
+      if @board.update( upload_params(:board) )
+        respond_to do |format|
+          format.json { render json: upload_details }
+        end
+      else
+        logger.debug("The upload process has failed. #{ @board.errors }")
+        head :bad_request 
+      end
     end
 
     private

@@ -39,7 +39,7 @@ class FormItemRepeater {
 				data: { id: $( this ).data('id'), isAjax: true },
 				method: "DELETE"
 			}).done( ()=>{
-				$( this ).parent('li').remove()
+				$( this ).parents('.form-item--repeater').remove()
 				_FormItemEditor.resize()
 			})
 		})

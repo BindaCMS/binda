@@ -1,7 +1,7 @@
   <div class="row">
     <div class="form-body--container col-sm-12">
       
-      <%= simple_form_for [ @instance.structure, @instance ], defaults: { label: false }, html: { class: 'form-body' } do |f| %>
+      <%= simple_form_for [ @instance.structure, @instance ], defaults: { label: false }, html: { class: 'form-body',multipart: true } do |f| %>
         <%= f.error_notification %>
         
         <%# - - - - - - - - - - - - %>
@@ -81,6 +81,5 @@
         </div>
       
       <% end %>
-
     </div>
   </div>
