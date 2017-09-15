@@ -17,6 +17,11 @@ class FormItemAsset
 
 	setEvents()
 	{
+		this.setupFileUpload()
+	}
+
+	setupFileUpload() 
+	{
 		var uploadButton = $('<button/>')
 				.addClass('btn btn-primary')
 				.prop('disabled', true)
@@ -36,8 +41,10 @@ class FormItemAsset
 						});
 				});
 		$('.fileupload').each(function () {
+
 			let $this = $(this)
 			$(this).fileupload({
+
 				url: $this.data('url'), // This should return json, not a proper page
 				dropZone: $this,
 				dataType: 'json',
@@ -53,20 +60,17 @@ class FormItemAsset
 				previewMaxHeight: 100,
 				previewCrop: true
 			}).on('fileuploadadd', function (e, data) {
+
 				data.context = $this.find('.details');
 				$.each(data.files, function (index, file) {
 					$this.find('.fileupload--filename').text(file.name)
 				});
 				$this.find('.fileupload--details').removeClass('fileupload--details--hidden') 
 			}).on('fileuploadprocessalways', function (e, data) {
+
 				var index = data.index,
 					file = data.files[index],
 					node = $(data.context.children()[index]);
-				// if (file.preview) {
-				// 	node
-				// 		.prepend('<br>')
-				// 		.prepend(file.preview);
-				// }
 				if (file.error) {
 					node
 						.append('<br>')
@@ -78,19 +82,29 @@ class FormItemAsset
 						.prop('disabled', !!data.files.error);
 				}
 			}).on('fileuploadprogressall', function (e, data) {
+
 				var progress = parseInt(data.loaded / data.total * 100, 10);
+				console.log(progress)
 				$this.find('.progress .progress-bar').css(
 					'width',
 					progress + '%'
 				)
 			}).on('fileuploaddone', function (e, data) {
+
 				$.each(data.result.files, function (index, file) {
 					if (file.url) {
 						setTimeout( function() { 
+							// remove context
 							data.context.remove() 
-							$this.find('.form-item--asset--image').attr('src', file.url)
+							// reset progress bar
+							$this.find('.progress .progress-bar').css('width', '0%')
+							// append/replace image
+							$this.find('.form-item--asset--image').attr('src', file.url).attr('alt', file.name)
+							$this.find('.fileupload--remove-image-btn').removeClass('invisible')
 						}, 500 )	// this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
-						setTimeout( function() { $this.find('.fileupload--details').addClass('fileupload--details--hidden') }, 300 )
+						setTimeout( function() { 
+							$this.find('.fileupload--details').addClass('fileupload--details--hidden')
+						}, 300 )
 					} else if (file.error) {
 						var error = $('<span class="text-danger"/>').text(file.error);
 						$(data.context.children()[index])
@@ -99,6 +113,7 @@ class FormItemAsset
 					}
 				});
 			}).on('fileuploadfail', function (e, data) {
+
 				$.each(data.files, function (index) {
 					var error = $('<span class="text-danger"/>').text('File upload failed.');
 					$(data.context.children()[index])

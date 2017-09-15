@@ -64,7 +64,11 @@ Binda::Engine.routes.draw do
   
   # resources :texts
   # resources :bindings
-  # resources :assets
+  resources :assets do
+    member do
+      delete 'remove_image'
+    end
+  end
   resources :repeaters, only: [:destroy]
   # resources :dates
 

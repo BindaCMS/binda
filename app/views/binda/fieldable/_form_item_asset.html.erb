@@ -1,11 +1,10 @@
 <%# HEADING %>
 <h5><%= field_setting.name.capitalize %></h5>
 
-<div class="fileupload" data-url="<%= url_for([@instance.structure, @instance, action: :upload]) %>">
+<div id="fileupload-<%= ff.object.id %>" class="fileupload" data-url="<%= url_for([@instance.structure, @instance, action: :upload]) %>">
 
   <span class="btn btn-primary fileinput-button">
-    <i class="glyphicon glyphicon-plus"></i>
-    <span>Add image</span>
+    <span>Upload image</span>
       <%= ff.input :image, input_html: { class: 'form-item--asset--uploader'} %>
       <%# ff.input :image, input_html: { multiple: true, class: 'form-item--asset--uploader'} %>
       <%= ff.input :image_cache, as: :hidden %>
@@ -13,7 +12,9 @@
       <%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
       <%= ff.input :fieldable_id, as: :hidden %>
       <%= ff.input :fieldable_type, as: :hidden %>
-  </span>   
+  </span>
+	<a class="btn btn-default fileupload--remove-image-btn <%= 'invisible' unless ff.object.image.present? %>" href="<%= url_for([ff.object, action: :remove_image]) %>" data-method="delete" data-remote="true" data-confirm="Do you really want to remove it?">Delete image <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+  </span>
   <!-- The global progress bar -->
   <div class="fileupload--details fileupload--details--hidden">
 	  <div class="progress">
@@ -26,7 +27,9 @@
   </div>
 
 	<% if ff.object.image.present? %>
-	  <%= image_tag ff.object.image.thumb.url, class: 'form-item--asset--image' %>
+	  <%= image_tag ff.object.image.thumb.url, class: "form-item--asset--image form-item--asset-#{ ff.object.id }--image" %>
+	<% else %>
+		<img class="form-item--asset--image">
 	<% end %>
 
 	<% unless field_setting.description.blank? %>
