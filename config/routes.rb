@@ -45,11 +45,17 @@ Binda::Engine.routes.draw do
     resources :boards do
       post 'sort_repeaters'
       post 'new_repeater'
+      member do
+        patch 'upload'
+      end
     end
     post 'components/sort'
     resources :components do
       post 'sort_repeaters'
       post 'new_repeater'
+      member do
+        patch 'upload'
+      end
     end
     resources :categories
   end

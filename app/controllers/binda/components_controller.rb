@@ -3,7 +3,7 @@ require_dependency "binda/application_controller"
 module Binda
   class ComponentsController < ApplicationController
     before_action :set_structure
-    before_action :set_component, only: [:show, :edit, :update, :destroy, :new_repeater]
+    before_action :set_component, only: [:show, :edit, :update, :destroy, :new_repeater, :upload]
     before_action :set_position, only: [:create]
 
     include FieldableHelpers
@@ -63,12 +63,24 @@ module Binda
       head :ok
     end
     
-
     def sort
       params[:component].each_with_index do |id, i|
         Component.find( id ).update({ position: i + 1 })
       end
       head :ok
+    end
+
+    def upload
+      if @component.update( upload_params(:component) )
+      # if @component.update(component_params)
+        respond_to do |format|
+          logger.debug("The upload process has succeded.")
+          format.json { render json: upload_details_for(@component) }
+        end
+      else
+        logger.debug("The upload process has failed. #{ @component.errors }")
+        head :bad_request 
+      end
     end
 
     private

@@ -1,7 +1,7 @@
   <div class="row">
     <div class="form-body--container col-sm-12">
       
-      <%= simple_form_for [ @instance.structure, @instance ], defaults: { label: false }, html: { class: 'form-body' } do |f| %>
+      <%= simple_form_for [ @instance.structure, @instance ], defaults: { label: false }, html: { class: 'form-body',multipart: true } do |f| %>
         <%= f.error_notification %>
         
         <%# - - - - - - - - - - - - %>
@@ -80,40 +80,6 @@
           </div>
         </div>
       
-      <% end %>
-
-      <%= simple_form_for [ @instance.structure, @instance ], defaults: { label: false }, html: { multipart: true } do |f| %>
-        <% @structure.field_groups.order( :position, :name ).each_with_index do |field_group, index| %>
-          <% unless f.object.new_record? %>
-            <% field_group.field_settings.order( :position, :name ).each do |field_setting| %>
-              <% next unless field_setting.is_root? %>
-              <% if field_setting.field_type == 'asset' %>
-                <div class="fileupload" data-url="<%= url_for([ @instance.structure, @instance ]) %>">
-                  <span class="btn btn-success fileinput-button">
-                      <i class="glyphicon glyphicon-plus"></i>
-                      <span>Add files...</span>
-                    <% current = @instance.find_or_create_a_field_by( field_setting.id, 'asset' ) %>
-                    <%= f.simple_fields_for "assets_attributes[]", current do |ff| %>
-                      <%= ff.input :image, input_html: { class: 'form-item--asset--uploader'} %>
-                      <%# ff.input :image, input_html: { multiple: true, class: 'form-item--asset--uploader'} %>
-                      <%= ff.input :image_cache, as: :hidden %>
-                      <%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-                      <%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-                      <%= ff.input :fieldable_id, as: :hidden %>
-                      <%= ff.input :fieldable_type, as: :hidden %>
-                    <% end %>
-                  </span>       
-                  <!-- The global progress bar -->
-                  <div class="progress" class="progress">
-                      <div class="progress-bar progress-bar-success"></div>
-                  </div>
-                  <!-- The container for the uploaded files -->
-                  <div class="files" class="files"></div>
-                </div>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
       <% end %>
     </div>
   </div>

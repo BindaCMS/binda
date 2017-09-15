@@ -36,11 +36,12 @@ class FormItemAsset
 						});
 				});
 		$('.fileupload').each(function () {
+			let $this = $(this)
 			$(this).fileupload({
-				url: $(this).data('url'), // This should return json, not a proper page
-				dropZone: $(this),
+				url: $this.data('url'), // This should return json, not a proper page
+				dropZone: $this,
 				dataType: 'json',
-				autoUpload: false,
+				autoUpload: true,
 				acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
 				maxFileSize: 999000,
 				// Enable image resizing, except for Android and Opera,
@@ -52,26 +53,20 @@ class FormItemAsset
 				previewMaxHeight: 100,
 				previewCrop: true
 			}).on('fileuploadadd', function (e, data) {
-				data.context = $(this).find('.files').append('<div/>');
+				data.context = $this.find('.details');
 				$.each(data.files, function (index, file) {
-					var node = $('<p/>')
-					    .append($('<span/>').text(file.name));
-					if (!index) {
-						node
-							.append('<br>')
-							.append(uploadButton.clone(true).data(data));
-					}
-					node.appendTo(data.context);
+					$this.find('.fileupload--filename').text(file.name)
 				});
+				$this.find('.fileupload--details').removeClass('fileupload--details--hidden') 
 			}).on('fileuploadprocessalways', function (e, data) {
 				var index = data.index,
 					file = data.files[index],
 					node = $(data.context.children()[index]);
-				if (file.preview) {
-					node
-						.prepend('<br>')
-						.prepend(file.preview);
-				}
+				// if (file.preview) {
+				// 	node
+				// 		.prepend('<br>')
+				// 		.prepend(file.preview);
+				// }
 				if (file.error) {
 					node
 						.append('<br>')
@@ -84,18 +79,18 @@ class FormItemAsset
 				}
 			}).on('fileuploadprogressall', function (e, data) {
 				var progress = parseInt(data.loaded / data.total * 100, 10);
-				$(this).find('progress .progress-bar').css(
+				$this.find('.progress .progress-bar').css(
 					'width',
 					progress + '%'
-				);
+				)
 			}).on('fileuploaddone', function (e, data) {
 				$.each(data.result.files, function (index, file) {
 					if (file.url) {
-						var link = $('<a>')
-							.attr('target', '_blank')
-							.prop('href', file.url);
-						$(data.context.children()[index])
-							.wrap(link);
+						setTimeout( function() { 
+							data.context.remove() 
+							$this.find('.form-item--asset--image').attr('src', file.url)
+						}, 500 )	// this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
+						setTimeout( function() { $this.find('.fileupload--details').addClass('fileupload--details--hidden') }, 300 )
 					} else if (file.error) {
 						var error = $('<span class="text-danger"/>').text(file.error);
 						$(data.context.children()[index])

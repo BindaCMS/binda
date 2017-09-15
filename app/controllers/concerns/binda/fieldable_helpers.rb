@@ -26,19 +26,49 @@ module Binda
           ]]
       end
 
-      def repeater_params
-        params.require(:repeater).permit( 
-          new_repeaters_attributes: [ :id, :field_setting_id, :field_group_id, :fieldable_type, :fieldable_id,
-            texts_attributes:         [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
-            strings_attributes:       [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
-            assets_attributes:        [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image ], 
-            dates_attributes:         [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
-            galleries_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id ], 
-            repeaters_attributes:     [ :id, :field_setting_id, :field_group_id, :fieldable_type, :fieldable_id ],
-            radios_attributes:        [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-            selections_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-            checkboxes_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ]
-          ])
+      #
+      # @brief      Uploads parameters.
+      # 
+      # @param      fieldable_type {symbol} It can be `:component` or `:board`.
+      #
+      # @return     {hash} It returns a hash with the permitted upload parameters
+      #
+      def upload_params fieldable_type
+        params.require(fieldable_type).permit( 
+          :name, :slug, :position, :publish_state, :structure_id, :category_ids,
+          {structure_attributes:  [ :id ]}, 
+          {categories_attributes: [ :id, :category_id ]}, 
+          {assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image ]}, 
+          {repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id,
+            assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image ]]})
+      end
+
+      #
+      # @brief      Uploads a details for a fieldable instance (component or board)
+      #
+      # @return     {hash} containig the array of images
+      # 
+      # @example    The return value will be something like: 
+      #   # Return hash
+      #   { files: [
+      #     name: 'my_image.png',
+      #     size: 543876,
+      #     url: 'url/to/my_image.png',
+      #     deleteUrl: 'url/to/delete/my_image',
+      #     deleteType: 'DELETE'
+      #   ]}
+      #
+      def upload_details_for fieldable_isntance
+        images = []
+        fieldable_isntance.assets.each do |asset|
+          images << { name: asset.image_identifier,
+                      size: asset.image.size,
+                      url: asset.image.url,
+                      thumnailUrl: asset.image.thumb.url,
+                      deleteUrl: 'delelelelelelete',
+                      deleteType: 'DELETE' }
+        end
+        return { files: images }
       end
 
   end
