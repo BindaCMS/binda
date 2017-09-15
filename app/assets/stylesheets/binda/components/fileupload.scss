@@ -23,6 +23,7 @@
 		width: 40%;
 		transition: opacity .2s linear;
     pointer-events: none;
+    z-index: 9999;
 		@extend .box-shadowed-up;
 		&.fileupload--details--hidden
 		{
@@ -66,5 +67,16 @@
 
       filter: alpha(opacity=0);
     }
+  }
+}
+.form-item--repeater-fields 
+{
+  .fileinput-button 
+  {
+    margin-left: 5%;
+  }
+  .form-item--asset--image 
+  {
+    margin-left: 20%;
   }
 }

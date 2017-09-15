@@ -276,11 +276,11 @@ var FormItemAsset = function () {
 					previewCrop: true
 				}).on('fileuploadadd', function (e, data) {
 
-					data.context = $this.find('.details');
+					data.context = $(e.target).find('.details');
 					$.each(data.files, function (index, file) {
-						$this.find('.fileupload--filename').text(file.name);
+						$(e.target).find('.fileupload--filename').text(file.name);
 					});
-					$this.find('.fileupload--details').removeClass('fileupload--details--hidden');
+					$(e.target).find('.fileupload--details').removeClass('fileupload--details--hidden');
 				}).on('fileuploadprocessalways', function (e, data) {
 
 					var index = data.index,
@@ -296,8 +296,10 @@ var FormItemAsset = function () {
 
 					var progress = parseInt(data.loaded / data.total * 100, 10);
 					console.log(progress);
-					$this.find('.progress .progress-bar').css('width', progress + '%');
+					$(e.target).find('.progress .progress-bar').css('width', progress + '%');
 				}).on('fileuploaddone', function (e, data) {
+
+					console.log(data.result.files);
 
 					$.each(data.result.files, function (index, file) {
 						if (file.url) {
@@ -305,13 +307,13 @@ var FormItemAsset = function () {
 								// remove context
 								data.context.remove();
 								// reset progress bar
-								$this.find('.progress .progress-bar').css('width', '0%');
+								$(e.target).find('.progress .progress-bar').css('width', '0%');
 								// append/replace image
-								$this.find('.form-item--asset--image').attr('src', file.url).attr('alt', file.name);
-								$this.find('.fileupload--remove-image-btn').removeClass('invisible');
+								$(e.target).find('.form-item--asset--image').attr('src', file.url).attr('alt', file.name);
+								$(e.target).find('.fileupload--remove-image-btn').removeClass('invisible');
 							}, 500); // this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
 							setTimeout(function () {
-								$this.find('.fileupload--details').addClass('fileupload--details--hidden');
+								$(e.target).find('.fileupload--details').addClass('fileupload--details--hidden');
 							}, 300);
 						} else if (file.error) {
 							var error = $('<span class="text-danger"/>').text(file.error);
@@ -465,7 +467,7 @@ var FormItemRepeater = function () {
 					data: { id: $(this).data('id'), isAjax: true },
 					method: "DELETE"
 				}).done(function () {
-					$(_this).parent('li').remove();
+					$(_this).parents('.form-item--repeater').remove();
 					__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 				});
 			});

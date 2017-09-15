@@ -46,6 +46,7 @@ module Binda
       #
       # @brief      Uploads a details for a fieldable instance (component or board)
       #
+      # @param      fieldable_instance {symbol} can be a `:component` or `:board`
       # @return     {hash} containig the array of images
       # 
       # @example    The return value will be something like: 
@@ -58,17 +59,13 @@ module Binda
       #     deleteType: 'DELETE'
       #   ]}
       #
-      def upload_details_for fieldable_isntance
-        images = []
-        fieldable_isntance.assets.each do |asset|
-          images << { name: asset.image_identifier,
-                      size: asset.image.size,
-                      url: asset.image.url,
-                      thumnailUrl: asset.image.thumb.url,
-                      deleteUrl: 'delelelelelelete',
-                      deleteType: 'DELETE' }
-        end
-        return { files: images }
+      def upload_details_for fieldable_instance
+        # get the latest uploaded image which should be the one the user just uploaded
+        asset = Asset.all.order('created_at desc').limit(1).first
+        return { files: [{ name: asset.image_identifier,
+                    size: asset.image.size,
+                    url: asset.image.url,
+                    thumnailUrl: asset.image.thumb.url }] }
       end
 
   end

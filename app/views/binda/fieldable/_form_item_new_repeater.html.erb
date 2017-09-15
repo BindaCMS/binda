@@ -3,12 +3,15 @@
 <%# - - - - - - - - - - - - - - %>
 <%= simple_form_for [@instance.structure, @instance], defaults: { label: false } do |f| %>
 <!-- SPLIT -->
-	<li id="repeater_<%= @repeater.id %>">
+	<li id="repeater_<%= @repeater.id %>" class="form-item--repeater">
 
 		<%# - - - - - - - - - - - - %>
-		<%# REMOVE BUTTON           %>
+		<%# REPEATER HEADER         %>
 		<%# - - - - - - - - - - - - %>
-		<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+		<div class="form-item--repeater-header">
+			<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+			<p>Repeater ID: #<%= @repeater.id %></p>
+		</div>
 
 		<%# - - - - - - - - - - - - - - %>
 		<%# FIRST REPEATER              %>
