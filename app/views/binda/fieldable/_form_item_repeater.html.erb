@@ -20,8 +20,8 @@
 				<%# REPEATER HEADER         %>
 				<%# - - - - - - - - - - - - %>
 				<div class="form-item--repeater-header">
-					<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>" data-method="delete" data-confirm="This operation will delete this group of fields. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-					<p>Repeater ID: #<%= repeater.id %></p>
+					<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+					<p>ID #<%= repeater.id %></p>
 				</div>
 
 				<%# - - - - - - - - - - - - - - %>
@@ -49,8 +49,8 @@
 					<%# REPEATER HEADER         %>
 					<%# - - - - - - - - - - - - %>
 					<div class="form-item--repeater-header">
-						<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>" data-id="<%= repeater.id %>""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-						<p>Repeater ID: #<%= repeater.id %></p>
+						<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>" data-id="<%= repeater.id %>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+						<p>ID #<%= repeater.id %></p>
 					</div>
 					<%# - - - - - - - - - - - - - - %>
 					<%# EACH REPEATER               %>
