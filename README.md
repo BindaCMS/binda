@@ -66,7 +66,7 @@ rails g binda:install
 
 Now you are good to go. Good job!
 
-## Multiple installations
+## Avoid installation conflicts
 
 **In order to avoid conflicts execute the installer once.** Running the installer for each application environment will cause issues with users' passwords. We recommend to install Binda locally and then copy the local database on each environment.
 
