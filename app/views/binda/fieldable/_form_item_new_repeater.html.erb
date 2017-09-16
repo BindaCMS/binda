@@ -1,7 +1,7 @@
 <%# - - - - - - - - - - - - - - %>
 <%# REPEATER NEW FIELDS         %>
 <%# - - - - - - - - - - - - - - %>
-<%= simple_form_for [@instance.structure, @instance], defaults: { label: false } do |f| %>
+<%= simple_form_for [@instance.structure, @instance], defaults: { label: false }, html: { multipart: true }  do |f| %>
 <!-- SPLIT -->
 	<li id="repeater_<%= @repeater.id %>" class="form-item--repeater">
 
@@ -9,8 +9,8 @@
 		<%# REPEATER HEADER         %>
 		<%# - - - - - - - - - - - - %>
 		<div class="form-item--repeater-header">
-			<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-			<p>Repeater ID: #<%= @repeater.id %></p>
+			<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+			<p>ID #<%= @repeater.id %></p>
 		</div>
 
 		<%# - - - - - - - - - - - - - - %>
