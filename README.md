@@ -449,6 +449,37 @@ rails binda:create_super_admin
 ---
 
 
+# Maintenance Mode
+
+Binda offers a maintenance mode out-of-the-box. In your routes you will find:
+
+```ruby
+# config/routes.rb
+get 'maintenance', to: 'maintenance#index', as: 'maintenance'
+```
+
+You can change the url to be whatever you like, as long as you keep the route name. For example
+
+```ruby
+# config/routes.rb
+get 'under_construction', to: 'maintenance#index', as: 'maintenance'
+```
+
+The maintenance behaviour is controlled by the `MaintenanceHelper` included in your `app/controllers/application_controller.rb`. If you don't have it make sure it's included this way: 
+
+```ruby
+# app/controllers/application_controller.rb
+include ::Binda::MaintenanceHelpers
+```
+
+## Customize maintenance appeareance
+
+The maintenance view is made by a single file: `app/views/layouts/maintenance.html.erb`. You can do whatever you like with it.
+
+To change appereance and behaviour of the page add your styles to `app/assets/stylesheets/maintenance.scss` and your scripts to `app/assets/javascript/maintenance.js`. These are manifest files so if you need jQuery for example, you just need to add `//= jquery` at the top of `maintenance.js` file.
+
+---
+
 
 # Plugins
 

@@ -29,7 +29,9 @@ class Binda::MaintenanceGenerator < Rails::Generators::Base
 
   def add_route
     return if Rails.application.routes.named_routes.any?{ |key, value| key.to_s === "maintenance" }
+    # replace 'maintenance/index' root with 'maintenance'
     route "get 'maintenance', to: 'maintenance#index', as: 'maintenance'"
+    gsub_file Rails.root.join('config', 'routes.rb'), "get 'maintenance/index'", ""
   end
 
   def add_helper
