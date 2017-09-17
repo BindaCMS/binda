@@ -2,7 +2,6 @@ class Binda::MaintenanceGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def add_controller
-    puts "==============================================================================="
   	puts "Maintenance page setup"
   	puts ""
   	puts "1) Adding controller"

@@ -12,10 +12,7 @@ module Binda
   source_root File.expand_path('../templates', __FILE__)
 
     def setup_settings
-      puts 
-      puts "==============================================================================="
-      puts "                                BINDA SETUP"
-      puts "==============================================================================="
+      puts "Implement Binda settings"
       puts 
 
       dashboard_structure = ::Binda::Structure.find_or_create_by( name: 'dashboard', slug: 'dashboard', instance_type: 'board' )
@@ -26,30 +23,30 @@ module Binda
     end
 
     def create_credentials
+      puts "1) Create a superadmin user"
       rake 'binda:create_superadmin_user'
+      puts 
     end
 
     def setup_maintenance_mode
-      puts 
-      puts "We need few details. Don't worry you can modify them later."
-      puts 
-      puts "Setting up maintenance mode"
+      puts "2) Setting up maintenance mode"
 
       # Use radio field_type untill truefalse isn't available
       unless @field_settings.find_by(slug: 'maintenance-mode').present?
         maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio' )
         # make sure slug works
         maintenance_mode.update_attributes( slug: 'maintenance-mode' )
-        maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
         maintenance_mode.choices.create!( label: 'active', value: 'true' )
+        maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
         @dashboard.radios.find_or_create_by!( field_setting_id: maintenance_mode.id )
       end
       puts "The maintenance-mode option has been set up."
-      puts
+      puts 
     end
 
     def setup_website_name 
-      puts "Setting up website name"
+      puts "3) Setting up website name"
+      puts "We need few details. Don't worry you can modify them later."
 
       website_name_obj = @field_settings.find_by(slug: 'website-name')
       unless website_name_obj.present?
@@ -62,7 +59,7 @@ module Binda
     end
 
     def setup_website_content
-      puts "Setting up website description"
+      puts "4) Setting up website description"
 
       website_description_obj = @field_settings.find_by(slug: 'website-description')
       unless website_description_obj.present?
@@ -75,7 +72,6 @@ module Binda
     end
 
     def feedback
-      puts
       puts "==============================================================================="
       puts
       puts "                 Binda CMS has been succesfully installed! "
