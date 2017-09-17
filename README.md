@@ -474,7 +474,7 @@ include ::Binda::MaintenanceHelpers
 
 ## Customize maintenance appeareance
 
-The maintenance view is made by a single file: `app/views/layouts/maintenance.html.erb`. You can do whatever you like with it.
+The maintenance mode is controlled by the `app/controllers/maintenance_controller.rb` which renders a single view: `app/views/layouts/maintenance.html.erb`. You can do whatever you like with it.
 
 To change appereance and behaviour of the page add your styles to `app/assets/stylesheets/maintenance.scss` and your scripts to `app/assets/javascript/maintenance.js`. These are manifest files so if you need jQuery for example, you just need to add `//= jquery` at the top of `maintenance.js` file.
 
