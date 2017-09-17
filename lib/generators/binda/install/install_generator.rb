@@ -21,6 +21,12 @@ module Binda
       end
       
       def run_migrations
+        puts ""
+        puts "==============================================================================="
+        puts "                             BINDA INSTALLATION"
+        puts "==============================================================================="
+        puts ""
+        puts "1) Install migrations"
         # Check if there is any previous Binda migration
         previous_binda_migrations = Dir.glob( Rails.root.join('db', 'migrate', '*.binda.rb' ))
         previous_migrations = Dir.glob( Rails.root.join('db', 'migrate', '*.rb' ))
@@ -47,12 +53,14 @@ module Binda
 
       def add_route
         return if Rails.application.routes.routes.detect { |route| route.app.app == Binda::Engine }
+        puts "2) Add Binda routes"
         route "mount Binda::Engine => '/admin_panel'"
       end
 
       def add_helpers
         ac_path = Rails.root.join('app', 'controllers', 'application_controller.rb' )
         unless File.readlines(ac_path).grep(/::Binda::DefaultHelpers/).size > 0
+          puts "3) Add Binda default helpers"
           inject_into_file ac_path, after: "ActionController::Base" do 
             "\n  include ::Binda::DefaultHelpers"
           end
@@ -83,6 +91,7 @@ module Binda
       #  }
       #  ```
       def setup_devise
+        puts "4) Setup Devise"
         # Check if devise is already setup and if so, create a backup before overwrite it
         initializers_path = Rails.root.join('config', 'initializers' )
         if File.exist?( "#{ initializers_path }/devise.rb" )
@@ -116,11 +125,13 @@ module Binda
       # It generates this {file:lib/generators/binda/install/templates/confic/initializers/carrierwave.rb}
       def setup_carrierwave
         return if File.exist?( Rails.root.join('config', 'initializers', 'carrierwave.rb' ))
+        puts "4) Setup Carrierwave"
         template 'config/initializers/carrierwave.rb'
+        puts "==============================================================================="
       end
 
       def setup_settings
-        exec 'rails generate binda:setup'
+        exec 'rails generate binda:maintenance && rails generate binda:setup'
       end
 
   end
