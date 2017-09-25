@@ -7,7 +7,7 @@ PATH
       carrierwave (>= 0.10, < 1.12)
       coffee-rails (>= 4.1, < 4.3)
       devise (>= 4.1, < 4.4)
-      friendly_id (>= 5.1, < 5.3)
+      friendly_id (>= 5.1, < 5.4)
       jquery-rails (~> 4.3)
       jquery-ui-rails (>= 5.0, < 6.1)
       kaminari (~> 1.0)
@@ -116,7 +116,7 @@ GEM
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     ffi (1.9.18)
-    friendly_id (5.2.2)
+    friendly_id (5.2.3)
       activerecord (>= 4.0.0)
     gh (0.15.1)
       addressable (~> 2.4.0)
@@ -274,7 +274,7 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
-    tinymce-rails (4.6.6)
+    tinymce-rails (4.6.7)
       railties (>= 3.1.1)
     tinymce-rails-langs (4.20160310)
       tinymce-rails (~> 4.1, >= 4.1.10)
@@ -322,9 +322,9 @@ DEPENDENCIES
   rspec-rails (>= 3.5, < 3.7)
   ruby-prof (~> 0.15.9)
   selenium-webdriver (~> 3.5)
-  test-unit (~> 3.1)
+  test-unit (~> 3.2)
   travis (~> 1.8)
   yard (~> 0.9)
 
 BUNDLED WITH
-   1.16.0.pre.1
+   1.16.0.pre.2
