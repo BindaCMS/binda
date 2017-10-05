@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -128,6 +128,85 @@ var _FormItemEditor = new FormItemEditor();
 
 /***/ }),
 /* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = custom_fileupload;
+
+function custom_fileupload(target) {
+
+	var $this = $(target);
+	$this.fileupload({
+
+		url: $this.data('url'), // This should return json, not a proper page
+		dropZone: $this,
+		dataType: 'json',
+		autoUpload: true,
+		acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+		maxFileSize: 1000000, // originally 999000
+		// Enable image resizing, except for Android and Opera,
+		// which actually support image resizing, but fail to
+		// send Blob objects via XHR requests:
+		disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator.userAgent),
+		previewMaxWidth: 100,
+		previewMaxHeight: 100,
+		previewCrop: true
+
+	}).on('fileuploadadd', function (e, data) {
+
+		data.context = $this.find('.details');
+		$.each(data.files, function (index, file) {
+			$this.find('.fileupload--filename').text(file.name);
+		});
+		$this.find('.fileupload--details').removeClass('fileupload--details--hidden');
+	}).on('fileuploadprocessalways', function (e, data) {
+
+		var index = data.index,
+		    file = data.files[index],
+		    node = $(data.context.children()[index]);
+		if (file.error) {
+			node.append('<br>').append($('<span class="text-danger"/>').text(file.error));
+		}
+		if (index + 1 === data.files.length) {
+			data.context.find('button').text('Upload').prop('disabled', !!data.files.error);
+		}
+	}).on('fileuploadprogressall', function (e, data) {
+
+		var progress = parseInt(data.loaded / data.total * 100, 10);
+		console.log(progress);
+		$this.find('.progress .progress-bar').css('width', progress + '%');
+	}).on('fileuploaddone', function (e, data) {
+
+		$.each(data.result.files, function (index, file) {
+			if (file.url) {
+				setTimeout(function () {
+					// remove context
+					data.context.remove();
+					// reset progress bar
+					$this.find('.progress .progress-bar').css('width', '0%');
+					// append/replace image
+					$this.find('.form-item--asset--image').attr('src', file.url).attr('alt', file.name);
+					$this.find('.fileupload--remove-image-btn').removeClass('invisible');
+				}, 500); // this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
+				setTimeout(function () {
+					$this.find('.fileupload--details').addClass('fileupload--details--hidden');
+				}, 300);
+			} else if (file.error) {
+				var error = $('<span class="text-danger"/>').text(file.error);
+				$(data.context.children()[index]).append('<br>').append(error);
+			}
+		});
+	}).on('fileuploadfail', function (e, data) {
+
+		$.each(data.files, function (index) {
+			var error = $('<span class="text-danger"/>').text('File upload failed.');
+			$(data.context.children()[index]).append('<br>').append(error);
+		});
+	}).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+}
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -208,11 +287,11 @@ function addNewItem(event) {
 }
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(1);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemAsset; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -255,7 +334,7 @@ var FormItemAsset = function () {
 var _FormItemAsset = new FormItemAsset();
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -330,11 +409,11 @@ var FormItemChoice = function () {
 var _FormItemChoice = new FormItemChoice();
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_item_editor__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -424,7 +503,7 @@ function addNewItem(event) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -467,17 +546,17 @@ function addNewItem(event) {
 };
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_asset__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_asset__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(6);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
@@ -507,85 +586,6 @@ $(document).ready(function () {
 	}
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__components_sortable__["a" /* default */])();
 });
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = custom_fileupload;
-
-function custom_fileupload(target) {
-
-	var $this = $(target);
-	$this.fileupload({
-
-		url: $this.data('url'), // This should return json, not a proper page
-		dropZone: $this,
-		dataType: 'json',
-		autoUpload: true,
-		acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-		maxFileSize: 999000,
-		// Enable image resizing, except for Android and Opera,
-		// which actually support image resizing, but fail to
-		// send Blob objects via XHR requests:
-		disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator.userAgent),
-		previewMaxWidth: 100,
-		previewMaxHeight: 100,
-		previewCrop: true
-
-	}).on('fileuploadadd', function (e, data) {
-
-		data.context = $this.find('.details');
-		$.each(data.files, function (index, file) {
-			$this.find('.fileupload--filename').text(file.name);
-		});
-		$this.find('.fileupload--details').removeClass('fileupload--details--hidden');
-	}).on('fileuploadprocessalways', function (e, data) {
-
-		var index = data.index,
-		    file = data.files[index],
-		    node = $(data.context.children()[index]);
-		if (file.error) {
-			node.append('<br>').append($('<span class="text-danger"/>').text(file.error));
-		}
-		if (index + 1 === data.files.length) {
-			data.context.find('button').text('Upload').prop('disabled', !!data.files.error);
-		}
-	}).on('fileuploadprogressall', function (e, data) {
-
-		var progress = parseInt(data.loaded / data.total * 100, 10);
-		console.log(progress);
-		$this.find('.progress .progress-bar').css('width', progress + '%');
-	}).on('fileuploaddone', function (e, data) {
-
-		$.each(data.result.files, function (index, file) {
-			if (file.url) {
-				setTimeout(function () {
-					// remove context
-					data.context.remove();
-					// reset progress bar
-					$this.find('.progress .progress-bar').css('width', '0%');
-					// append/replace image
-					$this.find('.form-item--asset--image').attr('src', file.url).attr('alt', file.name);
-					$this.find('.fileupload--remove-image-btn').removeClass('invisible');
-				}, 500); // this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
-				setTimeout(function () {
-					$this.find('.fileupload--details').addClass('fileupload--details--hidden');
-				}, 300);
-			} else if (file.error) {
-				var error = $('<span class="text-danger"/>').text(file.error);
-				$(data.context.children()[index]).append('<br>').append(error);
-			}
-		});
-	}).on('fileuploadfail', function (e, data) {
-
-		$.each(data.files, function (index) {
-			var error = $('<span class="text-danger"/>').text('File upload failed.');
-			$(data.context.children()[index]).append('<br>').append(error);
-		});
-	}).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
-}
 
 /***/ })
 /******/ ]);

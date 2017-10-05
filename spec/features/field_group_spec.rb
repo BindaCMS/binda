@@ -29,4 +29,31 @@ describe "Field group", type: :feature do
 		expect( page ).to have_selector( ".form-item--editor" )
 	end
 
+	describe "if user wants to modify a checkbox" do
+		it "should let user update labels and values" do
+			sign_in user
+
+			field_group = @structure.field_groups.first
+			field_setting = field_group.field_settings.create!(name: 'checkbox-test', field_type: 'checkbox')
+			choice = field_setting.choices.create!(label: 'foo', value: 'bar')
+			path_to_field_group = binda.edit_structure_field_group_path( structure_id: @structure.slug, id: field_group.slug )
+
+			visit path_to_field_group
+
+			label_field = "field_group_field_settings_attributes_0_choices_attributes_0_label"
+
+			find("##{label_field}")
+
+			expect(page).to have_selector("##{label_field}")
+
+			fill_in label_field, with: 'bar'
+			click_button "save"
+
+			visit path_to_field_group
+
+			expect(page).to have_field(label_field)
+			expect(page).to have_field(label_field, with: 'bar')
+		end
+	end
+
 end

@@ -6,14 +6,14 @@
 <div class="form-item--choices">
 
 	<%= ff.simple_fields_for :choices, ff.object.choices.order( :label ) do |fff| %>
-	  <div class="form-item--choice">
+	  <div id="form-item--choice-<%= fff.object.id %>" class="form-item--choice">
 			<%= fff.input :id, as: :hidden %>
 			<%= fff.association :field_setting, as: :hidden %>
 	  	<div class="form-item--choice-label">
 				<small class="text-muted"><%= t(:choice_label).capitalize %></small>
 				<%= fff.input :label %>
 			</div>
-			<div class="form-item--choice-content">
+			<div class="form-item--choice-value">
 				<small class="text-muted"><%= t(:choice_value).capitalize %></small>
 				<%= fff.input :value %>
 			</div>
@@ -35,7 +35,7 @@
 					<small class="text-muted"><%= t(:choice_label).capitalize %></small>
 					<%= fff.input :label %>
 				</div>
-				<div class="form-item--choice-content">
+				<div class="form-item--choice-value">
 					<small class="text-muted"><%= t(:choice_value).capitalize %></small>
 					<%= fff.input :value %>
 				</div>
@@ -57,7 +57,7 @@
 				<small class="text-muted"><%= t(:choice_label).capitalize %></small>
 				<%= fff.input :label %>
 			</div>
-			<div class="form-item--choice-content">
+			<div class="form-item--choice-value">
 				<small class="text-muted"><%= t(:choice_value).capitalize %></small>
 				<%= fff.input :value %>
 			</div>

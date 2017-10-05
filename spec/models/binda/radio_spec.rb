@@ -7,14 +7,14 @@ module Binda
 			@field_group = create(:field_group)
 			@radio_setting = create(:radio_setting_with_choices, field_group_id: @field_group.id )
 			@component = create(:component, structure_id: @field_group.structure.id )
-			@radio = @component.radios.create({ field_setting_id: @radio_setting.id })
 		end
 
 		it "should let you choose a value" do
 			# clean choice selection
-			@radio.choices = []
-			@radio.choices << @radio_setting.choices.first
-			expect( @radio.choices.first.id ).to be( @radio_setting.choices.first.id )
+			radio = @component.radios.first
+			radio.choices.clear
+			radio.choices << @radio_setting.choices.first
+			expect( radio.choices.first.id ).to be( @radio_setting.choices.first.id )
 		end
 
 		it "shouldn't let you choose more than a value" do
@@ -23,10 +23,13 @@ module Binda
 
 		it "should let you see the choosen value" do
 			# clean choice selection
-			@radio.choices = []
-			@radio.choices << @radio_setting.choices.first
+			radio = @component.radios.first
+			radio.choices.clear
+			radio.save!
+			radio.reload
+			radio.choices << @radio_setting.choices.first
 			selection = @component.get_radio_choice( @radio_setting.slug )
-			expect( selection ).to eq( { label: @radio.choices.first.label, value: @radio.choices.first.value } )
+			expect( selection ).to eq( { label: radio.choices.first.label, value: radio.choices.first.value } )
 		end
 
 	end

@@ -2,6 +2,7 @@ require_dependency "binda/application_controller"
 
 module Binda
   class ComponentsController < ApplicationController
+
     before_action :set_structure
     before_action :set_component, only: [:show, :edit, :update, :destroy, :new_repeater, :upload]
     before_action :set_position, only: [:create]

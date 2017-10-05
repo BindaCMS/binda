@@ -54,29 +54,53 @@ describe "GET component#edit", type: :feature, js: true do
 	##     Capybara::ExpectationNotMet: Timed out waiting for Selenium session reset
 	it "allows to edit a string field" do
 		# sign_in user
+		
 		# path = binda.edit_structure_component_path( @structure, @component )
 		# visit path
+
 		# expect( page ).to have_current_path( path )
-		# string_field = "component_strings_attributes_#{@component.string_ids.first}_content"
+
+		# @component.reload
+
+		# ids = @component.string_ids
+
+		# string_field = "component_strings_attributes_#{ids[ids.length-1]}_content"
 		# string_value = 'oh my lorem'
+
+		# find("##{string_field}")
+
 		# fill_in string_field, with: string_value
-		# click_button "form-body--save"
-		# expect( find( "##{string_field}" ).value ).to eq string_value
-		# expect( @component.strings.first.content ).to eq string_value
+		# click_button "save"
+
+		# expect(page).to have_field(string_field)
+		# expect(page).to have_field(string_field, with: string_value)
 		skip "not implemented yet"
 	end
 
 	it "allows to edit a string field in a repeater" do
 		# sign_in user
+		
 		# path = binda.edit_structure_component_path( @structure, @component )
 		# visit path
+		
 		# expect( page ).to have_current_path( path )
-		# string_field = "component_repeaters_attributes_#{@component.repeater_ids.first}_strings_attributes_#{@component.repeaters.first.string_ids.first}_content"
+		
+		# @component.reload
+
+		# # TODO check against @component.repeaters.first.string_ids[0] and see why it doesn't work!
+
+		# ids = @component.repeaters.first.string_ids
+
+		# string_field = "component_strings_attributes_#{ids[ids.length-1]}_content"
 		# string_value = 'oh my lorem'
+
+		# find("##{string_field}")
+
 		# fill_in string_field, with: string_value
-		# click_button "form-body--save"
-		# expect( find( "##{string_field}" ).value ).to eq string_value
-		# expect( @component.repeaters.first.strings.first.content ).to eq string_value
+		# click_button "save"
+
+		# expect(page).to have_field(string_field)
+		# expect(page).to have_field(string_field, with: string_value)		
 		skip "not implemented yet"
 	end
 
