@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "GET components#index:", type: :feature do
+describe "GET components#index:", type: :feature, js: true do
 	let(:user) { Binda::User.first }
 
 	before(:context) do

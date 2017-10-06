@@ -157,10 +157,9 @@ module Binda
       def update_choices
         return if field_group_params[:field_settings_attributes].nil?
         field_group_params[:field_settings_attributes].each do |key, field_setting_params|
-          # field_setting = FieldSetting.find(field_setting_params['id'])
-          # binding.pry
-          field_setting_params['choices_attributes'].each do |key, choice_params|
-            choice = Choice.find(choice_params['id'])
+          next if field_setting_params[:choices_attributes].nil?
+          field_setting_params[:choices_attributes].each do |key, choice_params|
+            choice = Choice.find(choice_params[:id])
             unless choice.update(choice_params)
               return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: choice.errors }
             end

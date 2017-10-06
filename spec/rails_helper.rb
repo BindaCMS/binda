@@ -7,6 +7,10 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
+
+# LIBRARIES
+# ---------
+
 # https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-3-and-4-%28and-RSpec%29#controller-specs
 require 'devise'
 # https://github.com/teamcapybara/capybara#using-capybara-with-rspec
@@ -16,6 +20,26 @@ require 'factory_girl_rails'
 # https://github.com/DatabaseCleaner/database_cleaner#how-to-use
 require 'database_cleaner'
 require 'pry'
+
+
+# JAVASCRIPT DRIVER
+# -----------------
+# In order to use Poltergeist please make sure you have Phantom JS installed before testing
+# https://github.com/teampoltergeist/poltergeist/tree/v1.16.0#installing-phantomjs
+# require 'capybara/poltergeist'
+# Capybara.javascript_driver = :poltergeist
+# Capybara.javascript_driver = :poltergeist_debug
+# Capybara.register_driver :poltergeist_debug do |app|
+  # Capybara::Poltergeist::Driver.new(app, :inspector => true)
+# end
+#
+# As Poltergeist doesn't work with OSX (see http://www.jonathanleighton.com/articles/2012/poltergeist-0-6-0/)
+# We are going to use Selenium Webdriver
+# Capybara.register_driver :selenium do |app|
+#   Capybara::Selenium::Driver.new(app, :browser => :chrome)
+# end
+Capybara.javascript_driver = :selenium
+
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -36,7 +60,9 @@ require 'pry'
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-Capybara.javascript_driver = :selenium
+
+# RSPEC CONFIGURATION
+# -------------------
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

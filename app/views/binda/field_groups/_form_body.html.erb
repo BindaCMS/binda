@@ -34,7 +34,7 @@
 
         </div>
       </div>
-      <div class="form-section--wide-container row">
+      <div id="form-section--field-group-<%= @field_group.id %>" class="form-section--wide-container row">
         <div class="col-sm-12 form-section">
 
           <%= render "form_section", f: f %>
@@ -42,7 +42,7 @@
         </div>
       </div>
       <% @field_group.field_settings.where( field_type: 'repeater' ).order( :position, :id ).each do |repeater| %>
-        <div class="form-section--wide-container row">
+        <div id="form-section--repeater-<%= repeater.id %>" class="form-section--wide-container row">
           <div class="col-sm-12 form-section">
           
             <h4><%= repeater.name.capitalize %></h4>
