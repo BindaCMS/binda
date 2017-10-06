@@ -66,5 +66,6 @@ module Binda
                     thumnailUrl: asset.image.thumb.url }] }
       end
 
+
   end
 end

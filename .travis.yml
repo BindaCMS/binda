@@ -1,6 +1,7 @@
 language: ruby
 env:
   CODECLIMATE_REPO_TOKEN: a8789f8ca71f52cc879c1fa313d94547c9a0ddbd207977fe997f686a71e0c400
+  CC_TEST_REPORTER_ID: a8789f8ca71f52cc879c1fa313d94547c9a0ddbd207977fe997f686a71e0c400
 rvm:
   - 2.3.4
 addons:
@@ -9,6 +10,10 @@ addons:
 services:
   - postgresql
 before_script:
+  # Setup codeclimate test coverage reporter
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
   # setup database
   - cp config/database.yml.travis spec/dummy/config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres
@@ -23,4 +28,6 @@ before_script:
   - sleep 3
 script:
   - bin/rails db:migrate RAILS_ENV=test
-  - bundle exec rake spec
+  - bundle exec rspec
+after_script:
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

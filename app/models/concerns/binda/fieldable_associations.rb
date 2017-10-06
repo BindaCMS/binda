@@ -30,7 +30,8 @@ module Binda
 			# has_many :assets, class_name: 'Admin::Asset', through: :bindings
 
 	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
-
+      
+      after_create :generate_fields
 		end
 
 		# Get the object related to that field setting
@@ -59,6 +60,7 @@ module Binda
 		# @return [boolean]
 		def has_text field_slug 
 			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }
+			raise ArgumentError, "There isn't any text associated to the current slug.", caller if obj.nil?
 			if obj.present?
 				return !obj.content.blank?
 			else
@@ -104,8 +106,9 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_image field_slug 
-			obj = self.assets.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }.image
-			return obj.present?
+			obj = self.assets.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any image associated to the current slug.", caller if obj.nil?
+			return obj.image.present?
 		end
 
 		# Get the image url based on the size provided, 
@@ -140,6 +143,7 @@ module Binda
 		# @return [boolean] Returns false if no info is found or if image isn't found
 		def get_image_info field_slug, size, info 
 			obj = self.assets.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any image associated to the current slug.", caller if obj.nil?
 			if obj.image.present?
 				if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
 					obj.image.send(size).send(info)
@@ -156,6 +160,7 @@ module Binda
 		# @return [boolean] Reutrn false if nothing is found
 		def has_date field_slug 
 			obj = self.dates.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any date associated to the current slug.", caller if obj.nil?
 			if obj.present?
 				return !obj.date.nil?
 			else
@@ -169,7 +174,8 @@ module Binda
 		# @return [boolean]
 		def get_date field_slug 
 			obj = self.dates.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			obj.date unless obj.nil?
+			raise ArgumentError, "There isn't any date associated to the current slug.", caller if obj.nil?
+			obj.date
 		end
 
 		# Check if exists any repeater with that slug
@@ -178,6 +184,7 @@ module Binda
 		# @return [boolean]
 		def has_repeater field_slug 
 			obj = self.repeaters.find_all{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any repeater associated to the current slug.", caller if obj.nil?
 			return obj.present?
 		end
 
@@ -187,7 +194,8 @@ module Binda
 		# @return [hash]
 		def get_repeater field_slug 
 			obj = self.repeaters.find_all{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			obj.sort_by(&:position) unless obj.nil?
+			raise ArgumentError, "There isn't any repeater associated to the current slug.", caller if obj.nil?
+			obj.sort_by(&:position)
 		end
 
 		# Get the radio choice
@@ -199,6 +207,7 @@ module Binda
 		# @return [hash] A hash of containing the label and value of the selected choice. `{ label: 'the label', 'value': 'the value'}`
 		def get_radio_choice field_slug
 			obj = self.radios.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any radio associated to the current slug.", caller if obj.nil?
 			return { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
@@ -208,6 +217,7 @@ module Binda
 		# @return [hash] A hash of containing the label and value of the selected choice. `{ label: 'the label', 'value': 'the value'}`
 		def get_selection_choice field_slug
 			obj = self.selections.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any radio associated to the current slug.", caller if obj.nil?
 			return { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
@@ -217,6 +227,7 @@ module Binda
 		# @return [array] An array of labels and values of the selected choices. `[{ label: '1st label', 'value': '1st-value'}, { label: '2nd label', 'value': '2nd-value'}]`
 		def get_checkbox_choices field_slug
 			obj = self.checkboxes.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any checkbox associated to the current slug.", caller if obj.nil?
 			obj_array = []
 			obj.choices.order('label').each do |o|
 				obj_array << { label: o.label, value: o.value }
@@ -236,5 +247,25 @@ module Binda
 				raise ArgumentError, "One parameter in find_or_create_a_field_by() is not correct.", caller
 			end
 		end
+
+    # This method is called upon the creation of a fieldable record (component, board or repeater) 
+    #   and generates all fields related to each field settings which belongs to it.
+    #   
+    # TODO check if find_or_create_a_field_by method should be used instead (it's used in editors views)
+    def generate_fields
+  		# If this is a component or a board
+    	if self.respond_to?('structure')
+	      self.structure.field_groups.each do |field_group|
+	        field_group.field_settings.each do |field_setting|
+	          self.send(field_setting.field_type.pluralize).create!(field_setting_id: field_setting.id)
+	        end
+	      end
+    	# If this is a repeater
+    	else
+    		self.field_setting.children.each do |field_setting|
+          self.send(field_setting.field_type.pluralize).create!(field_setting_id: field_setting.id)
+    		end
+	    end
+    end
 	end
 end

@@ -51,6 +51,8 @@ export let _FormItem = new FormItem()
 /// COMPONENT HELPER FUNCTIONS
 ///- - - - - - - - - - - - - - - - - - - -
 
+// This function could be improved as it generates an issue with 
+// input ids which are duplicated after the entire target has been cloned
 function addNewItem( event ) 
 {
 	// Stop default behaviour

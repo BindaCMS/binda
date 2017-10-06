@@ -47,10 +47,10 @@ module Binda
 
 		cattr_accessor :field_settings_array
 
-		after_create :set_allow_null
-
     after_create do 
     	self.class.reset_field_settings_array 
+    	set_allow_null
+    	create_field_instances
     end
 
     after_destroy do 
@@ -132,6 +132,39 @@ module Binda
 		#   This isn't done with a database constraint in order to gain flexibility
 		def set_allow_null
 			self.allow_null = false if self.allow_null.nil?
+		end
+
+		# Generates a default field instances for each existing component or board
+		#   which is associated to that field setting. This avoid having issues 
+		#   with Binda::FieldSetting.get_id method which would throw an ambiguous error 
+		#   saying that there isn't any field setting associated when infact it's 
+		#   the actual field missing, not the field setting itself.
+		#   
+		# This script is intentionally run only when the Binda::FieldSetting.get_id is called,
+		#   which means that only if you want call `get_id` Binda will create 
+		#   the related field (text, string, or the like). In other words if you create a field setting
+		#   on a structure which already have some instances (components or a board), these instances
+		#   won't have any field related to that field setting untill `get_id` is called.
+		#   
+		# Some might argue that this is a misbehaviour, and somehow it is, but imagine if you create
+		#   a new field setting on a structure that as already millions of components: this will generate
+		#   millions of queries in order to create a field for each component. Calling this method only on 
+		#   `get_id` means you create a field on the fly only if the field is needed.
+		def create_field_instances
+			structure = self.field_group.structure
+			field_class = self.field_type.pluralize
+			case 
+				when structure.components.any?
+					structure.components.each do |component|
+						unless component.send(field_class).where(field_setting_id: self.id).any?
+							component.send(field_class).create!(field_setting_id: self.id)
+						end
+					end
+				when structure.board.present?
+					unless structure.board.send(field_class).where(field_setting_id: self.id).any?
+						structure.board.send(field_class).create!(field_setting_id: self.id)
+					end
+			end
 		end
 
 	end

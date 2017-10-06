@@ -6,8 +6,6 @@ describe "Field group", type: :feature do
 
 	before(:context) do
 		@structure = create(:structure)
-		# create at two field groups for that structure
-		create(:field_group, structure_id: @structure.id )
 		create(:field_group, structure_id: @structure.id )
 	end
 

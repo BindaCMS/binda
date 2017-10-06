@@ -41,16 +41,12 @@ module Binda
       it "reorder repeater based on position value" do
         sign_in user
 
-        # shuffle the order of the component repeaters
-        shuffle = [
-          @component.repeaters[2].id,
-          @component.repeaters[0].id,
-          @component.repeaters[1].id
-        ]
+        ordered_ids = @component.repeater_ids
+        shuffled_ids = ordered_ids.shuffle
 
         # call sort_repeaters method via post request
         post :sort_repeaters, params: { 
-          repeater: shuffle,
+          repeater: shuffled_ids,
           structure_id: @structure.slug,
           component_id: @component.slug 
         }
@@ -59,9 +55,13 @@ module Binda
         repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
         repeaters = @component.repeaters.order('position').find_all{ |r| r.field_setting_id = repeater_setting_id }
         
-        expect( repeaters.first.position ).not_to eq(0)
-        expect( repeaters.first.position ).to eq(1)
-        expect( @component.repeaters[1].position ).to eq( @component.repeaters.count )
+        expect(repeaters.first.position).to eq(1)
+        expect(repeaters.last.position).to eq(repeaters.length)
+
+        first_shuffled_id = shuffled_ids[0]
+        last_shuffled_id = shuffled_ids[shuffled_ids.length-1]
+        expect(@component.repeaters.find(first_shuffled_id).position).to eq(1)
+        expect(@component.repeaters.find(last_shuffled_id).position).to eq(@component.repeaters.count)
       end
     end
 

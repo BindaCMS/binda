@@ -18,6 +18,7 @@ module Binda
     # 
     # This methods ensure that every repeater instance has an explicit position.
     #   The latest repeater created gets the highest position number.
+    #   The first position is 1 (not 0).
     # 
     # @return [object] Repeater instance
     def set_default_position

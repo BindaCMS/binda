@@ -37,6 +37,8 @@ module Binda
       add_new_field_settings
       add_new_choices
 
+      update_choices
+
       # Update the other ones
       if @field_group.update(field_group_params)
         reset_field_settings_cache
@@ -150,6 +152,19 @@ module Binda
             end
           end
         end 
+      end
+
+      def update_choices
+        return if field_group_params[:field_settings_attributes].nil?
+        field_group_params[:field_settings_attributes].each do |_, field_setting_params|
+          next if field_setting_params[:choices_attributes].nil?
+          field_setting_params[:choices_attributes].each do |_, choice_params|
+            choice = Choice.find(choice_params[:id])
+            unless choice.update(choice_params)
+              return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: choice.errors }
+            end
+          end
+        end
       end
 
   end
