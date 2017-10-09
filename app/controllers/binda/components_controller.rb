@@ -10,7 +10,8 @@ module Binda
 
     def index
       # if a specific order is requested otherwise order by position 
-      params[:order].nil? ? order = 'name ASC' : order = params[:order]
+      avilable_orders = ['name ASC', 'name DESC', 'publish_state ASC, name ASC', 'publish_state DESC, name ASC']
+      params[:order].nil? || !avilable_orders.include?(params[:order]) ? order = 'name ASC' : order = params[:order]
       # get parameters
       @components = @structure.components.order(order).all.page params[:page]
     end
