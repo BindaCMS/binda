@@ -87,9 +87,9 @@ export function custom_fileupload ( target ) {
 			// });
 
 		}).fail( function(e, data){
-			console.error({ data.errorThrown });
-    	console.error(data.textStatus);
-    	console.error(data.jqXHR);
+    	console.error(data.textStatus)
+			console.error(data.errorThrown)
+    	console.error(data.jqXHR)
 		}
 		).prop('disabled', !$.support.fileInput)
 				.parent().addClass($.support.fileInput ? undefined : 'disabled');
