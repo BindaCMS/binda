@@ -18,8 +18,7 @@
             <th class="col-sm-3"></th>
           </tr>
         </thead>
-        
-        <tbody class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
+        <tbody class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>" <%= "data-pagination=#{params['page']}" unless params['page'].nil? %>>
           <% @components.order( :position, :name ).each do |component| %>
             <tr id="component_<%= component.id %>">  
               <td><span class="sortable--handle"></span></td>
@@ -37,7 +36,7 @@
       </table>
 
     <%= paginate @components %>
-    
+
     <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path, class: 'main-header--link btn btn-default', action: "new" %>    
         
   </div>

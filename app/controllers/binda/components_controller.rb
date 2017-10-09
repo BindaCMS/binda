@@ -5,7 +5,6 @@ module Binda
 
     before_action :set_structure
     before_action :set_component, only: [:show, :edit, :update, :destroy, :new_repeater, :upload]
-    before_action :set_position, only: [:create]
 
     include FieldableHelpers
 
@@ -28,7 +27,6 @@ module Binda
 
     def create
       @component = @structure.components.build(component_params)
-      @component.position = @position
 
       if @component.save
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "#{ @structure.name } was successfully created."
@@ -66,7 +64,8 @@ module Binda
     
     def sort
       params[:component].each_with_index do |id, i|
-        Component.find( id ).update({ position: i + 1 })
+        position = params[:component].length * params['page'].to_i + i + 1
+        Component.find( id ).update({ position: position })
       end
       head :ok
     end
@@ -102,10 +101,6 @@ module Binda
           :name, :slug, :position, :publish_state, :structure_id, :category_ids,
           {structure_attributes:  [ :id ]}, 
           {categories_attributes: [ :id, :category_id ]}, *fieldable_params )
-      end
-
-      def set_position
-        @position = @structure.components.order(:position).pluck(:position).last.to_i + 1 unless @position.to_i > 0
       end
 
   end

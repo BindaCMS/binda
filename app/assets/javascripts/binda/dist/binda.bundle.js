@@ -515,7 +515,13 @@ function addNewItem(event) {
 		$('.sortable').sortable({
 			placeholder: "ui-state-highlight",
 			update: function update() {
-				$.post($(this).data('update-url'), $(this).sortable('serialize'));
+				var url = $(this).data('update-url');
+				var data = $(this).sortable('serialize');
+				// If there is a pagination update accordingly
+				if (typeof $(this).data('pagination') != 'undefined') {
+					data = data.concat('&page=' + $(this).data('pagination'));
+				}
+				$.post(url, data);
 			}
 		});
 

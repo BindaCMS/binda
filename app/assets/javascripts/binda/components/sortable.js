@@ -7,10 +7,13 @@ export default function()
 			.sortable({
 		  	placeholder: "ui-state-highlight",
 		  	update: function () {
-					$.post(
-						$(this).data('update-url'),
-						$(this).sortable('serialize')
-					)
+					let url = $(this).data('update-url')
+					let data = $(this).sortable('serialize')
+					// If there is a pagination update accordingly
+					if ( typeof $(this).data('pagination') != 'undefined' ) {
+						data = data.concat(`&page=${$(this).data('pagination')}`)
+					}
+					$.post( url, data )
 		  	}
 		  })
 
@@ -26,10 +29,10 @@ export default function()
 	  $('.sortable--disabled').sortable('disable')
 	}
 
-	$(document).on( 'click', '.sortable--toggle', function( event )
+	$(document).on('click', '.sortable--toggle', function( event )
 	{
 		event.preventDefault()
-		let id = '#' + $( this ).data( 'repeater-id' )
+		let id = '#' + $( this ).data('repeater-id')
 
 		if ( $( id ).hasClass('sortable--disabled') )
 			{ $( id ).sortable('enable') }
