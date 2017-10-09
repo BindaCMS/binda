@@ -9,7 +9,10 @@ module Binda
     include FieldableHelpers
 
     def index
-      @components = @structure.components.order('position').all.page params[:page]
+      # if a specific order is requested otherwise order by position 
+      params[:order].nil? ? order = 'position' : order = params[:order]
+      # get parameters
+      @components = @structure.components.order(order).all.page params[:page]
     end
 
     def show
@@ -64,10 +67,14 @@ module Binda
     
     def sort
       params[:component].each_with_index do |id, i|
-        position = params[:component].length * params['page'].to_i + i + 1
-        Component.find( id ).update({ position: position })
+        Component.find( id ).update({ position: i + 1 })
       end
       head :ok
+    end
+
+    def sort_index
+      return redirect_to structure_components_path, alert: "There are too many #{@structure.name.pluralize}. It's not possible to sort more than #{Component.sort_limit} #{@structure.name.pluralize}." if @structure.components.length > Component.sort_limit
+      @components = @structure.components.order('position').all
     end
 
     def upload

@@ -45,6 +45,11 @@ module Binda
 			slug.blank?
 		end
 
+		# The limit above which componets cannot be sorted anymore
+		def self.sort_limit
+			1000 
+		end
+
 		private 
 
 			# By default a newly created component gets the last position

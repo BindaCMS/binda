@@ -50,6 +50,7 @@ Binda::Engine.routes.draw do
       end
     end
     post 'components/sort'
+    get 'components/sort_index'
     resources :components do
       post 'sort_repeaters'
       post 'new_repeater'
