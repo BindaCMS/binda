@@ -9,7 +9,7 @@ export function custom_fileupload ( target ) {
 			dataType: 'json',
 			autoUpload: true,
 			acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-			maxFileSize: 1000000, // originally 999000
+			maxFileSize: 999000, // originally 999000
 			// Enable image resizing, except for Android and Opera,
 			// which actually support image resizing, but fail to
 			// send Blob objects via XHR requests:
@@ -46,7 +46,6 @@ export function custom_fileupload ( target ) {
 		}).on('fileuploadprogressall', function (e, data) {
 
 			var progress = parseInt(data.loaded / data.total * 100, 10);
-			console.log(progress)
 			$this.find('.progress .progress-bar').css(
 				'width',
 				progress + '%'
@@ -78,13 +77,20 @@ export function custom_fileupload ( target ) {
 
 		}).on('fileuploadfail', function (e, data) {
 
-			$.each(data.files, function (index) {
-				var error = $('<span class="text-danger"/>').text('File upload failed.');
-				$(data.context.children()[index])
-					.append('<br>')
-					.append(error);
-			});
+			alert('Uplaod failed')
 
-		}).prop('disabled', !$.support.fileInput)
+			// $.each(data.files, function (index) {
+				// var error = $('<span class="text-danger"/>').text('File upload failed.');
+				// $(data.context.children()[index])
+				// 	.append('<br>')
+				// 	.append(error);
+			// });
+
+		}).fail( function(e, data){
+			console.error({ data.errorThrown });
+    	console.error(data.textStatus);
+    	console.error(data.jqXHR);
+		}
+		).prop('disabled', !$.support.fileInput)
 				.parent().addClass($.support.fileInput ? undefined : 'disabled');
 }
