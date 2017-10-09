@@ -781,6 +781,23 @@ Once all setup is done run RSpec every time you update the specs:
 rpsec
 ```
 
+## Update test coverage
+
+Once tests are done update Code-Climate test coverage locally (Mac OSX).
+
+```bash
+$ cd path/to/binda
+$ curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.1.4-darwin-amd64 > ./cc-test-reporter
+$ chmod +x ./cc-test-reporter
+$ ./cc-test-reporter before-build
+$ rspec
+$ ./cc-test-reporter after-build -r a8789f8ca71f52cc879c1fa313d94547c9a0ddbd207977fe997f686a71e0c400
+```
+
+`cc-test-reporter` is ignored by the repo, so it want be pushed.
+
+Same thing can be done on linux usign another binary code (see [documentation](https://docs.codeclimate.com/docs/configuring-test-coverage)). Besides the test coverage can be done automatically via Travis as well, but not on pull requests.
+
 ---
 
 

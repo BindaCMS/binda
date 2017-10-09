@@ -104,6 +104,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    docile (1.1.5)
     erubi (1.6.1)
     ethon (0.10.1)
       ffi (>= 1.3.0)
@@ -267,6 +268,11 @@ GEM
     simple_form (3.5.0)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
+    simplecov (0.15.1)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.2)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -328,6 +334,7 @@ DEPENDENCIES
   rspec-rails (>= 3.5, < 3.7)
   ruby-prof (~> 0.15.9)
   selenium-webdriver (~> 3.5)
+  simplecov
   test-unit (~> 3.2)
   travis (~> 1.8)
   yard (~> 0.9)

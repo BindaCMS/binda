@@ -18,3 +18,5 @@ npm-debug.log
 .yardoc
 doc
 .gem
+coverage
+cc-test-reporter
