@@ -15,16 +15,6 @@
   </span>
 	<a class="btn btn-default fileupload--remove-image-btn <%= 'invisible' unless ff.object.image.present? %>" href="<%= url_for([ff.object, action: :remove_image]) %>" data-method="delete" data-remote="true" data-confirm="Do you really want to remove it?">Delete image <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
   </span>
-  <!-- The global progress bar -->
-  <div class="fileupload--details fileupload--details--hidden">
-	  <div class="progress">
-	    <div class="progress-bar progress-bar-striped"></div>
-	  </div>
-	  <!-- The container for the uploaded files -->
-	  <div class="fileupload--files">
-	  	<p class="fileupload--filename">&nbsp;</p>
-	  </div>
-  </div>
 
 	<% if ff.object.image.present? %>
 	  <%= image_tag ff.object.image.thumb.url, class: "form-item--asset--image form-item--asset-#{ ff.object.id }--image" %>

@@ -156,9 +156,9 @@ function custom_fileupload(target) {
 
 		data.context = $this.find('.details');
 		$.each(data.files, function (index, file) {
-			$this.find('.fileupload--filename').text(file.name);
+			$('.fileupload--filename').text(file.name);
 		});
-		$this.find('.fileupload--details').removeClass('fileupload--details--hidden');
+		$('.fileupload--details').removeClass('fileupload--details--hidden');
 	}).on('fileuploadprocessalways', function (e, data) {
 
 		var index = data.index,
@@ -173,7 +173,7 @@ function custom_fileupload(target) {
 	}).on('fileuploadprogressall', function (e, data) {
 
 		var progress = parseInt(data.loaded / data.total * 100, 10);
-		$this.find('.progress .progress-bar').css('width', progress + '%');
+		$('.fileupload--details .progress .progress-bar').css('width', progress + '%');
 	}).on('fileuploaddone', function (e, data) {
 
 		$.each(data.result.files, function (index, file) {
@@ -182,13 +182,13 @@ function custom_fileupload(target) {
 					// remove context
 					data.context.remove();
 					// reset progress bar
-					$this.find('.progress .progress-bar').css('width', '0%');
+					$('.fileupload--details .progress .progress-bar').css('width', '0%');
 					// append/replace image
 					$this.find('.form-item--asset--image').attr('src', file.url).attr('alt', file.name);
 					$this.find('.fileupload--remove-image-btn').removeClass('invisible');
 				}, 500); // this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
 				setTimeout(function () {
-					$this.find('.fileupload--details').addClass('fileupload--details--hidden');
+					$('.fileupload--details').addClass('fileupload--details--hidden');
 				}, 300);
 			} else if (file.error) {
 				var error = $('<span class="text-danger"/>').text(file.error);
@@ -196,6 +196,8 @@ function custom_fileupload(target) {
 			}
 		});
 	}).on('fileuploadfail', function (e, data) {
+
+		$('.fileupload--details').addClass('fileupload--details--hidden');
 
 		alert('Uplaod failed');
 
@@ -205,10 +207,6 @@ function custom_fileupload(target) {
 		// 	.append('<br>')
 		// 	.append(error);
 		// });
-	}).fail(function (e, data) {
-		console.error(data.textStatus);
-		console.error(data.errorThrown);
-		console.error(data.jqXHR);
 	}).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
 }
 

@@ -106,7 +106,9 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_image field_slug 
-			obj = Asset.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
+			obj = self.assets.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			# Alternative query
+			# obj = Asset.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
 			raise ArgumentError, "There isn't any image associated to the current slug.", caller if obj.nil?
 			return obj.image.present?
 		end
@@ -142,7 +144,9 @@ module Binda
 		# @return [string] The info requested if present
 		# @return [boolean] Returns false if no info is found or if image isn't found
 		def get_image_info field_slug, size, info 
-			obj = Asset.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
+			obj = self.assets.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			# Alternative query
+			# obj = Asset.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
 			raise ArgumentError, "There isn't any image associated to the current slug.", caller if obj.nil?
 			if obj.image.present?
 				if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
