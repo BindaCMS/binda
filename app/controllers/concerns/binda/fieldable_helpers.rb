@@ -63,7 +63,7 @@ module Binda
         return { files: [{ name: asset.image_identifier,
                     size: asset.image.size,
                     url: asset.image.url,
-                    thumnailUrl: asset.image.thumb.url }] }
+                    thumbnailUrl: asset.image.thumb.url }] }
       end
 
 

@@ -47,14 +47,6 @@ module Binda
       process resize_to_fit: [200, 200]
     end
 
-    version :medium do
-      process resize_to_fit: [700, 700]
-    end
-
-    version :large do
-      process resize_to_fit: [1400, 1400]
-    end
-
     # ================================
 
     # Add a white list of extensions which are allowed to be uploaded.
@@ -72,5 +64,31 @@ module Binda
     #   "something.jpg" if original_filename
     # end
 
+
+    # Generating medium and large version creates slowness if the uploaded file is a gif.
+    #   Conditional versioning could be a solution, but you might want to do it in your 
+    #   application usign a initializer.
+    #   
+    #   @example 
+    #     require 'active_support/concern'
+    #     module ComponentExtension
+    #       extend ActiveSupport::Concern
+    #       included do 
+    #         version :medium, if: :is_not_gif? do
+    #           process resize_to_fit: [700, 700]
+    #         end
+    #         
+    #         version :large, if: :is_not_gif? do
+    #           process resize_to_fit: [1400, 1400]
+    #         end
+    #       end
+    #       protected
+    #         class_methods do
+    #           def is_not_gif? new_file
+    #             new_file.extension.downcase != 'gif'
+    #           end
+    #         end
+    #     end
+    #     ::Binda::Component.send(:include, ComponentExtension)
   end
 end
