@@ -15,10 +15,10 @@
           <tr>
             <th class="col-sm-5">
               <a href="<%= 
-                if params[:order] == 'name ASC'
-                  structure_components_path([@structure], order:'name DESC') 
+                if params[:order] == 'LOWER(name) ASC'
+                  structure_components_path([@structure], order:'LOWER(name) DESC') 
                 else
-                  structure_components_path([@structure], order:'name ASC') 
+                  structure_components_path([@structure], order:'LOWER(name) ASC') 
                 end
                 %>">
                 Title
@@ -26,10 +26,10 @@
             </th>
             <th class="col-sm-2">
               <a href="<%= 
-                if params[:order] == 'publish_state ASC, name ASC'
-                  structure_components_path([@structure], order:'publish_state DESC, name ASC') 
+                if params[:order] == 'publish_state ASC, LOWER(name) ASC'
+                  structure_components_path([@structure], order:'publish_state DESC, LOWER(name) ASC') 
                 else
-                  structure_components_path([@structure], order:'publish_state ASC, name ASC') 
+                  structure_components_path([@structure], order:'publish_state ASC, LOWER(name) ASC') 
                 end
                 %>">
                 Publish state
@@ -39,7 +39,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @components.order( :position, :name ).each do |component| %>
+          <% @components.each do |component| %>
             <tr id="component_<%= component.id %>">  
               <td><%= link_to component.name, structure_component_path( @structure.slug, component ) %></td>
               <td><%= component.publish_state %></td>
