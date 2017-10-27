@@ -524,9 +524,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__ = __webpack_require__(8);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
+
 
 
 
@@ -552,6 +554,7 @@ $(document).ready(function () {
 		__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].setEvents();
 	}
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__components_sortable__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__["a" /* default */])();
 });
 
 /***/ }),
@@ -600,6 +603,28 @@ var FormItemImage = function () {
 }();
 
 var _FormItemImage = new FormItemImage();
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+///- - - - - - - - - - - - - - - - - - - -
+/// FIELD GROUP EDITOR
+///- - - - - - - - - - - - - - - - - - - -
+
+/* harmony default export */ __webpack_exports__["a"] = function () {
+	$('.field_groups-edit #save').on('click', function (event) {
+		var instanceType = $(this).data('instance-type');
+		var entriesNumber = $(this).data('entries-number');
+
+		// If the current structure have many entries updating the field group
+		// might be a slow operation, therefore it's good practice to inform the user
+		if (entriesNumber > 500) {
+			alert('You have ' + entriesNumber + ' ' + instanceType + '. This operation might take some time to complete. To avoid unexpected behaviour don\'t leave or refresh the page');
+		}
+	});
+};
 
 /***/ })
 /******/ ]);

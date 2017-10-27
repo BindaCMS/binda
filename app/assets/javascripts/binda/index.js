@@ -8,6 +8,7 @@ import { _FormItemImage }    from './components/form_item_image'
 import { _FormItemChoice }   from './components/form_item_choice'
 import { _FormItemEditor }   from './components/form_item_editor'
 import setupSortable         from './components/sortable'
+import setupFieldGroupEditor from './components/field_group_editor'
 
 $(document).ready( function()
 {
@@ -17,4 +18,5 @@ $(document).ready( function()
 	if ( _FormItemChoice.isSet() )   { _FormItemChoice.setEvents() }
 	if ( _FormItemEditor.isSet() )   { _FormItemEditor.setEvents() }
 	setupSortable()
+	setupFieldGroupEditor()
 })
