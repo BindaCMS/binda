@@ -47,7 +47,7 @@ module Binda
 
 		# The limit above which componets cannot be sorted anymore
 		def self.sort_limit
-			1000 
+			1000
 		end
 
 		private 

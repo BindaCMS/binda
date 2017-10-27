@@ -1,5 +1,5 @@
 module Binda
-  class Asset::ImageUploader < CarrierWave::Uploader::Base
+  class Image::ImageUploader < CarrierWave::Uploader::Base
 
     # Include RMagick or MiniMagick support:
     # include CarrierWave::RMagick

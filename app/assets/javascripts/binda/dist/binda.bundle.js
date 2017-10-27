@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -128,91 +128,6 @@ var _FormItemEditor = new FormItemEditor();
 
 /***/ }),
 /* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = custom_fileupload;
-function custom_fileupload(target) {
-
-	var $this = $(target);
-
-	// SETTINGS
-	// 
-	$this.fileupload({
-		url: $this.data('url'), // This should return json, not a proper page
-		dropZone: $this,
-		dataType: 'json',
-		autoUpload: true,
-		acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-	});
-
-	// ADD EVENT
-	// 
-	$this.on('fileuploadadd', function (e, data) {
-		data.context = $this.find('.details');
-		$.each(data.files, function (index, file) {
-			$('.fileupload--filename').text(file.name);
-		});
-		$('.fileupload--details').removeClass('fileupload--details--hidden');
-	});
-
-	// PROCESS ALWAYS EVENT
-	// No matter if upload succeded or not, this event gets triggered
-	// 
-	$this.on('fileuploadprocessalways', function (e, data) {
-		// var index = data.index,
-		// 	file = data.files[index],
-		// 	node = $(data.context.children()[index])
-		// if (file.error) {
-		// 	node
-		// 		.append('<br>')
-		// 		.append($('<span class="text-danger"/>').text(file.error))
-		// }
-		// if (index + 1 === data.files.length) {
-		// 	data.context.find('button')
-		// 		.text('Upload')
-		// 		.prop('disabled', !!data.files.error)
-		// }
-	});
-
-	// DONE EVENT
-	// 
-	$this.on('fileuploaddone', function (e, data) {
-		$.each(data.result.files, function (index, file) {
-			if (file.url) {
-				setTimeout(function () {
-					// remove context
-					data.context.remove();
-					// append/replace image
-					$this.find('.form-item--asset--image').attr('src', file.url).attr('alt', file.name);
-					$this.find('.fileupload--remove-image-btn').removeClass('invisible');
-				}, 500); // this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
-				setTimeout(function () {
-					$('.fileupload--details').addClass('fileupload--details--hidden');
-				}, 300);
-			} else if (file.error) {
-				var error = $('<span class="text-danger"/>').text(file.error);
-				$(data.context.children()[index]).append('<br>').append(error);
-			}
-		});
-	});
-
-	// FAIL EVENT
-	// 
-	$this.on('fileuploadfail', function (e, data) {
-		console.error(data);
-		console.error(data.files[data.index].error);
-		$('.fileupload--details').addClass('fileupload--details--hidden');
-		alert('Uplaod failed');
-	});
-
-	// what is this doing?
-	// not sure... see --> http://blueimp.github.io/jQuery-File-Upload/index.html
-	$this.prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
-}
-
-/***/ }),
-/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -295,54 +210,7 @@ function addNewItem(event) {
 }
 
 /***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(1);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemAsset; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM ASSET
-///- - - - - - - - - - - - - - - - - - - -
-
-
-
-var FormItemAsset = function () {
-	function FormItemAsset() {
-		_classCallCheck(this, FormItemAsset);
-
-		this.target = '.form-item--asset--uploader';
-	}
-
-	_createClass(FormItemAsset, [{
-		key: 'isSet',
-		value: function isSet() {
-			if ($(this.target).length > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}, {
-		key: 'setEvents',
-		value: function setEvents() {
-			$('.fileupload').each(function () {
-				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__["a" /* custom_fileupload */])(this);
-			});
-		}
-	}]);
-
-	return FormItemAsset;
-}();
-
-var _FormItemAsset = new FormItemAsset();
-
-/***/ }),
-/* 4 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -417,11 +285,11 @@ var FormItemChoice = function () {
 var _FormItemChoice = new FormItemChoice();
 
 /***/ }),
-/* 5 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_item_editor__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -511,7 +379,7 @@ function addNewItem(event) {
 }
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -560,17 +428,102 @@ function addNewItem(event) {
 };
 
 /***/ }),
-/* 7 */
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = custom_fileupload;
+function custom_fileupload(target) {
+
+	var $this = $(target);
+
+	// SETTINGS
+	// 
+	$this.fileupload({
+		url: $this.data('url'), // This should return json, not a proper page
+		dropZone: $this,
+		dataType: 'json',
+		autoUpload: true,
+		acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+	});
+
+	// ADD EVENT
+	// 
+	$this.on('fileuploadadd', function (e, data) {
+		data.context = $this.find('.details');
+		$.each(data.files, function (index, file) {
+			$('.fileupload--filename').text(file.name);
+		});
+		$('.fileupload--details').removeClass('fileupload--details--hidden');
+	});
+
+	// PROCESS ALWAYS EVENT
+	// No matter if upload succeded or not, this event gets triggered
+	// 
+	$this.on('fileuploadprocessalways', function (e, data) {
+		// var index = data.index,
+		// 	file = data.files[index],
+		// 	node = $(data.context.children()[index])
+		// if (file.error) {
+		// 	node
+		// 		.append('<br>')
+		// 		.append($('<span class="text-danger"/>').text(file.error))
+		// }
+		// if (index + 1 === data.files.length) {
+		// 	data.context.find('button')
+		// 		.text('Upload')
+		// 		.prop('disabled', !!data.files.error)
+		// }
+	});
+
+	// DONE EVENT
+	// 
+	$this.on('fileuploaddone', function (e, data) {
+		$.each(data.result.files, function (index, file) {
+			if (file.url) {
+				setTimeout(function () {
+					// remove context
+					data.context.remove();
+					// append/replace image
+					$this.find('.form-item--image--image').attr('src', file.url).attr('alt', file.name);
+					$this.find('.fileupload--remove-image-btn').removeClass('invisible');
+				}, 500); // this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
+				setTimeout(function () {
+					$('.fileupload--details').addClass('fileupload--details--hidden');
+				}, 300);
+			} else if (file.error) {
+				var error = $('<span class="text-danger"/>').text(file.error);
+				$(data.context.children()[index]).append('<br>').append(error);
+			}
+		});
+	});
+
+	// FAIL EVENT
+	// 
+	$this.on('fileuploadfail', function (e, data) {
+		console.error(data);
+		console.error(data.files[data.index].error);
+		$('.fileupload--details').addClass('fileupload--details--hidden');
+		alert('Uplaod failed');
+	});
+
+	// what is this doing?
+	// not sure... see --> http://blueimp.github.io/jQuery-File-Upload/index.html
+	$this.prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+}
+
+/***/ }),
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_asset__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(4);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
@@ -589,8 +542,8 @@ $(document).ready(function () {
 	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].setEvents();
 	}
-	if (__WEBPACK_IMPORTED_MODULE_2__components_form_item_asset__["a" /* _FormItemAsset */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_2__components_form_item_asset__["a" /* _FormItemAsset */].setEvents();
+	if (__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].setEvents();
 	}
 	if (__WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__["a" /* _FormItemChoice */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__["a" /* _FormItemChoice */].setEvents();
@@ -600,6 +553,53 @@ $(document).ready(function () {
 	}
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__components_sortable__["a" /* default */])();
 });
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(5);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemImage; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+///- - - - - - - - - - - - - - - - - - - -
+/// FORM ITEM IMAGE
+///- - - - - - - - - - - - - - - - - - - -
+
+
+
+var FormItemImage = function () {
+	function FormItemImage() {
+		_classCallCheck(this, FormItemImage);
+
+		this.target = '.form-item--image--uploader';
+	}
+
+	_createClass(FormItemImage, [{
+		key: 'isSet',
+		value: function isSet() {
+			if ($(this.target).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			$('.fileupload').each(function () {
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__["a" /* custom_fileupload */])(this);
+			});
+		}
+	}]);
+
+	return FormItemImage;
+}();
+
+var _FormItemImage = new FormItemImage();
 
 /***/ })
 /******/ ]);

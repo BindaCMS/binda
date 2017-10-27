@@ -65,7 +65,13 @@ Binda::Engine.routes.draw do
   
   # resources :texts
   # resources :bindings
-  resources :assets do
+  resources :video do
+    member do
+      delete 'remove_video'
+    end
+  end
+
+  resources :images do
     member do
       delete 'remove_image'
     end

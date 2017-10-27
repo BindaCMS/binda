@@ -29,12 +29,22 @@
 
 
 <%# - - - - - - - - - - - - %>
-<%# ASSET                   %>
+<%# IMAGE                   %>
 <%# - - - - - - - - - - - - %>
-<% elsif field_setting.field_type == 'asset' %>
-  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'asset' ) %>
-  <%= f.simple_fields_for "assets_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_asset', ff: ff, field_setting: field_setting %>
+<% elsif field_setting.field_type == 'image' %>
+  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'image' ) %>
+  <%= f.simple_fields_for "images_attributes[]", current do |ff| %>
+    <%= render 'binda/fieldable/form_item_image', ff: ff, field_setting: field_setting %>
+  <% end %>
+
+
+<%# - - - - - - - - - - - - %>
+<%# VIDEO                   %>
+<%# - - - - - - - - - - - - %>
+<% elsif field_setting.field_type == 'video' %>
+  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'video' ) %>
+  <%= f.simple_fields_for "videos_attributes[]", current do |ff| %>
+    <%= render 'binda/fieldable/form_item_video', ff: ff, field_setting: field_setting %>
   <% end %>
 
 
@@ -46,6 +56,9 @@
   <%= render 'binda/fieldable/form_item_repeater', f: f, repeater_setting: field_setting, repeaters: repeaters %>
 
 
+<%# - - - - - - - - - - - - %>
+<%# SELECTION TYPES         %>
+<%# - - - - - - - - - - - - %>
 <% elsif ['radio', 'selection', 'checkbox'].include? field_setting.field_type %>
   <%= render 'binda/fieldable/form_item_selections', f: f, field_setting: field_setting %>
 

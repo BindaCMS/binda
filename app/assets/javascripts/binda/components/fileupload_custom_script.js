@@ -53,7 +53,7 @@ export function custom_fileupload ( target ) {
 						// remove context
 						data.context.remove() 
 						// append/replace image
-						$this.find('.form-item--asset--image').attr('src', file.url).attr('alt', file.name)
+						$this.find('.form-item--image--image').attr('src', file.url).attr('alt', file.name)
 						$this.find('.fileupload--remove-image-btn').removeClass('invisible')
 					}, 500 )	// this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
 					setTimeout( function() { 

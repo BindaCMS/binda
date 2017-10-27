@@ -1,14 +1,14 @@
 ///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM ASSET
+/// FORM ITEM IMAGE
 ///- - - - - - - - - - - - - - - - - - - -
 
 import { custom_fileupload } from './fileupload_custom_script'
 
-class FormItemAsset
+class FormItemImage
 {
 	constructor()
 	{
-		this.target = '.form-item--asset--uploader'
+		this.target = '.form-item--image--uploader'
 	}
 
 	isSet()
@@ -23,4 +23,4 @@ class FormItemAsset
 	}
 }
 
-export var _FormItemAsset = new FormItemAsset()
+export var _FormItemImage = new FormItemImage()

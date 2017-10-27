@@ -7,7 +7,8 @@ module Binda
       def fieldable_params 
         [ texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
           strings_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
-          assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ], 
+          images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ], 
+          videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ], 
           dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
           galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ],
           radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
@@ -16,7 +17,8 @@ module Binda
           repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id,
             texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
             strings_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
-            assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ], 
+            images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ], 
+            videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ], 
             dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
             galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ], 
             repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id ],
@@ -38,9 +40,9 @@ module Binda
           :name, :slug, :position, :publish_state, :structure_id, :category_ids,
           {structure_attributes:  [ :id ]}, 
           {categories_attributes: [ :id, :category_id ]}, 
-          {assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ]}, 
+          {images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache, :video, :video_cache ]}, 
           {repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id,
-            assets_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ]]})
+            images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache, :video, :video_cache ]]})
       end
 
       #
@@ -59,11 +61,11 @@ module Binda
       #
       def upload_details
         # get the latest uploaded image which should be the one the user just uploaded
-        asset = Asset.order('updated_at').last
-        return { files: [{ name: asset.image_identifier,
-                    size: asset.image.size,
-                    url: asset.image.url,
-                    thumbnailUrl: asset.image.thumb.url }] }
+        image = Image.order('updated_at').last
+        return { files: [{ name: image.image_identifier,
+                    size: image.image.size,
+                    url: image.image.url,
+                    thumbnailUrl: image.image.thumb.url }] }
       end
 
 

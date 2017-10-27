@@ -5,8 +5,8 @@
 
   <span class="btn btn-primary fileinput-button">
     <span>Upload image</span>
-      <%= ff.input :image, input_html: { class: 'form-item--asset--uploader'} %>
-      <%# ff.input :image, input_html: { multiple: true, class: 'form-item--asset--uploader'} %>
+      <%= ff.input :image, input_html: { class: 'form-item--image--uploader'} %>
+      <%# ff.input :image, input_html: { multiple: true, class: 'form-item--image--uploader'} %>
       <%= ff.input :image_cache, as: :hidden %>
       <%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
       <%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
@@ -17,9 +17,9 @@
   </span>
 
 	<% if ff.object.image.present? %>
-	  <%= image_tag ff.object.image.thumb.url, class: "form-item--asset--image form-item--asset-#{ ff.object.id }--image" %>
+	  <%= image_tag ff.object.image.thumb.url, class: "form-item--image--image form-item--image-#{ ff.object.id }--image" %>
 	<% else %>
-		<img class="form-item--asset--image">
+		<img class="form-item--image--image">
 	<% end %>
 
 	<% unless field_setting.description.blank? %>
@@ -28,4 +28,4 @@
 
 </div>
 
-<div class="form-item--asset--clearfix"></div>
+<div class="form-item--image--clearfix"></div>

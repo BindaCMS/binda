@@ -15,6 +15,8 @@ module Binda
 		has_many :dates,         as: :fieldable
 		has_many :galleries,     as: :fieldable
 		has_many :assets,        as: :fieldable
+		has_many :images,        as: :fieldable
+		has_many :videos,        as: :fieldable
 		has_many :repeaters,     as: :fieldable
 		has_many :radios,        as: :fieldable
 		has_many :selections,    as: :fieldable
@@ -58,7 +60,7 @@ module Binda
     end
 
 		def self.get_field_classes
-			%w( String Text Date Asset Repeater Radio Selection Checkbox )
+			%w( String Text Date Image Video Repeater Radio Selection Checkbox )
 		end
 
 		# Validations

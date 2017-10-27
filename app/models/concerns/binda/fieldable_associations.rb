@@ -20,6 +20,8 @@ module Binda
 	    has_many :dates,         as: :fieldable, dependent: :delete_all
 	    has_many :galleries,     as: :fieldable, dependent: :delete_all
 	    has_many :assets,        as: :fieldable, dependent: :delete_all
+	    has_many :images,        as: :fieldable, dependent: :delete_all
+	    has_many :videos,        as: :fieldable, dependent: :delete_all
 	    has_many :radios,        as: :fieldable, dependent: :delete_all 
 	    has_many :selections,    as: :fieldable, dependent: :delete_all 
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
@@ -29,7 +31,7 @@ module Binda
 			# has_many :bindings
 			# has_many :assets, class_name: 'Admin::Asset', through: :bindings
 
-	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
+	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
       
       after_create :generate_fields
 		end
@@ -106,9 +108,9 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_image field_slug 
-			obj = self.assets.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			# Alternative query
-			# obj = Asset.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
+			# obj = Image.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
 			raise ArgumentError, "There isn't any image associated to the current slug.", caller if obj.nil?
 			return obj.image.present?
 		end
@@ -144,9 +146,9 @@ module Binda
 		# @return [string] The info requested if present
 		# @return [boolean] Returns false if no info is found or if image isn't found
 		def get_image_info field_slug, size, info 
-			obj = self.assets.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			# Alternative query
-			# obj = Asset.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
+			# obj = Image.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
 			raise ArgumentError, "There isn't any image associated to the current slug.", caller if obj.nil?
 			if obj.image.present?
 				if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
