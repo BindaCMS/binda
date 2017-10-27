@@ -33,7 +33,7 @@ module Binda
 
 	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
       
-      after_create :generate_fields
+      after_save :generate_fields
 		end
 
 		# Get the object related to that field setting
@@ -254,24 +254,33 @@ module Binda
 			end
 		end
 
-    # This method is called upon the creation of a fieldable record (component, board or repeater) 
+    # This method is called upon the creation/update of a fieldable record (component, board or repeater) 
     #   and generates all fields related to each field settings which belongs to it.
+    # 
+    # This avoids any situation in which, for example, a component have a field setting for a text
+    #   but there is no text (meaning `Binda::Text` instance) that correspond to that field setting.
+    #   This causes issues when looping a bunch of components which will thow a error if you try to access
+    #   a component field, as some might have it some might not. This make sure that you can always expect 
+    #   to find a field instance which might be empty, but certainly it exists.
     #   
     # TODO check if find_or_create_a_field_by method should be used instead (it's used in editors views)
+    # 
     def generate_fields
   		# If this is a component or a board
     	if self.respond_to?('structure')
-	      self.structure.field_groups.each do |field_group|
-	        field_group.field_settings.each do |field_setting|
-	          self.send(field_setting.field_type.pluralize).create!(field_setting_id: field_setting.id)
-	        end
-	      end
+	    	field_settings = FieldSetting.where(field_group_id: FieldGroup.where(structure_id: self.structure.id))
+	    	field_settings.each do |field_setting|
+	    		"Binda::#{field_setting.field_type.capitalize}".constantize.find_or_create_by!(
+	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
+	    	end
     	# If this is a repeater
     	else
     		self.field_setting.children.each do |field_setting|
-          self.send(field_setting.field_type.pluralize).create!(field_setting_id: field_setting.id)
+	    		"Binda::#{field_setting.field_type.capitalize}".constantize.find_or_create_by!(
+	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
     		end
 	    end
     end
+
 	end
 end
