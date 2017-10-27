@@ -1,0 +1,25 @@
+.form-item--video--clearfix {
+	margin-bottom: $font-size-base;
+	border-bottom: 1px solid $gray-lighter;
+	@extend .clearfix;
+}
+
+.form-item--video--video {
+	max-width: 100%;
+	height: auto;
+	margin-bottom: $font-size-base;
+	float: left;
+	clear: both;
+	video {
+		max-width: 100%;
+		height: auto;
+	}
+}
+
+.form-item--video--uploader {
+	display: inline-block;
+	margin: 0;
+	margin-top: 9px;
+	float: left;
+	clear: both;
+}
