@@ -51,8 +51,7 @@ module Binda
     def remove_video
       @video.remove_video!
       @video.save!
-      render js: "$('#fileupload-#{@video.id} .form-item--video--video').removeAttr('src').removeAttr('alt');
-      $('#fileupload-#{@video.id} .fileupload--remove-video-btn').addClass('invisible')"
+      render js: "$('#video-#{@video.id}').remove(); console.log('#video-#{@video.id}')"
     end
 
     private
