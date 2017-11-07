@@ -33,6 +33,7 @@ module Binda
 
 	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
       
+      # YOU SHOULDN'T USE THIS METHOD UNTIL IT'S OPTIMIZED
       after_save :generate_fields
 		end
 
@@ -263,6 +264,7 @@ module Binda
     #   a component field, as some might have it some might not. This make sure that you can always expect 
     #   to find a field instance which might be empty, but certainly it exists.
     #   
+    # WARNING when updating the order in components sort index, find_or_create_by generates several useless queries that slows down the CMS way too much!!!
     # TODO check if find_or_create_a_field_by method should be used instead (it's used in editors views)
     # 
     def generate_fields

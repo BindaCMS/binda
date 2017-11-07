@@ -70,7 +70,7 @@ module Binda
       params[:component].each_with_index do |id, i|
         Component.find( id ).update({ position: i + 1 })
       end
-      head :ok
+      render js: "$('##{params[:id]}').sortable('option', 'disabled', false); $('.sortable-warning').addClass('sortable-warning--hidden'); $('.sortable').removeClass('sortable--disabled')"
     end
 
     def sort_index

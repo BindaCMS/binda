@@ -7,7 +7,16 @@
   <a href="<%= structure_components_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= "#{ t :back_to_index }".capitalize %></a>
 <% end %>
 
-<% content_for :content do %> 
+<% content_for :content do %>
+  <div class="sortable-warning sortable-warning--hidden">
+      <div class="sortable-warning--loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <p>Updating components position...</p>
+  </div>
   <div class="main-table--row row">
     <div class="col-sm-12">
   
@@ -23,7 +32,7 @@
             <th class="col-sm-3"></th>
           </tr>
         </thead>
-        <tbody class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
+        <tbody id="<%= @structure.slug %>-components--sort-index" class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
           <% @components.order( :position, :name ).each do |component| %>
             <tr id="component_<%= component.id %>">  
               <td><span class="sortable--handle"></span></td>
