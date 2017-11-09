@@ -778,6 +778,12 @@ rails db:migrate RAILS_ENV=test
 
 The above command might generate an error. This might be because you have already installed Binda. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again.
 
+If in the future you need to clean your dummy app code, simply run:
+
+```bash
+rm -rf spec/dummy && git checkout spec/dummy
+```
+
 Once all setup is done run RSpec every time you update the specs:
 
 ```bash
