@@ -757,18 +757,9 @@ rails db:drop && rails db:create
 rails generate binda:setup
 ```
 
-In order to make the dummy application flexible Binda's settings aren't save in the repository, which means that every time you clone the Binda repository you will need to run the installer again on a clean database.
-Here the files/folders which are ignored by `.gitignore`:
+In order to make the dummy application flexible any update to that folder isn't saved in the repository.
 
-```
-spec/dummy/db/migrate/
-spec/dummy/db/schema.rb
-spec/dummy/config/initializers/devise.rb
-spec/dummy/public/uploads/
-spec/dummy/log/*.log
-spec/dummy/tmp/
-```
-
+This let you as you prefer with your dummy without the hassle of cleaning it before creating a commit.
 
 ## How to test
 In order to avoid the *it works on my machine* issue, test are run via Travis every time a commit is pushed. Make sure you register your forked version on Travis in order to test every commit. If you don't the forked version will be tested once you make a pull request to the original repository.
