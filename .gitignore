@@ -1,15 +1,7 @@
 .bundle/
 log/*.log
 pkg/
-spec/dummy/db/*.sqlite3
-spec/dummy/db/*.sqlite3-journal
-spec/dummy/log/*.log
-spec/dummy/tmp/
-spec/dummy/public/uploads/
-
-spec/dummy/db/migrate/
-spec/dummy/db/schema.rb
-spec/dummy/config/initializers/devise*.rb
+spec/dummy
 
 node_modules
 npm-debug.log
