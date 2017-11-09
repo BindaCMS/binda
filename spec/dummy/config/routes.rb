@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'maintenance/index'
+
   get 'maintenance', to: 'maintenance#index', as: 'maintenance'
   
 

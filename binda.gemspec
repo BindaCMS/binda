@@ -36,6 +36,8 @@ Gem::Specification.new do |s|
   s.add_dependency "ancestry",             ">= 2.1",      "< 3.1"
   s.add_dependency "kaminari",             "~> 1.0"
   s.add_dependency "friendly_id",          ">= 5.1",      "< 5.4"
+  s.add_dependency "bourbon",              "4.3.4"
+  s.add_dependency "neat",                 "2.1.0"
   # s.add_dependency "meta-tags"
   # s.add_dependency "cancancan"
 
