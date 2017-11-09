@@ -50,6 +50,7 @@ Binda::Engine.routes.draw do
       end
     end
     post 'components/sort'
+    get 'components/sort_index'
     resources :components do
       post 'sort_repeaters'
       post 'new_repeater'
@@ -64,7 +65,13 @@ Binda::Engine.routes.draw do
   
   # resources :texts
   # resources :bindings
-  resources :assets do
+  resources :videos do
+    member do
+      delete 'remove_video'
+    end
+  end
+
+  resources :images do
     member do
       delete 'remove_image'
     end

@@ -1,6 +1,7 @@
 <% content_for :header do %>
   <div class="main-header--buttons">
-    <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path , class: 'main-header--link btn btn-primary' %>    
+    <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path , class: 'main-header--link btn btn-primary' %>
+    <%= get_sort_index_link %>
   </div>
   <h3><%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></h3>
 <% end %>
@@ -12,17 +13,34 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th class="col-sm-1"></th>
-            <th class="col-sm-5">Title</th>
-            <th class="col-sm-2">Publish state</th>
+            <th class="col-sm-5">
+              <a href="<%= 
+                if params[:order] == 'LOWER(name) ASC'
+                  structure_components_path([@structure], order:'LOWER(name) DESC') 
+                else
+                  structure_components_path([@structure], order:'LOWER(name) ASC') 
+                end
+                %>">
+                Title
+              </a>
+            </th>
+            <th class="col-sm-2">
+              <a href="<%= 
+                if params[:order] == 'publish_state ASC, LOWER(name) ASC'
+                  structure_components_path([@structure], order:'publish_state DESC, LOWER(name) ASC') 
+                else
+                  structure_components_path([@structure], order:'publish_state ASC, LOWER(name) ASC') 
+                end
+                %>">
+                Publish state
+              </a>
+            </th>
             <th class="col-sm-3"></th>
           </tr>
         </thead>
-        
-        <tbody class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
-          <% @components.order( :position, :name ).each do |component| %>
+        <tbody>
+          <% @components.each do |component| %>
             <tr id="component_<%= component.id %>">  
-              <td><span class="sortable--handle"></span></td>
               <td><%= link_to component.name, structure_component_path( @structure.slug, component ) %></td>
               <td><%= component.publish_state %></td>
               <td>
@@ -37,8 +55,9 @@
       </table>
 
     <%= paginate @components %>
-    
+
     <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path, class: 'main-header--link btn btn-default', action: "new" %>    
+    <%= get_sort_index_link %>
         
   </div>
 </div>

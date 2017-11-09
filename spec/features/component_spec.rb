@@ -1,13 +1,13 @@
 require "rails_helper"
 
-describe "GET components#index:", type: :feature, js: true do
+describe "GET components#sort_index:", type: :feature, js: true do
 	let(:user) { Binda::User.first }
 
 	before(:context) do
 		@structure = create(:article_structure_with_components)
 	end
 
-	it "display components sorted by position" do
+	it "displays components sorted by position" do
 		sign_in user
 
 		first_component = @structure.components.order(:position).first
@@ -15,7 +15,7 @@ describe "GET components#index:", type: :feature, js: true do
 		last_component = @structure.components.order(:position).last
 		last_position = last_component.position
 
-		path = binda.structure_components_path( structure_id: @structure.id ) 
+		path = binda.structure_components_sort_index_path( structure_id: @structure.id ) 
 		visit path
 		expect( page ).to have_current_path( path )
 		expect( page.body.index( first_component.name ) ).to be < page.body.index( last_component.name ) 

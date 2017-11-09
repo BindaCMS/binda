@@ -5,12 +5,15 @@ module Binda
 
     before_action :set_structure
     before_action :set_component, only: [:show, :edit, :update, :destroy, :new_repeater, :upload]
-    before_action :set_position, only: [:create]
 
     include FieldableHelpers
 
     def index
-      @components = @structure.components.order('position').all.page params[:page]
+      # if a specific order is requested otherwise order by position 
+      avilable_orders = ['LOWER(name) ASC', 'LOWER(name) DESC', 'publish_state ASC, LOWER(name) ASC', 'publish_state DESC, LOWER(name) ASC']
+      params[:order] = avilable_orders[0] if params[:order].nil? || !avilable_orders.include?(params[:order])
+      order = params[:order]
+      @components = @structure.components.order(order).all.page params[:page]
     end
 
     def show
@@ -28,7 +31,6 @@ module Binda
 
     def create
       @component = @structure.components.build(component_params)
-      @component.position = @position
 
       if @component.save
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "#{ @structure.name } was successfully created."
@@ -68,7 +70,12 @@ module Binda
       params[:component].each_with_index do |id, i|
         Component.find( id ).update({ position: i + 1 })
       end
-      head :ok
+      render js: "$('##{params[:id]}').sortable('option', 'disabled', false); $('.sortable-warning').addClass('sortable-warning--hidden'); $('.sortable').removeClass('sortable--disabled')"
+    end
+
+    def sort_index
+      return redirect_to structure_components_path, alert: "There are too many #{@structure.name.pluralize}. It's not possible to sort more than #{Component.sort_limit} #{@structure.name.pluralize}." if @structure.components.length > Component.sort_limit
+      @components = @structure.components.order('position').all
     end
 
     def upload
@@ -102,10 +109,6 @@ module Binda
           :name, :slug, :position, :publish_state, :structure_id, :category_ids,
           {structure_attributes:  [ :id ]}, 
           {categories_attributes: [ :id, :category_id ]}, *fieldable_params )
-      end
-
-      def set_position
-        @position = @structure.components.order(:position).pluck(:position).last.to_i + 1 unless @position.to_i > 0
       end
 
   end

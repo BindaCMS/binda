@@ -48,12 +48,6 @@ module Binda
       redirect_to assets_url, notice: 'Asset was successfully destroyed.'
     end
 
-    def remove_image
-      @asset.remove_image!
-      render js: "$('#fileupload-#{@asset.id} .form-item--asset--image').removeAttr('src').removeAttr('alt');
-      $('#fileupload-#{@asset.id} .fileupload--remove-image-btn').addClass('invisible')"
-    end
-
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_asset

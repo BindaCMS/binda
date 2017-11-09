@@ -136,10 +136,6 @@
     display: block;
     background-color: $body-bg;
   }
-  ul.sortable--disabled li
-  {
-    cursor: default;
-  }
   ul.sortable
   {
     margin-bottom: $font-size-base/2;

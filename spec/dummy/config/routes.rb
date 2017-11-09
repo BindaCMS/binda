@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'maintenance', to: 'maintenance#index', as: 'maintenance'
+  
+
   root 'pages#index'
 	get 'pages', to: 'pages#index', as: :pages
 	get 'pages/:id', to: 'pages#show', as: :page

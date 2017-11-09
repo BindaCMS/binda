@@ -20,6 +20,8 @@ module Binda
 	    has_many :dates,         as: :fieldable, dependent: :delete_all
 	    has_many :galleries,     as: :fieldable, dependent: :delete_all
 	    has_many :assets,        as: :fieldable, dependent: :delete_all
+	    has_many :images,        as: :fieldable, dependent: :delete_all
+	    has_many :videos,        as: :fieldable, dependent: :delete_all
 	    has_many :radios,        as: :fieldable, dependent: :delete_all 
 	    has_many :selections,    as: :fieldable, dependent: :delete_all 
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
@@ -29,9 +31,10 @@ module Binda
 			# has_many :bindings
 			# has_many :assets, class_name: 'Admin::Asset', through: :bindings
 
-	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
+	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
       
-      after_create :generate_fields
+      # YOU SHOULDN'T USE THIS METHOD UNTIL IT'S OPTIMIZED
+      after_save :generate_fields
 		end
 
 		# Get the object related to that field setting
@@ -106,7 +109,9 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_image field_slug 
-			obj = self.assets.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			# Alternative query
+			# obj = Image.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
 			raise ArgumentError, "There isn't any image associated to the current slug.", caller if obj.nil?
 			return obj.image.present?
 		end
@@ -142,7 +147,9 @@ module Binda
 		# @return [string] The info requested if present
 		# @return [boolean] Returns false if no info is found or if image isn't found
 		def get_image_info field_slug, size, info 
-			obj = self.assets.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			# Alternative query
+			# obj = Image.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
 			raise ArgumentError, "There isn't any image associated to the current slug.", caller if obj.nil?
 			if obj.image.present?
 				if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
@@ -248,24 +255,34 @@ module Binda
 			end
 		end
 
-    # This method is called upon the creation of a fieldable record (component, board or repeater) 
+    # This method is called upon the creation/update of a fieldable record (component, board or repeater) 
     #   and generates all fields related to each field settings which belongs to it.
+    # 
+    # This avoids any situation in which, for example, a component have a field setting for a text
+    #   but there is no text (meaning `Binda::Text` instance) that correspond to that field setting.
+    #   This causes issues when looping a bunch of components which will thow a error if you try to access
+    #   a component field, as some might have it some might not. This make sure that you can always expect 
+    #   to find a field instance which might be empty, but certainly it exists.
     #   
+    # WARNING when updating the order in components sort index, find_or_create_by generates several useless queries that slows down the CMS way too much!!!
     # TODO check if find_or_create_a_field_by method should be used instead (it's used in editors views)
+    # 
     def generate_fields
   		# If this is a component or a board
     	if self.respond_to?('structure')
-	      self.structure.field_groups.each do |field_group|
-	        field_group.field_settings.each do |field_setting|
-	          self.send(field_setting.field_type.pluralize).create!(field_setting_id: field_setting.id)
-	        end
-	      end
+	    	field_settings = FieldSetting.where(field_group_id: FieldGroup.where(structure_id: self.structure.id))
+	    	field_settings.each do |field_setting|
+	    		"Binda::#{field_setting.field_type.capitalize}".constantize.find_or_create_by!(
+	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
+	    	end
     	# If this is a repeater
     	else
     		self.field_setting.children.each do |field_setting|
-          self.send(field_setting.field_type.pluralize).create!(field_setting_id: field_setting.id)
+	    		"Binda::#{field_setting.field_type.capitalize}".constantize.find_or_create_by!(
+	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
     		end
 	    end
     end
+
 	end
 end

@@ -6,6 +6,7 @@ A modular CMS for Ruby on Rails 5.1.
 [![Build Status](https://travis-ci.org/a-barbieri/binda.svg?branch=master)](https://travis-ci.org/lacolonia/binda)
 [![Test Coverage](https://codeclimate.com/github/lacolonia/binda/badges/coverage.svg)](https://codeclimate.com/github/lacolonia/binda/coverage)
 [![Dependency Status](https://gemnasium.com/badges/github.com/lacolonia/binda.svg)](https://gemnasium.com/github.com/lacolonia/binda)
+[![Inline docs](http://inch-ci.org/github/lacolonia/binda.svg?branch=master)](http://inch-ci.org/github/lacolonia/binda)
 
 > This documentation has been written for the [Official Documentation](http://www.rubydoc.info/gems/binda), not the Github README. 
 > If you still prefer to read Github README be aware that links might not work properly.
@@ -354,8 +355,8 @@ You can retrieve field content from a instance of `Binda::Component`, `Binda::Bo
 | `has_string`| Returns `true/false`. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:has_string) |
 | `get_string`| Returns the text. Use [`simple_format`](https://apidock.com/rails/ActionView/Helpers/TextHelper/simple_format) to maintain HTML tags. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_string) |
 |`has_image`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:has_image) |
-|`get_image_url`| Returns the url of the image. The sizes available are `thumb` (200x200), `medium` (700x700), `large` (1400x1400). If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_image_url) |
-|`get_image_path`| Returns the path of the image. The sizes available are `thumb` (200x200), `medium` (700x700), `large` (1400x1400). If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_image_path) |
+|`get_image_url(size)`| Returns the url of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_image_url) |
+|`get_image_path(size)`| Returns the path of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_image_path) |
 |`has_date`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:has_date) |
 |`get_date`| Returns the date in `datetime` format. Use [`strftime`](https://apidock.com/rails/ActiveSupport/TimeWithZone/strftime) to change date format. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_date) |
 |`has_repeater`| Returns `true/false`| [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:has_repeater) |
@@ -780,6 +781,23 @@ Once all setup is done run RSpec every time you update the specs:
 ```
 rpsec
 ```
+
+## Update test coverage
+
+Once tests are done update Code-Climate test coverage locally (Mac OSX).
+
+```bash
+$ cd path/to/binda
+$ curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.1.4-darwin-amd64 > ./cc-test-reporter
+$ chmod +x ./cc-test-reporter
+$ ./cc-test-reporter before-build
+$ rspec
+$ ./cc-test-reporter after-build -r a8789f8ca71f52cc879c1fa313d94547c9a0ddbd207977fe997f686a71e0c400
+```
+
+`cc-test-reporter` is ignored by the repo, so it want be pushed.
+
+Same thing can be done on linux usign another binary code (see [documentation](https://docs.codeclimate.com/docs/configuring-test-coverage)). Besides the test coverage can be done automatically via Travis as well, but not on pull requests.
 
 ---
 

@@ -15,6 +15,8 @@ module Binda
 		has_many :dates,         as: :fieldable
 		has_many :galleries,     as: :fieldable
 		has_many :assets,        as: :fieldable
+		has_many :images,        as: :fieldable
+		has_many :videos,        as: :fieldable
 		has_many :repeaters,     as: :fieldable
 		has_many :radios,        as: :fieldable
 		has_many :selections,    as: :fieldable
@@ -58,7 +60,7 @@ module Binda
     end
 
 		def self.get_field_classes
-			%w( String Text Date Asset Repeater Radio Selection Checkbox )
+			%w( String Text Date Image Video Repeater Radio Selection Checkbox )
 		end
 
 		# Validations
@@ -140,16 +142,9 @@ module Binda
 		#   saying that there isn't any field setting associated when infact it's 
 		#   the actual field missing, not the field setting itself.
 		#   
-		# This script is intentionally run only when the Binda::FieldSetting.get_id is called,
-		#   which means that only if you want call `get_id` Binda will create 
-		#   the related field (text, string, or the like). In other words if you create a field setting
-		#   on a structure which already have some instances (components or a board), these instances
-		#   won't have any field related to that field setting untill `get_id` is called.
-		#   
-		# Some might argue that this is a misbehaviour, and somehow it is, but imagine if you create
-		#   a new field setting on a structure that as already millions of components: this will generate
-		#   millions of queries in order to create a field for each component. Calling this method only on 
-		#   `get_id` means you create a field on the fly only if the field is needed.
+		# A similar script runs after saving components and boards which makes sure
+		#   a field instance is always present no matter if the component has been created
+		#   before the field setting or the other way around.
 		def create_field_instances
 			structure = self.field_group.structure
 			field_class = self.field_type.pluralize

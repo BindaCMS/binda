@@ -1,47 +1,19 @@
 .fileupload
 {
-	position: relative;
+  position: relative;
 
-	.form-group 
-	{
-		margin: 0 !important;
-	}
-  .progress
+  .form-group
   {
-  	margin: 12px 0;
-  	height: 8px;
+    margin: 0 !important;
   }
-  .fileupload--details
-  {
-  	position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		opacity: 1;
-		background-color: #fff;
-		padding: 24px;
-		width: 40%;
-		transition: opacity .2s linear;
-    pointer-events: none;
-    z-index: 9999;
-		@extend .box-shadowed-up;
-		&.fileupload--details--hidden
-		{
-			opacity: 0;
-		}
-  }
-	.fileupload--filename
-	{
-		text-align: center;
-	}
   .fileinput-button
   {
     position: relative;
     display: inline-block;
-    overflow: hidden;
-    margin-bottom: 12px;
     float: left;
+    overflow: hidden;
     margin-right: 8px;
+    margin-bottom: 12px;
   }
   .fileinput-button input
   {
@@ -55,12 +27,9 @@
 
     -ms-filter: 'alpha(opacity=0)';
     direction: ltr;
-  }
 
-  /* Fixes for IE < 8 */
-  @media screen\9
-  {
-    .fileinput-button input
+    /* Fixes for IE < 8 */
+    @media screen\9
     {
       font-size: 100%;
       height: 100%;
@@ -69,14 +38,48 @@
     }
   }
 }
-.form-item--repeater-fields 
+.form-item--repeater-fields
 {
-  .fileinput-button 
+  .fileinput-button
   {
     margin-left: 5%;
   }
-  .form-item--asset--image 
+  .form-item--image--image
   {
     margin-left: 20%;
   }
+}
+.fileupload--details
+{
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  padding: 24px;
+  transition: opacity .2s linear;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 1;
+  background-color: #fff;
+
+  @extend .box-shadowed-up;
+  &.fileupload--details--hidden
+  {
+    opacity: 0;
+  }
+
+  .progress
+  {
+    height: 8px;
+    margin: 12px 0;
+    .progress-bar
+    {
+      width: 100%;
+    }
+  }
+}
+.fileupload--filename
+{
+  text-align: center;
 }

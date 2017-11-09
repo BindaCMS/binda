@@ -31,6 +31,11 @@ module Binda
 			expect( new_component.slug ).to eq "component-1"
 		end
 
+		it "automatically sets a postion after create" do
+			component = create(:component)
+			expect( component.position ).not_to be_nil
+		end
+
 		it "destroys all fields related to it when it's deleted" do
 			skip "not implemented yet"
 		end

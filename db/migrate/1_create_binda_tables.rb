@@ -81,6 +81,8 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     end
 
     create_table :binda_assets do |t|
+      t.string           :type
+      t.string           :video
       t.string           :image
       t.belongs_to       :field_setting
       t.references       :fieldable, polymorphic: true, index: true

@@ -7,7 +7,5 @@ module Binda
   	belongs_to :fieldable, polymorphic: true
   	belongs_to :field_setting
 
-    mount_uploader :image, ImageUploader
-
   end
 end

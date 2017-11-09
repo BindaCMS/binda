@@ -7,10 +7,16 @@ export default function()
 			.sortable({
 		  	placeholder: "ui-state-highlight",
 		  	update: function () {
-					$.post(
-						$(this).data('update-url'),
-						$(this).sortable('serialize')
-					)
+		  		if ( $('.sortable-warning').length > 0 ) {
+		  			$('.sortable').addClass('sortable--disabled')
+		  			$('.sortable-warning').removeClass('sortable-warning--hidden')
+		  			$(this).sortable('option','disabled', true)
+		  		}
+					let url = $(this).data('update-url')
+					let data = $(this).sortable('serialize')
+					// If there is a pagination update accordingly
+					data = data.concat(`&id=${$(this).attr('id')}`)
+					$.post( url, data )
 		  	}
 		  })
 
@@ -26,10 +32,10 @@ export default function()
 	  $('.sortable--disabled').sortable('disable')
 	}
 
-	$(document).on( 'click', '.sortable--toggle', function( event )
+	$(document).on('click', '.sortable--toggle', function( event )
 	{
 		event.preventDefault()
-		let id = '#' + $( this ).data( 'repeater-id' )
+		let id = '#' + $( this ).data('repeater-id')
 
 		if ( $( id ).hasClass('sortable--disabled') )
 			{ $( id ).sortable('enable') }
