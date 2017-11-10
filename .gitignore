@@ -1,14 +1,16 @@
 .bundle/
 log/*.log
 pkg/
-spec/dummy
 
 node_modules
 npm-debug.log
 .DS_Store
+
+spec/dummy
 
 .yardoc
 doc
 .gem
 coverage
 cc-test-reporter
+.idea

@@ -16,7 +16,7 @@ FactoryGirl.define do
   end
 
   # Article Component with repeaters
-  # WARNING: This should be called directly, instead use :article_structure_with_components_and_fields factory
+  # WARNING: This shouldn't be called directly, instead use :article_structure_with_components_and_fields factory
   # @see https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#associations
   factory :article_component_with_fields, parent: :article_component do
     transient do

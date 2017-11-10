@@ -37,7 +37,15 @@ module Binda
 		end
 
 		it "destroys all fields related to it when it's deleted" do
-			skip "not implemented yet"
+			structure = create(:article_structure_with_components_and_fields)
+			first_component = structure.components.first
+
+			strings = first_component.strings.ids
+
+			first_component.destroy!
+
+			expect( String.where(id: strings) ).to be_empty
+
 		end
 
 		it "can have multiple categories" do

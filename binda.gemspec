@@ -61,5 +61,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "redcarpet",                "~> 3.4"
   s.add_development_dependency "github-markup",            "~> 1.6"
   s.add_development_dependency "travis",                   "~> 1.8"
-
 end
