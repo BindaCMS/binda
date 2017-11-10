@@ -61,6 +61,10 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    ammeter (1.1.4)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-rails (>= 2.2)
     ancestry (3.0.1)
       activerecord (>= 3.2.0)
     arel (8.0.0)
@@ -317,6 +321,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ammeter (~> 1.1.4)
   autoprefixer-rails (~> 7.1)
   binda!
   bullet (~> 5.6)
@@ -340,4 +345,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   1.16.0.pre.2
+   1.16.0.pre.3
