@@ -62,7 +62,7 @@ Before completing the installation you need to setup the database. If you are go
 To complete binda installation run the installer from terminal. Binda will take you through a bit of configuration where you will setup the first user and some basic details.
 
 ```bash
-rails g binda:install
+rails generate binda:install
 ```
 
 Now you are good to go. Good job!
@@ -74,7 +74,7 @@ Now you are good to go. Good job!
 If you need to re-install Binda and reset initial database settings (such as username and password for example) execute the following command from the application root.
 
 ```bash
-rails g binda:setup
+rails generate binda:setup
 ```
 
 ## Specific needs
@@ -720,11 +720,27 @@ To contribute [fork this project](https://github.com/lacolonia/binda/wiki/_new#f
 - when fixing a bug, provide a failing test case that your patch solves
 
 ## How to work locally
+Ensure you have installed Binda dependencies.
+
+```bash
+cd path/to/binda
+bundle install
+npm install
+```
+
 To see what you are actually doing you can make use of the **dummy application** which is shipped with Binda.
+
+Ensure you have Postgres up and running, then create dummy databases.
 
 ```bash
 cd spec/dummy
-rails g binda:install
+rails db:create
+```
+
+If you haven't already, install Binda.
+
+```bash
+rails generate binda:install
 ```
 
 In order to edit javascript files you need to run Webpack and leave the terminal window open, so Webpack can compile everytime you save a file. To install Webpack run `npm install` from the root of your application. Then everytime you want to edit a javascript file run:
@@ -737,23 +753,13 @@ If you need to reset your database run the following commands
 
 ```
 cd spec/dummy
-rails db:drop
-rails db:create
-rails g binda:setup
+rails db:drop && rails db:create
+rails generate binda:setup
 ```
 
-In order to make the dummy application flexible Binda's settings aren't save in the repository, which means that every time you clone the Binda repository you will need to run the installer again on a clean database.
-Here the files/folders which are ignored by `.gitignore`:
+In order to make the dummy application flexible any update to that folder isn't saved in the repository.
 
-```
-spec/dummy/db/migrate/
-spec/dummy/db/schema.rb
-spec/dummy/config/initializers/devise.rb
-spec/dummy/public/uploads/
-spec/dummy/log/*.log
-spec/dummy/tmp/
-```
-
+This let you as you prefer with your dummy without the hassle of cleaning it before creating a commit.
 
 ## How to test
 In order to avoid the *it works on my machine* issue, test are run via Travis every time a commit is pushed. Make sure you register your forked version on Travis in order to test every commit. If you don't the forked version will be tested once you make a pull request to the original repository.
@@ -770,15 +776,11 @@ Some specs are run against the database. If you haven't installed Binda on the d
 rails db:migrate RAILS_ENV=test
 ```
 
-If you have already installed Binda on the dummy application run this line instead:
-
-```bash
-rails db:schema:load RAILS_ENV=test 
-```
+The above command might generate an error. This might be because you have already installed Binda. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again.
 
 Once all setup is done run RSpec every time you update the specs:
 
-```
+```bash
 rpsec
 ```
 
