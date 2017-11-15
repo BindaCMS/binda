@@ -476,7 +476,9 @@ var FormItemRepeater = function () {
 	}, {
 		key: 'setEvents',
 		value: function setEvents() {
-			$(document).on('click', this.target + '--add-new', addNewItem);
+			$(document).on('click', this.target + '--add-new', function (event) {
+				addNewItem(this, event);
+			});
 
 			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
 				// Stop default behaviour
@@ -514,13 +516,13 @@ var _FormItemRepeater = new FormItemRepeater();
 /// COMPONENT HELPER FUNCTIONS
 ///- - - - - - - - - - - - - - - - - - - -
 
-function addNewItem(event) {
+function addNewItem(target, event) {
 	// Stop default behaviour
 	event.preventDefault();
 	// Get the child to clone
-	var id = $(event.target).data('id');
+	var id = $(target).data('id');
 	var $list = $('#form-item--repeater-setting-' + id);
-	var url = $(event.target).data('url');
+	var url = $(target).data('url');
 	$.post(url, { repeater_setting_id: id }, function (data) {
 		var parts = data.split('<!-- SPLIT -->');
 		var newRepeater = parts[1];

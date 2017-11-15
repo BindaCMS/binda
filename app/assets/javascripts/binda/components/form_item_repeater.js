@@ -20,7 +20,7 @@ class FormItemRepeater {
 
 	setEvents()
 	{
-		$(document).on('click', this.target + '--add-new', addNewItem )
+		$(document).on('click', this.target + '--add-new', function(event){ addNewItem(this, event)} )
 		
 		$(document).on('click', '.form-item--remove-item-with-js', function( event )
 		{
@@ -56,14 +56,14 @@ export let _FormItemRepeater = new FormItemRepeater()
 /// COMPONENT HELPER FUNCTIONS
 ///- - - - - - - - - - - - - - - - - - - -
 
-function addNewItem( event ) 
+function addNewItem( target, event ) 
 {
 	// Stop default behaviour
 	event.preventDefault()
 	// Get the child to clone
-	let id = $( event.target ).data( 'id' )
+	let id = $( target ).data( 'id' )
 	let $list = $('#form-item--repeater-setting-' + id )
-	let url = $( event.target ).data( 'url' )
+	let url = $( target ).data( 'url' )
 	$.post( url, { repeater_setting_id: id }, function( data )
 	{
 		let parts = data.split('<!-- SPLIT -->')
