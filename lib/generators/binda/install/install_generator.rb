@@ -7,7 +7,7 @@ module Binda
       def check_if_production
         if Rails.env.production?
           puts "Sorry Binda can only be installed in development mode"
-          exit
+          # exit
         end
       end
 
@@ -16,7 +16,7 @@ module Binda
         if ActiveRecord::Base.connection.data_source_exists? 'binda_components'
           puts "Binda has already been installed on this database."
           puts "Please ensure Binda is completely removed from the database before trying to install it again."
-          exit
+          # exit
         end
       end
       
@@ -51,88 +51,88 @@ module Binda
         
       end
 
-      def add_route
-        return if Rails.application.routes.routes.detect { |route| route.app.app == Binda::Engine }
-        puts "2) Add Binda routes"
-        route "mount Binda::Engine => '/admin_panel'"
-      end
+      # def add_route
+      #   return if Rails.application.routes.routes.detect { |route| route.app.app == Binda::Engine }
+      #   puts "2) Add Binda routes"
+      #   route "mount Binda::Engine => '/admin_panel'"
+      # end
 
-      def add_helpers
-        ac_path = Rails.root.join('app', 'controllers', 'application_controller.rb' )
-        unless File.readlines(ac_path).grep(/::Binda::DefaultHelpers/).size > 0
-          puts "3) Add Binda default helpers"
-          inject_into_file ac_path, after: "ActionController::Base" do 
-            "\n  include ::Binda::DefaultHelpers"
-          end
-        end
-      end
+      # def add_helpers
+      #   ac_path = Rails.root.join('app', 'controllers', 'application_controller.rb' )
+      #   unless File.readlines(ac_path).grep(/::Binda::DefaultHelpers/).size > 0
+      #     puts "3) Add Binda default helpers"
+      #     inject_into_file ac_path, after: "ActionController::Base" do 
+      #       "\n  include ::Binda::DefaultHelpers"
+      #     end
+      #   end
+      # end
 
 
-      # Setup Devise initializer
-      # 
-      # It append the snippet below to `config/initializers/devise.rb` of your application:
-      # 
-      # ```ruby
-      #  # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN
-      #  # for setup see https://rubyonrailshelp.wordpress.com/2014/01/02/setting-up-mailer-using-devise-for-forgot-password/
-      #  config.action_mailer.default_url_options = { host: 'yourdomain.com' }
-      #  config.action_mailer.delivery_method = :smtp
-      #  config.action_mailer.perform_deliveries = true
-      #  config.action_mailer.raise_delivery_errors = false
-      #  config.action_mailer.default :charset => 'utf-8'
-      #  config.action_mailer.smtp_settings = {
-      #    address: 'smtp.gmail.com',
-      #    port: 587,
-      #    domain: ENV['MAIL_DOMAIN'],
-      #    authentication: 'plain',
-      #    enable_starttls_auto: true,
-      #    user_name: ENV['MAIL_USERNAME'],
-      #    password: ENV['MAIL_PASSWORD']
-      #  }
-      #  ```
-      def setup_devise
-        puts "4) Setup Devise"
-        # Check if devise is already setup and if so, create a backup before overwrite it
-        initializers_path = Rails.root.join('config', 'initializers' )
-        if File.exist?( "#{ initializers_path }/devise.rb" )
-          puts "Binda has detected a configuration file for Devise: config/initializers/devise.rb"
-          puts "In order to avoid any conflict that file has been renamed"
-          File.rename( "#{ initializers_path }/devise.rb" , "#{ initializers_path }/devise_backup_#{ Time.now.strftime('%Y%m%d-%H%M%S-%3N') }.rb" )
-        end
+      # # Setup Devise initializer
+      # # 
+      # # It append the snippet below to `config/initializers/devise.rb` of your application:
+      # # 
+      # # ```ruby
+      # #  # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN
+      # #  # for setup see https://rubyonrailshelp.wordpress.com/2014/01/02/setting-up-mailer-using-devise-for-forgot-password/
+      # #  config.action_mailer.default_url_options = { host: 'yourdomain.com' }
+      # #  config.action_mailer.delivery_method = :smtp
+      # #  config.action_mailer.perform_deliveries = true
+      # #  config.action_mailer.raise_delivery_errors = false
+      # #  config.action_mailer.default :charset => 'utf-8'
+      # #  config.action_mailer.smtp_settings = {
+      # #    address: 'smtp.gmail.com',
+      # #    port: 587,
+      # #    domain: ENV['MAIL_DOMAIN'],
+      # #    authentication: 'plain',
+      # #    enable_starttls_auto: true,
+      # #    user_name: ENV['MAIL_USERNAME'],
+      # #    password: ENV['MAIL_PASSWORD']
+      # #  }
+      # #  ```
+      # def setup_devise
+      #   puts "4) Setup Devise"
+      #   # Check if devise is already setup and if so, create a backup before overwrite it
+      #   initializers_path = Rails.root.join('config', 'initializers' )
+      #   if File.exist?( "#{ initializers_path }/devise.rb" )
+      #     puts "Binda has detected a configuration file for Devise: config/initializers/devise.rb"
+      #     puts "In order to avoid any conflict that file has been renamed"
+      #     File.rename( "#{ initializers_path }/devise.rb" , "#{ initializers_path }/devise_backup_#{ Time.now.strftime('%Y%m%d-%H%M%S-%3N') }.rb" )
+      #   end
         
-        # Copy the initilializer on the application folder
-        template 'config/initializers/devise.rb'
+      #   # Copy the initilializer on the application folder
+      #   template 'config/initializers/devise.rb'
 
-        # Add secret key
-        inject_into_file 'config/initializers/devise.rb', after: "# binda.hook.1" do 
-          "\n  config.secret_key = '#{ SecureRandom.hex(64) }'"
-        end
-        # Add pepper
-        inject_into_file 'config/initializers/devise.rb', after: "# binda.hook.2" do 
-          "\n  config.pepper = '#{ SecureRandom.hex(64) }'"
-        end
+      #   # Add secret key
+      #   inject_into_file 'config/initializers/devise.rb', after: "# binda.hook.1" do 
+      #     "\n  config.secret_key = '#{ SecureRandom.hex(64) }'"
+      #   end
+      #   # Add pepper
+      #   inject_into_file 'config/initializers/devise.rb', after: "# binda.hook.2" do 
+      #     "\n  config.pepper = '#{ SecureRandom.hex(64) }'"
+      #   end
 
-        application( nil, env: [ "development", "test" ] ) do
-          "\n  config.action_mailer.default_url_options = { host: 'localhost:3000' }\n  config.action_mailer.raise_delivery_errors = true\n"
-        end
-        application( nil, env: "production" ) do
-          "\n  # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN\n  # config.action_mailer.default_url_options = { host: 'yourdomain.com' }\n  # config.action_mailer.delivery_method = :smtp\n  # config.action_mailer.perform_deliveries = true\n  # config.action_mailer.raise_delivery_errors = false\n  # config.action_mailer.default :charset => 'utf-8'\n  # config.action_mailer.smtp_settings = {\n  #   address: 'smtp.gmail.com',\n  #   port: 587,\n  #   domain: ENV['MAIL_DOMAIN'],\n  #   authentication: 'plain',\n  #   enable_starttls_auto: true,\n  #   user_name: ENV['MAIL_USERNAME'],\n  #   password: ENV['MAIL_PASSWORD']\n  # }"
-        end
-      end
+      #   application( nil, env: [ "development", "test" ] ) do
+      #     "\n  config.action_mailer.default_url_options = { host: 'localhost:3000' }\n  config.action_mailer.raise_delivery_errors = true\n"
+      #   end
+      #   application( nil, env: "production" ) do
+      #     "\n  # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN\n  # config.action_mailer.default_url_options = { host: 'yourdomain.com' }\n  # config.action_mailer.delivery_method = :smtp\n  # config.action_mailer.perform_deliveries = true\n  # config.action_mailer.raise_delivery_errors = false\n  # config.action_mailer.default :charset => 'utf-8'\n  # config.action_mailer.smtp_settings = {\n  #   address: 'smtp.gmail.com',\n  #   port: 587,\n  #   domain: ENV['MAIL_DOMAIN'],\n  #   authentication: 'plain',\n  #   enable_starttls_auto: true,\n  #   user_name: ENV['MAIL_USERNAME'],\n  #   password: ENV['MAIL_PASSWORD']\n  # }"
+      #   end
+      # end
 
-      # Setup Carrierwave
-      # 
-      # It generates this {file:lib/generators/binda/install/templates/confic/initializers/carrierwave.rb}
-      def setup_carrierwave
-        return if File.exist?( Rails.root.join('config', 'initializers', 'carrierwave.rb' ))
-        puts "4) Setup Carrierwave"
-        template 'config/initializers/carrierwave.rb'
-        puts "==============================================================================="
-      end
+      # # Setup Carrierwave
+      # # 
+      # # It generates this {file:lib/generators/binda/install/templates/confic/initializers/carrierwave.rb}
+      # def setup_carrierwave
+      #   return if File.exist?( Rails.root.join('config', 'initializers', 'carrierwave.rb' ))
+      #   puts "4) Setup Carrierwave"
+      #   template 'config/initializers/carrierwave.rb'
+      #   puts "==============================================================================="
+      # end
 
-      def setup_settings
-        exec 'rails generate binda:maintenance && rails generate binda:setup'
-      end
+      # def setup_settings
+      #   exec 'rails generate binda:maintenance && rails generate binda:setup'
+      # end
 
   end
 end

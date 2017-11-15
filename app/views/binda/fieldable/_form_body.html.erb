@@ -8,8 +8,7 @@
     </div>
   </div>
   
-  <div class="row">
-    <div class="form-body--container col-sm-12">
+  <div class="standard-form--container">
       
       <%= simple_form_for [ @instance.structure, @instance ], defaults: { label: false }, html: { class: 'form-body',multipart: true } do |f| %>
         <%= f.error_notification %>
@@ -21,14 +20,12 @@
           <%= f.input :position, as: :hidden %>
         <% end %>
 
-        <div class="row">
-          <div class="col-sm-8">
+        <div class="standard-form--body">
 
             <%# - - - - - - - - - - - - %>
             <%# NOTICE / ERRORS         %>
             <%# - - - - - - - - - - - - %>
-            <div class="form-section--wide-container row">
-              <div class="col-sm-12">
+            <div class="standard-form--section--wide-container">
 
                 <h4><%= "#{ t :details }".capitalize %></h4>
 
@@ -44,42 +41,39 @@
 
                 <%= f.input :structure_id, as: :hidden, input_html: { value: @structure.id } %>
                 
-              </div>
             </div>
 
             <%# - - - - - - - - - - - - %>
             <%# FIELD GROUP LOOP        %>
             <%# - - - - - - - - - - - - %>
             <% @structure.field_groups.order( :position, :name ).each_with_index do |field_group, index| %>
-            <div class="form-section--wide-container row">
-              <div class="col-sm-12">
+            <div class="standard-form--section--wide-container">
 
-                <h4><%= field_group.name.capitalize %></h4>
+              <h4><%= field_group.name.capitalize %></h4>
 
-                <% if f.object.new_record? %>
+              <% if f.object.new_record? %>
 
-                  <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :instance }", arg2: "#{ t :detail }" ).capitalize %></h5>
-                
-                <% else %>
+                <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :instance }", arg2: "#{ t :detail }" ).capitalize %></h5>
+              
+              <% else %>
 
-                  <% field_group.field_settings.order( :position, :name ).each do |field_setting| %>
-                    <% next unless field_setting.is_root? %>
-                    <%= render "binda/fieldable/form_section", f: f, field_setting: field_setting %>
-                  <% end %>
-
+                <% field_group.field_settings.order( :position, :name ).each do |field_setting| %>
+                  <% next unless field_setting.is_root? %>
+                  <%= render "binda/fieldable/form_section", f: f, field_setting: field_setting %>
                 <% end %>
 
-              </div>
+              <% end %>
+
             </div>
             <% end %>
 
           </div>
-          <div class="col-sm-4">
+          <div class="standard-form--sidebar">
 
             <%# - - - - - - - - - - - - %>
             <%# SIDEBAR                 %>
             <%# - - - - - - - - - - - - %>
-            <div class="form-section--narrow-container row">
+            <div class="standard-form--section--narrow-container row">
               <div class="col-sm-12">
 
                 <%= render "binda/fieldable/form_sidebar", f: f %>

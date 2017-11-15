@@ -1,0 +1,54 @@
+.standard-form--container {
+	width: 100%;
+}
+
+.standard-form--body {
+	width: 64.5%;
+	display: inline-block;
+}
+
+.standard-form--sidebar {
+	width: 19.5%;
+	display: inline-block;
+}
+
+.standard-form--section {
+	overflow-y: hidden;
+}
+
+.standard-form--section--transparent-container {
+	margin: 0;
+
+	> div {
+		padding-right: $font-size-base;
+		padding-bottom: $font-size-base;
+		padding-left: $font-size-base;
+		margin-bottom: $font-size-base * 2;
+		@extend .box-shadowed;
+	}
+}
+
+.standard-form--section--container {
+	@extend .standard-form--section--transparent-container;
+
+	> div {		
+		background-color: #FFF;
+	}
+
+	small {
+		display: inline-block;
+		margin-bottom: $font-size-base;
+	}
+	
+	h4 {
+		padding-bottom: $font-size-base;
+		margin-bottom: $font-size-base;
+		border-bottom: 1px solid $gray-lighter;
+		font-weight: bold;
+	}	
+}
+
+.standard-form--section--wide-container,
+.standard-form--section--narrow-container {
+	@extend .standard-form--section--container;
+}

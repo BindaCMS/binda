@@ -3,23 +3,23 @@
 	transition: all 0.5 ease;
 
 	@media ( min-width: $tablet ) {
-		padding-left: 240px;
+		padding-left: 200px;
 	}
 
 	#main-sidebar {
 		z-index: 1000;
 		position: fixed;
-		left: 240px;
+		left: 200px;
 		width: 0;
 		height: 100%;
-		margin-left: -240px;
+		margin-left: -200px;
 		overflow-y: auto;
 		@extend .box-shadowed;
 		background-color: #FFF;
 		transition: all 0.5s ease;
 
 		@media ( min-width: $tablet ) {
-			width: 240px;
+			width: 200px;
 		}
 	}
 
@@ -33,14 +33,14 @@
 	}
 
 	&.toggled {
-		padding-left: 240px;
+		padding-left: 200px;
 
 		@media ( min-width: $tablet ) {
 			padding-left: 0;
 		}
 
 		#main-sidebar {
-			width: 240px;
+			width: 200px;
 			
 			@media ( min-width: $tablet ) {
 					width: 0;
@@ -49,7 +49,7 @@
 
 		#main-content {
 			position: absolute;
-			margin-right: -240px;
+			margin-right: -200px;
 
 			@media ( min-width: $tablet ) {
 				position: relative;
@@ -62,7 +62,7 @@
 .main-sidebar--nav {
 	position: absolute;
 	top: 0;
-	width: 240px;
+	width: 200px;
 	margin: 0;
 	padding: 0;
 	list-style: none;
