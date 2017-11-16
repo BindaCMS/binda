@@ -52,6 +52,29 @@ module Binda
 			skip "not implemented yet"
 		end
 
+		it "can have multiple parents" do 
+			component_child = create(:component)
+			component_parent_1 = create(:component)
+			component_parent_2 = create(:component)
+			component_child.parent_fieldables << component_parent_1
+			component_child.parent_fieldables << component_parent_2
+			component_child.save!
+			expect(component_child.parent_fieldables.length).to eq(2)
+		end
+
+=begin
+		it "can have multiple parents" do
+			component_child = create(:component)
+			component_parent_1 = create(:component)
+			component_parent_2 = create(:component)
+			component_child.parent_components << component_parent_1
+			component_child.parent_components << component_parent_2
+			component_child.save!
+			expect(component_child.parent_components.length).to eq(2)
+		end
+=end
+
+
 		# - - - - - - - - - - - - - - - - - - - -
 		# COMPONENT HELPERS
 		# - - - - - - - - - - - - - - - - - - - -
