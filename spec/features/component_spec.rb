@@ -104,6 +104,10 @@ describe "GET component#edit", type: :feature, js: true do
 		skip "not implemented yet"
 	end
 
+	it "allows to create multiple new repeater items clicking the button" do
+		skip "not implemeted yet"
+	end
+
 	it "allows to edit a text field" do
 		skip "not implemeted yet"
 	end

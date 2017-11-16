@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency "tinymce-rails",        ">= 4.1",      "< 4.7"
   s.add_dependency "tinymce-rails-langs",  "~> 4.20160310"
   s.add_dependency "devise",               ">= 4.1",      "< 4.4"
+  s.add_dependency "devise-i18n",          "~> 1.4"
   s.add_dependency "carrierwave",          ">= 0.10",     "< 1.2"
   s.add_dependency "mini_magick",          ">= 4.5",      "< 4.9"
   s.add_dependency "ancestry",             ">= 2.1",      "< 3.1"
@@ -66,5 +67,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "redcarpet",                "~> 3.4"
   s.add_development_dependency "github-markup",            "~> 1.6"
   s.add_development_dependency "travis",                   "~> 1.8"
-
 end

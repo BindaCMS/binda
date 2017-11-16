@@ -1,0 +1,48 @@
+it:
+  detail: detail
+  details: details
+  slug: slug
+  title: title
+  title_hint: Title should be singular.
+  name: name
+  description: description
+  position: position
+  publish: publish
+  publish_settings: publication setting
+  new: new
+  edit: edit
+  create: create
+  delete: delete
+  setting: setting
+  board: board
+  back_to_index: back to list
+  back_to: back to
+  slug_disable_hint: 'Editing slug is not possible. If you want a specific slug create a new item and a slug will be extracted from the title.'
+  field_type: field type
+  field_group_title: field group title
+  select_field_type: select a field type
+  go_to: go to 
+  field_group: field group
+  field_setting: field setting
+  repeater: repeater
+  new_item_in_repeater: New %{arg1} item
+  structure: structure
+  hint_create_parent_before_child: you need to create the %{arg1} before being able to add any %{arg2}
+  dashboard_title: website settings
+  dashboard: dashboard
+  component: component
+  category: category
+  select_category: select one category
+  create_category: create a new category
+  structure_has_categories: Enable categories
+  asset: asset
+  choices: choices
+  choice_label: label
+  choice_value: value
+  add_choice: Add choice
+  default_choice: default choice
+  default_choice_description: if you have added/removed any choice you need to click save to update the list of choices
+  allow_null: allow null?
+  instance: instance
+  structure_instance_type: 'This structure is for:'
+  null_is_not_allowed: You need to select at least one choice

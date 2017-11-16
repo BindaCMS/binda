@@ -8,6 +8,7 @@ PATH
       carrierwave (>= 0.10, < 1.2)
       coffee-rails (>= 4.1, < 4.3)
       devise (>= 4.1, < 4.4)
+      devise-i18n (~> 1.4)
       friendly_id (>= 5.1, < 5.4)
       jquery-rails (~> 4.3)
       jquery-ui-rails (>= 5.0, < 6.1)
@@ -110,6 +111,8 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.4.0)
+      devise (>= 3.1)
     diff-lcs (1.3)
     docile (1.1.5)
     erubi (1.6.1)
@@ -274,7 +277,7 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.0.6)
+    sass-rails (5.0.7)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
@@ -361,4 +364,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   1.16.0.pre.2
+   1.16.0.pre.3
