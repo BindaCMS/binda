@@ -56,6 +56,7 @@ module Binda
 			component_child = create(:component)
 			component_parent_1 = create(:component)
 			component_parent_2 = create(:component)
+			binding.pry
 			component_child.parent_fieldables << component_parent_1
 			component_child.parent_fieldables << component_parent_2
 			component_child.save!

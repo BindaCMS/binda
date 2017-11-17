@@ -19,12 +19,12 @@ module Binda
 			# children_fieldable_relates "names" the Association join table for accessing through the children_fieldable association
 			has_many :children_fieldable_relates, foreign_key: :parent_fieldable_id, class_name: "Relation"
 			# source: :children_fieldable matches with the belong_to :children_fieldable identification in the Association model
-			has_many :children_fieldables, through: :children_fieldable_relates, source: :children_fieldable
+			has_many :children_fieldables, through: :children_fieldable_relates, source: :children_fieldable, source_type: "Binda::Component"
 
 			# parent_fieldable_relates "names" the Association join table for accessing through the parent_fieldable association
 			has_many :parent_fieldable_relates, foreign_key: :children_fieldable_id, class_name: "Relation"
 			# source: :parent_fieldable matches with the belong_to :children_fieldable identification in the Association model
-			has_many :parent_fieldables, through: :parent_fieldable_relates, source: :parent_fieldable, source_type: "Component"
+			has_many :parent_fieldables, through: :parent_fieldable_relates, source: :parent_fieldable, source_type: "Binda::Component"
 
 	    has_many :texts,         as: :fieldable, dependent: :delete_all
 	    has_many :strings,       as: :fieldable, dependent: :delete_all
