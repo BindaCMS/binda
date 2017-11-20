@@ -1,11 +1,8 @@
-<%# HEADING %>
-<h5><%= field_setting.name.capitalize %></h5>
-
 <div id="fileupload-<%= ff.object.id %>" class="fileupload" data-url="<%= url_for([@instance.structure, @instance, action: :upload]) %>">
 
   <span class="btn btn-primary fileinput-button">
     <span>Upload image</span>
-      <%= ff.input :image, input_html: { class: 'form-item--image--uploader'} %>
+      <%= ff.input :image, input_html: { class: 'form-item--image--uploader'}, label: field_setting.name.capitalize, hint: field_setting.description  %>
       <%# ff.input :image, input_html: { multiple: true, class: 'form-item--image--uploader'} %>
       <%= ff.input :image_cache, as: :hidden %>
       <%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
@@ -20,10 +17,6 @@
 	  <%= image_tag ff.object.image.thumb.url, class: "form-item--image--image form-item--image-#{ ff.object.id }--image" %>
 	<% else %>
 		<img class="form-item--image--image">
-	<% end %>
-
-	<% unless field_setting.description.blank? %>
-		<small class="text-muted"><%= field_setting.description %></small>
 	<% end %>
 
 </div>

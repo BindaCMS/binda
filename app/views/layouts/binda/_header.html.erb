@@ -1,9 +1,5 @@
 <% unless controller_name == 'sessions' && action_name == 'new' %>
-  <div id="main-header" class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <%= yield :header %>
-      </div>
-    </div>
+  <div id="main-header">
+    <%= yield :header %>
   </div>
 <% end %>

@@ -9,7 +9,7 @@
 <div id="main-sidebar">
   <ul class="main-sidebar--nav">
     <li class = "main-sidebar--brand">
-      <h3><%= link_to get_website_name, '/' %></h3>
+      <p class="main-sidebar--website-name"><%= link_to get_website_name, '/' %></p>
     </li>
     <% Binda::Structure.all.order(:position).each_with_index do |structure, index| %>
       <% if structure.instance_type == 'component' %>
@@ -20,7 +20,7 @@
           </a>
           <% if structure.has_categories %>
             <a class="main-sidebar--sub-link" href="<%= structure_categories_path( structure.slug ) %>">
-              <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <%= structure.name.humanize %> <%= t(:category).capitalize.pluralize %>
+              <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <%= t(:category).capitalize.pluralize %>
             </a>
           <% end %>
         </li>

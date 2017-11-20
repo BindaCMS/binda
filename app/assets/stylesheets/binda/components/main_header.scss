@@ -1,25 +1,27 @@
-#main-header {
-	width: 100%;
-	margin-bottom: $font-size-base * 3;
-	background-color: $gray-lighter;
-
-	h3 {
-		display: inline-block;
-		padding: 0 $font-size-base;
-	}
+#main-header
+{
+  width: 100%;
+  padding: 32px 24px;
+}
+.main-header--title
+{
+  display: inline-block;
 }
 
-.main-header--buttons {
-	float: right;
-	margin-top: $font-size-base * 1.5;
-	margin-right: $font-size-base;
+.main-header--buttons
+{
+  float: right;
+  margin-top: 24px;
+  margin-right: 24px;
 }
 
-a.main-header--back {
-	color: $gray-light;
-	font-weight: normal;
+a.main-header--back
+{
+  font-weight: normal;
+  color: $gray-light;
 
-	&:hover {
-		color: $gray;
-	}
+  &:hover
+  {
+    color: $gray;
+  }
 }
