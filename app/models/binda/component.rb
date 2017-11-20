@@ -8,6 +8,11 @@ module Binda
 		belongs_to :structure, required: true
 		has_and_belongs_to_many :categories
 
+		# source: :children_fieldable matches with the belong_to :children_fieldable identification in the Association model
+		has_many :children_fieldables, through: :passive_relationships, source_type: "Binda::Component"
+		# source: :parent_fieldable matches with the belong_to :children_fieldable identification in the Association model
+		has_many :parent_fieldables, through: :active_relationships, source_type: "Binda::Component"
+
 		# Validations
 		# validates :name, presence: true # TODO: check this, shouldn't be enabled?
 		validates :slug, uniqueness: true

@@ -17,19 +17,10 @@ module Binda
 	    #   - component_params (app/controllers/binda/components_controller.rb)
 
 			# children_fieldable_relates "names" the Association join table for accessing through the children_fieldable association
-			has_many :active_relationships, foreign_key: :parent_fieldable_id, class_name: "Relationship", dependent: :destroy
+			has_many :active_relationships, class_name: "Relationship", dependent: :destroy, as: :children_fieldable
 			# parent_fieldable_relates "names" the Association join table for accessing through the parent_fieldable association
-=begin
-			has_many :passive_relationships, foreign_key: :children_fieldable_id, class_name: "Relationship"
-=end
-
-			# source: :children_fieldable matches with the belong_to :children_fieldable identification in the Association model
-			has_many :children_fieldables, through: :active_relationships, source_type: "Binda::Component"
-			# source: :parent_fieldable matches with the belong_to :children_fieldable identification in the Association model
-=begin
-			has_many :parent_fieldables, through: :passive_relationships, source: :parent_fieldable, source_type: "Binda::Component"
-=end
-
+			has_many :passive_relationships, class_name: "Relationship", dependent: :destroy, as: :parent_fieldable
+			
 	    has_many :texts,         as: :fieldable, dependent: :delete_all
 	    has_many :strings,       as: :fieldable, dependent: :delete_all
 	    has_many :dates,         as: :fieldable, dependent: :delete_all
