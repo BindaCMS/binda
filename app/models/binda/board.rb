@@ -3,12 +3,7 @@ module Binda
 
   	include FieldableAssociations
 
-		# source: :children_fieldable matches with the belong_to :children_fieldable identification in the Association model
-		has_many :children_fieldables, through: :passive_relationships, source_type: "Binda::Board"
-		# source: :parent_fieldable matches with the belong_to :children_fieldable identification in the Association model
-		has_many :parent_fieldables, through: :active_relationships, source_type: "Binda::Board"
-
-  	belongs_to :structure, required: true
+		belongs_to :structure, required: true
 
 		validates :name, presence: true
 		validates :slug, uniqueness: true

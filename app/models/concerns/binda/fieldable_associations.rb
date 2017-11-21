@@ -20,7 +20,7 @@ module Binda
 			has_many :active_relationships, class_name: "Relationship", dependent: :destroy, as: :children_fieldable
 			# parent_fieldable_relates "names" the Association join table for accessing through the parent_fieldable association
 			has_many :passive_relationships, class_name: "Relationship", dependent: :destroy, as: :parent_fieldable
-			
+
 	    has_many :texts,         as: :fieldable, dependent: :delete_all
 	    has_many :strings,       as: :fieldable, dependent: :delete_all
 	    has_many :dates,         as: :fieldable, dependent: :delete_all

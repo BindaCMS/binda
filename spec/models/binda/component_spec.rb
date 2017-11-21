@@ -52,7 +52,7 @@ module Binda
 			skip "not implemented yet"
 		end
 
-		it "can have multiple parents" do
+		it "can have multiple parents component" do
 			component_child = create(:component)
 			component_parent_1 = create(:component)
 			component_parent_2 = create(:component)
@@ -61,6 +61,30 @@ module Binda
 			component_child.save!
 			expect(component_child.children_fieldables.length).to eq(2)
 		end
+
+=begin
+		it "can have multiple parents board" do
+			board_child = create(:board_structure)
+			board_parent_1 = create(:board_structure)
+			board_parent_2 = create(:board_structure)
+			board_child.children_fieldables << board_parent_1
+			board_child.children_fieldables << board_parent_2
+			board_child.save!
+			expect(board_child.children_fieldables.length).to eq(2)
+		end
+=end
+
+=begin
+		it "can have multiple parents repeater" do
+			repeater_child = create(:repeater)
+			repeater_parent_1 = create(:repeater)
+			repeater_parent_2 = create(:repeater)
+			repeater_child.children_fieldables << repeater_parent_1
+			repeater_child.children_fieldables << repeater_parent_2
+			repeater_child.save!
+			expect(repeater_child.children_fieldables.length).to eq(2)
+		end
+=end
 
 =begin
 		it "can have multiple parents" do
