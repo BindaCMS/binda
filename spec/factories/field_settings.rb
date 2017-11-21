@@ -21,7 +21,7 @@ FactoryGirl.define do
 
 	factory :string_setting, parent: :field_setting do
 		field_type 'string'
-	end
+  end
 
 	factory :text_setting, parent: :field_setting do
 		field_type 'text'

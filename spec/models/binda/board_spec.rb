@@ -13,10 +13,10 @@ module Binda
 			board_child = create(:board_structure)
 			board_parent_1 = create(:board_structure)
 			board_parent_2 = create(:board_structure)
-			board_child.children_fieldables << board_parent_1
-			board_child.children_fieldables << board_parent_2
+			board_child.parent_fieldables << board_parent_1
+			board_child.parent_fieldables << board_parent_2
 			board_child.save!
-			expect(board_child.children_fieldables.length).to eq(2)
+			expect(board_child.parent_fieldables.length).to eq(2)
 		end
 
   end
