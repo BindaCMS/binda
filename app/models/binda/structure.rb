@@ -3,10 +3,12 @@ module Binda
 
 		# Associations
 		has_many :components
+		has_many :association_fields, as: :associable
 		has_one  :board
 		has_many :categories
 		has_many :field_groups
 
+=begin
 		# children_fieldable_relates "names" the Association join table for accessing through the children_fieldable association
 		has_many :active_relationships, class_name: "Relationship", dependent: :destroy, as: :children_fieldable
 		# parent_fieldable_relates "names" the Association join table for accessing through the parent_fieldable association
@@ -16,6 +18,7 @@ module Binda
 		has_many :children_fieldables, class_name: "Structure", through: :passive_relationships, source_type: "Binda::Structure"
 		# source: :parent_fieldable matches with the belong_to :children_fieldable identification in the Association model
 		has_many :parent_fieldables, class_name: "Structure", through: :active_relationships, source_type: "Binda::Structure"
+=end
 
 		# Validations
 		validates :name, presence: true

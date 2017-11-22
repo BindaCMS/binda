@@ -5,6 +5,8 @@ module Binda
 
 		belongs_to :structure, required: true
 
+		has_many :association_fields, as: :associable
+
 		validates :name, presence: true
 		validates :slug, uniqueness: true
 

@@ -52,14 +52,20 @@ module Binda
 			skip "not implemented yet"
 		end
 
-		it "can have multiple parents component" do
+		it "can have multiple associations component" do
 			component_child = create(:component)
 			component_parent_1 = create(:component)
 			component_parent_2 = create(:component)
-			component_child.parent_fieldables << component_parent_1
-			component_child.parent_fieldables << component_parent_2
-			component_child.save!
-			expect(component_child.parent_fieldables.length).to eq(2)
+
+			association1 = component_child.association_fields.create!(name: "association1", slug: "slug1")
+			association1.parent_fieldables_component << component_parent_1
+			association1.save!
+
+			association2 = component_child.association_fields.create!(name: "association2", slug: "slug2")
+			association2.parent_fieldables_component << component_parent_2
+			association2.save!
+
+			expect(component_child.association_fields.length).to eq(2)
 		end
 
 =begin
