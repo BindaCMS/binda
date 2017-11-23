@@ -7,14 +7,59 @@
   overflow-y: auto;
   width: 160px;
   height: 100%;
-  border-right: 1px solid $gray-lighten;
-  background-color: $white;
+  border-right: 1px solid $color-gray-lighter;
+  background-color: $color-white;
+}
+
+.main-sidebar--brand
+{
+  position: relative;
+  overflow-x: hidden;
+  height: 124px;
+  transition: background-color .3s ease;
+
+  a {
+    height: 100%;
+    width: 100%;
+  }
+
+  &:hover
+  {
+
+    .main-sidebar--view-website
+    {
+      transform: translateX( 0px );
+    }
+    .main-sidebar--website-name
+    {
+      transform: translateX( -160px );
+    }
+  }
 }
 
 .main-sidebar--website-name
 {
-  margin-top: 32px;
-  padding-left: 16px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 15px;
+  transition: transform .3s ease;
+}
+
+.main-sidebar--view-website
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 15px;
+  transition: transform .3s ease;
+  transform: translateX(160px);
+
+  i {
+    padding-right: 6px;
+  }
 }
 
 .main-sidebar--nav
@@ -28,7 +73,7 @@
   {
      > a
     {
-      font-weight: normal;
+      font-weight: 300;
       display: block;
       padding: 12px;
       transition: all .3s ease;
@@ -41,7 +86,7 @@
         text-decoration: none;
         color: $text-color;
         border-bottom: none;
-        background-color: $gray-lightest;
+        background-color: $color-gray-lightest;
       }
 
       &:active,
@@ -67,10 +112,10 @@
 .main-sidebar--structure,
 .main-sidebar--nav li:last-child
 {
-  border-bottom: 1px solid $gray-lightest;
+  border-bottom: 1px solid $color-gray-lightest;
 }
 
 .main-sidebar--first-structure
 {
-  border-top: 1px solid $gray-lightest;
+  border-top: 1px solid $color-gray-lightest;
 }

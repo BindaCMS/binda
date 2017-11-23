@@ -12,26 +12,26 @@ $desktop: 960px;
 // FROM BOOTSTRAP
 // --------------
 
-$black:                 #000;
-$white:                 #FFF;
+$color-black:                 #000;
+$color-white:                 #FFF;
 
 //== Colors
 //
 //## Gray and colors for use across Bootstrap.
 
-$gray-base:             #111 !default;
-$gray-darker:           lighten($gray-base, 13%) !default;
-$gray-dark:             lighten($gray-base, 20%) !default;
-$gray:                  lighten($gray-base, 33%) !default;
-$gray-light:            lighten($gray-base, 80%) !default;
-$gray-lighten:          lighten($gray-base, 85%) !default;
-$gray-lightest:         lighten($gray-base, 93%) !default;
+$color-gray-darkest:          rgb( 17, 17, 17 );
+$color-gray-darker:           rgb( 51, 51, 51 );
+$color-gray-dark:             rgb( 102, 102, 102 );
+$color-gray:                  rgb( 128, 128, 128 );
+$color-gray-light:            rgb( 153, 153, 153 );
+$color-gray-lighter:          rgb( 193, 193, 193 );
+$color-gray-lightest:         rgb( 229, 229, 229 );
 
-$color-primary:         darken(#428bca, 6.5%) !default; // #337ab7
-$color-success:         #5cb85c !default;
-$color-info:            #5bc0de !default;
-$color-warning:         #f0ad4e !default;
-$color-danger:          #d9534f !default;
+$color-primary:               darken(#428bca, 6.5%) !default; // #337ab7
+$color-success:               #5cb85c !default;
+$color-info:                  #5bc0de !default;
+$color-warning:               #f0ad4e !default;
+$color-danger:                #d9534f !default;
 
 
 //== Scaffolding
@@ -39,38 +39,38 @@ $color-danger:          #d9534f !default;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               #FFF !default;
+$body-bg:               $color-gray-lightest;
 //** Global text color on `<body>`.
-$text-color:            $gray-dark !default;
+$text-color:            $color-gray-darker;
 
 //** Global textual link color.
-$link-color:            $color-primary !default;
+$link-color:            $color-primary;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-color:      darken($link-color, 15%);
 //** Link hover decoration.
-$link-hover-decoration: underline !default;
+$link-hover-decoration: underline;
 
 
 //== Typography
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif:       Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
-$font-family-base:        $font-family-sans-serif !default;
+$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-family-base:        $font-family-sans-serif;
 
-$font-size-base:          14px !default;
-$font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
-$font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
+$font-size-base:          14px;
+$font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
+$font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
 
-$font-size-h1:            floor(($font-size-base * 2.6)) !default; // ~36px
-$font-size-h2:            floor(($font-size-base * 2.15)) !default; // ~30px
-$font-size-h3:            ceil(($font-size-base * 1.7)) !default; // ~24px
-$font-size-h4:            ceil(($font-size-base * 1.25)) !default; // ~18px
-$font-size-h5:            $font-size-base !default;
-$font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
+$font-size-h1:            floor(($font-size-base * 2.6)); // ~36px
+$font-size-h2:            floor(($font-size-base * 2.15)); // ~30px
+$font-size-h3:            ceil(($font-size-base * 1.7)); // ~24px
+$font-size-h4:            ceil(($font-size-base * 1.25)); // ~18px
+$font-size-h5:            $font-size-base;
+$font-size-h6:            ceil(($font-size-base * 0.85)); // ~12px
 
 
 // MIXINS

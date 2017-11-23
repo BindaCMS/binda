@@ -5,6 +5,7 @@
 }
 .main-header--title
 {
+  @extend .h3;
   display: inline-block;
 }
 
@@ -17,11 +18,11 @@
 
 a.main-header--back
 {
-  font-weight: normal;
-  color: $gray-light;
+  font-weight: 300;
+  color: $color-gray-light;
 
   &:hover
   {
-    color: $gray;
+    color: $color-gray;
   }
 }

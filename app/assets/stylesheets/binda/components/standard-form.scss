@@ -28,15 +28,13 @@
 {
   overflow-y: hidden;
   margin-bottom: 20px;
-  border: 1px solid $gray-darker;
+  border: 1px solid $color-gray-dark;
   border-bottom: none;
 
   .control-label
   {
     font-weight: bold;
     margin-top: 0;
-
-    @extend .h4;
   }
 
   .control-label-required
@@ -48,26 +46,34 @@
   {
     margin-bottom: 0;
     padding: 20px 12px;
-    border-bottom: 1px solid $gray-darker;
+    border-bottom: 1px solid $color-gray-darker;
   }
 
   .form-control
   {
-    transition: border .3s linear;
+    transition: border .3s ease-in-out;
     border: none;
     border: 1px solid transparent;
     box-shadow: none;
 
+    &:hover, 
     &:focus
     {
-      border: 1px solid $gray;
+      border: 1px solid $color-gray;
       box-shadow: none;
     }
 
     &.disabled {
-    	background-color: $gray-lighten;
-    	color: $gray-light;
+    	background-color: $color-white;
+    	color: $color-gray-lighter;
+	    
+	    &:hover {
+	    	border: 1px solid transparent;
+	    }
     }
+  }
+  .help-block {
+  	color: $color-gray;
   }
 }
 
@@ -76,13 +82,13 @@
 
 .standard-form--header
 {
-  padding: 12px;
-  background-color: $gray-darker;
+  padding: 8px 12px;
+  background-color: $color-gray-darker;
 
   p
   {
     // font-weight: bold;
     margin-bottom: 0;
-    color: $white;
+    color: $color-white;
   }
 }
