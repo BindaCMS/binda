@@ -33,6 +33,7 @@ module Binda
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
 	    # Repeaters need destroy_all, not delete_all
 	    has_many :repeaters,     as: :fieldable, dependent: :destroy
+			has_many :related_fields, as: :fieldable, dependent: :destroy
 
 			# has_many :bindings
 			# has_many :assets, class_name: 'Admin::Asset', through: :bindings

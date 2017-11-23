@@ -8,8 +8,6 @@ module Binda
 		belongs_to :structure, required: true
 		has_and_belongs_to_many :categories
 
-		has_many :related_fields, as: :relatable
-
 		# Validations
 		# validates :name, presence: true # TODO: check this, shouldn't be enabled?
 		validates :slug, uniqueness: true

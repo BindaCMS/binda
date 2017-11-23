@@ -3,7 +3,7 @@ module Binda
 
 		# Associations
 		has_many :components
-		has_many :related_fields, as: :relatable
+		has_many :related_fields, as: :fieldable
 		has_one  :board
 		has_many :categories
 		has_many :field_groups

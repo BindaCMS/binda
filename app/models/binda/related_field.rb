@@ -1,7 +1,7 @@
 module Binda
   class RelatedField < ApplicationRecord
 
-    belongs_to :relatable, polymorphic: true
+    belongs_to :fieldable, polymorphic: true
 
     # children_fieldable_relates "names" the Association join table for accessing through the children_fieldable association
     has_many :active_relationships, class_name: "Relationship", dependent: :destroy, as: :children_related

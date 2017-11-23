@@ -21,6 +21,7 @@ module Binda
 		has_many :radios,        as: :fieldable
 		has_many :selections,    as: :fieldable
 		has_many :checkboxes,    as: :fieldable
+		has_many :related_fields, as: :fieldable
 
 
 		# The following direct association is used to securely delete associated fields
