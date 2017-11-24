@@ -20,17 +20,6 @@
 // TinyMCE
 //= require tinymce-jquery
 
-// JQuery File Upload
-//= require jquery-file-upload/load-image.all.min
-//= require jquery-file-upload/canvas-to-blob.min
-//= require jquery-file-upload/jquery.iframe-transport
-//= require jquery-file-upload/jquery.fileupload
-//= require jquery-file-upload/jquery.fileupload-process
-//= require jquery-file-upload/jquery.fileupload-image
-//= require jquery-file-upload/jquery.fileupload-audio
-//= require jquery-file-upload/jquery.fileupload-video
-//= require jquery-file-upload/jquery.fileupload-validate
-
 // Bootstrap dependency 
 // https://v4-alpha.getbootstrap.com/components/tooltips/
 //= require tether.min

@@ -50,3 +50,5 @@ en:
   binda:
     title: title
     view_website: View website
+    confirm_delete: Do you really want to remove it?
+    upload_button_text: Upload

@@ -1,16 +1,13 @@
 <div id="fileupload-<%= ff.object.id %>" class="fileupload" data-url="<%= url_for([@instance.structure, @instance, action: :upload]) %>">
 
-  <span class="btn btn-primary fileinput-button">
-    <span>Upload image</span>
-      <%= ff.input :image, input_html: { class: 'form-item--image--uploader'}, label: field_setting.name.capitalize, hint: field_setting.description  %>
-      <%# ff.input :image, input_html: { multiple: true, class: 'form-item--image--uploader'} %>
-      <%= ff.input :image_cache, as: :hidden %>
-      <%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-      <%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-      <%= ff.input :fieldable_id, as: :hidden %>
-      <%= ff.input :fieldable_type, as: :hidden %>
-  </span>
-	<a class="btn btn-default fileupload--remove-image-btn <%= 'invisible' unless ff.object.image.present? %>" href="<%= url_for([ff.object, action: :remove_image]) %>" data-method="delete" data-remote="true" data-confirm="Do you really want to remove it?">Delete image <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+  <p><%= t 'binda.upload_button_text' %></p>
+    <%= ff.input :image, input_html: { class: 'form-item--image--uploader'}, label: field_setting.name.capitalize, hint: field_setting.description  %>
+    <%= ff.input :image_cache, as: :hidden %>
+    <%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+    <%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+    <%= ff.input :fieldable_id, as: :hidden %>
+    <%= ff.input :fieldable_type, as: :hidden %>
+	<a class="btn btn-default fileupload--remove-image-btn <%= 'invisible' unless ff.object.image.present? %>" href="<%= url_for([ff.object, action: :remove_image]) %>" data-method="delete" data-remote="true" data-confirm="<%= t 'binda.confirm_delete' %>">Delete image <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
   </span>
 
 	<% if ff.object.image.present? %>

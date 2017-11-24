@@ -2,8 +2,6 @@
  * FORM ITEM IMAGE
  */
 
-import { custom_fileupload } from './fileupload_custom_script'
-
 class FormItemImage
 {
 	constructor()
@@ -19,7 +17,6 @@ class FormItemImage
 
 	setEvents()
 	{
-		$('.fileupload').each( function () { custom_fileupload( this ) });
 	}
 }
 

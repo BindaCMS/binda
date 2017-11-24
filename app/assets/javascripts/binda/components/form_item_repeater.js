@@ -2,7 +2,6 @@
  * FORM ITEM REPEATER
  */
 
-import { custom_fileupload } from './fileupload_custom_script'
 import { _FormItemEditor } from './form_item_editor'
 
 class FormItemRepeater {
@@ -72,6 +71,5 @@ function addNewItem( target, event )
 		var editor_id = $list.find('textarea').last('textarea').attr('id')
 		tinyMCE.EditorManager.execCommand('mceAddEditor',true, editor_id);
 		_FormItemEditor.resize()
-		custom_fileupload( $list.find('.fileupload').last('.fileupload').get(0) );
 	})
 }
