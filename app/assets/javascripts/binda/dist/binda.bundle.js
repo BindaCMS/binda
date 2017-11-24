@@ -414,7 +414,7 @@ var FormItemRepeater = function () {
 				// Stop default behaviour
 				event.preventDefault();
 
-				if (!confirm("Are you sure you want do delete it?")) return;
+				if (!confirm($(this).data('confirm'))) return;
 
 				$.ajax({
 					url: $(this).attr('href'),
@@ -433,9 +433,12 @@ var FormItemRepeater = function () {
 
 var _FormItemRepeater = new FormItemRepeater();
 
-///- - - - - - - - - - - - - - - - - - - -
-/// COMPONENT HELPER FUNCTIONS
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * COMPONENT HELPER FUNCTIONS
+ *
+ * @param      {string}  target  The target
+ * @param      {object}  event   The event
+ */
 
 function addNewItem(target, event) {
 	// Stop default behaviour

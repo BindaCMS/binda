@@ -34,7 +34,7 @@ class FormItemRepeater {
 			// Stop default behaviour
 			event.preventDefault()
 
-			if ( !confirm("Are you sure you want do delete it?") ) return
+			if ( !confirm($(this).data('confirm')) ) return
 
 			$.ajax({
 				url: $( this ).attr('href'),
@@ -51,9 +51,12 @@ class FormItemRepeater {
 export let _FormItemRepeater = new FormItemRepeater()
 
 
-///- - - - - - - - - - - - - - - - - - - -
-/// COMPONENT HELPER FUNCTIONS
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * COMPONENT HELPER FUNCTIONS
+ *
+ * @param      {string}  target  The target
+ * @param      {object}  event   The event
+ */
 
 function addNewItem( target, event ) 
 {
