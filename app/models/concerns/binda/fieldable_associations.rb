@@ -15,6 +15,12 @@ module Binda
 	    #   - get_fieldables (see here below)
 	    #   - get_field_types (see here below)
 	    #   - component_params (app/controllers/binda/components_controller.rb)
+
+			# children_fieldable_relates "names" the Association join table for accessing through the children_fieldable association
+			has_many :active_relationships, class_name: "Relationship", dependent: :destroy, as: :children_related
+			# parent_fieldable_relates "names" the Association join table for accessing through the parent_fieldable association
+			has_many :passive_relationships, class_name: "Relationship", dependent: :destroy, as: :parent_related
+
 	    has_many :texts,         as: :fieldable, dependent: :delete_all
 	    has_many :strings,       as: :fieldable, dependent: :delete_all
 	    has_many :dates,         as: :fieldable, dependent: :delete_all
@@ -27,6 +33,7 @@ module Binda
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
 	    # Repeaters need destroy_all, not delete_all
 	    has_many :repeaters,     as: :fieldable, dependent: :destroy
+			has_many :related_fields, as: :fieldable, dependent: :destroy
 
 			# has_many :bindings
 			# has_many :assets, class_name: 'Admin::Asset', through: :bindings

@@ -1,0 +1,20 @@
+<h5><%= field_setting.name.capitalize %></h5>
+
+<% unless field_setting.description.blank? %>
+    <small class="text-muted"><%= field_setting.description %></small>
+<% end %>
+
+
+<%# INPUT %>
+
+<% if @instance.has_string( field_setting.slug ) %>
+    <%= ff.input :name, input_html: { value: @instance.get_string( field_setting.slug ) }, as: :string %>
+<% else %>
+    <%= ff.input :name, as: :string %>
+<% end %>
+
+
+<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+<%= ff.input :fieldable_id, as: :hidden %>
+<%= ff.input :fieldable_type, as: :hidden %>

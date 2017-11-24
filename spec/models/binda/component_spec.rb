@@ -52,6 +52,59 @@ module Binda
 			skip "not implemented yet"
 		end
 
+		it "can have multiple associations component" do
+			component_child = create(:component)
+			component_parent_1 = create(:component)
+			component_parent_2 = create(:component)
+
+			association1 = component_child.related_fields.create!(name: "association1", slug: "slug1")
+			association1.parent_related_components << component_parent_1
+			association1.save!
+
+			association2 = component_child.related_fields.create!(name: "association2", slug: "slug2")
+			association2.parent_related_components << component_parent_2
+			association2.save!
+
+			expect(component_child.related_fields.length).to eq(2)
+		end
+
+=begin
+		it "can have multiple parents board" do
+			board_child = create(:board_structure)
+			board_parent_1 = create(:board_structure)
+			board_parent_2 = create(:board_structure)
+			board_child.children_fieldables << board_parent_1
+			board_child.children_fieldables << board_parent_2
+			board_child.save!
+			expect(board_child.children_fieldables.length).to eq(2)
+		end
+=end
+
+=begin
+		it "can have multiple parents repeater" do
+			repeater_child = create(:repeater)
+			repeater_parent_1 = create(:repeater)
+			repeater_parent_2 = create(:repeater)
+			repeater_child.children_fieldables << repeater_parent_1
+			repeater_child.children_fieldables << repeater_parent_2
+			repeater_child.save!
+			expect(repeater_child.children_fieldables.length).to eq(2)
+		end
+=end
+
+=begin
+		it "can have multiple parents" do
+			component_child = create(:component)
+			component_parent_1 = create(:component)
+			component_parent_2 = create(:component)
+			component_child.parent_components << component_parent_1
+			component_child.parent_components << component_parent_2
+			component_child.save!
+			expect(component_child.parent_components.length).to eq(2)
+		end
+=end
+
+
 		# - - - - - - - - - - - - - - - - - - - -
 		# COMPONENT HELPERS
 		# - - - - - - - - - - - - - - - - - - - -
