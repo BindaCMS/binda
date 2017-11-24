@@ -138,6 +138,22 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.belongs_to       :component, index: true
     end
 
+    create_table :binda_related_fields do |t|
+      t.string :name, null: false, uniqueness: true
+      t.string :slug, null: false, uniqueness: true
+      t.integer :field_setting_id
+      t.integer :fieldable_id
+      t.string :fieldable_type
+    end
+
+    create_table :binda_relationships do |t|
+      t.integer :parent_related_id
+      t.integer :children_related_id
+      t.string :parent_related_type
+      t.string :children_related_type
+      t.timestamps
+    end
+
     create_table :friendly_id_slugs do |t|
       t.string           :slug,           :null => false
       t.integer          :sluggable_id,   :null => false
@@ -150,6 +166,9 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     add_index :friendly_id_slugs, [:slug, :sluggable_type]
     add_index :friendly_id_slugs, [:slug, :sluggable_type, :scope], :unique => true
     add_index :friendly_id_slugs, :sluggable_type
+    add_index :binda_related_fields, :slug
+    add_index :binda_relationships, :parent_related_id
+    add_index :binda_relationships, :children_related_id
 
     # DEVISE
     create_table :binda_users do |t|

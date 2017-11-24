@@ -22,16 +22,9 @@ module Binda
 
 
     # source: :children_fieldable matches with the belong_to :children_fieldable identification in the Association model
-    has_many :children_related_boards, through: :passive_relationships, source: :children_related, source_type: "Binda::Structure"
+    has_many :children_related_boards, through: :passive_relationships, source: :children_related, source_type: "Binda::Board"
     # source: :parent_fieldable matches with the belong_to :children_fieldable identification in the Association model
-    has_many :parent_related_boards, through: :active_relationships, source: :parent_related, source_type: "Binda::Structure"
-=begin
-    # source: :children_fieldable matches with the belong_to :children_fieldable identification in the Association model
-    has_many :children_fieldables, class_name: "Board", through: :passive_relationships, source: :children_fieldable, source_type: "Binda::Board"
-    # source: :parent_fieldable matches with the belong_to :children_fieldable identification in the Association model
-    has_many :parent_fieldables, class_name: "Board", through: :active_relationships, source: :parent_fieldable, source_type: "Binda::Board"
-=end
-
+    has_many :parent_related_boards, through: :active_relationships, source: :parent_related, source_type: "Binda::Board"
 
 =begin
     validates :parent_fieldable_id, presence: true

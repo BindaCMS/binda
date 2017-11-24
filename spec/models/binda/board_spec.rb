@@ -10,9 +10,13 @@ module Binda
     let( :new_board ) { Board.new }
 
 		it "can have multiple associations board" do
-			board_child = create(:board_structure)
-			board_parent_1 = create(:board_structure)
-			board_parent_2 = create(:board_structure)
+			structure_child = create(:board_structure)
+			structure_parent_1 = create(:board_structure)
+			structure_parent_2 = create(:board_structure)
+
+			board_child = structure_child.board
+			board_parent_1 = structure_parent_1.board
+			board_parent_2 = structure_parent_2.board
 
 			association1 = board_child.related_fields.create!(name: "association1", slug: "slug1")
 			association1.parent_related_boards << board_parent_1
