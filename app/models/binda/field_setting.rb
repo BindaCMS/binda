@@ -21,6 +21,7 @@ module Binda
 		has_many :radios,        as: :fieldable
 		has_many :selections,    as: :fieldable
 		has_many :checkboxes,    as: :fieldable
+		has_many :related_fields, as: :fieldable
 
 
 		# The following direct association is used to securely delete associated fields
@@ -60,7 +61,7 @@ module Binda
     end
 
 		def self.get_field_classes
-			%w( String Text Date Image Video Repeater Radio Selection Checkbox )
+			%w( String Text Date Image Video Repeater Radio Selection Checkbox Related_field )
 		end
 
 		# Validations

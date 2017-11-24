@@ -4,6 +4,7 @@ module Binda
 		include FieldableAssociations
 
 		# Associations
+
 		belongs_to :structure, required: true
 		has_and_belongs_to_many :categories
 
