@@ -10,6 +10,7 @@ import { _FormItemEditor }   from './components/form_item_editor'
 import setupSortable         from './components/sortable'
 import setupFieldGroupEditor from './components/field_group_editor'
 import setupBootstrap        from './components/bootstrap'
+import setupSelect2          from './components/select2'
 
 $(document).ready( function()
 {
@@ -21,4 +22,5 @@ $(document).ready( function()
 	setupSortable()
 	setupFieldGroupEditor()
 	setupBootstrap()
+	setupSelect2()
 })

@@ -61,6 +61,8 @@
     {
       border: 1px solid $color-gray;
       box-shadow: none;
+      outline: none;
+      background-image: none;
     }
 
     &.disabled {

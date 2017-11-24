@@ -1,6 +1,6 @@
-///- - - - - - - - - - - - - - - - - - - -
-/// BOOTSTRAP SCRIPTS
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * BOOSTRAP SCRIPT
+ */
 
 export default function() 
 {

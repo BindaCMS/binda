@@ -76,9 +76,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM EDITOR
+ */
 
 var FormItemEditor = function () {
 	function FormItemEditor() {
@@ -132,6 +132,12 @@ var _FormItemEditor = new FormItemEditor();
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = custom_fileupload;
+/**
+ * CUSTOM FILE UPLOAD
+ *
+ * @param      {string}  target  The target
+ */
+
 function custom_fileupload(target) {
 
 	var $this = $(target);
@@ -216,9 +222,9 @@ function custom_fileupload(target) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-///- - - - - - - - - - - - - - - - - - - -
-/// BOOTSTRAP SCRIPTS
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * BOOSTRAP SCRIPT
+ */
 
 /* harmony default export */ __webpack_exports__["a"] = function () {
   // See https://v4-alpha.getbootstrap.com/components/tooltips/#example-enable-tooltips-everywhere
@@ -230,9 +236,9 @@ function custom_fileupload(target) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-///- - - - - - - - - - - - - - - - - - - -
-/// FIELD GROUP EDITOR
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FIELD GROUP EDITOR
+ */
 
 /* harmony default export */ __webpack_exports__["a"] = function () {
 	$('.field_groups-edit #save').on('click', function (event) {
@@ -258,9 +264,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM
+ */
 
 
 
@@ -341,9 +347,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM CHOICE
+ */
 
 
 
@@ -416,9 +422,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM IMAGE
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM IMAGE
+ */
 
 
 
@@ -464,9 +470,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM REPEATER
+ */
 
 
 
@@ -553,6 +559,10 @@ function addNewItem(target, event) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/**
+ * SORTABLE
+ */
+
 /* harmony default export */ __webpack_exports__["a"] = function () {
 	if ($('.sortable').length > 0) {
 		// Initialize sortable item
@@ -614,9 +624,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_bootstrap__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_select2__ = __webpack_require__(11);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
+
 
 
 
@@ -646,7 +658,22 @@ $(document).ready(function () {
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__components_sortable__["a" /* default */])();
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__["a" /* default */])();
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_bootstrap__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_select2__["a" /* default */])();
 });
+
+/***/ }),
+/* 10 */,
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * OPTIONAL
+ */
+
+/* harmony default export */ __webpack_exports__["a"] = function () {
+  $('select').select2({ minimumResultsForSearch: 32 }); // 31 are max number of day in a month, which you don't want to be searchable
+};
 
 /***/ })
 /******/ ]);
