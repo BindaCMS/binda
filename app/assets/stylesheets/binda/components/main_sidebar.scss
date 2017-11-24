@@ -1,0 +1,121 @@
+#main-sidebar
+{
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  width: 160px;
+  height: 100%;
+  border-right: 1px solid $color-gray-lighter;
+  background-color: $color-white;
+}
+
+.main-sidebar--brand
+{
+  position: relative;
+  overflow-x: hidden;
+  height: 124px;
+  transition: background-color .3s ease;
+
+  a {
+    height: 100%;
+    width: 100%;
+  }
+
+  &:hover
+  {
+
+    .main-sidebar--view-website
+    {
+      transform: translateX( 0px );
+    }
+    .main-sidebar--website-name
+    {
+      transform: translateX( -160px );
+    }
+  }
+}
+
+.main-sidebar--website-name
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 15px;
+  transition: transform .3s ease;
+}
+
+.main-sidebar--view-website
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 15px;
+  transition: transform .3s ease;
+  transform: translateX(160px);
+
+  i {
+    padding-right: 6px;
+  }
+}
+
+.main-sidebar--nav
+{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li
+  {
+     > a
+    {
+      font-weight: 300;
+      display: block;
+      padding: 12px;
+      transition: all .3s ease;
+      text-decoration: none;
+      color: $text-color;
+
+      &:hover
+      {
+        padding-left: 16px;
+        text-decoration: none;
+        color: $text-color;
+        border-bottom: none;
+        background-color: $color-gray-lightest;
+      }
+
+      &:active,
+      &:focus
+      {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.main-sidebar--nav .glyphicon
+{
+  padding-right: 8px;
+  text-indent: 0;
+}
+
+.main-sidebar--nav li a.main-sidebar--logout
+{
+  color: $color-danger;
+}
+
+.main-sidebar--structure,
+.main-sidebar--nav li:last-child
+{
+  border-bottom: 1px solid $color-gray-lightest;
+}
+
+.main-sidebar--first-structure
+{
+  border-top: 1px solid $color-gray-lightest;
+}

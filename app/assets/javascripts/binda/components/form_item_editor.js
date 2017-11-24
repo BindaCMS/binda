@@ -1,6 +1,6 @@
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM EDITOR
+ */
 
 class FormItemEditor {
 	

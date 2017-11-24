@@ -1,0 +1,96 @@
+
+// STANDARD FORM -- GENERAL STYLES
+
+.standard-form
+{
+  width: 100%;
+}
+
+.standard-form--body
+{
+  display: inline-block;
+  width: 64.5%;
+}
+
+
+// STANDARD FORM -- SIDEBAR
+
+.standard-form--sidebar
+{
+  display: inline-block;
+  width: 19.5%;
+}
+
+
+// STANDARD FORM -- SECTION
+
+.standard-form--container
+{
+  overflow-y: hidden;
+  margin-bottom: 20px;
+  border: 1px solid $color-gray-dark;
+  border-bottom: none;
+
+  .control-label
+  {
+    font-weight: bold;
+    margin-top: 0;
+  }
+
+  .control-label-required
+  {
+    @extend .text-muted;
+  }
+
+  .form-group
+  {
+    margin-bottom: 0;
+    padding: 20px 12px;
+    border-bottom: 1px solid $color-gray-darker;
+  }
+
+  .form-control
+  {
+    transition: border .3s ease-in-out;
+    border: none;
+    border: 1px solid transparent;
+    box-shadow: none;
+
+    &:hover, 
+    &:focus
+    {
+      border: 1px solid $color-gray;
+      box-shadow: none;
+      outline: none;
+      background-image: none;
+    }
+
+    &.disabled {
+    	background-color: $color-white;
+    	color: $color-gray-lighter;
+	    
+	    &:hover {
+	    	border: 1px solid transparent;
+	    }
+    }
+  }
+  .help-block {
+  	color: $color-gray;
+  }
+}
+
+
+// STANDARD FORM -- HEADER
+
+.standard-form--header
+{
+  padding: 8px 12px;
+  background-color: $color-gray-darker;
+
+  p
+  {
+    // font-weight: bold;
+    margin-bottom: 0;
+    color: $color-white;
+  }
+}

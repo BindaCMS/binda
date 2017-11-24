@@ -46,3 +46,7 @@ en:
   instance: instance
   structure_instance_type: 'This structure is for:'
   null_is_not_allowed: You need to select at least one choice
+
+  binda:
+    title: title
+    view_website: View website

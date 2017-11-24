@@ -1,3 +1,9 @@
+/**
+ * CUSTOM FILE UPLOAD
+ *
+ * @param      {string}  target  The target
+ */
+
 export function custom_fileupload ( target ) {
 
 		let $this = $( target )

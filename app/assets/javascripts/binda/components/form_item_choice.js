@@ -1,6 +1,6 @@
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM CHOICE
+ */
 
 import { _FormItemEditor } from './form_item_editor'
 
