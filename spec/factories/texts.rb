@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 	
 	sequence(:text_name){ |n| "##{n} Lorem ipsum sit dolor" }
 

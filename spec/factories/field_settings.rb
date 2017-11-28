@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 	
 	sequence(:field_name){ |n| "##{n} Field Setting" }
 

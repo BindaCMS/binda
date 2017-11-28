@@ -15,8 +15,8 @@ require 'rspec/rails'
 require 'devise'
 # https://github.com/teamcapybara/capybara#using-capybara-with-rspec
 require 'capybara/rspec'
-# https://github.com/thoughtbot/factory_girl_rails/issues/167#issuecomment-226360492
-require 'factory_girl_rails'
+# https://github.com/thoughtbot/factory_bot_rails/issues/167#issuecomment-226360492
+require 'factory_bot_rails'
 # https://github.com/DatabaseCleaner/database_cleaner#how-to-use
 require 'database_cleaner'
 require 'pry'
@@ -110,8 +110,8 @@ RSpec.configure do |config|
   # FACTORY GIRL
   # ------------
   # Include Factory Girl Methods
-  # https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md
-  config.include FactoryGirl::Syntax::Methods
+  # https://github.com/thoughtbot/factory_bot/blob/master/GETTING_STARTED.md
+  config.include FactoryBot::Syntax::Methods
 
 
   # CLEAN TEST DATABASE BEFORE TESTING
@@ -126,7 +126,7 @@ RSpec.configure do |config|
     # http://stackoverflow.com/a/19930700/1498118
     Rails.application.load_seed # loading seeds
 
-    FactoryGirl.create(:user)
+    FactoryBot.create(:user)
   end
 
 end

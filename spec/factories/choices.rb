@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 	
 	factory :choice, class: Binda::Choice do
 		sequence(:label){ |n| "Choice ##{n}" }
