@@ -21,7 +21,7 @@
   <%= ff.input :fieldable_id, as: :hidden %>
   <%= ff.input :fieldable_type, as: :hidden %>
 
-	<a class="btn btn-default fileupload--remove-image-btn <%= 'fileupload--remove-image-btn--hidden' unless ff.object.image.present? %>" 
+	<a class="btn btn-danger fileupload--remove-image-btn <%= 'fileupload--remove-image-btn--hidden' unless ff.object.image.present? %>" 
     href="<%= url_for([ff.object, action: :remove_image]) %>" 
     data-method="delete"
     data-remote="true"
