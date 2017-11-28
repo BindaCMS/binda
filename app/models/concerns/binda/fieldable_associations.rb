@@ -38,10 +38,12 @@ module Binda
 			# has_many :bindings
 			# has_many :assets, class_name: 'Admin::Asset', through: :bindings
 
-	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
+	    accepts_nested_attributes_for :related_fields, :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
       
       # YOU SHOULDN'T USE THIS METHOD UNTIL IT'S OPTIMIZED
+=begin
       after_save :generate_fields
+=end
 		end
 
 		# Get the object related to that field setting
@@ -255,7 +257,7 @@ module Binda
 		# @param field_setting_id [string] The field setting id
 		# @param field_type [string] THe field type
 		def find_or_create_a_field_by field_setting_id, field_type
-			if FieldSetting.get_field_classes.include?( field_type.capitalize ) && field_setting_id.is_a?( Integer )
+			if FieldSetting.get_field_classes.include?( field_type.classify ) && field_setting_id.is_a?( Integer )
 				self.send( field_type.pluralize ).find_or_create_by( field_setting_id: field_setting_id )
 			else
 				raise ArgumentError, "One parameter in find_or_create_a_field_by() is not correct.", caller
@@ -279,13 +281,13 @@ module Binda
     	if self.respond_to?('structure')
 	    	field_settings = FieldSetting.where(field_group_id: FieldGroup.where(structure_id: self.structure.id))
 	    	field_settings.each do |field_setting|
-	    		"Binda::#{field_setting.field_type.capitalize}".constantize.find_or_create_by!(
+	    		"Binda::#{field_setting.field_type.classify}".constantize.find_or_create_by!(
 	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
 	    	end
     	# If this is a repeater
     	else
     		self.field_setting.children.each do |field_setting|
-	    		"Binda::#{field_setting.field_type.capitalize}".constantize.find_or_create_by!(
+	    		"Binda::#{field_setting.field_type.classify}".constantize.find_or_create_by!(
 	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
     		end
 	    end
