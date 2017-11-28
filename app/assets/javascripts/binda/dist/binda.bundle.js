@@ -127,8 +127,7 @@ var FormItemEditor = function () {
 var _FormItemEditor = new FormItemEditor();
 
 /***/ }),
-/* 1 */,
-/* 2 */
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -142,7 +141,7 @@ var _FormItemEditor = new FormItemEditor();
 };
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -162,6 +161,129 @@ var _FormItemEditor = new FormItemEditor();
 		}
 	});
 };
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FileUpload; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * FILE UPLOAD
+ * 
+ * see https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/
+ * 
+ */
+
+var FileUpload = function () {
+	function FileUpload() {
+		_classCallCheck(this, FileUpload);
+
+		this.target = '.fileupload';
+	}
+
+	_createClass(FileUpload, [{
+		key: 'isSet',
+		value: function isSet() {
+			if ($(this.target).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			var self = this;
+
+			// $(document).on('focusin', `${this.target} input`, function(){
+			// 	$(this).parents(self.target).find('label').addClass('control-label--focus')
+			// })
+
+			// $(document).on('focusin', `${this.target} input`, function(){
+			// 	$(this).parents(self.target).find('label').removeClass('control-label--focus')
+			// })
+
+			$(document).on('click', '.fileupload--remove-image-btn', remove_preview);
+
+			$(document).on('change', this.target + ' input.file', load_file);
+		}
+	}]);
+
+	return FileUpload;
+}();
+
+var _FileUpload = new FileUpload();
+
+/**
+ * HELPER FUNCTIONS
+ */
+
+// Reference --> http://blog.teamtreehouse.com/uploading-files-ajax
+function load_file(event) {
+	var id = event.target.getAttribute('data-id');
+	var $parent = $('#fileupload-' + id);
+	var $preview = $('#fileupload-' + id + ' .fileupload--preview');
+
+	// Get the selected file from the input
+	// This script doesn't consider multiple files upload
+	var file = event.target.files[0];
+
+	// Create a new FormData object
+	var formData = new FormData();
+
+	$parent.find('input').each(function () {
+		if (this.isSameNode(event.target)) {
+			// Add the file to the request
+			formData.append(this.getAttribute('name'), file, file.name);
+		} else {
+			// Add secondary values to the request
+			formData.append(this.getAttribute('name'), this.getAttribute('value'));
+		}
+	});
+
+	// Is this needed? Apparently it works without it. Is it a security issue?
+	var token = document.querySelector('meta[name="csrf-token"]').content;
+	formData.append('authenticity_token', token);
+
+	// Open the connection
+	$.ajax({
+		url: event.target.getAttribute('data-url'),
+		type: 'PATCH',
+		processData: false,
+		contentType: false,
+		data: formData
+	}).done(function (data) {
+		// Update thumbnail
+		$preview.css('background-image', 'url(' + data.thumbnailUrl + ')');
+		// remove and add class to trigger css animation
+		var uploadedClass = 'fileupload--preview--uploaded';
+		$preview.removeClass(uploadedClass).addClass(uploadedClass);
+		$parent.find('.fileupload--remove-image-btn').removeClass('fileupload--remove-image-btn--hidden');
+	});
+}
+
+function reset_file(event) {
+	var input = event.target;
+
+	input.value = '';
+
+	if (!/safari/i.test(navigator.userAgent)) {
+		input.type = '';
+		input.type = 'file';
+	}
+}
+
+function remove_preview(event) {
+	var id = event.target.getAttribute('data-id');
+	var $preview = $('#fileupload-' + id + ' .fileupload--preview');
+	$preview.css('background-image', '').removeClass('fileupload--preview--uploaded');
+	$(event.target).addClass('fileupload--remove-image-btn--hidden');
+}
 
 /***/ }),
 /* 4 */
@@ -537,13 +659,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_bootstrap__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_select2__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sortable__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_bootstrap__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_select2__ = __webpack_require__(8);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
+
 
 
 
@@ -571,10 +695,13 @@ $(document).ready(function () {
 	if (__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].setEvents();
 	}
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__components_sortable__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_bootstrap__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_select2__["a" /* default */])();
+	if (__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
+	}
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__components_sortable__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_bootstrap__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_select2__["a" /* default */])();
 });
 
 /***/ })

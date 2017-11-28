@@ -62,10 +62,12 @@ module Binda
       def upload_details
         # get the latest uploaded image which should be the one the user just uploaded
         image = Image.order('updated_at').last
-        return { files: [{ name: image.image_identifier,
-                    size: image.image.size,
-                    url: image.image.url,
-                    thumbnailUrl: image.image.thumb.url }] }
+        return { 
+          name: image.image_identifier,
+          size: image.image.size,
+          url: image.image.url,
+          thumbnailUrl: image.image.thumb.url 
+        }
       end
 
 

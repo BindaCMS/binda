@@ -115,3 +115,13 @@ body#tinymce
 {
   width: 100%;
 }
+
+.btn-primary {
+  border: 0px;
+  color: $color-white;
+  background-color: $color-gray-darker; 
+  transition: background-color .3s ease-out;
+}
+.btn-primary:hover {
+  background-color: $color-gray; 
+}
