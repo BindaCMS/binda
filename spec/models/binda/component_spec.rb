@@ -65,6 +65,7 @@ module Binda
 			association2.parent_related_components << component_parent_2
 			association2.save!
 
+			binding.pry
 			expect(component_child.related_fields.length).to eq(2)
 		end
 

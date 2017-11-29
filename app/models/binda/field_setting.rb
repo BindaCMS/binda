@@ -61,7 +61,7 @@ module Binda
     end
 
 		def self.get_field_classes
-			%w( String Text Date Image Video Repeater Radio Selection Checkbox Related_field )
+			%w( String Text Date Image Video Repeater Radio Selection Checkbox RelatedField )
 		end
 
 		# Validations
