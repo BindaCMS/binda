@@ -58,15 +58,16 @@ module Binda
 			component_parent_2 = create(:component)
 
 			association1 = component_child.related_fields.create!(name: "association1", slug: "slug1")
-			association1.parent_related_components << component_parent_1
+			association1.parent_relateds << component_parent_1
 			association1.save!
 
 			association2 = component_child.related_fields.create!(name: "association2", slug: "slug2")
-			association2.parent_related_components << component_parent_2
+			association2.parent_relateds << component_parent_2
 			association2.save!
 
-			binding.pry
-			expect(component_child.related_fields.length).to eq(2)
+			component_child.reload
+			relateds = component_child.related_fields.where(slug:"slug2").first.parent_relateds
+			expect(relateds.first.name).to eq(component_parent_2.name)
 		end
 
 =begin

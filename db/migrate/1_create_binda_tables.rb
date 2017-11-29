@@ -139,8 +139,8 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     end
 
     create_table :binda_related_fields do |t|
-      t.string :name, null: false, uniqueness: true
-      t.string :slug, null: false, uniqueness: true
+      t.string :name
+      t.string :slug
       t.integer :field_setting_id
       t.integer :fieldable_id
       t.string :fieldable_type
