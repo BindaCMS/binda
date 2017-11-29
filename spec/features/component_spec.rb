@@ -53,55 +53,53 @@ describe "GET component#edit", type: :feature, js: true do
 	## Failure/Error: raise Capybara::ExpectationNotMet.new('Timed out waiting for Selenium session reset') if (Capybara::Helpers.monotonic_time - start_time) >= 10   
 	##     Capybara::ExpectationNotMet: Timed out waiting for Selenium session reset
 	it "allows to edit a string field" do
-		# sign_in user
+		sign_in user
 		
-		# path = binda.edit_structure_component_path( @structure, @component )
-		# visit path
+		path = binda.edit_structure_component_path( @structure, @component )
+		visit path
 
-		# expect( page ).to have_current_path( path )
+		expect( page ).to have_current_path( path )
 
-		# @component.reload
+		@component.reload
 
-		# ids = @component.string_ids
+		ids = @component.string_ids
 
-		# string_field = "component_strings_attributes_#{ids[ids.length-1]}_content"
-		# string_value = 'oh my lorem'
+		string_field = "component_strings_attributes_#{ids[ids.length-1]}_content"
+		string_value = 'oh my lorem'
 
-		# find("##{string_field}")
+		find("##{string_field}")
 
-		# fill_in string_field, with: string_value
-		# click_button "save"
+		fill_in string_field, with: string_value
+		click_button "save"
 
-		# expect(page).to have_field(string_field)
-		# expect(page).to have_field(string_field, with: string_value)
-		skip "not implemented yet"
+		expect(page).to have_field(string_field)
+		expect(page).to have_field(string_field, with: string_value)
+		# skip "not implemented yet"
 	end
 
 	it "allows to edit a string field in a repeater" do
-		# sign_in user
+		sign_in user
 		
-		# path = binda.edit_structure_component_path( @structure, @component )
-		# visit path
+		path = binda.edit_structure_component_path( @structure, @component )
+		visit path
 		
-		# expect( page ).to have_current_path( path )
+		expect( page ).to have_current_path( path )
 		
-		# @component.reload
+		@component.reload
 
-		# # TODO check against @component.repeaters.first.string_ids[0] and see why it doesn't work!
+		ids = @component.repeaters.first.string_ids
 
-		# ids = @component.repeaters.first.string_ids
+		string_field = "component_repeaters_attributes_#{@component.repeaters.first.id}_strings_attributes_#{ids[ids.length-1]}_content"
+		string_value = 'oh my lorem'
 
-		# string_field = "component_strings_attributes_#{ids[ids.length-1]}_content"
-		# string_value = 'oh my lorem'
+		find("##{string_field}")
 
-		# find("##{string_field}")
+		fill_in string_field, with: string_value
+		click_button "save"
 
-		# fill_in string_field, with: string_value
-		# click_button "save"
-
-		# expect(page).to have_field(string_field)
-		# expect(page).to have_field(string_field, with: string_value)		
-		skip "not implemented yet"
+		expect(page).to have_field(string_field)
+		expect(page).to have_field(string_field, with: string_value)		
+		# skip "not implemented yet"
 	end
 
 	it "allows to create multiple new repeater items clicking the button" do
@@ -140,19 +138,19 @@ describe "GET component#edit", type: :feature, js: true do
 		skip "not implemeted yet"
 	end
 
-	it "allows to add an image to an asset field" do
+	it "allows to add an image to an image field" do
 		skip "not implemeted yet"
 	end
 
-	it "allows to add an image to an asset field in a repeater" do
+	it "allows to add an image to an image field in a repeater" do
 		skip "not implemeted yet"
 	end
 
-	it "allows to remove an image to an asset field" do
+	it "allows to remove an image to an image field" do
 		skip "not implemeted yet"
 	end
 
-	it "allows to remove an image to an asset field in a repeater" do
+	it "allows to remove an image to an image field in a repeater" do
 		skip "not implemeted yet"
 	end
 
