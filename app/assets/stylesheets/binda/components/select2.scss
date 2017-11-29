@@ -119,3 +119,7 @@
   background-color: $color-gray-darker;
 }
 
+.select2-container--default .select2-results > .select2-results__options {
+  max-height: 224px; // IMPORTANT!!! this must be a multiple of the <li> outerheight (currently 32px) otherwise tests don't pass!!!
+}
+
