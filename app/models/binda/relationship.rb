@@ -6,7 +6,6 @@ module Binda
 		belongs_to :children_related, polymorphic: true
 =end
 
-
 		validates :parent_related_id, presence: true
 =begin
 		validates :children_related_id, presence: true
