@@ -302,6 +302,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
+// Component Global Variables
+var newFormItemId = 1;
+
 var FormItem = function () {
 	function FormItem() {
 		_classCallCheck(this, FormItem);
@@ -360,11 +363,14 @@ function addNewItem(event) {
 	// Stop default behaviour
 	event.preventDefault();
 	// Get the child to clone
-	var id = $(event.target).data('new-child-id');
+	var id = $(event.target).data('new-form-item-id');
 	var $newChild = $('#' + id);
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter($newChild);
-	$newChild.removeClass('form-item--new').removeAttr('id');
+	// Remove class in order to remove styles, and change id so it's reachable when testing
+	$newChild.removeClass('form-item--new').attr('id', 'new-form-item-' + newFormItemId);
+	// Increment global id variable `newFormItemId` in case needs to be used again
+	newFormItemId++;
 	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 }
 

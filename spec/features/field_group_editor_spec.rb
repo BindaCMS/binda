@@ -12,7 +12,7 @@ describe "In field group editor, user", type: :feature, js: true do
 	end
 
 	Binda::FieldSetting.get_field_classes.each do |field_class|
-		it "should be able to create a #{field_class.downcase}" do
+		it "should be able to create a #{field_class.downcase.underscore}" do
 			sign_in user
 			
 			field_group = @structure.field_groups.first
@@ -23,12 +23,11 @@ describe "In field group editor, user", type: :feature, js: true do
 			click_on "form-item--field-group-#{field_group.id}--add-new"
 			
 			field_name_input = "field_group_new_field_settings__name"
-			field_name_value = "#{field_class.downcase}-test-1"
+			field_name_value = "#{field_class.downcase.underscore}-test-1"
 			field_type_input = "field_group_new_field_settings__field_type"
-			within ".form-item" do
-				fill_in field_name_input, with: field_name_value
-				select "#{field_class.downcase}", from: field_type_input
-			end
+			fill_in field_name_input, with: field_name_value
+			select_id = first("select")[:id]
+			select2("#{field_class.downcase.underscore}", select_id)
 			
 			click_button "save"
 
@@ -39,7 +38,9 @@ describe "In field group editor, user", type: :feature, js: true do
 			# use this to slow down Capybara, otherwise it's too quick and is not able to find field
 			# find("#field_group_field_settings_attributes_0_name")
 
-			within "#form-section--field-group-#{field_group.id}" do
+			field_group.reload
+
+			within "#form-item-#{field_group.field_settings.first.id}" do
 				expect(page).to have_field class: "form-item--input", with: field_name_value 
 			end
 		end
@@ -59,16 +60,18 @@ describe "In field group editor, user", type: :feature, js: true do
 			field_name_value = ""
 
 			within "#form-section--repeater-#{repeater.id}" do
-				click_on "form-item--repeater-#{repeater.id}--add-new"				
-				field_name_input = "field_group_new_field_settings__name"
-				field_name_value = "#{field_class.downcase}-test-1"
-				field_type_input = "field_group_new_field_settings__field_type"
-				within ".form-item" do
-					fill_in field_name_input, with: field_name_value
-					select "#{field_class.downcase}", from: field_type_input
-				end
+				click_on "form-item--repeater-#{repeater.id}--add-new"
+				# fill_in field_name_input, with: field_name_value
+				# select "#{field_class.downcase}", from: field_type_input
 			end
 				
+			field_name_input = "field_group_new_field_settings__name"
+			field_name_value = "#{field_class.downcase}-test-1"
+			field_type_input = "field_group_new_field_settings__field_type"
+			fill_in field_name_input, with: field_name_value
+			select_id = first("select")[:id]
+			select2("#{field_class.downcase.underscore}", select_id)
+			
 			click_button "save"
 
 			visit path_to_field_group
