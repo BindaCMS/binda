@@ -247,8 +247,8 @@ function load_file(event) {
 	});
 
 	// Is this needed? Apparently it works without it. Is it a security issue?
-	var token = document.querySelector('meta[name="csrf-token"]').content;
-	formData.append('authenticity_token', token);
+	// let token = document.querySelector('meta[name="csrf-token"]').content
+	// formData.append('authenticity_token', token)
 
 	// Open the connection
 	$.ajax({

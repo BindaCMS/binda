@@ -99,7 +99,6 @@ describe "GET component#edit", type: :feature, js: true do
 
 		expect(page).to have_field(string_field)
 		expect(page).to have_field(string_field, with: string_value)		
-		# skip "not implemented yet"
 	end
 
 	it "allows to create multiple new repeater items clicking the button" do
@@ -139,7 +138,27 @@ describe "GET component#edit", type: :feature, js: true do
 	end
 
 	it "allows to add an image to an image field" do
-		skip "not implemeted yet"
+		image_setting = create(:image_setting, field_group_id: @structure.field_groups.first.id)
+		
+		sign_in user
+		
+		path = binda.edit_structure_component_path( @structure, @component )
+		visit path
+		expect( page ).to have_current_path( path )
+
+		expect( @component.images.first.image.present? ).not_to be_truthy
+
+		field_id = "component_images_attributes_#{@component.images.where(field_setting_id: image_setting.id ).first.id}_image"
+		image_name = 'test-image.jpg'
+		image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
+		page.execute_script("document.getElementById('#{field_id}').style.zIndex = '1'")
+		page.execute_script("document.getElementById('#{field_id}').style.opacity = '1'")
+		page.attach_file( field_id, image_path )
+		
+		wait_for_ajax
+		visit path
+
+		expect( File.basename( @component.images.first.image.file.path ) ).to eq image_name
 	end
 
 	it "allows to add an image to an image field in a repeater" do

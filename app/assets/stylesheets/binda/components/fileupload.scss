@@ -4,8 +4,8 @@
   position: absolute;
   z-index: -1;
   overflow: hidden;
-  width: .1px;
-  height: .1px;
+  width: 1px; // .1px didn't work so set minimum to 1px
+  height: 1px; // .1px didn't work so set minimum to 1px
   opacity: 0;
 }
 

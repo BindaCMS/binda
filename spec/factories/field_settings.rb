@@ -54,4 +54,8 @@ FactoryBot.define do
 		end
 	end
 
+	factory :image_setting, parent: :field_setting do
+		field_type 'image'
+	end
+
 end

@@ -1,35 +1,37 @@
-<div id="fileupload-<%= ff.object.id %>" 
-  class="fileupload form-group">
+<div id="standard-form--image-<%= field_setting.id %>" class="standard-form--image">
+  <div id="fileupload-<%= ff.object.id %>" 
+    class="fileupload form-group">
 
-  <p class="control-label"><%= field_setting.name.capitalize %></p>
+    <p class="control-label"><%= field_setting.name.capitalize %></p>
 
-  <div class="fileupload--preview <%= 'fileupload--preview--uploaded' if ff.object.image.present? %>" 
-    style="background-image: url(<%= ff.object.image.thumb.url if ff.object.image.present? %>)">
-    <p><%= t 'binda.no_preview' %></p>
+    <div class="fileupload--preview <%= 'fileupload--preview--uploaded' if ff.object.image.present? %>" 
+      style="background-image: url(<%= ff.object.image.thumb.url if ff.object.image.present? %>)">
+      <p><%= t 'binda.no_preview' %></p>
+    </div>
+
+    <%= ff.input :image, 
+      label: raw("<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> #{t('binda.choose_file_button')}"), 
+      hint: field_setting.description, 
+      input_html: {
+        'data-url': url_for([@instance.structure, @instance, action: :upload]),
+        'data-id': ff.object.id 
+      } %>
+    <%= ff.input :image_cache, as: :hidden %>
+    <%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+    <%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+    <%= ff.input :fieldable_id, as: :hidden %>
+    <%= ff.input :fieldable_type, as: :hidden %>
+
+  	<a class="btn btn-danger fileupload--remove-image-btn <%= 'fileupload--remove-image-btn--hidden' unless ff.object.image.present? %>" 
+      href="<%= url_for([ff.object, action: :remove_image]) %>" 
+      data-method="delete"
+      data-remote="true"
+      data-confirm="<%= t 'binda.confirm_delete' %>"
+      data-id="<%=ff.object.id %>">
+        Delete image <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+    </a>
+    
+    <div class="clearfix"></div>
+
   </div>
-
-  <%= ff.input :image, 
-    label: raw("<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> #{t('binda.choose_file_button')}"), 
-    hint: field_setting.description, 
-    input_html: {
-      'data-url': url_for([@instance.structure, @instance, action: :upload]),
-      'data-id': ff.object.id 
-    } %>
-  <%= ff.input :image_cache, as: :hidden %>
-  <%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-  <%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-  <%= ff.input :fieldable_id, as: :hidden %>
-  <%= ff.input :fieldable_type, as: :hidden %>
-
-	<a class="btn btn-danger fileupload--remove-image-btn <%= 'fileupload--remove-image-btn--hidden' unless ff.object.image.present? %>" 
-    href="<%= url_for([ff.object, action: :remove_image]) %>" 
-    data-method="delete"
-    data-remote="true"
-    data-confirm="<%= t 'binda.confirm_delete' %>"
-    data-id="<%=ff.object.id %>">
-      Delete image <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-  </a>
-  
-  <div class="clearfix"></div>
-
 </div>

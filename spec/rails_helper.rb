@@ -21,7 +21,6 @@ require 'factory_bot_rails'
 require 'database_cleaner'
 require 'pry'
 
-
 # JAVASCRIPT DRIVER
 # -----------------
 # In order to use Poltergeist please make sure you have Phantom JS installed before testing
@@ -128,4 +127,14 @@ RSpec.configure do |config|
     FactoryBot.create(:user)
   end
 
+  # CARRIERWAVE
+  # -----------
+  # Clean uploaded files after each request.
+  # https://til.codes/testing-carrierwave-file-uploads-with-rspec-and-factorygirl/
+
+  config.after(:each) do
+    if Rails.env.test? || Rails.env.cucumber?
+      FileUtils.rm_rf(Dir["#{Binda::Engine.root}/spec/support/uploads"])
+    end 
+  end
 end
