@@ -57,6 +57,11 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
+    create_table :binda_field_settings_structures do |t|
+      t.belongs_to :field_setting
+      t.belongs_to :structure
+    end
+
     create_table :binda_repeaters do |t|
       t.integer          :position
       t.belongs_to       :field_setting
