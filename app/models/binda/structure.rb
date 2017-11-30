@@ -8,6 +8,8 @@ module Binda
 		has_many :categories
 		has_many :field_groups
 
+		has_and_belongs_to_many :field_settings
+
 =begin
 		# children_fieldable_relates "names" the Association join table for accessing through the children_fieldable association
 		has_many :active_relationships, class_name: "Relationship", dependent: :destroy, as: :children_fieldable

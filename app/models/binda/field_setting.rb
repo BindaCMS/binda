@@ -5,8 +5,10 @@ module Binda
 		belongs_to :field_group
 		has_ancestry orphan_strategy: :destroy
 
+		has_and_belongs_to_many :structures
+
 		# Fields Associations
-		# 
+		# x
 		# If you add a new field remember to update:
 		#   - get_field_classes (see here below)
 		#   - component_params (app/controllers/binda/components_controller.rb)
@@ -24,6 +26,7 @@ module Binda
 		has_many :related_fields, as: :fieldable
 
 
+
 		# The following direct association is used to securely delete associated fields
 		# Infact via `fieldable` the associated fields might not be deleted 
 		# as the fieldable_id is related to the `component`, `board` or `repeater` rather than `field_setting`
@@ -38,8 +41,11 @@ module Binda
 
 		has_many :choices,       dependent: :delete_all
 		has_one  :default_choice, -> (field_setting) { where(id: field_setting.default_choice_id) }, class_name: 'Binda::Choice'
+		has_and_belongs_to_many :accepted_structures, class_name: 'Binda::Structure'
 
-		accepts_nested_attributes_for :choices, allow_destroy: true, reject_if: :is_rejected
+		accepts_nested_attributes_for :accepted_structures, :texts, :strings, :dates, :galleries,
+																	:assets, :images, :videos, :repeaters, :radios, :selections,
+																	:checkboxes, :related_fields, :choices, allow_destroy: true, reject_if: :is_rejected
 
 
 		#

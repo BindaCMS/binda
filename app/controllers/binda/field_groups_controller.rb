@@ -32,7 +32,7 @@ module Binda
     end
 
     def update
-
+      binding.pry
       # Add nested classes
       add_new_field_settings
       add_new_choices
@@ -82,11 +82,12 @@ module Binda
               :description, 
               :field_type, 
               :position, 
-              :required, 
+              :required,
               :default_text, 
               :ancestry, 
               :default_choice_id, 
-              :allow_null, 
+              :allow_null,
+              accepted_structure_ids: [],
               choices: [], 
               choices_attributes: 
               [ :id, 
