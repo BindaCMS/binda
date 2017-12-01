@@ -51,3 +51,4 @@ en:
   binda:
     title: title
     view_website: View website
+    error_related_to_itself: Sorry, this record cannot relate to itself

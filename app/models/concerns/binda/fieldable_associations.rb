@@ -252,13 +252,21 @@ module Binda
 		end
 
 		# Find or create a field by field setting and field type
-		# This is used in Binda's form
+		# This is used in Binda's editor views
 		# 
 		# @param field_setting_id [string] The field setting id
 		# @param field_type [string] THe field type
 		def find_or_create_a_field_by field_setting_id, field_type
 			if FieldSetting.get_field_classes.include?( field_type.classify ) && field_setting_id.is_a?( Integer )
-				self.send( field_type.pluralize ).find_or_create_by( field_setting_id: field_setting_id )
+				# It's mandatory to use `select{}.first`!!! 
+				# If you use any ActiveRecord method (like `where` of `find`) the validation errors are wiped out 
+				# from the object and not rendered next to the form in the editor view
+				obj = self.send( field_type.pluralize ).select{|rf| rf.field_setting_id == field_setting_id}.first
+				if obj.nil?
+					return self.send( field_type.pluralize ).create!( field_setting_id: field_setting.id ) 
+				else
+					return obj
+				end
 			else
 				raise ArgumentError, "One parameter in find_or_create_a_field_by() is not correct.", caller
 			end

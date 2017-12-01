@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -131,97 +131,6 @@ var _FormItemEditor = new FormItemEditor();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = custom_fileupload;
-/**
- * CUSTOM FILE UPLOAD
- *
- * @param      {string}  target  The target
- */
-
-function custom_fileupload(target) {
-
-	var $this = $(target);
-
-	// SETTINGS
-	// 
-	$this.fileupload({
-		url: $this.data('url'), // This should return json, not a proper page
-		dropZone: $this,
-		dataType: 'json',
-		autoUpload: true,
-		acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-	});
-
-	// ADD EVENT
-	// 
-	$this.on('fileuploadadd', function (e, data) {
-		data.context = $this.find('.details');
-		$.each(data.files, function (index, file) {
-			$('.fileupload--filename').text(file.name);
-		});
-		$('.fileupload--details').removeClass('fileupload--details--hidden');
-	});
-
-	// PROCESS ALWAYS EVENT
-	// No matter if upload succeded or not, this event gets triggered
-	// 
-	$this.on('fileuploadprocessalways', function (e, data) {
-		// var index = data.index,
-		// 	file = data.files[index],
-		// 	node = $(data.context.children()[index])
-		// if (file.error) {
-		// 	node
-		// 		.append('<br>')
-		// 		.append($('<span class="text-danger"/>').text(file.error))
-		// }
-		// if (index + 1 === data.files.length) {
-		// 	data.context.find('button')
-		// 		.text('Upload')
-		// 		.prop('disabled', !!data.files.error)
-		// }
-	});
-
-	// DONE EVENT
-	// 
-	$this.on('fileuploaddone', function (e, data) {
-		$.each(data.result.files, function (index, file) {
-			if (file.url) {
-				setTimeout(function () {
-					// remove context
-					data.context.remove();
-					// append/replace image
-					$this.find('.form-item--image--image').attr('src', file.url).attr('alt', file.name);
-					$this.find('.fileupload--remove-image-btn').removeClass('invisible');
-				}, 500); // this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
-				setTimeout(function () {
-					$('.fileupload--details').addClass('fileupload--details--hidden');
-				}, 300);
-			} else if (file.error) {
-				var error = $('<span class="text-danger"/>').text(file.error);
-				$(data.context.children()[index]).append('<br>').append(error);
-			}
-		});
-	});
-
-	// FAIL EVENT
-	// 
-	$this.on('fileuploadfail', function (e, data) {
-		console.error(data);
-		console.error(data.files[data.index].error);
-		$('.fileupload--details').addClass('fileupload--details--hidden');
-		alert('Uplaod failed');
-	});
-
-	// what is this doing?
-	// not sure... see --> http://blueimp.github.io/jQuery-File-Upload/index.html
-	$this.prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
-}
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /**
  * BOOSTRAP SCRIPT
  */
@@ -232,7 +141,7 @@ function custom_fileupload(target) {
 };
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -254,6 +163,7 @@ function custom_fileupload(target) {
 };
 
 /***/ }),
+/* 3 */,
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -416,7 +326,7 @@ var _FormItemChoice = new FormItemChoice();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemImage; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -463,7 +373,7 @@ var _FormItemImage = new FormItemImage();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_item_editor__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -560,6 +470,19 @@ function addNewItem(target, event) {
 
 "use strict";
 /**
+ * OPTIONAL
+ */
+
+/* harmony default export */ __webpack_exports__["a"] = function () {
+  $('select').select2({ minimumResultsForSearch: 32 }); // 31 are max number of day in a month, which you don't want to be searchable
+};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
  * SORTABLE
  */
 
@@ -611,7 +534,7 @@ function addNewItem(target, event) {
 };
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -621,10 +544,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_bootstrap__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_select2__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_bootstrap__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_select2__ = __webpack_require__(8);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
@@ -662,18 +585,95 @@ $(document).ready(function () {
 });
 
 /***/ }),
-/* 10 */,
 /* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = custom_fileupload;
 /**
- * OPTIONAL
+ * CUSTOM FILE UPLOAD
+ *
+ * @param      {string}  target  The target
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
-  $('select').select2({ minimumResultsForSearch: 32 }); // 31 are max number of day in a month, which you don't want to be searchable
-};
+function custom_fileupload(target) {
+
+	var $this = $(target);
+
+	// SETTINGS
+	// 
+	$this.fileupload({
+		url: $this.data('url'), // This should return json, not a proper page
+		dropZone: $this,
+		dataType: 'json',
+		autoUpload: true,
+		acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+	});
+
+	// ADD EVENT
+	// 
+	$this.on('fileuploadadd', function (e, data) {
+		data.context = $this.find('.details');
+		$.each(data.files, function (index, file) {
+			$('.fileupload--filename').text(file.name);
+		});
+		$('.fileupload--details').removeClass('fileupload--details--hidden');
+	});
+
+	// PROCESS ALWAYS EVENT
+	// No matter if upload succeded or not, this event gets triggered
+	// 
+	$this.on('fileuploadprocessalways', function (e, data) {
+		// var index = data.index,
+		// 	file = data.files[index],
+		// 	node = $(data.context.children()[index])
+		// if (file.error) {
+		// 	node
+		// 		.append('<br>')
+		// 		.append($('<span class="text-danger"/>').text(file.error))
+		// }
+		// if (index + 1 === data.files.length) {
+		// 	data.context.find('button')
+		// 		.text('Upload')
+		// 		.prop('disabled', !!data.files.error)
+		// }
+	});
+
+	// DONE EVENT
+	// 
+	$this.on('fileuploaddone', function (e, data) {
+		$.each(data.result.files, function (index, file) {
+			if (file.url) {
+				setTimeout(function () {
+					// remove context
+					data.context.remove();
+					// append/replace image
+					$this.find('.form-item--image--image').attr('src', file.url).attr('alt', file.name);
+					$this.find('.fileupload--remove-image-btn').removeClass('invisible');
+				}, 500); // this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
+				setTimeout(function () {
+					$('.fileupload--details').addClass('fileupload--details--hidden');
+				}, 300);
+			} else if (file.error) {
+				var error = $('<span class="text-danger"/>').text(file.error);
+				$(data.context.children()[index]).append('<br>').append(error);
+			}
+		});
+	});
+
+	// FAIL EVENT
+	// 
+	$this.on('fileuploadfail', function (e, data) {
+		console.error(data);
+		console.error(data.files[data.index].error);
+		$('.fileupload--details').addClass('fileupload--details--hidden');
+		alert('Uplaod failed');
+	});
+
+	// what is this doing?
+	// not sure... see --> http://blueimp.github.io/jQuery-File-Upload/index.html
+	$this.prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+}
 
 /***/ })
 /******/ ]);
