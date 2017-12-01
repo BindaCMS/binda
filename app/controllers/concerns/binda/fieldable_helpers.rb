@@ -53,18 +53,29 @@ module Binda
       # 
       # @example    The return value will be something like: 
       #   # Return hash
-      #   { files: [
+      #   { 
       #     name: 'my_image.png',
       #     size: 543876,
-      #     url: 'url/to/my_image.png'
-      #   ]}
+      #     width: 300,
+      #     height: 300,
+      #     url: 'url/to/my_image.png',
+      #     thumbnailUrl: 'url/to/my_image_thumb.png'
+      #   }
       #
       def upload_details
         # get the latest uploaded image which should be the one the user just uploaded
         image = Image.order('updated_at').last
+        # get image dimension
+        if CarrierWave::Uploader::Base.storage == CarrierWave::Storage::File
+          file = MiniMagick::Image.open(::Rails.root.join(image.image.path))
+        else
+          file = MiniMagick::Image.open(image.image.url)
+        end
         return { 
           name: image.image_identifier,
           size: image.image.size,
+          width: file.width,
+          height: file.height,
           url: image.image.url,
           thumbnailUrl: image.image.thumb.url 
         }

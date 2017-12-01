@@ -6,10 +6,12 @@ describe "GET components#sort_index:", type: :feature, js: true do
 	before(:context) do
 		@structure = create(:article_structure_with_components)
 	end
+	
+	before(:example) do
+		sign_in user
+	end
 
 	it "displays components sorted by position" do
-		sign_in user
-
 		first_component = @structure.components.order(:position).first
 		first_position = first_component.position
 		last_component = @structure.components.order(:position).last
@@ -40,8 +42,11 @@ describe "GET component#edit", type: :feature, js: true do
 		@component = @structure.components.first
 	end
 
-	it "isn't blocked by any Rails error" do
+	before(:example) do
 		sign_in user
+	end
+
+	it "isn't blocked by any Rails error" do
 		path = binda.edit_structure_component_path( structure_id: @structure.slug, id: @component.slug ) 
 		visit path
 		expect( page ).to have_current_path( path )
@@ -53,18 +58,16 @@ describe "GET component#edit", type: :feature, js: true do
 	## Failure/Error: raise Capybara::ExpectationNotMet.new('Timed out waiting for Selenium session reset') if (Capybara::Helpers.monotonic_time - start_time) >= 10   
 	##     Capybara::ExpectationNotMet: Timed out waiting for Selenium session reset
 	it "allows to edit a string field" do
-		sign_in user
-		
 		path = binda.edit_structure_component_path( @structure, @component )
 		visit path
 
 		expect( page ).to have_current_path( path )
 
-		@component.reload
+		string_setting = @structure.field_groups.first.field_settings.where(field_type: 'string').first
 
-		ids = @component.string_ids
+		string_id = @component.strings.where(field_setting_id: string_setting.id).first.id
 
-		string_field = "component_strings_attributes_#{ids[ids.length-1]}_content"
+		string_field = "component_strings_attributes_#{string_id}_content"
 		string_value = 'oh my lorem'
 
 		find("##{string_field}")
@@ -74,12 +77,9 @@ describe "GET component#edit", type: :feature, js: true do
 
 		expect(page).to have_field(string_field)
 		expect(page).to have_field(string_field, with: string_value)
-		# skip "not implemented yet"
 	end
 
 	it "allows to edit a string field in a repeater" do
-		sign_in user
-		
 		path = binda.edit_structure_component_path( @structure, @component )
 		visit path
 		
@@ -137,10 +137,8 @@ describe "GET component#edit", type: :feature, js: true do
 		skip "not implemeted yet"
 	end
 
-	it "allows to add an image to an image field" do
+	it "allows to add an image to an image field and store it" do
 		image_setting = create(:image_setting, field_group_id: @structure.field_groups.first.id)
-		
-		sign_in user
 		
 		path = binda.edit_structure_component_path( @structure, @component )
 		visit path
@@ -156,9 +154,19 @@ describe "GET component#edit", type: :feature, js: true do
 		page.attach_file( field_id, image_path )
 		
 		wait_for_ajax
+		sleep 1 # wait for animation to complete
+		within "#fileupload-#{@component.images.first.id}" do
+			expect( page ).to have_content image_name
+			expect( page ).to have_content '400'
+		end
+
 		visit path
 
 		expect( File.basename( @component.images.first.image.file.path ) ).to eq image_name
+		within "#fileupload-#{@component.images.first.id}" do
+			expect( page ).to have_content image_name
+			expect( page ).to have_content '400'
+		end
 	end
 
 	it "allows to add an image to an image field in a repeater" do
@@ -174,7 +182,6 @@ describe "GET component#edit", type: :feature, js: true do
 	end
 
 	it "allows to add a new repeater element" do
-		# sign_in user
 		# path = binda.edit_structure_component_path( @structure, @component )
 		# visit path
 		# expect( page ).to have_current_path( path )

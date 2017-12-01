@@ -1,0 +1,30 @@
+.b-btn-primary {
+  color: $color-white;
+  background-color: $color-gray-darker; 
+  transition: background-color .3s ease-out;
+}
+
+.b-btn-primary:hover {
+  background-color: $color-gray; 
+}
+
+.b-btn-danger {
+  color: $color-white;
+  background-color: $color-danger; 
+  transition: background-color .3s ease-out;
+}
+
+.b-btn-danger:hover {
+  background-color: lighten($color-danger, 10%); 
+}
+
+.b-btn {
+  border: 0px;
+  border-radius: 0px;
+  padding: 4px 12px;
+
+  i
+  {
+    padding-right: 6px;
+  }
+}

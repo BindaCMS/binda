@@ -21,17 +21,9 @@ class FileUpload {
 	{
 		let self = this
 
-		// $(document).on('focusin', `${this.target} input`, function(){
-		// 	$(this).parents(self.target).find('label').addClass('control-label--focus')
-		// })
-
-		// $(document).on('focusin', `${this.target} input`, function(){
-		// 	$(this).parents(self.target).find('label').removeClass('control-label--focus')
-		// })
-
 		$(document).on('click', '.fileupload--remove-image-btn', remove_preview)
 
-		$(document).on('change', `${this.target} input.file`, load_file)
+		$(document).on('change', `${this.target} input.file`, handle_file)
 	}
 }
 
@@ -43,7 +35,7 @@ export let _FileUpload = new FileUpload()
  */
 
 // Reference --> http://blog.teamtreehouse.com/uploading-files-ajax
-function load_file(event) 
+function handle_file(event) 
 {
 	let id = event.target.getAttribute('data-id')
 	let $parent = $('#fileupload-'+id)
@@ -53,10 +45,12 @@ function load_file(event)
 	// This script doesn't consider multiple files upload
 	let file = event.target.files[0]
 
-	// Create a new FormData object
+	// Create a new FormData object which will be sent to the server
 	let formData = new FormData()
 
-	$parent.find('input').each(function(){
+	// Get data from the input element
+	$parent.find('input').each(function()
+	{
 		if ( this.isSameNode(event.target) )
 		{
 			// Add the file to the request
@@ -72,20 +66,28 @@ function load_file(event)
 	// formData.append('authenticity_token', token)
 
 	// Open the connection
-	$.ajax({
-			url: event.target.getAttribute('data-url'), 
-			type: 'PATCH',
-		  processData: false,
-		  contentType: false,
-			data: formData
-		}).done( function(data){
-				// Update thumbnail
-				$preview.css('background-image', `url(${data.thumbnailUrl})`)
-				// remove and add class to trigger css animation
-				let uploadedClass = 'fileupload--preview--uploaded'
-				$preview.removeClass(uploadedClass).addClass(uploadedClass)
-				$parent.find('.fileupload--remove-image-btn').removeClass('fileupload--remove-image-btn--hidden')
-		})
+	$.ajax(
+	{
+		url: event.target.getAttribute('data-url'), 
+		type: 'PATCH',
+	  processData: false, // needed to pass formData with the current format
+	  contentType: false, // needed to pass formData with the current format
+		data: formData
+	}).done( function(data)
+	{
+		// Update thumbnail
+		$preview.css('background-image', `url(${data.thumbnailUrl})`)
+		// Remove and add class to trigger css animation
+		let uploadedClass = 'fileupload--preview--uploaded'
+		$preview.removeClass(uploadedClass).addClass(uploadedClass)
+		// Update details
+		$parent.find('.fileupload--width').text(data.width)
+		$parent.find('.fileupload--height').text(data.height)
+		$parent.find('.fileupload--filename').text(data.name)
+		// Display details and buttons
+		$parent.find('.fileupload--details').removeClass('fileupload--details--hidden')
+		$parent.find('.fileupload--remove-image-btn').removeClass('fileupload--remove-image-btn--hidden')
+	})
 }
 
 function reset_file(event) 
@@ -103,7 +105,9 @@ function reset_file(event)
 function remove_preview(event) 
 {
 	let id = event.target.getAttribute('data-id')
-	let $preview = $('#fileupload-'+id+' .fileupload--preview')
-	$preview.css('background-image','').removeClass('fileupload--preview--uploaded')
-	$(event.target).addClass('fileupload--remove-image-btn--hidden')
+	let $parent = $('#fileupload-'+id)
+
+	$parent.find('.fileupload--preview').css('background-image','').removeClass('fileupload--preview--uploaded')
+	$parent.find('.fileupload--remove-image-btn').addClass('fileupload--remove-image-btn--hidden')
+	$parent.find('.fileupload--details').addClass('fileupload--details--hidden')
 }

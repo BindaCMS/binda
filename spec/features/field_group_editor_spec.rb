@@ -1,6 +1,6 @@
 require "rails_helper"
 
-Capybara.default_max_wait_time = 40
+# Capybara.default_max_wait_time = 40
 
 describe "In field group editor, user", type: :feature, js: true do
 	
@@ -11,21 +11,34 @@ describe "In field group editor, user", type: :feature, js: true do
 		create(:field_group, structure_id: @structure.id )
 	end
 
+	before(:example) do
+		sign_in user
+	end
+
 	Binda::FieldSetting.get_field_classes.each do |field_class|
 		it "should be able to create a #{field_class.downcase.underscore}" do
-			sign_in user
 			
 			field_group = @structure.field_groups.first
 			path_to_field_group = binda.edit_structure_field_group_path( structure_id: @structure.slug, id: field_group.slug )
 
 			visit path_to_field_group
 
-			click_on "form-item--field-group-#{field_group.id}--add-new"
+			add_new__button = "#form-item--field-group-#{field_group.id}--add-new"
+
+			find(add_new__button).click
 			
+			# Make sure the form item appeared
+			# sleep 0.3
+
 			field_name_input = "field_group_new_field_settings__name"
 			field_name_value = "#{field_class.downcase.underscore}-test-1"
 			field_type_input = "field_group_new_field_settings__field_type"
-			fill_in field_name_input, with: field_name_value
+
+			# A script clones and changes the id of the new form item.
+			# The '1' is because items gets numbered based on clicks on the 'add_new__button' link
+			within "#new-form-item-1" do
+				fill_in field_name_input, with: field_name_value
+			end
 			select_id = first("select")[:id]
 			select2("#{field_class.downcase.underscore}", select_id)
 			
@@ -35,13 +48,8 @@ describe "In field group editor, user", type: :feature, js: true do
 
 			field_group.reload
 
-			# use this to slow down Capybara, otherwise it's too quick and is not able to find field
-			# find("#field_group_field_settings_attributes_0_name")
-
-			field_group.reload
-
 			within "#form-item-#{field_group.field_settings.first.id}" do
-				expect(page).to have_field class: "form-item--input", with: field_name_value 
+				expect(page).to have_field with: field_name_value 
 			end
 		end
 	end
@@ -49,27 +57,27 @@ describe "In field group editor, user", type: :feature, js: true do
 
 	Binda::FieldSetting.get_field_classes.each do |field_class|
 		it "should be able to create a #{field_class.downcase} which belongs to a repeater" do
-			sign_in user
 			
 			field_group = @structure.field_groups.first
 			repeater = field_group.field_settings.create!(field_type: "repeater", name: "parent-repeater")
 			path_to_field_group = binda.edit_structure_field_group_path( structure_id: @structure.slug, id: field_group.slug )
 
 			visit path_to_field_group
+			wrapper = "#form-section--repeater-#{repeater.id}"
 
-			field_name_value = ""
+			# create variable to be available throughout the example
+			select_id = ''
+			field_name_value = ''
 
-			within "#form-section--repeater-#{repeater.id}" do
-				click_on "form-item--repeater-#{repeater.id}--add-new"
-				# fill_in field_name_input, with: field_name_value
-				# select "#{field_class.downcase}", from: field_type_input
+			within wrapper do
+				find("#form-item--repeater-#{repeater.id}--add-new").click
+				field_name_input = "field_group_new_field_settings__name"
+				field_name_value = "#{field_class.downcase}-test-1"
+				field_type_input = "field_group_new_field_settings__field_type"
+				fill_in field_name_input, with: field_name_value
+				select_id = first("select")[:id]
 			end
-				
-			field_name_input = "field_group_new_field_settings__name"
-			field_name_value = "#{field_class.downcase}-test-1"
-			field_type_input = "field_group_new_field_settings__field_type"
-			fill_in field_name_input, with: field_name_value
-			select_id = first("select")[:id]
+
 			select2("#{field_class.downcase.underscore}", select_id)
 			
 			click_button "save"
@@ -86,7 +94,6 @@ describe "In field group editor, user", type: :feature, js: true do
 	end
 
 	it "should be able to update checkbox labels and values" do
-		sign_in user
 
 		field_group = @structure.field_groups.first
 		field_setting = field_group.field_settings.create!(name: 'checkbox-test', field_type: 'checkbox')

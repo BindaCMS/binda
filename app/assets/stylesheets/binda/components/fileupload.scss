@@ -1,38 +1,4 @@
 // see https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/
-.fileupload input
-{
-  position: absolute;
-  z-index: -1;
-  overflow: hidden;
-  width: 1px; // .1px didn't work so set minimum to 1px
-  height: 1px; // .1px didn't work so set minimum to 1px
-  opacity: 0;
-}
-
-.fileupload label
-{
-  font-weight: 300;
-  padding: 8px 12px;
-  cursor: pointer; /* "hand" cursor */
-
-  @extend .btn-primary;
-
-  i
-  {
-    padding-right: 6px;
-  }
-
-  *
-  {
-    pointer-events: none;
-  }
-
-  // &.control-label--focus {
-  // 	outline: 1px dotted #000;
-  // 	outline: -webkit-focus-ring-color auto 5px;		
-  // }
-}
-
 .fileupload--preview
 {
   position: relative;
@@ -60,7 +26,7 @@
 .fileupload--preview--uploaded
 {
   animation: fadePreview .6s ease-out;
-  border: 1px solid transparent;
+  border: 0;
 
   p
   {
@@ -80,6 +46,45 @@
   }
 }
 
+.fileupload--dashboard
+{
+  float: left;
+
+  .control-label-wrap
+  {
+    float: left;
+  }
+}
+
+.fileupload input
+{
+  position: absolute;
+  z-index: -1;
+  overflow: hidden;
+  width: 1px; // .1px didn't work so set minimum to 1px
+  height: 1px; // .1px didn't work so set minimum to 1px
+  opacity: 0;
+}
+
+.fileupload label.control-label
+{
+  font-weight: 300;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  cursor: pointer; /* "hand" cursor */
+
+  *
+  {
+    pointer-events: none;
+  }
+
+  // &.control-label--focus {
+  //  outline: 1px dotted #000;
+  //  outline: -webkit-focus-ring-color auto 5px;   
+  // }
+}
+
 // Override the real .from-group containing the input
 .fileupload .form-group
 {
@@ -87,12 +92,28 @@
   border: 0;
 }
 
-.fileupload--remove-image-btn {
-	opacity: 1;
-	transition: opacity .3s ease;
+.fileupload--remove-image-btn
+{
+  float: left;
+  transition: all .3s ease;
+  opacity: 1;
 }
 
-.fileupload--remove-image-btn--hidden {
-	opacity: 0;
-	pointer-events: none;
+.fileupload--remove-image-btn--hidden
+{
+  pointer-events: none;
+  opacity: 0;
+}
+
+.fileupload--details
+{
+  float: left;
+  transition: opacity .3s ease-out;
+  opacity: 1;
+}
+
+.fileupload--details--hidden
+{
+  pointer-events: none;
+  opacity: 0;
 }
