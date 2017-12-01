@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 	
 	sequence(:field_name){ |n| "##{n} Field Setting" }
 
@@ -52,6 +52,10 @@ FactoryGirl.define do
 		after(:create) do |selection_setting, evaluator|
       create_list( :choice, evaluator._count, field_setting: selection_setting )
 		end
+	end
+
+	factory :image_setting, parent: :field_setting do
+		field_type 'image'
 	end
 
 end

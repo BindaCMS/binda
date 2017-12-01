@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
 	# Boards are automatically generated when you create 
 	# a structure with `instance_type` = `board`

@@ -6,7 +6,7 @@
 <%# - - - - - - - - - - - - %>
 <%= f.simple_fields_for :field_groups, f.object.field_groups.order( :position, :name ) do |ff| %>
 
-  <div class="form-item">
+  <div id="form-item-<%= ff.object.id %>" class="form-item">
 
 		<%= ff.input :structure_id, as: :hidden %>
 		<%= ff.input :id, as: :hidden %>

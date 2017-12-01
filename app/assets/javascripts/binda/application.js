@@ -11,18 +11,24 @@
 // about supported directives.
 //
 
+// JQuery
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui/widgets/sortable
 //= require jquery-ui/widget
+
+// TinyMCE
 //= require tinymce-jquery
-//= require jquery-file-upload/load-image.all.min
-//= require jquery-file-upload/canvas-to-blob.min
-//= require jquery-file-upload/jquery.iframe-transport
-//= require jquery-file-upload/jquery.fileupload
-//= require jquery-file-upload/jquery.fileupload-process
-//= require jquery-file-upload/jquery.fileupload-image
-//= require jquery-file-upload/jquery.fileupload-audio
-//= require jquery-file-upload/jquery.fileupload-video
-//= require jquery-file-upload/jquery.fileupload-validate
+
+// Bootstrap dependency 
+// https://v4-alpha.getbootstrap.com/components/tooltips/
+//= require tether.min
+
+// Bootstrap
+//= require bootstrap/bootstrap-sprockets
+
+// Select2
+//= require select2/select2.full.min
+
+// Binda scripts
 //= require binda/dist/binda.bundle.js

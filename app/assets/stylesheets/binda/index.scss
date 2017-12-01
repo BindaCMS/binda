@@ -1,10 +1,15 @@
 // Settings
 @import "settings/variables";
+@import "settings/bootstrap_overrides";
+@import "settings/tiny_mce_overrides";
 @import "settings/common";
 @import "settings/fonts";
 
+// Standard UI
+@import "components/b-btn";
+
 // Components
-@import "components/sidebar";
+@import "components/main_sidebar";
 @import "components/main_container";
 @import "components/main_content";
 @import "components/main_header";
@@ -13,13 +18,13 @@
 @import "components/login";
 @import "components/standard-form";
 @import "components/form_section";
-@import "components/form_body";
 @import "components/form_item";
 @import "components/form_item_image";
 @import "components/form_item_video";
 @import "components/sortable";
 @import "components/assets_manager";
 @import "components/fileupload";
+@import "components/select2";
 
 // Layout
 @import "layout/components_index";

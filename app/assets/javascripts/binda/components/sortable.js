@@ -1,3 +1,7 @@
+/**
+ * SORTABLE
+ */
+
 export default function() 
 {
 	if ( $('.sortable').length > 0 ) 

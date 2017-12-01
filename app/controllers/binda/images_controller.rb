@@ -51,8 +51,7 @@ module Binda
     def remove_image
       @image.remove_image!
       @image.save!
-      render js: "$('#fileupload-#{@image.id} .form-item--image--image').removeAttr('src').removeAttr('alt');
-      $('#fileupload-#{@image.id} .fileupload--remove-image-btn').addClass('invisible')"
+      head :ok
     end
 
     private

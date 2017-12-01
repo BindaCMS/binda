@@ -1,8 +1,6 @@
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM IMAGE
-///- - - - - - - - - - - - - - - - - - - -
-
-import { custom_fileupload } from './fileupload_custom_script'
+/**
+ * FORM ITEM IMAGE
+ */
 
 class FormItemImage
 {
@@ -19,7 +17,6 @@ class FormItemImage
 
 	setEvents()
 	{
-		$('.fileupload').each( function () { custom_fileupload( this ) });
 	}
 }
 

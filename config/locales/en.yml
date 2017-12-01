@@ -46,3 +46,13 @@ en:
   instance: instance
   structure_instance_type: 'This structure is for:'
   null_is_not_allowed: You need to select at least one choice
+
+  binda:
+    title: title
+    view_website: View website
+    confirm_delete: Do you really want to remove it?
+    upload_button: Upload
+    choose_file_button: Choose a file
+    no_preview: No file selected
+    filename: Name
+    filesize: Size

@@ -9,7 +9,7 @@
 		<%# REPEATER HEADER         %>
 		<%# - - - - - - - - - - - - %>
 		<div class="form-item--repeater-header">
-			<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+			<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>" data-confirm="<%= t 'binda.confirm_delete' %>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 			<p>ID #<%= @repeater.id %></p>
 		</div>
 
