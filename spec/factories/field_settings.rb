@@ -55,8 +55,8 @@ FactoryGirl.define do
 		end
 	end
 
-	factory :related_field_setting, parent: :field_setting do
-		field_type 'related_field'
+	factory :relation_setting, parent: :field_setting do
+		field_type 'relation'
 	end
 
 end

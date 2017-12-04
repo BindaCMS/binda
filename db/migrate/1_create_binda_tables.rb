@@ -136,12 +136,12 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.belongs_to       :component, index: true
     end
 
-    create_table :binda_related_fields do |t|
+    create_table :binda_relations do |t|
       t.integer          :field_setting_id
       t.references       :fieldable, polymorphic: true, index: true
     end
 
-    create_table :binda_relationships do |t|
+    create_table :binda_relation_links do |t|
       t.references       :owner, polymorphic: true, index: true
       t.references       :dependent, polymorphic: true, index: true
       t.timestamps

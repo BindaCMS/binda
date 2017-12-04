@@ -23,30 +23,31 @@ module Binda
 		has_many :radios,        as: :fieldable
 		has_many :selections,    as: :fieldable
 		has_many :checkboxes,    as: :fieldable
-		has_many :related_fields, as: :fieldable
+		has_many :relations, as: :fieldable
 
 
 
 		# The following direct associations are used to securely delete associated fields
 		# Infact via `fieldable` the associated fields might not be deleted 
 		# as the fieldable_id is related to the `component`, `board` or `repeater` rather than `field_setting`
-		has_many :texts,         dependent: :delete_all
-		has_many :strings,       dependent: :delete_all
-		has_many :dates,         dependent: :delete_all
-		has_many :galleries,     dependent: :delete_all
-		has_many :repeaters,     dependent: :delete_all
-		has_many :radios,        dependent: :delete_all
-		has_many :selections,    dependent: :delete_all
-		has_many :checkboxes,    dependent: :delete_all
+		has_many :texts,          dependent: :delete_all
+		has_many :strings,        dependent: :delete_all
+		has_many :dates,          dependent: :delete_all
+		has_many :galleries,      dependent: :delete_all
+		has_many :repeaters,      dependent: :delete_all
+		has_many :radios,         dependent: :delete_all
+		has_many :selections,     dependent: :delete_all
+		has_many :checkboxes,     dependent: :delete_all
+		has_many :relations,  dependent: :delete_all
 
-		has_many :choices,       dependent: :delete_all
+		has_many :choices,        dependent: :delete_all
 		has_one  :default_choice, -> (field_setting) { where(id: field_setting.default_choice_id) }, class_name: 'Binda::Choice'
 		
 		has_and_belongs_to_many :accepted_structures, class_name: 'Binda::Structure'
 
 		accepts_nested_attributes_for :accepted_structures, :texts, :strings, :dates, :galleries,
 		                              :assets, :images, :videos, :repeaters, :radios, :selections,
-		                              :checkboxes, :related_fields, :choices, allow_destroy: true, reject_if: :is_rejected
+		                              :checkboxes, :relations, :choices, allow_destroy: true, reject_if: :is_rejected
 
 
 		# Sets the validation rules to accept and save an attribute
@@ -67,7 +68,7 @@ module Binda
     end
 
 		def self.get_field_classes
-			%w( String Text Date Image Video Repeater Radio Selection Checkbox RelatedField )
+			%w( String Text Date Image Video Repeater Radio Selection Checkbox Relation )
 		end
 
 		# Validations

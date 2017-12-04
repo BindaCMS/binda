@@ -12,17 +12,6 @@ module Binda
 		validates :name, presence: true
 		validates :slug, uniqueness: true
 		validates :publish_state, presence: true, inclusion: { in: %w( draft published )}
-		validates_associated :texts
-		validates_associated :strings
-		validates_associated :dates
-		validates_associated :assets
-		validates_associated :images
-		validates_associated :videos
-		validates_associated :repeaters
-		validates_associated :radios
-		validates_associated :selections
-		validates_associated :checkboxes
-		validates_associated :related_fields
 
 		accepts_nested_attributes_for :categories, allow_destroy: true
 

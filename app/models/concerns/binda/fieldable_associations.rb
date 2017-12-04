@@ -17,9 +17,9 @@ module Binda
 	    #   - component_params (app/controllers/binda/components_controller.rb)
 
 			# children_fieldable_relates "names" the Association join table for accessing through the children_fieldable association
-			has_many :active_relationships, class_name: "Relationship", dependent: :destroy, as: :children_related
+			has_many :active_relations, class_name: "Relation", dependent: :destroy, as: :children_related
 			# parent_fieldable_relates "names" the Association join table for accessing through the parent_fieldable association
-			has_many :passive_relationships, class_name: "Relationship", dependent: :destroy, as: :parent_related
+			has_many :passive_relations, class_name: "Relation", dependent: :destroy, as: :parent_related
 
 	    has_many :texts,         as: :fieldable, dependent: :delete_all
 	    has_many :strings,       as: :fieldable, dependent: :delete_all
@@ -33,10 +33,22 @@ module Binda
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
 	    # Repeaters need destroy_all, not delete_all
 	    has_many :repeaters,     as: :fieldable, dependent: :destroy
-			has_many :related_fields, as: :fieldable, dependent: :destroy
+			has_many :relations, as: :fieldable, dependent: :destroy
 
-	    accepts_nested_attributes_for :related_fields, :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
+	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, :relations, allow_destroy: true
       
+			validates_associated :texts
+			validates_associated :strings
+			validates_associated :dates
+			validates_associated :assets
+			validates_associated :images
+			validates_associated :videos
+			validates_associated :repeaters
+			validates_associated :radios
+			validates_associated :selections
+			validates_associated :checkboxes
+			validates_associated :relations
+
       # YOU SHOULDN'T USE THIS METHOD UNTIL IT'S OPTIMIZED
 =begin
       after_save :generate_fields
@@ -253,9 +265,9 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_related_components field_slug
-			obj = self.related_fields.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
-			return obj.passive_relationships.any?
+			return obj.passive_relations.any?
 		end
 
 		# Get related components
@@ -263,9 +275,9 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [array] An array of components
 		def get_related_components field_slug
-			obj = self.related_fields.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
-			return obj.passive_relationships.map{|relationship| relationship.dependent}
+			return obj.passive_relations.map{|relation| relation.dependent}
 		end
 
 		# Check if has related boards
@@ -273,7 +285,7 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		# def has_related_boards field_slug
-		# 	obj = self.related_fields.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+		# 	obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 		# 	raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
 		# 	return obj.dependents.any?
 		# end
@@ -283,7 +295,7 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [array] An array of boards
 		# def get_related_boards field_slug
-		# 	obj = self.related_fields.find{ |t| t.field_setting_idid == FieldSetting.get_id( field_slug ) }
+		# 	obj = self.relations.find{ |t| t.field_setting_idid == FieldSetting.get_id( field_slug ) }
 		# 	raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
 		# 	return obj.dependents
 		# end

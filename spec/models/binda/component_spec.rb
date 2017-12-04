@@ -51,22 +51,22 @@ module Binda
 			skip "not implemented yet"
 		end
 
-		it "can have multiple relationships component" do
+		it "can have multiple related components" do
 			owner = create(:component)
-			relationship_setting = create(:related_field_setting, field_group_id: owner.structure.field_groups.first.id)
+			relation_setting = create(:relation_setting, field_group_id: owner.structure.field_groups.first.id)
 			dependent_1 = create(:component)
 			dependent_2 = create(:component)
 
-			relationship1 = owner.related_fields.create!(field_setting_id: relationship_setting.id)
-			relationship1.dependent_components << dependent_1
-			relationship1.save!
+			relation1 = owner.relations.create!(field_setting_id: relation_setting.id)
+			relation1.dependent_components << dependent_1
+			relation1.save!
 
-			relationship2 = owner.related_fields.create!(field_setting_id: relationship_setting.id)
-			relationship2.dependent_components << dependent_2
-			relationship2.save!
+			relation2 = owner.relations.create!(field_setting_id: relation_setting.id)
+			relation2.dependent_components << dependent_2
+			relation2.save!
 
 			owner.reload
-			dependents = owner.get_related_components(relationship_setting.slug)
+			dependents = owner.get_related_components(relation_setting.slug)
 			expect(dependents.first.name).to eq(dependent_2.name)
 		end
 
