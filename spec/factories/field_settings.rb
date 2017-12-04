@@ -26,6 +26,7 @@ FactoryGirl.define do
 	factory :text_setting, parent: :field_setting do
 		field_type 'text'
 	end
+
 	factory :radio_setting, parent: :field_setting do
 		field_type 'radio'
 		allow_null false
@@ -52,6 +53,10 @@ FactoryGirl.define do
 		after(:create) do |selection_setting, evaluator|
       create_list( :choice, evaluator._count, field_setting: selection_setting )
 		end
+	end
+
+	factory :related_field_setting, parent: :field_setting do
+		field_type 'related_field'
 	end
 
 end

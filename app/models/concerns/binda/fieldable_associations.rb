@@ -220,7 +220,7 @@ module Binda
 		#   only the first one will be retrieved.
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [hash] A hash of containing the label and value of the selected choice. `{ label: 'the label', 'value': 'the value'}`
+		# @return [hash] A hash of containing the label and value of the selected choice. `{ label: 'the label', value: 'the value'}`
 		def get_radio_choice field_slug
 			obj = self.radios.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			raise ArgumentError, "There isn't any radio associated to the current slug.", caller if obj.nil?
@@ -240,7 +240,7 @@ module Binda
 		# Get the checkbox choice
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [array] An array of labels and values of the selected choices. `[{ label: '1st label', 'value': '1st-value'}, { label: '2nd label', 'value': '2nd-value'}]`
+		# @return [array] An array of labels and values of the selected choices. `[{ label: '1st label', value: '1st-value'}, { label: '2nd label', value: '2nd-value'}]`
 		def get_checkbox_choices field_slug
 			obj = self.checkboxes.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			raise ArgumentError, "There isn't any checkbox associated to the current slug.", caller if obj.nil?
@@ -250,6 +250,46 @@ module Binda
 			end
 			return obj_array
 		end
+
+		# Check if has related components
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [boolean]
+		def has_related_components field_slug
+			obj = self.related_fields.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
+			return obj.passive_relationships.any?
+		end
+
+		# Get related components
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [array] An array of components
+		def get_related_components field_slug
+			obj = self.related_fields.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
+			return obj.passive_relationships.map{|relationship| relationship.dependent}
+		end
+
+		# Check if has related boards
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [boolean]
+		# def has_related_boards field_slug
+		# 	obj = self.related_fields.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+		# 	raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
+		# 	return obj.dependents.any?
+		# end
+
+		# Get related boards
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [array] An array of boards
+		# def get_related_boards field_slug
+		# 	obj = self.related_fields.find{ |t| t.field_setting_idid == FieldSetting.get_id( field_slug ) }
+		# 	raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
+		# 	return obj.dependents
+		# end
 
 		# Find or create a field by field setting and field type
 		# This is used in Binda's editor views

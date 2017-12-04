@@ -45,29 +45,29 @@ module Binda
 			first_component.destroy!
 
 			expect( String.where(id: strings) ).to be_empty
-
 		end
 
 		it "can have multiple categories" do
 			skip "not implemented yet"
 		end
 
-		it "can have multiple associations component" do
-			component_child = create(:component)
-			component_parent_1 = create(:component)
-			component_parent_2 = create(:component)
+		it "can have multiple relationships component" do
+			owner = create(:component)
+			relationship_setting = create(:related_field_setting, field_group_id: owner.structure.field_groups.first.id)
+			dependent_1 = create(:component)
+			dependent_2 = create(:component)
 
-			association1 = component_child.related_fields.create!(name: "association1", slug: "slug1")
-			association1.parent_relateds << component_parent_1
-			association1.save!
+			relationship1 = owner.related_fields.create!(field_setting_id: relationship_setting.id)
+			relationship1.dependent_components << dependent_1
+			relationship1.save!
 
-			association2 = component_child.related_fields.create!(name: "association2", slug: "slug2")
-			association2.parent_relateds << component_parent_2
-			association2.save!
+			relationship2 = owner.related_fields.create!(field_setting_id: relationship_setting.id)
+			relationship2.dependent_components << dependent_2
+			relationship2.save!
 
-			component_child.reload
-			relateds = component_child.related_fields.where(slug:"slug2").first.parent_relateds
-			expect(relateds.first.name).to eq(component_parent_2.name)
+			owner.reload
+			dependents = owner.get_related_components(relationship_setting.slug)
+			expect(dependents.first.name).to eq(dependent_2.name)
 		end
 
 =begin

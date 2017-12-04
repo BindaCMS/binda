@@ -776,13 +776,21 @@ Some specs are run against the database. If you haven't installed Binda on the d
 rails db:migrate RAILS_ENV=test
 ```
 
-The above command might generate an error. This might be because you have already installed Binda. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again.
+The above command might generate an error. This is probably because you have previously installed Binda and the generator finds migration both in `binda/db/migrate` and `binda/spec/dummy/db/migrate`. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again. Here below the oneliner (be aware that this destroy both development and test databases of the dummy app):
+
+```bash
+rm -rf spec/dummy/db/migrate && rails db:drop && rails db:create && rails generate binda:install && rails db:migrate RAILS_ENV=test
+```
+
+In case you are creating new migrations or modifing the default one, consider running the above command to refresh the `schema.rb` file while updating both databases.
 
 If in the future you need to clean your dummy app code, simply run:
 
 ```bash
 rm -rf spec/dummy && git checkout spec/dummy
 ```
+
+**The command above should be run before any commit!**
 
 Once all setup is done run RSpec every time you update the specs:
 
