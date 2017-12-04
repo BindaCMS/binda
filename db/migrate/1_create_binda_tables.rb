@@ -121,13 +121,6 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    create_table :binda_bindings do |t|
-      t.string           :title
-      t.text             :description
-      t.integer          :position
-      t.timestamps
-    end
-
     create_table :binda_categories do |t|
       t.string           :name, null: false
       t.string           :slug
