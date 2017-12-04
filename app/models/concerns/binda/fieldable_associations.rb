@@ -35,9 +35,6 @@ module Binda
 	    has_many :repeaters,     as: :fieldable, dependent: :destroy
 			has_many :related_fields, as: :fieldable, dependent: :destroy
 
-			# has_many :bindings
-			# has_many :assets, class_name: 'Admin::Asset', through: :bindings
-
 	    accepts_nested_attributes_for :related_fields, :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
       
       # YOU SHOULDN'T USE THIS METHOD UNTIL IT'S OPTIMIZED
