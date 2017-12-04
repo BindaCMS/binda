@@ -17,12 +17,12 @@ module Binda
     belongs_to :field_setting
 
     has_many :active_relations, class_name: "RelationLink", 
-                                    dependent: :destroy, 
-                                    as: :dependent
+                                dependent: :destroy, 
+                                as: :dependent
 
     has_many :passive_relations, class_name: "RelationLink", 
-                                     dependent: :destroy, 
-                                     as: :owner
+                                 dependent: :destroy, 
+                                 as: :owner
 
 
     has_many :dependent_components, through: :passive_relations, 

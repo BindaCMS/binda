@@ -67,6 +67,7 @@ module Binda
 
 			owner.reload
 			dependents = owner.get_related_components(relation_setting.slug)
+
 			expect(dependents.first.name).to eq(dependent_2.name)
 		end
 
