@@ -333,6 +333,8 @@ GEM
     xpath (2.1.0)
       nokogiri (~> 1.3)
     yard (0.9.9)
+    yard-activesupport-concern (0.0.1)
+      yard (>= 0.8)
 
 PLATFORMS
   ruby
@@ -362,6 +364,7 @@ DEPENDENCIES
   test-unit (~> 3.2)
   travis (~> 1.8)
   yard (~> 0.9)
+  yard-activesupport-concern
 
 BUNDLED WITH
    1.16.0

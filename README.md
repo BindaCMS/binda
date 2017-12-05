@@ -67,9 +67,19 @@ rails generate binda:install
 
 Now you are good to go. Good job!
 
-## Avoid installation conflicts
+## Recommended workflow
 
-**In order to avoid conflicts execute the installer once.** Running the installer for each application environment will cause issues with users' passwords. We recommend to install Binda locally and then copy the local database on each environment.
+Binda is totally bound to its database in order to let you structure your CMS directly from the admin panel. The recommended workflow is:
+
+1. Install and develop the application locally
+2. Migrate server and database to production once ready
+3. For any update sync your local database with the production one
+
+This ensure the application structure remains the same.
+
+If you want to avoid copying the entire database you can just refer to the following `binda_structures`
+
+## Reset credentials and initial settings
 
 If you need to re-install Binda and reset initial database settings (such as username and password for example) execute the following command from the application root.
 
@@ -94,24 +104,22 @@ During the installation process you will be asked to provide the _website name_,
 
 This two preferences can be changed later on inside _Dashboard_ panel visible in the sidebar. 
 
-You can customize the _Dashboard_ panel adding, removing and modifing fields as you prefer. As a matter of fact in _Structures_ you can find the one related to _Dashboard_ which you can edit as you like. The only thing you shouldn't is to turn it into a `component`!
+You can customize the _Dashboard_ panel adding, removing and modifing fields as you prefer. As a matter of fact in _Structures_ you can find the one related to _Dashboard_ which you can edit as you like. The only thing you shouldn't do is to turn it into a component!
 
 You can also create new boards if you need it. See https://github.com/lacolonia/binda/wiki/Boards
 
-By default after the installation a `Binda::Board` called `dashboard` will be populated with three fields: a `Binda::Radio` called `maintenance-mode`, a `Binda::String` called `website-name` and `Binda::Text` called `webiste-description`.
+By default after the installation a `Board` called `dashboard` will be populated with three fields: a `Radio` called `maintenance-mode`, a `String` called `website-name` and `Text` called `webiste-description`.
 
 You can retrieve them this way:
 
 ```ruby
-get_board('dashboard').get_radio_choice('maintenance-mode')
+Binda.get_boards('dashboard').first.get_radio_choice('maintenance-mode')
 # => return string which can be 'true' or 'false'
-get_board('dashboard').get_string('website-name')
+Binda.get_boards('dashboard').first.get_string('website-name')
 # => return string with website name
-get_board('dashboard').get_text('website-description')
+Binda.get_boards('dashboard').first.get_text('website-description')
 # => return text with website description
 ```
-
-NOTE: make sure you `include ::Binda::DefaultHelpers` in your `app/controllers/application_controller.rb`.
 
 ---
 
@@ -123,13 +131,13 @@ _Structures_ are the DNA of the application _components_ and _boards_. Each _com
 
 ## Create a structure
 
-Creating a _structure_ is fairly easy. Just click on the sidebar tab called _Structures_ and then on the _New structure_ button. You will be asked to provide a name which will be used from then on to call the relative component or board. You can also select the type of structure: _component_ or _board_. The former will let you create multiple instances for that structure whereas the latter will let you create only one instance. Why? A _component_ is great for something like posts, pages and so on. _Board_ are useful for content that is used once, for example the website description.
+Creating a _structure_ is fairly easy. Just click on the sidebar tab called _Structures_ and then on the _New structure_ button. You will be asked to provide a name which will be used from then on to call the relative component or board. You can also select the type of structure: _component_ or _board_. The former will let you create multiple instances for that structure whereas the latter will let you create only one instance. Why? A _component_ is great for something like posts, pages and so on. _Board_ are useful for content that is set once throghout the application, for example the website description.
 
 Once the _structure_ has been created it's possible to add field groups. By default there is one field group called *General Details* which is empty. You can customize that or add new ones.
 
 In order to add _field settings_ that will let you add content to your _component_ (or _board_) you need to enter on of the _structure's field groups_.
 
-## Retrive a structure
+## Retrieve a structure
 
 Once you create a _structure_ you can call it from your controller like so:
 
@@ -168,47 +176,31 @@ Depending on the structure type, to retrieve all related _components_ or the rel
 
 # Components
 
-`Components` are instances of a `Structure`.
+_Components_ are instances of a _structure_.
 
-In order to retrieve a single `Component` you can use one of the following methods:
+In order to retrieve a single _component_ you can use one of the following methods:
 
 ## Using the helper
 
-A useful helper is `get_components`. This helper will retrieve all _components_ from a specific _structure_. Find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda%2FDefaultHelpers:get_components). 
-
-To be able to use this helper you need to include the `::Binda::DefaultHelpers` in `app/controller/application_controller.rb`. This should be already there after the installation, but it's good to know in case you accidentaly delete it.
-
-```ruby
-# app/controller/application_controller.rb
-class ApplicationController < ActionController::Base
-  include ::Binda::DefaultHelpers
-end
-```
+A useful helper is `Binda.get_components`. This helper will retrieve all _components_ from a specific _structure_. Find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda/DefaultHelpers).
 
 Then in any of your controllers you can retrive the components belonging to a specific structure just using the structure slug. Let's see an example that uses the `page` structure to retrieve all related components.
 
 ```ruby
-get_components('page')
-# return all published pages sorted by position
+Binda.get_components('page')
+# return all pages
 
-get_components('page', { published: false })
-# return all published and draft pages sorted by position
+Binda.get_components('page').find_by(slug: 'my-first-page')
+# return `my-first-page`
 
-get_components('page', { custom_order: 'created_at DESC' })
-# return all published pages sorted chronologically
+# expand query
+Binda.get_components('page').where(publish_state: 'published').order('position')
 
-get_components('page', { fields: ['strings'] })
-get_components('page', { fields: ['strings', 'dates', 'assets'] })
-# it optimizes the query in order to avoid the N+1 issue 
-# useful if you are going to request any field from these components
-# or from any repeaters
-
-get_components('page', { published: true, custom_order: 'name', fields: ['string', 'repeaters'] })
-# it's then possible to create any sort of combination
+# reduce N+1 query issue by including dependencies
+Binda.get_components('page').includes(:strings, :texts, repeaters: [:images, :selections])
 ```
 
-To retrieve a single _component_ you can use `get_component`. As the above one, this is included in `::Binda::DefaultHelpers`. Is as easy as the above one, find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda%2FDefaultHelpers:get_component)
-
+To be able to use this helper in the application console you need to run `Binda.include Bidna::DefaultHelpers`
 
 ## Using the rails way
 
@@ -236,13 +228,19 @@ Then, if you want to retrieve all components that belongs to a specific structur
 
 ```ruby
 # FASTER
-@components = Binda::Component.where( structure_id: Binda::Structure.where( slug: 'my-structure' ).pluck( :id ) )
+@components = Binda::Component.where( structure_id: Binda::Structure.where( slug: 'my-structure' ) )
+
+# which is the same thing of doing:
+@components = Binda.get_components('my-structure')
 ```
 
 You can add any other option to the query then:
 
 ```ruby
-@components = Binda::Component.where( structure_id: Binda::Structure.where( slug: 'my-structure' ).pluck( :id ) ).published.order('name').includes( ['strings', 'texts', 'assets', 'selections'] )
+@components = Binda::Component.where( structure_id: Binda::Structure.where( slug: 'my-structure' ) ).published.order('name').includes( :strings, :texts, :assets, :selections )
+
+# which is the same thing of doing:
+@components = Binda.get_components('my-structure').published.order('name').includes( :strings, :texts, :assets, :selections )
 ```
 
 ---
@@ -259,36 +257,31 @@ You can create as many _boards_ you like and add any field you want. To set up a
 
 Once ready you can head to the _board_ page by clicking the tab on the main sidebar and populate the fields with your content.
 
-To retrieve _board_ content you can do:
+To retrieve _board_ content you can use one of those methods:
 
 ```ruby
 @board = Binda::Board.find_by(slug: 'my_board')
+
+@board = Binda.get_boards('my-board').first
 ```
 
 ## Board Helpers
 
-If you care about performance you can use the `get_board` helper to retrieve the _board_ object. To be able to use this helper you need to include the `::Binda::DefaultHelpers` in `app/controller/application_controller.rb`. This should be already there after the installation, but it's good to know in case you accidentaly delete it.
+If you care about performance you can use the `Binda.get_board` helper to retrieve the _board_ object.
+
+This method retrieves a **board**. Find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda/DefaultHelpers).
 
 ```ruby
-# app/controller/application_controller.rb
-class ApplicationController < ActionController::Base
-  include ::Binda::DefaultHelpers
-end
-```
-
-This method retrieves a **board**. Find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda%2FDefaultHelpers:get_board). 
-
-With this method you can optimize the query in order to avoid the infamous  [N+1 issue](https://youtu.be/oJ4Ur5XPAF8) by specifing what field types you are going to request in the view. The list of field types available can be found in the [official documentation](#Fields). Field types must be listed as separated strings, lowercase and plural. See the following examples.
-
-```ruby
-get_board('my-dashboard')
+Binda.get_boards('my-dashboard').first
 # return the board
 
-get_board('my-dashboard', { fields: ['strings', 'texts', 'assets', 'selections'] })
-# return the board and optimize the query for any of the listed fields related to it
+# reduce N+1 query issue by including dependencies
+Binda.get_boards('default-dashboard').includes(:strings, :texts, repeaters: [:images, :selections]).first
 ```
 
 _Boards_ can make use of all field helpers. See the [fields documentation](#Field_Helpers) for more information.
+
+To be able to use this helper in the application console you need to run `Binda.include Bidna::DefaultHelpers`
 
 ## Using console
 
@@ -315,29 +308,30 @@ Here below a list of field types available and their use:
 |---|---|
 | String | Store a string. No formatting options available. |
 | Text | Store a text. TinyMCE let's you format the text as you like.   |
-| Asset | Store image. |
+| Image | Store image. |
+| Video | Store video. |
 | Date | Store a date. |
-| Radio | Select one choice amongst a custom set |
-| Selection | Select one or more choices amongst a custom set |
-| Check Box | Select one or more choices amongst a custom set |
-| Repeater | Store multiple instances of a field or a collection of fields |
-
+| Radio | Select one choice amongst a custom set. |
+| Selection | Select one or more choices amongst a custom set. |
+| Check Box | Select one or more choices amongst a custom set. |
+| Repeater | Store multiple instances of a field or a collection of fields. |
+| Relation | Connect multiple instances of a _component_ or _board_ to each other. |
 
 ## How to get field content
 
-Every field setting has a unique `slug`. The default `slug` is made of the * structure name + field group name + field setting name *. If it's a child of a `repeater` the slug will include the `repeater` slug as well. You can customise the `slug` as you like keeping in mind that there every `slug` can be attach to only one field setting. 
+Every field setting has a unique `slug`. The default `slug` is made of the `structure name + field group name + field setting name`. If it's a child of a _repeater_ the slug will include the _repeater_ slug as well. You can customise the `slug` as you like keeping in mind that there every `slug` can be attach to only one field setting. 
 
 In order to retrieve a field content you can use one of the following helpers.
 
-Let's say you want to get a specific field from a `component` instance:
+Let's say you want to get a specific field from a _component_ instance:
 
 ```ruby
-# controller
-@component = Binda::Component.find(1)
+# controller file
+@article = Binda.get_components('article').first
 
-# view
-@component.get_text('description')
-# => 'Hellow world'
+# view file
+@article.get_text('description')
+# => 'Hello world'
 ```
 
 This helpers will work for any instance of `Binda::Component`, `Binda::Board` and `Binda::Repeater`.
@@ -348,22 +342,29 @@ Here below a list of helpers.
 
 You can retrieve field content from a instance of `Binda::Component`, `Binda::Board` or `Binda::Repeater`. See [How to get field content](#How_to_get_field_content).
 
+**NOTE: source links are based on the latest public version.** If you are using an older version or a specific branch please refer to the [source](https://github.com/lacolonia/binda/blob/master/app/models/concerns/binda/fieldable_associations.rb) switching to the branch/tag you are looking for.
+
 | Helper |||
 |---|---|---|
-| `has_text`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:has_text) |
-| `get_text`| Returns the text. Use [`simple_format`](https://apidock.com/rails/ActionView/Helpers/TextHelper/simple_format) to maintain HTML tags. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_text) |
-| `has_string`| Returns `true/false`. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:has_string) |
-| `get_string`| Returns the text. Use [`simple_format`](https://apidock.com/rails/ActionView/Helpers/TextHelper/simple_format) to maintain HTML tags. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_string) |
-|`has_image`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:has_image) |
-|`get_image_url(size)`| Returns the url of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_image_url) |
-|`get_image_path(size)`| Returns the path of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_image_path) |
-|`has_date`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:has_date) |
-|`get_date`| Returns the date in `datetime` format. Use [`strftime`](https://apidock.com/rails/ActiveSupport/TimeWithZone/strftime) to change date format. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_date) |
-|`has_repeater`| Returns `true/false`| [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:has_repeater) |
-|`get_repeater`| Returns an array of repeaters. See next session for more details. | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_repeater) |
-|`get_selection_choice`| Returns an hash with label and value of the selected choice | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_selection_choice) |
-|`get_radio_choice`| Returns an hash with label and value of the selected choice | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_radio_choice) |
-|`get_checkbox_choices`| Returns an array of label/value pairs of all the selected choices | [source](http://www.rubydoc.info/gems/binda/Binda%2FieldableAssociations:get_checkbox_choices) |
+| `has_text`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_text) |
+| `get_text`| Returns the text. Use [`simple_format`](https://apidock.com/rails/ActionView/Helpers/TextHelper/simple_format) to maintain HTML tags. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_text) |
+| `has_string`| Returns `true/false`. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_string) |
+| `get_string`| Returns the text. Use [`simple_format`](https://apidock.com/rails/ActionView/Helpers/TextHelper/simple_format) to maintain HTML tags. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_string) |
+|`has_image`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_image) |
+|`get_image_url(size)`| Returns the url of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_image_url) |
+|`get_image_path(size)`| Returns the path of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_image_path) |
+|`has_video`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_video) |
+|`get_video_url`| Returns the url of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_video_url) |
+|`get_video_path`| Returns the path of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_image_path) |
+|`has_date`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_date) |
+|`get_date`| Returns the date in `datetime` format. Use [`strftime`](https://apidock.com/rails/ActiveSupport/TimeWithZone/strftime) to change date format. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_date) |
+|`has_repeater`| Returns `true/false`| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_repeater) |
+|`get_repeater`| Returns an array of repeaters. See next session for more details. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_repeater) |
+|`get_selection_choice`| Returns an hash with label and value of the selected choice. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_selection_choice) |
+|`get_radio_choice`| Returns an hash with label and value of the selected choice. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_radio_choice) |
+|`get_checkbox_choices`| Returns an array of label/value pairs of all the selected choices. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_checkbox_choices) |
+|`has_related_components`| Check if has related components. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_related_components) |
+|`get_related_components`| Retrieve related components. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_related_components) |
 
 ---
 
@@ -378,6 +379,7 @@ If you want to have multiple entries for a single _field setting_ you need to cr
 For example: lets say you have a _Movie_ component and you need to list some credits. You can create a _repeater_ and add a field setting with type `string` and name it _credit_. In the _movie_ editor you will able to add as many credit field you like. 
 
 Another example: imagine you setup a repeater with two children, a string and a asset field.
+
 ```
 page (structure)
 |__ default details (field_group)
@@ -385,7 +387,9 @@ page (structure)
         |__ title (string)
         |__ image (asset)
 ```
+
 Then on the component editor you can
+
 ```
 My first page (component)
 |__ slide_1
@@ -403,7 +407,10 @@ My first page (component)
 The code can be something like this:
 
 ```ruby
-@page = Binda::Component.find_by('slug', 'my-first-page')
+@page = Binda.get_components('page')
+             .where(slug: 'my-first-page')
+             .includes(repeaters: [:texts, :images])
+             .first
 
 @page.get_repeater('slide').each do |slide|
   slide.title
@@ -411,25 +418,7 @@ The code can be something like this:
 end
 ```
 
-A better way would be to use the `get_repeater` helper. Find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda%2FDefaultHelpers:get_repeater). 
-
-```ruby
-@slides = get_repeater('slide', { fields: [ 'strings', 'assets' ]})
-
-@slides.each do |slide|
-  slide.title
-  slide.get_image_path
-end
-```
-
-To be able to use this helper you need to include the `::Binda::DefaultHelpers` in `app/controller/application_controller.rb`. This should be already there after the installation, but it's good to know in case you accidentaly delete it.
-
-```ruby
-# app/controller/application_controller.rb
-class ApplicationController < ActionController::Base
-  include ::Binda::DefaultHelpers
-end
-```
+To be able to use this helper in the application console you need to run `Binda.include Bidna::DefaultHelpers`
 
 The repeater model `Binda::Repeater` can make use of any of the [field helpers](#Field_Helpers).
 
