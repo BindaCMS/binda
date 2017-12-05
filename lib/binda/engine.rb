@@ -2,7 +2,6 @@ require 'devise'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'sass-rails'
-require 'coffee-rails'
 require 'friendly_id'
 require 'aasm'
 require 'simple_form'
@@ -12,7 +11,6 @@ require 'mini_magick'
 require 'ancestry'
 require 'kaminari'
 require 'bourbon'
-require 'neat'
 
 # **Binda** is a CMS with an intuitive out-of-the-box interface to manage and customize page components.
 # 

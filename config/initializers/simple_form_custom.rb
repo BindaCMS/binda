@@ -3,7 +3,7 @@ SimpleForm.setup do |config|
 
   # Bootstrap Simple Form defaults
   config.error_notification_class = 'alert alert-danger'
-  config.button_class = 'btn btn-default'
+  config.button_class = 'b-btn b-btn-default'
   config.boolean_label_class = nil
 
 
@@ -109,6 +109,25 @@ SimpleForm.setup do |config|
     b.use :input
   end
 
+  config.wrappers :fileupload do |b|
+    b.optional :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.wrapper tag: :p, class: 'help-block', unless_blank: true do |bb|
+      bb.optional :hint
+    end
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :readonly
+
+    b.use :preview
+    b.wrapper tag: 'div', class: 'fileupload--dashboard' do |bb|
+      bb.use :label, class: 'control-label b-btn b-btn-primary', wrap_with: { tag: 'div', class: 'control-label-wrap' }
+      bb.use :delete_button
+      bb.use :detail
+    end
+    b.use :input
+  end
+
   config.wrappers :vertical_boolean, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
@@ -148,7 +167,7 @@ SimpleForm.setup do |config|
   config.wrapper_mappings = {
     check_boxes: :vertical_radio_and_checkboxes,
     radio_buttons: :vertical_radio_and_checkboxes,
-    file: :vertical_file_input,
+    file: :fileupload,
     boolean: :vertical_boolean,
     datetime: :multi_select,
     date: :multi_select,

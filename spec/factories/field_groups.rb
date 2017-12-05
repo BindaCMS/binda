@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
 	sequence(:field_group_name) { |n| "Default details ##{n}" }
 

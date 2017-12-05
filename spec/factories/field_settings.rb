@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 	
 	sequence(:field_name){ |n| "##{n} Field Setting" }
 
@@ -57,6 +57,10 @@ FactoryGirl.define do
 
 	factory :relation_setting, parent: :field_setting do
 		field_type 'relation'
+	end
+
+	factory :image_setting, parent: :field_setting do
+		field_type 'image'
 	end
 
 end

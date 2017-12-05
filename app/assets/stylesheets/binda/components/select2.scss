@@ -119,21 +119,3 @@
   background-color: $color-gray-darker;
 }
 
-.select2-results__options {
-	overflow: hidden;
-	animation: foo .3s ease;
-}
-
-@keyframes foo {
-	from { 
-		pointer-events: none;
-		opacity: 0;
-		// height: 0; 
-	}
-	to { 
-		pointer-events: none;
-		opacity: 1;
-		// height: 200px; 
-	}
-}
-

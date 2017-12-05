@@ -1,24 +1,25 @@
-<%# HEADING %>
-<h5><%= field_setting.name.capitalize %></h5>
+<div id="standard-form--video-<%= field_setting.id %>" class="standard-form--video">
+	<h5><%= field_setting.name.capitalize %></h5>
 
-<%= ff.input :video, input_html: { class: 'form-item--video--uploader'} %>
-	<a class="btn btn-default <%= 'invisible' unless ff.object.video.present? %>" href="<%= url_for([ff.object, action: :remove_video]) %>" data-method="delete" data-remote="true" data-confirm="Do you really want to remove it?">Delete image <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-  </span>
+	<%= ff.input :video, input_html: { class: 'form-item--video--uploader'} %>
+		<a class="btn btn-default <%= 'invisible' unless ff.object.video.present? %>" href="<%= url_for([ff.object, action: :remove_video]) %>" data-method="delete" data-remote="true" data-confirm="Do you really want to remove it?">Delete image <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	  </span>
 
-<% if ff.object.video.present? %>
-  <video id="video-<%= ff.object.id %>" controls class="form-item--video--video">
-	  <source src="<%= ff.object.video.url %>" type="video/<%= ff.object.video.file.extension.downcase %>">
-  </video>
-<% end %>
+	<% if ff.object.video.present? %>
+	  <video id="video-<%= ff.object.id %>" controls class="form-item--video--video">
+		  <source src="<%= ff.object.video.url %>" type="video/<%= ff.object.video.file.extension.downcase %>">
+	  </video>
+	<% end %>
 
-<% unless field_setting.description.blank? %>
-	<small class="text-muted"><%= field_setting.description %></small>
-<% end %>
+	<% unless field_setting.description.blank? %>
+		<small class="text-muted"><%= field_setting.description %></small>
+	<% end %>
 
-<%= ff.input :video_cache, as: :hidden %>
-<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-<%= ff.input :fieldable_id, as: :hidden %>
-<%= ff.input :fieldable_type, as: :hidden %>
+	<%= ff.input :video_cache, as: :hidden %>
+	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+	<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+	<%= ff.input :fieldable_id, as: :hidden %>
+	<%= ff.input :fieldable_type, as: :hidden %>
 
-<div class="form-item--video--clearfix"></div>
+	<div class="form-item--video--clearfix"></div>
+</div>

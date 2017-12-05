@@ -15,12 +15,11 @@ require 'rspec/rails'
 require 'devise'
 # https://github.com/teamcapybara/capybara#using-capybara-with-rspec
 require 'capybara/rspec'
-# https://github.com/thoughtbot/factory_girl_rails/issues/167#issuecomment-226360492
-require 'factory_girl_rails'
+# https://github.com/thoughtbot/factory_bot_rails/issues/167#issuecomment-226360492
+require 'factory_bot_rails'
 # https://github.com/DatabaseCleaner/database_cleaner#how-to-use
 require 'database_cleaner'
 require 'pry'
-
 
 # JAVASCRIPT DRIVER
 # -----------------
@@ -54,12 +53,11 @@ Capybara.javascript_driver = :selenium
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Binda::Engine.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
-
 
 # RSPEC CONFIGURATION
 # -------------------
@@ -110,8 +108,8 @@ RSpec.configure do |config|
   # FACTORY GIRL
   # ------------
   # Include Factory Girl Methods
-  # https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md
-  config.include FactoryGirl::Syntax::Methods
+  # https://github.com/thoughtbot/factory_bot/blob/master/GETTING_STARTED.md
+  config.include FactoryBot::Syntax::Methods
 
 
   # CLEAN TEST DATABASE BEFORE TESTING
@@ -126,7 +124,17 @@ RSpec.configure do |config|
     # http://stackoverflow.com/a/19930700/1498118
     Rails.application.load_seed # loading seeds
 
-    FactoryGirl.create(:user)
+    FactoryBot.create(:user)
   end
 
+  # CARRIERWAVE
+  # -----------
+  # Clean uploaded files after each request.
+  # https://til.codes/testing-carrierwave-file-uploads-with-rspec-and-factorygirl/
+
+  config.after(:each) do
+    if Rails.env.test? || Rails.env.cucumber?
+      FileUtils.rm_rf(Dir["#{Binda::Engine.root}/spec/support/uploads"])
+    end 
+  end
 end

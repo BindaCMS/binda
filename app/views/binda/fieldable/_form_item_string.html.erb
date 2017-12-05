@@ -1,11 +1,12 @@
-<%# HEADING %>
-<% if @instance.has_string( field_setting.slug ) %>
-		<%= ff.input :content, input_html: { value: @instance.get_string( field_setting.slug ) }, as: :string, hint: field_setting.description, label: field_setting.name.capitalize %>
-<% else %>
-		<%= ff.input :content, as: :string, hint: field_setting.description, label: field_setting.name.capitalize  %>
-<% end %>
+<div id="standard-form--string-<%= field_setting.id %>" class="standard-form--string">
+	<% if @instance.has_string( field_setting.slug ) %>
+			<%= ff.input :content, input_html: { value: @instance.get_string( field_setting.slug ) }, as: :string, hint: field_setting.description, label: field_setting.name.capitalize %>
+	<% else %>
+			<%= ff.input :content, as: :string, hint: field_setting.description, label: field_setting.name.capitalize  %>
+	<% end %>
 
-<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-<%= ff.input :fieldable_id, as: :hidden %>
-<%= ff.input :fieldable_type, as: :hidden %>
+	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+	<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+	<%= ff.input :fieldable_id, as: :hidden %>
+	<%= ff.input :fieldable_type, as: :hidden %>
+</div>

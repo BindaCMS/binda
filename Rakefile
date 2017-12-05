@@ -24,18 +24,6 @@ load 'rails/tasks/statistics.rake'
 require 'bundler/gem_tasks'
 
 
-
-# I guess this generate test file every time you use `rails g` command
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = false
-  t.warning = false
-end
-task default: :test
-
 # This should ensure creation of spec instead of test (partially true)
 # https://stackoverflow.com/a/4632188/1498118
 require 'rspec/core/rake_task'

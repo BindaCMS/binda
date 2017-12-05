@@ -163,7 +163,130 @@ var _FormItemEditor = new FormItemEditor();
 };
 
 /***/ }),
-/* 3 */,
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FileUpload; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * FILE UPLOAD
+ * 
+ * see https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/
+ * 
+ */
+
+var FileUpload = function () {
+	function FileUpload() {
+		_classCallCheck(this, FileUpload);
+
+		this.target = '.fileupload';
+	}
+
+	_createClass(FileUpload, [{
+		key: 'isSet',
+		value: function isSet() {
+			if ($(this.target).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			var self = this;
+
+			$(document).on('click', '.fileupload--remove-image-btn', remove_preview);
+
+			$(document).on('change', this.target + ' input.file', handle_file);
+		}
+	}]);
+
+	return FileUpload;
+}();
+
+var _FileUpload = new FileUpload();
+
+/**
+ * HELPER FUNCTIONS
+ */
+
+// Reference --> http://blog.teamtreehouse.com/uploading-files-ajax
+function handle_file(event) {
+	var id = event.target.getAttribute('data-id');
+	var $parent = $('#fileupload-' + id);
+	var $preview = $('#fileupload-' + id + ' .fileupload--preview');
+
+	// Get the selected file from the input
+	// This script doesn't consider multiple files upload
+	var file = event.target.files[0];
+
+	// Create a new FormData object which will be sent to the server
+	var formData = new FormData();
+
+	// Get data from the input element
+	$parent.find('input').each(function () {
+		if (this.isSameNode(event.target)) {
+			// Add the file to the request
+			formData.append(this.getAttribute('name'), file, file.name);
+		} else {
+			// Add secondary values to the request
+			formData.append(this.getAttribute('name'), this.getAttribute('value'));
+		}
+	});
+
+	// Is this needed? Apparently it works without it. Is it a security issue?
+	// let token = document.querySelector('meta[name="csrf-token"]').content
+	// formData.append('authenticity_token', token)
+
+	// Open the connection
+	$.ajax({
+		url: event.target.getAttribute('data-url'),
+		type: 'PATCH',
+		processData: false, // needed to pass formData with the current format
+		contentType: false, // needed to pass formData with the current format
+		data: formData
+	}).done(function (data) {
+		// Update thumbnail
+		$preview.css('background-image', 'url(' + data.thumbnailUrl + ')');
+		// Remove and add class to trigger css animation
+		var uploadedClass = 'fileupload--preview--uploaded';
+		$preview.removeClass(uploadedClass).addClass(uploadedClass);
+		// Update details
+		$parent.find('.fileupload--width').text(data.width);
+		$parent.find('.fileupload--height').text(data.height);
+		$parent.find('.fileupload--filename').text(data.name);
+		// Display details and buttons
+		$parent.find('.fileupload--details').removeClass('fileupload--details--hidden');
+		$parent.find('.fileupload--remove-image-btn').removeClass('fileupload--remove-image-btn--hidden');
+	});
+}
+
+function reset_file(event) {
+	var input = event.target;
+
+	input.value = '';
+
+	if (!/safari/i.test(navigator.userAgent)) {
+		input.type = '';
+		input.type = 'file';
+	}
+}
+
+function remove_preview(event) {
+	var id = event.target.getAttribute('data-id');
+	var $parent = $('#fileupload-' + id);
+
+	$parent.find('.fileupload--preview').css('background-image', '').removeClass('fileupload--preview--uploaded');
+	$parent.find('.fileupload--remove-image-btn').addClass('fileupload--remove-image-btn--hidden');
+	$parent.find('.fileupload--details').addClass('fileupload--details--hidden');
+}
+
+/***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -179,6 +302,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  */
 
 
+
+// Component Global Variables
+var newFormItemId = 1;
 
 var FormItem = function () {
 	function FormItem() {
@@ -238,11 +364,14 @@ function addNewItem(event) {
 	// Stop default behaviour
 	event.preventDefault();
 	// Get the child to clone
-	var id = $(event.target).data('new-child-id');
+	var id = $(event.target).data('new-form-item-id');
 	var $newChild = $('#' + id);
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter($newChild);
-	$newChild.removeClass('form-item--new').removeAttr('id');
+	// Remove class in order to remove styles, and change id so it's reachable when testing
+	$newChild.removeClass('form-item--new').attr('id', 'new-form-item-' + newFormItemId);
+	// Increment global id variable `newFormItemId` in case needs to be used again
+	newFormItemId++;
 	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 }
 
@@ -326,7 +455,6 @@ var _FormItemChoice = new FormItemChoice();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemImage; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -335,8 +463,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /**
  * FORM ITEM IMAGE
  */
-
-
 
 var FormItemImage = function () {
 	function FormItemImage() {
@@ -356,11 +482,7 @@ var FormItemImage = function () {
 		}
 	}, {
 		key: 'setEvents',
-		value: function setEvents() {
-			$('.fileupload').each(function () {
-				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__["a" /* custom_fileupload */])(this);
-			});
-		}
+		value: function setEvents() {}
 	}]);
 
 	return FormItemImage;
@@ -373,8 +495,7 @@ var _FormItemImage = new FormItemImage();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_item_editor__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -383,7 +504,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /**
  * FORM ITEM REPEATER
  */
-
 
 
 
@@ -414,7 +534,7 @@ var FormItemRepeater = function () {
 				// Stop default behaviour
 				event.preventDefault();
 				$(this).parent(this.target).remove();
-				__WEBPACK_IMPORTED_MODULE_1__form_item_editor__["a" /* _FormItemEditor */].resize();
+				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 			});
 
 			$(document).on('click', '.form-item--delete-repeater-item', function (event) {
@@ -423,7 +543,7 @@ var FormItemRepeater = function () {
 				// Stop default behaviour
 				event.preventDefault();
 
-				if (!confirm("Are you sure you want do delete it?")) return;
+				if (!confirm($(this).data('confirm'))) return;
 
 				$.ajax({
 					url: $(this).attr('href'),
@@ -431,7 +551,7 @@ var FormItemRepeater = function () {
 					method: "DELETE"
 				}).done(function () {
 					$(_this).parents('.form-item--repeater').remove();
-					__WEBPACK_IMPORTED_MODULE_1__form_item_editor__["a" /* _FormItemEditor */].resize();
+					__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 				});
 			});
 		}
@@ -442,9 +562,12 @@ var FormItemRepeater = function () {
 
 var _FormItemRepeater = new FormItemRepeater();
 
-///- - - - - - - - - - - - - - - - - - - -
-/// COMPONENT HELPER FUNCTIONS
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * COMPONENT HELPER FUNCTIONS
+ *
+ * @param      {string}  target  The target
+ * @param      {object}  event   The event
+ */
 
 function addNewItem(target, event) {
 	// Stop default behaviour
@@ -459,8 +582,7 @@ function addNewItem(target, event) {
 		$list.append(newRepeater);
 		var editor_id = $list.find('textarea').last('textarea').attr('id');
 		tinyMCE.EditorManager.execCommand('mceAddEditor', true, editor_id);
-		__WEBPACK_IMPORTED_MODULE_1__form_item_editor__["a" /* _FormItemEditor */].resize();
-		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__fileupload_custom_script__["a" /* custom_fileupload */])($list.find('.fileupload').last('.fileupload').get(0));
+		__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 	});
 }
 
@@ -544,13 +666,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_bootstrap__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_select2__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sortable__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_bootstrap__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_select2__ = __webpack_require__(8);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
+
 
 
 
@@ -578,102 +702,14 @@ $(document).ready(function () {
 	if (__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].setEvents();
 	}
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__components_sortable__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_bootstrap__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_select2__["a" /* default */])();
+	if (__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
+	}
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__components_sortable__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_bootstrap__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_select2__["a" /* default */])();
 });
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = custom_fileupload;
-/**
- * CUSTOM FILE UPLOAD
- *
- * @param      {string}  target  The target
- */
-
-function custom_fileupload(target) {
-
-	var $this = $(target);
-
-	// SETTINGS
-	// 
-	$this.fileupload({
-		url: $this.data('url'), // This should return json, not a proper page
-		dropZone: $this,
-		dataType: 'json',
-		autoUpload: true,
-		acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-	});
-
-	// ADD EVENT
-	// 
-	$this.on('fileuploadadd', function (e, data) {
-		data.context = $this.find('.details');
-		$.each(data.files, function (index, file) {
-			$('.fileupload--filename').text(file.name);
-		});
-		$('.fileupload--details').removeClass('fileupload--details--hidden');
-	});
-
-	// PROCESS ALWAYS EVENT
-	// No matter if upload succeded or not, this event gets triggered
-	// 
-	$this.on('fileuploadprocessalways', function (e, data) {
-		// var index = data.index,
-		// 	file = data.files[index],
-		// 	node = $(data.context.children()[index])
-		// if (file.error) {
-		// 	node
-		// 		.append('<br>')
-		// 		.append($('<span class="text-danger"/>').text(file.error))
-		// }
-		// if (index + 1 === data.files.length) {
-		// 	data.context.find('button')
-		// 		.text('Upload')
-		// 		.prop('disabled', !!data.files.error)
-		// }
-	});
-
-	// DONE EVENT
-	// 
-	$this.on('fileuploaddone', function (e, data) {
-		$.each(data.result.files, function (index, file) {
-			if (file.url) {
-				setTimeout(function () {
-					// remove context
-					data.context.remove();
-					// append/replace image
-					$this.find('.form-item--image--image').attr('src', file.url).attr('alt', file.name);
-					$this.find('.fileupload--remove-image-btn').removeClass('invisible');
-				}, 500); // this 500ms of timeout is based on a .2s CSS transition. See fileupload stylesheets
-				setTimeout(function () {
-					$('.fileupload--details').addClass('fileupload--details--hidden');
-				}, 300);
-			} else if (file.error) {
-				var error = $('<span class="text-danger"/>').text(file.error);
-				$(data.context.children()[index]).append('<br>').append(error);
-			}
-		});
-	});
-
-	// FAIL EVENT
-	// 
-	$this.on('fileuploadfail', function (e, data) {
-		console.error(data);
-		console.error(data.files[data.index].error);
-		$('.fileupload--details').addClass('fileupload--details--hidden');
-		alert('Uplaod failed');
-	});
-
-	// what is this doing?
-	// not sure... see --> http://blueimp.github.io/jQuery-File-Upload/index.html
-	$this.prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
-}
 
 /***/ })
 /******/ ]);

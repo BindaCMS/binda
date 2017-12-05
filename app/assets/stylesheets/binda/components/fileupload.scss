@@ -1,85 +1,119 @@
-.fileupload
+// see https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/
+.fileupload--preview
 {
   position: relative;
+  float: left;
+  width: 120px;
+  height: 120px;
+  margin-right: 16px;
+  transition: all .5s ease;
+  border: 1px solid $color-gray-lighter;
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: contain;
 
-  .form-group
+  p
   {
-    margin: 0 !important;
-  }
-  .fileinput-button
-  {
-    position: relative;
-    display: inline-block;
-    float: left;
-    overflow: hidden;
-    margin-right: 8px;
-    margin-bottom: 12px;
-  }
-  .fileinput-button input
-  {
-    font-size: 200px !important;
     position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    cursor: pointer;
-    opacity: 0;
-
-    -ms-filter: 'alpha(opacity=0)';
-    direction: ltr;
-
-    /* Fixes for IE < 8 */
-    @media screen\9
-    {
-      font-size: 100%;
-      height: 100%;
-
-      filter: alpha(opacity=0);
-    }
+    top: 50%;
+    left: 50%;
+    padding: 8px;
+    transform: translate(-50%, -50%);
+    text-align: center;
   }
 }
-.form-item--repeater-fields
+
+.fileupload--preview--uploaded
 {
-  .fileinput-button
+  animation: fadePreview .6s ease-out;
+  border: 0;
+
+  p
   {
-    margin-left: 5%;
-  }
-  .form-item--image--image
-  {
-    margin-left: 20%;
+    display: none;
   }
 }
+
+@keyframes fadePreview
+{
+  from
+  {
+    opacity: .01;
+  }
+  to
+  {
+    opacity: 1;
+  }
+}
+
+.fileupload--dashboard
+{
+  float: left;
+
+  .control-label-wrap
+  {
+    float: left;
+  }
+}
+
+.fileupload input
+{
+  position: absolute;
+  z-index: -1;
+  overflow: hidden;
+  width: 1px; // .1px didn't work so set minimum to 1px
+  height: 1px; // .1px didn't work so set minimum to 1px
+  opacity: 0;
+}
+
+.fileupload label.control-label
+{
+  font-weight: 300;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  cursor: pointer; /* "hand" cursor */
+
+  *
+  {
+    pointer-events: none;
+  }
+
+  // &.control-label--focus {
+  //  outline: 1px dotted #000;
+  //  outline: -webkit-focus-ring-color auto 5px;   
+  // }
+}
+
+// Override the real .from-group containing the input
+.fileupload .form-group
+{
+  padding: 0;
+  border: 0;
+}
+
+.fileupload--remove-image-btn
+{
+  float: left;
+  transition: all .3s ease;
+  opacity: 1;
+}
+
+.fileupload--remove-image-btn--hidden
+{
+  pointer-events: none;
+  opacity: 0;
+}
+
 .fileupload--details
 {
-  position: fixed;
-  z-index: 9999;
-  top: 50%;
-  left: 50%;
-  width: 40%;
-  padding: 24px;
-  transition: opacity .2s linear;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+  float: left;
+  transition: opacity .3s ease-out;
   opacity: 1;
-  background-color: #fff;
-
-  @extend .box-shadowed-up;
-  &.fileupload--details--hidden
-  {
-    opacity: 0;
-  }
-
-  .progress
-  {
-    height: 8px;
-    margin: 12px 0;
-    .progress-bar
-    {
-      width: 100%;
-    }
-  }
 }
-.fileupload--filename
+
+.fileupload--details--hidden
 {
-  text-align: center;
+  pointer-events: none;
+  opacity: 0;
 }

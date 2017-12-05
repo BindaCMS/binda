@@ -2,7 +2,6 @@
  * FORM ITEM REPEATER
  */
 
-import { custom_fileupload } from './fileupload_custom_script'
 import { _FormItemEditor } from './form_item_editor'
 
 class FormItemRepeater {
@@ -35,7 +34,7 @@ class FormItemRepeater {
 			// Stop default behaviour
 			event.preventDefault()
 
-			if ( !confirm("Are you sure you want do delete it?") ) return
+			if ( !confirm($(this).data('confirm')) ) return
 
 			$.ajax({
 				url: $( this ).attr('href'),
@@ -52,9 +51,12 @@ class FormItemRepeater {
 export let _FormItemRepeater = new FormItemRepeater()
 
 
-///- - - - - - - - - - - - - - - - - - - -
-/// COMPONENT HELPER FUNCTIONS
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * COMPONENT HELPER FUNCTIONS
+ *
+ * @param      {string}  target  The target
+ * @param      {object}  event   The event
+ */
 
 function addNewItem( target, event ) 
 {
@@ -72,6 +74,5 @@ function addNewItem( target, event )
 		var editor_id = $list.find('textarea').last('textarea').attr('id')
 		tinyMCE.EditorManager.execCommand('mceAddEditor',true, editor_id);
 		_FormItemEditor.resize()
-		custom_fileupload( $list.find('.fileupload').last('.fileupload').get(0) );
 	})
 }

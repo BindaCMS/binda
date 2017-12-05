@@ -4,6 +4,9 @@
 
 import { _FormItemEditor } from './form_item_editor'
 
+// Component Global Variables
+let newFormItemId = 1
+
 class FormItem {
 	
 	constructor()
@@ -58,10 +61,13 @@ function addNewItem( event )
 	// Stop default behaviour
 	event.preventDefault()
 	// Get the child to clone
-	let id = $( event.target ).data( 'new-child-id' )
+	let id = $( event.target ).data( 'new-form-item-id' )
 	let $newChild = $( '#' + id )
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter( $newChild )
-	$newChild.removeClass( 'form-item--new' ).removeAttr( 'id' )
+	// Remove class in order to remove styles, and change id so it's reachable when testing
+	$newChild.removeClass( 'form-item--new' ).attr( 'id', 'new-form-item-'+newFormItemId )
+	// Increment global id variable `newFormItemId` in case needs to be used again
+	newFormItemId++
 	_FormItemEditor.resize()
 }

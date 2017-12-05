@@ -1,19 +1,20 @@
-<%# HEADING %>
-<h5 class="form-item--<%= field_setting.field_type.underscore %>-caption"><%= field_setting.name.capitalize %></h5>
+<div id="standard-form--text-<%= field_setting.id %>" class="standard-form--text">
+	<h5 class="form-item--<%= field_setting.field_type.underscore %>-caption"><%= field_setting.name.capitalize %></h5>
 
-<% unless field_setting.description.blank? %>
-	<small class="text-muted"><%= field_setting.description %></small>
-<% end %>
-
-
-<% if @instance.has_text( field_setting.slug ) %>
-		<%= ff.input :content, input_html: { value: @instance.get_text( field_setting.slug ), class: 'tinymce' }, as: :text %>
-<% else %>
-		<%= ff.input :content, input_html: { class: 'tinymce' }, as: :text %>
-<% end %>
+	<% unless field_setting.description.blank? %>
+		<small class="text-muted"><%= field_setting.description %></small>
+	<% end %>
 
 
-<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-<%= ff.input :fieldable_id, as: :hidden %>
-<%= ff.input :fieldable_type, as: :hidden %>
+	<% if @instance.has_text( field_setting.slug ) %>
+			<%= ff.input :content, input_html: { value: @instance.get_text( field_setting.slug ), class: 'tinymce' }, as: :text %>
+	<% else %>
+			<%= ff.input :content, input_html: { class: 'tinymce' }, as: :text %>
+	<% end %>
+
+
+	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+	<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+	<%= ff.input :fieldable_id, as: :hidden %>
+	<%= ff.input :fieldable_type, as: :hidden %>
+</div>

@@ -7,7 +7,7 @@
 <%# This form is only for settings which are not part of any repeater. %>
 <%# This is done using `where( ancestry: nil )` %>
 <%= f.simple_fields_for :field_settings, f.object.field_settings.where( ancestry: nil ).order( :position, :name ) do |ff| %>
-  <div id="<%= "form-item--#{ ff.object.field_type }-#{ ff.object.id }" %>" class="form-item <%= "form-item--#{ ff.object.field_type }" unless ff.object.field_type.nil? %>">
+  <div id="form-item-<%= ff.object.id %>" class="form-item <%= "form-item--#{ ff.object.field_type }" unless ff.object.field_type.nil? %>">
     <%= render 'form_item', f: f, ff: ff %>
   </div>
 <% end %>
@@ -17,7 +17,7 @@
 <%# NEW FORM ITEM           %>
 <%# - - - - - - - - - - - - %>
 <%= f.simple_fields_for 'new_field_settings[]', @field_group.field_settings.build( field_group: @field_group ) do |ff| %>
-  <div id="new-child-<%= f.object.id %>" class="form-item form-item--new">
+  <div id="field-group-<%= f.object.id %>--new-form-item" class="form-item form-item--new">
     <%= render 'form_item', f: f, ff: ff %>
   </div>
 <% end %>
@@ -30,7 +30,7 @@
     <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ).capitalize %>  
   </h5>
 <% else %>
-  <a id="form-item--field-group-<%= f.object.id %>--add-new" class="form-item--add-new main-header--link btn btn-default" href="<%= new_structure_field_group_field_setting_path( field_group_id: @field_group.slug ) %>" data-new-child-id="new-child-<%= f.object.id %>">
+  <a id="form-item--field-group-<%= f.object.id %>--add-new" class="form-item--add-new main-header--link btn btn-default" href="<%= new_structure_field_group_field_setting_path( field_group_id: @field_group.slug ) %>" data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
     <%= "#{ t :new }".capitalize %> <%= t :field_setting %>  
   </a>
 <% end %>

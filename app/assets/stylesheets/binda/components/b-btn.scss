@@ -1,0 +1,52 @@
+.b-btn-primary
+{
+  transition: background-color .3s ease-out;
+  color: $color-white;
+  background-color: $color-gray-darker;
+  border: 1px solid $color-gray-darker;
+}
+
+.b-btn-primary:hover
+{
+  border: 1px solid $color-gray;
+  background-color: $color-gray;
+}
+
+.b-btn-danger
+{
+  transition: background-color .3s ease-out;
+  color: $color-white;
+  background-color: $color-danger;
+}
+
+.b-btn-danger:hover
+{
+  color: $color-white;
+  background-color: darken($color-danger, 15%);
+}
+
+.b-btn-outline-danger
+{
+  color: $color-danger;
+  transition: color background-color .3s ease-out;
+  border: 1px solid $color-danger;
+  background-color: transparent;
+}
+
+.b-btn-outline-danger:hover
+{
+  color: $color-white;
+  background-color: $color-danger;
+}
+
+.b-btn
+{
+  padding: 8px 12px;
+  border-radius: 0;
+  cursor: pointer;
+
+  i
+  {
+    padding-right: 6px;
+  }
+}
