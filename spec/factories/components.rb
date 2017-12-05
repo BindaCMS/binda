@@ -31,7 +31,7 @@ FactoryGirl.define do
       repeater_setting = field_group.field_settings.find{ |fs| fs.field_type == 'repeater' }
       # create some data
       create_list( :repeater_with_fields, evaluator._count, fieldable: article_component, field_setting: repeater_setting )
-      create_list( :string, evaluator._count, fieldable: article_component, field_setting: string_setting )
+      # create_list( :string, evaluator._count, fieldable: article_component, field_setting: string_setting )
     end
   end
 

@@ -50,9 +50,7 @@ module Binda
 			validates_associated :relations
 
       # YOU SHOULDN'T USE THIS METHOD UNTIL IT'S OPTIMIZED
-=begin
       after_save :generate_fields
-=end
 		end
 
 		# Get the object related to that field setting
@@ -62,7 +60,7 @@ module Binda
 		# @return [string] Returns the content of the text 
 		# @return [error]  Raise an error if no record is found
 		def get_text field_slug 
-			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }	
+			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type != 'Binda::String' }	
 			unless obj.nil?
 				obj.content
 			else
@@ -80,7 +78,7 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_text field_slug 
-			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }
+			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type != 'Binda::String' }
 			raise ArgumentError, "There isn't any text associated to the current slug.", caller if obj.nil?
 			if obj.present?
 				return !obj.content.blank?
@@ -175,6 +173,56 @@ module Binda
 				else
 					obj.image.send(info)
 				end
+			end
+		end
+
+		# Check if the field has an attached video
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [boolean]
+		def has_video field_slug 
+			obj = self.videos.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			# Alternative query
+			# obj = Image.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
+			raise ArgumentError, "There isn't any video associated to the current slug.", caller if obj.nil?
+			return obj.video.present?
+		end
+
+		# Get the video url based on the size provided, 
+		#   default is Carrierwave default (usually the real size)
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
+		#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
+		# @return [string] The url of the video
+		def get_video_url field_slug
+			get_video_info( field_slug, 'url' )
+		end
+
+		# Get the video path based on the size provided, 
+		#   default is Carrierwave default (usually the real size)
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
+		#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
+		# @return [string] The url of the video
+		def get_video_path field_slug
+			get_video_info( field_slug, 'path' )
+		end
+
+		# Get the object related to that field setting
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @param info [string] String of the info to be retrieved
+		# @return [string] The info requested if present
+		# @return [boolean] Returns false if no info is found or if image isn't found
+		def get_video_info field_slug, info 
+			obj = self.videos.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			# Alternative query
+			# obj = video.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
+			raise ArgumentError, "There isn't any video associated to the current slug.", caller if obj.nil?
+			if obj.video.present?
+				obj.video.send(info)
 			end
 		end
 
@@ -312,7 +360,7 @@ module Binda
 				# from the object and not rendered next to the form in the editor view
 				obj = self.send( field_type.pluralize ).select{|rf| rf.field_setting_id == field_setting_id}.first
 				if obj.nil?
-					return self.send( field_type.pluralize ).create!( field_setting_id: field_setting.id ) 
+					return self.send( field_type.pluralize ).create!( field_setting_id: field_setting_id ) 
 				else
 					return obj
 				end

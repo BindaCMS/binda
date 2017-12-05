@@ -30,8 +30,7 @@ module Binda
           ]]
       end
 
-      #
-      # @brief      Uploads parameters.
+      # Uploads parameters.
       # 
       # @param      fieldable_type {symbol} It can be `:component` or `:board`.
       #
@@ -47,10 +46,8 @@ module Binda
             images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache, :video, :video_cache ]]})
       end
 
+      # Uploads a details for a fieldable instance (component or board)
       #
-      # @brief      Uploads a details for a fieldable instance (component or board)
-      #
-      # @param      fieldable_instance {symbol} can be a `:component` or `:board`
       # @return     {hash} containig the array of images
       # 
       # @example    The return value will be something like: 
@@ -69,7 +66,5 @@ module Binda
                     url: image.image.url,
                     thumbnailUrl: image.image.thumb.url }] }
       end
-
-
   end
 end

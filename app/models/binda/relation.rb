@@ -1,34 +1,51 @@
 module Binda
-  # Related Field 
+  # Relation 
   # 
   # This model is used to connect components and boards to each others.
   # 
-  # The gotcha here is that a `RelatedField` gathers all associations a `Component`
-  #   record has with other records. At the moment we are just using the parent relation for which 
-  #   a component can be connected to components via a parent relation (it has many parent related components).
-  #   Another version, not applied to the current administration panel is the children relation, which connect 
-  #   components in a has-many-children-related components. This was created to avoid confusion when connecting components
-  #   in multiple directions, for example: component A is connected to its parent component B, while component B 
-  #   is connected to its parent component C; doing `component.related_fields.owner_components` we should get 
-  #   only component C, while `component.related_fields` should return both A and C. 
+  # `Relation` gathers all connection a `Component` record has with other records (being 
+  #   another `Component` or `Board`). It's possible to have multiple relations for the 
+  #   same component and each one can gather connections to several other components.
+  #   Any relation has one owner and several dependents. A relation is a one-direction operation
+  #   meaning that an owner can choose its dependents, not the other way around.
+  #   
+  # Reference: https://www.railstutorial.org/book/following_users
+  # 
+  # @example: owner = Binda::Component.first
+  #   dependent = Binda::Component.last
+  #   relation_setting = Binda::FieldSetting.create(field_type: relation, field_group_id: owner.structure.field_groups.first)
+  #   relation = owner.relations.where(field_setting_id: relation_setting.id).first
+  #   relation.dependent_components << dependent
   class Relation < ApplicationRecord
 
     belongs_to :fieldable, polymorphic: true
     belongs_to :field_setting
 
+    # Relations are the connection between a Owner to its Dependents
+    # The Active Relation connects a Relation to a Dependent (which is can be a Component or a Board)
+    # The Passive Relation connects a Relation to a Owner (which is can be a Component or a Board)
     has_many :active_relations, class_name: "RelationLink", 
                                 dependent: :destroy, 
                                 as: :dependent
-
     has_many :passive_relations, class_name: "RelationLink", 
                                  dependent: :destroy, 
                                  as: :owner
 
 
+    # Dependents are connected to a owner in a Passive Relation
+    # Strictly speaking you cannot choose an Owner for a Dependent,
+    # you can do just the opposite: choose a Dependent starting from a Owner
+    # 
+    # The current version support components and boards separately
     has_many :dependent_components, through: :passive_relations, 
                                     source: :dependent, 
                                     source_type: "Binda::Component"
                                     
+    # Owner are connected to its Dependents in a Active Relation
+    # meaning its possible to connect a Owner to as many Dependents
+    # as it's needed.
+    # 
+    # The current version support components and boards separately
     has_many :owner_components, through: :active_relations, 
                                 source: :owner, 
                                 source_type: "Binda::Component"
