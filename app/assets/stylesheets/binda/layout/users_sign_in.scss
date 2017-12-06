@@ -1,29 +1,62 @@
 .devise-view {
-	// background: #FFF;
-	// background: -moz-linear-gradient(top, #FFF 0%, $color-gray-lighter 100%);
-	// background: -webkit-linear-gradient(top, #FFF 0%,$color-gray-lighter 100%);
-	// background: linear-gradient(to bottom, #FFF 0%,$color-gray-lighter 100%);
-	// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFF', endColorstr='$color-gray-lighter',GradientType=0 );
-	background: $color-gray-lighter;
-	height: 100vh;
+  // background: #FFF;
+  // background: -moz-linear-gradient(top, #FFF 0%, $color-gray-lighter 100%);
+  // background: -webkit-linear-gradient(top, #FFF 0%,$color-gray-lighter 100%);
+  // background: linear-gradient(to bottom, #FFF 0%,$color-gray-lighter 100%);
+  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFF', endColorstr='$color-gray-lighter',GradientType=0 );
+  background: $color-gray-lighter;
+  height: 100vh;
 
-	#main-container {
-		padding-left: 0;
-		position: relative;
-		height: 100vh;
-	}
-	#main-content {
-		position: absolute !important;
-		top: 50%;
-		left: 50%;
-		width: 100%;
-		transform: translate(-50%, -50%);
+  #main-container {
+    margin-left: 0;
+    position: relative;
+    height: 100vh;
 
-		width: 33% !important;
-		padding: $font-size-base * 2;
-		// margin: $font-size-base auto;
-		background-color: #FFF;
-		border-radius: $font-size-base / 2;
-		border: 1px solid $color-gray-lighter;
-	}
+  }
+  #main-content {
+    position: absolute !important;
+    padding: 11px;
+    top: 50%;
+    left: 40%;
+    width: 20%;
+    transform: translate(0%, -50%);
+
+    //width: 33% !important;
+
+    // margin: $font-size-base auto;
+    background-color: #FFF;
+    border-radius: $font-size-base / 2;
+    border: 1px solid $color-gray-lighter;
+  }
+  #remember-me {
+    position: relative;
+    width: 52%;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  #forgot-password {
+    position: relative;
+    margin-top: 40px;
+    width: 63%;
+    left: 50%;
+    transform: translate(-49%);
+  }
+  #login-button {
+    margin-top: 20px;
+    position: relative;
+    left: 50%;
+    width: 30%;
+    transform: translate(-50%);
+
+    input {
+      padding: 4px 6px;
+    }
+  }
+
+  h4 {
+
+    label {
+      margin-bottom: 15px;
+    }
+  }
 }

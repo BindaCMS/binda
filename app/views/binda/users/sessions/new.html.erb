@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="login">
+		
+		<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+		 
+		 	<div class="col-sm-12">
+
+		  	<div class="form-inputs">
+          <h4><%= f.input :email, required: false, autofocus: true %></h4>
+          <h4><%= f.input :password, required: false %></h4>
+		  	</div>
+		  
+		  	<div class="update-form--button form-actions" id="login-button">
+		    <%= f.button :submit, "Log in" %>
+		  	</div>
+
+        <div class="form-inputs" id="remember-me">
+          <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+        </div>
+
+        <div class="form-inputs" id="forgot-password">
+          <p>Forgot your password?</p>
+        </div>
+				<% end %>
+
+			</div>
+
+			<div class="col-sm-12">
+				<%= render "binda/users/shared/links" %>
+			</div>
+	
+	</div>
+</div>
