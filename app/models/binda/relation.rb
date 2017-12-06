@@ -79,10 +79,18 @@ module Binda
 
     # Makes sure that the group of related components doesn't include the component that owns the group
     # in other words makes sure that the component doesn't relate to itself
-    validates_each :owner_component_ids do |model, attr, value| 
-        if model.fieldable_type == 'Binda::Component' && value.include?(model.fieldable_id)
-            model.errors.add(attr, "#{FieldSetting.find(model.field_setting_id).name.capitalize} contains a reference to the current #{model.fieldable_type.constantize.find(model.fieldable_id).structure.name.capitalize}")
-        end
+    validates_each :dependent_component_ids do |model, attr, value| 
+      if model.fieldable_type == 'Binda::Component' && value.include?(model.fieldable_id)
+        model.errors.add(attr, "#{FieldSetting.find(model.field_setting_id).name.capitalize} contains a reference to the current #{model.fieldable_type.constantize.find(model.fieldable_id).structure.name.capitalize}")
+      end
+    end    
+
+    # Makes sure that the group of related components doesn't include the component that owns the group
+    # in other words makes sure that the component doesn't relate to itself
+    validates_each :dependent_board_ids do |model, attr, value| 
+      if model.fieldable_type == 'Binda::Board' && value.include?(model.fieldable_id)
+        model.errors.add(attr, "#{FieldSetting.find(model.field_setting_id).name.capitalize} contains a reference to the current #{model.fieldable_type.constantize.find(model.fieldable_id).structure.name.capitalize}")
+      end
     end
 
   end

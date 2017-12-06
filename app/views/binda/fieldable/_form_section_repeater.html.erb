@@ -52,12 +52,11 @@
 <%# - - - - - - - - - - - - %>
 <%# RELATED_FIELD           %>
 <%# - - - - - - - - - - - - %>
-<% elsif repeater_setting_child.field_type == 'related_field' %>
-    <% current = @instance.find_or_create_a_field_by( repeater_setting_child.id, 'related_field' ) %>
-    <%= f.simple_fields_for "related_fields_attributes[]", current do |ff| %>
-        <%= render 'binda/fieldable/form_item_related_field', ff: ff, field_setting: repeater_setting_child %>
+<% elsif repeater_setting_child.field_type == 'relation' %>
+    <% current = @instance.find_or_create_a_field_by( repeater_setting_child.id, 'relation' ) %>
+    <%= f.simple_fields_for "relations_attributes[]", current do |ff| %>
+        <%= render 'binda/fieldable/form_item_relation', ff: ff, field_setting: repeater_setting_child %>
     <% end %>
-
 
 <%# - - - - - - - - - - - - %>
 <%# SELECTABLES             %>

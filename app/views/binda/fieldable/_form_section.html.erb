@@ -59,10 +59,10 @@
 <%# - - - - - - - - - - - - %>
 <%# RELATED_FIELD           %>
 <%# - - - - - - - - - - - - %>
-<% elsif field_setting.field_type == 'related_field' %>
-  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'related_field' ) %>
-  <%= f.simple_fields_for "related_fields_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_related_field', ff: ff, field_setting: field_setting %>
+<% elsif field_setting.field_type == 'relation' %>
+  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'relation' ) %>
+  <%= f.simple_fields_for "relations_attributes[]", current do |ff| %>
+    <%= render 'binda/fieldable/form_item_relation', ff: ff, field_setting: field_setting %>
   <% end %>
 
 <%# - - - - - - - - - - - - %>

@@ -1,0 +1,50 @@
+<h5><%= field_setting.name.capitalize %></h5>
+
+<% unless field_setting.description.blank? %>
+    <small class="text-muted"><%= field_setting.description %></small>
+<% end %>
+
+<%# TODO: duplicated code this needs some refactor  %>
+
+<% if @instance.class.to_s == 'Binda::Component' %>
+
+	<%= ff.input :dependent_component_ids, collection: Binda::Component.where( structure_id: Binda::Structure.where( id: field_setting.accepted_structure_ids )).where.not(id: @instance.id), 
+		as: :select, 
+		input_html: { multiple: true }, 
+		value_method: :id, 
+		checked: ff.object.dependent_component_ids, 
+		include_blank: false, 
+		include_hidden: false %>
+
+	<%= ff.input :dependent_board_ids, collection: Binda::Board.where( structure_id: Binda::Structure.where( id: field_setting.accepted_structure_ids )), 
+		as: :select, 
+		input_html: { multiple: true }, 
+		value_method: :id, 
+		checked: ff.object.dependent_board_ids, 
+		include_blank: false, 
+		include_hidden: false %>
+
+<% elsif @instance.class.to_s == 'Binda::Board' %>
+
+	<%= ff.input :dependent_component_ids, collection: Binda::Component.where( structure_id: Binda::Structure.where( id: field_setting.accepted_structure_ids )), 
+		as: :select, 
+		input_html: { multiple: true }, 
+		value_method: :id, 
+		checked: ff.object.dependent_component_ids, 
+		include_blank: false, 
+		include_hidden: false %>
+
+	<%= ff.input :dependent_board_ids, collection: Binda::Board.where( structure_id: Binda::Structure.where( id: field_setting.accepted_structure_ids )).where.not(id: @instance.id), 
+		as: :select, 
+		input_html: { multiple: true }, 
+		value_method: :id, 
+		checked: ff.object.dependent_board_ids, 
+		include_blank: false, 
+		include_hidden: false %>
+
+<% end %>
+
+<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+<%= ff.input :fieldable_id, as: :hidden %>
+<%= ff.input :fieldable_type, as: :hidden %>
