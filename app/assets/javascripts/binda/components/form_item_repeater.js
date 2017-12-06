@@ -3,29 +3,27 @@
  */
 
 import { _FormItemEditor } from './form_item_editor'
+import { setupSelect2 } from './select2' 
 
 class FormItemRepeater {
 	
-	constructor()
-	{
-		this.target = '.form-item--repeater-section'
-	}
+	constructor(){}
 
 	isSet()
 	{
-		if ( $( this.target ).length > 0 ) { return true }
+		if ( $('.form-item--repeater-section').length > 0 ) { return true }
 		else { return false }
 	}
 
 	setEvents()
 	{
-		$(document).on('click', this.target + '--add-new', function(event){ addNewItem(this, event)} )
+		$(document).on('click', '.form-item--repeater-section--add-new', function(event){ addNewItem(this, event)} )
 		
 		$(document).on('click', '.form-item--remove-item-with-js', function( event )
 		{
 			// Stop default behaviour
 			event.preventDefault()
-			$( this ).parent( this.target ).remove()
+			$( this ).parent('.form-item--repeater-section').remove()
 			_FormItemEditor.resize()
 		})
 
@@ -74,5 +72,7 @@ function addNewItem( target, event )
 		var editor_id = $list.find('textarea').last('textarea').attr('id')
 		tinyMCE.EditorManager.execCommand('mceAddEditor',true, editor_id);
 		_FormItemEditor.resize()
+		// Update select input for Select2 plugin
+		setupSelect2( $list.find('select') )
 	})
 }

@@ -292,6 +292,7 @@ function remove_preview(event) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(8);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -303,20 +304,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
+
 // Component Global Variables
 var newFormItemId = 1;
 
 var FormItem = function () {
 	function FormItem() {
 		_classCallCheck(this, FormItem);
-
-		this.target = '.form-item';
 	}
 
 	_createClass(FormItem, [{
 		key: 'isSet',
 		value: function isSet() {
-			if ($(this.target).length > 0) {
+			if ($('.form-item').length > 0) {
 				return true;
 			} else {
 				return false;
@@ -325,26 +325,32 @@ var FormItem = function () {
 	}, {
 		key: 'setEvents',
 		value: function setEvents() {
-			$(document).on('click', this.target + '--add-new', addNewItem);
+			$(document).on('click', '.form-item--add-new', addNewItem);
 
 			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
 				// Stop default behaviour
 				event.preventDefault();
-				$(this).parent(this.target).remove();
+				$(this).parent('.form-item').remove();
 			});
 
-			$(document).on('click', '.form-item--open-button, .form-item--close-button', function () {
-				var formItemEditor = $(this).parent('.form-item').children('.form-item--editor');
+			$(document).on('click', '.form-item--toggle-button', function () {
 
-				// Make sure form-item--editor max-height correspond to the actual height
-				// this is needed for the CSS transition which is trigger clicking open/close button
-				if (!formItemEditor.hasClass('form-item--editor-close')) {
-					__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+				var $formItem = $(this).parent('.form-item');
+				var $formItemEditor = $formItem.children('.form-item--editor');
+
+				if ($formItemEditor.get(0).style.maxHeight === '') {
+					// Update height
+					$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
+
+					// Add class to trigger animation
+					$formItem.children('.form-item--toggle-button').removeClass('form-item--toggle-button-closed');
+				} else {
+					// Zero height
+					$formItemEditor.get(0).style.maxHeight = null;
+
+					// Add class to trigger animation
+					$formItem.children('.form-item--toggle-button').addClass('form-item--toggle-button-closed');
 				}
-
-				// Update classes
-				formItemEditor.toggleClass('form-item--editor-close');
-				$(this).parent('.form-item').children('.form-item--open-button, .form-item--close-button').toggle();
 			});
 		}
 	}]);
@@ -370,9 +376,17 @@ function addNewItem(event) {
 	$newChild.clone().insertAfter($newChild);
 	// Remove class in order to remove styles, and change id so it's reachable when testing
 	$newChild.removeClass('form-item--new').attr('id', 'new-form-item-' + newFormItemId);
+
+	// Update height (max-height) of the new element
+	var $formItemEditor = $('#new-form-item-' + newFormItemId).find('.form-item--editor');
+	$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
+
 	// Increment global id variable `newFormItemId` in case needs to be used again
 	newFormItemId++;
 	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+
+	// Update select input for Select2 plugin
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($newChild.find('select'));
 }
 
 /***/ }),
@@ -496,6 +510,7 @@ var _FormItemImage = new FormItemImage();
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(8);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -507,17 +522,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
+
 var FormItemRepeater = function () {
 	function FormItemRepeater() {
 		_classCallCheck(this, FormItemRepeater);
-
-		this.target = '.form-item--repeater-section';
 	}
 
 	_createClass(FormItemRepeater, [{
 		key: 'isSet',
 		value: function isSet() {
-			if ($(this.target).length > 0) {
+			if ($('.form-item--repeater-section').length > 0) {
 				return true;
 			} else {
 				return false;
@@ -526,14 +540,14 @@ var FormItemRepeater = function () {
 	}, {
 		key: 'setEvents',
 		value: function setEvents() {
-			$(document).on('click', this.target + '--add-new', function (event) {
+			$(document).on('click', '.form-item--repeater-section--add-new', function (event) {
 				addNewItem(this, event);
 			});
 
 			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
 				// Stop default behaviour
 				event.preventDefault();
-				$(this).parent(this.target).remove();
+				$(this).parent('.form-item--repeater-section').remove();
 				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 			});
 
@@ -583,6 +597,8 @@ function addNewItem(target, event) {
 		var editor_id = $list.find('textarea').last('textarea').attr('id');
 		tinyMCE.EditorManager.execCommand('mceAddEditor', true, editor_id);
 		__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+		// Update select input for Select2 plugin
+		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find('select'));
 	});
 }
 
@@ -591,13 +607,18 @@ function addNewItem(target, event) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = setupSelect2;
 /**
- * OPTIONAL
+ * OPTIONAL (SELECT2 PLUGIN)
  */
 
 /* harmony default export */ __webpack_exports__["a"] = function () {
-  $('select').select2({ minimumResultsForSearch: 32 }); // 31 are max number of day in a month, which you don't want to be searchable
+  setupSelect2('select');
 };
+
+function setupSelect2(target) {
+  $(target).select2({ minimumResultsForSearch: 32 }); // 31 are max number of day in a month, which you don't want to be searchable
+}
 
 /***/ }),
 /* 9 */

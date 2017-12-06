@@ -3,46 +3,54 @@
  */
 
 import { _FormItemEditor } from './form_item_editor'
+import { setupSelect2 } from './select2' 
 
 // Component Global Variables
 let newFormItemId = 1
 
 class FormItem {
 	
-	constructor()
-	{
-		this.target = '.form-item'
-	}
+	constructor(){}
 
 	isSet()
 	{
-		if ( $( this.target ).length > 0 ) { return true }
+		if ( $('.form-item').length > 0 ) { return true }
 		else { return false }
 	}
 
 	setEvents()
 	{
-		$(document).on('click', this.target + '--add-new', addNewItem )
+		$(document).on('click', '.form-item--add-new', addNewItem )
 
 		$(document).on('click', '.form-item--remove-item-with-js', function( event )
 		{
 			// Stop default behaviour
 			event.preventDefault()
-			$( this ).parent( this.target ).remove()
+			$( this ).parent('.form-item').remove()
 		})
 
-		$(document).on('click', '.form-item--open-button, .form-item--close-button', function()
+		$(document).on('click', '.form-item--toggle-button', function()
 		{
-			var formItemEditor = $( this ).parent('.form-item').children('.form-item--editor')
 
-			// Make sure form-item--editor max-height correspond to the actual height
-			// this is needed for the CSS transition which is trigger clicking open/close button
-			if ( !formItemEditor.hasClass('form-item--editor-close') )
-				{ _FormItemEditor.resize() }
+			let $formItem = $( this ).parent('.form-item')
+			let $formItemEditor = $formItem.children('.form-item--editor')
+			
+			if ( $formItemEditor.get(0).style.maxHeight === '' ) 
+			{
+				// Update height
+				$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
 
-			// Update classes
-			formItemEditor.toggleClass('form-item--editor-close')
-			$( this ).parent('.form-item').children('.form-item--open-button, .form-item--close-button').toggle()
+				// Add class to trigger animation
+				$formItem.children('.form-item--toggle-button').removeClass('form-item--toggle-button-closed')
+			}
+			else
+			{
+				// Zero height
+				$formItemEditor.get(0).style.maxHeight = null;
+		      
+				// Add class to trigger animation
+				$formItem.children('.form-item--toggle-button').addClass('form-item--toggle-button-closed')
+			}
 		})
 	}
 }
@@ -67,7 +75,15 @@ function addNewItem( event )
 	$newChild.clone().insertAfter( $newChild )
 	// Remove class in order to remove styles, and change id so it's reachable when testing
 	$newChild.removeClass( 'form-item--new' ).attr( 'id', 'new-form-item-'+newFormItemId )
+
+	// Update height (max-height) of the new element
+	let $formItemEditor = $('#new-form-item-'+newFormItemId).find('.form-item--editor')
+	$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
+
 	// Increment global id variable `newFormItemId` in case needs to be used again
 	newFormItemId++
 	_FormItemEditor.resize()
+
+	// Update select input for Select2 plugin
+	setupSelect2( $newChild.find('select') )
 }

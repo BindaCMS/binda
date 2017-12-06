@@ -18,8 +18,7 @@
   .form-item
   {
     overflow-y: hidden;
-    max-height: 10000px;
-    transition: max-height 1s ease-out;
+    transition: max-height .6s ease-out;
     h5
     {
       float: left;
@@ -32,59 +31,70 @@
       margin-left: $font-size-base/2;
     }
   }
+
   .form-item--half-size
   {
     position: relative;
     float: left;
     width: 46%;
-    margin-right: 4%;
+    margin-right: 4%
+
     h5
     {
       width: 100%;
     }
+
     .form-item--select-input
     {
       margin-left: 0;
     }
   }
+
   .form-item--full-size
   {
     position: relative;
     clear: both;
     width: 96%;
   }
+
   .form-item--new
   {
     position: absolute;
     top: 101%;
     max-height: 0;
   }
+
   .form-group
   {
     margin-bottom: $font-size-base;
   }
 }
+
 .form-item--select-input
 {
   display: inline-block;
   width: 240px;
   margin-left: 5%;
 }
+
 .form-item--textarea
 {
   display: inline-block;
   width: 70%;
   margin-left: 5%;
 }
+
 .form-item--category
 {
   margin-bottom: $font-size-base*1.5;
   padding-bottom: $font-size-base*1.5;
+
   input[type=submit]
   {
     float: left;
     width: 20%;
   }
+
   .form-group
   {
     float: left;
@@ -93,31 +103,35 @@
     margin-right: 10%;
   }
 }
-.form-item--open-button,
-.form-item--close-button
+
+.form-item--toggle-button
 {
   cursor: pointer;
+  transition: transform .3s ease;
+  transform: rotate(0deg);
 }
-.form-item--open-button
+
+.form-item--toggle-button-closed
 {
-  display: none;
+  transform: rotate(180deg);
 }
+
 .form-item--editor
 {
-  // max-height: is set via javascript in app/assets/javscripts/components/form_item_editor.js;
   overflow-y: hidden;
+  // max-height: is set via javascript in app/assets/javscripts/components/form_item_editor.js;
+  // default is 0
+  max-height: 0;
   transition: max-height .6s ease-out;
 }
-.form-item--editor-close
-{
-  max-height: 0 !important;
-}
+
 .form-item--label-on-left .form-group
 {
   display: inline-block;
   width: 70%;
   margin-left: 5%;
 }
+
 .form-item--repeater-fields
 {
   margin-bottom: $font-size-base;
@@ -126,34 +140,41 @@
   border-bottom: 1px solid $color-gray-lightest;
   border-left: 2px solid $color-gray-lightest;
 }
+
 .form-item--repeater-section
 {
   margin-bottom: 0;
   border: none;
-  > *,
+
+   > *,
   ul.sortable li > *
   {
     display: block;
     background-color: $body-bg;
   }
+
   ul.sortable
   {
     margin-bottom: $font-size-base/2;
+
     li
     {
       padding-bottom: 0;
       border-bottom: none;
     }
   }
+
   .sortable--toggle-text:first-child
   {
     display: none;
   }
+
   h5
   {
     float: left;
     width: 15%;
   }
+
   h5.form-item--repeater-title
   {
     font-weight: 300;
@@ -163,53 +184,63 @@
     padding: $font-size-base / 2;
     background-color: $color-gray-lightest;
   }
+
   .form-item--new
   {
     position: absolute;
     top: 101%;
     max-height: 0;
   }
+
   .form-group
   {
     margin-bottom: $font-size-base;
   }
+
   .sortable--toggle
   {
     float: right;
     margin: 0;
   }
-  .sortable--enabled 
+
+  .sortable--enabled
   {
-		.form-item--repeater-fields
-		{
-			display: none;
-		}
+    .form-item--repeater-fields
+    {
+      display: none;
+    }
   }
 }
+
 .form-item--repeater-header
 {
   padding: 4px 0;
   background-color: $color-gray-lightest !important;
-  p 
+
+  p
   {
-		margin-left: 8px;
-		margin-top: 8px;
+    margin-top: 8px;
+    margin-left: 8px;
   }
 }
+
 .form-item--delete-repeater-item
 {
   float: right;
   margin-top: $font-size-base/2;
   margin-right: $font-size-base/2;
 }
+
 .form-item--choices
 {
   position: relative;
 }
+
 .form-item--editor .form-item--choice
 {
   position: relative;
   clear: left;
+
   &:last-child
   {
     margin-bottom: $font-size-base;
@@ -217,15 +248,18 @@
     border-bottom: 1px solid $color-gray-lightest;
   }
 }
+
 .form-item--new-choice
 {
   display: none;
 }
+
 .form-item--choice-label,
 .form-item--choice-value
 {
   @extend .form-item--half-size;
 }
+
 .form-item--delete-choice,
 .form-item--js-delete-choice
 {
@@ -233,12 +267,14 @@
   top: 32px;
   right: 0;
 }
+
 .form-item--add-choice
 {
   position: absolute;
   top: 0;
   right: 0;
 }
+
 .form-item--new-choice .form-item--delete-choice
 {
   display: none;
