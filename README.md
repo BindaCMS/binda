@@ -4,7 +4,7 @@ A modular CMS for Ruby on Rails 5.1.
 [![Code Climate](https://codeclimate.com/github/lacolonia/binda/badges/gpa.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Issue Count](https://codeclimate.com/github/lacolonia/binda/badges/issue_count.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Build Status](https://travis-ci.org/a-barbieri/binda.svg?branch=master)](https://travis-ci.org/lacolonia/binda)
-[![Test Coverage](https://codeclimate.com/github/lacolonia/binda/badges/coverage.svg)](https://codeclimate.com/github/lacolonia/binda/coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/5dc62774a6b8b63aa72b/test_coverage)](https://codeclimate.com/github/lacolonia/binda/test_coverage)
 [![Dependency Status](https://gemnasium.com/badges/github.com/lacolonia/binda.svg)](https://gemnasium.com/github.com/lacolonia/binda)
 [![Inline docs](http://inch-ci.org/github/lacolonia/binda.svg?branch=master)](http://inch-ci.org/github/lacolonia/binda)
 
@@ -190,14 +190,18 @@ Then in any of your controllers you can retrive the components belonging to a sp
 Binda.get_components('page')
 # return all pages
 
-Binda.get_components('page').find_by(slug: 'my-first-page')
+Binda.get_components('page')
+     .find_by(slug: 'my-first-page')
 # return `my-first-page`
 
 # expand query
-Binda.get_components('page').where(publish_state: 'published').order('position')
+Binda.get_components('page')
+     .published
+     .order('position')
 
 # reduce N+1 query issue by including dependencies
-Binda.get_components('page').includes(:strings, :texts, repeaters: [:images, :selections])
+Binda.get_components('page')
+     .includes(:strings, :texts, repeaters: [:images, :selections])
 ```
 
 To be able to use this helper in the application console you need to run `Binda.include Bidna::DefaultHelpers`
@@ -213,7 +217,9 @@ Retrieve a single component
 Retrieve a single component but eager load the field setting needed. This optimize the query and greatly reduce request time.
 
 ```ruby
-@component = Binda::Component.find_by( slug: 'my-first-component').includes( ['strings', 'texts', 'assets', 'selections'] )
+@component = Binda::Component.where(slug: 'my-first-component')
+                             .includes( :strings, :texts, :assets, :selections )
+                             .first
 ```
 
 Then, if you want to retrieve all components that belongs to a specific structure **don't** do the following:
@@ -237,10 +243,16 @@ Then, if you want to retrieve all components that belongs to a specific structur
 You can add any other option to the query then:
 
 ```ruby
-@components = Binda::Component.where( structure_id: Binda::Structure.where( slug: 'my-structure' ) ).published.order('name').includes( :strings, :texts, :assets, :selections )
+@components = Binda::Component.where( structure_id: Binda::Structure.where( slug: 'my-structure' ) )
+                              .published
+                              .order('name')
+                              .includes( :strings, :texts, :assets, :selections )
 
 # which is the same thing of doing:
-@components = Binda.get_components('my-structure').published.order('name').includes( :strings, :texts, :assets, :selections )
+@components = Binda.get_components('my-structure')
+                   .published
+                   .order('name')
+                   .includes( :strings, :texts, :assets, :selections )
 ```
 
 ---
@@ -276,7 +288,9 @@ Binda.get_boards('my-dashboard').first
 # return the board
 
 # reduce N+1 query issue by including dependencies
-Binda.get_boards('default-dashboard').includes(:strings, :texts, repeaters: [:images, :selections]).first
+Binda.get_boards('default-dashboard')
+     .includes(:strings, :texts, repeaters: [:images, :selections])
+     .first
 ```
 
 _Boards_ can make use of all field helpers. See the [fields documentation](#Field_Helpers) for more information.
