@@ -13,7 +13,6 @@ module Binda
 
     after_create :set_default_position
 
-
     # Set default position after create
     # 
     # This methods ensure that every repeater instance has an explicit position.

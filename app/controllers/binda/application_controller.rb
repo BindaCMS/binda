@@ -5,8 +5,6 @@ module Binda
 
 		before_action :authenticate_user!
 
-		include DefaultHelpers
-
 		# _ indicates that we are not using the argument in the method
 	  def after_sign_in_path_for(_)
 	 	  binda.dashboard_path

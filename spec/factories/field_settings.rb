@@ -21,11 +21,12 @@ FactoryBot.define do
 
 	factory :string_setting, parent: :field_setting do
 		field_type 'string'
-	end
+  end
 
 	factory :text_setting, parent: :field_setting do
 		field_type 'text'
 	end
+
 	factory :radio_setting, parent: :field_setting do
 		field_type 'radio'
 		allow_null false
@@ -52,6 +53,10 @@ FactoryBot.define do
 		after(:create) do |selection_setting, evaluator|
       create_list( :choice, evaluator._count, field_setting: selection_setting )
 		end
+	end
+
+	factory :relation_setting, parent: :field_setting do
+		field_type 'relation'
 	end
 
 	factory :image_setting, parent: :field_setting do

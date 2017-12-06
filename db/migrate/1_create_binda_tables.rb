@@ -57,6 +57,11 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
+    create_table :binda_field_settings_structures do |t|
+      t.belongs_to :field_setting
+      t.belongs_to :structure
+    end
+
     create_table :binda_repeaters do |t|
       t.integer          :position
       t.belongs_to       :field_setting
@@ -116,13 +121,6 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    create_table :binda_bindings do |t|
-      t.string           :title
-      t.text             :description
-      t.integer          :position
-      t.timestamps
-    end
-
     create_table :binda_categories do |t|
       t.string           :name, null: false
       t.string           :slug
@@ -136,6 +134,17 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     create_table :binda_categories_components, id: false do |t|
       t.belongs_to       :category, index: true
       t.belongs_to       :component, index: true
+    end
+
+    create_table :binda_relations do |t|
+      t.integer          :field_setting_id
+      t.references       :fieldable, polymorphic: true, index: true
+    end
+
+    create_table :binda_relation_links do |t|
+      t.references       :owner, polymorphic: true, index: true
+      t.references       :dependent, polymorphic: true, index: true
+      t.timestamps
     end
 
     create_table :friendly_id_slugs do |t|

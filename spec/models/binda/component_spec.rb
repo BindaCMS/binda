@@ -45,7 +45,6 @@ module Binda
 			first_component.destroy!
 
 			expect( String.where(id: strings) ).to be_empty
-
 		end
 
 		it "can have multiple categories" do
@@ -115,5 +114,26 @@ module Binda
 		it "returns false when has_repeater() is not called on a repeater belonging to this component" do
 			skip "not implemented yet"
 		end
+
+		it "can have multiple related components and retrieve them with get_related_components()" do
+			owner = create(:component)
+			relation_setting = create(:relation_setting, field_group_id: owner.structure.field_groups.first.id)
+			dependent_1 = create(:component)
+			dependent_2 = create(:component)
+
+			relation1 = owner.relations.create!(field_setting_id: relation_setting.id)
+			relation1.dependent_components << dependent_1
+			relation1.save!
+
+			relation2 = owner.relations.create!(field_setting_id: relation_setting.id)
+			relation2.dependent_components << dependent_2
+			relation2.save!
+
+			owner.reload
+			dependents = owner.get_related_components(relation_setting.slug)
+
+			expect(dependents.first.name).to eq(dependent_2.name)
+		end
+
   end
 end

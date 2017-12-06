@@ -1,2 +1,3 @@
---markup-provider=redcarpet
---markup=markdown
+--markup-provider redcarpet
+--markup markdown
+--plugin activesupport-concern

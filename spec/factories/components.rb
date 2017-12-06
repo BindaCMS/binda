@@ -23,7 +23,7 @@ FactoryBot.define do
       _count 3
     end
     after(:create) do |article_component, evaluator|
-      # fetch the deafult field group
+      # fetch the default field group
       field_group = article_component.structure.field_groups.first
       # fetch field settings belonging to that field group 
       # (they have been created before in :article_structure_with_components_and_fields factory)
@@ -31,7 +31,7 @@ FactoryBot.define do
       repeater_setting = field_group.field_settings.find{ |fs| fs.field_type == 'repeater' }
       # create some data
       create_list( :repeater_with_fields, evaluator._count, fieldable: article_component, field_setting: repeater_setting )
-      create_list( :string, evaluator._count, fieldable: article_component, field_setting: string_setting )
+      # create_list( :string, evaluator._count, fieldable: article_component, field_setting: string_setting )
     end
   end
 

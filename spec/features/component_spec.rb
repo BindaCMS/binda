@@ -200,4 +200,12 @@ describe "GET component#edit", type: :feature, js: true do
 		skip "not implemented yet"
 	end
 
+	it "allows to relate a component to other ones" do
+		skip "not implemented yet"
+	end
+
+	it "should not be possible to relate a component to itself" do
+		skip "not implemented yet"
+	end
+
 end

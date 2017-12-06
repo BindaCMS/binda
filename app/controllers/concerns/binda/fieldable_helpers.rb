@@ -14,13 +14,15 @@ module Binda
           radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
           selections_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
           checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
+          related_fields_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, parent_related_component_ids: [], parent_related_board_ids: []  ],
           repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id,
             texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
             strings_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
             images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ], 
             videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ], 
             dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
-            galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ], 
+            galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ],
+            related_fields_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, parent_related_component_ids: [],  parent_related_board_ids: []  ],
             repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id ],
             radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
             selections_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
@@ -28,8 +30,7 @@ module Binda
           ]]
       end
 
-      #
-      # @brief      Uploads parameters.
+      # Uploads parameters.
       # 
       # @param      fieldable_type {symbol} It can be `:component` or `:board`.
       #
@@ -45,10 +46,8 @@ module Binda
             images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache, :video, :video_cache ]]})
       end
 
+      # Uploads a details for a fieldable instance (component or board)
       #
-      # @brief      Uploads a details for a fieldable instance (component or board)
-      #
-      # @param      fieldable_instance {symbol} can be a `:component` or `:board`
       # @return     {hash} containig the array of images
       # 
       # @example    The return value will be something like: 
@@ -80,7 +79,5 @@ module Binda
           thumbnailUrl: image.image.thumb.url 
         }
       end
-
-
   end
 end

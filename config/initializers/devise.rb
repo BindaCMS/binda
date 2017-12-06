@@ -5,16 +5,18 @@ Devise.setup do |config|
   # https://github.com/plataformatec/devise/wiki/How-To:-Use-devise-inside-a-mountable-engine
   # You probably want Devise's controllers to inherit from 
   # your engine's controller and not the main controller. 
-  # Set this in config/initializers/devise.rb:
+  # ============== DON'T CHANGE IT ===============
   config.parent_controller = 'Binda::ApplicationController'
-
+  # ============== =============== ===============
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '477d441c458294ec4cef0652a0e96f1c5587593a3897c5459a43ccf8c7cc0f0e44003d17f7e5019ffa651806d22c24fb568096b56824f07df1dcad0ecd81bc2b'
+  # config.secret_key = 'a8395fa034e067da620d70f7f39ad4765d163e44ce05d5c243393e1bbfdc10f9a464aaf34fcac3291a6746424ea2b9f9564a01c31820e28bf1737c16d139cd5c'
+  # binda.hook.1
+  config.secret_key = '940fcbf616f851acdbcfb5af5629435e0ce550b51a0bf1db4cfb609b537d93b98a9ddefbf03a8274fa59a6483fe82df3aa1a6609a8ca0e62ae3269a91374cccd'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -110,7 +112,9 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '3ae686c27e0413bd5b0a863730f082714caff4c040d987fd64367f0041e7e99f221a583cd3b0eaeb85408ce97d56ea59c00907a61b69988148f83d30f7ff92c3'
+  # config.pepper = '124ef1b08a92f891a392a9594b868887c945ca8438bd7852f8ac4d91e51f2cc699b8b6c7b12057c0f0e6dc03d04f8ee4eab72278b0f948e2c1e43f8b449c2262'
+  # binda.hook.2
+  config.pepper = '0586297a053d9c535c607464fb45c15325e4faa6f31f1b5361a431c1978c2dce2776047cef7b89500600bbfa82818b853ab896ad8b48334656bb907a06c8a9bb'
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false
@@ -156,7 +160,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length.
-  config.password_length = 6..128
+  config.password_length = 8..128
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
@@ -222,9 +226,7 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # ============== DON'T CHANGE IT ===============
-  config.scoped_views = true
-  # ============== =============== ===============
+  # config.scoped_views = false
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
@@ -267,11 +269,13 @@ Devise.setup do |config|
   # is mountable, there are some extra configurations to be taken into account.
   # The following options are available, assuming the engine is mounted as:
   #
-  #     mount MyEngine, at: '/binda'
+  #     mount MyEngine, at: '/my_engine'
   #
   # The router that invoked `devise_for`, in the example above, would be:
+  # ============== DON'T CHANGE IT ===============
   config.router_name = :binda
-  #
+  # ============== =============== ===============
+
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
