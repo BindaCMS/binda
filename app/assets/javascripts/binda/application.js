@@ -22,13 +22,19 @@
 
 // Bootstrap dependency 
 // https://v4-alpha.getbootstrap.com/components/tooltips/
-//= require tether.min
+// require tether.min
 
 // Bootstrap
 //= require bootstrap/bootstrap-sprockets
 
 // Select2
 //= require select2/select2.full.min
+
+// TweenLite
+// GSAP/CSSPlugin.min
+// GSAP/EasePack.min
+// GSAP/ScrollToPlugin.min
+// GSAP/TweenLite.min
 
 // Binda scripts
 //= require binda/dist/binda.bundle.js
