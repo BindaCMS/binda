@@ -1,4 +1,5 @@
 en:
+  accepted_structures: Accepted Structures
   detail: detail
   details: details
   slug: slug
@@ -50,6 +51,7 @@ en:
   binda:
     title: title
     view_website: View website
+    error_related_to_itself: Sorry, this record cannot relate to itself
     confirm_delete: Do you really want to remove it?
     upload_button: Upload
     choose_file_button: Choose a file

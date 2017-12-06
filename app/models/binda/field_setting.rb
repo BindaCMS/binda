@@ -1,9 +1,11 @@
 module Binda
 	class FieldSetting < ApplicationRecord
 
-		# Associations
 		belongs_to :field_group
 		has_ancestry orphan_strategy: :destroy
+
+		# Is this reallly needed? Or can we just use accepted_structures? 
+		# has_and_belongs_to_many :structures
 
 		# Fields Associations
 		# 
@@ -21,27 +23,33 @@ module Binda
 		has_many :radios,        as: :fieldable
 		has_many :selections,    as: :fieldable
 		has_many :checkboxes,    as: :fieldable
+		has_many :relations, as: :fieldable
 
 
-		# The following direct association is used to securely delete associated fields
+
+		# The following direct associations are used to securely delete associated fields
 		# Infact via `fieldable` the associated fields might not be deleted 
 		# as the fieldable_id is related to the `component`, `board` or `repeater` rather than `field_setting`
-		has_many :texts,         dependent: :delete_all
-		has_many :strings,       dependent: :delete_all
-		has_many :dates,         dependent: :delete_all
-		has_many :galleries,     dependent: :delete_all
-		has_many :repeaters,     dependent: :delete_all
-		has_many :radios,        dependent: :delete_all
-		has_many :selections,    dependent: :delete_all
-		has_many :checkboxes,    dependent: :delete_all
+		has_many :texts,          dependent: :delete_all
+		has_many :strings,        dependent: :delete_all
+		has_many :dates,          dependent: :delete_all
+		has_many :galleries,      dependent: :delete_all
+		has_many :repeaters,      dependent: :delete_all
+		has_many :radios,         dependent: :delete_all
+		has_many :selections,     dependent: :delete_all
+		has_many :checkboxes,     dependent: :delete_all
+		has_many :relations,  dependent: :delete_all
 
-		has_many :choices,       dependent: :delete_all
+		has_many :choices,        dependent: :delete_all
 		has_one  :default_choice, -> (field_setting) { where(id: field_setting.default_choice_id) }, class_name: 'Binda::Choice'
+		
+		has_and_belongs_to_many :accepted_structures, class_name: 'Binda::Structure'
 
-		accepts_nested_attributes_for :choices, allow_destroy: true, reject_if: :is_rejected
+		accepts_nested_attributes_for :accepted_structures, :texts, :strings, :dates, :galleries,
+		                              :assets, :images, :videos, :repeaters, :radios, :selections,
+		                              :checkboxes, :relations, :choices, allow_destroy: true, reject_if: :is_rejected
 
 
-		#
 		# Sets the validation rules to accept and save an attribute
 		def is_rejected( attributes )
 			attributes['label'].blank? || attributes['content'].blank?
@@ -60,7 +68,7 @@ module Binda
     end
 
 		def self.get_field_classes
-			%w( String Text Date Image Video Repeater Radio Selection Checkbox )
+			%w( String Text Date Image Video Repeater Radio Selection Checkbox Relation )
 		end
 
 		# Validations

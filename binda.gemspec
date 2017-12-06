@@ -21,22 +21,22 @@ Gem::Specification.new do |s|
 
   # PRIMARY GEMS
   # ------------
-  s.add_dependency "rails",                ">= 5.0",      "< 5.2"
+  s.add_dependency "rails",                ">= 5.0",        "< 5.2"
   s.add_dependency "jquery-rails",         "~> 4.3"
-  s.add_dependency "jquery-ui-rails",      ">= 5.0",      "< 6.1"
+  s.add_dependency "jquery-ui-rails",      ">= 5.0",        "< 6.1"
   s.add_dependency "sass-rails",           "~> 5.0"
   # s.add_dependency "coffee-rails",         ">= 4.1",      "< 4.3"
   s.add_dependency "aasm",                 ">= 4.11",     "< 4.13"
   s.add_dependency "simple_form",          ">= 3.3",      "< 3.6"
   s.add_dependency "tinymce-rails",        ">= 4.1",      "< 4.7"
   s.add_dependency "tinymce-rails-langs",  "~> 4.20160310"
-  s.add_dependency "devise",               ">= 4.1",      "< 4.4"
+  s.add_dependency "devise",               ">= 4.1",        "< 4.4"
   s.add_dependency "devise-i18n",          "~> 1.4"
-  s.add_dependency "carrierwave",          ">= 0.10",     "< 1.2"
-  s.add_dependency "mini_magick",          ">= 4.5",      "< 4.9"
-  s.add_dependency "ancestry",             ">= 2.1",      "< 3.1"
+  s.add_dependency "carrierwave",          ">= 0.10",       "< 1.2"
+  s.add_dependency "mini_magick",          ">= 4.5",        "< 4.9"
+  s.add_dependency "ancestry",             ">= 2.1",        "< 3.1"
   s.add_dependency "kaminari",             "~> 1.0"
-  s.add_dependency "friendly_id",          ">= 5.1",      "< 5.4"
+  s.add_dependency "friendly_id",          ">= 5.1",        "< 5.4"
   s.add_dependency "bourbon",              "4.3.4"
   # s.add_dependency "neat",                 "2.1.0"
   # s.add_dependency "meta-tags"
@@ -57,6 +57,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "factory_bot_rails",        "~> 4.8"
   s.add_development_dependency "database_cleaner",         "~> 1.6"
   s.add_development_dependency "yard",                     "~> 0.9"
+  s.add_development_dependency "yard-activesupport-concern"
   s.add_development_dependency "bullet",                   "~> 5.6"
   # s.add_development_dependency "rails-perftest",           "~> 0.0"
   # s.add_development_dependency "ruby-prof",                "~> 0.15.9"
@@ -67,4 +68,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "redcarpet",                "~> 3.4"
   s.add_development_dependency "github-markup",            "~> 1.6"
   s.add_development_dependency "travis",                   "~> 1.8"
+
 end

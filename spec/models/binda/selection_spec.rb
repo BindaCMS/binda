@@ -7,6 +7,7 @@ module Binda
 			@field_group = create(:field_group)
 			@selection_setting = create(:selection_setting_with_choices, field_group_id: @field_group.id )
 			@component = create(:component, structure_id: @field_group.structure.id )
+			@component.reload # this is needed in order to get nwe values create during the after_save callback
 		end
 
 		it "should let you choose some values" do

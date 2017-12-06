@@ -9,7 +9,7 @@ module Binda
 		end
 
 		def is_maintenance_mode
-			if get_board('dashboard').get_radio_choice('maintenance-mode')[:value] == 'true' && !user_signed_in?
+			if ::Binda.get_boards('dashboard').includes(:radios).first.get_radio_choice('maintenance-mode')[:value] == 'true' && !user_signed_in?
 				return true
 			else
 				return false

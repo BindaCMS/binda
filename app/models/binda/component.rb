@@ -4,11 +4,12 @@ module Binda
 		include FieldableAssociations
 
 		# Associations
+
 		belongs_to :structure, required: true
 		has_and_belongs_to_many :categories
 
 		# Validations
-		# validates :name, presence: true # TODO: check this, shouldn't be enabled?
+		validates :name, presence: true
 		validates :slug, uniqueness: true
 		validates :publish_state, presence: true, inclusion: { in: %w( draft published )}
 

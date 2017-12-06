@@ -15,6 +15,7 @@ module Binda
 	    #   - get_fieldables (see here below)
 	    #   - get_field_types (see here below)
 	    #   - component_params (app/controllers/binda/components_controller.rb)
+
 	    has_many :texts,         as: :fieldable, dependent: :delete_all
 	    has_many :strings,       as: :fieldable, dependent: :delete_all
 	    has_many :dates,         as: :fieldable, dependent: :delete_all
@@ -27,12 +28,22 @@ module Binda
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
 	    # Repeaters need destroy_all, not delete_all
 	    has_many :repeaters,     as: :fieldable, dependent: :destroy
+			has_many :relations,     as: :fieldable, dependent: :destroy
 
-			# has_many :bindings
-			# has_many :assets, class_name: 'Admin::Asset', through: :bindings
-
-	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
+	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, :relations, allow_destroy: true
       
+			validates_associated :texts
+			validates_associated :strings
+			validates_associated :dates
+			validates_associated :assets
+			validates_associated :images
+			validates_associated :videos
+			validates_associated :repeaters
+			validates_associated :radios
+			validates_associated :selections
+			validates_associated :checkboxes
+			validates_associated :relations
+
       # YOU SHOULDN'T USE THIS METHOD UNTIL IT'S OPTIMIZED
       after_save :generate_fields
 		end
@@ -44,7 +55,7 @@ module Binda
 		# @return [string] Returns the content of the text 
 		# @return [error]  Raise an error if no record is found
 		def get_text field_slug 
-			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }	
+			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type != 'Binda::String' }	
 			unless obj.nil?
 				obj.content
 			else
@@ -62,7 +73,7 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_text field_slug 
-			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }
+			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type != 'Binda::String' }
 			raise ArgumentError, "There isn't any text associated to the current slug.", caller if obj.nil?
 			if obj.present?
 				return !obj.content.blank?
@@ -160,6 +171,56 @@ module Binda
 			end
 		end
 
+		# Check if the field has an attached video
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [boolean]
+		def has_video field_slug 
+			obj = self.videos.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			# Alternative query
+			# obj = Image.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
+			raise ArgumentError, "There isn't any video associated to the current slug.", caller if obj.nil?
+			return obj.video.present?
+		end
+
+		# Get the video url based on the size provided, 
+		#   default is Carrierwave default (usually the real size)
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
+		#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
+		# @return [string] The url of the video
+		def get_video_url field_slug
+			get_video_info( field_slug, 'url' )
+		end
+
+		# Get the video path based on the size provided, 
+		#   default is Carrierwave default (usually the real size)
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
+		#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
+		# @return [string] The url of the video
+		def get_video_path field_slug
+			get_video_info( field_slug, 'path' )
+		end
+
+		# Get the object related to that field setting
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @param info [string] String of the info to be retrieved
+		# @return [string] The info requested if present
+		# @return [boolean] Returns false if no info is found or if image isn't found
+		def get_video_info field_slug, info 
+			obj = self.videos.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			# Alternative query
+			# obj = video.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
+			raise ArgumentError, "There isn't any video associated to the current slug.", caller if obj.nil?
+			if obj.video.present?
+				obj.video.send(info)
+			end
+		end
+
 		# Check if the field has an attached date
 		# 
 		# @param field_slug [string] The slug of the field setting
@@ -211,7 +272,7 @@ module Binda
 		#   only the first one will be retrieved.
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [hash] A hash of containing the label and value of the selected choice. `{ label: 'the label', 'value': 'the value'}`
+		# @return [hash] A hash of containing the label and value of the selected choice. `{ label: 'the label', value: 'the value'}`
 		def get_radio_choice field_slug
 			obj = self.radios.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			raise ArgumentError, "There isn't any radio associated to the current slug.", caller if obj.nil?
@@ -231,7 +292,7 @@ module Binda
 		# Get the checkbox choice
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [array] An array of labels and values of the selected choices. `[{ label: '1st label', 'value': '1st-value'}, { label: '2nd label', 'value': '2nd-value'}]`
+		# @return [array] An array of labels and values of the selected choices. `[{ label: '1st label', value: '1st-value'}, { label: '2nd label', value: '2nd-value'}]`
 		def get_checkbox_choices field_slug
 			obj = self.checkboxes.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			raise ArgumentError, "There isn't any checkbox associated to the current slug.", caller if obj.nil?
@@ -242,14 +303,62 @@ module Binda
 			return obj_array
 		end
 
+		# Check if has related components
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [boolean]
+		def has_related_components field_slug
+			obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
+			return obj.passive_relations.any?
+		end
+
+		# Get related components
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [array] An array of components
+		def get_related_components field_slug
+			obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
+			return obj.passive_relations.map{|relation| relation.dependent}
+		end
+
+		# Check if has related boards
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [boolean]
+		# def has_related_boards field_slug
+		# 	obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+		# 	raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
+		# 	return obj.dependents.any?
+		# end
+
+		# Get related boards
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [array] An array of boards
+		# def get_related_boards field_slug
+		# 	obj = self.relations.find{ |t| t.field_setting_idid == FieldSetting.get_id( field_slug ) }
+		# 	raise ArgumentError, "There isn't any related field associated to the current slug.", caller if obj.nil?
+		# 	return obj.dependents
+		# end
+
 		# Find or create a field by field setting and field type
-		# This is used in Binda's form
+		# This is used in Binda's editor views
 		# 
 		# @param field_setting_id [string] The field setting id
 		# @param field_type [string] THe field type
 		def find_or_create_a_field_by field_setting_id, field_type
-			if FieldSetting.get_field_classes.include?( field_type.capitalize ) && field_setting_id.is_a?( Integer )
-				self.send( field_type.pluralize ).find_or_create_by( field_setting_id: field_setting_id )
+			if FieldSetting.get_field_classes.include?( field_type.classify ) && field_setting_id.is_a?( Integer )
+				# It's mandatory to use `select{}.first`!!! 
+				# If you use any ActiveRecord method (like `where` of `find`) the validation errors are wiped out 
+				# from the object and not rendered next to the form in the editor view
+				obj = self.send( field_type.pluralize ).select{|rf| rf.field_setting_id == field_setting_id}.first
+				if obj.nil?
+					return self.send( field_type.pluralize ).create!( field_setting_id: field_setting_id ) 
+				else
+					return obj
+				end
 			else
 				raise ArgumentError, "One parameter in find_or_create_a_field_by() is not correct.", caller
 			end
@@ -272,13 +381,13 @@ module Binda
     	if self.respond_to?('structure')
 	    	field_settings = FieldSetting.where(field_group_id: FieldGroup.where(structure_id: self.structure.id))
 	    	field_settings.each do |field_setting|
-	    		"Binda::#{field_setting.field_type.capitalize}".constantize.find_or_create_by!(
+	    		"Binda::#{field_setting.field_type.classify}".constantize.find_or_create_by!(
 	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
 	    	end
     	# If this is a repeater
     	else
     		self.field_setting.children.each do |field_setting|
-	    		"Binda::#{field_setting.field_type.capitalize}".constantize.find_or_create_by!(
+	    		"Binda::#{field_setting.field_type.classify}".constantize.find_or_create_by!(
 	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
     		end
 	    end
