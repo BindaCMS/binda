@@ -50,13 +50,32 @@ module Binda
                                 source: :owner, 
                                 source_type: "Binda::Component"
 
+    # Owner are connected to its Dependents in a Active Relation
+    # meaning its possible to connect a Owner to as many Dependents
+    # as it's needed.
+    # 
+    # The current version support components and boards separately
+    has_many :dependent_boards, through: :passive_relations, 
+                                source: :dependent, 
+                                source_type: "Binda::Board"
 
-    # has_many :dependent_boards, through: :passive_relations, 
-    #                             source: :dependent, 
-    #                             source_type: "Binda::Board"
-    # has_many :owner_boards, through: :active_relations, 
-    #                         source: :owner, 
-    #                         source_type: "Binda::Board"
+    has_many :owner_boards, through: :active_relations, 
+                            source: :owner, 
+                            source_type: "Binda::Board"
+
+
+    # Owner are connected to its Dependents in a Active Relation
+    # meaning its possible to connect a Owner to as many Dependents
+    # as it's needed.
+    # 
+    # The current version support components and boards separately
+    has_many :dependent_repeaters, through: :passive_relations, 
+                                source: :dependent, 
+                                source_type: "Binda::Repeater"
+
+    has_many :owner_repeaters, through: :active_relations, 
+                            source: :owner, 
+                            source_type: "Binda::Repeater"
 
     # Makes sure that the group of related components doesn't include the component that owns the group
     # in other words makes sure that the component doesn't relate to itself

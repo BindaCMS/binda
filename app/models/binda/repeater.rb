@@ -7,11 +7,6 @@ module Binda
   	belongs_to :fieldable, polymorphic: true
     belongs_to :field_setting
 
-    # source: :children_fieldable matches with the belong_to :children_fieldable identification in the Association model
-    has_many :children_fieldables, class_name: "Repeater", through: :passive_relationships, source_type: "Binda::Repeater"
-    # source: :parent_fieldable matches with the belong_to :children_fieldable identification in the Association model
-    has_many :parent_fieldables, class_name: "Repeater", through: :active_relationships, source_type: "Binda::Repeater"
-
     # The following direct association is used to securely delete associated fields
     # Infact via `fieldable` the associated fields might not be deleted 
     # as the fieldable_id is related to the `component` rather than the `field_setting`

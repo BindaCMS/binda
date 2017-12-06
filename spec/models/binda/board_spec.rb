@@ -3,30 +3,27 @@ require 'rails_helper'
 module Binda
   RSpec.describe Board, type: :model do
 
-    before(:all) do
-      @structure = build(:structure)
-    end
-
-    let( :new_board ) { Board.new }
-
 		it "can have multiple associations board" do
-			structure_child = create(:board_structure)
-			structure_parent_1 = create(:board_structure)
-			structure_parent_2 = create(:board_structure)
+			owner_structure = create(:board_structure)
+			owner =  owner_structure.board
+			relation_setting = create(:relation_setting, field_group_id: owner.structure.field_groups.first.id)
+			dependent_1 = create(:component)
+			dependent_2 = create(:component)
 
-			board_child = structure_child.board
-			board_parent_1 = structure_parent_1.board
-			board_parent_2 = structure_parent_2.board
+			relation1 = owner.relations.create!(field_setting_id: relation_setting.id)
+			relation1.dependent_components << dependent_1
+			relation1.save!
 
-			association1 = board_child.related_fields.create!(name: "association1", slug: "slug1")
-			association1.parent_related_boards << board_parent_1
-			association1.save!
+			relation2 = owner.relations.create!(field_setting_id: relation_setting.id)
+			relation2.dependent_components << dependent_1
+			relation2.dependent_components << dependent_2
+			relation2.save!
 
-			association2 = board_child.related_fields.create!(name: "association2", slug: "slug2")
-			association2.parent_related_boards << board_parent_2
-			association2.save!
+			owner.reload
+			dependents = owner.get_related_components(relation_setting.slug)
 
-			expect(board_child.related_fields.length).to eq(2)
+			expect(dependents.length).to eq(2)
+			expect(dependents.first.name).to eq(dependent_2.name)
 		end
 
   end

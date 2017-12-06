@@ -1,6 +1,6 @@
 require "rails_helper"
 
-# Capybara.default_max_wait_time = 40
+Capybara.default_max_wait_time = 10
 
 describe "In field group editor, user", type: :feature, js: true do
 	
@@ -15,6 +15,11 @@ describe "In field group editor, user", type: :feature, js: true do
 		sign_in user
 	end
 
+# Sometime this might fail because of the following error.
+# Capybara::ElementNotFound:
+#        Unable to find visible field "field_group_new_field_settings__name" that is not disabled within #<Capybara::Node::Element tag="div" path="/html/body/div/div[3]/div/div/form/div/div[1]/div[3]">
+#        
+# Run the test again, the code it's fine, it's just an issue of Capybara with Ajax requests
 	Binda::FieldSetting.get_field_classes.each do |field_class|
 		it "should be able to create a #{field_class.downcase.underscore}" do
 			
