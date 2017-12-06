@@ -1,10 +1,10 @@
 .devise-view {
 	// background: #FFF;
-	// background: -moz-linear-gradient(top, #FFF 0%, $gray-lighter 100%);
-	// background: -webkit-linear-gradient(top, #FFF 0%,$gray-lighter 100%);
-	// background: linear-gradient(to bottom, #FFF 0%,$gray-lighter 100%);
-	// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFF', endColorstr='$gray-lighter',GradientType=0 );
-	background: $gray-lighter;
+	// background: -moz-linear-gradient(top, #FFF 0%, $color-gray-lighter 100%);
+	// background: -webkit-linear-gradient(top, #FFF 0%,$color-gray-lighter 100%);
+	// background: linear-gradient(to bottom, #FFF 0%,$color-gray-lighter 100%);
+	// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFF', endColorstr='$color-gray-lighter',GradientType=0 );
+	background: $color-gray-lighter;
 	height: 100vh;
 
 	#main-container {
@@ -24,6 +24,6 @@
 		// margin: $font-size-base auto;
 		background-color: #FFF;
 		border-radius: $font-size-base / 2;
-		border: 1px solid $gray-lighter;
+		border: 1px solid $color-gray-lighter;
 	}
 }

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -76,9 +76,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM EDITOR
+ */
 
 var FormItemEditor = function () {
 	function FormItemEditor() {
@@ -132,6 +132,12 @@ var _FormItemEditor = new FormItemEditor();
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = custom_fileupload;
+/**
+ * CUSTOM FILE UPLOAD
+ *
+ * @param      {string}  target  The target
+ */
+
 function custom_fileupload(target) {
 
 	var $this = $(target);
@@ -216,9 +222,23 @@ function custom_fileupload(target) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-///- - - - - - - - - - - - - - - - - - - -
-/// FIELD GROUP EDITOR
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * BOOSTRAP SCRIPT
+ */
+
+/* harmony default export */ __webpack_exports__["a"] = function () {
+  // See https://v4-alpha.getbootstrap.com/components/tooltips/#example-enable-tooltips-everywhere
+  $('[data-toggle="tooltip"]').tooltip();
+};
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * FIELD GROUP EDITOR
+ */
 
 /* harmony default export */ __webpack_exports__["a"] = function () {
 	$('.field_groups-edit #save').on('click', function (event) {
@@ -234,7 +254,7 @@ function custom_fileupload(target) {
 };
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -244,9 +264,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM
+ */
 
 
 
@@ -317,7 +337,7 @@ function addNewItem(event) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -327,9 +347,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM CHOICE
+ */
 
 
 
@@ -392,7 +412,7 @@ var FormItemChoice = function () {
 var _FormItemChoice = new FormItemChoice();
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -402,9 +422,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM IMAGE
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM IMAGE
+ */
 
 
 
@@ -439,7 +459,7 @@ var FormItemImage = function () {
 var _FormItemImage = new FormItemImage();
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -450,9 +470,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM REPEATER
+ */
 
 
 
@@ -535,10 +555,14 @@ function addNewItem(target, event) {
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/**
+ * SORTABLE
+ */
+
 /* harmony default export */ __webpack_exports__["a"] = function () {
 	if ($('.sortable').length > 0) {
 		// Initialize sortable item
@@ -587,21 +611,25 @@ function addNewItem(target, event) {
 };
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_sortable__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_bootstrap__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_select2__ = __webpack_require__(11);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
+
+
 
 
 
@@ -629,7 +657,23 @@ $(document).ready(function () {
 	}
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__components_sortable__["a" /* default */])();
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__components_field_group_editor__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_bootstrap__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_select2__["a" /* default */])();
 });
+
+/***/ }),
+/* 10 */,
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * OPTIONAL
+ */
+
+/* harmony default export */ __webpack_exports__["a"] = function () {
+  $('select').select2({ minimumResultsForSearch: 32 }); // 31 are max number of day in a month, which you don't want to be searchable
+};
 
 /***/ })
 /******/ ]);

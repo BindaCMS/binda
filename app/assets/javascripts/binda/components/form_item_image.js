@@ -1,6 +1,6 @@
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM IMAGE
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM IMAGE
+ */
 
 import { custom_fileupload } from './fileupload_custom_script'
 

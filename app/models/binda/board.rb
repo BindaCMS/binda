@@ -3,7 +3,7 @@ module Binda
 
   	include FieldableAssociations
 
-  	belongs_to :structure, required: true
+		belongs_to :structure, required: true
 
 		validates :name, presence: true
 		validates :slug, uniqueness: true

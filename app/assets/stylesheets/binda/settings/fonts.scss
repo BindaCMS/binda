@@ -1,25 +1,46 @@
-.default-font {
-	font-family: "semplicitapro", arial, sans-serif;
+.default-font
+{
+  font-family: 'Work Sans', arial, sans-serif;
 }
 
 // - - - - - - - - - - - - - - - - - - 
 // LAYOUT
 // - - - - - - - - - - - - - - - - - - 
 
-body {
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  font-weight: 300; 
+}
+
+body
+{
   font-size: 100%;
   font-size: $font-size-base;
   line-height: 1.25em;
-  @extend .default-font;
   color: $text-color;
+
+  @extend .default-font;
 }
-::selection {
+::selection
+{
+  color: $body-bg !important;
   background: $text-color !important; /* WebKit/Blink Browsers */
-  color: $body-bg !important;
 }
-::-moz-selection {
-  background: $text-color !important; /* Gecko Browsers */
+::-moz-selection
+{
   color: $body-bg !important;
+  background: $text-color !important; /* Gecko Browsers */
 }
 
 
@@ -31,60 +52,91 @@ a,
 a:link,
 a:visited,
 a:hover,
-a:active {
+a:active
+{
+  // font-weight: bold;
   // color: $link-color;
   text-decoration: none;
-  font-weight: bold;
 }
 
-a:hover {
+a:hover
+{
   // border-bottom: 2px solid $link-color;
 }
 
-button a {
+button a
+{
   border-bottom: none;
 }
 
-.p {
-  @include font-size( $font-size-base, $font-size-base * 1.25 );   
+.p
+{
+  @include font-size( $font-size-base, $font-size-base * 1.25 );
 
-  @media ( min-width: $tablet ) {
+  @media ( min-width: $tablet )
+  {
     @include font-size( $font-size-large, $font-size-large * 1.25 );
   }
 }
 
-.small {
-  display: inline-block;
+.small
+{
   @include font-size( $font-size-base );
 }
 
-em {
+.tiny
+{
+  @include font-size( $font-size-base * 0.8 );
+}
+
+em
+{
   font-style: italic;
   display: inline-block;
 }
 
-strong {
+strong
+{
   font-weight: bold;
   display: inline-block;
 }
-.h1 {
+
+.h1
+{
   @include font-size( $font-size-h2, $font-size-h2 * 1.25 );
 
-  @media ( min-width: $tablet ) {
-    @include font-size( $font-size-h1, $font-size-h1 * 1.25 );     
+  @media ( min-width: $tablet )
+  {
+    @include font-size( $font-size-h1, $font-size-h1 * 1.25 );
   }
 }
-.h2 {
+
+.h2
+{
   @include font-size( $font-size-h3, $font-size-h3 * 1.25 );
 
-  @media ( min-width: $tablet ) {
-    @include font-size( $font-size-h2, $font-size-h2 * 1.25 );     
+  @media ( min-width: $tablet )
+  {
+    @include font-size( $font-size-h2, $font-size-h2 * 1.25 );
   }
 }
-.h3 {
+
+.h3
+{
   @include font-size( $font-size-h4, $font-size-h4 * 1.25 );
 
-  @media ( min-width: $tablet ) {
-    @include font-size( $font-size-h3, $font-size-h3 * 1.25 );     
+  @media ( min-width: $tablet )
+  {
+    @include font-size( $font-size-h3, $font-size-h3 * 1.25 );
+  }
+}
+
+.h4
+{
+  @include font-size( $font-size-h5, $font-size-h5 * 1.25 );
+
+  @media ( min-width: $tablet )
+  {
+    @include font-size( $font-size-h4, $font-size-h4 * 1.25 );
   }
 }

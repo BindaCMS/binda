@@ -1,6 +1,6 @@
-///- - - - - - - - - - - - - - - - - - - -
-/// FIELD GROUP EDITOR
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FIELD GROUP EDITOR
+ */
 
 export default function() 
 {

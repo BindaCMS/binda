@@ -74,6 +74,14 @@
 			<%= ff.input :position, as: :integer, input_html: { class: "form-item--input" } %>
 		</div>
 
+    <%# - - - - - - - - - - - - %>
+    <%# POSITION                %>
+    <%# - - - - - - - - - - - - %>
+    <div class="form-item--full-size">
+      <h5><%= t(:accepted_structures).capitalize %></h5>
+      <%= ff.input :accepted_structure_ids, collection: Binda::Structure.all, as: :select, input_html: { multiple: true }, checked: ff.object.accepted_structures, include_blank: false, include_hidden: false %>
+    </div>
+
 		<% choiceables = ['radio', 'selection', 'checkbox'] %>
 		<% if choiceables.include? ff.object.field_type %>
 

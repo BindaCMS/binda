@@ -1,97 +1,117 @@
-body {
+body
+{
   padding: 0;
-	background-color: $gray-lighter;
+  background-color: $body-bg;
 }
 
 // this could be avoided using more recent version of bootstrap or with bourbon
-.clearfix {
-	&::after {
-	  clear: both;
-	  content: "";
-	  display: table;
-	}
+.clearfix
+{
+  &::after
+  {
+    display: table;
+    clear: both;
+    content: '';
+  }
 }
 
 // useful to debug
-.bordered {
-	border: 2px solid red;
+.bordered
+{
+  border: 2px solid red;
 }
 
-.vertical-center {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
+.vertical-center
+{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.absolute-center {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+.absolute-center
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.box-shadowed {
-	box-shadow: 0px 3px 6px 0px rgba( 200, 200, 200, 0.7 );
+.box-shadowed
+{
+  box-shadow: 0 3px 6px 0 rgba( 200, 200, 200, .7 );
 }
 
-.box-shadowed-up {
-	box-shadow: 0px 3px 10px 2px rgba( 150, 150, 150, 0.7 );
+.box-shadowed-up
+{
+  box-shadow: 0 3px 10px 2px rgba( 150, 150, 150, .7 );
 }
 
 // TINYMCE FIXES
 // -------------
-body#tinymce {
-	padding: 12px;
-	background-color: #FFF;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075) !important;
+body#tinymce
+{
+  padding: 12px;
+  background-color: $color-gray-lighter;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075) !important;
 }
 
-.mce-tinymce, .mce-toolbar-grp {
-	margin-bottom: $font-size-base * 0.5 !important;
-	background-color: #FFF !important;
-	border: none !important;
+.mce-tinymce,
+.mce-toolbar-grp
+{
+  margin-bottom: $font-size-base * .5 !important;
+  border: none !important;
+  background-color: $color-gray-lighter !important;
 }
 
-.mce-btn-group:not(:first-child) {
-	border: none !important;
+.mce-btn-group:not(:first-child)
+{
+  border: none !important;
 }
 
-.mce-btn {
+.mce-btn
+{
   border-radius: 2px !important;
 }
 
-.mce-edit-area {
-	border: 1px solid #CCC !important;
+.mce-edit-area
+{
+  border: 1px solid $color-gray-light !important;
   border-radius: 1px !important;
 }
 
-.mce-path {
-	padding-top: 2px !important;
-	padding-bottom: 2px !important;
+.mce-path
+{
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
 }
 
-.mce-statusbar {
-	background-color: #FFF !important;
-	border: 1px solid #CCC !important;
-	border-top: none !important;
+.mce-statusbar
+{
+  border: 1px solid $color-gray-light !important;
+  border-top: none !important;
+  background-color: $color-gray-lighter !important;
 }
 
-.mce-menubar {
-	margin-top: $font-size-base !important;
-	padding-top: 2px !important; 
-	padding-bottom: 2px !important; 
-	border-top: 1px solid rgba(0, 0, 0, 0.075) !important;
+.mce-menubar
+{
+  margin-top: $font-size-base !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+  border-top: 1px solid rgba(0, 0, 0, .075) !important;
 
-	.mce-btn {
-		margin-right: 4px !important;
-		background-color: rgba(0, 0, 0, 0.075) !important;
-	}
+  .mce-btn
+  {
+    margin-right: 4px !important;
+    background-color: rgba(0, 0, 0, .075) !important;
+  }
 
-	&:first-child {
-		margin-top: 0 !important;
-	}
+  &:first-child
+  {
+    margin-top: 0 !important;
+  }
 }
 
-.pagination {
-	width: 100%;
+.pagination
+{
+  width: 100%;
 }

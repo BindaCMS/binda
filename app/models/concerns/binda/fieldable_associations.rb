@@ -15,6 +15,12 @@ module Binda
 	    #   - get_fieldables (see here below)
 	    #   - get_field_types (see here below)
 	    #   - component_params (app/controllers/binda/components_controller.rb)
+
+			# children_fieldable_relates "names" the Association join table for accessing through the children_fieldable association
+			has_many :active_relationships, class_name: "Relationship", dependent: :destroy, as: :children_related
+			# parent_fieldable_relates "names" the Association join table for accessing through the parent_fieldable association
+			has_many :passive_relationships, class_name: "Relationship", dependent: :destroy, as: :parent_related
+
 	    has_many :texts,         as: :fieldable, dependent: :delete_all
 	    has_many :strings,       as: :fieldable, dependent: :delete_all
 	    has_many :dates,         as: :fieldable, dependent: :delete_all
@@ -27,14 +33,17 @@ module Binda
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
 	    # Repeaters need destroy_all, not delete_all
 	    has_many :repeaters,     as: :fieldable, dependent: :destroy
+			has_many :related_fields, as: :fieldable, dependent: :destroy
 
 			# has_many :bindings
 			# has_many :assets, class_name: 'Admin::Asset', through: :bindings
 
-	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
+	    accepts_nested_attributes_for :related_fields, :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, allow_destroy: true
       
       # YOU SHOULDN'T USE THIS METHOD UNTIL IT'S OPTIMIZED
+=begin
       after_save :generate_fields
+=end
 		end
 
 		# Get the object related to that field setting
@@ -248,7 +257,7 @@ module Binda
 		# @param field_setting_id [string] The field setting id
 		# @param field_type [string] THe field type
 		def find_or_create_a_field_by field_setting_id, field_type
-			if FieldSetting.get_field_classes.include?( field_type.capitalize ) && field_setting_id.is_a?( Integer )
+			if FieldSetting.get_field_classes.include?( field_type.classify ) && field_setting_id.is_a?( Integer )
 				self.send( field_type.pluralize ).find_or_create_by( field_setting_id: field_setting_id )
 			else
 				raise ArgumentError, "One parameter in find_or_create_a_field_by() is not correct.", caller
@@ -272,13 +281,13 @@ module Binda
     	if self.respond_to?('structure')
 	    	field_settings = FieldSetting.where(field_group_id: FieldGroup.where(structure_id: self.structure.id))
 	    	field_settings.each do |field_setting|
-	    		"Binda::#{field_setting.field_type.capitalize}".constantize.find_or_create_by!(
+	    		"Binda::#{field_setting.field_type.classify}".constantize.find_or_create_by!(
 	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
 	    	end
     	# If this is a repeater
     	else
     		self.field_setting.children.each do |field_setting|
-	    		"Binda::#{field_setting.field_type.capitalize}".constantize.find_or_create_by!(
+	    		"Binda::#{field_setting.field_type.classify}".constantize.find_or_create_by!(
 	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
     		end
 	    end

@@ -1,6 +1,6 @@
-///- - - - - - - - - - - - - - - - - - - -
-/// FORM ITEM
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * FORM ITEM REPEATER
+ */
 
 import { custom_fileupload } from './fileupload_custom_script'
 import { _FormItemEditor } from './form_item_editor'

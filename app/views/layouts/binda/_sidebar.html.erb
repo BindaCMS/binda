@@ -8,8 +8,15 @@
 <% unless is_devise_controller %>
 <div id="main-sidebar">
   <ul class="main-sidebar--nav">
-    <li class = "main-sidebar--brand">
-      <h3><%= link_to get_website_name, '/' %></h3>
+    <li class= "main-sidebar--brand">
+      <a href="/" target="_blank">
+        <p class="main-sidebar--website-name"><%= get_website_name %></p>
+        <p class= "main-sidebar--view-website">
+          
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+            <%= t('binda.view_website') %>
+        </p>
+      </a>
     </li>
     <% Binda::Structure.all.order(:position).each_with_index do |structure, index| %>
       <% if structure.instance_type == 'component' %>
@@ -20,7 +27,7 @@
           </a>
           <% if structure.has_categories %>
             <a class="main-sidebar--sub-link" href="<%= structure_categories_path( structure.slug ) %>">
-              <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <%= structure.name.humanize %> <%= t(:category).capitalize.pluralize %>
+              <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <%= t(:category).capitalize.pluralize %>
             </a>
           <% end %>
         </li>
