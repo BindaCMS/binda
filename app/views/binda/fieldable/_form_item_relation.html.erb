@@ -1,26 +1,38 @@
-<h5><%= field_setting.name.capitalize %></h5>
+<div id="standard-form--relation-<%= field_setting.id %>" class="standard-form--relation">
 
-<% unless field_setting.description.blank? %>
-    <small class="text-muted"><%= field_setting.description %></small>
-<% end %>
+	<% unless field_setting.description.blank? %>
+	  <small class="text-muted"><%= field_setting.description %></small>
+	<% end %>
 
-<%= ff.input :dependent_component_ids, collection: get_relationable_components(field_setting), 
-	as: :select, 
-	input_html: { multiple: true, class: 'select2-item' }, 
-	value_method: :id, 
-	checked: ff.object.dependent_component_ids, 
-	include_blank: false, 
-	include_hidden: false %>
+<%# TODO: refactor in order to have a single depenedent field, not one per instance type %>
 
-<%= ff.input :dependent_board_ids, collection: get_relationable_boards(field_setting), 
-	as: :select, 
-	input_html: { multiple: true, class: 'select2-item' }, 
-	value_method: :id, 
-	checked: ff.object.dependent_board_ids, 
-	include_blank: false, 
-	include_hidden: false %>
+	<% if field_setting.accepted_structures.select{|s| s.instance_type == "component"}.any? %>
+		<%= ff.input :dependent_component_ids, collection: get_relationable_components(field_setting), 
+			as: :select,
+			input_html: { multiple: true, class: 'select2-item' },
+			label: field_setting.name.capitalize,
+			value_method: :id,
+			checked: ff.object.dependent_component_ids, 
+			include_blank: false, 
+			include_hidden: false,
+			placeholder: t('binda.select_placeholder') %>
+	<% end %>
 
-<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-<%= ff.input :fieldable_id, as: :hidden %>
-<%= ff.input :fieldable_type, as: :hidden %>
+	<% if field_setting.accepted_structures.select{|s| s.instance_type == "board"}.any? %>
+		<%= ff.input :dependent_board_ids, collection: get_relationable_boards(field_setting), 
+			as: :select, 
+			input_html: { multiple: true, class: 'select2-item' }, 
+			label: field_setting.name.capitalize,
+			value_method: :id, 
+			checked: ff.object.dependent_board_ids, 
+			include_blank: false, 
+			include_hidden: false,
+			placeholder: t('binda.select_placeholder')  %>
+	<% end %>
+
+	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+	<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+	<%= ff.input :fieldable_id, as: :hidden %>
+	<%= ff.input :fieldable_type, as: :hidden %>
+	
+</div>

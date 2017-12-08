@@ -623,11 +623,21 @@ function addNewItem(target, event) {
  */
 
 /* harmony default export */ __webpack_exports__["a"] = function () {
-  setupSelect2('.select2-item');
+	setupSelect2('.select2-item');
 };
 
 function setupSelect2(target) {
-  $(target).select2({ minimumResultsForSearch: 32 }); // 31 are max number of day in a month, which you don't want to be searchable
+	$(target).each(function () {
+		var placeholder = $(this).attr('placeholder');
+		if (typeof placeholder == 'undefined') {
+			placeholder = 'Select a option';
+		}
+
+		$(this).select2({
+			minimumResultsForSearch: 32, // 31 are max number of day in a month, which you don't want to be searchable
+			placeholder: placeholder
+		});
+	});
 }
 
 /***/ }),
