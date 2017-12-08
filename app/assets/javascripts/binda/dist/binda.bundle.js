@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -135,10 +135,10 @@ var _FormItemEditor = new FormItemEditor();
  * BOOSTRAP SCRIPT
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
   // See https://v4-alpha.getbootstrap.com/components/tooltips/#example-enable-tooltips-everywhere
   $('[data-toggle="tooltip"]').tooltip();
-};
+});
 
 /***/ }),
 /* 2 */
@@ -149,7 +149,7 @@ var _FormItemEditor = new FormItemEditor();
  * FIELD GROUP EDITOR
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
 	$('.field_groups-edit #save').on('click', function (event) {
 		var instanceType = $(this).data('instance-type');
 		var entriesNumber = $(this).data('entries-number');
@@ -160,7 +160,7 @@ var _FormItemEditor = new FormItemEditor();
 			alert('You have ' + entriesNumber + ' ' + instanceType + '. This operation might take some time to complete. To avoid unexpected behaviour don\'t leave or refresh the page');
 		}
 	});
-};
+});
 
 /***/ }),
 /* 3 */
@@ -291,8 +291,8 @@ function remove_preview(event) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -380,8 +380,8 @@ function addNewItem(event) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemChoice; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -495,8 +495,8 @@ var _FormItemImage = new FormItemImage();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -591,16 +591,278 @@ function addNewItem(target, event) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _Shader; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Shader = function () {
+    function Shader() {
+        _classCallCheck(this, Shader);
+    }
+
+    // SETUP SHADER
+
+
+    _createClass(Shader, [{
+        key: "setup",
+        value: function setup() {
+
+            var Container = PIXI.Container,
+                autoDetectRenderer = PIXI.autoDetectRenderer,
+                loader = PIXI.loader,
+                resources = PIXI.loader.resources,
+                Sprite = PIXI.Sprite;
+
+            // Create a container object called the `stage`
+            this.stage = new Container();
+
+            // Create 'renderer'
+            this.renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight);
+
+            // //Add the canvas to the HTML document
+
+            document.getElementById('background-shader').appendChild(this.renderer.view);
+
+            this.renderer.backgroundColor = 0xFF00FF;
+
+            // canvas full window
+            this.renderer.view.style.position = "fixed";
+            this.renderer.view.style.display = "block";
+
+            // scaleToWindow(renderer.view, "white" )
+
+            var fragmentShader = document.getElementById("fragmentShader").innerHTML;
+
+            this.uniforms = {
+                uNumOfColors: { type: '1f', value: 0.0 },
+                u1stColor: { type: '3f', value: [1.0, 1.0, 1.0] },
+                u2ndColor: { type: '3f', value: [1.0, 1.0, 1.0] },
+                u3rdColor: { type: '3f', value: [1.0, 1.0, 1.0] },
+                uIsActive: { type: '1f', value: 1.0 },
+                uIsIntro: { type: '1f', value: 0.0 },
+                uTime: { type: '1f', value: 0.0 },
+                uMouse: { type: '2f', value: [window.innerWidth, window.innerHeight] },
+                uWindowSize: { type: '2f', value: [window.innerWidth, window.innerHeight] }
+            };
+
+            this.colors = ['#333333', '#6f0342', '#777777'];
+
+            for (var i = 0; i < this.colors.length; i++) {
+
+                // Get HEX color from PHP variable which is retrived from a custom field
+                var HEXcolor = this.colors[i];
+                // Convert to RGB
+                var ShaderRGBcolor = hexToShaderRgb(HEXcolor);
+                if (i == 0) {
+                    this.uniforms.u1stColor.value = [ShaderRGBcolor.r, ShaderRGBcolor.g, ShaderRGBcolor.b];
+                    this.uniforms.uNumOfColors.value = 1.0;
+                } else if (i == 1) {
+                    this.uniforms.u2ndColor.value = [ShaderRGBcolor.r, ShaderRGBcolor.g, ShaderRGBcolor.b];
+                    this.uniforms.uNumOfColors.value = 2.0;
+                } else if (i == 2) {
+                    this.uniforms.u3rdColor.value = [ShaderRGBcolor.r, ShaderRGBcolor.g, ShaderRGBcolor.b];
+                    this.uniforms.uNumOfColors.value = 3.0;
+                }
+            }
+
+            this.customShader = new PIXI.AbstractFilter(null, fragmentShader, this.uniforms);
+            this.drawRectagle();
+        }
+
+        // DRAW RECTANGLE
+
+    }, {
+        key: "drawRectagle",
+        value: function drawRectagle() {
+
+            this.rectangle = new PIXI.Graphics();
+
+            // Set the default background color wo if browser doesn't support the filter we still see the primary color
+            var colorWithHash = this.colors[0];
+            var colorWith0x = '0x' + colorWithHash.slice(1, 7);
+            this.rectangle.beginFill(colorWith0x);
+
+            // Create the background rectanlge
+            this.rectangle.drawRect(0, 0, window.innerWidth, window.innerHeight);
+            this.rectangle.endFill();
+
+            // Setup the filter (shader)
+            this.rectangle.filters = [this.customShader];
+
+            // Add background to stage
+            this.stage.addChild(this.rectangle);
+        }
+
+        // START ANIMATION
+
+    }, {
+        key: "start",
+        value: function start() {
+            animate();
+        }
+
+        // MOUSE UPDATE
+
+    }, {
+        key: "mouseUpdate",
+        value: function mouseUpdate(event) {
+
+            // If uniforms haven't been set yet don't do anything and exit
+            if (typeof this.uniforms === 'undefined') return;
+
+            // udpate mouse coordinates for the shader
+            this.customShader.uniforms.uMouse = [event.pageX, event.pageY];
+        }
+
+        // RESIZE
+
+    }, {
+        key: "resize",
+        value: function resize() {
+
+            // let scale = scaleToWindow( this.renderer.view )
+            var prevWidth = this.renderer.view.style.width;
+            var prevHeight = this.renderer.view.style.height;
+            this.renderer.view.style.width = window.innerWidth + "px";
+            this.renderer.view.style.height = window.innerHeight + "px";
+            this.customShader.uniforms.uWindowSize = [window.innerWidth, window.innerHeight];
+
+            // Plese check this out ↴↴↴
+            // this.rectangle.scale.x = window.innerWidth / prevWidth
+            // this.rectangle.scale.y = window.innerHeight / prevHeight
+        }
+    }]);
+
+    return Shader;
+}();
+
+var _Shader = new Shader();
+
+// ANIMATE
+// -------
+function animate() {
+
+    // start the timer for the next animation loop
+    requestAnimationFrame(animate);
+    _Shader.customShader.uniforms.uTime += 0.01;
+    // this is the main render call that makes pixi draw your container and its children.
+    _Shader.renderer.render(_Shader.stage);
+}
+
+// CONVERT HEX TO RGB COLORS
+// -------------------------
+function hexToShaderRgb(hex) {
+
+    // Precision of the float number
+    var precision = 100;
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        // Get a number between 0.00 and 1.00
+        r: Math.round(parseInt(result[1], 16) * precision / 255) / precision,
+        g: Math.round(parseInt(result[2], 16) * precision / 255) / precision,
+        b: Math.round(parseInt(result[3], 16) * precision / 255) / precision
+    } : null;
+}
+
+// REQUEST ANIMATION POLYFILL
+// --------------------------
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+// MIT license
+(function () {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+
+    if (!window.requestAnimationFrame) window.requestAnimationFrame = function (callback, element) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+        var id = window.setTimeout(function () {
+            callback(currTime + timeToCall);
+        }, timeToCall);
+        lastTime = currTime + timeToCall;
+        return id;
+    };
+
+    if (!window.cancelAnimationFrame) window.cancelAnimationFrame = function (id) {
+        clearTimeout(id);
+    };
+})();
+
+// Mozilla MDN optimized resize
+// https://developer.mozilla.org/en-US/docs/Web/Events/resize
+(function () {
+    var throttle = function throttle(type, name, obj) {
+        obj = obj || window;
+        var running = false;
+        var func = function func() {
+            if (running) {
+                return;
+            }
+            running = true;
+            requestAnimationFrame(function () {
+                obj.dispatchEvent(new CustomEvent(name));
+                running = false;
+            });
+        };
+        obj.addEventListener(type, func);
+    };
+
+    /* init - you can init any event */
+    throttle("resize", "optimizedResize");
+})();
+
+// handle event
+window.addEventListener("optimizedResize", function () {
+    _Shader.resize();
+});
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+    $('input[name="login"]').click(function () {
+        var $radio = $(this);
+
+        // if this was previously checked
+        if ($radio.data('waschecked') == true) {
+            $radio.prop('checked', false);
+            $radio.data('waschecked', false);
+        } else $radio.data('waschecked', true);
+
+        // remove was checked from other radios
+        $radio.siblings('input[name="login"]').data('waschecked', false);
+    });
+});
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /**
  * OPTIONAL
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
   $('select').select2({ minimumResultsForSearch: 32 }); // 31 are max number of day in a month, which you don't want to be searchable
-};
+});
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -608,7 +870,7 @@ function addNewItem(target, event) {
  * SORTABLE
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
 	if ($('.sortable').length > 0) {
 		// Initialize sortable item
 		$('.sortable').sortable({
@@ -653,10 +915,10 @@ function addNewItem(target, event) {
 		$(id).toggleClass('sortable--enabled');
 		$(this).children('.sortable--toggle-text').toggle();
 	});
-};
+});
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -667,13 +929,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sortable__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_bootstrap__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_select2__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_shader__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_sortable__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_bootstrap__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_select2__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__ = __webpack_require__(9);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
+
+
 
 
 
@@ -705,10 +971,14 @@ $(document).ready(function () {
 	if (__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
 	}
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__components_sortable__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_bootstrap__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_select2__["a" /* default */])();
+	__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
+	__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].start();
+
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_sortable__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_bootstrap__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__components_select2__["a" /* default */])();
 });
 
 /***/ })
