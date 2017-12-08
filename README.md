@@ -805,7 +805,7 @@ Some helpful hints to debug tests are:
 
 1. Add `save_and_open_page` command in the code of the test example. This will save the page and let you inspect it.
 2. Add `binding.pry` this will stop the test and let you inspect the code at that moment of the code.
-3. In the command line, from Binda root folder, execute `tail ./spec/dummy/log/test.log -t` this will give you the list of operations executed by the server while you are running the test.
+3. In the command line, from Binda root folder, execute `tail -f ./spec/dummy/log/test.log` this will give you the list of operations executed by the server while you are running the test.
 
 ## Update test coverage
 
