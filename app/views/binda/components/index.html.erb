@@ -1,6 +1,6 @@
 <% content_for :header do %>
   <div class="main-header--buttons">
-    <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path , class: 'main-header--link b-btn b-btn-primary' %>
+    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path , class: 'main-header--link b-btn b-btn-primary' %>
     <%= get_sort_index_link %>
   </div>
   <h3><%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></h3>
@@ -9,6 +9,10 @@
 <% content_for :content do %> 
 
     <div class="main-table--div">
+
+      <div class="pagination-links--bar">
+        <%= paginate @components %>
+      </div>
 
       <table class="standard-form--container">
 
@@ -62,7 +66,7 @@
         <%= paginate @components %>
       </div>
 
-      <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path, class: 'main-header--link btn btn-default', action: "new" %>
+      <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path, class: 'main-header--link b-btn b-btn-primary', action: "new" %>
       <%= get_sort_index_link %>
 
     </div>
