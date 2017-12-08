@@ -21,42 +21,132 @@
     width: 20%;
     transform: translate(0%, -50%);
 
-    //width: 33% !important;
-
-    // margin: $font-size-base auto;
-    background-color: #FFF;
+    background-color: transparent;
     border-radius: $font-size-base / 2;
-    border: 1px solid $color-gray-lighter;
   }
-  #remember-me {
+
+  canvas {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vw;
+  }
+
+  .website-logo {
     position: relative;
-    width: 52%;
     left: 50%;
     transform: translate(-50%);
+    background: #ccc;
+    width: 8vw;
+    height: 8vw;
+    margin-bottom: 20px;
   }
-  #forgot-password {
-    position: relative;
-    margin-top: 40px;
-    width: 63%;
-    left: 50%;
-    transform: translate(-49%);
+
+  .standard-form--container {
+
+    &#login-form {
+      border: none;
+
+      h5 {
+        display: inline-block;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+        color: white;
+      }
+    }
   }
+
   #login-button {
     margin-top: 20px;
-    position: relative;
-    left: 50%;
-    width: 30%;
-    transform: translate(-50%);
 
     input {
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
       padding: 4px 6px;
     }
   }
 
-  h4 {
+  input.form-control.login {
+      margin-bottom: 20px;
+  }
+
+  input[type='radio']
+  {
+    display: inline-block;
+    width: 1px;
+    height: 1px;
+    transition: background-color .3s ease-in-out;
+    opacity: 0;
+    &:hover + label span
+    {
+      background-color: #f7f7f7;
+    }
+    &:checked + label span
+    {
+      background-color: #ccc;
+    }
+  }
+
+  input[type='submit']
+  {
+
+    /*margin-top: $baseline;*/
+    padding: 4px 12px;
+    cursor: pointer;
+
+    border: none;
+    font-size: 14px;
+
+    @extend .default-font;
+    @extend .p;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    &:hover
+    {
+      color: white;
+      background-color: #ccc;
+    }
+  }
+
+  #remember-me {
 
     label {
-      margin-bottom: 15px;
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
+      color: white;
+
+      span {
+        display: inline-block;
+        position: relative;
+
+        top: 2px;
+        margin-right: 5px;
+
+        width: 1em;
+        height: 1em;
+
+        transition: background-color .2s ease-in-out;
+        border: 1px solid white;
+        border-radius: 1em;
+
+
+        @media ( min-width: $desktop ) {
+          top: 2px;
+        }
+      }
+    }
+  }
+  #forgot-password {
+
+    p {
+      margin-top: 40px;
+      position: relative;
+      left: 50%;
+      color: #ccc;
+      transform: translate(-50%);
     }
   }
 }

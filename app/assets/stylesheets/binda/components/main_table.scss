@@ -1,28 +1,29 @@
-.main-table--row {
-	margin: 0;
+.main-table--div {
 
-	> div {
-		width: 100%;
-		padding-bottom: $font-size-base;
-		margin-bottom: $font-size-base * 2;
-		background-color: #FFF;
-		@extend .box-shadowed;
-	}
+  table {
 
-	table {
-		border-bottom: 1px solid #CCC;
+    width: 100%;
+    border-bottom: 1px solid #666666;
 
-		td:last-child {
-			text-align: right;
+    td {
 
-			span {
-				margin-left: $font-size-base;
+      padding: 6px;
 
-				&:not(:first-child) {
-					border-left: 1px solid #CCC;
-					padding-left: $font-size-base;
-				}
-			}
-		}
-	}
+      border-bottom: 1px solid $color-gray-lighter;
+    }
+
+    td:last-child {
+      text-align: right;
+
+      span {
+        margin-left: $font-size-base;
+
+        &:not(:first-child) {
+          border-left: 1px solid #CCC;
+          padding-left: $font-size-base;
+        }
+      }
+    }
+
+  }
 }

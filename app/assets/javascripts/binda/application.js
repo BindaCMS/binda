@@ -30,5 +30,7 @@
 // Select2
 //= require select2/select2.full.min
 
+
 // Binda scripts
 //= require binda/dist/binda.bundle.js
+

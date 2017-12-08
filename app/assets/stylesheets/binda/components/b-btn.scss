@@ -2,7 +2,7 @@
 {
   transition: background-color .3s ease-out;
   color: $color-white;
-  background-color: $color-gray-darker;
+  background-color: #333333;
   border: 1px solid $color-gray-darker;
 }
 
@@ -41,7 +41,7 @@
 
 .b-btn
 {
-  padding: 8px 12px;
+  padding: 6px 12px;
   border-radius: 0;
   cursor: pointer;
 

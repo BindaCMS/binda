@@ -1,33 +1,101 @@
-<div class="row">
-  <div class="login">
-		
-		<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-		 
-		 	<div class="col-sm-12">
+<% content_for :background do %>
+  <div id="background-shader">
+    <script id="fragmentShader" type="shader">
+        precision   mediump   float;
+        varying     vec2      vTextureCoord;
+        uniform     float     uIsActive;
+        uniform     float     uIsIntro;
+        uniform     float     uTime;
+        uniform     vec2      uMouse;
+        uniform     vec2      uWindowSize;
+        uniform     float     uNumOfColors;
+        uniform     vec3      u1stColor;
+        uniform     vec3      u2ndColor;
+        uniform     vec3      u3rdColor;
 
-		  	<div class="form-inputs">
-          <h4><%= f.input :email, required: false, autofocus: true %></h4>
-          <h4><%= f.input :password, required: false %></h4>
-		  	</div>
-		  
-		  	<div class="update-form--button form-actions" id="login-button">
-		    <%= f.button :submit, "Log in" %>
-		  	</div>
 
-        <div class="form-inputs" id="remember-me">
-          <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-        </div>
+      vec2 hash22( vec2 p )
+      {
+        p = vec2( dot(p,vec2(127.1,311.7)),
+            dot(p,vec2(269.5,183.3)));
 
-        <div class="form-inputs" id="forgot-password">
-          <p>Forgot your password?</p>
-        </div>
-				<% end %>
+        return -1.0 + 2.0 * fract(sin(p)*43758.5453123);
+      }
 
-			</div>
+      float perlin_noise(vec2 p)
+      {
+        vec2 pi = floor(p);
+        vec2 pf = p-pi;
 
-			<div class="col-sm-12">
-				<%= render "binda/users/shared/links" %>
-			</div>
-	
-	</div>
+        vec2 w = pf*pf*(3.-2.*pf);
+
+        float f00 = dot(hash22(pi+vec2(.0,.0)) ,pf-vec2(.0,.0)) ;
+        float f01 = dot(hash22(pi+vec2(.0,1.)) ,pf-vec2(.0,1.)) ;
+        float f10 = dot(hash22(pi+vec2(1.0,0.)),pf-vec2(1.0,0.));
+        float f11 = dot(hash22(pi+vec2(1.0,1.)),pf-vec2(1.0,1.));
+
+        float xm1 = mix(f00,f10,w.x);
+        float xm2 = mix(f01,f11,w.x);
+
+        float ym = mix(xm1,xm2,w.y);
+        return ym;
+      }
+
+        void main()
+        {
+          float oscillation = sin( uTime ) * 0.5 + 0.5;
+          vec2  uv    = gl_FragCoord.xy / uWindowSize.xy;
+          vec3  color = u1stColor;
+
+          if ( uNumOfColors == 2.0 )
+          {
+            color = mix( u1stColor,  u2ndColor,  mix( uv.x, uv.y, 0.5 ) );
+          }
+          if ( uNumOfColors == 3.0 )
+          {
+            vec3 mix1  = mix( u1stColor, u2ndColor,  mix( uv.x, uv.y, 0.5 ) );
+            vec3 mix2  = mix( u2ndColor, u3rdColor,  mix( uv.y, uv.x, 0.5 ) );
+            color = mix( mix1, mix2, oscillation );
+          }
+
+          vec3 noise = vec3(
+             perlin_noise( uv * 10.0 )
+             * perlin_noise( vec2( 0.5 ) )
+           );
+
+          // Second Release
+          gl_FragColor = vec4( color + noise, 1.0 );
+        }
+    </script>
+  </div>
+<% end %>
+
+<div class="login">
+
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+      <div class="website-logo"></div>
+
+      <div class="form-inputs standard-form--container" id="login-form">
+        <h5 class="form-label">Email</h5>
+        <input class="form-control string email optional required login" type="email" value="" name="user[email]" id="user_email">
+
+        <h5 class="form-label">Password</h5>
+        <input class="form-control password optional string required login" type="password" name="user[password]" id="user_password">
+      </div>
+
+      <div class="update-form--button form-actions" id="login-button">
+        <input type="submit" value="Login" name="login" id="mc-embedded-subscribe" class="b-btn b-btn-default b-btn-alternative">
+      </div>
+
+      <div class="form-inputs" id="remember-me">
+        <input type="radio" name="login" id="mce-GENDER-0" data-waschecked="true"><label for="mce-GENDER-0"><span></span>Remember me</label>
+      </div>
+
+  <% end %>
+
+  <%= render "binda/users/shared/links" %>
+
 </div>
+
+
