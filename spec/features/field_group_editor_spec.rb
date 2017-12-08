@@ -31,29 +31,34 @@ describe "In field group editor, user", type: :feature, js: true do
 			add_new__button = "#form-item--field-group-#{field_group.id}--add-new"
 
 			find(add_new__button).click
+
+			# Upon clicking the 'add_new__button' link, a script clones and 
+			# changes the id of the new form item adding a suffix based on the number of clicks.
+			click_counter = 1
 			
 			# Make sure the form item appeared
-			# sleep 0.3
+			sleep 1
 
-			field_name_input = "field_group_new_field_settings__name"
-			field_name_value = "#{field_class.downcase.underscore}-test-1"
-			field_type_input = "field_group_new_field_settings__field_type"
+			field_name_input = "field_group_new_field_settings__name-#{click_counter}"
+			field_name_value = "#{field_class.downcase.underscore}-test-#{click_counter}"
+			field_type_input = "field_group_new_field_settings__field_type-#{click_counter}"
 
-			# A script clones and changes the id of the new form item.
-			# The '1' is because items gets numbered based on clicks on the 'add_new__button' link
-			within "#new-form-item-1" do
+			within "#new-form-item-#{click_counter}" do
 				fill_in field_name_input, with: field_name_value
 			end
-			select_id = first("select")[:id]
-			select2("#{field_class.downcase.underscore}", select_id)
+			select2("#{field_class.downcase.underscore}", field_type_input)
 			
 			click_button "save"
 
 			visit path_to_field_group
 
+
 			field_group.reload
 
 			within "#form-item-#{field_group.field_settings.first.id}" do
+				find('.form-item--toggle-button').click
+				# Make sure the form item appeared
+				sleep 1
 				expect(page).to have_field with: field_name_value 
 			end
 		end
@@ -71,19 +76,26 @@ describe "In field group editor, user", type: :feature, js: true do
 			wrapper = "#form-section--repeater-#{repeater.id}"
 
 			# create variable to be available throughout the example
-			select_id = ''
 			field_name_value = ''
+			field_type_input = ''
 
 			within wrapper do
 				find("#form-item--repeater-#{repeater.id}--add-new").click
-				field_name_input = "field_group_new_field_settings__name"
-				field_name_value = "#{field_class.downcase}-test-1"
-				field_type_input = "field_group_new_field_settings__field_type"
+
+				# Upon clicking the 'add_new__button' link, a script clones and 
+				# changes the id of the new form item adding a suffix based on the number of clicks.
+				click_counter = 1
+				
+				# Make sure the form item appeared
+				sleep 1
+
+				field_name_input = "field_group_new_field_settings__name-#{click_counter}"
+				field_name_value = "#{field_class.downcase}-test-#{click_counter}"
+				field_type_input = "field_group_new_field_settings__field_type-#{click_counter}"
 				fill_in field_name_input, with: field_name_value
-				select_id = first("select")[:id]
 			end
 
-			select2("#{field_class.downcase.underscore}", select_id)
+			select2("#{field_class.downcase.underscore}", field_type_input)
 			
 			click_button "save"
 
@@ -93,6 +105,9 @@ describe "In field group editor, user", type: :feature, js: true do
 			repeater.reload
 
 			within "#form-section--repeater-#{repeater.id}" do
+				find('.form-item--toggle-button').click
+				# Make sure the form item appeared
+				sleep 1
 				expect(page).to have_field class: "form-item--input", with: field_name_value 
 			end
 		end
@@ -106,16 +121,26 @@ describe "In field group editor, user", type: :feature, js: true do
 		path_to_field_group = binda.edit_structure_field_group_path( structure_id: @structure.slug, id: field_group.slug )
 
 		visit path_to_field_group
+				
+		within "#form-item-#{field_setting.id}" do
+			find('.form-item--toggle-button').click
+			# Make sure the form item appeared
+			sleep 1
+		end
 
 		label_field = "field_group_field_settings_attributes_0_choices_attributes_0_label"
 		fill_in label_field, with: "bar"
-
+			
 		expect(page).to have_field label_field, with: "bar"
 
 		click_button "save"
 
 		visit path_to_field_group
-
+		within "#form-item-#{field_setting.id}" do
+			find('.form-item--toggle-button').click
+			# Make sure the form item appeared
+			sleep 1
+		end
 		expect(page).to have_field label_field, with: "bar"
 	end
 

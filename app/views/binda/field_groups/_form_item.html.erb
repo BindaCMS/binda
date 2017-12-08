@@ -38,6 +38,7 @@
 		<% end %>
 	</div>
 
+
 	<% if ff.object.new_record? %>
 
 		<%# - - - - - - - - - - - - %>
@@ -81,6 +82,7 @@
       <%= ff.input :accepted_structure_ids, collection: Binda::Structure.all, as: :select, input_html: { multiple: true }, checked: ff.object.accepted_structures, include_blank: false, include_hidden: false %>
     </div>
 
+
 		<% choiceables = ['radio', 'selection', 'checkbox'] %>
 		<% if choiceables.include? ff.object.field_type %>
 
@@ -95,3 +97,4 @@
 	<div class="clearfix"></div>
 
 </div>
+
