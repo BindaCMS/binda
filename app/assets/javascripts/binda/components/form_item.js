@@ -76,6 +76,15 @@ function addNewItem( event )
 	// Remove class in order to remove styles, and change id so it's reachable when testing
 	$newChild.removeClass( 'form-item--new' ).attr( 'id', 'new-form-item-'+newFormItemId )
 
+	// // Update all ids to avoid duplication
+	$newChild.find('[id]').each(function(){
+		let oldId = $(this).attr('id')
+		let newId = oldId + '-' + newFormItemId
+		$(this).attr('id', newId )
+		let $forId = $newChild.find('[for='+ oldId +']')
+		if ( $forId.length > 0 ) { $forId.attr('for', newId) }
+	})
+
 	// Update height (max-height) of the new element
 	let $formItemEditor = $('#new-form-item-'+newFormItemId).find('.form-item--editor')
 	$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
@@ -84,6 +93,5 @@ function addNewItem( event )
 	newFormItemId++
 	_FormItemEditor.resize()
 
-	// Update select input for Select2 plugin
-	setupSelect2( $newChild.find('select') )
+	setupSelect2( $formItemEditor.find('select') )
 }

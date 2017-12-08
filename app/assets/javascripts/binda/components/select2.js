@@ -4,7 +4,7 @@
 
 export default function ()
 {
-	setupSelect2('select')
+	setupSelect2('.select2-item')
 }
 
 export function setupSelect2(target)

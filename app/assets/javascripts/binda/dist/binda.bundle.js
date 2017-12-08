@@ -377,6 +377,17 @@ function addNewItem(event) {
 	// Remove class in order to remove styles, and change id so it's reachable when testing
 	$newChild.removeClass('form-item--new').attr('id', 'new-form-item-' + newFormItemId);
 
+	// // Update all ids to avoid duplication
+	$newChild.find('[id]').each(function () {
+		var oldId = $(this).attr('id');
+		var newId = oldId + '-' + newFormItemId;
+		$(this).attr('id', newId);
+		var $forId = $newChild.find('[for=' + oldId + ']');
+		if ($forId.length > 0) {
+			$forId.attr('for', newId);
+		}
+	});
+
 	// Update height (max-height) of the new element
 	var $formItemEditor = $('#new-form-item-' + newFormItemId).find('.form-item--editor');
 	$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
@@ -385,8 +396,7 @@ function addNewItem(event) {
 	newFormItemId++;
 	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 
-	// Update select input for Select2 plugin
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($newChild.find('select'));
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($formItemEditor.find('select'));
 }
 
 /***/ }),
@@ -613,7 +623,7 @@ function addNewItem(target, event) {
  */
 
 /* harmony default export */ __webpack_exports__["a"] = function () {
-  setupSelect2('select');
+  setupSelect2('.select2-item');
 };
 
 function setupSelect2(target) {

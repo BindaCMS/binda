@@ -10,7 +10,7 @@
 
 	<%= ff.input :dependent_component_ids, collection: Binda::Component.where( structure_id: Binda::Structure.where( id: field_setting.accepted_structure_ids )).where.not(id: @instance.id), 
 		as: :select, 
-		input_html: { multiple: true }, 
+		input_html: { multiple: true, class: 'select2-item' }, 
 		value_method: :id, 
 		checked: ff.object.dependent_component_ids, 
 		include_blank: false, 
@@ -18,7 +18,7 @@
 
 	<%= ff.input :dependent_board_ids, collection: Binda::Board.where( structure_id: Binda::Structure.where( id: field_setting.accepted_structure_ids )), 
 		as: :select, 
-		input_html: { multiple: true }, 
+		input_html: { multiple: true, class: 'select2-item' }, 
 		value_method: :id, 
 		checked: ff.object.dependent_board_ids, 
 		include_blank: false, 
@@ -28,7 +28,7 @@
 
 	<%= ff.input :dependent_component_ids, collection: Binda::Component.where( structure_id: Binda::Structure.where( id: field_setting.accepted_structure_ids )), 
 		as: :select, 
-		input_html: { multiple: true }, 
+		input_html: { multiple: true, class: 'select2-item' }, 
 		value_method: :id, 
 		checked: ff.object.dependent_component_ids, 
 		include_blank: false, 
@@ -36,7 +36,7 @@
 
 	<%= ff.input :dependent_board_ids, collection: Binda::Board.where( structure_id: Binda::Structure.where( id: field_setting.accepted_structure_ids )).where.not(id: @instance.id), 
 		as: :select, 
-		input_html: { multiple: true }, 
+		input_html: { multiple: true, class: 'select2-item' }, 
 		value_method: :id, 
 		checked: ff.object.dependent_board_ids, 
 		include_blank: false, 
