@@ -680,14 +680,26 @@ function setupSelect2(target) {
 		$('.sortable--disabled').sortable('disable');
 	}
 
+	// If there is a sortable toggle button prepare the sortable items accordingly
+	if ($('.sortable--toggle').length > 0) {
+		setupSortableToggle();
+	}
+
+	// Add event to any sortable toggle button
 	$(document).on('click', '.sortable--toggle', function (event) {
 		event.preventDefault();
 		var id = '#' + $(this).data('repeater-id');
 
 		if ($(id).hasClass('sortable--disabled')) {
 			$(id).sortable('enable');
+			$(id).find('.form-item--repeater-fields').each(function () {
+				this.style.maxHeight = '0px';
+			});
 		} else {
 			$(id).sortable('disable');
+			$(id).find('.form-item--repeater-fields').each(function () {
+				this.style.maxHeight = this.scrollHeight + "px";
+			});
 		}
 
 		$(id).toggleClass('sortable--disabled');
@@ -695,6 +707,15 @@ function setupSelect2(target) {
 		$(this).children('.sortable--toggle-text').toggle();
 	});
 };
+
+function setupSortableToggle() {
+	$('.sortable--toggle').each(function () {
+		var id = '#' + $(this).data('repeater-id');
+		$(id).find('.form-item--repeater-fields').each(function () {
+			this.style.maxHeight = this.scrollHeight + "px";
+		});
+	});
+}
 
 /***/ }),
 /* 10 */

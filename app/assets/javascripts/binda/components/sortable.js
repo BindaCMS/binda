@@ -36,18 +36,47 @@ export default function()
 	  $('.sortable--disabled').sortable('disable')
 	}
 
+	// If there is a sortable toggle button prepare the sortable items accordingly
+	if ( $('.sortable--toggle').length > 0 ) { setupSortableToggle() }
+
+	// Add event to any sortable toggle button
 	$(document).on('click', '.sortable--toggle', function( event )
 	{
 		event.preventDefault()
 		let id = '#' + $( this ).data('repeater-id')
 
 		if ( $( id ).hasClass('sortable--disabled') )
-			{ $( id ).sortable('enable') }
+		{ 
+			$( id ).sortable('enable')
+			$( id ).find('.form-item--repeater-fields').each(function()
+			{
+				this.style.maxHeight = '0px'
+			})
+		}
 		else
-			{ $( id ).sortable('disable') }
+		{ 
+			$( id ).sortable('disable')
+			$( id ).find('.form-item--repeater-fields').each(function()
+			{
+				this.style.maxHeight = this.scrollHeight + "px";
+			})
+		}
 
 	 	$( id ).toggleClass('sortable--disabled')
 	 	$( id ).toggleClass('sortable--enabled')
 	 	$( this ).children('.sortable--toggle-text').toggle()
+	})
+}
+
+
+function setupSortableToggle() 
+{
+	$('.sortable--toggle').each(function()
+	{
+		let id = '#' + $( this ).data('repeater-id')
+		$( id ).find('.form-item--repeater-fields').each(function()
+		{
+			this.style.maxHeight = this.scrollHeight + "px";
+		})
 	})
 }
