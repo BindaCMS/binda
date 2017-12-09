@@ -52,7 +52,7 @@ class Shader {
             let HEXcolor = this.colors[i]
             // Convert to RGB
             let ShaderRGBcolor = hexToShaderRgb( HEXcolor )
-            if ( i == 0 ) {
+            if ( i === 0 ) {
                 this.uniforms.u1stColor.value = [ ShaderRGBcolor.r, ShaderRGBcolor.g, ShaderRGBcolor.b ]
                 this.uniforms.uNumOfColors.value = 1.0
             }

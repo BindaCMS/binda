@@ -4,7 +4,7 @@ export default function()
         let $radio = $(this);
 
         // if this was previously checked
-        if ($radio.data('waschecked') == true)
+        if ($radio.data('waschecked') === true)
         {
             $radio.prop('checked', false);
             $radio.data('waschecked', false);
