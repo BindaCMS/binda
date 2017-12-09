@@ -44,7 +44,7 @@ class Shader {
             uWindowSize  : { type: '2f', value: [ window.innerWidth, window.innerHeight ] }
         }
 
-        this.colors = [ '#333333', '#6f0342', '#777777' ]
+        this.colors = [ '#999999', '#CCCCCC', '#DDDDDD' ]
 
         for ( let i = 0; i < this.colors.length; i++ ) {
 

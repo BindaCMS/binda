@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
     <title>Binda CMS -- <%= controller_name.capitalize %> <%= action_name.capitalize %></title>
     <%= csrf_meta_tags %>
     <%= tinymce %>
+
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,600" rel="stylesheet">
 	  <%= stylesheet_link_tag    "binda/application", media: "all" %>
+
+    <% if controller_name == 'sessions' && action_name == 'new' %>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
+    <% end %>
 	  <%= javascript_include_tag "binda/application" %>
   </head>
 
