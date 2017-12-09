@@ -131,6 +131,34 @@ var _FormItemEditor = new FormItemEditor();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = setupSelect2;
+/**
+ * OPTIONAL (SELECT2 PLUGIN)
+ */
+
+/* harmony default export */ __webpack_exports__["a"] = function () {
+	setupSelect2('.select2-item');
+};
+
+function setupSelect2(target) {
+	$(target).each(function () {
+		var placeholder = $(this).attr('placeholder');
+		if (typeof placeholder == 'undefined') {
+			placeholder = 'Select a option';
+		}
+
+		$(this).select2({
+			minimumResultsForSearch: 32, // 31 are max number of day in a month, which you don't want to be searchable
+			placeholder: placeholder
+		});
+	});
+}
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /**
  * BOOSTRAP SCRIPT
  */
@@ -141,7 +169,7 @@ var _FormItemEditor = new FormItemEditor();
 };
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -163,7 +191,7 @@ var _FormItemEditor = new FormItemEditor();
 };
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -287,12 +315,12 @@ function remove_preview(event) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -400,7 +428,7 @@ function addNewItem(event) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -475,7 +503,7 @@ var FormItemChoice = function () {
 var _FormItemChoice = new FormItemChoice();
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -515,12 +543,12 @@ var FormItemImage = function () {
 var _FormItemImage = new FormItemImage();
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -613,34 +641,6 @@ function addNewItem(target, event) {
 }
 
 /***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = setupSelect2;
-/**
- * OPTIONAL (SELECT2 PLUGIN)
- */
-
-/* harmony default export */ __webpack_exports__["a"] = function () {
-	setupSelect2('.select2-item');
-};
-
-function setupSelect2(target) {
-	$(target).each(function () {
-		var placeholder = $(this).attr('placeholder');
-		if (typeof placeholder == 'undefined') {
-			placeholder = 'Select a option';
-		}
-
-		$(this).select2({
-			minimumResultsForSearch: 32, // 31 are max number of day in a month, which you don't want to be searchable
-			placeholder: placeholder
-		});
-	});
-}
-
-/***/ }),
 /* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -723,19 +723,25 @@ function setupSortableToggle() {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sortable__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_bootstrap__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_select2__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_shader__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_shader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_login_shader__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_sortable__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_bootstrap__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_select2__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_radio_toggle___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
+
+
 
 
 
@@ -767,11 +773,27 @@ $(document).ready(function () {
 	if (__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
 	}
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__components_sortable__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_bootstrap__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_select2__["a" /* default */])();
+	__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["_Shader"].setup();
+	__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["_Shader"].start();
+
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__["default"])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_sortable__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_bootstrap__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__components_select2__["a" /* default */])();
 });
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: Error: Module failed in cause of jshint error.\n    at Object.jsHint (/Users/ab/Sites/_assets/binda/node_modules/jshint-loader/index.js:130:9)\n    at Object.<anonymous> (/Users/ab/Sites/_assets/binda/node_modules/jshint-loader/index.js:149:11)\n    at Object.<anonymous> (/Users/ab/Sites/_assets/binda/node_modules/jshint-loader/index.js:40:12)\n    at respond (/Users/ab/Sites/_assets/binda/node_modules/rcloader/index.js:68:7)\n    at respond (/Users/ab/Sites/_assets/binda/node_modules/rcfinder/index.js:140:7)\n    at next (/Users/ab/Sites/_assets/binda/node_modules/rcfinder/index.js:167:16)\n    at _combinedTickCallback (internal/process/next_tick.js:67:7)\n    at process._tickCallback (internal/process/next_tick.js:98:9)");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: Error: Module failed in cause of jshint error.\n    at Object.jsHint (/Users/ab/Sites/_assets/binda/node_modules/jshint-loader/index.js:130:9)\n    at Object.<anonymous> (/Users/ab/Sites/_assets/binda/node_modules/jshint-loader/index.js:149:11)\n    at Object.<anonymous> (/Users/ab/Sites/_assets/binda/node_modules/jshint-loader/index.js:40:12)\n    at respond (/Users/ab/Sites/_assets/binda/node_modules/rcloader/index.js:68:7)\n    at respond (/Users/ab/Sites/_assets/binda/node_modules/rcfinder/index.js:140:7)\n    at next (/Users/ab/Sites/_assets/binda/node_modules/rcfinder/index.js:167:16)\n    at _combinedTickCallback (internal/process/next_tick.js:67:7)\n    at process._tickCallback (internal/process/next_tick.js:98:9)");
 
 /***/ })
 /******/ ]);

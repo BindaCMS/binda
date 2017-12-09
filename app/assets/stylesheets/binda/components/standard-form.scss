@@ -85,7 +85,7 @@
 
 .standard-form--header
 {
-  padding: 8px 12px;
+  padding: 8px 6px;
   background-color: $color-gray-darker;
 
   p
@@ -94,4 +94,14 @@
     margin-bottom: 0;
     color: $color-white;
   }
+
+  a
+  {
+    margin-bottom: 0;
+    color: white;
+  }
+}
+
+td {
+  border-top: none !important;
 }
