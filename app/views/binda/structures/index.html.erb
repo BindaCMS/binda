@@ -19,7 +19,7 @@
         
         <tbody>
           <% @structures.order( :name ).each do |structure| %>
-            <tr id="structure_<%= structure.id %>">
+            <tr class="hover" id="structure_<%= structure.id %>">
 
               <td><%= link_to structure.name, structure_path(structure) %></td>
               <td>

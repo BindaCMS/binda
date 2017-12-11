@@ -106,8 +106,12 @@ td {
   border-top: none !important;
 }
 
-tr:hover {
+tr.hover:hover {
   background: white;
+}
+
+.no-hover {
+  background: none;
 }
 
 tr {

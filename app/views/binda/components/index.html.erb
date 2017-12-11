@@ -55,7 +55,7 @@
         </thead>
         <tbody>
           <% @components.each do |component| %>
-            <tr id="component_<%= component.id %>">
+            <tr class="hover" id="component_<%= component.id %>">
               <td><%= link_to component.name, structure_component_path( @structure.slug, component ) %></td>
               <td><%= component.publish_state %></td>
               <td>
