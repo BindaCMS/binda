@@ -32,10 +32,12 @@
           <% end %>
         <tbody>
       </table>
-    
-    <%= paginate @structures %>
-    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
-        
+
+    <div class="button-div">
+      <%= paginate @structures %>
+      <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
+    </div>
+
   </div>
 
 <% end %>

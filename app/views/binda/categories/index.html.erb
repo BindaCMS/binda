@@ -30,8 +30,10 @@
           <% end %>
         <tbody>
       </table>
-    
-    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i>New #{ t(:category).capitalize }".html_safe, new_structure_category_path, class: 'main-header--link b-btn b-btn-primary' %>
-        
+
+    <div class="button-div">
+      <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i>New #{ t(:category).capitalize }".html_safe, new_structure_category_path, class: 'main-header--link b-btn b-btn-primary' %>
+    </div>
+
   </div>
 <% end %>
