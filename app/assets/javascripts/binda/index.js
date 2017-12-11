@@ -29,7 +29,6 @@ $(document).ready( function()
 		_Shader.setup()
 		_Shader.start()
   }
-
 	setupRadioToggle()
 	setupSortable()
 	setupFieldGroupEditor()

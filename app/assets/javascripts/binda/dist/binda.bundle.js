@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -136,9 +136,9 @@ var _FormItemEditor = new FormItemEditor();
  * OPTIONAL (SELECT2 PLUGIN)
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
 	setupSelect2('.select2-item');
-};
+});
 
 function setupSelect2(target) {
 	$(target).each(function () {
@@ -163,10 +163,10 @@ function setupSelect2(target) {
  * BOOSTRAP SCRIPT
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
   // See https://v4-alpha.getbootstrap.com/components/tooltips/#example-enable-tooltips-everywhere
   $('[data-toggle="tooltip"]').tooltip();
-};
+});
 
 /***/ }),
 /* 3 */
@@ -177,7 +177,7 @@ function setupSelect2(target) {
  * FIELD GROUP EDITOR
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
 	$('.field_groups-edit #save').on('click', function (event) {
 		var instanceType = $(this).data('instance-type');
 		var entriesNumber = $(this).data('entries-number');
@@ -188,7 +188,7 @@ function setupSelect2(target) {
 			alert('You have ' + entriesNumber + ' ' + instanceType + '. This operation might take some time to complete. To avoid unexpected behaviour don\'t leave or refresh the page');
 		}
 	});
-};
+});
 
 /***/ }),
 /* 4 */
@@ -319,9 +319,9 @@ function remove_preview(event) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -432,8 +432,8 @@ function addNewItem(event) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemChoice; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -547,9 +547,9 @@ var _FormItemImage = new FormItemImage();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -866,7 +866,7 @@ function hexToShaderRgb(hex) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
     $('input[name="login"]').click(function () {
         var $radio = $(this);
 
@@ -879,10 +879,11 @@ function hexToShaderRgb(hex) {
         // remove was checked from other radios
         $radio.siblings('input[name="login"]').data('waschecked', false);
     });
-};
+});
 
 /***/ }),
-/* 11 */
+/* 11 */,
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -890,7 +891,7 @@ function hexToShaderRgb(hex) {
  * SORTABLE
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
 	if ($('.sortable').length > 0) {
 		// Initialize sortable item
 		$('.sortable').sortable({
@@ -947,7 +948,7 @@ function hexToShaderRgb(hex) {
 		$(id).toggleClass('sortable--enabled');
 		$(this).children('.sortable--toggle-text').toggle();
 	});
-};
+});
 
 function setupSortableToggle() {
 	$('.sortable--toggle').each(function () {
@@ -959,7 +960,7 @@ function setupSortableToggle() {
 }
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -971,7 +972,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_shader__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_sortable__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_sortable__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_bootstrap__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_select2__ = __webpack_require__(1);
@@ -1017,7 +1018,6 @@ $(document).ready(function () {
 		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
 		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].start();
 	}
-
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__["a" /* default */])();
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_sortable__["a" /* default */])();
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__["a" /* default */])();
