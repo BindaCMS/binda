@@ -1,6 +1,6 @@
 <% content_for :header do %>
   <div class="main-header--buttons">
-    <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path , class: 'main-header--link btn btn-primary' %>    
+    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path , class: 'main-header--link b-btn b-btn-primary' %>
   </div>
 
   <h3>Sort <%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></h3>
@@ -42,7 +42,7 @@
         <tbody>
       </table>
 
-    <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path, class: 'main-header--link btn btn-default', action: "new" %>    
+    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path, class: 'main-header--link b-btn b-btn-primary', action: "new" %>
         
   </div>
 <% end %>

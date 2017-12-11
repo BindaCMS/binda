@@ -112,6 +112,10 @@ tr:hover {
 
 tr {
   border-bottom: 1px solid #c1c1c1;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid #333333;
+  border-right: 1px solid #333333;
+}
+
+tr:last-child {
+  border-bottom: 1px solid #333333;
 }

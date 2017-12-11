@@ -74,8 +74,10 @@
         <%= paginate @components %>
       </div>
 
-      <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path, class: 'main-header--link b-btn b-btn-primary', action: "new" %>
-      <%= get_sort_index_link %>
+      <div class="button-div">
+        <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path, class: 'main-header--link b-btn b-btn-primary', action: "new" %>
+        <%= get_sort_index_link %>
+      </div>
 
     </div>
 
