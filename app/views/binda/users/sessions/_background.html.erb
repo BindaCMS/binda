@@ -24,7 +24,7 @@
     //     Lastmod : 20110409 (stegu)
     //     License : Copyright (C) 2011 Ashima Arts. All rights reserved.
     //               Distributed under the MIT License. See LICENSE file.
-    //
+    // --> https://github.com/ashima/webgl-noise
 
     vec4 permute( vec4 x ) {
 
@@ -129,14 +129,28 @@
 
     void main()
     {
+      // Get viewport coordinates
       vec2  uv    = gl_FragCoord.xy / uWindowSize.xy;
+      
+      // Translate coordinates
       uv += uCurrentTime;
-      vec3  color = u1stColor;
 
+      // Generates a coloured noise
+      vec3 noise = vec3(
+         clamp( surface( vec3( uv, oscillation(.30) - 0.35)), 0.2, 0.8 ),
+         clamp( surface( vec3( uv, oscillation(.30) - 0.45)), 0.25, 1.0 ),
+         clamp( surface( vec3( uv, oscillation(.30) - 0.55)), 0.3, 1.0 )
+       );
+
+      // // Get first color
+      vec3 color = u1stColor;
+
+      // // If there's a second color, mix it with first one
       if ( uNumOfColors == 2.0 )
       {
         color = mix( u1stColor,  u2ndColor,  mix( uv.x, uv.y, 0.5 ) );
       }
+      // If there's a third color, mix it with the previous ones
       if ( uNumOfColors == 3.0 )
       {
         vec3 mix1  = mix( u1stColor, u2ndColor,  mix( uv.x, uv.y, 0.5 ) );
@@ -144,15 +158,10 @@
         color = mix( mix1, mix2, oscillation( 1.0 ) );
       }
 
-      vec3 noise = vec3(
-         clamp( surface( vec3( uv, oscillation(.30) - 0.35)), 0.2, 0.8 ),
-         clamp( surface( vec3( uv, oscillation(.30) - 0.45)), 0.25, 1.0 ),
-         clamp( surface( vec3( uv, oscillation(.30) - 0.55)), 0.3, 1.0 )
-       );
-
-      vec3 final = mix( noise, u1stColor, clamp( oscillation(.20), 0.1, 0.5 ) );
+      // Mix coloured noise with color and get somethig we call "final"
+      vec3 final = mix( noise, color, clamp( oscillation(.20), 0.1, 0.5 ) );
 
       // Second Release
-      gl_FragColor = vec4( noise, 1.0 );
+      gl_FragColor = vec4( final, 1.0 );
     }
 </script>
