@@ -9,6 +9,9 @@ export default function()
 		// Initialize sortable item
 		$('.sortable')
 			.sortable({
+				stop: function(event, ui){
+					ui.item.css('z-index', 0)
+				},
 		  	placeholder: "ui-state-highlight",
 		  	update: function () {
 		  		if ( $('.sortable-warning').length > 0 ) {
@@ -48,18 +51,14 @@ export default function()
 		if ( $( id ).hasClass('sortable--disabled') )
 		{ 
 			$( id ).sortable('enable')
-			$( id ).find('.form-item--repeater-fields').each(function()
-			{
-				this.style.maxHeight = '0px'
-			})
+			$( id ).find('.form-item--repeater-fields').each(close)
 		}
 		else
 		{ 
 			$( id ).sortable('disable')
-			$( id ).find('.form-item--repeater-fields').each(function()
-			{
-				this.style.maxHeight = this.scrollHeight + "px";
-			})
+			// Make sure no repeater item has max-height set
+			$(id).find('.form-item--repeater').each(function(){ this.style.maxHeight = null })
+			$( id ).find('.form-item--repeater-fields').each(open)
 		}
 
 	 	$( id ).toggleClass('sortable--disabled')
@@ -74,9 +73,16 @@ function setupSortableToggle()
 	$('.sortable--toggle').each(function()
 	{
 		let id = '#' + $( this ).data('repeater-id')
-		$( id ).find('.form-item--repeater-fields').each(function()
-		{
-			this.style.maxHeight = this.scrollHeight + "px";
-		})
+		$( id ).find('.form-item--repeater-fields').each(open)
 	})
+}
+
+function close()
+{
+	this.style.maxHeight = '0px'
+}
+
+function open()
+{
+	this.style.maxHeight = this.scrollHeight + "px";
 }

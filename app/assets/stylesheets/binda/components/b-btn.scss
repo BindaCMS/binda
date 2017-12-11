@@ -8,12 +8,16 @@
 
 .b-btn-primary
 {
-  &:hover,
-  &:focus
+  &:hover
   {
     color: $color-white;
     border: 1px solid $color-gray;
     background-color: $color-gray;
+  }
+
+  &:focus
+  {
+    color: $color-white;
   }
 }
 
@@ -26,11 +30,15 @@
 
 .b-btn-danger
 {
-  &:hover,
-  &:focus
+  &:hover
   {
     color: $color-white;
     background-color: darken($color-danger, 15%);
+  }
+
+  &:focus
+  {
+    color: $color-white;
   }
 }
 
@@ -44,11 +52,15 @@
 
 .b-btn-outline-danger
 {
-  &:hover,
-  &:focus
+  &:hover
   {
     color: $color-white;
     background-color: $color-danger;
+  }
+
+  &:focus
+  {
+    color: $color-white;
   }
 }
 
@@ -61,8 +73,7 @@
 
 .b-btn-alternative
 {
-  &:hover,
-  &:focus
+  &:hover
   {
     color: $text-color;
     background-color: $color-gray-light;
