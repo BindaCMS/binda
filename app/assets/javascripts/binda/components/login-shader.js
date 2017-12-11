@@ -32,38 +32,10 @@ class Shader {
         let currentTime = Math.sin( Date.now() ) + 0.5
 
         this.uniforms = {
-            uNumOfColors : { type: '1f', value: 0.0 },
-            u1stColor    : { type: '3f', value: [ 1.0, 1.0, 1.0 ]},
-            u2ndColor    : { type: '3f', value: [ 1.0, 1.0, 1.0 ]},
-            u3rdColor    : { type: '3f', value: [ 1.0, 1.0, 1.0 ]},
-            uIsActive    : { type: '1f', value: 1.0 },
-            uIsIntro     : { type: '1f', value: 0.0 },
             uTime        : { type: '1f', value: 0.0 },
             uCurrentTime : { type: '1f', value: currentTime },
             uMouse       : { type: '2f', value: [ window.innerWidth, window.innerHeight ] },
             uWindowSize  : { type: '2f', value: [ window.innerWidth, window.innerHeight ] }
-        }
-
-        this.colors = [ '#CCCCCC', '#808080', '#B3B3B3' ]
-
-        for ( let i = 0; i < this.colors.length; i++ ) {
-
-            // Get HEX color from PHP variable which is retrived from a custom field
-            let HEXcolor = this.colors[i]
-            // Convert to RGB
-            let ShaderRGBcolor = hexToShaderRgb( HEXcolor )
-            if ( i === 0 ) {
-                this.uniforms.u1stColor.value = [ ShaderRGBcolor.r, ShaderRGBcolor.g, ShaderRGBcolor.b ]
-                this.uniforms.uNumOfColors.value = 1.0
-            }
-            else if ( i == 1 ) {
-                this.uniforms.u2ndColor.value = [ ShaderRGBcolor.r, ShaderRGBcolor.g, ShaderRGBcolor.b ]
-                this.uniforms.uNumOfColors.value = 2.0
-            }
-            else if ( i == 2 ) {
-                this.uniforms.u3rdColor.value = [ ShaderRGBcolor.r, ShaderRGBcolor.g, ShaderRGBcolor.b ]
-                this.uniforms.uNumOfColors.value = 3.0
-            }
         }
 
         this.customShader = new PIXI.AbstractFilter(null, fragmentShader, this.uniforms)
@@ -77,7 +49,7 @@ class Shader {
         this.rectangle = new PIXI.Graphics()
 
         // Set the default background color wo if browser doesn't support the filter we still see the primary color
-        let colorWithHash = this.colors[0]
+        let colorWithHash = '#FF00FF'
         const colorWith0x = '0x' + colorWithHash.slice( 1, 7 )
         this.rectangle.beginFill( colorWith0x )
 
