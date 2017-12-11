@@ -82,7 +82,7 @@
 	<%# ADD NEW REPEATER FIELDS     %>
 	<%# - - - - - - - - - - - - - - %>
 	<a id="form-item--repeater-<%= repeater_setting.id %>--add-new-button" class="form-item--repeater-section--add-new main-header--link b-btn b-btn-primary" href="#" data-url="<%= url_for([@structure, @instance, :new_repeater]) %>" data-id="<%= repeater_setting.id %>">
-	  <%= t('binda.new_item_in_repeater', arg1: repeater_setting.name.capitalize ) %>
+	  <i class="fas fa-plus"></i> <%= t('binda.new_item_in_repeater', arg1: repeater_setting.name.capitalize ) %>
 	</a>
 
 	<div class="clearfix"></div>
