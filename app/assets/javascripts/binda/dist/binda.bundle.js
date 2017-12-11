@@ -595,7 +595,7 @@ var FormItemRepeater = function () {
 				// Stop default behaviour
 				event.preventDefault();
 
-				if (!confirm($(this).data('confirm'))) return;
+				// if ( !confirm($(this).data('confirm')) ) return
 
 				$.ajax({
 					url: $(this).attr('href'),
