@@ -103,11 +103,6 @@
     @extend .p;
     -webkit-appearance: none;
     -moz-appearance: none;
-    &:hover
-    {
-      color: white;
-      background-color: #ccc;
-    }
   }
 
   #remember-me {

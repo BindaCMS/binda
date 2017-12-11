@@ -655,11 +655,20 @@ var Shader = function () {
         _classCallCheck(this, Shader);
     }
 
-    // SETUP SHADER
-
-
     _createClass(Shader, [{
-        key: "setup",
+        key: 'isSet',
+        value: function isSet() {
+            if ($('#background-shader').length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // SETUP SHADER
+
+    }, {
+        key: 'setup',
         value: function setup() {
 
             var Container = PIXI.Container,
@@ -702,7 +711,7 @@ var Shader = function () {
         // DRAW RECTANGLE
 
     }, {
-        key: "drawRectagle",
+        key: 'drawRectagle',
         value: function drawRectagle() {
 
             this.rectangle = new PIXI.Graphics();
@@ -726,7 +735,7 @@ var Shader = function () {
         // START ANIMATION
 
     }, {
-        key: "start",
+        key: 'start',
         value: function start() {
             animate();
         }
@@ -734,7 +743,7 @@ var Shader = function () {
         // MOUSE UPDATE
 
     }, {
-        key: "mouseUpdate",
+        key: 'mouseUpdate',
         value: function mouseUpdate(event) {
 
             // If uniforms haven't been set yet don't do anything and exit
@@ -747,7 +756,7 @@ var Shader = function () {
         // RESIZE
 
     }, {
-        key: "resize",
+        key: 'resize',
         value: function resize() {
 
             // let scale = scaleToWindow( this.renderer.view )
@@ -851,11 +860,6 @@ function hexToShaderRgb(hex) {
     /* init - you can init any event */
     throttle("resize", "optimizedResize");
 })();
-
-// handle event
-window.addEventListener("optimizedResize", function () {
-    _Shader.resize();
-});
 
 /***/ }),
 /* 10 */
@@ -1008,14 +1012,24 @@ $(document).ready(function () {
 	if (__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
 	}
-	__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
-	__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].start();
+
+	if (__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
+		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].start();
+	}
 
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__["a" /* default */])();
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_sortable__["a" /* default */])();
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__["a" /* default */])();
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_bootstrap__["a" /* default */])();
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__components_select2__["a" /* default */])();
+});
+
+// handle event
+window.addEventListener("optimizedResize", function () {
+	if (__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].resize();
+	}
 });
 
 /***/ })

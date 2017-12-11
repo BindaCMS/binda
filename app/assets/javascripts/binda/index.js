@@ -23,8 +23,12 @@ $(document).ready( function()
 	if ( _FormItemChoice.isSet() )   { _FormItemChoice.setEvents() }
 	if ( _FormItemEditor.isSet() )   { _FormItemEditor.setEvents() }
 	if ( _FileUpload.isSet() )       { _FileUpload.setEvents() }
-  _Shader.setup()
-  _Shader.start()
+  
+  if ( _Shader.isSet() ) 
+  {
+		_Shader.setup()
+		_Shader.start()
+  }
 
 	setupRadioToggle()
 	setupSortable()
@@ -32,3 +36,8 @@ $(document).ready( function()
 	setupBootstrap()
 	setupSelect2()
 })
+
+// handle event
+window.addEventListener("optimizedResize", function() {
+  if ( _Shader.isSet() ) { _Shader.resize() }
+});

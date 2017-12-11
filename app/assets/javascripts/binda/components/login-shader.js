@@ -1,6 +1,12 @@
 class Shader {
     constructor(){}
 
+    isSet()
+    {
+        if ( $('#background-shader').length > 0 ) { return true }
+        else { return false }
+    }
+
     // SETUP SHADER
     setup () {
 
@@ -184,10 +190,4 @@ function hexToShaderRgb( hex ) {
     /* init - you can init any event */
     throttle("resize", "optimizedResize");
 })();
-
-
-// handle event
-window.addEventListener("optimizedResize", function() {
-    _Shader.resize()
-});
 
