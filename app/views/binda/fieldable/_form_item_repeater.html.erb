@@ -1,15 +1,25 @@
 <div id="standard-form--repeater-<%= repeater_setting.id %>" class="form-item--label-on-left form-item--repeater-section standard-form--repeater form-group">
   
 	<div class="form-item--repeater-title">
-		<a class="sortable--toggle" href="#" data-repeater-id="form-item--repeater-setting-<%= repeater_setting.id %>">
-			<span class="b-btn b-btn-primary sortable--toggle-text">
+
+		<%# SORT REPEATER FIELDS %>
+		<a class="b-btn b-btn-primary sortable--toggle" href="#" data-repeater-id="form-item--repeater-setting-<%= repeater_setting.id %>">
+			<span class="sortable--toggle-text">
 				<i class="fa fa-check" aria-hidden="true"></i> Done
 			</span>
-			<span class="b-btn b-btn-primary sortable--toggle-text">
+			<span class="sortable--toggle-text">
 				<i class="fa fa-random" aria-hidden="true"></i> Sort items
 			</span>
 		</a>
-		<p class="control-label"><%= repeater_setting.name.capitalize %></p>
+		
+		<%# ADD NEW REPEATER FIELDS %>
+		<a id="form-item--repeater-<%= repeater_setting.id %>--add-new-button" class="form-item--repeater-section--add-new main-header--link b-btn b-btn-primary" href="#" data-url="<%= url_for([@structure, @instance, :new_repeater]) %>" data-id="<%= repeater_setting.id %>">
+		  <i class="fas fa-plus"></i> <%= t('binda.new_item_in_repeater', arg1: repeater_setting.name.capitalize ) %>
+		</a>
+		
+		<%# REPEATER NAME %>
+		<p class="control-label clearfix"><%= repeater_setting.name.capitalize %></p>
+	
 	</div>
 
 	<ul id="form-item--repeater-setting-<%= repeater_setting.id %>" class="sortable sortable--disabled" data-update-url="<%= url_for([@structure, @instance, :sort_repeaters]) %>">
@@ -76,14 +86,6 @@
 
 		<% end %>
 	</ul>
-
-
-	<%# - - - - - - - - - - - - - - %>
-	<%# ADD NEW REPEATER FIELDS     %>
-	<%# - - - - - - - - - - - - - - %>
-	<a id="form-item--repeater-<%= repeater_setting.id %>--add-new-button" class="form-item--repeater-section--add-new main-header--link b-btn b-btn-primary" href="#" data-url="<%= url_for([@structure, @instance, :new_repeater]) %>" data-id="<%= repeater_setting.id %>">
-	  <i class="fas fa-plus"></i> <%= t('binda.new_item_in_repeater', arg1: repeater_setting.name.capitalize ) %>
-	</a>
 
 	<div class="clearfix"></div>
 

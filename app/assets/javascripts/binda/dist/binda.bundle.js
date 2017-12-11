@@ -590,20 +590,31 @@ var FormItemRepeater = function () {
 			});
 
 			$(document).on('click', '.form-item--delete-repeater-item', function (event) {
-				var _this = this;
-
 				// Stop default behaviour
 				event.preventDefault();
 
 				// if ( !confirm($(this).data('confirm')) ) return
 
+				var record_id = $(this).data('id');
+				var target = $('#repeater_' + record_id).get(0);
+				// As max-height isn't set you need to set it manually before changing it, 
+				// otherwise the animation doesn't get triggered
+				target.style.maxHeight = target.scrollHeight + 'px';
+				// Change max-height after 50ms to trigger css animation
+				setTimeout(function () {
+					target.style.maxHeight = 0 + 'px';
+				}, 50);
+
 				$.ajax({
 					url: $(this).attr('href'),
-					data: { id: $(this).data('id'), isAjax: true },
+					data: { id: record_id, isAjax: true },
 					method: "DELETE"
 				}).done(function () {
-					$(_this).parents('.form-item--repeater').remove();
-					__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+					// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
+					setTimeout(function () {
+						$(target).remove();
+					}, 700);
+					// _FormItemEditor.resize()
 				});
 			});
 		}
@@ -629,14 +640,44 @@ function addNewItem(target, event) {
 	var $list = $('#form-item--repeater-setting-' + id);
 	var url = $(target).data('url');
 	$.post(url, { repeater_setting_id: id }, function (data) {
+		// Get repaeter code from Rails
+		// Due to the Rails way of creating nested forms it's necessary to 
+		// create the nested item inside a different new form, then get just
+		// the code contained between the two SPLIT comments
 		var parts = data.split('<!-- SPLIT -->');
 		var newRepeater = parts[1];
-		$list.append(newRepeater);
-		var editor_id = $list.find('textarea').last('textarea').attr('id');
-		tinyMCE.EditorManager.execCommand('mceAddEditor', true, editor_id);
-		__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+
+		// Append the item
+		$list.prepend(newRepeater);
+		var new_repeater_item = $list.find('.form-item--repeater').get(0);
+
+		// Prepare animation
+		new_repeater_item.style.maxHeight = 0;
+
+		// Group fields if sotrable is enabled
+		if ($list.hasClass('sortable--enabled')) {
+			$(new_repeater_item).find('.form-item--repeater-fields').each(function () {
+				this.style.maxHeight = 0 + 'px';
+			});
+		}
+
+		// Setup TinyMCE for the newly created item
+		var textarea_editor_id = $list.find('textarea').last('textarea').attr('id');
+		tinyMCE.EditorManager.execCommand('mceAddEditor', true, textarea_editor_id);
+
+		// Resize the editor (is it needed with the new configuration?)
+		// _FormItemEditor.resize()
+
 		// Update select input for Select2 plugin
 		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find('select'));
+
+		// Refresh Sortable to update the added item with Sortable features
+		$list.sortable('refresh');
+
+		// Run animation 50ms after previous style declaration (see above) otherwise animation doesn't get triggered
+		setTimeout(function () {
+			new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + 'px';
+		}, 50);
 	});
 }
 
@@ -894,6 +935,9 @@ function hexToShaderRgb(hex) {
 	if ($('.sortable').length > 0) {
 		// Initialize sortable item
 		$('.sortable').sortable({
+			stop: function stop(event, ui) {
+				ui.item.css('z-index', 0);
+			},
 			placeholder: "ui-state-highlight",
 			update: function update() {
 				if ($('.sortable-warning').length > 0) {
@@ -933,14 +977,14 @@ function hexToShaderRgb(hex) {
 
 		if ($(id).hasClass('sortable--disabled')) {
 			$(id).sortable('enable');
-			$(id).find('.form-item--repeater-fields').each(function () {
-				this.style.maxHeight = '0px';
-			});
+			$(id).find('.form-item--repeater-fields').each(close);
 		} else {
 			$(id).sortable('disable');
-			$(id).find('.form-item--repeater-fields').each(function () {
-				this.style.maxHeight = this.scrollHeight + "px";
+			// Make sure no repeater item has max-height set
+			$(id).find('.form-item--repeater').each(function () {
+				this.style.maxHeight = null;
 			});
+			$(id).find('.form-item--repeater-fields').each(open);
 		}
 
 		$(id).toggleClass('sortable--disabled');
@@ -952,10 +996,16 @@ function hexToShaderRgb(hex) {
 function setupSortableToggle() {
 	$('.sortable--toggle').each(function () {
 		var id = '#' + $(this).data('repeater-id');
-		$(id).find('.form-item--repeater-fields').each(function () {
-			this.style.maxHeight = this.scrollHeight + "px";
-		});
+		$(id).find('.form-item--repeater-fields').each(open);
 	});
+}
+
+function close() {
+	this.style.maxHeight = '0px';
+}
+
+function open() {
+	this.style.maxHeight = this.scrollHeight + "px";
 }
 
 /***/ }),

@@ -132,6 +132,12 @@
   margin-left: 5%;
 }
 
+.form-item--repeater {
+  overflow-y: hidden;
+  // inherit transitions from sortable and add max-height
+  transition: box-shadow .3s ease, transform .3s ease, max-height .6s ease-out !important; 
+}
+
 .form-item--repeater-fields
 {
   margin-bottom: $font-size-base;
@@ -154,6 +160,7 @@
   ul.sortable
   {
     margin-bottom: 20px;
+    border-top: 1px solid $color-gray-lighter;
 
     .form-item--repeater-fields
     {
@@ -192,6 +199,10 @@
 
   .sortable--enabled
   {
+    .ui-sortable-handle:hover {
+      border: 1px solid $color-gray-lighter;
+    }
+
     .form-item--repeater-fields
     {
       margin: 0;
@@ -200,14 +211,15 @@
   }
 }
 
+.form-item--repeater-section--add-new {
+  float: right;
+  margin-right: 8px;
+}
+
 .form-item--repeater-title
 {
   display: block;
   margin-bottom: 20px;
-}
-
-.form-item--repeater-section--add-new {
-  float: left;
 }
 
 .form-item--repeater-header
