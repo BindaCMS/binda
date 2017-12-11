@@ -146,11 +146,10 @@
 {
   margin-bottom: 0;
 
-   > *,
+  > *,
   ul.sortable li > *
   {
     display: block;
-    background-color: $body-bg;
   }
 
   ul.sortable
@@ -171,11 +170,6 @@
   {
     float: left;
     width: 15%;
-  }
-
-  .form-item--repeater-title
-  {
-    margin-bottom: 20px;
   }
 
   .form-item--new
@@ -203,6 +197,17 @@
     }
   }
 }
+
+.form-item--repeater-section--add-new {
+  display: block;
+}
+
+.form-item--repeater-title
+{
+  display: block;
+  margin-bottom: 20px;
+}
+
 
 .form-item--repeater-header
 {

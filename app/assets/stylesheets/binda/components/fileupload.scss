@@ -68,10 +68,10 @@
 
 .fileupload label.control-label
 {
+  @extend .b-btn;
   font-weight: 300;
   margin-right: 20px;
   margin-bottom: 20px;
-  padding: 8px 12px;
   cursor: pointer; /* "hand" cursor */
 
   *
