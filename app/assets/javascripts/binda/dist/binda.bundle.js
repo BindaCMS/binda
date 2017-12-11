@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -645,147 +645,6 @@ function addNewItem(target, event) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/**
- * SORTABLE
- */
-
-/* harmony default export */ __webpack_exports__["a"] = function () {
-	if ($('.sortable').length > 0) {
-		// Initialize sortable item
-		$('.sortable').sortable({
-			placeholder: "ui-state-highlight",
-			update: function update() {
-				if ($('.sortable-warning').length > 0) {
-					$('.sortable').addClass('sortable--disabled');
-					$('.sortable-warning').removeClass('sortable-warning--hidden');
-					$(this).sortable('option', 'disabled', true);
-				}
-				var url = $(this).data('update-url');
-				var data = $(this).sortable('serialize');
-				// If there is a pagination update accordingly
-				data = data.concat('&id=' + $(this).attr('id'));
-				$.post(url, data);
-			}
-		});
-
-		// Check if sortable item needs handles
-		$('.sortable').each(function () {
-			if ($(this).find('.sortable--handle').length > 0) {
-				$(this).sortable('option', 'handle', '.sortable--handle');
-			} else {
-				$(this).addClass('sortable--no-handle');
-			}
-		});
-
-		$('.sortable--disabled').sortable('disable');
-	}
-
-	// If there is a sortable toggle button prepare the sortable items accordingly
-	if ($('.sortable--toggle').length > 0) {
-		setupSortableToggle();
-	}
-
-	// Add event to any sortable toggle button
-	$(document).on('click', '.sortable--toggle', function (event) {
-		event.preventDefault();
-		var id = '#' + $(this).data('repeater-id');
-
-		if ($(id).hasClass('sortable--disabled')) {
-			$(id).sortable('enable');
-			$(id).find('.form-item--repeater-fields').each(function () {
-				this.style.maxHeight = '0px';
-			});
-		} else {
-			$(id).sortable('disable');
-			$(id).find('.form-item--repeater-fields').each(function () {
-				this.style.maxHeight = this.scrollHeight + "px";
-			});
-		}
-
-		$(id).toggleClass('sortable--disabled');
-		$(id).toggleClass('sortable--enabled');
-		$(this).children('.sortable--toggle-text').toggle();
-	});
-};
-
-function setupSortableToggle() {
-	$('.sortable--toggle').each(function () {
-		var id = '#' + $(this).data('repeater-id');
-		$(id).find('.form-item--repeater-fields').each(function () {
-			this.style.maxHeight = this.scrollHeight + "px";
-		});
-	});
-}
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_shader__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_sortable__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_bootstrap__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_select2__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__ = __webpack_require__(12);
-///- - - - - - - - - - - - - - - - - - - -
-/// INDEX OF BINDA'S SCRIPTS
-///- - - - - - - - - - - - - - - - - - - -
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$(document).ready(function () {
-	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__["a" /* _FormItemChoice */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__["a" /* _FormItemChoice */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
-	}
-	__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
-	__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].start();
-
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_sortable__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_bootstrap__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__components_select2__["a" /* default */])();
-});
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _Shader; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -825,9 +684,9 @@ var Shader = function () {
             this.renderer.view.style.position = "fixed";
             this.renderer.view.style.display = "block";
 
-            // scaleToWindow(renderer.view, "white" )
-
             var fragmentShader = document.getElementById("fragmentShader").innerHTML;
+
+            var currentTime = Math.sin(Date.now()) + 0.5;
 
             this.uniforms = {
                 uNumOfColors: { type: '1f', value: 0.0 },
@@ -837,11 +696,12 @@ var Shader = function () {
                 uIsActive: { type: '1f', value: 1.0 },
                 uIsIntro: { type: '1f', value: 0.0 },
                 uTime: { type: '1f', value: 0.0 },
+                uCurrentTime: { type: '1f', value: currentTime },
                 uMouse: { type: '2f', value: [window.innerWidth, window.innerHeight] },
                 uWindowSize: { type: '2f', value: [window.innerWidth, window.innerHeight] }
             };
 
-            this.colors = ['#999999', '#CCCCCC', '#DDDDDD'];
+            this.colors = ['#CCCCCC', '#D7C166', '#9999C4'];
 
             for (var i = 0; i < this.colors.length; i++) {
 
@@ -1024,7 +884,7 @@ window.addEventListener("optimizedResize", function () {
 });
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1042,6 +902,147 @@ window.addEventListener("optimizedResize", function () {
         $radio.siblings('input[name="login"]').data('waschecked', false);
     });
 };
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * SORTABLE
+ */
+
+/* harmony default export */ __webpack_exports__["a"] = function () {
+	if ($('.sortable').length > 0) {
+		// Initialize sortable item
+		$('.sortable').sortable({
+			placeholder: "ui-state-highlight",
+			update: function update() {
+				if ($('.sortable-warning').length > 0) {
+					$('.sortable').addClass('sortable--disabled');
+					$('.sortable-warning').removeClass('sortable-warning--hidden');
+					$(this).sortable('option', 'disabled', true);
+				}
+				var url = $(this).data('update-url');
+				var data = $(this).sortable('serialize');
+				// If there is a pagination update accordingly
+				data = data.concat('&id=' + $(this).attr('id'));
+				$.post(url, data);
+			}
+		});
+
+		// Check if sortable item needs handles
+		$('.sortable').each(function () {
+			if ($(this).find('.sortable--handle').length > 0) {
+				$(this).sortable('option', 'handle', '.sortable--handle');
+			} else {
+				$(this).addClass('sortable--no-handle');
+			}
+		});
+
+		$('.sortable--disabled').sortable('disable');
+	}
+
+	// If there is a sortable toggle button prepare the sortable items accordingly
+	if ($('.sortable--toggle').length > 0) {
+		setupSortableToggle();
+	}
+
+	// Add event to any sortable toggle button
+	$(document).on('click', '.sortable--toggle', function (event) {
+		event.preventDefault();
+		var id = '#' + $(this).data('repeater-id');
+
+		if ($(id).hasClass('sortable--disabled')) {
+			$(id).sortable('enable');
+			$(id).find('.form-item--repeater-fields').each(function () {
+				this.style.maxHeight = '0px';
+			});
+		} else {
+			$(id).sortable('disable');
+			$(id).find('.form-item--repeater-fields').each(function () {
+				this.style.maxHeight = this.scrollHeight + "px";
+			});
+		}
+
+		$(id).toggleClass('sortable--disabled');
+		$(id).toggleClass('sortable--enabled');
+		$(this).children('.sortable--toggle-text').toggle();
+	});
+};
+
+function setupSortableToggle() {
+	$('.sortable--toggle').each(function () {
+		var id = '#' + $(this).data('repeater-id');
+		$(id).find('.form-item--repeater-fields').each(function () {
+			this.style.maxHeight = this.scrollHeight + "px";
+		});
+	});
+}
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_shader__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_sortable__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_bootstrap__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_select2__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__ = __webpack_require__(10);
+///- - - - - - - - - - - - - - - - - - - -
+/// INDEX OF BINDA'S SCRIPTS
+///- - - - - - - - - - - - - - - - - - - -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$(document).ready(function () {
+	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__["a" /* _FormItemChoice */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__["a" /* _FormItemChoice */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
+	}
+	__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
+	__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].start();
+
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_sortable__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_bootstrap__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__components_select2__["a" /* default */])();
+});
 
 /***/ })
 /******/ ]);

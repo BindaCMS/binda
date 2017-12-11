@@ -27,10 +27,9 @@ class Shader {
         this.renderer.view.style.position = "fixed"
         this.renderer.view.style.display  = "block"
 
-        // scaleToWindow(renderer.view, "white" )
-
         let fragmentShader = document.getElementById("fragmentShader").innerHTML
 
+        let currentTime = Math.sin( Date.now() ) + 0.5
 
         this.uniforms = {
             uNumOfColors : { type: '1f', value: 0.0 },
@@ -40,11 +39,12 @@ class Shader {
             uIsActive    : { type: '1f', value: 1.0 },
             uIsIntro     : { type: '1f', value: 0.0 },
             uTime        : { type: '1f', value: 0.0 },
+            uCurrentTime : { type: '1f', value: currentTime },
             uMouse       : { type: '2f', value: [ window.innerWidth, window.innerHeight ] },
             uWindowSize  : { type: '2f', value: [ window.innerWidth, window.innerHeight ] }
         }
 
-        this.colors = [ '#999999', '#CCCCCC', '#DDDDDD' ]
+        this.colors = [ '#CCCCCC', '#D7C166', '#9999C4' ]
 
         for ( let i = 0; i < this.colors.length; i++ ) {
 
