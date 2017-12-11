@@ -1,0 +1,802 @@
+Started GET "/admin_panel/structures/page/components/seconda-pagina/edit" for ::1 at 2017-11-09 18:10:29 +0100
+Processing by Binda::ComponentsController#edit as HTML
+  Parameters: {"structure_id"=>"page", "id"=>"seconda-pagina"}
+  [1m[36mBinda::User Load (1.8ms)[0m  [1m[34mSELECT  "binda_users".* FROM "binda_users" WHERE "binda_users"."id" = $1 ORDER BY "binda_users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBinda::Structure Load (1.0ms)[0m  [1m[34mSELECT  "binda_structures".* FROM "binda_structures" WHERE "binda_structures"."slug" = $1 LIMIT $2[0m  [["slug", "page"], ["LIMIT", 1]]
+  [1m[36mBinda::Component Load (1.2ms)[0m  [1m[34mSELECT  "binda_components".* FROM "binda_components" WHERE "binda_components"."slug" = $1 LIMIT $2[0m  [["slug", "seconda-pagina"], ["LIMIT", 1]]
+  Rendering /Users/ab/Sites/_assets/binda/app/views/binda/components/edit.html.erb within layouts/binda/application
+  [1m[36mBinda::Structure Load (0.5ms)[0m  [1m[34mSELECT  "binda_structures".* FROM "binda_structures" WHERE "binda_structures"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBinda::FieldGroup Load (1.3ms)[0m  [1m[34mSELECT "binda_field_groups".* FROM "binda_field_groups" WHERE "binda_field_groups"."structure_id" = $1 ORDER BY "binda_field_groups"."position" ASC, "binda_field_groups"."name" ASC[0m  [["structure_id", 2]]
+  [1m[36mBinda::FieldSetting Load (1.1ms)[0m  [1m[34mSELECT "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."field_group_id" = $1 ORDER BY "binda_field_settings"."position" ASC, "binda_field_settings"."name" ASC[0m  [["field_group_id", 2]]
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "binda_repeaters" WHERE "binda_repeaters"."fieldable_id" = $1 AND "binda_repeaters"."fieldable_type" = $2 AND "binda_repeaters"."field_setting_id" = 4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  [1m[36mBinda::Repeater Load (0.7ms)[0m  [1m[34mSELECT "binda_repeaters".* FROM "binda_repeaters" WHERE "binda_repeaters"."fieldable_id" = $1 AND "binda_repeaters"."fieldable_type" = $2 AND "binda_repeaters"."field_setting_id" = 4 ORDER BY position[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  [1m[36mBinda::FieldSetting Load (0.4ms)[0m  [1m[34mSELECT  "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mBinda::FieldSetting Load (1.0ms)[0m  [1m[34mSELECT "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."ancestry" = '4' ORDER BY "binda_field_settings"."position" ASC, "binda_field_settings"."id" ASC[0m
+  [1m[36mBinda::String Load (1.4ms)[0m  [1m[34mSELECT  "binda_texts".* FROM "binda_texts" WHERE "binda_texts"."type" IN ('Binda::String') AND "binda_texts"."fieldable_id" = $1 AND "binda_texts"."fieldable_type" = $2 AND "binda_texts"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 5], ["LIMIT", 1]]
+  [1m[36mBinda::String Load (0.5ms)[0m  [1m[34mSELECT "binda_texts".* FROM "binda_texts" WHERE "binda_texts"."type" IN ('Binda::String') AND "binda_texts"."fieldable_id" = $1 AND "binda_texts"."fieldable_type" = $2[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "binda_field_settings"."slug", "binda_field_settings"."id" FROM "binda_field_settings"[0m
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_string.html.erb (10.8ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (66.5ms)
+  [1m[36mBinda::Date Load (1.5ms)[0m  [1m[34mSELECT  "binda_dates".* FROM "binda_dates" WHERE "binda_dates"."fieldable_id" = $1 AND "binda_dates"."fieldable_type" = $2 AND "binda_dates"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 6], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_date.html.erb (12.5ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (35.9ms)
+  [1m[36mBinda::Image Load (0.9ms)[0m  [1m[34mSELECT  "binda_assets".* FROM "binda_assets" WHERE "binda_assets"."type" IN ('Binda::Image') AND "binda_assets"."fieldable_id" = $1 AND "binda_assets"."fieldable_type" = $2 AND "binda_assets"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 7], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_image.html.erb (7.2ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (43.4ms)
+  [1m[36mBinda::Video Load (0.6ms)[0m  [1m[34mSELECT  "binda_assets".* FROM "binda_assets" WHERE "binda_assets"."type" IN ('Binda::Video') AND "binda_assets"."fieldable_id" = $1 AND "binda_assets"."fieldable_type" = $2 AND "binda_assets"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 8], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_video.html.erb (5.0ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (22.9ms)
+  [1m[36mBinda::Choice Exists (1.1ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Radio Load (0.9ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."type" IN ('Binda::Radio') AND "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (1.0ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 8], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.7ms)[0m  [1m[34mSELECT  "binda_choices".* FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 ORDER BY "binda_choices"."id" ASC LIMIT $2[0m  [["selection_id", 8], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.6ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 9]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (183.4ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (186.8ms)
+  [1m[36mBinda::Choice Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 10], ["LIMIT", 1]]
+  [1m[36mBinda::Selection Load (0.7ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 10], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.7ms)[0m  [1m[34mSELECT  "binda_choices".* FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 ORDER BY "binda_choices"."id" ASC LIMIT $2[0m  [["selection_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.7ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 10]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (20.1ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (22.8ms)
+  [1m[36mBinda::Choice Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 11], ["LIMIT", 1]]
+  [1m[36mBinda::Checkbox Load (0.6ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."type" IN ('Binda::Checkbox') AND "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 11], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 10], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "binda_choices"."id" FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1[0m  [["selection_id", 10]]
+  [1m[36mBinda::Choice Load (0.5ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 11]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (29.9ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (32.8ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_repeater.html.erb (453.3ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section.html.erb (475.9ms)
+  [1m[36mBinda::Category Exists (1.6ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_categories" WHERE "binda_categories"."structure_id" = $1 LIMIT $2[0m  [["structure_id", 2], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_sidebar.html.erb (18.6ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_body.html.erb (651.0ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/components/edit.html.erb within layouts/binda/application (670.8ms)
+  [1m[36mBinda::Board Load (2.7ms)[0m  [1m[34mSELECT  "binda_boards".* FROM "binda_boards" WHERE "binda_boards"."slug" = $1 LIMIT $2[0m  [["slug", "dashboard"], ["LIMIT", 1]]
+  [1m[36mBinda::String Load (0.5ms)[0m  [1m[34mSELECT "binda_texts".* FROM "binda_texts" WHERE "binda_texts"."type" IN ('Binda::String') AND "binda_texts"."fieldable_id" = $1 AND "binda_texts"."fieldable_type" = $2[0m  [["fieldable_id", 1], ["fieldable_type", "Binda::Board"]]
+  [1m[36mBinda::Structure Load (0.5ms)[0m  [1m[34mSELECT "binda_structures".* FROM "binda_structures" ORDER BY "binda_structures"."position" ASC[0m
+  [1m[36mBinda::Board Load (0.3ms)[0m  [1m[34mSELECT  "binda_boards".* FROM "binda_boards" WHERE "binda_boards"."structure_id" = $1 LIMIT $2[0m  [["structure_id", 1], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/layouts/binda/_sidebar.html.erb (60.4ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/layouts/binda/_header.html.erb (0.9ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/layouts/binda/_flash.html.erb (1.4ms)
+Completed 200 OK in 13703ms (Views: 13420.1ms | ActiveRecord: 110.8ms)
+
+
+user: ab
+GET http://localhost:3000/admin_panel/structures/page/components/seconda-pagina/edit
+USE eager loading detected
+  Binda::FieldSetting => [:choices]
+  Add to your finder: :includes => [:choices]
+Call stack
+
+
+user: ab
+GET http://localhost:3000/admin_panel/structures/page/components/seconda-pagina/edit
+USE eager loading detected
+  Binda::Structure => [:board]
+  Add to your finder: :includes => [:board]
+Call stack
+
+
+Started GET "/admin_panel/structures/page/components/seconda-pagina/edit" for ::1 at 2017-11-09 18:16:38 +0100
+Processing by Binda::ComponentsController#edit as HTML
+  Parameters: {"structure_id"=>"page", "id"=>"seconda-pagina"}
+  [1m[36mBinda::User Load (1.3ms)[0m  [1m[34mSELECT  "binda_users".* FROM "binda_users" WHERE "binda_users"."id" = $1 ORDER BY "binda_users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBinda::Structure Load (0.6ms)[0m  [1m[34mSELECT  "binda_structures".* FROM "binda_structures" WHERE "binda_structures"."slug" = $1 LIMIT $2[0m  [["slug", "page"], ["LIMIT", 1]]
+  [1m[36mBinda::Component Load (0.8ms)[0m  [1m[34mSELECT  "binda_components".* FROM "binda_components" WHERE "binda_components"."slug" = $1 LIMIT $2[0m  [["slug", "seconda-pagina"], ["LIMIT", 1]]
+  Rendering /Users/ab/Sites/_assets/binda/app/views/binda/components/edit.html.erb within layouts/binda/application
+  [1m[36mBinda::Structure Load (0.7ms)[0m  [1m[34mSELECT  "binda_structures".* FROM "binda_structures" WHERE "binda_structures"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBinda::FieldGroup Load (0.7ms)[0m  [1m[34mSELECT "binda_field_groups".* FROM "binda_field_groups" WHERE "binda_field_groups"."structure_id" = $1 ORDER BY "binda_field_groups"."position" ASC, "binda_field_groups"."name" ASC[0m  [["structure_id", 2]]
+  [1m[36mBinda::FieldSetting Load (0.7ms)[0m  [1m[34mSELECT "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."field_group_id" = $1 ORDER BY "binda_field_settings"."position" ASC, "binda_field_settings"."name" ASC[0m  [["field_group_id", 2]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "binda_repeaters" WHERE "binda_repeaters"."fieldable_id" = $1 AND "binda_repeaters"."fieldable_type" = $2 AND "binda_repeaters"."field_setting_id" = 4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  [1m[36mBinda::Repeater Load (0.7ms)[0m  [1m[34mSELECT "binda_repeaters".* FROM "binda_repeaters" WHERE "binda_repeaters"."fieldable_id" = $1 AND "binda_repeaters"."fieldable_type" = $2 AND "binda_repeaters"."field_setting_id" = 4 ORDER BY position[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  [1m[36mBinda::FieldSetting Load (0.8ms)[0m  [1m[34mSELECT  "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mBinda::FieldSetting Load (0.6ms)[0m  [1m[34mSELECT "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."ancestry" = '4' ORDER BY "binda_field_settings"."position" ASC, "binda_field_settings"."id" ASC[0m
+  [1m[36mBinda::String Load (0.6ms)[0m  [1m[34mSELECT  "binda_texts".* FROM "binda_texts" WHERE "binda_texts"."type" IN ('Binda::String') AND "binda_texts"."fieldable_id" = $1 AND "binda_texts"."fieldable_type" = $2 AND "binda_texts"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 5], ["LIMIT", 1]]
+  [1m[36mBinda::String Load (0.6ms)[0m  [1m[34mSELECT "binda_texts".* FROM "binda_texts" WHERE "binda_texts"."type" IN ('Binda::String') AND "binda_texts"."fieldable_id" = $1 AND "binda_texts"."fieldable_type" = $2[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_string.html.erb (10.0ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (19.7ms)
+  [1m[36mBinda::Date Load (0.6ms)[0m  [1m[34mSELECT  "binda_dates".* FROM "binda_dates" WHERE "binda_dates"."fieldable_id" = $1 AND "binda_dates"."fieldable_type" = $2 AND "binda_dates"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 6], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_date.html.erb (16.2ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (23.2ms)
+  [1m[36mBinda::Image Load (1.1ms)[0m  [1m[34mSELECT  "binda_assets".* FROM "binda_assets" WHERE "binda_assets"."type" IN ('Binda::Image') AND "binda_assets"."fieldable_id" = $1 AND "binda_assets"."fieldable_type" = $2 AND "binda_assets"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 7], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_image.html.erb (7.1ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (14.4ms)
+  [1m[36mBinda::Video Load (0.6ms)[0m  [1m[34mSELECT  "binda_assets".* FROM "binda_assets" WHERE "binda_assets"."type" IN ('Binda::Video') AND "binda_assets"."fieldable_id" = $1 AND "binda_assets"."fieldable_type" = $2 AND "binda_assets"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 8], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_video.html.erb (6.9ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (12.7ms)
+  [1m[36mBinda::Choice Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Radio Load (0.7ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."type" IN ('Binda::Radio') AND "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 8], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.7ms)[0m  [1m[34mSELECT  "binda_choices".* FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 ORDER BY "binda_choices"."id" ASC LIMIT $2[0m  [["selection_id", 8], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.5ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 9]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (24.5ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (27.4ms)
+  [1m[36mBinda::Choice Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 10], ["LIMIT", 1]]
+  [1m[36mBinda::Selection Load (0.7ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 10], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (1.4ms)[0m  [1m[34mSELECT  "binda_choices".* FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 ORDER BY "binda_choices"."id" ASC LIMIT $2[0m  [["selection_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.6ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 10]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (19.0ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (21.7ms)
+  [1m[36mBinda::Choice Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 11], ["LIMIT", 1]]
+  [1m[36mBinda::Checkbox Load (0.6ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."type" IN ('Binda::Checkbox') AND "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 11], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 10], ["LIMIT", 1]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "binda_choices"."id" FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1[0m  [["selection_id", 10]]
+  [1m[36mBinda::Choice Load (0.5ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 11]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (16.7ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (19.1ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_repeater.html.erb (175.8ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section.html.erb (187.3ms)
+  [1m[36mBinda::Category Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_categories" WHERE "binda_categories"."structure_id" = $1 LIMIT $2[0m  [["structure_id", 2], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_sidebar.html.erb (6.4ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_body.html.erb (226.1ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/components/edit.html.erb within layouts/binda/application (236.5ms)
+Completed 500 Internal Server Error in 288ms (ActiveRecord: 21.6ms)
+
+
+  
+ActionView::Template::Error (Invalid CSS after "...trap/bootstrap"": expected selector or at-rule, was "@import "bootst..."):
+    4:     <title>Binda CMS -- <%= controller_name.capitalize %> <%= action_name.capitalize %></title>
+    5:     <%= csrf_meta_tags %>
+    6:     <%= tinymce %>
+    7: 	  <%= stylesheet_link_tag    "binda/application", media: "all" %>
+    8: 	  <%= javascript_include_tag "binda/application" %>
+    9:   </head>
+   10: 
+  
+/Users/ab/Sites/_assets/binda/app/assets/stylesheets/binda/application.scss:4
+sass (3.5.2) lib/sass/scss/parser.rb:1278:in `expected'
+sass (3.5.2) lib/sass/scss/parser.rb:1208:in `expected'
+sass (3.5.2) lib/sass/scss/parser.rb:42:in `parse'
+sass (3.5.2) lib/sass/engine.rb:414:in `_to_tree'
+sass (3.5.2) lib/sass/engine.rb:290:in `render'
+sass-rails (5.0.6) lib/sass/rails/template.rb:47:in `evaluate'
+tilt (2.0.8) lib/tilt/template.rb:109:in `render'
+sprockets (3.7.1) lib/sprockets/legacy_tilt_processor.rb:25:in `call'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `reverse_each'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+sprockets (3.7.1) lib/sprockets/bundle.rb:23:in `block in call'
+sprockets (3.7.1) lib/sprockets/utils.rb:200:in `dfs'
+sprockets (3.7.1) lib/sprockets/bundle.rb:24:in `call'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `reverse_each'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+sprockets (3.7.1) lib/sprockets/base.rb:66:in `find_asset'
+sprockets (3.7.1) lib/sprockets/base.rb:92:in `[]'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:355:in `find_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:347:in `find_debug_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:229:in `block in lookup_debug_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:242:in `block in resolve_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:241:in `each'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:241:in `detect'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:241:in `resolve_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:228:in `lookup_debug_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:170:in `block in stylesheet_link_tag'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:169:in `map'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:169:in `stylesheet_link_tag'
+/Users/ab/Sites/_assets/binda/app/views/layouts/binda/application.html.erb:7:in `___sers_ab__ites__assets_binda_app_views_layouts_binda_application_html_erb__3838107439554505767_70152026924220'
+actionview (5.1.4) lib/action_view/template.rb:157:in `block in render'
+activesupport (5.1.4) lib/active_support/notifications.rb:168:in `instrument'
+actionview (5.1.4) lib/action_view/template.rb:352:in `instrument_render_template'
+actionview (5.1.4) lib/action_view/template.rb:155:in `render'
+actionview (5.1.4) lib/action_view/renderer/template_renderer.rb:64:in `render_with_layout'
+actionview (5.1.4) lib/action_view/renderer/template_renderer.rb:50:in `render_template'
+actionview (5.1.4) lib/action_view/renderer/template_renderer.rb:14:in `render'
+actionview (5.1.4) lib/action_view/renderer/renderer.rb:42:in `render_template'
+actionview (5.1.4) lib/action_view/renderer/renderer.rb:23:in `render'
+actionview (5.1.4) lib/action_view/rendering.rb:103:in `_render_template'
+actionpack (5.1.4) lib/action_controller/metal/streaming.rb:217:in `_render_template'
+actionview (5.1.4) lib/action_view/rendering.rb:83:in `render_to_body'
+actionpack (5.1.4) lib/action_controller/metal/rendering.rb:52:in `render_to_body'
+actionpack (5.1.4) lib/action_controller/metal/renderers.rb:141:in `render_to_body'
+actionpack (5.1.4) lib/abstract_controller/rendering.rb:24:in `render'
+actionpack (5.1.4) lib/action_controller/metal/rendering.rb:36:in `render'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:44:in `block (2 levels) in render'
+activesupport (5.1.4) lib/active_support/core_ext/benchmark.rb:12:in `block in ms'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/benchmark.rb:308:in `realtime'
+activesupport (5.1.4) lib/active_support/core_ext/benchmark.rb:12:in `ms'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:44:in `block in render'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:87:in `cleanup_view_runtime'
+activerecord (5.1.4) lib/active_record/railties/controller_runtime.rb:29:in `cleanup_view_runtime'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:43:in `render'
+actionpack (5.1.4) lib/action_controller/metal/implicit_render.rb:33:in `default_render'
+actionpack (5.1.4) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.4) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.4) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.4) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.4) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.4) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.4) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.4) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.4) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.4) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.4) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.4) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.4) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.4) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.4) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:834:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+railties (5.1.4) lib/rails/railtie.rb:185:in `public_send'
+railties (5.1.4) lib/rails/railtie.rb:185:in `method_missing'
+actionpack (5.1.4) lib/action_dispatch/routing/mapper.rb:17:in `block in <class:Constraints>'
+actionpack (5.1.4) lib/action_dispatch/routing/mapper.rb:46:in `serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:834:in `call'
+bullet (5.6.1) lib/bullet/rack.rb:12:in `call'
+warden (1.2.7) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.7) lib/warden/manager.rb:35:in `catch'
+warden (1.2.7) lib/warden/manager.rb:35:in `call'
+rack (2.0.3) lib/rack/etag.rb:25:in `call'
+rack (2.0.3) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.3) lib/rack/head.rb:12:in `call'
+rack (2.0.3) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.3) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.4) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.4) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+rack (2.0.3) lib/rack/handler/webrick.rb:86:in `service'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+Started GET "/admin_panel/structures/page/components/seconda-pagina/edit" for ::1 at 2017-11-09 18:16:46 +0100
+Processing by Binda::ComponentsController#edit as HTML
+  Parameters: {"structure_id"=>"page", "id"=>"seconda-pagina"}
+  [1m[36mBinda::User Load (1.5ms)[0m  [1m[34mSELECT  "binda_users".* FROM "binda_users" WHERE "binda_users"."id" = $1 ORDER BY "binda_users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBinda::Structure Load (0.7ms)[0m  [1m[34mSELECT  "binda_structures".* FROM "binda_structures" WHERE "binda_structures"."slug" = $1 LIMIT $2[0m  [["slug", "page"], ["LIMIT", 1]]
+  [1m[36mBinda::Component Load (0.7ms)[0m  [1m[34mSELECT  "binda_components".* FROM "binda_components" WHERE "binda_components"."slug" = $1 LIMIT $2[0m  [["slug", "seconda-pagina"], ["LIMIT", 1]]
+  Rendering /Users/ab/Sites/_assets/binda/app/views/binda/components/edit.html.erb within layouts/binda/application
+  [1m[36mBinda::Structure Load (0.5ms)[0m  [1m[34mSELECT  "binda_structures".* FROM "binda_structures" WHERE "binda_structures"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBinda::FieldGroup Load (0.7ms)[0m  [1m[34mSELECT "binda_field_groups".* FROM "binda_field_groups" WHERE "binda_field_groups"."structure_id" = $1 ORDER BY "binda_field_groups"."position" ASC, "binda_field_groups"."name" ASC[0m  [["structure_id", 2]]
+  [1m[36mBinda::FieldSetting Load (0.8ms)[0m  [1m[34mSELECT "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."field_group_id" = $1 ORDER BY "binda_field_settings"."position" ASC, "binda_field_settings"."name" ASC[0m  [["field_group_id", 2]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "binda_repeaters" WHERE "binda_repeaters"."fieldable_id" = $1 AND "binda_repeaters"."fieldable_type" = $2 AND "binda_repeaters"."field_setting_id" = 4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  [1m[36mBinda::Repeater Load (0.6ms)[0m  [1m[34mSELECT "binda_repeaters".* FROM "binda_repeaters" WHERE "binda_repeaters"."fieldable_id" = $1 AND "binda_repeaters"."fieldable_type" = $2 AND "binda_repeaters"."field_setting_id" = 4 ORDER BY position[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  [1m[36mBinda::FieldSetting Load (0.5ms)[0m  [1m[34mSELECT  "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mBinda::FieldSetting Load (0.7ms)[0m  [1m[34mSELECT "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."ancestry" = '4' ORDER BY "binda_field_settings"."position" ASC, "binda_field_settings"."id" ASC[0m
+  [1m[36mBinda::String Load (0.7ms)[0m  [1m[34mSELECT  "binda_texts".* FROM "binda_texts" WHERE "binda_texts"."type" IN ('Binda::String') AND "binda_texts"."fieldable_id" = $1 AND "binda_texts"."fieldable_type" = $2 AND "binda_texts"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 5], ["LIMIT", 1]]
+  [1m[36mBinda::String Load (0.7ms)[0m  [1m[34mSELECT "binda_texts".* FROM "binda_texts" WHERE "binda_texts"."type" IN ('Binda::String') AND "binda_texts"."fieldable_id" = $1 AND "binda_texts"."fieldable_type" = $2[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_string.html.erb (6.6ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (13.6ms)
+  [1m[36mBinda::Date Load (0.5ms)[0m  [1m[34mSELECT  "binda_dates".* FROM "binda_dates" WHERE "binda_dates"."fieldable_id" = $1 AND "binda_dates"."fieldable_type" = $2 AND "binda_dates"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 6], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_date.html.erb (9.3ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (14.4ms)
+  [1m[36mBinda::Image Load (0.6ms)[0m  [1m[34mSELECT  "binda_assets".* FROM "binda_assets" WHERE "binda_assets"."type" IN ('Binda::Image') AND "binda_assets"."fieldable_id" = $1 AND "binda_assets"."fieldable_type" = $2 AND "binda_assets"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 7], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_image.html.erb (8.5ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (15.6ms)
+  [1m[36mBinda::Video Load (0.8ms)[0m  [1m[34mSELECT  "binda_assets".* FROM "binda_assets" WHERE "binda_assets"."type" IN ('Binda::Video') AND "binda_assets"."fieldable_id" = $1 AND "binda_assets"."fieldable_type" = $2 AND "binda_assets"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 8], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_video.html.erb (8.2ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (16.5ms)
+  [1m[36mBinda::Choice Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Radio Load (0.9ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."type" IN ('Binda::Radio') AND "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (1.1ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 8], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.9ms)[0m  [1m[34mSELECT  "binda_choices".* FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 ORDER BY "binda_choices"."id" ASC LIMIT $2[0m  [["selection_id", 8], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.6ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 9]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (33.0ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (38.1ms)
+  [1m[36mBinda::Choice Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 10], ["LIMIT", 1]]
+  [1m[36mBinda::Selection Load (0.6ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 10], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.7ms)[0m  [1m[34mSELECT  "binda_choices".* FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 ORDER BY "binda_choices"."id" ASC LIMIT $2[0m  [["selection_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.5ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 10]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (16.8ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (21.0ms)
+  [1m[36mBinda::Choice Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 11], ["LIMIT", 1]]
+  [1m[36mBinda::Checkbox Load (0.7ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."type" IN ('Binda::Checkbox') AND "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 11], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 10], ["LIMIT", 1]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "binda_choices"."id" FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1[0m  [["selection_id", 10]]
+  [1m[36mBinda::Choice Load (0.5ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 11]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (16.8ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (19.4ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_repeater.html.erb (176.4ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section.html.erb (181.9ms)
+  [1m[36mBinda::Category Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_categories" WHERE "binda_categories"."structure_id" = $1 LIMIT $2[0m  [["structure_id", 2], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_sidebar.html.erb (6.1ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_body.html.erb (212.4ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/components/edit.html.erb within layouts/binda/application (219.0ms)
+Completed 500 Internal Server Error in 297ms (ActiveRecord: 21.5ms)
+
+
+  
+ActionView::Template::Error (File to import not found or unreadable: bourbon.
+Load paths:
+  /Users/ab/Sites/_assets/binda/spec/dummy/app/assets/config
+  /Users/ab/Sites/_assets/binda/spec/dummy/app/assets/images
+  /Users/ab/Sites/_assets/binda/spec/dummy/app/assets/javascripts
+  /Users/ab/Sites/_assets/binda/spec/dummy/app/assets/stylesheets
+  /Users/ab/Sites/_assets/binda/app/assets/config
+  /Users/ab/Sites/_assets/binda/app/assets/images
+  /Users/ab/Sites/_assets/binda/app/assets/javascripts
+  /Users/ab/Sites/_assets/binda/app/assets/stylesheets
+  /Users/ab/Sites/_assets/binda/vendor/assets/fonts
+  /Users/ab/Sites/_assets/binda/vendor/assets/javascripts
+  /Users/ab/Sites/_assets/binda/vendor/assets/stylesheets
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/tinymce-rails-4.6.7/app/assets/javascripts
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/tinymce-rails-4.6.7/app/assets/source
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/tinymce-rails-4.6.7/vendor/assets/javascripts
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/jquery-rails-4.3.1/vendor/assets/javascripts
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/actioncable-5.1.4/lib/assets/compiled
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/actionview-5.1.4/lib/assets/compiled
+  /Users/ab/Sites/_assets/binda/vendor/assets
+  /Users/ab/Sites/_assets/binda/spec/dummy/vendor/assets/fonts
+  /Users/ab/Sites/_assets/binda/spec/dummy/node_modules):
+    4:     <title>Binda CMS -- <%= controller_name.capitalize %> <%= action_name.capitalize %></title>
+    5:     <%= csrf_meta_tags %>
+    6:     <%= tinymce %>
+    7: 	  <%= stylesheet_link_tag    "binda/application", media: "all" %>
+    8: 	  <%= javascript_include_tag "binda/application" %>
+    9:   </head>
+   10: 
+  
+/Users/ab/Sites/_assets/binda/app/assets/stylesheets/binda/application.scss:1
+sass (3.5.2) lib/sass/tree/import_node.rb:67:in `rescue in import'
+sass (3.5.2) lib/sass/tree/import_node.rb:45:in `import'
+sass (3.5.2) lib/sass/tree/import_node.rb:28:in `imported_file'
+sass (3.5.2) lib/sass/tree/import_node.rb:37:in `css_import?'
+sass (3.5.2) lib/sass/tree/visitors/perform.rb:314:in `visit_import'
+sass (3.5.2) lib/sass/tree/visitors/base.rb:36:in `visit'
+sass (3.5.2) lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+sass (3.5.2) lib/sass/stack.rb:79:in `block in with_base'
+sass (3.5.2) lib/sass/stack.rb:135:in `with_frame'
+sass (3.5.2) lib/sass/stack.rb:79:in `with_base'
+sass (3.5.2) lib/sass/tree/visitors/perform.rb:162:in `visit'
+sass (3.5.2) lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+sass (3.5.2) lib/sass/tree/visitors/base.rb:52:in `map'
+sass (3.5.2) lib/sass/tree/visitors/base.rb:52:in `visit_children'
+sass (3.5.2) lib/sass/tree/visitors/perform.rb:171:in `block in visit_children'
+sass (3.5.2) lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+sass (3.5.2) lib/sass/tree/visitors/perform.rb:170:in `visit_children'
+sass (3.5.2) lib/sass/tree/visitors/base.rb:36:in `block in visit'
+sass (3.5.2) lib/sass/tree/visitors/perform.rb:190:in `visit_root'
+sass (3.5.2) lib/sass/tree/visitors/base.rb:36:in `visit'
+sass (3.5.2) lib/sass/tree/visitors/perform.rb:161:in `visit'
+sass (3.5.2) lib/sass/tree/visitors/perform.rb:10:in `visit'
+sass (3.5.2) lib/sass/tree/root_node.rb:36:in `css_tree'
+sass (3.5.2) lib/sass/tree/root_node.rb:20:in `render'
+sass (3.5.2) lib/sass/engine.rb:290:in `render'
+sass-rails (5.0.6) lib/sass/rails/template.rb:47:in `evaluate'
+tilt (2.0.8) lib/tilt/template.rb:109:in `render'
+sprockets (3.7.1) lib/sprockets/legacy_tilt_processor.rb:25:in `call'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `reverse_each'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+sprockets (3.7.1) lib/sprockets/bundle.rb:23:in `block in call'
+sprockets (3.7.1) lib/sprockets/utils.rb:200:in `dfs'
+sprockets (3.7.1) lib/sprockets/bundle.rb:24:in `call'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `reverse_each'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+sprockets (3.7.1) lib/sprockets/base.rb:66:in `find_asset'
+sprockets (3.7.1) lib/sprockets/base.rb:92:in `[]'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:355:in `find_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:347:in `find_debug_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:229:in `block in lookup_debug_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:242:in `block in resolve_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:241:in `each'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:241:in `detect'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:241:in `resolve_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:228:in `lookup_debug_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:170:in `block in stylesheet_link_tag'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:169:in `map'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:169:in `stylesheet_link_tag'
+/Users/ab/Sites/_assets/binda/app/views/layouts/binda/application.html.erb:7:in `___sers_ab__ites__assets_binda_app_views_layouts_binda_application_html_erb__3838107439554505767_70152054833280'
+actionview (5.1.4) lib/action_view/template.rb:157:in `block in render'
+activesupport (5.1.4) lib/active_support/notifications.rb:168:in `instrument'
+actionview (5.1.4) lib/action_view/template.rb:352:in `instrument_render_template'
+actionview (5.1.4) lib/action_view/template.rb:155:in `render'
+actionview (5.1.4) lib/action_view/renderer/template_renderer.rb:64:in `render_with_layout'
+actionview (5.1.4) lib/action_view/renderer/template_renderer.rb:50:in `render_template'
+actionview (5.1.4) lib/action_view/renderer/template_renderer.rb:14:in `render'
+actionview (5.1.4) lib/action_view/renderer/renderer.rb:42:in `render_template'
+actionview (5.1.4) lib/action_view/renderer/renderer.rb:23:in `render'
+actionview (5.1.4) lib/action_view/rendering.rb:103:in `_render_template'
+actionpack (5.1.4) lib/action_controller/metal/streaming.rb:217:in `_render_template'
+actionview (5.1.4) lib/action_view/rendering.rb:83:in `render_to_body'
+actionpack (5.1.4) lib/action_controller/metal/rendering.rb:52:in `render_to_body'
+actionpack (5.1.4) lib/action_controller/metal/renderers.rb:141:in `render_to_body'
+actionpack (5.1.4) lib/abstract_controller/rendering.rb:24:in `render'
+actionpack (5.1.4) lib/action_controller/metal/rendering.rb:36:in `render'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:44:in `block (2 levels) in render'
+activesupport (5.1.4) lib/active_support/core_ext/benchmark.rb:12:in `block in ms'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/benchmark.rb:308:in `realtime'
+activesupport (5.1.4) lib/active_support/core_ext/benchmark.rb:12:in `ms'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:44:in `block in render'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:87:in `cleanup_view_runtime'
+activerecord (5.1.4) lib/active_record/railties/controller_runtime.rb:29:in `cleanup_view_runtime'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:43:in `render'
+actionpack (5.1.4) lib/action_controller/metal/implicit_render.rb:33:in `default_render'
+actionpack (5.1.4) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.4) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.4) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.4) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.4) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.4) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.4) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.4) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.4) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.4) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.4) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.4) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.4) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.4) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.4) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:834:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+railties (5.1.4) lib/rails/railtie.rb:185:in `public_send'
+railties (5.1.4) lib/rails/railtie.rb:185:in `method_missing'
+actionpack (5.1.4) lib/action_dispatch/routing/mapper.rb:17:in `block in <class:Constraints>'
+actionpack (5.1.4) lib/action_dispatch/routing/mapper.rb:46:in `serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:834:in `call'
+bullet (5.6.1) lib/bullet/rack.rb:12:in `call'
+warden (1.2.7) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.7) lib/warden/manager.rb:35:in `catch'
+warden (1.2.7) lib/warden/manager.rb:35:in `call'
+rack (2.0.3) lib/rack/etag.rb:25:in `call'
+rack (2.0.3) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.3) lib/rack/head.rb:12:in `call'
+rack (2.0.3) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.3) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.4) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.4) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+rack (2.0.3) lib/rack/handler/webrick.rb:86:in `service'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+Started GET "/admin_panel/structures/page/components/seconda-pagina/edit" for ::1 at 2017-11-09 18:18:53 +0100
+Processing by Binda::ComponentsController#edit as HTML
+  Parameters: {"structure_id"=>"page", "id"=>"seconda-pagina"}
+  [1m[36mBinda::User Load (1.2ms)[0m  [1m[34mSELECT  "binda_users".* FROM "binda_users" WHERE "binda_users"."id" = $1 ORDER BY "binda_users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBinda::Structure Load (1.1ms)[0m  [1m[34mSELECT  "binda_structures".* FROM "binda_structures" WHERE "binda_structures"."slug" = $1 LIMIT $2[0m  [["slug", "page"], ["LIMIT", 1]]
+  [1m[36mBinda::Component Load (0.8ms)[0m  [1m[34mSELECT  "binda_components".* FROM "binda_components" WHERE "binda_components"."slug" = $1 LIMIT $2[0m  [["slug", "seconda-pagina"], ["LIMIT", 1]]
+  Rendering /Users/ab/Sites/_assets/binda/app/views/binda/components/edit.html.erb within layouts/binda/application
+  [1m[36mBinda::Structure Load (0.5ms)[0m  [1m[34mSELECT  "binda_structures".* FROM "binda_structures" WHERE "binda_structures"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mBinda::FieldGroup Load (1.2ms)[0m  [1m[34mSELECT "binda_field_groups".* FROM "binda_field_groups" WHERE "binda_field_groups"."structure_id" = $1 ORDER BY "binda_field_groups"."position" ASC, "binda_field_groups"."name" ASC[0m  [["structure_id", 2]]
+  [1m[36mBinda::FieldSetting Load (1.0ms)[0m  [1m[34mSELECT "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."field_group_id" = $1 ORDER BY "binda_field_settings"."position" ASC, "binda_field_settings"."name" ASC[0m  [["field_group_id", 2]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "binda_repeaters" WHERE "binda_repeaters"."fieldable_id" = $1 AND "binda_repeaters"."fieldable_type" = $2 AND "binda_repeaters"."field_setting_id" = 4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  [1m[36mBinda::Repeater Load (0.5ms)[0m  [1m[34mSELECT "binda_repeaters".* FROM "binda_repeaters" WHERE "binda_repeaters"."fieldable_id" = $1 AND "binda_repeaters"."fieldable_type" = $2 AND "binda_repeaters"."field_setting_id" = 4 ORDER BY position[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  [1m[36mBinda::FieldSetting Load (0.5ms)[0m  [1m[34mSELECT  "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mBinda::FieldSetting Load (0.8ms)[0m  [1m[34mSELECT "binda_field_settings".* FROM "binda_field_settings" WHERE "binda_field_settings"."ancestry" = '4' ORDER BY "binda_field_settings"."position" ASC, "binda_field_settings"."id" ASC[0m
+  [1m[36mBinda::String Load (1.2ms)[0m  [1m[34mSELECT  "binda_texts".* FROM "binda_texts" WHERE "binda_texts"."type" IN ('Binda::String') AND "binda_texts"."fieldable_id" = $1 AND "binda_texts"."fieldable_type" = $2 AND "binda_texts"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 5], ["LIMIT", 1]]
+  [1m[36mBinda::String Load (0.6ms)[0m  [1m[34mSELECT "binda_texts".* FROM "binda_texts" WHERE "binda_texts"."type" IN ('Binda::String') AND "binda_texts"."fieldable_id" = $1 AND "binda_texts"."fieldable_type" = $2[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Component"]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "binda_field_settings"."slug", "binda_field_settings"."id" FROM "binda_field_settings"[0m
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_string.html.erb (30.7ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (70.4ms)
+  [1m[36mBinda::Date Load (1.3ms)[0m  [1m[34mSELECT  "binda_dates".* FROM "binda_dates" WHERE "binda_dates"."fieldable_id" = $1 AND "binda_dates"."fieldable_type" = $2 AND "binda_dates"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 6], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_date.html.erb (14.7ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (39.9ms)
+  [1m[36mBinda::Image Load (0.9ms)[0m  [1m[34mSELECT  "binda_assets".* FROM "binda_assets" WHERE "binda_assets"."type" IN ('Binda::Image') AND "binda_assets"."fieldable_id" = $1 AND "binda_assets"."fieldable_type" = $2 AND "binda_assets"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 7], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_image.html.erb (8.4ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (57.4ms)
+  [1m[36mBinda::Video Load (0.8ms)[0m  [1m[34mSELECT  "binda_assets".* FROM "binda_assets" WHERE "binda_assets"."type" IN ('Binda::Video') AND "binda_assets"."fieldable_id" = $1 AND "binda_assets"."fieldable_type" = $2 AND "binda_assets"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 8], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_video.html.erb (9.9ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (36.7ms)
+  [1m[36mBinda::Choice Exists (0.9ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Radio Load (1.2ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."type" IN ('Binda::Radio') AND "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (1.1ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 8], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.8ms)[0m  [1m[34mSELECT  "binda_choices".* FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 ORDER BY "binda_choices"."id" ASC LIMIT $2[0m  [["selection_id", 8], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.6ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 9]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (230.4ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (233.6ms)
+  [1m[36mBinda::Choice Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 10], ["LIMIT", 1]]
+  [1m[36mBinda::Selection Load (0.7ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 10], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.9ms)[0m  [1m[34mSELECT  "binda_choices".* FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 ORDER BY "binda_choices"."id" ASC LIMIT $2[0m  [["selection_id", 9], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Load (0.5ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 10]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (20.7ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (23.7ms)
+  [1m[36mBinda::Choice Exists (0.9ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 LIMIT $2[0m  [["field_setting_id", 11], ["LIMIT", 1]]
+  [1m[36mBinda::Checkbox Load (0.6ms)[0m  [1m[34mSELECT  "binda_selections".* FROM "binda_selections" WHERE "binda_selections"."type" IN ('Binda::Checkbox') AND "binda_selections"."fieldable_id" = $1 AND "binda_selections"."fieldable_type" = $2 AND "binda_selections"."field_setting_id" = $3 LIMIT $4[0m  [["fieldable_id", 2], ["fieldable_type", "Binda::Repeater"], ["field_setting_id", 11], ["LIMIT", 1]]
+  [1m[36mBinda::Choice Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1 LIMIT $2[0m  [["selection_id", 10], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "binda_choices"."id" FROM "binda_choices" INNER JOIN "binda_choices_selections" ON "binda_choices"."id" = "binda_choices_selections"."choice_id" WHERE "binda_choices_selections"."selection_id" = $1[0m  [["selection_id", 10]]
+  [1m[36mBinda::Choice Load (0.5ms)[0m  [1m[34mSELECT "binda_choices".* FROM "binda_choices" WHERE "binda_choices"."field_setting_id" = $1 ORDER BY "binda_choices"."label" ASC[0m  [["field_setting_id", 11]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_selections.html.erb (28.7ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section_repeater.html.erb (31.5ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_item_repeater.html.erb (543.6ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_section.html.erb (566.1ms)
+  [1m[36mBinda::Category Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "binda_categories" WHERE "binda_categories"."structure_id" = $1 LIMIT $2[0m  [["structure_id", 2], ["LIMIT", 1]]
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_sidebar.html.erb (17.5ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/fieldable/_form_body.html.erb (782.4ms)
+  Rendered /Users/ab/Sites/_assets/binda/app/views/binda/components/edit.html.erb within layouts/binda/application (800.1ms)
+Completed 500 Internal Server Error in 1283ms (ActiveRecord: 101.2ms)
+
+
+  
+ActionView::Template::Error (File to import not found or unreadable: bourbon.
+Load paths:
+  /Users/ab/Sites/_assets/binda/spec/dummy/app/assets/config
+  /Users/ab/Sites/_assets/binda/spec/dummy/app/assets/images
+  /Users/ab/Sites/_assets/binda/spec/dummy/app/assets/javascripts
+  /Users/ab/Sites/_assets/binda/spec/dummy/app/assets/stylesheets
+  /Users/ab/Sites/_assets/binda/app/assets/config
+  /Users/ab/Sites/_assets/binda/app/assets/images
+  /Users/ab/Sites/_assets/binda/app/assets/javascripts
+  /Users/ab/Sites/_assets/binda/app/assets/stylesheets
+  /Users/ab/Sites/_assets/binda/vendor/assets/fonts
+  /Users/ab/Sites/_assets/binda/vendor/assets/javascripts
+  /Users/ab/Sites/_assets/binda/vendor/assets/stylesheets
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/tinymce-rails-4.6.7/app/assets/javascripts
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/tinymce-rails-4.6.7/app/assets/source
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/tinymce-rails-4.6.7/vendor/assets/javascripts
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/jquery-rails-4.3.1/vendor/assets/javascripts
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/actioncable-5.1.4/lib/assets/compiled
+  /Users/ab/.rvm/gems/ruby-2.3.1/gems/actionview-5.1.4/lib/assets/compiled
+  /Users/ab/Sites/_assets/binda/vendor/assets
+  /Users/ab/Sites/_assets/binda/spec/dummy/vendor/assets/fonts
+  /Users/ab/Sites/_assets/binda/spec/dummy/node_modules):
+    4:     <title>Binda CMS -- <%= controller_name.capitalize %> <%= action_name.capitalize %></title>
+    5:     <%= csrf_meta_tags %>
+    6:     <%= tinymce %>
+    7: 	  <%= stylesheet_link_tag    "binda/application", media: "all" %>
+    8: 	  <%= javascript_include_tag "binda/application" %>
+    9:   </head>
+   10: 
+  
+/Users/ab/Sites/_assets/binda/app/assets/stylesheets/binda/application.scss:1
+sass (3.5.3) lib/sass/tree/import_node.rb:67:in `rescue in import'
+sass (3.5.3) lib/sass/tree/import_node.rb:45:in `import'
+sass (3.5.3) lib/sass/tree/import_node.rb:28:in `imported_file'
+sass (3.5.3) lib/sass/tree/import_node.rb:37:in `css_import?'
+sass (3.5.3) lib/sass/tree/visitors/perform.rb:314:in `visit_import'
+sass (3.5.3) lib/sass/tree/visitors/base.rb:36:in `visit'
+sass (3.5.3) lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+sass (3.5.3) lib/sass/stack.rb:79:in `block in with_base'
+sass (3.5.3) lib/sass/stack.rb:135:in `with_frame'
+sass (3.5.3) lib/sass/stack.rb:79:in `with_base'
+sass (3.5.3) lib/sass/tree/visitors/perform.rb:162:in `visit'
+sass (3.5.3) lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+sass (3.5.3) lib/sass/tree/visitors/base.rb:52:in `map'
+sass (3.5.3) lib/sass/tree/visitors/base.rb:52:in `visit_children'
+sass (3.5.3) lib/sass/tree/visitors/perform.rb:171:in `block in visit_children'
+sass (3.5.3) lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+sass (3.5.3) lib/sass/tree/visitors/perform.rb:170:in `visit_children'
+sass (3.5.3) lib/sass/tree/visitors/base.rb:36:in `block in visit'
+sass (3.5.3) lib/sass/tree/visitors/perform.rb:190:in `visit_root'
+sass (3.5.3) lib/sass/tree/visitors/base.rb:36:in `visit'
+sass (3.5.3) lib/sass/tree/visitors/perform.rb:161:in `visit'
+sass (3.5.3) lib/sass/tree/visitors/perform.rb:10:in `visit'
+sass (3.5.3) lib/sass/tree/root_node.rb:36:in `css_tree'
+sass (3.5.3) lib/sass/tree/root_node.rb:20:in `render'
+sass (3.5.3) lib/sass/engine.rb:290:in `render'
+sass-rails (5.0.6) lib/sass/rails/template.rb:47:in `evaluate'
+tilt (2.0.8) lib/tilt/template.rb:109:in `render'
+sprockets (3.7.1) lib/sprockets/legacy_tilt_processor.rb:25:in `call'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `reverse_each'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+sprockets (3.7.1) lib/sprockets/bundle.rb:23:in `block in call'
+sprockets (3.7.1) lib/sprockets/utils.rb:200:in `dfs'
+sprockets (3.7.1) lib/sprockets/bundle.rb:24:in `call'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `reverse_each'
+sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+sprockets (3.7.1) lib/sprockets/base.rb:66:in `find_asset'
+sprockets (3.7.1) lib/sprockets/base.rb:92:in `[]'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:355:in `find_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:347:in `find_debug_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:229:in `block in lookup_debug_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:242:in `block in resolve_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:241:in `each'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:241:in `detect'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:241:in `resolve_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:228:in `lookup_debug_asset'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:170:in `block in stylesheet_link_tag'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:169:in `map'
+sprockets-rails (3.2.1) lib/sprockets/rails/helper.rb:169:in `stylesheet_link_tag'
+/Users/ab/Sites/_assets/binda/app/views/layouts/binda/application.html.erb:7:in `___sers_ab__ites__assets_binda_app_views_layouts_binda_application_html_erb__1954836462409807118_70143934894780'
+actionview (5.1.4) lib/action_view/template.rb:157:in `block in render'
+activesupport (5.1.4) lib/active_support/notifications.rb:168:in `instrument'
+actionview (5.1.4) lib/action_view/template.rb:352:in `instrument_render_template'
+actionview (5.1.4) lib/action_view/template.rb:155:in `render'
+actionview (5.1.4) lib/action_view/renderer/template_renderer.rb:64:in `render_with_layout'
+actionview (5.1.4) lib/action_view/renderer/template_renderer.rb:50:in `render_template'
+actionview (5.1.4) lib/action_view/renderer/template_renderer.rb:14:in `render'
+actionview (5.1.4) lib/action_view/renderer/renderer.rb:42:in `render_template'
+actionview (5.1.4) lib/action_view/renderer/renderer.rb:23:in `render'
+actionview (5.1.4) lib/action_view/rendering.rb:103:in `_render_template'
+actionpack (5.1.4) lib/action_controller/metal/streaming.rb:217:in `_render_template'
+actionview (5.1.4) lib/action_view/rendering.rb:83:in `render_to_body'
+actionpack (5.1.4) lib/action_controller/metal/rendering.rb:52:in `render_to_body'
+actionpack (5.1.4) lib/action_controller/metal/renderers.rb:141:in `render_to_body'
+actionpack (5.1.4) lib/abstract_controller/rendering.rb:24:in `render'
+actionpack (5.1.4) lib/action_controller/metal/rendering.rb:36:in `render'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:44:in `block (2 levels) in render'
+activesupport (5.1.4) lib/active_support/core_ext/benchmark.rb:12:in `block in ms'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/benchmark.rb:308:in `realtime'
+activesupport (5.1.4) lib/active_support/core_ext/benchmark.rb:12:in `ms'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:44:in `block in render'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:87:in `cleanup_view_runtime'
+activerecord (5.1.4) lib/active_record/railties/controller_runtime.rb:29:in `cleanup_view_runtime'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:43:in `render'
+actionpack (5.1.4) lib/action_controller/metal/implicit_render.rb:33:in `default_render'
+actionpack (5.1.4) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.4) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.4) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.4) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.4) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.4) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.4) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.4) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.4) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.4) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.4) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.4) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.4) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.4) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.4) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.4) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.4) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:834:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+railties (5.1.4) lib/rails/railtie.rb:185:in `public_send'
+railties (5.1.4) lib/rails/railtie.rb:185:in `method_missing'
+actionpack (5.1.4) lib/action_dispatch/routing/mapper.rb:17:in `block in <class:Constraints>'
+actionpack (5.1.4) lib/action_dispatch/routing/mapper.rb:46:in `serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:834:in `call'
+bullet (5.6.1) lib/bullet/rack.rb:12:in `call'
+warden (1.2.7) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.7) lib/warden/manager.rb:35:in `catch'
+warden (1.2.7) lib/warden/manager.rb:35:in `call'
+rack (2.0.3) lib/rack/etag.rb:25:in `call'
+rack (2.0.3) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.3) lib/rack/head.rb:12:in `call'
+rack (2.0.3) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.3) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.4) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.4) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+rack (2.0.3) lib/rack/handler/webrick.rb:86:in `service'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+/Users/ab/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
