@@ -19,21 +19,19 @@
   </div>
   <div class="main-table--div">
 
-      <h5 class="text-muted">Drag &amp; drop using the handle to sort your <%= @structure.name.humanize.split.join(' ').pluralize %>. Changes are automatically saved.</h5>
+      <h5 class="text-muted">Drag &amp; drop to sort your <%= @structure.name.humanize.split.join(' ').pluralize %>. Changes are automatically saved.</h5>
 
       <table class="standard-form--container">
         <thead>
           <tr>
-            <th class="standard-form--header"><span class="glyphicon glyphicon-move" aria-hidden="true" style="margin-left: 8px;"></span></th>
-            <th class="standard-form--header">Title</th>
-            <th class="standard-form--header">Publish state</th>
+            <th style="width: 50%;", class="standard-form--header">Title</th>
+            <th style="width: 50%;", class="standard-form--header">Publish state</th>
             <th class="standard-form--header"></th>
           </tr>
         </thead>
         <tbody id="<%= @structure.slug %>-components--sort-index" class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
           <% @components.order( :position, :name ).each do |component| %>
-            <tr id="component_<%= component.id %>">  
-              <td><span class="sortable--handle"></span></td>
+            <tr id="component_<%= component.id %>">
               <td><%= link_to component.name, structure_component_path( @structure.slug, component ) %></td>
               <td><%= component.publish_state %></td>
               <td></td>

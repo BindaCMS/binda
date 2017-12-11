@@ -34,6 +34,7 @@ Binda::Engine.routes.draw do
   get  'dashboard', to: 'boards#dashboard', as: :dashboard
 
   post 'structures/sort'
+  get 'structures/sort_index'
   resources :structures do
     post 'field_groups/sort'
     post 'field_groups/add_child'

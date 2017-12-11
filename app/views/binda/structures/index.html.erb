@@ -1,11 +1,12 @@
 <% content_for :header do %>
   <div class="main-header--buttons">
     <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
+    <%= get_structures_sort_index_link %>
   </div>
   <h3>Structures</h3>
 <% end %>
 
-<% content_for :content do %> 
+<% content_for :content do %>
   <div class="main-table--div">
 
       <table class="standard-form--container">
@@ -16,7 +17,7 @@
           </tr>
         </thead>
         
-        <tbody class="sortable" data-update-url="<%= structures_sort_path() %>">
+        <tbody>
           <% @structures.order( :name ).each do |structure| %>
             <tr id="structure_<%= structure.id %>">    
               <td><%= structure.name %></td>
