@@ -6,7 +6,7 @@
   <h3><%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></h3>
 <% end %>
 
-<% content_for :content do %> 
+<% content_for :content do %>
 
     <div class="main-table--div">
 
@@ -14,7 +14,7 @@
         <%= paginate @components %>
       </div>
 
-      <table class="standard-form--container">
+      <table class="standard-form--container" cellspacing="0">
 
         <thead>
 

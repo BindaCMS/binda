@@ -17,19 +17,17 @@
       </div>
       <p>Updating components position...</p>
   </div>
-  <div class="main-table--row row">
-    <div class="col-sm-12">
-  
-      <h5 class="text-muted">Drag &amp; drop using the handle to sort your <%= @structure.name.humanize.split.join(' ').pluralize %>. Changes are automatically saved.</h5>
-      <hr>
+  <div class="main-table--div">
 
-      <table class="table table-striped">
+      <h5 class="text-muted">Drag &amp; drop using the handle to sort your <%= @structure.name.humanize.split.join(' ').pluralize %>. Changes are automatically saved.</h5>
+
+      <table class="standard-form--container">
         <thead>
           <tr>
-            <th class="col-sm-1"><span class="glyphicon glyphicon-move" aria-hidden="true" style="margin-left: 8px;"></span></th>
-            <th class="col-sm-5">Title</th>
-            <th class="col-sm-2">Publish state</th>
-            <th class="col-sm-3"></th>
+            <th class="standard-form--header"><span class="glyphicon glyphicon-move" aria-hidden="true" style="margin-left: 8px;"></span></th>
+            <th class="standard-form--header">Title</th>
+            <th class="standard-form--header">Publish state</th>
+            <th class="standard-form--header"></th>
           </tr>
         </thead>
         <tbody id="<%= @structure.slug %>-components--sort-index" class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
@@ -47,5 +45,4 @@
     <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path, class: 'main-header--link btn btn-default', action: "new" %>    
         
   </div>
-</div>
 <% end %>

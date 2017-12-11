@@ -28,8 +28,7 @@
 {
   overflow-y: hidden;
   margin-bottom: 20px;
-  border: 1px solid $color-gray-dark;
-  border-bottom: none;
+  border: 1px solid #333333;
 
   .control-label
   {
@@ -85,8 +84,9 @@
 
 .standard-form--header
 {
-  padding: 8px 6px;
+  padding: 12px 12px;
   background-color: $color-gray-darker;
+  color: $color-white;
 
   p
   {
@@ -104,4 +104,14 @@
 
 td {
   border-top: none !important;
+}
+
+tr:hover {
+  background: white;
+}
+
+tr {
+  border-bottom: 1px solid #c1c1c1;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
 }
