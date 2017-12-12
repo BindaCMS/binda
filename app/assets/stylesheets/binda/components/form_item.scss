@@ -1,15 +1,14 @@
 .form-item
 {
   display: block;
-  margin-bottom: $font-size-base*1.5;
+  margin-bottom: 20px;
   transition: all .3s linear;
   transform: scaleY(1);
-  border-bottom: 1px solid $color-gray-lightest;
 
   @extend .clearfix;
   .form-group
   {
-    margin-bottom: $font-size-base;
+    margin-bottom: 20px;
   }
 }
 
@@ -19,17 +18,6 @@
   {
     overflow-y: hidden;
     transition: max-height .6s ease-out;
-    h5
-    {
-      float: left;
-      width: 15%;
-    }
-    a
-    {
-      float: right;
-      margin-top: $font-size-base/2;
-      margin-left: $font-size-base/2;
-    }
   }
 
   .form-item--half-size
@@ -37,17 +25,7 @@
     position: relative;
     float: left;
     width: 46%;
-    margin-right: 4%
-
-    h5
-    {
-      width: 100%;
-    }
-
-    .form-item--select-input
-    {
-      margin-left: 0;
-    }
+    margin-right: 4%;
   }
 
   .form-item--full-size
@@ -66,7 +44,7 @@
 
   .form-group
   {
-    margin-bottom: $font-size-base;
+    margin-bottom: 20px;
   }
 }
 
@@ -86,8 +64,8 @@
 
 .form-item--category
 {
-  margin-bottom: $font-size-base*1.5;
-  padding-bottom: $font-size-base*1.5;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
 
   input[type=submit]
   {
@@ -125,34 +103,35 @@
   transition: max-height .6s ease-out;
 }
 
-.form-item--label-on-left .form-group
+.form-item--repeater
 {
-  display: inline-block;
-  width: 70%;
-  margin-left: 5%;
-}
-
-.form-item--repeater {
   overflow-y: hidden;
   // inherit transitions from sortable and add max-height
-  transition: box-shadow .3s ease, transform .3s ease, max-height .6s ease-out !important; 
+  transition: box-shadow .3s ease, transform .3s ease, max-height .6s ease-out !important;
+}
+
+.standard-form--container .form-item--repeater .control-label
+{
+  @extend .p;
 }
 
 .form-item--repeater-fields
 {
-  margin-bottom: $font-size-base;
-  padding-top: 8px;
-  padding-left: $font-size-base/2;
+  overflow-y: hidden;
+  margin-bottom: 20px;
   transition: all .6s ease;
-  border-bottom: 1px solid $color-gray-lightest;
-  border-left: 2px solid $color-gray-lightest;
 }
 
 .form-item--repeater-section
 {
   margin-bottom: 0;
 
-  ul.sortable li > *
+  ul.sortable > li {
+    border: 1px solid $color-gray-darker;
+    margin-top: -1px; // this solve the issue of a 2px border between 2 repeaters
+  }
+
+  ul.sortable > li > *
   {
     display: block;
   }
@@ -160,12 +139,6 @@
   ul.sortable
   {
     margin-bottom: 20px;
-    border-top: 1px solid $color-gray-lighter;
-
-    .form-item--repeater-fields
-    {
-      overflow-y: hidden;
-    }
   }
 
   .sortable--toggle-text:first-child
@@ -173,10 +146,23 @@
     display: none;
   }
 
-  h5
+  .sortable--toggle
   {
-    float: left;
-    width: 15%;
+    float: right;
+    margin: 0;
+  }
+
+  .sortable--enabled
+  {
+    .ui-sortable-handle:hover
+    {
+    }
+
+    .form-item--repeater-fields
+    {
+      margin: 0;
+      padding: 0;
+    }
   }
 
   .form-item--new
@@ -190,28 +176,10 @@
   {
     margin-bottom: $font-size-base;
   }
-
-  .sortable--toggle
-  {
-    float: right;
-    margin: 0;
-  }
-
-  .sortable--enabled
-  {
-    .ui-sortable-handle:hover {
-      border: 1px solid $color-gray-lighter;
-    }
-
-    .form-item--repeater-fields
-    {
-      margin: 0;
-      padding: 0;
-    }
-  }
 }
 
-.form-item--repeater-section--add-new {
+.form-item--repeater-section--add-new
+{
   float: right;
   margin-right: 8px;
 }
@@ -225,7 +193,7 @@
 .form-item--repeater-header
 {
   padding: 4px 0;
-  background-color: $color-gray-lightest !important;
+  background-color: $color-gray-lighter !important;
 
   p
   {
@@ -237,8 +205,8 @@
 .form-item--delete-repeater-item
 {
   float: right;
-  margin-top: $font-size-base/2;
-  margin-right: $font-size-base/2;
+  margin-top: 8px;
+  margin-right: 8px;
 }
 
 .form-item--choices

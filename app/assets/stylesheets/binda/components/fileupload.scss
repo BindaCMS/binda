@@ -21,6 +21,10 @@
     transform: translate(-50%, -50%);
     text-align: center;
   }
+
+  video {
+    display: none;
+  }
 }
 
 .fileupload--preview--uploaded
@@ -69,6 +73,7 @@
 .fileupload label.control-label
 {
   @extend .b-btn;
+  @extend .p;
   font-weight: 300;
   margin-right: 20px;
   margin-bottom: 20px;
