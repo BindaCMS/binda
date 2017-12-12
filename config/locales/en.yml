@@ -45,7 +45,6 @@ en:
   allow_null: allow null?
   instance: instance
   structure_instance_type: 'This structure is for:'
-  null_is_not_allowed: You need to select at least one choice
 
   binda:
     title: title
@@ -59,3 +58,4 @@ en:
     filesize: Size
     select_placeholder: Select a option
     new_item_in_repeater: Add new %{arg1} item
+    null_is_not_allowed: You need to select at least one choice

@@ -28,7 +28,7 @@
 {
   overflow-y: hidden;
   margin-bottom: 20px;
-  border: 1px solid #333333;
+  border: 1px solid $color-gray-darker;
 
   .control-label
   {
@@ -46,7 +46,7 @@
   {
     margin-bottom: 0;
     padding: 20px 12px;
-    border-bottom: 1px solid $color-gray-darker;
+    border-top: 1px solid $color-gray-darker;
   }
 
   .form-control
