@@ -82,6 +82,7 @@
 
 .b-btn
 {
+  display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
   border-radius: 0;
@@ -90,6 +91,17 @@
   {
     padding-right: 6px;
   }
+}
+
+.b-btn-settings
+{
+  margin-left: 12px;
+  margin-bottom: 12px;
+}
+
+.b-btn-inline
+{
+  margin-left: 0px !important;
 }
 
 .button-div

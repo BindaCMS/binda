@@ -8,8 +8,9 @@
 
 .standard-form--body
 {
+  vertical-align: top;
   display: inline-block;
-  width: 64.5%;
+  width: 73%;
 }
 
 
@@ -18,7 +19,9 @@
 .standard-form--sidebar
 {
   display: inline-block;
-  width: 19.5%;
+  float: right;
+  width: 300px;
+  margin-left: 24px;
 }
 
 
@@ -108,19 +111,16 @@
 .standard-form--radio,
 .standard-form--checkbox
 {
-  label
+  .standard-form--input-box
   {
-    span
-    {
-      position: relative;
-      top: 2px;
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      margin-right: 5px;
-      transition: background-color .2s ease-in-out;
-      border: 1px solid $text-color;
-    }
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 5px;
+    transition: background-color .2s ease-in-out;
+    border: 1px solid $text-color;
   }
 
   input[type='radio'],
