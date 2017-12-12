@@ -75,15 +75,10 @@ function handle_file(event)
 		data: formData
 	}).done( function(data)
 	{
-		// Update thumbnail
-		$preview.css('background-image', `url(${data.thumbnailUrl})`)
-		// Remove and add class to trigger css animation
-		let uploadedClass = 'fileupload--preview--uploaded'
-		$preview.removeClass(uploadedClass).addClass(uploadedClass)
-		// Update details
-		$parent.find('.fileupload--width').text(data.width)
-		$parent.find('.fileupload--height').text(data.height)
-		$parent.find('.fileupload--filename').text(data.name)
+		if ( data.type == 'image' ) { setup_image_preview(data, id) } 
+		else if ( data.type == 'video' ) { setup_video_preview(data, id) } 
+		else { alert('Something went wrong. No preview has been received.') }
+
 		// Display details and buttons
 		$parent.find('.fileupload--details').removeClass('fileupload--details--hidden')
 		$parent.find('.fileupload--remove-image-btn').removeClass('fileupload--remove-image-btn--hidden')
@@ -110,4 +105,46 @@ function remove_preview(event)
 	$parent.find('.fileupload--preview').css('background-image','').removeClass('fileupload--preview--uploaded')
 	$parent.find('.fileupload--remove-image-btn').addClass('fileupload--remove-image-btn--hidden')
 	$parent.find('.fileupload--details').addClass('fileupload--details--hidden')
+}
+
+function setup_image_preview(data, id)
+{
+	let $parent = $('#fileupload-'+id)
+	let $preview = $('#fileupload-'+id+' .fileupload--preview')
+
+	// Update thumbnail
+	$preview.css('background-image', `url(${data.thumbnailUrl})`)
+
+	// Remove and add class to trigger css animation
+	let uploadedClass = 'fileupload--preview--uploaded'
+	$preview.removeClass(uploadedClass).addClass(uploadedClass)
+
+	// Update details
+	$parent.find('.fileupload--width').text(data.width)
+	$parent.find('.fileupload--height').text(data.height)
+	$parent.find('.fileupload--filesize').text(data.size)
+	$parent.find('.fileupload--filename').text(data.name)
+}
+
+function setup_video_preview(data, id)
+{
+	let $parent = $('#fileupload-'+id)
+	let $preview = $('#fileupload-'+id+' .fileupload--preview')
+
+	$preview.removeClass('fileupload--preview--uploaded')
+	  .find('video')
+	  .attr('id', 'video-' + id)
+	  .find('source')
+	  .attr('src', data.url)
+	  .attr('type', 'video/' + data.ext)
+
+	$preview.find('video').get(0).load()
+
+	// Remove and add class to trigger css animation
+	let uploadedClass = 'fileupload--preview--uploaded'
+	$preview.removeClass(uploadedClass).addClass(uploadedClass)
+
+	// Update details
+	$parent.find('.fileupload--filesize').text(data.size)
+	$parent.find('.fileupload--filename').text(data.name)
 }

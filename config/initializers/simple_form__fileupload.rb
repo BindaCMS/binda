@@ -9,10 +9,27 @@ module SimpleForm
         @preview ||= begin
           # open a div tag for the file preview
           html = '<div class="fileupload--preview' 
+          
           # add preview image if it's set
-          html << " fileupload--preview--uploaded\" style=\"background-image: url(#{options[:object].image.url})" if options[:object].image.present?
-          # close div tag
-          html << "\"><p>#{ t('binda.no_preview')}</p></div>"
+          if options[:object].image.present?
+            html << " fileupload--preview--uploaded\" style=\"background-image: url(#{options[:object].image.url})" 
+          elsif options[:object].video.present?
+            html << " fileupload--preview--uploaded" 
+          end
+          
+          # Add no-preview text
+          html << "\"><p>#{ t('binda.no_preview')}</p>"
+        
+          # Add video tag
+          if options[:object].video.present?
+            html << "<video id=\"video-#{options[:object].id}\" class=\"form-item--video--video\">"
+            html << "<source src=\"#{options[:object].video.url}\" type=\"video/#{options[:object].video.file.extension.downcase}\"></video>"
+          else
+            html << "<video class=\"form-item--video--video\"><source></video>"
+          end
+          
+          # Close preview container
+          html << "</div>"
         end
       end
 
@@ -29,7 +46,7 @@ module SimpleForm
           obj = options[:object]
           url = options[:url]
           html = '<a class="b-btn b-btn-outline-danger fileupload--remove-image-btn'
-            html << ' fileupload--remove-image-btn--hidden' unless obj.image.present?
+            html << ' fileupload--remove-image-btn--hidden' unless obj.respond_to?('image') && obj.image.present?
             html << '" href="'
             html << url
             html << '" data-method="delete" data-remote="true" data-confirm="'
@@ -63,19 +80,28 @@ module SimpleForm
           end
 
           html = '<div class="fileupload--details'
-          html << ' fileupload--details--hidden' unless obj.image.present?
+          html << ' fileupload--details--hidden' unless obj.image.present? || obj.video.present?
           html << '"><p class="fileupload--name">'
           html << "<strong>#{t 'binda.filename'}:</strong> "
           html << "<span class=\"fileupload--filename\">"
           html << File.basename(obj.image.path).to_s if obj.image.present?
+          html << File.basename(obj.video.path).to_s if obj.video.present?
           html << "</span></p>"
           html << '<p class="fileupload--size">'
           html << "<strong>#{t 'binda.filesize'}:</strong> "
-          html << "<span class=\"fileupload--width\">"
-          html << image[:width].to_s unless image.nil?
-          html << "</span> x <span class=\"fileupload--height\">"
-          html << image[:height].to_s unless image.nil?
-          html << "</span> px</p>"
+          html << "<span class=\"fileupload--filesize\">"
+          html << bytes_to_megabytes(obj.image.size).to_s if obj.image.present?
+          html << bytes_to_megabytes(obj.video.size).to_s if obj.video.present?
+          html << "MB</span></p>"
+          if obj.image.present?
+            html << '<p class="fileupload--dimension">'
+            html << "<strong>#{t 'binda.filedimension'}:</strong> "
+            html << "<span class=\"fileupload--width\">"
+            html << image[:width].to_s unless image.nil?
+            html << "</span> x <span class=\"fileupload--height\">"
+            html << image[:height].to_s unless image.nil?
+            html << "</span> px</p>"
+          end
           html << '</div>'
         end
       end
@@ -83,6 +109,10 @@ module SimpleForm
       # Used when the preview is optional
       def has_detail?
         detail.present?
+      end
+
+      def bytes_to_megabytes bytes
+        (bytes.to_f / 1.megabyte).round(2)
       end
     end
   end
