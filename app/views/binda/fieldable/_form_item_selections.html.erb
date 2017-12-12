@@ -6,79 +6,105 @@
 			<%# RADIO                   %>
 			<%# - - - - - - - - - - - - %>
 			<% if field_setting.field_type === 'radio' %>
-			  <% current = f.object.find_or_create_a_field_by( field_setting.id, 'radio' ) %>
-			  <%= f.simple_fields_for "radios_attributes[]", current do |ff| %>
+				<% current = f.object.find_or_create_a_field_by( field_setting.id, 'radio' ) %>
+				<%= f.simple_fields_for "radios_attributes[]", current do |ff| %>
 					<% if ff.object.choices.any? %>
-						<% unless field_setting.allow_null %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: prepare_description_for_form_hint(field_setting), as: :radio_buttons, collection: field_setting.choices.order(:label), label_method: -> (x){ "<span></span>#{x[:label]}".html_safe }, value_method: :id, checked: ff.object.choices.first.id %>
-						<% else %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: prepare_description_for_form_hint(field_setting), as: :radio_buttons, collection: field_setting.choices.order(:label), label_method: -> (x){ "<span></span>#{x[:label]}".html_safe }, value_method: :id, checked: ff.object.choices.first.id, include_blank: false %>
-						<% end %>
+						<%= ff.input :choice_ids, 
+									label: field_setting.name.capitalize, 
+									hint: prepare_description_for_form_hint(field_setting), 
+									as: :radio_buttons, 
+									collection: field_setting.choices.order(:label), 
+									label_method: -> (x){ "<span></span>#{x[:label]}".html_safe }, 
+									value_method: :id, 
+									checked: ff.object.choices.first.id, 
+									include_blank: field_setting.allow_null %>
 					<% else %>
-						<% unless field_setting.allow_null %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: prepare_description_for_form_hint(field_setting), as: :radio_buttons, collection: field_setting.choices.order(:label), label_method: -> (x){ "<span></span>#{x[:label]}".html_safe }, value_method: :id, checked: field_setting.default_choice.id %>
-						<% else %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: prepare_description_for_form_hint(field_setting), as: :radio_buttons, collection: field_setting.choices.order(:label), label_method: -> (x){ "<span></span>#{x[:label]}".html_safe }, value_method: :id, checked: field_setting.default_choice.id, include_blank: false %>
-						<% end %>
+						<%= ff.input :choice_ids,
+									label: field_setting.name.capitalize,
+									hint: prepare_description_for_form_hint(field_setting),
+									as: :radio_buttons,
+									collection: field_setting.choices.order(:label),
+									label_method: -> (x){ "<span></span>#{x[:label]}".html_safe },
+									value_method: :id,
+									checked: ( field_setting.default_choice.id unless field_setting.allow_null ),
+									include_blank: field_setting.allow_null %>
 					<% end %>
 					<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 					<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
 					<%= ff.input :fieldable_id, as: :hidden %>
 					<%= ff.input :fieldable_type, as: :hidden %>
-			  <% end %>
+				<% end %>
 
 
 			<%# - - - - - - - - - - - - %>
 			<%# SELECT                  %>
 			<%# - - - - - - - - - - - - %>
 			<% elsif field_setting.field_type === 'selection' %>
-			  <% current = f.object.find_or_create_a_field_by( field_setting.id, 'selection' ) %>
-			  <%= f.simple_fields_for "selections_attributes[]", current do |ff| %>
+				<% current = f.object.find_or_create_a_field_by( field_setting.id, 'selection' ) %>
+				<%= f.simple_fields_for "selections_attributes[]", current do |ff| %>
 					<% if ff.object.choices.any? %>
-						<% unless field_setting.allow_null %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: prepare_description_for_form_hint(field_setting), as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: ff.object.choices.first.id %>
-						<% else %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: prepare_description_for_form_hint(field_setting), as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: ff.object.choices.first.id, include_blank: false %>
-						<% end %>
+						<%= ff.input :choice_ids,
+									label: field_setting.name.capitalize,
+									hint: prepare_description_for_form_hint(field_setting),
+									as: :select,
+									collection: field_setting.choices.order(:label),
+									label_method: :label,
+									value_method: :id,
+									selected: ff.object.choices.first.id,
+									include_blank: field_setting.allow_null %>
 					<% else %>
-						<% unless field_setting.allow_null %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: prepare_description_for_form_hint(field_setting), as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: field_setting.default_choice.id %>
-						<% else %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: prepare_description_for_form_hint(field_setting), as: :select, collection: field_setting.choices.order(:label), label_method: :label, value_method: :id, selected: field_setting.default_choice.id, include_blank: false %>
-						<% end %>
+						<%= ff.input :choice_ids,
+									label: field_setting.name.capitalize,
+									hint: prepare_description_for_form_hint(field_setting),
+									as: :select,
+									collection: field_setting.choices.order(:label),
+									label_method: :label,
+									value_method: :id,
+									selected: ( field_setting.default_choice.id unless field_setting.allow_null ),
+									include_blank: field_setting.allow_null %>
 					<% end %>
 					<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 					<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
 					<%= ff.input :fieldable_id, as: :hidden %>
 					<%= ff.input :fieldable_type, as: :hidden %>
-			  <% end %>
+				<% end %>
 
 
 			<%# - - - - - - - - - - - - %>
 			<%# CHECKBOX                %>
 			<%# - - - - - - - - - - - - %>
 			<% elsif field_setting.field_type === 'checkbox' %>
-			  <% current = f.object.find_or_create_a_field_by( field_setting.id, 'checkbox' ) %>
-			  <%= f.simple_fields_for "checkboxes_attributes[]", current do |ff| %>
+				<% current = f.object.find_or_create_a_field_by( field_setting.id, 'checkbox' ) %>
+				<%= f.simple_fields_for "checkboxes_attributes[]", current do |ff| %>
 					<% if ff.object.choices.any? %>
-						<% if field_setting.allow_null %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: prepare_description_for_form_hint(field_setting), as: :check_boxes, collection: field_setting.choices.order(:label), label_method: -> (x){ "<span></span>#{x[:label]}".html_safe }, value_method: :id %>
-						<% else %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: "#{t('binda.null_is_not_allowed')}. #{field_setting.description}", as: :check_boxes, collection: field_setting.choices.order(:label), label_method: -> (x){ "<span></span>#{x[:label]}".html_safe }, value_method: :id, checked: ff.object.choice_ids, include_blank: false, include_hidden: false %>
-						<% end %>
+						<%= ff.input :choice_ids,
+									label: field_setting.name.capitalize,
+									hint: "#{t('binda.null_is_not_allowed')}. #{field_setting.description}",
+									as: :check_boxes,
+									collection: field_setting.choices.order(:label),
+									label_method: -> (x){ "<span></span>#{x[:label]}".html_safe },
+									value_method: :id,
+									checked: ff.object.choice_ids,
+									include_blank: field_setting.allow_null,
+									include_hidden: field_setting.allow_null %>
 					<% else %>
-						<% if field_setting.allow_null %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: prepare_description_for_form_hint(field_setting), as: :check_boxes, collection: field_setting.choices.order(:label), label_method: -> (x){ "<span></span>#{x[:label]}".html_safe }, value_method: :id %>
-						<% else %>
-							<%= ff.input :choice_ids, label: field_setting.name.capitalize, hint: "#{t('binda.null_is_not_allowed')}. #{field_setting.description}", as: :check_boxes, collection: field_setting.choices.order(:label), label_method: -> (x){ "<span></span>#{x[:label]}".html_safe }, value_method: :id, checked: field_setting.default_choice.id, include_blank: false, include_hidden: false %>
-						<% end %>
+						<%= ff.input :choice_ids,
+									label: field_setting.name.capitalize,
+									hint: "#{t('binda.null_is_not_allowed')}. #{field_setting.description}",
+									as: :check_boxes,
+									collection: field_setting.choices.order(:label),
+									label_method: -> (x){ "<span></span>#{x[:label]}".html_safe },
+									value_method: :id,
+									checked: ( field_setting.default_choice.id unless field_setting.allow_null ),
+									include_blank: field_setting.allow_null,
+									include_hidden: field_setting.allow_null %>
 					<% end %>
 					<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 					<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
 					<%= ff.input :fieldable_id, as: :hidden %>
 					<%= ff.input :fieldable_type, as: :hidden %>
-			  <% end %>
-		  <% end %>
+				<% end %>
+			<% end %>
 
 		<% else %>
 			<p>Sorry, no choice is available. 
