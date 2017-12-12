@@ -57,26 +57,29 @@
     border: 1px solid transparent;
     box-shadow: none;
 
-    &:hover, 
+    &:hover,
     &:focus
     {
       border: 1px solid $color-gray;
-      box-shadow: none;
       outline: none;
       background-image: none;
+      box-shadow: none;
     }
 
-    &.disabled {
-    	background-color: $color-white;
-    	color: $color-gray-lighter;
-	    
-	    &:hover {
-	    	border: 1px solid transparent;
-	    }
+    &.disabled
+    {
+      color: $color-gray-lighter;
+      background-color: $color-white;
+
+      &:hover
+      {
+        border: 1px solid transparent;
+      }
     }
   }
-  .help-block {
-  	color: $color-gray;
+  .help-block
+  {
+    color: $color-gray;
   }
 }
 
@@ -102,6 +105,50 @@
   }
 }
 
-td {
+td
+{
   border-top: none !important;
 }
+
+.standard-form--radio,
+.standard-form--checkbox
+{
+  label
+  {
+    span
+    {
+      position: relative;
+      top: 2px;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      margin-right: 5px;
+      transition: background-color .2s ease-in-out;
+      border: 1px solid $text-color;
+    }
+  }
+
+  input[type='radio'],
+  input[type='checkbox']
+  {
+    position: relative;
+    display: inline-block;
+    width: 1px;
+    height: 1px;
+    transition: background-color .3s ease-in-out;
+    opacity: 0;
+    &:hover + span
+    {
+      background-color: $color-gray-lighter;
+    }
+    &:checked + span
+    {
+      background-color: $color-gray-dark;
+    }
+  }
+}
+
+.standard-form--radio label span {
+  border-radius: 1em;
+}
+
