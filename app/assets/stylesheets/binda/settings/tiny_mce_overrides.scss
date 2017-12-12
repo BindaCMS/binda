@@ -3,7 +3,7 @@
 body#tinymce
 {
   padding: 12px;
-  background-color: $color-gray-lighter;
+  background-color: $color-gray-lightest;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075) !important;
 }
 
@@ -12,7 +12,19 @@ body#tinymce
 {
   margin-bottom: $font-size-base * .5 !important;
   border: none !important;
-  background-color: $color-gray-lighter !important;
+  background-color: $color-gray-lightest !important;
+}
+
+.mce-toolbar
+{
+  border: none !important;
+}
+
+.mce-btn-group .mce-btn,
+.mce-flow-layout-item 
+{
+  margin-right: 2px !important;
+  margin-left: 0 !important;
 }
 
 .mce-btn-group:not(:first-child)
@@ -27,7 +39,7 @@ body#tinymce
 
 .mce-edit-area
 {
-  border: 1px solid $color-gray-light !important;
+  border: 1px solid $color-white !important;
   border-radius: 1px !important;
 }
 
@@ -39,9 +51,9 @@ body#tinymce
 
 .mce-statusbar
 {
-  border: 1px solid $color-gray-light !important;
+  border: none !important;
   border-top: none !important;
-  background-color: $color-gray-lighter !important;
+  background-color: $color-gray-lightest !important;
 }
 
 .mce-menubar
@@ -49,7 +61,6 @@ body#tinymce
   margin-top: $font-size-base !important;
   padding-top: 2px !important;
   padding-bottom: 2px !important;
-  border-top: 1px solid rgba(0, 0, 0, .075) !important;
 
   .mce-btn
   {
@@ -61,4 +72,11 @@ body#tinymce
   {
     margin-top: 0 !important;
   }
+}
+
+.mce-container-body,
+.mce-container,
+.mce-container::before
+{
+  box-shadow: none !important;
 }

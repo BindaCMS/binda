@@ -75,13 +75,18 @@ button a
 
   @media ( min-width: $tablet )
   {
-    @include font-size( $font-size-large, $font-size-large * 1.25 );
+    @include font-size( $font-size-base, $font-size-base * 1.25 );
   }
 }
 
 .small
 {
-  @include font-size( $font-size-base );
+  @include font-size( $font-size-base * 0.8, $font-size-base  * 0.8 * 1.25 );
+
+  @media ( min-width: $tablet )
+  {
+    @include font-size( $font-size-large * 0.85, $font-size-large * 0.85 * 1.25 );
+  }
 }
 
 .tiny
@@ -101,7 +106,7 @@ strong
   display: inline-block;
 }
 
-.h1
+.b-h1
 {
   @include font-size( $font-size-h2, $font-size-h2 * 1.25 );
 
@@ -111,7 +116,7 @@ strong
   }
 }
 
-.h2
+.b-h2
 {
   @include font-size( $font-size-h3, $font-size-h3 * 1.25 );
 
@@ -121,7 +126,7 @@ strong
   }
 }
 
-.h3
+.b-h3
 {
   @include font-size( $font-size-h4, $font-size-h4 * 1.25 );
 
@@ -131,7 +136,7 @@ strong
   }
 }
 
-.h4
+.b-h4
 {
   @include font-size( $font-size-h5, $font-size-h5 * 1.25 );
 
