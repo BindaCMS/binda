@@ -28,8 +28,7 @@
 {
   overflow-y: hidden;
   margin-bottom: 20px;
-  border: 1px solid $color-gray-dark;
-  border-bottom: none;
+  border: 1px solid #333333;
 
   .control-label
   {
@@ -88,8 +87,9 @@
 
 .standard-form--header
 {
-  padding: 8px 6px;
+  padding: 12px 12px;
   background-color: $color-gray-darker;
+  color: $color-white;
 
   p
   {
@@ -103,11 +103,6 @@
     margin-bottom: 0;
     color: white;
   }
-}
-
-td
-{
-  border-top: none !important;
 }
 
 .standard-form--radio,
@@ -151,4 +146,3 @@ td
 .standard-form--radio label span {
   border-radius: 1em;
 }
-

@@ -20,3 +20,4 @@ doc
 coverage
 cc-test-reporter
 .idea
+/spec/dummy/

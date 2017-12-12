@@ -1067,7 +1067,6 @@ $(document).ready(function () {
 		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
 		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].start();
 	}
-
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__["a" /* default */])();
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_sortable__["a" /* default */])();
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__["a" /* default */])();

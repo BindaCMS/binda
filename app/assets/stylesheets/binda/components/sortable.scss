@@ -36,7 +36,6 @@ ul#sortable
   height: 48px;
   z-index: 0;
   background-color: $color-gray-lighter;
-  box-shadow: inset 0 0 10px rgba(0,0,0,.25);
 }
 
 ul#sortable > li > *,
@@ -73,9 +72,10 @@ tbody.sortable
   list-style-type: none;
   tr
   {
+    transition: box-shadow .3s ease, transform .3s ease;
     margin-bottom: 8px;
     padding-bottom: 8px;
-    border-bottom: 1px solid $color-gray-lighter;
+
     &:first-child
     {
       // padding-top: 8px;

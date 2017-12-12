@@ -1,4 +1,4 @@
-.main-table--div {
+.main-table--container {
 
   table {
 
@@ -6,10 +6,8 @@
     border-bottom: 1px solid #666666;
 
     td {
-
-      padding: 7px;
-
-      border-bottom: 1px solid $color-gray-lighter;
+      border-top: none !important;
+      padding: 12px;
     }
 
     td:last-child {
@@ -25,21 +23,38 @@
       }
     }
 
+    tr.hover:hover {
+      background: $color-white;
+    }
+
+    .no-hover {
+      background: none;
+    }
+
+    tr {
+      border-bottom: 1px solid $color-gray-lighter;
+      border-left: 1px solid $color-gray-darker;
+      border-right: 1px solid $color-gray-darker;
+    }
+
+    tr:last-child {
+      border-bottom: 1px solid $color-gray-darker;
+    }
   }
-}
 
-.prev {
+  .prev {
 
-  margin-left: 1%;
-}
+    margin-left: 1%;
+  }
 
-.next {
+  .next {
 
-  margin-right: 1%;
-  float: right;
-}
+    margin-right: 1%;
+    float: right;
+  }
 
-.last {
+  .last {
 
-  float: right;
+    float: right;
+  }
 }
