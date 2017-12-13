@@ -56,12 +56,13 @@
                     include_blank: false,
                     label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x}".html_safe }%>
       </div>
+      <div class="standard-form--main-actions">
+        <%= button_tag '<i class="fas fa-check"></i>Save changes'.html_safe, { class: 'b-btn b-btn-primary b-btn-settings', id: 'save' } %>
 
-      <%= f.button :submit, 'Save changes', class: 'b-btn b-btn-primary b-btn-settings' %>
-
-      <% unless @structure.new_record? %>
-        <a class="form-body--delete b-btn b-btn-inline b-btn-settings b-btn-outline-danger" href="<%= url_for([@structure]) %>" data-method="delete" data-confirm="This operation will delete this structure and there is no coming back. Are you ok with that?">Delete Structure <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-      <% end %>
+        <% unless @structure.new_record? %>
+          <a class="form-body--delete b-btn b-btn-outline-danger b-btn-settings" href="<%= url_for([@structure]) %>" data-method="delete" data-confirm="This operation will delete this structure and there is no coming back. Are you ok with that?"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %> <%= @structure.name.capitalize %></a>
+        <% end %>
+      </div>
     </div>
 
   </div>

@@ -308,7 +308,11 @@ function remove_preview(event) {
 	var id = event.target.getAttribute('data-id');
 	var $parent = $('#fileupload-' + id);
 
+	// Reset previews (either image or video)
 	$parent.find('.fileupload--preview').css('background-image', '').removeClass('fileupload--preview--uploaded');
+	$parent.find('video source').attr('src', '');
+
+	// Reset buttons to initial state
 	$parent.find('.fileupload--remove-image-btn').addClass('fileupload--remove-image-btn--hidden');
 	$parent.find('.fileupload--details').addClass('fileupload--details--hidden');
 }
@@ -337,7 +341,10 @@ function setup_video_preview(data, id) {
 
 	$preview.removeClass('fileupload--preview--uploaded').find('video').attr('id', 'video-' + id).find('source').attr('src', data.url).attr('type', 'video/' + data.ext);
 
-	$preview.find('video').get(0).load();
+	// If video source isn't blank load it (consider that a video tag is always present)
+	if ($preview.find('video source').attr('src').length > 0) {
+		$preview.find('video').get(0).load();
+	}
 
 	// Remove and add class to trigger css animation
 	var uploadedClass = 'fileupload--preview--uploaded';

@@ -19,7 +19,7 @@
         
         <tbody>
           <% @structures.order( :name ).each do |structure| %>
-            <tr class="hover" id="structure_<%= structure.id %>">
+            <tr class="main-table--hover" id="structure_<%= structure.id %>">
 
               <td><%= link_to structure.name, structure_path(structure) %></td>
               <td>
@@ -33,7 +33,7 @@
         <tbody>
       </table>
 
-    <div class="button-div">
+    <div class="b-btn--container">
       <%= paginate @structures %>
       <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
     </div>

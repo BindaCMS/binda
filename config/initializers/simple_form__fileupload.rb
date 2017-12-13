@@ -46,7 +46,7 @@ module SimpleForm
           obj = options[:object]
           url = options[:url]
           html = '<a class="b-btn b-btn-outline-danger fileupload--remove-image-btn'
-            html << ' fileupload--remove-image-btn--hidden' unless obj.respond_to?('image') && obj.image.present?
+            html << ' fileupload--remove-image-btn--hidden' unless obj.image.present? || obj.video.present?
             html << '" href="'
             html << url
             html << '" data-method="delete" data-remote="true" data-confirm="'
@@ -54,7 +54,7 @@ module SimpleForm
             html << '" data-id="'
             html << obj.id.to_s
             html << '">'
-              html << '<i class="fa fa-trash-o" aria-hidden="true"></i> Delete image'
+              html << '<i class="fa fa-trash-alt" aria-hidden="true"></i> Delete image'
           html << '</a>'
           html << '<div class="clearfix"></div>'
         end

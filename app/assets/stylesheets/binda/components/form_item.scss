@@ -12,40 +12,37 @@
   }
 }
 
-.form-section--wide-container
+.form-item
 {
-  .form-item
-  {
-    overflow-y: hidden;
-    transition: max-height .6s ease-out;
-  }
+  overflow-y: hidden;
+  transition: max-height .6s ease-out;
+}
 
-  .form-item--half-size
-  {
-    position: relative;
-    float: left;
-    width: 46%;
-    margin-right: 4%;
-  }
+.form-item--half-size
+{
+  position: relative;
+  float: left;
+  width: 46%;
+  margin-right: 4%;
+}
 
-  .form-item--full-size
-  {
-    position: relative;
-    clear: both;
-    width: 96%;
-  }
+.form-item--full-size
+{
+  position: relative;
+  clear: both;
+  width: 96%;
+}
 
-  .form-item--new
-  {
-    position: absolute;
-    top: 101%;
-    max-height: 0;
-  }
+.form-item--new
+{
+  position: absolute;
+  top: 101%;
+  max-height: 0;
+}
 
-  .form-group
-  {
-    margin-bottom: 20px;
-  }
+.form-group
+{
+  margin-bottom: 20px;
 }
 
 .form-item--select-input
@@ -118,7 +115,7 @@
 .form-item--repeater-fields
 {
   overflow-y: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   transition: all .6s ease;
 }
 

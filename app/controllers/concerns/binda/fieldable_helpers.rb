@@ -101,7 +101,7 @@ module Binda
         width: file.width,
         height: file.height,
         url: asset.image.url,
-        thumbnailUrl: image.image.thumb.url 
+        thumbnailUrl: asset.image.thumb.url 
       }
     end
 

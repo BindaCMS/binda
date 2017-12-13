@@ -61,6 +61,7 @@
   &:focus
   {
     color: $color-white;
+    background-color: $color-danger;
   }
 }
 
@@ -95,7 +96,6 @@
 
 .b-btn-settings
 {
-  margin-left: 12px;
   margin-bottom: 12px;
 }
 
@@ -104,8 +104,7 @@
   margin-left: 0px !important;
 }
 
-.button-div
-{
+.b-btn--container {
   margin-top: 32px;
   margin-bottom: 40px;
 }

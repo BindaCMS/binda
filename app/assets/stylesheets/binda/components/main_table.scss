@@ -1,7 +1,6 @@
 .main-table--container {
 
   table {
-
     width: 100%;
     border-bottom: 1px solid $color-gray-darker;
 
@@ -23,10 +22,6 @@
       }
     }
 
-    tr.hover:hover {
-      background: $color-white;
-    }
-
     .no-hover {
       background: none;
     }
@@ -43,18 +38,25 @@
   }
 
   .prev {
-
     margin-left: 1%;
   }
 
   .next {
-
     margin-right: 1%;
     float: right;
   }
 
   .last {
-
     float: right;
+  }
+}
+
+.main-table--hover:hover {
+  background: $color-white;
+}
+
+.main-table--actions {
+  a {
+    margin-left: 8px;
   }
 }
