@@ -156,6 +156,12 @@
   width: 100%;
   padding: 20px 12px;
   border-top: 1px solid $text-color;
+
+  &#not-bottom {
+
+    padding: 0px 12px;
+    border-top: none;
+  }
 }
 
 .standard-form--suggestion

@@ -39,7 +39,17 @@
 
   <div class="standard-form--sidebar">
 
-    <%= button_tag "<i class=\"fas fa-check\"></i>Save changes".html_safe, { class: 'b-btn b-btn-primary', id: 'save' } %>
+    <div class="standard-form--header">
+      <p><%= "#{ t :setting }".pluralize.capitalize %></p>
+    </div>
+
+    <div class="standard-form--container">
+
+      <div class="standard-form--main-actions">
+        <%= button_tag "<i class=\"fas fa-check\"></i>Save changes".html_safe, { class: 'b-btn b-btn-primary', id: 'save' } %>
+      </div>
+
+    </div>
 
   </div>
 
