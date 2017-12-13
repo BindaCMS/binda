@@ -8,9 +8,9 @@
 
 .standard-form--body
 {
-  vertical-align: top;
   display: inline-block;
   width: 73%;
+  vertical-align: top;
 }
 
 
@@ -38,6 +38,7 @@
     font-weight: bold;
     margin-top: 0;
     margin-bottom: 8px;
+
     @extend .b-h4;
   }
 
@@ -92,8 +93,8 @@
 .standard-form--header
 {
   padding: 12px 12px;
-  background-color: $color-gray-darker;
   color: $color-white;
+  background-color: $color-gray-darker;
 
   p
   {
@@ -144,6 +145,15 @@
   }
 }
 
-.standard-form--radio label span {
+.standard-form--radio label span
+{
   border-radius: 1em;
+}
+
+.standard-form--main-actions
+{
+  width: 100%;
+  display: inline-block;
+  padding-top: 20px;
+  border-top: 1px solid $text-color;
 }

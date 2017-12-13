@@ -54,7 +54,7 @@
     <div class="col-sm-4">
       <div class="form-section--narrow-container row">
         <div class="col-sm-12">
-          <div class="form-actions">
+          <div class="standard-form--main-actions">
             
             <h4><%= "#{ t :setting }".pluralize.capitalize %></h4>
               <%= label_tag :submit, '<i class="fas fa-check"></i>Save changes'.html_safe, class: 'b-btn b-btn-primary b-btn-settings', id: 'save', 'data-entries-number': "Binda::#{@structure.instance_type.classify}".constantize.where(structure_id:@structure.id).count, 'data-instance-type': @structure.instance_type.pluralize%>

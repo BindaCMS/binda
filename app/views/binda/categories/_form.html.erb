@@ -41,14 +41,14 @@
 
   </div>
 
-  <div class="standard-form--sidebar">
+  <div class="standard-form--container standard-form--sidebar">
 
     <div class="standard-form--header">
       <p><%= t(:setting).capitalize.pluralize %></p>
     </div>
-
-    <%= label_tag :submit, "<i class=\"fas fa-check\"></i>Save changes".html_safe, class: 'b-btn b-btn-primary b-btn-settings', id: 'save' %>
-
+    <div class="standard-form--main-actions">
+      <%= label_tag :submit, "<i class=\"fas fa-check\"></i>Save changes".html_safe, class: 'b-btn b-btn-primary b-btn-settings', id: 'save' %>
+    </div>
   </div>
 
 <% end %>
