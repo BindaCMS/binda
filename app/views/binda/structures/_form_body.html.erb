@@ -60,7 +60,7 @@
       <%= label_tag :submit, '<i class="fas fa-check"></i>Save changes'.html_safe, class: 'b-btn b-btn-primary b-btn-settings', id: 'save' %>
 
       <% unless @structure.new_record? %>
-        <a class="form-body--delete btn btn-default" href="<%= url_for([@structure]) %>" data-method="delete" data-confirm="This operation will delete this structure and there is no coming back. Are you ok with that?"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %></a> <%= @structure.name.capitalize %></a>
+        <a class="form-body--delete b-btn b-btn-outline-danger b-btn-settings" href="<%= url_for([@structure]) %>" data-method="delete" data-confirm="This operation will delete this structure and there is no coming back. Are you ok with that?"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %> <%= @structure.name.capitalize %></a>
       <% end %>
     </div>
 
