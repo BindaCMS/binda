@@ -68,7 +68,7 @@ module Binda
     
     def sort
       params[:component].each_with_index do |id, i|
-        Component.find( id ).update({ position: i + 1 })
+        Component.find( id ).update_column('position', i + 1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
       end
       render js: "$('##{params[:id]}').sortable('option', 'disabled', false); $('.sortable-warning').addClass('sortable-warning--hidden'); $('.sortable').removeClass('sortable--disabled')"
     end
