@@ -152,8 +152,15 @@
 
 .standard-form--main-actions
 {
-  width: 100%;
   display: inline-block;
-  padding-top: 20px;
+  width: 100%;
+  padding: 20px 12px;
+  border-top: 1px solid $text-color;
+}
+
+.standard-form--suggestion
+{
+  width: 100%;
+  padding: 20px 12px;
   border-top: 1px solid $text-color;
 }

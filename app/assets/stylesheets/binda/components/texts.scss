@@ -1,11 +1,6 @@
 .text-destroy {
   color: $color-danger;
 }
-
-.glyphicon-trash {
+a.text-destroy:hover {
   color: $color-danger;
-}
-
-.glyphicon-move {
-  color: white;
 }

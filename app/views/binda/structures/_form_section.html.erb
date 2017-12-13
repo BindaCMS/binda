@@ -2,7 +2,6 @@
   <p><%= "#{ t :field_group }".pluralize.capitalize %></p>
 </div>
 
-
 <%# - - - - - - - - - - - - %>
 <%# FORM ITEM               %>
 <%# - - - - - - - - - - - - %>
@@ -57,7 +56,7 @@
 <%# 'ADD NEW FORM ITEM' BUTTON  %>
 <%# - - - - - - - - - - - - - - %>
 <% if section.slug.nil? %>
-  <h5><%= t( :hint_create_parent_before_child, arg1: "#{ t :structure }", arg2: "#{ t :field_group }" ).capitalize %></h5>
+  <p class="standard-form--suggestion"><%= t( :hint_create_parent_before_child, arg1: "#{ t :structure }", arg2: "#{ t :field_group }" ).capitalize %></p>
 <% else %>
   <a class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" href="<%= new_structure_field_group_path( @structure.slug ) %>" data-new-child-id="new-child-1"><%= "#{ t :new }".capitalize %> <%= t :field_group %></a>
 <% end %>
