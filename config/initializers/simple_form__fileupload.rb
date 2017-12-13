@@ -54,7 +54,7 @@ module SimpleForm
             html << '" data-id="'
             html << obj.id.to_s
             html << '">'
-              html << '<i class="fa fa-trash-o" aria-hidden="true"></i> Delete image'
+              html << '<i class="fa fa-trash-alt" aria-hidden="true"></i> Delete image'
           html << '</a>'
           html << '<div class="clearfix"></div>'
         end

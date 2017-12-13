@@ -57,7 +57,7 @@
           <div class="form-actions">
             
             <h4><%= "#{ t :setting }".pluralize.capitalize %></h4>
-            <%= f.button :submit, 'Save changes', class: 'btn btn-primary', id: 'save', 'data-entries-number': "Binda::#{@structure.instance_type.classify}".constantize.where(structure_id:@structure.id).count, 'data-instance-type': @structure.instance_type.pluralize %>
+              <%= label_tag :submit, '<i class="fas fa-check"></i>Save changes'.html_safe, class: 'b-btn b-btn-primary b-btn-settings', id: 'save', 'data-entries-number': "Binda::#{@structure.instance_type.classify}".constantize.where(structure_id:@structure.id).count, 'data-instance-type': @structure.instance_type.pluralize%>
 
           </div>
         </div>
