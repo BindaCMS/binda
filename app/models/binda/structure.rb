@@ -2,25 +2,12 @@ module Binda
 	class Structure < ApplicationRecord
 
 		# Associations
-		has_many :components
-		has_many :related_fields, as: :fieldable
-		has_one  :board
-		has_many :categories
-		has_many :field_groups
+		has_many :components, dependent: :destroy
+		has_one  :board, dependent: :destroy
+		has_many :categories, dependent: :destroy
+		has_many :field_groups, dependent: :destroy
 
 		has_and_belongs_to_many :field_settings
-
-=begin
-		# children_fieldable_relates "names" the Association join table for accessing through the children_fieldable association
-		has_many :active_relationships, class_name: "Relationship", dependent: :destroy, as: :children_fieldable
-		# parent_fieldable_relates "names" the Association join table for accessing through the parent_fieldable association
-		has_many :passive_relationships, class_name: "Relationship", dependent: :destroy, as: :parent_fieldable
-
-		# source: :children_fieldable matches with the belong_to :children_fieldable identification in the Association model
-		has_many :children_fieldables, class_name: "Structure", through: :passive_relationships, source_type: "Binda::Structure"
-		# source: :parent_fieldable matches with the belong_to :children_fieldable identification in the Association model
-		has_many :parent_fieldables, class_name: "Structure", through: :active_relationships, source_type: "Binda::Structure"
-=end
 
 		# Validations
 		validates :name, presence: true
