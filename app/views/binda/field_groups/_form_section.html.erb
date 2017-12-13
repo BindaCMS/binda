@@ -1,4 +1,6 @@
-<h4><%= "#{ t :field_setting }".pluralize.capitalize %></h4>
+<div class="standard-form--header">
+  <p><%= "#{ t :field_setting }".pluralize.capitalize %></p>
+</div>
 
 
 <%# - - - - - - - - - - - - %>
@@ -30,7 +32,7 @@
     <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ).capitalize %>  
   </h5>
 <% else %>
-  <a id="form-item--field-group-<%= f.object.id %>--add-new" class="form-item--add-new main-header--link btn btn-default" href="<%= new_structure_field_group_field_setting_path( field_group_id: @field_group.slug ) %>" data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
-    <%= "#{ t :new }".capitalize %> <%= t :field_setting %>  
+  <a id="form-item--field-group-<%= f.object.id %>--add-new" class="form-item--add-new main-header--link b-btn b-btn-primary" href="<%= new_structure_field_group_field_setting_path( field_group_id: @field_group.slug ) %>" data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
+    <%= "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> #{ t(:new).capitalize }".html_safe %> <%= t :field_setting %>
   </a>
 <% end %>

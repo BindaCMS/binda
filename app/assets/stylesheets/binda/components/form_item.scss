@@ -22,15 +22,22 @@
 {
   position: relative;
   float: left;
-  width: 46%;
-  margin-right: 4%;
+  width: 50%
 }
 
 .form-item--full-size
 {
   position: relative;
   clear: both;
-  width: 96%;
+  width: 100%;
+}
+
+.form-item--main-actions
+{
+  a {
+    margin-left: 8px;
+    float: right;
+  }
 }
 
 .form-item--new
