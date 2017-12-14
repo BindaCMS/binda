@@ -27,7 +27,7 @@
       <% if @field_group.slug.nil? %>
         <%= f.input :slug, as: :hidden %>
       <% else %>
-        <%= f.input :slug, disabled: true, hint: "#{ t :slug_disable_hint }" %>
+        <%= f.input :slug %>
       <% end %>
 
     </div>

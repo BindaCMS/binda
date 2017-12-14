@@ -24,7 +24,7 @@ module Binda
 		# Method inherited from friendly id 
 		# @see https://github.com/norman/friendly_id/issues/436
 	  def should_generate_new_friendly_id?
-	    slug.blank? || name_changed?
+	    slug.blank?
 	  end
 
 		# Set slug name
