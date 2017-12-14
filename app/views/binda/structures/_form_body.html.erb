@@ -49,9 +49,20 @@
                   label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x}".html_safe }%>
 
       </div>
+      <% if !@structure.new_record? && @structure.instance_type == 'component' %>
+        <div class="standard-form--radio">
+          <%= f.input :has_categories,
+                      as: :radio_buttons,
+                      checked: 'no',
+                      collection: ['yes', 'no'],
+                      include_blank: false,
+                      label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x}".html_safe }%>
+        </div>
+      <% end %>
       <div class="standard-form--radio">
-        <%= f.input :has_categories,
+        <%= f.input :has_preview,
                     as: :radio_buttons,
+                    checked: 'no',
                     collection: ['yes', 'no'],
                     include_blank: false,
                     label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x}".html_safe }%>

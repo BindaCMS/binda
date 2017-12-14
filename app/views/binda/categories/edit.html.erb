@@ -1,5 +1,5 @@
 <% content_for :header do %>
-	<h3><%= "#{ t(:edit).capitalize } #{ @structure.name.humanize } #{ t(:category).capitalize }" %></h3>
+	<p class="main-header--title"><%= t('binda.edit_category', { arg1: @category.name }) %></p>
   <a href="<%= structure_categories_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= t(:back_to_index).capitalize %></a>
 <% end %>
 		

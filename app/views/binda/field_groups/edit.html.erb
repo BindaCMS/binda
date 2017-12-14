@@ -1,5 +1,5 @@
 <% content_for :header do %>
-  <h3>Editing Field Group</h3>
+  <p class="main-header--title"><%= t('binda.edit_field_group', { arg1: @field_group.name }) %></p>
   <a href="<%= structure_path( @structure.slug ) %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= "#{ t :back_to }".capitalize %> <%= @structure.name.capitalize %></a>
 <% end %>
 

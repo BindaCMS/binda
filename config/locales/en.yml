@@ -27,7 +27,7 @@ en:
   field_setting: field setting
   repeater: repeater
   structure: structure
-  hint_create_parent_before_child: you need to create the %{arg1} before being able to add any %{arg2}
+  hint_create_parent_before_child: you need to create the %{ } before being able to add any %{arg2}
   dashboard_title: website settings
   dashboard: dashboard
   component: component
@@ -53,6 +53,7 @@ en:
     confirm_delete: Do you really want to remove it?
     upload_button: Upload
     choose_file_button: Choose a file
+    preview: Preview
     no_preview: No file selected
     filename: Name
     filesize: Size
@@ -64,3 +65,8 @@ en:
     edit: edit
     field_settings: Field settings
     repeater_field_settings: Fields settings of the %{arg1} repeater
+    new: new
+    edit_structure: Edit %{arg1} structure
+    edit_field_group: Edit %{arg1} field group
+    edit_user: Edit User
+    edit_category: Edit %{arg1} category
