@@ -30,6 +30,10 @@
 			placeholder: t('binda.select_placeholder') %>
 	<% end %>
 
+	<% unless field_setting.accepted_structures.any? %>
+		<p><%= t('binda.relation_warning') %> <%= field_setting.name.capitalize %></p>
+	<% end %>
+
 	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 	<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
 	<%= ff.input :fieldable_id, as: :hidden %>

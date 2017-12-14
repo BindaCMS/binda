@@ -87,9 +87,17 @@
     <%# - - - - - - - - - - - - %>
     <%# ACCEPTED STRUCTURES     %>
     <%# - - - - - - - - - - - - %>
-    <div class="form-item--full-size">
-      <%= ff.input :accepted_structure_ids, collection: Binda::Structure.all, as: :select, input_html: { multiple: true }, checked: ff.object.accepted_structures, include_blank: false, include_hidden: false %>
-    </div>
+		<% if ff.object.field_type == 'relation' %>
+	    <div class="form-item--full-size">
+	      <%= ff.input :accepted_structure_ids, 
+	      		collection: Binda::Structure.all, 
+	      		as: :select, 
+	      		input_html: { multiple: true, class: 'select2-item' }, 
+	      		checked: ff.object.accepted_structures, 
+	      		include_blank: false, 
+	      		include_hidden: false %>
+	    </div>
+    <% end %>
 
 
 		<% choiceables = ['radio', 'selection', 'checkbox'] %>

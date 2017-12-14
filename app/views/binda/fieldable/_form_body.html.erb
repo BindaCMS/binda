@@ -8,7 +8,7 @@
 	</div>
 </div>
 
-<%= simple_form_for [ @instance.structure, @instance ], html: { class: 'form-body',multipart: true } do |f| %>
+<%= simple_form_for [ @instance.structure, @instance ], html: { class: 'form-body', multipart: true } do |f| %>
 
   <%= f.error_notification %>
 
@@ -59,7 +59,7 @@
 
           <% if f.object.new_record? %>
 
-            <p><%= t( :hint_create_parent_before_child, arg1: "#{ t :instance }", arg2: "#{ t :detail }" ).capitalize %></p>
+            <p><%= t( :hint_create_parent_before_child, arg1: "#{@structure.name} #{@structure.instance_type}", arg2: "#{ t :detail }" ).capitalize %></p>
 
           <% else %>
 

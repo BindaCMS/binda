@@ -18,7 +18,7 @@ module Binda
       if @board.update(board_params)
         redirect_to structure_board_path( @structure.slug, @board.slug ), notice: 'Setting was successfully updated.'
       else
-        redirect_to edit_structure_board_path( @structure.slug, @board.slug ), flash: { alert: @board.errors }
+        render :edit, flash: { alert: @board.errors }
       end
     end
 
