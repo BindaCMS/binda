@@ -447,8 +447,6 @@ function addNewItem(event) {
 	// Remove class in order to remove styles, and change id so it's reachable when testing
 	$newChild.removeClass('form-item--new').attr('id', 'new-form-item-' + newFormItemId);
 
-	console.log(event.target);
-
 	// // Update all ids to avoid duplication
 	$newChild.find('[id]').each(function () {
 		var oldId = $(this).attr('id');
