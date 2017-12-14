@@ -108,6 +108,19 @@
     margin-bottom: 0;
     color: white;
   }
+
+  &.field-settings-header {
+    background-color: $color-gray-light !important;
+  }
+
+  &.main-actions-header {
+    background-color: $color-gray-light !important;
+    padding: 6px 12px;
+
+    a {
+      margin-left: 8px;
+    }
+  }
 }
 
 .standard-form--radio,
@@ -156,6 +169,12 @@
   width: 100%;
   padding: 20px 12px;
   border-top: 1px solid $text-color;
+
+  &#not-bottom {
+
+    padding: 0px 12px;
+    border-top: none;
+  }
 }
 
 .standard-form--suggestion

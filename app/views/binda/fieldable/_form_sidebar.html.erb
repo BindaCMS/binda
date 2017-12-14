@@ -16,16 +16,19 @@
   <% end %>
 
 	<% if @instance.slug.nil? %>
-	  <h5>
-	    <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :instance }" ).capitalize %>
-	  </h5>
+
+      <h5>
+        <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :instance }" ).capitalize %>
+      </h5>
 
 	<% else %>
-	  <a class="main-header--link b-btn b-btn-primary b-btn-settings" href="<%= new_structure_category_path( @structure ) %>">
-	    <%= "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New".html_safe %> <%= t :category %>
-	  </a>
-    <div class="clearfix"></div>
-</div>
+
+      <div class="standard-form--main-actions" id="not-bottom">
+        <a class="main-header--link b-btn b-btn-primary b-btn-settings" href="<%= new_structure_category_path( @structure ) %>">
+          <%= "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New".html_safe %> <%= t :category %>
+        </a>
+      </div>
+
 	<% end %>
 
 <% end %>
@@ -45,10 +48,10 @@
 
 <div class="standard-form--main-actions">
   
-  <%= button_tag "<i class=\"fas fa-check\"></i>Save changes".html_safe, { class: 'b-btn b-btn-primary b-btn-settings', id: 'save'} %>
+  <%= button_tag "<i class=\"fas fa-check\"></i>Save changes".html_safe, { class: 'b-btn-block b-btn b-btn-primary b-btn-settings', id: 'save'} %>
 
 
   <% unless @instance.new_record? || @instance.structure.instance_type == 'board' %>
-    <a class="b-btn-inline form-body--delete b-btn b-btn-outline-danger b-btn-settings" href="<%= url_for([@structure, @instance]) %>" data-method="delete" data-confirm="This operation will delete this <%= @structure.name %> and there is no coming back. Are you ok with that?"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %> <%= @structure.name.capitalize %></a>
+    <a class="form-body--delete b-btn-block b-btn b-btn-outline-danger b-btn-settings" href="<%= url_for([@structure, @instance]) %>" data-method="delete" data-confirm="This operation will delete this <%= @structure.name %> and there is no coming back. Are you ok with that?"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %> <%= @structure.name.capitalize %></a>
   <% end %>
 </div>

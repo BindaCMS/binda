@@ -6,12 +6,25 @@
 <%# REMOVE BUTTON           %>
 <%# - - - - - - - - - - - - %>
 <% if ff.object.slug.nil? %>
-	<a class="form-item--remove-item-with-js" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	<a class="form-item--remove-item-with-js"
+     data-confirm="This operation will delete this setting and all related component content. Are you ok with that?">
+
+    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 <% else %>
-	<a href="<%= structure_field_group_field_setting_path( @structure, @field_group, ff.object ) %>" data-method="delete" data-confirm="This operation will delete this setting and all related component content. Are you ok with that?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-	<a class="form-item--toggle-button form-item--toggle-button-closed"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-	<div class="form-item--label">
-		<h4><%= ff.object.name %></h4>
+
+  <a href="<%= structure_field_group_field_setting_path( @structure, @field_group, ff.object ) %>"
+     data-method="delete"
+     data-confirm="This operation will delete this setting and all related component content. Are you ok with that?">
+
+    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+
+  <a class="form-item--toggle-button form-item--toggle-button-closed">
+
+    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+
+
+  <div class="standard-form--header field-settings-header">
+		<p><%= ff.object.name %></p>
 	</div>
 <% end %>
 
@@ -21,7 +34,7 @@
 	<%# NAME                    %>
 	<%# - - - - - - - - - - - - %>
 	<div class="form-item--half-size">
-		<h5><%= t(:name).capitalize %></h5>
+
 		<%= ff.input :name, as: :string, input_html: { class: "form-item--input" } %>
 	</div>
 
@@ -30,7 +43,7 @@
 	<%# FIELD TYPE              %>
 	<%# - - - - - - - - - - - - %>
 	<div class="form-item--half-size">
-		<h5><%= t(:field_type).capitalize %></h5>
+
 		<% if ff.object.field_type.nil? %>
 		  <%= ff.input :field_type, as: :select, collection: get_field_types, include_blank: false, prompt: t(:select_field_type), input_html: { class: 'form-item--select-input' } %>
 		<% else %>
@@ -44,7 +57,7 @@
 		<%# - - - - - - - - - - - - %>
 		<%# SLUG                    %>
 		<%# - - - - - - - - - - - - %>
-		<div class="form-item--half-size">
+		<div class="form-item--full-size">
 			<%= ff.input :slug, as: :hidden, input_html: { class: "form-item--input" } %>
 		</div>
 
@@ -53,8 +66,7 @@
 		<%# - - - - - - - - - - - - %>
 		<%# SLUG                    %>
 		<%# - - - - - - - - - - - - %>
-		<div class="form-item--half-size">
-			<h5><%= t(:slug).capitalize %></h5>
+		<div class="form-item--full-size">
 			<%= ff.input :slug, as: :string, input_html: { class: "form-item--input" } %>
 		</div>
 
@@ -62,7 +74,6 @@
 		<%# DESCRIPTION             %>
 		<%# - - - - - - - - - - - - %>
 		<div class="form-item--full-size">
-			<h5><%= t(:description).capitalize %></h5>
 			<%= ff.input :description, input_html: { class: "form-item--input" } %>
 		</div>
 
@@ -70,15 +81,13 @@
 		<%# POSITION                %>
 		<%# - - - - - - - - - - - - %>
 		<div class="form-item--full-size">
-			<h5><%= t(:position).capitalize %></h5>
 			<%= ff.input :position, as: :integer, input_html: { class: "form-item--input" } %>
 		</div>
 
     <%# - - - - - - - - - - - - %>
-    <%# POSITION                %>
+    <%# ACCEPTED STRUCTURES     %>
     <%# - - - - - - - - - - - - %>
     <div class="form-item--full-size">
-      <h5><%= t(:accepted_structures).capitalize %></h5>
       <%= ff.input :accepted_structure_ids, collection: Binda::Structure.all, as: :select, input_html: { multiple: true }, checked: ff.object.accepted_structures, include_blank: false, include_hidden: false %>
     </div>
 

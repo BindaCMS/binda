@@ -88,6 +88,8 @@
   cursor: pointer;
   border-radius: 0;
 
+
+
   i
   {
     padding-right: 6px;
@@ -99,8 +101,12 @@
   margin-bottom: 12px;
 }
 
-.b-btn-inline
+.b-btn-block
 {
+  display: block;
+  float: left;
+  clear: left;
+
   margin-left: 0px !important;
 }
 
