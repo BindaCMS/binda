@@ -64,17 +64,20 @@ export let _FormItem = new FormItem()
 
 // This function could be improved as it generates an issue with 
 // input ids which are duplicated after the entire target has been cloned
-function addNewItem( event ) 
+function addNewItem(event) 
 {
 	// Stop default behaviour
 	event.preventDefault()
-	// Get the child to clone
-	let id = $( event.target ).data( 'new-form-item-id' )
+	// Get the child to clone 
+	// (`this` always refers to the second argument of the $(document).on() method, in this case '.form-item--add-new')
+	let id = $( this ).data( 'new-form-item-id' )
 	let $newChild = $( '#' + id )
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter( $newChild )
 	// Remove class in order to remove styles, and change id so it's reachable when testing
 	$newChild.removeClass( 'form-item--new' ).attr( 'id', 'new-form-item-'+newFormItemId )
+
+	console.log(event.target)
 
 	// // Update all ids to avoid duplication
 	$newChild.find('[id]').each(function(){
