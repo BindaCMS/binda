@@ -1,8 +1,3 @@
-<div class="standard-form--header">
-  <p><%= "#{ t :field_setting }".pluralize.capitalize %></p>
-</div>
-
-
 <%# - - - - - - - - - - - - %>
 <%# FORM ITEM               %>
 <%# - - - - - - - - - - - - %>
@@ -28,11 +23,11 @@
 <%# 'ADD NEW FORM ITEM' BUTTON  %>
 <%# - - - - - - - - - - - - - - %>
 <% if @field_group.slug.nil? %>
-  <h5>
+  <p>
     <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ).capitalize %>  
-  </h5>
+  </p>
 <% else %>
-  <a id="form-item--field-group-<%= f.object.id %>--add-new" class="form-item--add-new main-header--link b-btn b-btn-primary" href="<%= new_structure_field_group_field_setting_path( field_group_id: @field_group.slug ) %>" data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
+  <a id="form-item--field-group-<%= f.object.id %>--add-new" class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" href="<%= new_structure_field_group_field_setting_path( field_group_id: @field_group.slug ) %>" data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
     <%= "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> #{ t(:new).capitalize }".html_safe %> <%= t :field_setting %>
   </a>
 <% end %>

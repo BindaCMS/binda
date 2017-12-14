@@ -35,7 +35,11 @@
     <div class="standard-form--container">
 
       <div id="form-section--field-group-<%= @field_group.id %>" class="form-section--wide-container">
-
+        
+        <div class="standard-form--header">
+          <p><%= "#{ t 'binda.field_settings' }".pluralize.capitalize %></p>
+        </div>
+        
         <%= render "form_section", f: f %>
 
       </div>
@@ -44,7 +48,9 @@
         <div id="form-section--repeater-<%= repeater.id %>" class="form-section--wide-container">
           <div class="form-section">
 
-            <h4><%= repeater.name.capitalize %></h4>
+            <div class="standard-form--header">
+              <p><%= "#{ t('binda.repeater_field_settings', arg1: repeater.name.capitalize ) }" %> <%=  %> </p>
+            </div>
 
             <%= render "form_section_repeater", f: f, repeater: repeater %>
 
