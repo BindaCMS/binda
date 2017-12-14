@@ -3,7 +3,7 @@
     <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path , class: 'main-header--link b-btn b-btn-primary' %>
   </div>
 
-  <h3>Sort <%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></h3>
+  <p class="main-header--title"><%= t('binda.sort').capitalize %> <%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></p>
   <a href="<%= structure_components_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= "#{ t :back_to_index }".capitalize %></a>
 <% end %>
 

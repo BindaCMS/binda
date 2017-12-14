@@ -63,10 +63,25 @@ en:
     null_is_not_allowed: You need to select at least one choice
     delete: delete
     edit: edit
+    sort: sort
+    structure: Structure
+    field_group: Field group
+    field_groups: Field groups
+    field_setting: Field setting
     field_settings: Field settings
     repeater_field_settings: Fields settings of the %{arg1} repeater
     new: new
+    new_structure: New %{arg1} structure
+    new_field_group: New %{arg1} field group
+    new_component: New %{arg1}
+    new_user: New User
+    new_category: New %{arg1} category
     edit_structure: Edit %{arg1} structure
     edit_field_group: Edit %{arg1} field group
+    edit_component: Edit %{arg1}
     edit_user: Edit User
     edit_category: Edit %{arg1} category
+    has_categories: Enable categories
+    has_preview: Enable preview
+    has_categories_hint: Enable a taxonomy specific to this structure
+    preview_path_warning: Make preview available. Once enabled, remember to create a route in you application for

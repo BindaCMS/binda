@@ -52,21 +52,19 @@
       <% if !@structure.new_record? && @structure.instance_type == 'component' %>
         <div class="standard-form--radio">
           <%= f.input :has_categories,
-                      as: :radio_buttons,
-                      checked: 'no',
-                      collection: ['yes', 'no'],
+                      label: "<span class=\"standard-form--input-box\"></span>#{ t('binda.has_categories')}".html_safe,
+                      as: :boolean,
                       include_blank: false,
-                      label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x}".html_safe }%>
+                      hint: t('binda.has_categories_hint') %>
+        </div>
+        <div class="standard-form--radio">
+          <%= f.input :has_preview,
+                      label: "<span class=\"standard-form--input-box\"></span>#{ t('binda.has_preview')}".html_safe,
+                      as: :boolean,
+                      include_blank: false,
+                      hint: "#{t('binda.preview_path_warning')}:<br /> #{binda.root_path}#{@structure.slug}/:slug".html_safe %>
         </div>
       <% end %>
-      <div class="standard-form--radio">
-        <%= f.input :has_preview,
-                    as: :radio_buttons,
-                    checked: 'no',
-                    collection: ['yes', 'no'],
-                    include_blank: false,
-                    label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x}".html_safe }%>
-      </div>
       <div class="standard-form--main-actions">
         <%= button_tag '<i class="fas fa-check"></i>Save changes'.html_safe, { class: 'b-btn-block b-btn b-btn-primary b-btn-settings', id: 'save' } %>
 
