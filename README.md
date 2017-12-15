@@ -113,11 +113,11 @@ By default after the installation a `Board` called `dashboard` will be populated
 You can retrieve them this way:
 
 ```ruby
-Binda.get_boards('dashboard').first.get_radio_choice('maintenance-mode')
+B.get_boards('dashboard').first.get_radio_choice('maintenance-mode')
 # => return string which can be 'true' or 'false'
-Binda.get_boards('dashboard').first.get_string('website-name')
+B.get_boards('dashboard').first.get_string('website-name')
 # => return string with website name
-Binda.get_boards('dashboard').first.get_text('website-description')
+B.get_boards('dashboard').first.get_text('website-description')
 # => return text with website description
 ```
 
@@ -182,25 +182,25 @@ In order to retrieve a single _component_ you can use one of the following metho
 
 ## Using the helper
 
-A useful helper is `Binda.get_components`. This helper will retrieve all _components_ from a specific _structure_. Find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda/DefaultHelpers).
+A useful helper is `B.get_components`. This helper will retrieve all _components_ from a specific _structure_. Find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda/DefaultHelpers).
 
 Then in any of your controllers you can retrive the components belonging to a specific structure just using the structure slug. Let's see an example that uses the `page` structure to retrieve all related components.
 
 ```ruby
-Binda.get_components('page')
+B.get_components('page')
 # return all pages
 
-Binda.get_components('page')
+B.get_components('page')
      .find_by(slug: 'my-first-page')
 # return `my-first-page`
 
 # expand query
-Binda.get_components('page')
+B.get_components('page')
      .published
      .order('position')
 
 # reduce N+1 query issue by including dependencies
-Binda.get_components('page')
+B.get_components('page')
      .includes(:strings, :texts, repeaters: [:images, :selections])
 ```
 
@@ -237,7 +237,7 @@ Then, if you want to retrieve all components that belongs to a specific structur
 @components = Binda::Component.where( structure_id: Binda::Structure.where( slug: 'my-structure' ) )
 
 # which is the same thing of doing:
-@components = Binda.get_components('my-structure')
+@components = B.get_components('my-structure')
 ```
 
 You can add any other option to the query then:
@@ -249,7 +249,7 @@ You can add any other option to the query then:
                               .includes( :strings, :texts, :assets, :selections )
 
 # which is the same thing of doing:
-@components = Binda.get_components('my-structure')
+@components = B.get_components('my-structure')
                    .published
                    .order('name')
                    .includes( :strings, :texts, :assets, :selections )
@@ -274,7 +274,7 @@ To retrieve _board_ content you can use one of those methods:
 ```ruby
 @board = Binda::Board.find_by(slug: 'my_board')
 
-@board = Binda.get_boards('my-board').first
+@board = B.get_boards('my-board').first
 ```
 
 ## Board Helpers
@@ -284,11 +284,11 @@ If you care about performance you can use the `Binda.get_board` helper to retrie
 This method retrieves a **board**. Find specific info in the [technical documentation](http://www.rubydoc.info/gems/binda/Binda/DefaultHelpers).
 
 ```ruby
-Binda.get_boards('my-dashboard').first
+B.get_boards('my-dashboard').first
 # return the board
 
 # reduce N+1 query issue by including dependencies
-Binda.get_boards('default-dashboard')
+B.get_boards('default-dashboard')
      .includes(:strings, :texts, repeaters: [:images, :selections])
      .first
 ```
@@ -341,7 +341,7 @@ Let's say you want to get a specific field from a _component_ instance:
 
 ```ruby
 # controller file
-@article = Binda.get_components('article').first
+@article = B.get_components('article').first
 
 # view file
 @article.get_text('description')
@@ -421,7 +421,7 @@ My first page (component)
 The code can be something like this:
 
 ```ruby
-@page = Binda.get_components('page')
+@page = B.get_components('page')
              .where(slug: 'my-first-page')
              .includes(repeaters: [:texts, :images])
              .first

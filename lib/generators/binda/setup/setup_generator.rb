@@ -71,6 +71,18 @@ module Binda
       @dashboard.texts.find_or_create_by!( field_setting_id: website_description_obj.id ).update_attribute( 'content', website_description )
     end
 
+    # Setup default helpers
+    # 
+    # This operation creates a class called `B` from which is possible to call any
+    #   Binda helper contained in Binda::DefaultHelpers. This is possible by inheriting the
+    #   `Binda::B` class.
+    def setup_default_helpers
+      puts "5) Setting up default helpers"
+      generate "model", "B --no-migration --parent=::Binda::B"
+      puts "Default helpers has been set up."
+      puts 
+    end
+
     def feedback
       puts "==============================================================================="
       puts

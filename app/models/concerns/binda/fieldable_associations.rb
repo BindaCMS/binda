@@ -420,5 +420,8 @@ module Binda
 	    end
     end
 
+		# TODO: Update all helpers replacing `find` method with ruby `select`. 
+		# This should improve performance avoiding generating useles ActiveRecord objects.
+
 	end
 end
