@@ -23,24 +23,22 @@ module Binda
 		has_many :radios,        as: :fieldable
 		has_many :selections,    as: :fieldable
 		has_many :checkboxes,    as: :fieldable
-		has_many :relations, as: :fieldable
-
-
+		has_many :relations,     as: :fieldable
 
 		# The following direct associations are used to securely delete associated fields
 		# Infact via `fieldable` the associated fields might not be deleted 
 		# as the fieldable_id is related to the `component`, `board` or `repeater` rather than `field_setting`
-		has_many :texts,          dependent: :delete_all
-		has_many :strings,        dependent: :delete_all
-		has_many :dates,          dependent: :delete_all
-		has_many :galleries,      dependent: :delete_all
-		has_many :repeaters,      dependent: :delete_all
-		has_many :radios,         dependent: :delete_all
-		has_many :selections,     dependent: :delete_all
-		has_many :checkboxes,     dependent: :delete_all
-		has_many :relations,  dependent: :delete_all
+		has_many :texts,          dependent: :destroy
+		has_many :strings,        dependent: :destroy
+		has_many :dates,          dependent: :destroy
+		has_many :galleries,      dependent: :destroy
+		has_many :repeaters,      dependent: :destroy
+		has_many :radios,         dependent: :destroy
+		has_many :selections,     dependent: :destroy
+		has_many :checkboxes,     dependent: :destroy
+		has_many :relations,      dependent: :destroy
 
-		has_many :choices,        dependent: :delete_all
+		has_many :choices,        dependent: :destroy
 		has_one  :default_choice, -> (field_setting) { where(id: field_setting.default_choice_id) }, class_name: 'Binda::Choice'
 		
 		has_and_belongs_to_many :accepted_structures, class_name: 'Binda::Structure'

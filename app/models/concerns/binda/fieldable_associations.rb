@@ -31,7 +31,7 @@ module Binda
 			has_many :relations,     as: :fieldable, dependent: :destroy
 
 	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, :relations, allow_destroy: true
-      
+
 			validates_associated :texts
 			validates_associated :strings
 			validates_associated :dates
@@ -44,8 +44,25 @@ module Binda
 			validates_associated :checkboxes
 			validates_associated :relations
 
-      # YOU SHOULDN'T USE THIS METHOD UNTIL IT'S OPTIMIZED
       after_save :generate_fields
+
+      # Uncomment these "validate do" loop to better debug validation.
+      # This makes method gather errors of the associated records and
+      # make them available to the instance object. After using this method 
+      # you will be able to see the actual error inside `instance.errors` array.
+      # Example: @component.errors #=> [ ... ]
+      # 
+		  # validate do |instance|
+		  #   instance.texts.each do |text|
+		  #   	binding.pry
+		  #     next if text.valid?
+		  #     text.errors.full_messages.each do |msg|
+		  #       # you can customize the error message here:
+		  #       errors[:base] << "Error in #{text.field_setting.name} (text): #{msg}"
+		  #     end
+		  #   end
+		  # end
+	
 		end
 
 		# Get the object related to that field setting
