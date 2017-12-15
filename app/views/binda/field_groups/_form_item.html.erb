@@ -23,9 +23,13 @@
     <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
 
 
-  <div class="standard-form--header field-settings-header">
-		<p><%= ff.object.name %> (<%= ff.object.field_type.humanize.capitalize %>)</p>
-	</div>
+  <div class="standard-form--container field-settings-container">
+
+    <div class="standard-form--secondary-header field-settings-header">
+      <p><%= ff.object.name %> (<%= ff.object.field_type.humanize.capitalize %>)</p>
+    </div>
+
+  </div>
 <% end %>
 
 <div class="form-item--editor">

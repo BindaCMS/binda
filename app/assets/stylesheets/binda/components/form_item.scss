@@ -22,7 +22,12 @@
 {
   position: relative;
   float: left;
-  width: 50%
+  width: 50%;
+
+  .form-group
+  {
+    border-top: none !important;
+  }
 }
 
 .form-item--full-size
@@ -194,18 +199,6 @@
   margin-bottom: 20px;
 }
 
-.form-item--repeater-header
-{
-  padding: 4px 0;
-  background-color: $color-white !important;
-
-  p
-  {
-    margin-top: 8px;
-    margin-left: 8px;
-  }
-}
-
 .form-item--delete-repeater-item
 {
   float: right;
@@ -222,6 +215,7 @@
 {
   position: relative;
   clear: left;
+
 
   &:last-child
   {
