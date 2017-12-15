@@ -125,4 +125,5 @@
 {
   pointer-events: none;
   opacity: 0;
+  width: 0; // Odd but needed, otherwise it occupies few transparent pixels...
 }

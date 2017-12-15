@@ -1,68 +1,79 @@
-.main-table--container {
-
-  table {
+.main-table--container
+{
+  table
+  {
     width: 100%;
-    border-bottom: 1px solid $color-gray-darker;
 
-    td {
-      border-top: none !important;
+    td
+    {
       padding: 12px;
+      border-top: none !important;
     }
 
-    td:last-child {
+    td:last-child
+    {
       text-align: right;
 
-      span {
+      span
+      {
         margin-left: $font-size-base;
 
-        &:not(:first-child) {
-          border-left: 1px solid #CCC;
+        &:not(:first-child)
+        {
           padding-left: $font-size-base;
+          border-left: 1px solid #ccc;
         }
       }
     }
 
-    .no-hover {
+    .no-hover
+    {
       background: none;
     }
 
-    tr {
+    tr
+    {
+      border-right: 1px solid $color-gray-darker;
       border-bottom: 1px solid $color-gray-lighter;
       border-left: 1px solid $color-gray-darker;
-      border-right: 1px solid $color-gray-darker;
-
-      &:hover {
-
-        border-left: none;
-        z-index: 1000;
-      }
     }
 
-    tr:last-child {
+    tr:last-child
+    {
       border-bottom: 1px solid $color-gray-darker;
+    }
+
+    tr.ui-sortable-handle:hover {
+      border: 1px solid transparent;
     }
   }
 
-  .prev {
+  .prev
+  {
     margin-left: 1%;
   }
 
-  .next {
-    margin-right: 1%;
+  .next
+  {
     float: right;
+    margin-right: 1%;
   }
 
-  .last {
+  .last
+  {
     float: right;
   }
 }
 
-.main-table--hover:hover {
+.main-table--hover:hover
+{
   background: $color-white;
 }
 
-.main-table--actions {
-  a {
+.main-table--actions
+{
+  a
+  {
     margin-left: 8px;
   }
 }

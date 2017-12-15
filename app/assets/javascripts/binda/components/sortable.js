@@ -53,15 +53,11 @@ export default function()
 		{ 
 			$( id ).sortable('enable')
 			$( id ).find('.form-item--repeater-fields').each(close)
-			$( id ).closest('.form-item--collapsable').addClass('form-item--collapsed')
+			$( id ).find('.form-item--collapsable').addClass('form-item--collapsed')
 		}
 		else
 		{ 
 			$( id ).sortable('disable')
-			// Make sure no repeater item has max-height set
-			$(id).find('.form-item--collapsable').each(function(){ this.style.maxHeight = null })
-			$( id ).find('.form-item--repeater-fields').each(open)
-			$( id ).closest('.form-item--collapsable').removeClass('form-item--collapsed')
 		}
 
 	 	$( id ).toggleClass('sortable--disabled')

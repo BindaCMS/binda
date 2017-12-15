@@ -8,9 +8,10 @@
 
 .standard-form--body
 {
-  display: inline-block;
-  width: 73%;
+  float: left;
+  width: 75%;
   vertical-align: top;
+  padding-right: 24px;
 }
 
 
@@ -18,10 +19,8 @@
 
 .standard-form--sidebar
 {
-  display: inline-block;
-  float: right;
-  width: 300px;
-  margin-left: 24px;
+  float: left;
+  width: 25%;
 }
 
 
@@ -31,6 +30,7 @@
 {
   overflow-y: hidden;
   margin-bottom: 20px;
+  border: 1px solid $color-gray-darker;
 
   .control-label
   {
@@ -108,15 +108,18 @@
     color: white;
   }
 
-  &.field-settings-header {
+  &.field-settings-header
+  {
     background-color: $color-gray-light !important;
   }
 
-  &.main-actions-header {
-    background-color: $color-gray-light !important;
+  &.main-actions-header
+  {
     padding: 6px 12px;
+    background-color: $color-gray-light !important;
 
-    a {
+    a
+    {
       margin-left: 8px;
     }
   }
@@ -170,9 +173,9 @@
   padding: 20px 12px;
   border-top: 1px solid $text-color;
 
-  &#not-bottom {
-
-    padding: 0px 12px;
+  &#not-bottom
+  {
+    padding: 0 12px;
     border-top: none;
   }
 }
