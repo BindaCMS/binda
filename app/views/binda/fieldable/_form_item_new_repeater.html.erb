@@ -13,7 +13,7 @@
 				<span><i class="fas fa-angle-up"></i> <%= t('binda.collapse') %></span>
 				<span><i class="fas fa-angle-down"></i> <%= t('binda.expand') %></span>
 			</a>
-			<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>" data-confirm="<%= t 'binda.confirm_delete' %>"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %></a>
+			<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>" data-confirm="<%= t 'binda.confirm_delete' %>"><i class="far fa-trash-alt"></i> <%= t('binda.delete') %></a>
 			<p><%= @repeater.field_setting.name %> #<%= @repeater.id %></p>
 		</div>
 

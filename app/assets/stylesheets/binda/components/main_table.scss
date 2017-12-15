@@ -30,6 +30,12 @@
       border-bottom: 1px solid $color-gray-lighter;
       border-left: 1px solid $color-gray-darker;
       border-right: 1px solid $color-gray-darker;
+
+      &:hover {
+
+        border-left: none;
+        z-index: 1000;
+      }
     }
 
     tr:last-child {
