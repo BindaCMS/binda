@@ -32,6 +32,18 @@
   margin-bottom: 20px;
   border: 1px solid $color-gray-darker;
 
+  &.field-settings-container {
+
+    margin-bottom: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+
+  &.table-sort
+  {
+    border: none !important;
+  }
+
   .control-label
   {
     font-weight: bold;
@@ -52,6 +64,8 @@
     padding: 20px 12px;
     border-top: 1px solid $color-gray-darker;
   }
+
+
 
   .form-control
   {
@@ -107,10 +121,24 @@
     margin-bottom: 0;
     color: white;
   }
+}
 
-  &.field-settings-header
+.standard-form--secondary-header
+{
+  padding: 4px 0;
+  background-color: $color-white !important;
+  p
   {
-    background-color: $color-gray-light !important;
+    display: inline-block;
+    width: 92%;
+    margin-top: 8px;
+    margin-left: 8px;
+
+
+  }
+
+  a {
+    margin-right: 10px;
   }
 
   &.main-actions-header
@@ -123,6 +151,7 @@
       margin-left: 8px;
     }
   }
+
 }
 
 .standard-form--boolean,

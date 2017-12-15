@@ -23,6 +23,12 @@
   position: relative;
   float: left;
   width: 50%;
+
+  .form-group
+  {
+    border-top: none !important;
+  }
+
 }
 
 .form-item--full-size
@@ -259,6 +265,7 @@ a.form-item--delete-repeater-item
 {
   position: relative;
   clear: left;
+
 
   &:last-child
   {
