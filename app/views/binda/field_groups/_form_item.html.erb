@@ -24,7 +24,7 @@
 
 
   <div class="standard-form--header field-settings-header">
-		<p><%= ff.object.name %></p>
+		<p><%= ff.object.name %> (<%= ff.object.field_type.humanize.capitalize %>)</p>
 	</div>
 <% end %>
 
@@ -99,11 +99,16 @@
     <%# ACCEPTED STRUCTURES     %>
     <%# - - - - - - - - - - - - %>
 
-    <% if ff.object.field_type == "relation" %>
-
-      <div class="form-item--full-size">
-        <%= ff.input :accepted_structure_ids, collection: Binda::Structure.all, as: :select, input_html: { multiple: true }, checked: ff.object.accepted_structures, include_blank: false, include_hidden: false %>
-      </div>
+		<% if ff.object.field_type == 'relation' %>
+	    <div class="form-item--full-size">
+	      <%= ff.input :accepted_structure_ids, 
+	      		collection: Binda::Structure.all, 
+	      		as: :select, 
+	      		input_html: { multiple: true, class: 'select2-item' }, 
+	      		checked: ff.object.accepted_structures, 
+	      		include_blank: false, 
+	      		include_hidden: false %>
+	    </div>
 
     <% end %>
 

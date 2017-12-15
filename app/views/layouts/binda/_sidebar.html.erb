@@ -35,7 +35,7 @@
         <li class="main-sidebar--structure <%= 'main-sidebar--first-structure' if index == 0 %>">
           <a href="<%= structure_board_path( structure, structure.board ) %>">
             <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-            <%= structure.name.humanize %>
+            <%= structure.board.name.humanize %>
           </a>
         </li>
       <% end %>

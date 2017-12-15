@@ -1,9 +1,5 @@
 <div id="standard-form--relation-<%= field_setting.id %>" class="standard-form--relation">
 
-	<% unless field_setting.description.blank? %>
-	  <small class="text-muted"><%= field_setting.description %></small>
-	<% end %>
-
 <%# TODO: refactor in order to have a single depenedent field, not one per instance type %>
 
 	<% if field_setting.accepted_structures.select{|s| s.instance_type == "component"}.any? %>
@@ -11,6 +7,7 @@
 			as: :select,
 			input_html: { multiple: true, class: 'select2-item' },
 			label: field_setting.name.capitalize,
+			hint: field_setting.description,
 			value_method: :id,
 			checked: ff.object.dependent_component_ids, 
 			include_blank: false, 
@@ -23,11 +20,16 @@
 			as: :select, 
 			input_html: { multiple: true, class: 'select2-item' }, 
 			label: field_setting.name.capitalize,
+			hint: field_setting.description,
 			value_method: :id, 
 			checked: ff.object.dependent_board_ids, 
 			include_blank: false, 
 			include_hidden: false,
 			placeholder: t('binda.select_placeholder') %>
+	<% end %>
+
+	<% unless field_setting.accepted_structures.any? %>
+		<p><%= t('binda.relation_warning') %> <%= field_setting.name.capitalize %></p>
 	<% end %>
 
 	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>

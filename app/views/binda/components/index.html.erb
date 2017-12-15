@@ -3,7 +3,7 @@
     <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path , class: 'main-header--link b-btn b-btn-primary' %>
     <%= get_sort_index_link %>
   </div>
-  <h3><%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></h3>
+  <p class="main-header--title"><%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></p>
 <% end %>
 
 <% content_for :content do %>

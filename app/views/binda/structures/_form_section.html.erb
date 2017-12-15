@@ -1,5 +1,5 @@
 <div class="standard-form--header">
-  <p><%= "#{ t :field_group }".pluralize.capitalize %></p>
+  <p><%= "#{ t :field_group }".pluralize %></p>
 </div>
 
 <%# - - - - - - - - - - - - %>
@@ -56,10 +56,12 @@
 <%# FORM NEW ITEM           %>
 <%# - - - - - - - - - - - - %>
 <%= f.simple_fields_for 'new_field_groups[]', @structure.field_groups.build() do |ff| %>
-	<div id="new-child-1" class="form-item form-item--new">
-		<%= ff.input :structure_id, as: :hidden %>
-		<%= ff.input :id, as: :hidden %>
-		<%= ff.input :name, label: "#{ t :name }".capitalize %>
+  <div id="field-group-<%= f.object.id %>--new-form-item" class="form-item form-item--new">
+		<div class="form-item--editor">
+			<%= ff.input :structure_id, as: :hidden %>
+			<%= ff.input :id, as: :hidden %>
+			<%= ff.input :name, label: "#{ t :name }".capitalize %>
+		</div>
 	</div>
 <% end %>
 
@@ -70,5 +72,7 @@
 <% if section.slug.nil? %>
   <p class="standard-form--suggestion"><%= t( :hint_create_parent_before_child, arg1: "#{ t :structure }", arg2: "#{ t :field_group }" ).capitalize %></p>
 <% else %>
-  <a class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" href="<%= new_structure_field_group_path( @structure.slug ) %>" data-new-child-id="new-child-1"><%= "#{ t :new }".capitalize %> <%= t :field_group %></a>
+  <a id="form-item--field-group-<%= f.object.id %>--add-new" class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" href="<%= new_structure_field_group_path( @structure.slug ) %>" data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
+    <%= "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> #{ t(:new).capitalize }".html_safe %> <%= t :field_group %>	
+  </a>
 <% end %>

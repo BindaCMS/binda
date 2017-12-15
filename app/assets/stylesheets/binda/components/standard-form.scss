@@ -123,6 +123,7 @@
   }
 }
 
+.standard-form--boolean,
 .standard-form--radio,
 .standard-form--checkbox
 {
@@ -157,7 +158,7 @@
     }
   }
 }
-
+.standard-form--boolean label span,
 .standard-form--radio label span
 {
   border-radius: 1em;

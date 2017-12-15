@@ -3,6 +3,19 @@
 <%= simple_form_for structure, html: { class: 'form-body' } do |f| %>
   <%= f.error_notification %>
 
+  <% if f.object.errors.any? %>
+    <div class="standard-form--error-explanation">
+      <div class="alert alert-error">
+        <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>.
+      </div>
+      <ul>
+        <% f.object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="standard-form--body">
 
     <div class="standard-form--container">
@@ -49,13 +62,22 @@
                   label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x}".html_safe }%>
 
       </div>
-      <div class="standard-form--radio">
-        <%= f.input :has_categories,
-                    as: :radio_buttons,
-                    collection: ['yes', 'no'],
-                    include_blank: false,
-                    label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x}".html_safe }%>
-      </div>
+      <% if !@structure.new_record? && @structure.instance_type == 'component' %>
+        <div class="standard-form--radio">
+          <%= f.input :has_categories,
+                      label: "<span class=\"standard-form--input-box\"></span>#{ t('binda.has_categories')}".html_safe,
+                      as: :boolean,
+                      include_blank: false,
+                      hint: t('binda.has_categories_hint') %>
+        </div>
+        <div class="standard-form--radio">
+          <%= f.input :has_preview,
+                      label: "<span class=\"standard-form--input-box\"></span>#{ t('binda.has_preview')}".html_safe,
+                      as: :boolean,
+                      include_blank: false,
+                      hint: "#{t('binda.preview_path_warning')}:<br /> #{binda.root_path}#{@structure.slug}/:slug".html_safe %>
+        </div>
+      <% end %>
       <div class="standard-form--main-actions">
         <%= button_tag '<i class="fas fa-check"></i>Save changes'.html_safe, { class: 'b-btn-block b-btn b-btn-primary b-btn-settings', id: 'save' } %>
 
