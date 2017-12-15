@@ -394,6 +394,7 @@ var FormItem = function () {
 	}, {
 		key: 'setEvents',
 		value: function setEvents() {
+			console.log("here");
 			$(document).on('click', '.form-item--add-new', addNewItem);
 
 			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
