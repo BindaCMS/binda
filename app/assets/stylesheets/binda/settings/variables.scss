@@ -32,6 +32,7 @@ $color-success:               #5cb85c;
 $color-info:                  #5bc0de;
 $color-warning:               #f0ad4e;
 $color-danger:                #fc4242;
+$color-danger-hover:          darken( $color-danger, 20%);
 
 
 //== Scaffolding

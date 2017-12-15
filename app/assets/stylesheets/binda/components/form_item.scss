@@ -22,7 +22,7 @@
 {
   position: relative;
   float: left;
-  width: 50%
+  width: 50%;
 }
 
 .form-item--full-size
@@ -34,9 +34,10 @@
 
 .form-item--main-actions
 {
-  a {
-    margin-left: 8px;
+  a
+  {
     float: right;
+    margin-left: 8px;
   }
 }
 
@@ -125,7 +126,8 @@
   transition: all .6s ease;
 }
 
-.font-item--collapsed .form-item--repeater-fields {
+.font-item--collapsed .form-item--repeater-fields
+{
   margin-bottom: 8px;
 }
 
@@ -134,9 +136,10 @@
   overflow-x: hidden; // This ensure that the div doesn't become wider when draggin sortable items to the right
   margin-bottom: 0;
 
-  ul.sortable > li {
-    border: 1px solid $color-gray-darker;
+  ul.sortable > li
+  {
     margin-top: -1px; // this solve the issue of a 2px border between 2 repeaters
+    border: 1px solid $color-gray-darker;
   }
 
   ul.sortable > li > *
@@ -162,10 +165,6 @@
 
   .sortable--enabled
   {
-    .ui-sortable-handle:hover
-    {
-    }
-
     .form-item--repeater-fields
     {
       margin: 0;
@@ -217,8 +216,18 @@
   margin-right: 8px;
 }
 
-.form-item--collapse-btn {
+a.form-item--delete-repeater-item
+{
+  transition: color .2s ease;
+  color: $color-danger;
+  &:hover
+  {
+    color: $color-danger-hover;
+  }
+}
 
+.form-item--collapse-btn
+{
   span:first-child
   {
     display: block;
@@ -229,9 +238,8 @@
   }
 }
 
-.form-item--collapsed .form-item--collapse-btn 
+.form-item--collapsed .form-item--collapse-btn
 {
-
   span:first-child
   {
     display: none;

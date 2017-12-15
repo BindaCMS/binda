@@ -39,7 +39,7 @@
 						<span><i class="fas fa-angle-down"></i> <%= t('binda.expand') %></span>
 					</a>
 					<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>" data-confirm="<%= t 'binda.confirm_delete' %>"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %></a>
-					<p><%= repeater.field_setting.name %> item #<%= repeater.id %></p>
+					<p><%= repeater.field_setting.name %> <%= t('binda.item') %> #<%= repeater.id %></p>
 				</div>
 
 				<%# - - - - - - - - - - - - - - %>
@@ -72,7 +72,7 @@
 							<span><i class="fas fa-angle-down"></i> <%= t('binda.expand') %></span>
 						</a>
 						<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>" data-id="<%= repeater.id %>" data-confirm="<%= t 'binda.confirm_delete' %>"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %></a>
-						<p><%= repeater.field_setting.name %> item #<%= repeater.id %></p>
+						<p><%= repeater.field_setting.name %> <%= t('binda.item') %>  #<%= repeater.id %></p>
 					</div>
 					<%# - - - - - - - - - - - - - - %>
 					<%# EACH REPEATER               %>
