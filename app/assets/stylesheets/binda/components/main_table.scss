@@ -65,9 +65,14 @@
   }
 }
 
-.main-table--hover:hover
-{
-  background: $color-white;
+.main-table--hover {
+  background: $color-gray-lightest;
+  transition: background .3s ease;
+
+  &:hover
+  {
+    background: $color-white;
+  }
 }
 
 .main-table--actions
