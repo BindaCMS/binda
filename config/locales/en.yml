@@ -85,6 +85,6 @@ en:
     has_preview: Enable preview
     has_categories_hint: Enable a taxonomy specific to this structure
     preview_path_warning: Make preview available. Once enabled, remember to create a route in you application for
-    relation_warning: No structure has been selected for
+    relation_warning: This relation isn't set properly. Ensure the setup of this relation refers to at least one structure.
     standard_form_error_heading: The form contains
     standard_form_error: error

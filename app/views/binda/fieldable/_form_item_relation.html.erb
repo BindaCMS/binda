@@ -29,7 +29,12 @@
 	<% end %>
 
 	<% unless field_setting.accepted_structures.any? %>
-		<p><%= t('binda.relation_warning') %> <%= field_setting.name.capitalize %></p>
+		<div class="form-group">
+			<div class="control-label-wrap">
+				<label class="control-label"><%= field_setting.name.capitalize %></label>
+			</div>
+			<p><%= t('binda.relation_warning') %></p>
+		</div>
 	<% end %>
 
 	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
