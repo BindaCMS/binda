@@ -11,17 +11,18 @@
 <%= simple_form_for [ @instance.structure, @instance ], html: { class: 'form-body', multipart: true } do |f| %>
 
   <%= f.error_notification %>
+
   <% if f.object.errors.any? %>
-  <div id="error_explanation">
-   <div class="alert alert-error">
-     The form contains <%= pluralize(f.object.errors.count, "error") %>.
-   </div>
-  <ul>
-   <% f.object.errors.full_messages.each do |msg| %>
-    <li>* <%= msg %></li>
-   <% end %>
- </ul>
-</div>
+  <div class="standard-form--error-explanation">
+    <div class="alert alert-error">
+      <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>.
+    </div>
+    <ul>
+      <% f.object.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
 
   <%# - - - - - - - - - - - - %>

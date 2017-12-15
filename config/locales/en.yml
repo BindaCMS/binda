@@ -86,3 +86,5 @@ en:
     has_categories_hint: Enable a taxonomy specific to this structure
     preview_path_warning: Make preview available. Once enabled, remember to create a route in you application for
     relation_warning: No structure has been selected for
+    standard_form_error_heading: The form contains
+    standard_form_error: error
