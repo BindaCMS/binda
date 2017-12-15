@@ -8,8 +8,9 @@
 
 .standard-form--body
 {
-  display: inline-block;
-  width: 73%;
+  float: left;
+  width: 75%;
+  padding-right: 24px;
   vertical-align: top;
 }
 
@@ -18,10 +19,8 @@
 
 .standard-form--sidebar
 {
-  display: inline-block;
-  float: right;
-  width: 300px;
-  margin-left: 24px;
+  float: left;
+  width: 25%;
 }
 
 
@@ -44,7 +43,6 @@
   {
     border: none !important;
   }
-
 
   .control-label
   {
@@ -129,7 +127,6 @@
 {
   padding: 4px 0;
   background-color: $color-white !important;
-
   p
   {
     display: inline-block;
@@ -144,10 +141,13 @@
     margin-right: 10px;
   }
 
-  &.main-actions--header {
+  &.main-actions-header
+  {
     padding: 6px 12px;
+    background-color: $color-gray-light !important;
 
-    a {
+    a
+    {
       margin-left: 8px;
     }
   }
@@ -189,23 +189,35 @@
     }
   }
 }
+
 .standard-form--boolean label span,
 .standard-form--radio label span
 {
   border-radius: 1em;
 }
 
-.standard-form--main-actions
+.standard-form--secondary-actions
 {
+  display: inline-block;
+  width: 100%;
+  padding: 0px 12px 20px;
+
+  .b-btn-settings:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.standard-form--main-actions {
   display: inline-block;
   width: 100%;
   padding: 20px 12px;
   border-top: 1px solid $text-color;
+}
 
-  &#not-bottom {
-
-    padding: 0px 12px;
-    border-top: none;
+.standard-form--secondary-actions,
+.standard-form--main-actions {
+  .b-btn-settings:last-child {
+    margin-bottom: 0;
   }
 }
 

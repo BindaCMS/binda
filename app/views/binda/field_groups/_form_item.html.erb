@@ -12,10 +12,6 @@
     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 <% else %>
 
-  <a class="form-item--toggle-button form-item--toggle-button-closed">
-
-    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-
   <div class="standard-form--container field-settings-container">
 
     <div class="standard-form--secondary-header field-settings-header">
@@ -107,7 +103,6 @@
     <%# - - - - - - - - - - - - %>
     <%# ACCEPTED STRUCTURES     %>
     <%# - - - - - - - - - - - - %>
-
 		<% if ff.object.field_type == 'relation' %>
 	    <div class="form-item--full-size">
 	      <%= ff.input :accepted_structure_ids, 
@@ -118,7 +113,6 @@
 	      		include_blank: false, 
 	      		include_hidden: false %>
 	    </div>
-
     <% end %>
 
 

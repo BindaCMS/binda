@@ -27,13 +27,35 @@ class FormItem {
 		{
 			// Stop default behaviour
 			event.preventDefault()
-			$( this ).parent('.form-item').remove()
+			$( this ).closest('.form-item').remove()
+		})
+
+		$(document).on('click', '.form-item--collapse-btn', function( event )
+		{
+			// This function is temporarely just set for repeaters.
+			// TODO: Need refactoring in order to be available also for generic form items
+ 
+ 			// Stop default behaviour
+			event.preventDefault()
+
+			let $collapsable = $(this).closest('.form-item--collapsable')
+
+			if ( $collapsable.hasClass('form-item--collapsed') ) 
+			{
+				$collapsable.find('.form-item--repeater-fields').each(open)
+				$collapsable.removeClass('form-item--collapsed')
+			}
+			else
+			{
+				$collapsable.find('.form-item--repeater-fields').each(close)
+				$collapsable.addClass('form-item--collapsed')
+			}
 		})
 
 		$(document).on('click', '.form-item--toggle-button', function()
 		{
 
-			let $formItem = $( this ).parent('.form-item')
+			let $formItem = $( this ).closest('.form-item')
 			let $formItemEditor = $formItem.children('.form-item--editor')
 
 			if ( $formItemEditor.get(0).style.maxHeight === '' ) 
@@ -97,4 +119,14 @@ function addNewItem(event)
 	_FormItemEditor.resize()
 
 	setupSelect2( $formItemEditor.find('select') )
+}
+
+function close()
+{
+	this.style.maxHeight = '0px'
+}
+
+function open()
+{
+	this.style.maxHeight = this.scrollHeight + "px";
 }

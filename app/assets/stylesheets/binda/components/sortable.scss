@@ -1,6 +1,7 @@
 ul.sortable,
 ul#sortable
 {
+  position: relative;
   margin-bottom: 64px;
   padding-left: 0;
   list-style-type: none;
@@ -44,12 +45,12 @@ ul.sortable > li > *
 
 .sortable-handle
 {
+  // display: block;
   width: 12px;
   height: 12px;
   margin-right: 16px;
   margin-left: 8px;
   border-radius: 6px;
-  background-color: #ccc;
 }
 
 .ui-sortable-handle
@@ -58,6 +59,7 @@ ul.sortable > li > *
   {
     z-index: 10 !important;
     transform: scale(1.01);
+    background-color: $color-gray-lightest;
     box-shadow: 0 10px 26px 0 rgba(0,0,0,.25);
   }
 }
@@ -65,6 +67,7 @@ ul.sortable > li > *
 tbody#sortable,
 tbody.sortable
 {
+  position: relative;
   margin-bottom: 64px;
   padding-left: 0;
   list-style-type: none;

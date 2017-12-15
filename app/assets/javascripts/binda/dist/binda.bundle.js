@@ -399,12 +399,30 @@ var FormItem = function () {
 			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
 				// Stop default behaviour
 				event.preventDefault();
-				$(this).parent('.form-item').remove();
+				$(this).closest('.form-item').remove();
+			});
+
+			$(document).on('click', '.form-item--collapse-btn', function (event) {
+				// This function is temporarely just set for repeaters.
+				// TODO: Need refactoring in order to be available also for generic form items
+
+				// Stop default behaviour
+				event.preventDefault();
+
+				var $collapsable = $(this).closest('.form-item--collapsable');
+
+				if ($collapsable.hasClass('form-item--collapsed')) {
+					$collapsable.find('.form-item--repeater-fields').each(open);
+					$collapsable.removeClass('form-item--collapsed');
+				} else {
+					$collapsable.find('.form-item--repeater-fields').each(close);
+					$collapsable.addClass('form-item--collapsed');
+				}
 			});
 
 			$(document).on('click', '.form-item--toggle-button', function () {
 
-				var $formItem = $(this).parent('.form-item');
+				var $formItem = $(this).closest('.form-item');
 				var $formItemEditor = $formItem.children('.form-item--editor');
 
 				if ($formItemEditor.get(0).style.maxHeight === '') {
@@ -468,6 +486,14 @@ function addNewItem(event) {
 	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($formItemEditor.find('select'));
+}
+
+function close() {
+	this.style.maxHeight = '0px';
+}
+
+function open() {
+	this.style.maxHeight = this.scrollHeight + "px";
 }
 
 /***/ }),
@@ -1014,20 +1040,17 @@ function hexToShaderRgb(hex) {
 	}
 
 	// Add event to any sortable toggle button
-	$(document).on('click', '.sortable--toggle', function (event) {
+	// TODO: make this event available to element which aren't standard form repeaters
+	$(document).on('click', '.standard-form--repeater .sortable--toggle', function (event) {
 		event.preventDefault();
 		var id = '#' + $(this).data('repeater-id');
 
 		if ($(id).hasClass('sortable--disabled')) {
 			$(id).sortable('enable');
 			$(id).find('.form-item--repeater-fields').each(close);
+			$(id).find('.form-item--collapsable').addClass('form-item--collapsed');
 		} else {
 			$(id).sortable('disable');
-			// Make sure no repeater item has max-height set
-			$(id).find('.form-item--repeater').each(function () {
-				this.style.maxHeight = null;
-			});
-			$(id).find('.form-item--repeater-fields').each(open);
 		}
 
 		$(id).toggleClass('sortable--disabled');
@@ -1039,7 +1062,8 @@ function hexToShaderRgb(hex) {
 function setupSortableToggle() {
 	$('.sortable--toggle').each(function () {
 		var id = '#' + $(this).data('repeater-id');
-		$(id).find('.form-item--repeater-fields').each(open);
+		$(id).find('.form-item--collapsable').addClass('form-item--collapsed');
+		$(id).find('.form-item--repeater-fields').each(close);
 	});
 }
 
