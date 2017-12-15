@@ -123,16 +123,6 @@
     margin-bottom: 0;
     color: white;
   }
-
-
-  &.main-actions-header {
-    background-color: $color-gray-light !important;
-    padding: 6px 12px;
-
-    a {
-      margin-left: 8px;
-    }
-  }
 }
 
 .standard-form--secondary-header
@@ -142,8 +132,24 @@
 
   p
   {
+    display: inline-block;
+    width: 92%;
     margin-top: 8px;
     margin-left: 8px;
+
+
+  }
+
+  a {
+    margin-right: 10px;
+  }
+
+  &.main-actions--header {
+    padding: 6px 12px;
+
+    a {
+      margin-left: 8px;
+    }
   }
 
 }

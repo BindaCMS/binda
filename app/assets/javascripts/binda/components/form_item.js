@@ -20,6 +20,7 @@ class FormItem {
 
 	setEvents()
 	{
+        console.log("here")
 		$(document).on('click', '.form-item--add-new', addNewItem )
 
 		$(document).on('click', '.form-item--remove-item-with-js', function( event )
@@ -34,7 +35,7 @@ class FormItem {
 
 			let $formItem = $( this ).parent('.form-item')
 			let $formItemEditor = $formItem.children('.form-item--editor')
-			
+
 			if ( $formItemEditor.get(0).style.maxHeight === '' ) 
 			{
 				// Update height

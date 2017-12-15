@@ -61,7 +61,10 @@
               <td class="main-table--actions">
                   <%= link_to "<i class=\"fas fa-pencil-alt\"></i> #{t('binda.edit').capitalize}".html_safe, edit_structure_component_path( @structure.slug, component ) %>
                   
-                  <%= link_to "<i class=\"far fa-trash-alt\"></i> #{t('binda.delete').capitalize}".html_safe, structure_component_path( @structure.slug, component.slug ), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-destroy' %>
+                  <%= link_to "<i class=\"far fa-trash-alt\"></i> #{t('binda.delete').capitalize}".html_safe, structure_component_path( @structure.slug, component.slug ),
+                              method: :delete,
+                              data: { confirm: 'Are you sure?' },
+                              class: 'text-destroy' %>
               </td>
             </tr>
           <% end %>
