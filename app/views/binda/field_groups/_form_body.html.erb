@@ -51,8 +51,8 @@
         <div id="form-section--repeater-<%= repeater.id %>" class="form-section--wide-container">
           <div class="form-section">
 
-            <div class="standard-form--header">
-              <p><%= "#{ t('binda.repeater_field_settings', arg1: repeater.name.capitalize ) }" %> <%=  %> </p>
+            <div class="standard-form--header field-settings-header">
+              <p><%= "#{ t('binda.repeater_field_settings', arg1: repeater.name.capitalize ) }" %></p>
             </div>
 
             <%= render "form_section_repeater", f: f, repeater: repeater %>
