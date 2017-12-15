@@ -31,6 +31,13 @@
 {
   overflow-y: hidden;
   margin-bottom: 20px;
+  border: 1px solid $color-gray-darker;
+
+  &.table-sort
+  {
+    border: none !important;
+  }
+
 
   .control-label
   {
