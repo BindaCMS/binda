@@ -2,19 +2,20 @@
 
 <%= simple_form_for @field_group, url: get_form_field_group_url, html: { class: 'form-body' } do |f| %>
 
+  <%= f.error_notification %>
+  <% if f.object.errors.any? %>
+  <div class="standard-form--error-explanation">
+    <div class="alert alert-error">
+      <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>.
+    </div>
+    <ul>
+      <% f.object.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+
   <div class="standard-form--body">
-
-    <% if @field_group.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize( @field_group.errors.count, "error") %> prohibited this field_group from being saved:</h2>
-
-        <ul>
-        <% @field_group.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
 
     <div class="standard-form--container">
 

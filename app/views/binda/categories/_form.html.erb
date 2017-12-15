@@ -1,17 +1,19 @@
 <div class="standard-form">
 
 <%= simple_form_for category, url: get_form_category_url do |f| %>
-  <% if category.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize( category.errors.count, "error") %> prohibited this category from being saved:</h2>
-
-      <ul>
-      <% category.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  
+  <%= f.error_notification %>
+  <% if f.object.errors.any? %>
+  <div class="standard-form--error-explanation">
+    <div class="alert alert-error">
+      <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>.
     </div>
-  <% end %>
+    <ul>
+      <% f.object.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
 
   <div class="standard-form--body">
 
