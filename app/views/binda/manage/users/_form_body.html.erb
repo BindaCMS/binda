@@ -3,17 +3,19 @@
 <%= simple_form_for manage_user, url: get_form_manage_user_url do |f| %>
 
   <%= f.error_notification %>
+  
   <% if f.object.errors.any? %>
-  <div class="standard-form--error-explanation">
-    <div class="alert alert-error">
-      <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>.
+    <div class="standard-form--error-explanation">
+      <div class="alert alert-error">
+        <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>.
+      </div>
+      <ul>
+        <% f.object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
     </div>
-    <ul>
-      <% f.object.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
+  <% end %>
 
   <div class="standard-form--body">
 
