@@ -43,7 +43,8 @@ export default function()
 	if ( $('.sortable--toggle').length > 0 ) { setupSortableToggle() }
 
 	// Add event to any sortable toggle button
-	$(document).on('click', '.sortable--toggle', function( event )
+	// TODO: make this event available to element which aren't standard form repeaters
+	$(document).on('click', '.standard-form--repeater .sortable--toggle', function( event )
 	{
 		event.preventDefault()
 		let id = '#' + $( this ).data('repeater-id')
@@ -52,13 +53,15 @@ export default function()
 		{ 
 			$( id ).sortable('enable')
 			$( id ).find('.form-item--repeater-fields').each(close)
+			$( id ).closest('.form-item--collapsable').addClass('form-item--collapsed')
 		}
 		else
 		{ 
 			$( id ).sortable('disable')
 			// Make sure no repeater item has max-height set
-			$(id).find('.form-item--repeater').each(function(){ this.style.maxHeight = null })
+			$(id).find('.form-item--collapsable').each(function(){ this.style.maxHeight = null })
 			$( id ).find('.form-item--repeater-fields').each(open)
+			$( id ).closest('.form-item--collapsable').removeClass('form-item--collapsed')
 		}
 
 	 	$( id ).toggleClass('sortable--disabled')
@@ -73,7 +76,8 @@ function setupSortableToggle()
 	$('.sortable--toggle').each(function()
 	{
 		let id = '#' + $( this ).data('repeater-id')
-		$( id ).find('.form-item--repeater-fields').each(open)
+		$( id ).find('.form-item--collapsable').addClass('form-item--collapsed')
+		$( id ).find('.form-item--repeater-fields').each(close)
 	})
 }
 

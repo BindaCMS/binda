@@ -122,8 +122,11 @@
 .form-item--repeater-fields
 {
   overflow-y: hidden;
-  margin-bottom: 8px;
   transition: all .6s ease;
+}
+
+.font-item--collapsed .form-item--repeater-fields {
+  margin-bottom: 8px;
 }
 
 .form-item--repeater-section
@@ -205,12 +208,37 @@
     margin-left: 8px;
   }
 }
-
+.form-item--collapse-btn,
 .form-item--delete-repeater-item
 {
   float: right;
   margin-top: 8px;
   margin-right: 8px;
+}
+
+.form-item--collapse-btn {
+
+  span:first-child
+  {
+    display: block;
+  }
+  span:last-child
+  {
+    display: none;
+  }
+}
+
+.form-item--collapsed .form-item--collapse-btn 
+{
+
+  span:first-child
+  {
+    display: none;
+  }
+  span:last-child
+  {
+    display: block;
+  }
 }
 
 .form-item--choices

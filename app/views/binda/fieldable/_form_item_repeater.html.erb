@@ -1,14 +1,14 @@
-<div id="standard-form--repeater-<%= repeater_setting.id %>" class="form-item--label-on-left form-item--repeater-section standard-form--repeater form-group">
+<div id="standard-form--repeater-<%= repeater_setting.id %>" class="form-item--label-on-left form-item--repeater-section standard-form--repeater form-group form-item">
   
 	<div class="form-item--repeater-title">
 
 		<%# SORT REPEATER FIELDS %>
 		<a class="b-btn b-btn-primary sortable--toggle" href="#" data-repeater-id="form-item--repeater-setting-<%= repeater_setting.id %>">
 			<span class="sortable--toggle-text">
-				<i class="fa fa-check" aria-hidden="true"></i> Done
+				<i class="fa fa-check" aria-hidden="true"></i> <%= t'binda.done' %>
 			</span>
 			<span class="sortable--toggle-text">
-				<i class="fa fa-random" aria-hidden="true"></i> Sort items
+				<i class="fa fa-random" aria-hidden="true"></i> <%= t'binda.sort_items' %>
 			</span>
 		</a>
 		
@@ -28,14 +28,18 @@
 
 			<% repeater = @instance.find_or_create_a_field_by( repeater_setting.id, 'repeater' ) %>
 			
-			<li id="repeater_<%= repeater.id %>" class="form-item--repeater">
+			<li id="repeater_<%= repeater.id %>" class="form-item--repeater form-item--collapsable">
 
 				<%# - - - - - - - - - - - - %>
 				<%# REPEATER HEADER         %>
 				<%# - - - - - - - - - - - - %>
 				<div class="form-item--repeater-header">
+					<a class="form-item--collapse-btn" href="#">
+						<span><i class="fas fa-angle-up"></i> <%= t('binda.collapse') %></span>
+						<span><i class="fas fa-angle-down"></i> <%= t('binda.expand') %></span>
+					</a>
 					<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>" data-confirm="<%= t 'binda.confirm_delete' %>"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %></a>
-					<p>#<%= repeater.name %> item #<%= repeater.id %></p>
+					<p><%= repeater.field_setting.name %> item #<%= repeater.id %></p>
 				</div>
 
 				<%# - - - - - - - - - - - - - - %>
@@ -57,14 +61,18 @@
 		<% else %>
 
 		  <% repeaters.each do |repeater| %>
-				<li id="repeater_<%= repeater.id %>" class="form-item--repeater">
+				<li id="repeater_<%= repeater.id %>" class="form-item--repeater form-item--collapsable">
 
 					<%# - - - - - - - - - - - - %>
 					<%# REPEATER HEADER         %>
 					<%# - - - - - - - - - - - - %>
 					<div class="form-item--repeater-header">
+						<a class="form-item--collapse-btn" href="#">
+							<span><i class="fas fa-angle-up"></i> <%= t('binda.collapse') %></span>
+							<span><i class="fas fa-angle-down"></i> <%= t('binda.expand') %></span>
+						</a>
 						<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: repeater.id ) %>" data-id="<%= repeater.id %>" data-confirm="<%= t 'binda.confirm_delete' %>"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %></a>
-						<p>#<%= repeater %> item #<%= repeater.id %></p>
+						<p><%= repeater.field_setting.name %> item #<%= repeater.id %></p>
 					</div>
 					<%# - - - - - - - - - - - - - - %>
 					<%# EACH REPEATER               %>
