@@ -44,7 +44,7 @@
 
 .b-btn-outline-danger
 {
-  transition: color background-color .3s ease-out;
+  transition: color .3s ease, background-color .3s ease;
   color: $color-danger;
   border: 1px solid $color-danger;
   background-color: transparent;
@@ -99,11 +99,6 @@
 .b-btn-settings
 {
   margin-bottom: 12px;
-}
-
-.b-btn-category
-{
-  margin-top: 12px;
 }
 
 .b-btn-block

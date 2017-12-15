@@ -10,8 +10,8 @@
 {
   float: left;
   width: 75%;
-  vertical-align: top;
   padding-right: 24px;
+  vertical-align: top;
 }
 
 
@@ -160,23 +160,35 @@
     }
   }
 }
+
 .standard-form--boolean label span,
 .standard-form--radio label span
 {
   border-radius: 1em;
 }
 
-.standard-form--main-actions
+.standard-form--secondary-actions
 {
+  display: inline-block;
+  width: 100%;
+  padding: 0px 12px 20px;
+
+  .b-btn-settings:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.standard-form--main-actions {
   display: inline-block;
   width: 100%;
   padding: 20px 12px;
   border-top: 1px solid $text-color;
+}
 
-  &#not-bottom
-  {
-    padding: 0 12px;
-    border-top: none;
+.standard-form--secondary-actions,
+.standard-form--main-actions {
+  .b-btn-settings:last-child {
+    margin-bottom: 0;
   }
 }
 
