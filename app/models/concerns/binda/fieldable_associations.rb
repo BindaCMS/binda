@@ -361,7 +361,10 @@ module Binda
 		# end
 
 		# Find or create a field by field setting and field type
-		# This is used in Binda's editor views
+		# 
+		# This is used in Binda's editor views.
+		#   
+		# Please, check the code to know more about the way this method works as it's pretty complex yet important.
 		# 
 		# @param field_setting_id [string] The field setting id
 		# @param field_type [string] THe field type
@@ -372,7 +375,14 @@ module Binda
 				# from the object and not rendered next to the form in the editor view
 				obj = self.send( field_type.pluralize ).select{|rf| rf.field_setting_id == field_setting_id}.first
 				if obj.nil?
-					return self.send( field_type.pluralize ).create!( field_setting_id: field_setting_id ) 
+					# As we are using the `select{}.first` method, asynchronous requests passing through 
+					# this method will create some inconsistentcy between this `self` object and the real object. 
+					# In other words `self` should be reloaded, but we won't reload it otherwise we will 
+					# erase the errors shipped with it initially. Therefore we will check again with `find_or_create_by!`.
+					# This leads to another issue, which is: errors coming from asynchronous requests won't be considered
+					# as the `self` object is the initial one, not the "updated" one. At the current time this is not
+					# a problem because the only asynchronous requests are for brand new records which don't need validation.
+					return self.send( field_type.pluralize ).find_or_create_by!( field_setting_id: field_setting_id ) 
 				else
 					return obj
 				end
