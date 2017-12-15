@@ -21,6 +21,11 @@
     <div class="standard-form--secondary-header field-settings-header">
       <p><%= ff.object.name %> (<%= ff.object.field_type.humanize.capitalize %>)</p>
 
+      <a class="form-item--toggle-button form-item--toggle-button-closed">
+
+        <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+
+
       <%= link_to "<i class=\"far fa-trash-alt\"></i>".html_safe,
                   structure_field_group_field_setting_path( @structure, @field_group, ff.object ),
                   method: :delete,
