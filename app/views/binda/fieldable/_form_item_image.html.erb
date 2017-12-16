@@ -14,7 +14,11 @@
         object: ff.object,
         wrapper: false,
         input_html: {
-          'data-url': url_for([@instance.structure, @instance, action: :upload]),
+          'data-url': url_for([
+            @instance.structure, 
+            @instance, 
+            action: :upload, 
+            repeater: { id: "#{field_setting.parent_id}" }]),
           'data-id': ff.object.id 
         } %>
 

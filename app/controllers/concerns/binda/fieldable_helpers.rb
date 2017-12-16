@@ -38,12 +38,12 @@ module Binda
     #
     def upload_params fieldable_type
       params.require(fieldable_type).permit( 
-        :name, :slug, :position, :publish_state, :structure_id, :category_ids,
+        :id, :name, :slug, :position, :publish_state, :structure_id, :category_ids,
         {structure_attributes:  [ :id ]}, 
         {categories_attributes: [ :id, :category_id ]}, 
         {images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ]}, 
         {videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ]}, 
-        {repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id,
+        {repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id,
           images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ],
           videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ]]})
     end

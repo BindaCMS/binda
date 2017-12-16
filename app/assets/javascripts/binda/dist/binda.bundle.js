@@ -253,6 +253,11 @@ function handle_file(event) {
 	// This script doesn't consider multiple files upload
 	var file = event.target.files[0];
 
+	// Don't go any further if no file has been selected
+	if (typeof file === 'undefined') {
+		return;
+	}
+
 	// Create a new FormData object which will be sent to the server
 	var formData = new FormData();
 
@@ -266,6 +271,14 @@ function handle_file(event) {
 			formData.append(this.getAttribute('name'), this.getAttribute('value'));
 		}
 	});
+
+	// If it's inside a repeater add repeater parameters
+	var $parent_repeater = $parent.closest('.form-item--repeater-fields');
+	if ($parent.closest('.form-item--repeater-fields').length > 0) {
+		$parent_repeater.children('.form-group').find('input').each(function () {
+			formData.append(this.getAttribute('name'), this.getAttribute('value'));
+		});
+	}
 
 	// Is this needed? Apparently it works without it. Is it a security issue?
 	// let token = document.querySelector('meta[name="csrf-token"]').content
@@ -394,7 +407,6 @@ var FormItem = function () {
 	}, {
 		key: 'setEvents',
 		value: function setEvents() {
-			console.log("here");
 			$(document).on('click', '.form-item--add-new', addNewItem);
 
 			$(document).on('click', '.form-item--remove-item-with-js', function (event) {

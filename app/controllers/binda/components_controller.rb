@@ -84,8 +84,8 @@ module Binda
           format.json { render json: upload_details }
         end
       else
-        logger.debug("The upload process has failed. #{ @component.errors }")
-        head :bad_request 
+        logger.debug("The upload process has failed. #{ @component.errors }") # TODO THis doesnt work
+        head :bad_request # TODO THis doesnt work
       end
     end
 
