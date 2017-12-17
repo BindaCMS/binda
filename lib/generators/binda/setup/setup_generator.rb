@@ -33,7 +33,7 @@ module Binda
 
       # Use radio field_type untill truefalse isn't available
       unless @field_settings.find_by(slug: 'maintenance-mode').present?
-        maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio' )
+        maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio', position: 1 )
         # make sure slug works
         maintenance_mode.update_attributes( slug: 'maintenance-mode' )
         maintenance_mode.choices.create!( label: 'active', value: 'true' )
@@ -50,7 +50,7 @@ module Binda
 
       website_name_obj = @field_settings.find_by(slug: 'website-name')
       unless website_name_obj.present?
-        website_name_obj = @field_settings.create!( name: 'Website Name', field_type: 'string' )
+        website_name_obj = @field_settings.create!( name: 'Website Name', field_type: 'string', position: 2 )
         # make sure slug works
         website_name_obj.update_attribute( 'slug', 'website-name' )
       end
@@ -63,7 +63,7 @@ module Binda
 
       website_description_obj = @field_settings.find_by(slug: 'website-description')
       unless website_description_obj.present?
-        website_description_obj = @field_settings.find_or_create_by( name: 'Website Description', field_type: 'text' )
+        website_description_obj = @field_settings.find_or_create_by( name: 'Website Description', field_type: 'text', position: 3 )
         # make sure slug works
         website_description_obj.update_attribute( 'slug', 'website-description' )
       end
