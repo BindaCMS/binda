@@ -255,6 +255,20 @@ You can add any other option to the query then:
                    .includes( :strings, :texts, :assets, :selections )
 ```
 
+## Enable preview
+
+When you created the component structure you might have enabled the **preview mode**. The easiest way to integrate the preview with yor application is to update the `config/routes.rb` file with a redirect that binds the component preview url to the controller that is in chardge of showing that component in your application.
+
+For example let's say you have a *animal* structure with slug `animal`: 
+
+```ruby 
+# your application single animal route
+get 'animals/:slug', to: 'animals#show', as: animal
+
+# the bound to a animal preview should be
+get "admin_panel/animal/:slug", to: redirect('/animals/%{slug}')
+```
+
 ---
 
 
