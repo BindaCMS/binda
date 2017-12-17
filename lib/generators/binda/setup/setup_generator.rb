@@ -36,6 +36,9 @@ module Binda
         maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio', position: 1 )
         # make sure slug works
         maintenance_mode.update_attributes( slug: 'maintenance-mode' )
+        # delete 'default' choice, you don't want to have any choice but the one you'll create later
+        maintenance_mode.choices.each{|c| c.destroy! }
+        # create active and disabled choices
         maintenance_mode.choices.create!( label: 'active', value: 'true' )
         maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
         @dashboard.radios.find_or_create_by!( field_setting_id: maintenance_mode.id )
