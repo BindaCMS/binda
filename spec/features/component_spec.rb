@@ -88,14 +88,22 @@ describe "GET component#edit", type: :feature, js: true do
 		@component.reload
 
 		ids = @component.repeaters.first.string_ids
-
+	
+		repeater_expand_btn = "#repeater_#{@component.repeaters.first.id} .form-item--collapse-btn span"
+		find(repeater_expand_btn).click
+		# wait animation
+		sleep 1
+		
 		string_field = "component_repeaters_attributes_#{@component.repeaters.first.id}_strings_attributes_#{ids[ids.length-1]}_content"
 		string_value = 'oh my lorem'
-
 		find("##{string_field}")
 
 		fill_in string_field, with: string_value
 		click_button "save"
+
+		find(repeater_expand_btn).click
+		# wait animation
+		sleep 1
 
 		expect(page).to have_field(string_field)
 		expect(page).to have_field(string_field, with: string_value)		
@@ -155,17 +163,27 @@ describe "GET component#edit", type: :feature, js: true do
 		
 		wait_for_ajax
 		sleep 1 # wait for animation to complete
-		within "#fileupload-#{@component.images.first.id}" do
+	
+		@component.reload
+		image = @component.images.first
+
+    if CarrierWave::Uploader::Base.storage == CarrierWave::Storage::File
+      file = MiniMagick::Image.open(::Rails.root.join(image.image.path))
+    else
+      file = MiniMagick::Image.open(image.image.url)
+    end
+
+		within "#fileupload-#{image.id}" do
 			expect( page ).to have_content image_name
-			expect( page ).to have_content '400'
+			expect( page ).to have_content file.width
 		end
 
 		visit path
 
-		expect( File.basename( @component.images.first.image.file.path ) ).to eq image_name
-		within "#fileupload-#{@component.images.first.id}" do
+		expect( File.basename( image.image.path ) ).to eq image_name
+		within "#fileupload-#{image.id}" do
 			expect( page ).to have_content image_name
-			expect( page ).to have_content '400'
+			expect( page ).to have_content file.width
 		end
 	end
 

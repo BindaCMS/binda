@@ -83,25 +83,23 @@ module SimpleForm
           html << ' fileupload--details--hidden' unless obj.image.present? || obj.video.present?
           html << '"><p class="fileupload--name">'
           html << "<strong>#{t 'binda.filename'}:</strong> "
-          html << "<span class=\"fileupload--filename\">"
+          html << '<span class="fileupload--filename">'
           html << File.basename(obj.image.path).to_s if obj.image.present?
           html << File.basename(obj.video.path).to_s if obj.video.present?
-          html << "</span></p>"
+          html << '</span></p>'
           html << '<p class="fileupload--size">'
           html << "<strong>#{t 'binda.filesize'}:</strong> "
-          html << "<span class=\"fileupload--filesize\">"
+          html << '<span class="fileupload--filesize">'
           html << bytes_to_megabytes(obj.image.size).to_s if obj.image.present?
           html << bytes_to_megabytes(obj.video.size).to_s if obj.video.present?
-          html << "MB</span></p>"
-          if obj.image.present?
-            html << '<p class="fileupload--dimension">'
-            html << "<strong>#{t 'binda.filedimension'}:</strong> "
-            html << "<span class=\"fileupload--width\">"
-            html << image[:width].to_s unless image.nil?
-            html << "</span> x <span class=\"fileupload--height\">"
-            html << image[:height].to_s unless image.nil?
-            html << "</span> px</p>"
-          end
+          html << 'MB</span></p>'
+          html << '<p class="fileupload--dimension">'
+          html << "<strong>#{t 'binda.filedimension'}:</strong> "
+          html << '<span class="fileupload--width">'
+          html << image[:width].to_s unless image.nil?
+          html << '</span> x <span class="fileupload--height">'
+          html << image[:height].to_s unless image.nil?
+          html << '</span> px</p>'
           html << '</div>'
         end
       end

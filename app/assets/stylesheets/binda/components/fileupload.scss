@@ -127,3 +127,7 @@
   opacity: 0;
   width: 0; // Odd but needed, otherwise it occupies few transparent pixels...
 }
+
+.standard-form--video .fileupload--dimension {
+  display: none;
+}

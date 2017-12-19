@@ -294,7 +294,7 @@ module Binda
 			field_setting = FieldSetting.find_by(slug:field_slug)
 			obj = self.radios.find{ |t| t.field_setting_id == field_setting.id }
 			raise ArgumentError, "There isn't any radio associated to the current slug (#{field_slug}).", caller if obj.nil?
-			raise "There isn't any choice available for the current radio (#{field_slug})", caller unless field_setting.choices.any?
+			raise "There isn't any choice available for the current radio (#{field_slug})" unless field_setting.choices.any?
 			return { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
@@ -306,7 +306,7 @@ module Binda
 			field_setting = FieldSetting.find_by(slug:field_slug)
 			obj = self.selections.find{ |t| t.field_setting_id == field_setting.id }
 			raise ArgumentError, "There isn't any radio associated to the current slug (#{field_slug}).", caller if obj.nil?
-			raise "There isn't any choice available for the current radio (#{field_slug})", caller unless field_setting.choices.any?
+			raise "There isn't any choice available for the current radio (#{field_slug})" unless field_setting.choices.any?
 			return { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
@@ -318,7 +318,7 @@ module Binda
 			field_setting = FieldSetting.find_by(slug:field_slug)
 			obj = self.checkboxes.find{ |t| t.field_setting_id == field_setting.id }
 			raise ArgumentError, "There isn't any checkbox associated to the current slug (#{field_slug}).", caller if obj.nil?
-			raise "There isn't any choice available for the current radio (#{field_slug})", caller unless field_setting.choices.any?
+			raise "There isn't any choice available for the current radio (#{field_slug})" unless field_setting.choices.any?
 			obj_array = []
 			obj.choices.order('label').each do |o|
 				obj_array << { label: o.label, value: o.value }

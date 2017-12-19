@@ -39,18 +39,21 @@ module Binda
 			#	Infact: self.field_setting != FieldSetting.find( self.field_setting.id )
 			field_setting = FieldSetting.find(self.field_setting.id)
 
-			# Make sure the default choice has been reset
-			return unless field_setting.default_choice_id.nil? 
+			# Don't do anything if the default choice isn't the one we just destroyed
+			return if field_setting.choice_ids.include? field_setting.default_choice_id
 			
 			# Make sure the default choice is needed
-			return if field_setting.allow_null?
+			return if field_setting.allow_null? && field_setting.field_type != 'radio'
 
-			# Make sure there is at least another choice to replace the default one
-			return unless field_setting.choices.any?
 
-			# Mark as default choice the first choice available
-			field_setting.default_choice_id = field_setting.choices.first.id
-			
+			if field_setting.choices.any?
+				# Mark as default choice the first choice available
+				field_setting.default_choice_id = field_setting.choices.first.id
+			else
+				# Remove default choice setting (which at this point is the current choice (self))
+				field_setting.default_choice_id = nil
+			end
+
 			# Save and check if it's alright
 			unless field_setting.save
 				raise "It hasn't been possible to set the default choice for the current setting (#{field_setting.slug})."

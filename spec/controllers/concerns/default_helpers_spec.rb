@@ -12,12 +12,21 @@ module Binda
 	    end
 	  end
 
-	  describe 'Binda.get_components()' do
+	  describe 'B.get_components()' do
 	    before(:context) do
 	      @structure = create(:article_structure_with_components_and_fields)
 	    end
 	  	it 'raises an error if arguments are not valid' do
-				expect { Binda.get_components( @structure.slug ) }.not_to raise_error
+				expect { B.get_components( @structure.slug ) }.not_to raise_error
+	  	end
+	  end
+
+	  describe 'B.get_boards()' do
+	    before(:context) do
+	      @structure = create(:board_structure)
+	    end
+	  	it 'raises an error if arguments are not valid' do
+				expect { B.get_boards( @structure.slug ) }.not_to raise_error
 	  	end
 	  end
 	end
