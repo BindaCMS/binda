@@ -47,7 +47,6 @@ module Binda
 		                              :assets, :images, :videos, :repeaters, :radios, :selections,
 		                              :checkboxes, :relations, :choices, allow_destroy: true, reject_if: :is_rejected
 
-
 		# Sets the validation rules to accept and save an attribute
 		def is_rejected( attributes )
 			attributes['label'].blank? || attributes['content'].blank?

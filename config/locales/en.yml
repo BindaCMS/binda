@@ -93,3 +93,4 @@ en:
     collapse: Collapse
     expand: Expand
     item: item
+    default_choice_id_validation: must be selected. Please make sure you select one default or allow null as choice (not possible on radio buttons).
