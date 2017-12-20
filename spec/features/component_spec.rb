@@ -103,7 +103,7 @@ describe "GET component#edit", type: :feature, js: true do
 
 		find(repeater_expand_btn).click
 		# wait animation
-		sleep 1
+		sleep 1.5 # using 1.5 as Travis is still failing...don't know why. Testing locally works.
 
 		expect(page).to have_field(string_field)
 		expect(page).to have_field(string_field, with: string_value)		
