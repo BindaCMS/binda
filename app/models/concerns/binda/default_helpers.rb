@@ -8,7 +8,7 @@ module Binda
 
 	  class_methods do
 
-			# Get components method
+			# Get components
 			# 
 			# This method retrieves **all components** belonging to a specific structure. 
 			#   See the following example.
@@ -35,7 +35,7 @@ module Binda
 				Component.where( structure_id: Structure.where( slug: slug ) )
 			end
 
-			# Get boards method
+			# Get boards
 			# 
 			# This method retrieves **boards**.
 			#   See the following example.
@@ -53,6 +53,23 @@ module Binda
 			def get_boards slug 
 				
 				Board.where( structure_id: Structure.where( slug: slug ) )
+			end
+
+			# Get categories
+			# 
+			# This method retrieves **categories**.
+			#   See the following example.
+			#   
+			# @example Get all category belonging to 'page' structure
+			#   Binda.get_boards('page')
+			#   # return all categories
+			#   
+			# @param slug [string] The slug of the structure to which categories belong
+			#   
+			# @return [ActiveRecord Object]  
+			def get_categories slug 
+				
+				Category.where( structure_id: Structure.where( slug: slug ) )
 			end
 
 	  end
