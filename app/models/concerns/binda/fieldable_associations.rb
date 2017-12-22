@@ -370,21 +370,21 @@ module Binda
 		# 
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
-		# def has_related_boards field_slug
-		# 	obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-		# 	raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}).", caller if obj.nil?
-		# 	return obj.dependents.any?
-		# end
+		def has_related_boards field_slug
+			obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}).", caller if obj.nil?
+			return obj.dependent_relations.any?
+		end
 
 		# Get related boards
 		# 
 		# @param field_slug [string] The slug of the field setting
 		# @return [array] An array of boards
-		# def get_related_boards field_slug
-		# 	obj = self.relations.find{ |t| t.field_setting_idid == FieldSetting.get_id( field_slug ) }
-		# 	raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}).", caller if obj.nil?
-		# 	return obj.dependents
-		# end
+		def get_related_boards field_slug
+			obj = self.relations.find{ |t| t.field_setting_idid == FieldSetting.get_id( field_slug ) }
+			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}).", caller if obj.nil?
+			return obj.dependent_relations.map{|relation| relation.dependent}
+		end
 
 		# Find or create a field by field setting and field type
 		# 
