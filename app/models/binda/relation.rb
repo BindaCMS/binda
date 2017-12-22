@@ -24,10 +24,10 @@ module Binda
     # Relations are the connection between a Owner to its Dependents
     # The Active Relation connects a Relation to a Dependent (which is can be a Component or a Board)
     # The Passive Relation connects a Relation to a Owner (which is can be a Component or a Board)
-    has_many :active_relations, class_name: "RelationLink", 
+    has_many :owner_relations, class_name: "RelationLink", 
                                 dependent: :destroy, 
                                 as: :dependent
-    has_many :passive_relations, class_name: "RelationLink", 
+    has_many :dependent_relations, class_name: "RelationLink", 
                                  dependent: :destroy, 
                                  as: :owner
 
@@ -37,7 +37,7 @@ module Binda
     # you can do just the opposite: choose a Dependent starting from a Owner
     # 
     # The current version support components and boards separately
-    has_many :dependent_components, through: :passive_relations, 
+    has_many :dependent_components, through: :dependent_relations, 
                                     source: :dependent, 
                                     source_type: "Binda::Component"
                                     
@@ -46,7 +46,7 @@ module Binda
     # as it's needed.
     # 
     # The current version support components and boards separately
-    has_many :owner_components, through: :active_relations, 
+    has_many :owner_components, through: :owner_relations, 
                                 source: :owner, 
                                 source_type: "Binda::Component"
 
@@ -55,11 +55,11 @@ module Binda
     # as it's needed.
     # 
     # The current version support components and boards separately
-    has_many :dependent_boards, through: :passive_relations, 
+    has_many :dependent_boards, through: :dependent_relations, 
                                 source: :dependent, 
                                 source_type: "Binda::Board"
 
-    has_many :owner_boards, through: :active_relations, 
+    has_many :owner_boards, through: :owner_relations, 
                             source: :owner, 
                             source_type: "Binda::Board"
 
@@ -69,11 +69,11 @@ module Binda
     # as it's needed.
     # 
     # The current version support components and boards separately
-    has_many :dependent_repeaters, through: :passive_relations, 
+    has_many :dependent_repeaters, through: :dependent_relations, 
                                 source: :dependent, 
                                 source_type: "Binda::Repeater"
 
-    has_many :owner_repeaters, through: :active_relations, 
+    has_many :owner_repeaters, through: :owner_relations, 
                             source: :owner, 
                             source_type: "Binda::Repeater"
 

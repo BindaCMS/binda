@@ -333,7 +333,7 @@ module Binda
 		def has_related_components field_slug
 			obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}).", caller if obj.nil?
-			return obj.passive_relations.any?
+			return obj.dependent_relations.any?
 		end
 
 		# Get related components
@@ -343,7 +343,7 @@ module Binda
 		def get_related_components field_slug
 			obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}).", caller if obj.nil?
-			return obj.passive_relations.map{|relation| relation.dependent}
+			return obj.dependent_relations.map{|relation| relation.dependent}
 		end
 
 		# Check if has related boards
