@@ -98,9 +98,9 @@ module Binda
 			else
 				you_mean_string = !self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::String' }.nil?
 				if you_mean_string
-					raise ArgumentError, "This slug (#{field_slug}) is associated to a string not a text. Use get_string() instead.", caller
+					raise ArgumentError, "This slug (#{field_slug}) is associated to a string not a text. Use get_string() instead on instance (#{self.class.name} ##{self.id}).", caller
 				else
-					raise ArgumentError, "There isn't any text associated to the current slug (#{field_slug}).", caller
+					raise ArgumentError, "There isn't any text associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller
 				end
 			end
 		end
@@ -111,7 +111,7 @@ module Binda
 		# @return [boolean]
 		def has_text field_slug 
 			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type != 'Binda::String' }
-			raise ArgumentError, "There isn't any text associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any text associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			if obj.present?
 				return !obj.content.blank?
 			else
@@ -132,9 +132,9 @@ module Binda
 			else
 				you_mean_text = !self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }.nil?
 				if you_mean_text
-					raise ArgumentError, "This slug (#{field_slug}) is associated to a text not a string. Use get_text() instead.", caller
+					raise ArgumentError, "This slug (#{field_slug}) is associated to a text not a string. Use get_text() instead on instance (#{self.class.name} ##{self.id}).", caller
 				else
-					raise ArgumentError, "There isn't any string associated to the current slug (#{field_slug}).", caller
+					raise ArgumentError, "There isn't any string associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller
 				end
 			end
 		end
@@ -145,6 +145,7 @@ module Binda
 		# @return [boolean]
 		def has_string field_slug 
 			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::String' }
+			raise ArgumentError, "There isn't any string associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			if obj.present?
 				return !obj.content.blank?
 			else
@@ -160,7 +161,7 @@ module Binda
 			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			# Alternative query
 			# obj = Image.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
-			raise ArgumentError, "There isn't any image associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any image associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			return obj.image.present?
 		end
 
@@ -198,7 +199,20 @@ module Binda
 			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			# Alternative query
 			# obj = Image.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
-			raise ArgumentError, "There isn't any image associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any image associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
+			if obj.image.present?
+				if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
+					obj.image.send(size).send(info)
+				else
+					obj.image.send(info)
+				end
+			end
+		end
+
+		def get_image_dimension field_slug
+			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+
+			raise ArgumentError, "There isn't any image associated to  the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			if obj.image.present?
 				if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
 					obj.image.send(size).send(info)
@@ -216,7 +230,7 @@ module Binda
 			obj = self.videos.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			# Alternative query
 			# obj = Image.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
-			raise ArgumentError, "There isn't any video associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any video associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			return obj.video.present?
 		end
 
@@ -252,7 +266,7 @@ module Binda
 			obj = self.videos.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			# Alternative query
 			# obj = video.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
-			raise ArgumentError, "There isn't any video associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any video associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			if obj.video.present?
 				obj.video.send(info)
 			end
@@ -265,7 +279,7 @@ module Binda
 		# @return [boolean] Reutrn false if nothing is found
 		def has_date field_slug 
 			obj = self.dates.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			raise ArgumentError, "There isn't any date associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any date associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			if obj.present?
 				return !obj.date.nil?
 			else
@@ -279,7 +293,7 @@ module Binda
 		# @return [boolean]
 		def get_date field_slug 
 			obj = self.dates.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			raise ArgumentError, "There isn't any date associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any date associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			obj.date
 		end
 
@@ -289,7 +303,7 @@ module Binda
 		# @return [boolean]
 		def has_repeater field_slug 
 			obj = self.repeaters.find_all{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			raise ArgumentError, "There isn't any repeater associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any repeater associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			return obj.present?
 		end
 
@@ -299,7 +313,7 @@ module Binda
 		# @return [hash]
 		def get_repeater field_slug 
 			obj = self.repeaters.find_all{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			raise ArgumentError, "There isn't any repeater associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any repeater associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			obj.sort_by(&:position)
 		end
 
@@ -313,8 +327,8 @@ module Binda
 		def get_radio_choice field_slug
 			field_setting = FieldSetting.find_by(slug:field_slug)
 			obj = self.radios.find{ |t| t.field_setting_id == field_setting.id }
-			raise ArgumentError, "There isn't any radio associated to the current slug (#{field_slug}).", caller if obj.nil?
-			raise "There isn't any choice available for the current radio (#{field_slug})" unless field_setting.choices.any?
+			raise ArgumentError, "There isn't any radio associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
+			raise "There isn't any choice available for the current radio (#{field_slug}) on instance (#{self.class.name} ##{self.id})." unless field_setting.choices.any?
 			return { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
@@ -325,8 +339,8 @@ module Binda
 		def get_selection_choice field_slug
 			field_setting = FieldSetting.find_by(slug:field_slug)
 			obj = self.selections.find{ |t| t.field_setting_id == field_setting.id }
-			raise ArgumentError, "There isn't any radio associated to the current slug (#{field_slug}).", caller if obj.nil?
-			raise "There isn't any choice available for the current radio (#{field_slug})" unless field_setting.choices.any?
+			raise ArgumentError, "There isn't any radio associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
+			raise "There isn't any choice available for the current radio (#{field_slug}) on instance (#{self.class.name} ##{self.id})." unless field_setting.choices.any?
 			return { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
@@ -337,8 +351,8 @@ module Binda
 		def get_checkbox_choices field_slug
 			field_setting = FieldSetting.find_by(slug:field_slug)
 			obj = self.checkboxes.find{ |t| t.field_setting_id == field_setting.id }
-			raise ArgumentError, "There isn't any checkbox associated to the current slug (#{field_slug}).", caller if obj.nil?
-			raise "There isn't any choice available for the current radio (#{field_slug})" unless field_setting.choices.any?
+			raise ArgumentError, "There isn't any checkbox associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
+			raise "There isn't any choice available for the current radio (#{field_slug}) on instance (#{self.class.name} ##{self.id})." unless field_setting.choices.any?
 			obj_array = []
 			obj.choices.order('label').each do |o|
 				obj_array << { label: o.label, value: o.value }
@@ -352,8 +366,13 @@ module Binda
 		# @return [boolean]
 		def has_related_components field_slug
 			obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			return obj.dependent_relations.any?
+		end
+
+		# Alias for has_related_components
+		def has_dependent_components field_slug
+			has_related_components field_slug
 		end
 
 		# Get related components
@@ -362,8 +381,24 @@ module Binda
 		# @return [array] An array of components
 		def get_related_components field_slug
 			obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			return obj.dependent_relations.map{|relation| relation.dependent}
+		end
+
+		# Alias for get_related_components
+		def get_dependent_components field_slug
+			get_related_components field_slug
+		end
+
+		# Get all components which owns a relation where the current instance is a dependent
+		# 
+		# @param field_slug [string] The slug of the field setting of the relation
+		# @return [array] An array of components and/or boards
+		def get_owner_components field_slug
+			# obj = self.owner_relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+			obj = Relation.where(field_setting_id: B.get_field_settings(field_slug)).includes(dependent_relations: :dependent).where(binda_relation_links:{dependent_id: self.id, dependent_type: self.class.name})
+			raise ArgumentError, "There isn't any relation associated to the current slug (#{field_slug}) where the current instance (#{self.class.name} ##{self.id}) is a dependent.", caller if obj.nil?
+			return obj
 		end
 
 		# Check if has related boards
@@ -372,7 +407,7 @@ module Binda
 		# @return [boolean]
 		def has_related_boards field_slug
 			obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			return obj.dependent_relations.any?
 		end
 
@@ -382,7 +417,7 @@ module Binda
 		# @return [array] An array of boards
 		def get_related_boards field_slug
 			obj = self.relations.find{ |t| t.field_setting_idid == FieldSetting.get_id( field_slug ) }
-			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}).", caller if obj.nil?
+			raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			return obj.dependent_relations.map{|relation| relation.dependent}
 		end
 
@@ -413,7 +448,7 @@ module Binda
 					return obj
 				end
 			else
-				raise ArgumentError, "One parameter in find_or_create_a_field_by() is not correct.", caller
+				raise ArgumentError, "One parameter in find_or_create_a_field_by() is not correct on instance (#{self.class.name} ##{self.id}).", caller
 			end
 		end
 
