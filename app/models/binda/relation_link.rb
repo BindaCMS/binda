@@ -1,7 +1,7 @@
 module Binda
 	class RelationLink < ApplicationRecord
 
-		belongs_to :owner, polymorphic: true
+		belongs_to :owner, class_name: "Binda::Relation"
 		belongs_to :dependent, polymorphic: true
 
 		validates :owner_id, presence: true

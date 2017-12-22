@@ -28,7 +28,27 @@ module Binda
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
 	    # Repeaters need destroy_all, not delete_all
 	    has_many :repeaters,     as: :fieldable, dependent: :destroy
-			has_many :relations,     as: :fieldable, dependent: :destroy
+			has_many :relations,     as: :fieldable, dependent: :destroy 
+
+
+    has_many :owner_relations, class_name: "RelationLink", 
+                                dependent: :destroy, 
+                                as: :dependent
+
+	    # Owner are connected to its Dependents in a Active Relation
+	    # meaning its possible to connect a Owner to as many Dependents
+	    # as it's needed.
+	    # 
+	    # The current version support components and boards separately
+	    has_many :owner_components, through: :owner_relations, 
+	                                source: :owner
+
+	    has_many :owner_boards, through: :owner_relations, 
+	                            source: :owner
+
+	    has_many :owner_repeaters, through: :owner_relations, 
+	                            source: :owner 
+
 
 	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, :relations, allow_destroy: true
 
