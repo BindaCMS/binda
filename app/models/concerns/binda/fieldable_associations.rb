@@ -426,7 +426,6 @@ module Binda
     #   a component field, as some might have it some might not. This make sure that you can always expect 
     #   to find a field instance which might be empty, but certainly it exists.
     #   
-    # WARNING when updating the order in components sort index, find_or_create_by generates several useless queries that slows down the CMS way too much!!!
     # TODO check if find_or_create_a_field_by method should be used instead (it's used in editors views)
     # 
     def generate_fields
@@ -447,7 +446,7 @@ module Binda
     end
 
 		# TODO: Update all helpers replacing `find` method with ruby `select`. 
-		# This should improve performance avoiding generating useles ActiveRecord objects.
+		# This should improve performance avoiding generating useless ActiveRecord objects.
 
 	end
 end

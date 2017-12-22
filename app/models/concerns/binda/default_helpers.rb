@@ -127,7 +127,7 @@ module Binda
 				end
 			end
 
-			# Get each owner of all relation with the specified slug (or slugs)
+			# Get each owner of all relations with the specified slug (or slugs)
 			#
 			# @param slug [string] The slug of the field setting to which the relations belong
 			# @param slug [array] The slugs of the field settings to which the relations belong
@@ -147,15 +147,16 @@ module Binda
 			end
 
 
-			# Get each dependent of all relation with the specified slug (or slugs)
-			# 
-			# You can decide to ask for all instance type of dependent or specify 'components' or 'boards'.
-			# 
+			# Get each dependent of all relations with the specified slug (or slugs)
+			#
 			# This can be useful to retrieve only the instances which have a owner. For example, you have several 
-			#   'event' components, each of this can be related to several 'artist' components with a 'partecipants' 
+			#   'event' components, where each one is related to several 'artist' components with a 'partecipants' 
 			#   relation field where every event owns some artists. 
 			#   If you want to retrieve all artists which have been involved in at least one event you can try with
 			#   `B.get_relation_dependents('partecipants')`.
+			#   
+			# You can also ask for all instance type of dependent or specify 'components' or 'boards' using 
+			#   the second parameter.
 			#
 			# @param slug [string] The slug of the field setting to which the relations belong
 			# 

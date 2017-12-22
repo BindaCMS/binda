@@ -393,6 +393,25 @@ You can retrieve field content from a instance of `Binda::Component`, `Binda::Bo
 |`get_checkbox_choices`| Returns an array of label/value pairs of all the selected choices. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_checkbox_choices) |
 |`has_related_components`| Check if has related components. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_related_components) |
 |`get_related_components`| Retrieve related components. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_related_components) |
+|`has_related_boards`| Check if has related boards. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_related_boards) |
+|`get_related_boards`| Retrieve related boards. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_related_boards) |
+
+If you need to get each dependent of all relations with a specified slug (or slugs) you can use `B.get_relation_dependents` helper. This is very useful to retrieve only the instances which have a owner (and therefore are 'dependents'). 
+
+For example, you have several `event` components, each related to several `artist` components with a `partecipants` relation field where every event owns some artists. If you want to retrieve all artists which have been involved in at least one event you can try with 
+
+```ruby
+B.get_relation_dependents('partecipants')
+# returns all artists which are related to at least one event
+```
+
+If you want to retrieve each owner of all relations with the specified slug (or slugs) you can do the following:
+
+```ruby
+B.get_relation_owners('partecipants')
+# returns all events which are related to at least one artist
+```
+
 
 ---
 
