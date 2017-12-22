@@ -396,7 +396,7 @@ module Binda
 		# @return [array] An array of components and/or boards
 		def get_owner_components field_slug
 			# obj = self.owner_relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-			obj = Relation.where(field_setting_id: B.get_field_settings(field_slug)).includes(dependent_relations: {dependent: {dependent_type: self.class.name}})
+			obj = Relation.where(field_setting_id: B.get_field_settings(field_slug)).includes(dependent_relations: :dependent).where(binda_relation_links: {dependent_type: self.class.name})
 			raise ArgumentError, "There isn't any relation associated to the current slug (#{field_slug}) where the current instance (#{self.class.name} ##{self.id}) is a dependent.", caller if obj.nil?
 			return obj
 		end
