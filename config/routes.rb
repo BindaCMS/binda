@@ -66,8 +66,6 @@ Binda::Engine.routes.draw do
 
   resources :choices, only: [:destroy]
   
-  # resources :texts
-  # resources :bindings
   resources :videos do
     member do
       delete 'remove_video'
@@ -80,6 +78,5 @@ Binda::Engine.routes.draw do
     end
   end
   resources :repeaters
-  # resources :dates
 
 end
