@@ -13,6 +13,8 @@
                       checked: @instance.category_ids,
                       include_blank: false,
                       label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x.name}".html_safe }%>
+  <% else %>
+    <%= f.association :categories, input: false %>
   <% end %>
 
 	<% if @instance.slug.nil? %>
