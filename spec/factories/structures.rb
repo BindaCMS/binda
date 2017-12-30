@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   sequence(:article_structure_title) { |n| "N.#{n} Article" }
   sequence(:structure_name) { |n| "##{n} structure" }
@@ -16,7 +16,7 @@ FactoryGirl.define do
 	end
 
   # Article structure with components
-	# @see https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#associations
+	# @see https://github.com/thoughtbot/factory_bot/blob/master/GETTING_STARTED.md#associations
   factory :article_structure_with_components, parent: :structure do
     transient do
       components_count 5
@@ -27,7 +27,7 @@ FactoryGirl.define do
   end
 
   # Article structure with components
-  # @see https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#associations
+  # @see https://github.com/thoughtbot/factory_bot/blob/master/GETTING_STARTED.md#associations
   factory :article_structure_with_components_and_fields, parent: :structure do
     transient do
       components_count 5

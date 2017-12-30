@@ -33,9 +33,10 @@ module Binda
 
       # Use radio field_type untill truefalse isn't available
       unless @field_settings.find_by(slug: 'maintenance-mode').present?
-        maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio' )
+        maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio', position: 1 )
         # make sure slug works
         maintenance_mode.update_attributes( slug: 'maintenance-mode' )
+        # create active and disabled choices
         maintenance_mode.choices.create!( label: 'active', value: 'true' )
         maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
         @dashboard.radios.find_or_create_by!( field_setting_id: maintenance_mode.id )
@@ -50,7 +51,7 @@ module Binda
 
       website_name_obj = @field_settings.find_by(slug: 'website-name')
       unless website_name_obj.present?
-        website_name_obj = @field_settings.create!( name: 'Website Name', field_type: 'string' )
+        website_name_obj = @field_settings.create!( name: 'Website Name', field_type: 'string', position: 2 )
         # make sure slug works
         website_name_obj.update_attribute( 'slug', 'website-name' )
       end
@@ -63,12 +64,24 @@ module Binda
 
       website_description_obj = @field_settings.find_by(slug: 'website-description')
       unless website_description_obj.present?
-        website_description_obj = @field_settings.find_or_create_by( name: 'Website Description', field_type: 'text' )
+        website_description_obj = @field_settings.find_or_create_by( name: 'Website Description', field_type: 'text', position: 3 )
         # make sure slug works
         website_description_obj.update_attribute( 'slug', 'website-description' )
       end
       website_description = ask("What is your website about? ['A website about the world']\n").presence || 'A website about the world'
       @dashboard.texts.find_or_create_by!( field_setting_id: website_description_obj.id ).update_attribute( 'content', website_description )
+    end
+
+    # Setup default helpers
+    # 
+    # This operation creates a class called `B` from which is possible to call any
+    #   Binda helper contained in Binda::DefaultHelpers. This is possible by inheriting the
+    #   `Binda::B` class.
+    def setup_default_helpers
+      puts "5) Setting up default helpers"
+      generate "model", "B --no-migration --parent=::Binda::B"
+      puts "Default helpers has been set up."
+      puts 
     end
 
     def feedback

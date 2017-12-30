@@ -26,14 +26,14 @@ class FormItemEditor {
 	resize()
 	{
 		$( this.target ).each( function(){
-			// If the form item edito is closed don't go any further
+			// If the form item editor is closed don't go any further
 			if ( $(this).height() === 0 ) return
 			// otherwise update the max-height which is needed for the CSS transition
 			// NOTE you need to remove the max-height (inside 'style' attribute) to get the real height
-			$(this).css( "max-height", $(this).removeAttr('style').height() )
+			$(this).get(0).style.height = 'auto'
+			$(this).get(0).style.maxHeight = $(this).get(0).scrollHeight + "px";
 		})
 	}
-
 }
 
 export let _FormItemEditor = new FormItemEditor()

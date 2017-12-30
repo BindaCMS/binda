@@ -1,4 +1,9 @@
 <% content_for :header do %>
+  <div class="main-header--buttons">
+  	<% if @structure.has_preview %>
+	    <%= link_to "<i class=\"fas fa-link\"></i>#{ t 'binda.preview' } #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, "#{binda.root_path}#{@structure.slug}/#{@instance.slug}", class: 'main-header--link b-btn b-btn-primary' %>
+    <% end %>
+  </div>
   <p class="main-header--title"><%= "#{ t :edit }".capitalize %> <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %></p>
 <% end %>
 

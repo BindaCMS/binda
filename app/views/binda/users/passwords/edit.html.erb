@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="login">
+
+
+    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+
+      <div class="col-sm-12">
+
+        <%= f.error_notification %>
+        <h2>Change your password</h2>
+
+        <%= f.input :reset_password_token, as: :hidden %>
+        <%= f.full_error :reset_password_token %>
+
+        <div class="form-inputs">
+          <%= f.input :password, label: "New password", required: true, autofocus: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+          <%= f.input :password_confirmation, label: "Confirm your new password", required: true %>
+        </div>
+
+        <div class="update-form--button form-actions">
+          <%= f.button :submit, "Change my password" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="col-sm-12">
+      <%= render "binda/users/shared/links" %>
+    </div>
+  
+  </div>
+</div>

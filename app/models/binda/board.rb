@@ -20,22 +20,5 @@ module Binda
 			slug.blank?
 		end
 
-	  # def self.website_name
-	  # 	self.all.find { |s| s.slug == 'website-name' }
-	  # end
-
-	  # def self.website_description
-	  # 	self.all.find { |s| s.slug == 'website-description' }
-	  # end
-
-	  # def self.maintenance_mode
-	  # 	self.all.find { |s| s.slug == 'maintenance-mode' }
-	  # end
-
-	  # def self.is_maintenance_mode
-	  # 	# maybe this should have question mark at the end...
-	  # 	self.maintenance_mode.is_true
-	  # end
-
   end
 end

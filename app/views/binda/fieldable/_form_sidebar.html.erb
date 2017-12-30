@@ -1,35 +1,59 @@
-<h4><%= "#{ t :setting }".pluralize.capitalize %></h4>
+<div class="standard-form--header">
+  <p><%= "#{ t :setting }".pluralize.capitalize %></p>
+</div>
+
+<div class="standard-form--radio">
 
 <% if @structure.has_categories %>
 
 	<% if @structure.categories.any? %>
-	  <h5><%= t(:category).capitalize %></h5>
-	  <%= f.association :categories, as: :radio_buttons, collection: @structure.categories ,checked: @instance.category_ids, include_blank: false %>
-	<% end %>
+	  <%= f.association :categories,
+                      as: :radio_buttons,
+                      collection: @structure.categories ,
+                      checked: @instance.category_ids,
+                      include_blank: false,
+                      label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x.name}".html_safe }%>
+  <% else %>
+    <%= f.association :categories, input: false %>
+  <% end %>
 
 	<% if @instance.slug.nil? %>
-	  <h5>
-	    <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :instance }" ).capitalize %>  
-	  </h5>
+
+      <h5>
+        <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :instance }" ).capitalize %>
+      </h5>
+
 	<% else %>
-	  <a class="main-header--link btn btn-default" href="<%= new_structure_category_path( @structure ) %>">
-	    <%= "#{ t :new }".capitalize %> <%= t :category %>  
-	  </a>
+
+      <div class="standard-form--secondary-actions">
+        <a class="main-header--link b-btn b-btn-primary b-btn-settings b-btn-category" href="<%= new_structure_category_path( @structure ) %>">
+          <%= "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New".html_safe %> <%= t :category %>
+        </a>
+      </div>
+
 	<% end %>
 
 <% end %>
 
-<hr>
+<div class="standard-form--radio">
 
-<% if @instance.respond_to? :publish_state %>
-	<h5><%= t(:publish_settings).capitalize %></h5>
-	<%= f.input :publish_state, as: :radio_buttons, collection: [ 'draft', 'published' ], checked: f.object.publish_state %>
-	<hr>
-<% end %>
+  <% if @instance.respond_to? :publish_state %>
+    <%= f.input :publish_state,
+                as: :radio_buttons,
+                collection: [ 'draft', 'published' ],
+                checked: f.object.publish_state,
+                include_blank: false,
+                label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x}".html_safe } %>
 
-<%= f.button :submit, 'Save changes', class: 'btn btn-primary', id: 'save' %>
+  <% end %>
+</div>
+
+<div class="standard-form--main-actions">
+  
+  <%= button_tag "<i class=\"fas fa-check\"></i>Save changes".html_safe, { class: 'b-btn-block b-btn b-btn-primary b-btn-settings', id: 'save'} %>
 
 
-<% unless @instance.new_record? || @instance.structure.instance_type == 'board' %>
-	<a class="form-body--delete btn btn-default" href="<%= url_for([@structure, @instance]) %>" data-method="delete" data-confirm="This operation will delete this <%= @structure.name %> and there is no coming back. Are you ok with that?">Delete <%= @structure.name.capitalize %> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-<% end %>
+  <% unless @instance.new_record? || @instance.structure.instance_type == 'board' %>
+    <a class="form-body--delete b-btn-block b-btn b-btn-outline-danger b-btn-settings" href="<%= url_for([@structure, @instance]) %>" data-method="delete" data-confirm="This operation will delete this <%= @structure.name %> and there is no coming back. Are you ok with that?"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %> <%= @structure.name.capitalize %></a>
+  <% end %>
+</div>

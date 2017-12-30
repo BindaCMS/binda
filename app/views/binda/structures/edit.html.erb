@@ -1,8 +1,8 @@
 <% content_for :header do %>
   <div class="main-header--buttons">
-    <%= link_to 'New Structure', new_structure_path, class: 'main-header--link btn btn-primary' %>    
+    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
   </div>
-  <h3>Editing Structure</h3>
+	<p class="main-header--title"><%= t('binda.edit_structure', { arg1: @structure.name })%></p>
   <a href="<%= structures_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> Back to list</a>
 <% end %>
 

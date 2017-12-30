@@ -1,7 +1,9 @@
 <%# - - - - - - - - - - - - %>
 <%# CHOICES                 %>
 <%# - - - - - - - - - - - - %>
-<h5><%= t(:choices).capitalize %></h5>
+<div class="standard-form--header field-settings-header">
+  <p><%= t(:choices).capitalize %></p>
+</div>
 
 <div class="form-item--choices">
 
@@ -10,11 +12,11 @@
 			<%= fff.input :id, as: :hidden %>
 			<%= fff.association :field_setting, as: :hidden %>
 	  	<div class="form-item--choice-label">
-				<small class="text-muted"><%= t(:choice_label).capitalize %></small>
+
 				<%= fff.input :label %>
 			</div>
 			<div class="form-item--choice-value">
-				<small class="text-muted"><%= t(:choice_value).capitalize %></small>
+
 				<%= fff.input :value %>
 			</div>
 			<a href="<%= choice_path( fff.object ) %>" class="form-item--delete-choice">
@@ -32,11 +34,11 @@
 		  <div class="form-item--choice">
 				<%= fff.association :field_setting, as: :hidden %>
 		  	<div class="form-item--choice-label">
-					<small class="text-muted"><%= t(:choice_label).capitalize %></small>
+
 					<%= fff.input :label %>
 				</div>
 				<div class="form-item--choice-value">
-					<small class="text-muted"><%= t(:choice_value).capitalize %></small>
+
 					<%= fff.input :value %>
 				</div>
 				<a href="#" class="form-item--toggle-choice form-item--js-delete-choice">
@@ -54,11 +56,11 @@
 	  <div class="form-item--choice form-item--new-choice">
 			<%= fff.association :field_setting, as: :hidden %>
 	  	<div class="form-item--choice-label">
-				<small class="text-muted"><%= t(:choice_label).capitalize %></small>
+
 				<%= fff.input :label %>
 			</div>
 			<div class="form-item--choice-value">
-				<small class="text-muted"><%= t(:choice_value).capitalize %></small>
+
 				<%= fff.input :value %>
 			</div>
 			<a href="#" class="form-item--toggle-choice form-item--js-delete-choice">
@@ -81,9 +83,19 @@
 <%# DEFAULT CHOICE          %>
 <%# - - - - - - - - - - - - %>
 <% if ff.object.choices.find_all{|c| c.persisted? }.any? %>
-	<div class="form-item--half-size">
-		<h5><%= t(:default_choice).capitalize %></h5>
-		<%= ff.input :default_choice_id, as: :select, collection: ff.object.choices.find_all{|c| c.persisted? }, label_method: :label, include_blank: false, selected: ff.object.default_choice_id, hint: t(:default_choice_description).capitalize %>
+	<div class="form-item--full-size">
+
+    <div class="standard-form--header field-settings-header">
+		  <p><%= t(:default_choice).capitalize %></p>
+    </div>
+
+		<%= ff.input :default_choice_id, 
+		    as: :select, collection: ff.object.choices.find_all{|c| c.persisted? }, 
+		    label_method: :label, 
+		    include_blank: false, 
+		    selected: ff.object.default_choice_id, 
+		    hint: t(:default_choice_description).capitalize,
+		    class: 'select2-item' %>
 	</div>
 <% end %>
 
@@ -94,6 +106,13 @@
 	<%# - - - - - - - - - - - - %>
 	<div class="form-item--half-size">
 		<h5><%= t(:allow_null).capitalize %></h5>
-		<%= ff.input :allow_null, as: :boolean, boolean_style: :inline, input_html: { class: "form-item--input" }, checked_value: true, unchecked_value: false, selected: ff.object.allow_null, default: false %>
+		<%= ff.input :allow_null, 
+		    as: :boolean, 
+		    boolean_style: :inline, 
+		    input_html: { class: "form-item--input" }, 
+		    checked_value: true, 
+		    unchecked_value: false, 
+		    selected: ff.object.allow_null, 
+		    default: false %>
 	</div>
 <% end %>

@@ -1,62 +1,56 @@
-  <div class="row">
-    <div class="form-body--container col-sm-12">
-      
-      <%= simple_form_for structure, defaults: { label: false }, html: { class: 'form-body' } do |f| %>
-        <%= f.error_notification %>
-        
-        <div class="row">
-          <div class="col-sm-8">
+<div class="standard-form">
 
-            <div class="form-section--wide-container row">
-              <div class="col-sm-12">
+<%= simple_form_for structure, html: { class: 'form-body' } do |f| %>
+  <%= f.error_notification %>
 
-                <h4><%= "#{ t :details }".capitalize %></h4>
+  <% if f.object.errors.any? %>
+    <div class="standard-form--error-explanation">
+      <div class="alert alert-error">
+        <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>.
+      </div>
+      <ul>
+        <% f.object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-                <h5><%= "#{ t :title }".capitalize %></h5>
-                <p class="text-muted"><%= t :title_hint %></p>
-                <%= f.input :name %>
-                
-                <% if structure.slug.nil? %>
-                  <%= f.input :slug, as: :hidden %>
-                <% else %>
-                  <h5><%= "#{ t :slug }".capitalize %></h5>
-                  <%= f.input :slug %>
-                <% end %>
-                
-              </div>
-            </div>
+  <div class="standard-form--body">
 
-            <div class="form-section--wide-container row">
-              <div class="col-sm-12 form-section">
+    <div class="standard-form--container">
 
-                <%= render "form_section", section: structure, f: f %>
+      <div class="standard-form--header">
+        <p><%= "#{ t :details }".capitalize %></p>
+      </div>
 
-              </div>
-            </div>
+      <div class="standard-form--fields">
 
-          </div>
-          <div class="col-sm-4">
+        <%= f.input :name, hint: t(:title_hint), label: "#{t('binda.title')}".capitalize  %>
 
-            <div class="form-section--narrow-container row">
-              <div class="col-sm-12">
-                <h4><%= "#{ t :publish }".capitalize %></h4>
-                <h5><%= "#{ t :structure_instance_type }".capitalize %></h5>
-                <%= f.input :instance_type, as: :radio_buttons, collection: ['component','board'] %>
-                <h5><%= "#{ t :structure_has_categories }".capitalize %></h5>
-                <%= f.input :has_categories, as: :radio_buttons %>
-                <hr>
-                <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
-
-                <% unless @structure.new_record? %>
-                  <a class="form-body--delete btn btn-default" href="<%= url_for([@structure]) %>" data-method="delete" data-confirm="This operation will delete this structure and there is no coming back. Are you ok with that?">Delete Structure <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                <% end %>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-      
-      <% end %>
+        <% if structure.slug.nil? %>
+          <%= f.input :slug, as: :hidden %>
+        <% else %>
+          <%= f.input :slug %>
+        <% end %>
+      </div>
 
     </div>
+
+    <div class="standard-form--container">
+      <div class="form-section">
+        <%= render "form_section", section: structure, f: f %>
+      </div>
+    </div>
+
   </div>
+
+  <div class="standard-form--sidebar">
+    <div class="standard-form--container">
+        <%= render "form_sidebar", section: structure, f: f %>
+    </div>
+  </div>
+
+<% end %>
+
+</div>

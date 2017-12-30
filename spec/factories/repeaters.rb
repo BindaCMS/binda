@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
 	sequence(:repeater_name){ |n| "##{n} Repeater" }
 

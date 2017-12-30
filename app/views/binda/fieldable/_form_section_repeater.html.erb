@@ -2,7 +2,7 @@
 <%# TEXT / STRING           %>
 <%# - - - - - - - - - - - - %>
 <% if repeater_setting_child.field_type == 'text' %>
-  <% current = f.object.find_or_create_a_field_by( repeater_setting_child.id, 'text' ) %>
+  <% current = @instance.repeaters.select{|r| r.id == f.object.id}.first.find_or_create_a_field_by( repeater_setting_child.id, 'text' ) %>
   <%= f.simple_fields_for "texts_attributes[]", current do |ff| %>
     <%= render 'binda/fieldable/form_item_text', ff: ff, field_setting: repeater_setting_child %>
   <% end %>
@@ -12,7 +12,7 @@
 <%# STRING                  %>
 <%# - - - - - - - - - - - - %>
 <% elsif repeater_setting_child.field_type == 'string' %>
-  <% current = f.object.find_or_create_a_field_by( repeater_setting_child.id, 'string' ) %>
+  <% current = @instance.repeaters.select{|r| r.id == f.object.id}.first.find_or_create_a_field_by( repeater_setting_child.id, 'string' ) %>
   <%= f.simple_fields_for "strings_attributes[]", current do |ff| %>
     <%= render 'binda/fieldable/form_item_string', ff: ff, field_setting: repeater_setting_child %>
   <% end %>
@@ -22,7 +22,7 @@
 <%# DATE                    %>
 <%# - - - - - - - - - - - - %>
 <% elsif repeater_setting_child.field_type == 'date' %>
-  <% current = f.object.find_or_create_a_field_by( repeater_setting_child.id, 'date' ) %>
+  <% current = @instance.repeaters.select{|r| r.id == f.object.id}.first.find_or_create_a_field_by( repeater_setting_child.id, 'date' ) %>
   <%= f.simple_fields_for "dates_attributes[]", current do |ff| %>
     <%= render 'binda/fieldable/form_item_date', ff: ff, field_setting: repeater_setting_child %>
   <% end %>
@@ -32,7 +32,7 @@
 <%# IMAGE                   %>
 <%# - - - - - - - - - - - - %>
 <% elsif repeater_setting_child.field_type == 'image' %>
-  <% current = f.object.find_or_create_a_field_by( repeater_setting_child.id, 'image' ) %>
+  <% current = @instance.repeaters.select{|r| r.id == f.object.id}.first.find_or_create_a_field_by( repeater_setting_child.id, 'image' ) %>
   <%= f.simple_fields_for "images_attributes[]", current do |ff| %>
     <%= render 'binda/fieldable/form_item_image', ff: ff, field_setting: repeater_setting_child %>
   <% end %>
@@ -42,7 +42,7 @@
 <%# VIDEO                   %>
 <%# - - - - - - - - - - - - %>
 <% elsif repeater_setting_child.field_type == 'video' %>
-  <% current = f.object.find_or_create_a_field_by( repeater_setting_child.id, 'video' ) %>
+  <% current = @instance.repeaters.select{|r| r.id == f.object.id}.first.find_or_create_a_field_by( repeater_setting_child.id, 'video' ) %>
   <%= f.simple_fields_for "videos_attributes[]", current do |ff| %>
     <%= render 'binda/fieldable/form_item_video', ff: ff, field_setting: repeater_setting_child %>
   <% end %>
@@ -52,12 +52,11 @@
 <%# - - - - - - - - - - - - %>
 <%# RELATED_FIELD           %>
 <%# - - - - - - - - - - - - %>
-<% elsif repeater_setting_child.field_type == 'related_field' %>
-    <% current = @instance.find_or_create_a_field_by( repeater_setting_child.id, 'related_field' ) %>
-    <%= f.simple_fields_for "related_fields_attributes[]", current do |ff| %>
-        <%= render 'binda/fieldable/form_item_related_field', ff: ff, field_setting: repeater_setting_child %>
+<% elsif repeater_setting_child.field_type == 'relation' %>
+    <% current = @instance.repeaters.select{|r| r.id == f.object.id}.first.find_or_create_a_field_by( repeater_setting_child.id, 'relation' ) %>
+    <%= f.simple_fields_for "relations_attributes[]", current do |ff| %>
+        <%= render 'binda/fieldable/form_item_relation', ff: ff, field_setting: repeater_setting_child %>
     <% end %>
-
 
 <%# - - - - - - - - - - - - %>
 <%# SELECTABLES             %>

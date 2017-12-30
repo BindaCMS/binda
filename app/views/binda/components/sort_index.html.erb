@@ -1,9 +1,9 @@
 <% content_for :header do %>
   <div class="main-header--buttons">
-    <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path , class: 'main-header--link btn btn-primary' %>    
+    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path , class: 'main-header--link b-btn b-btn-primary' %>
   </div>
 
-  <h3>Sort <%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></h3>
+  <p class="main-header--title"><%= t('binda.sort').capitalize %> <%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></p>
   <a href="<%= structure_components_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= "#{ t :back_to_index }".capitalize %></a>
 <% end %>
 
@@ -15,27 +15,23 @@
         <span></span>
         <span></span>
       </div>
-      <p>Updating components position...</p>
+      <p><%= t 'binda.sort_items_loader', { arg1: t('binda.components').downcase } %></p>
   </div>
-  <div class="main-table--row row">
-    <div class="col-sm-12">
-  
-      <h5 class="text-muted">Drag &amp; drop using the handle to sort your <%= @structure.name.humanize.split.join(' ').pluralize %>. Changes are automatically saved.</h5>
-      <hr>
+  <div class="main-table--container">
 
-      <table class="table table-striped">
+      <h5 class="text-muted"><%= t('binda.sort_index_hint', { arg1: @structure.name.humanize.split.join(' ').pluralize }).html_safe %></h5>
+
+      <table class="standard-form--container table-sort">
         <thead>
           <tr>
-            <th class="col-sm-1"><span class="glyphicon glyphicon-move" aria-hidden="true" style="margin-left: 8px;"></span></th>
-            <th class="col-sm-5">Title</th>
-            <th class="col-sm-2">Publish state</th>
-            <th class="col-sm-3"></th>
+            <th style="width: 50%;", class="standard-form--header">Title</th>
+            <th style="width: 50%;", class="standard-form--header">Publish state</th>
+            <th class="standard-form--header"></th>
           </tr>
         </thead>
         <tbody id="<%= @structure.slug %>-components--sort-index" class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
           <% @components.order( :position, :name ).each do |component| %>
-            <tr id="component_<%= component.id %>">  
-              <td><span class="sortable--handle"></span></td>
+            <tr id="component_<%= component.id %>">
               <td><%= link_to component.name, structure_component_path( @structure.slug, component ) %></td>
               <td><%= component.publish_state %></td>
               <td></td>
@@ -44,8 +40,7 @@
         <tbody>
       </table>
 
-    <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path, class: 'main-header--link btn btn-default', action: "new" %>    
+    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path, class: 'main-header--link b-btn b-btn-primary', action: "new" %>
         
   </div>
-</div>
 <% end %>

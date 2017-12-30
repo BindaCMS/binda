@@ -1,31 +1,21 @@
 ul.sortable,
 ul#sortable
 {
+  position: relative;
   margin-bottom: 64px;
   padding-left: 0;
   list-style-type: none;
-  li
+  
+  > li
   {
     position: relative;
     z-index: 0;
     margin-top: 0;
     margin-bottom: 0;
-    margin-bottom: 8px;
-    padding: 8px;
     cursor: move;
-    transition: box-shadow  .3s ease-in-out;
-    border-bottom: 1px solid rgba( 0, 0, 0, .1 );
-    background-color: #fff;
+    transition: box-shadow .3s ease, transform .3s ease;
     box-shadow: 0 0 0 0 rgba(0,0,0,.25);
-    &:hover
-    {
-      z-index: 10;
-      box-shadow: 0 10px 26px 0 rgba(0,0,0,.25);
-    }
-    &:first-child
-    {
-      border-top: 1px solid rgba( 0, 0, 0, .1 );
-    }
+
     img
     {
       width: auto;
@@ -43,7 +33,8 @@ ul#sortable
 .ui-state-highlight
 {
   height: 48px;
-  background-color: #e2e2e2;
+  z-index: 0;
+  background-color: $color-gray-dark;
 }
 
 ul#sortable > li > *,
@@ -54,30 +45,38 @@ ul.sortable > li > *
 
 .sortable-handle
 {
+  // display: block;
   width: 12px;
   height: 12px;
   margin-right: 16px;
   margin-left: 8px;
   border-radius: 6px;
-  background-color: #ccc;
+}
+
+.ui-sortable-handle
+{
+  &:hover
+  {
+    z-index: 10 !important;
+    transform: scale(1.01);
+    background-color: $color-gray-lightest;
+    box-shadow: 0 10px 26px 0 rgba(0,0,0,.25);
+  }
 }
 
 tbody#sortable,
 tbody.sortable
 {
+  position: relative;
   margin-bottom: 64px;
   padding-left: 0;
   list-style-type: none;
   tr
   {
+    transition: box-shadow .3s ease, transform .3s ease;
     margin-bottom: 8px;
     padding-bottom: 8px;
-    border-bottom: 1px solid rgba( 0, 0, 0, .1 );
-    &:first-child
-    {
-      // padding-top: 8px;
-      // border-top: 1px solid rgba( 0, 0, 0, .1 );
-    }
+
     img
     {
       width: auto;
@@ -115,68 +114,12 @@ tbody.sortable
   }
 }
 
-.sortable-warning
+ul.sortable--disabled
 {
-  position: fixed;
-  z-index: 9999;
-  top: 50%;
-  left: 50%;
-  width: 40%;
-  padding: 24px;
-  transition: opacity .2s .2s linear;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  opacity: 1;
-  background-color: #fff;
-  text-align: center;
-
-  @extend .box-shadowed-up;
-
-  &.sortable-warning--hidden
+   > li:hover
   {
-    opacity: 0;
-  }
-  p {
-    margin: 0;
-  }
-}
-
-@keyframes sortableWarning
-{
-  0%
-  {
+    cursor: default;
     transform: scale(1);
-  }
-  25%
-  {
-    transform: scale(1.5);
-  }
-}
-
-.sortable-warning--loader
-{
-  margin-bottom: 16px;
-  span
-  {
-    display: inline-block;
-    width: 1px;
-    height: 24px;
-    margin: 0 3px;
-    transform-origin: center center;
-    animation: sortableWarning 1s ease-in-out infinite;
-    border-radius: 10px;
-    background-color: $color-gray-light;
-  }
-  span:nth-child(2)
-  {
-    animation-delay: 180ms;
-  }
-  span:nth-child(3)
-  {
-    animation-delay: 360ms;
-  }
-  span:nth-child(4)
-  {
-    animation-delay: 540ms;
+    box-shadow: none;
   }
 }

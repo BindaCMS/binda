@@ -3,28 +3,35 @@
   <head>
     <title>Binda CMS -- <%= controller_name.capitalize %> <%= action_name.capitalize %></title>
     <%= csrf_meta_tags %>
-    <%= tinymce %>
+
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,600" rel="stylesheet">
 	  <%= stylesheet_link_tag    "binda/application", media: "all" %>
+
+    <% if controller_name == 'sessions' && action_name == 'new' %>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
+    <% end %>
 	  <%= javascript_include_tag "binda/application" %>
+    <%= tinymce %><%# This one as to be called after "application" scripts%>
   </head>
 
   <body class="<%= action_name %> <%= "#{controller_name}-#{action_name}" %> <%= 'devise-view' if is_devise_controller %>">
     
     <div id="main-container">
-      
+
+      <%= yield :background %>
+
       <%= render partial: 'layouts/binda/sidebar' %>
       <%= render partial: 'layouts/binda/header' %>
 
       <div id="main-content">
 
-        <%= render partial: 'layouts/binda/flash' %> 
+        <%= render partial: 'layouts/binda/flash' %>
 
         <%= yield :content %>
         <%= yield %>
-      
-      </div> 
-    </div>
 
+      </div>
+
+    </div>
   </body>
 </html>

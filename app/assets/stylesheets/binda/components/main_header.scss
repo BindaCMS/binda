@@ -5,15 +5,13 @@
 }
 .main-header--title
 {
-  @extend .h3;
+  @extend .b-h3;
   display: inline-block;
 }
 
 .main-header--buttons
 {
   float: right;
-  margin-top: 24px;
-  margin-right: 24px;
 }
 
 a.main-header--back

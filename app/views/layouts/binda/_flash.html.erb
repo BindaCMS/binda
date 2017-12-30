@@ -4,7 +4,7 @@
 			<%= notice if notice.is_a? String %>
 			<% if notice.is_a? Hash %>
 				<% notice.each do |key, message| %>				
-					<p><%= key.split('.').map{|k| k.humanize.capitalize }.join(': ') %> <%= message.to_sentence %></p>
+					<p><%= key.split('.').map{|k| k.humanize }.join(': ') %> <%= message.to_sentence %></p>
 				<% end %>
 			<% end %>
 		</div>

@@ -24,6 +24,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :slug
       t.integer          :position
       t.boolean          :has_categories, default: true
+      t.boolean          :has_preview, default: false
       t.index            :slug, unique: true
       t.string           :instance_type, null: false, default: 'component'
       t.timestamps
@@ -121,13 +122,6 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    create_table :binda_bindings do |t|
-      t.string           :title
-      t.text             :description
-      t.integer          :position
-      t.timestamps
-    end
-
     create_table :binda_categories do |t|
       t.string           :name, null: false
       t.string           :slug
@@ -143,19 +137,14 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.belongs_to       :component, index: true
     end
 
-    create_table :binda_related_fields do |t|
-      t.string :name
-      t.string :slug
-      t.integer :field_setting_id
-      t.integer :fieldable_id
-      t.string :fieldable_type
+    create_table :binda_relations do |t|
+      t.integer          :field_setting_id
+      t.references       :fieldable, polymorphic: true, index: true
     end
 
-    create_table :binda_relationships do |t|
-      t.integer :parent_related_id
-      t.integer :children_related_id
-      t.string :parent_related_type
-      t.string :children_related_type
+    create_table :binda_relation_links do |t|
+      t.references       :owner, polymorphic: true, index: true
+      t.references       :dependent, polymorphic: true, index: true
       t.timestamps
     end
 
@@ -171,9 +160,6 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     add_index :friendly_id_slugs, [:slug, :sluggable_type]
     add_index :friendly_id_slugs, [:slug, :sluggable_type, :scope], :unique => true
     add_index :friendly_id_slugs, :sluggable_type
-    add_index :binda_related_fields, :slug
-    add_index :binda_relationships, :parent_related_id
-    add_index :binda_relationships, :children_related_id
 
     # DEVISE
     create_table :binda_users do |t|

@@ -13,9 +13,12 @@ module Binda
       @board = @board_structure.board
     end
 
+    before(:example) do 
+      sign_in user
+    end
+
     describe "GET #show" do
       it "returns http success" do
-        sign_in user
         get :show, params: { structure_id: @board_structure.slug, id: @board.slug }
         expect(response).to have_http_status(:redirect)
       end
@@ -23,8 +26,7 @@ module Binda
 
     describe "GET #edit" do
       it "returns http success" do
-        sign_in user
-        get :edit, params: { structure_id: @board_structure.slug, id: @board.slug }
+        get :edit, params: { structure_id: @board_structure.slug, id: @board.slug }        
         expect(response).to have_http_status(:success)
       end
     end
@@ -32,8 +34,7 @@ module Binda
  
     describe "POST #sort_repeaters" do
       it "reorder repeater based on position value" do
-        sign_in user
-
+        @board.reload # apparently this is needed as the variable isn't updated to reflect the real record state
         ordered_ids = @board.repeater_ids
         shuffled_ids = ordered_ids.shuffle
 
@@ -61,8 +62,7 @@ module Binda
 
     describe "POST #new_repeater" do
       it "create a new repeater with correct position" do
-        sign_in user
-
+        @board.reload # apparently this is needed as the variable isn't updated to reflect the real record state
         initial_repeaters_length = @board.repeaters.length
         repeater_setting_id = @board_structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
 

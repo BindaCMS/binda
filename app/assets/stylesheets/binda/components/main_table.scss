@@ -1,28 +1,84 @@
-.main-table--row {
-	margin: 0;
+.main-table--container
+{
+  table
+  {
+    width: 100%;
 
-	> div {
-		width: 100%;
-		padding-bottom: $font-size-base;
-		margin-bottom: $font-size-base * 2;
-		background-color: #FFF;
-		@extend .box-shadowed;
-	}
+    td
+    {
+      padding: 12px;
+      border-top: none !important;
+    }
 
-	table {
-		border-bottom: 1px solid #CCC;
+    td:last-child
+    {
+      text-align: right;
 
-		td:last-child {
-			text-align: right;
+      span
+      {
+        margin-left: $font-size-base;
 
-			span {
-				margin-left: $font-size-base;
+        &:not(:first-child)
+        {
+          padding-left: $font-size-base;
+          border-left: 1px solid #ccc;
+        }
+      }
+    }
 
-				&:not(:first-child) {
-					border-left: 1px solid #CCC;
-					padding-left: $font-size-base;
-				}
-			}
-		}
-	}
+    .no-hover
+    {
+      background: none;
+    }
+
+    tr
+    {
+      border-right: 1px solid $color-gray-darker;
+      border-bottom: 1px solid $color-gray-lighter;
+      border-left: 1px solid $color-gray-darker;
+    }
+
+    tr:last-child
+    {
+      border-bottom: 1px solid $color-gray-darker;
+    }
+
+    tr.ui-sortable-handle:hover {
+      border: 1px solid transparent;
+    }
+  }
+
+  .prev
+  {
+    margin-left: 1%;
+  }
+
+  .next
+  {
+    float: right;
+    margin-right: 1%;
+  }
+
+  .last
+  {
+    float: right;
+  }
+}
+
+.main-table--hover {
+  background: $color-gray-lightest;
+  transition: background .3s ease;
+
+  &:hover
+  {
+    background: $color-white;
+  }
+}
+
+.main-table--actions
+{
+  a
+  {
+    margin-left: 8px;
+  }
 }

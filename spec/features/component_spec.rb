@@ -6,10 +6,12 @@ describe "GET components#sort_index:", type: :feature, js: true do
 	before(:context) do
 		@structure = create(:article_structure_with_components)
 	end
+	
+	before(:example) do
+		sign_in user
+	end
 
 	it "displays components sorted by position" do
-		sign_in user
-
 		first_component = @structure.components.order(:position).first
 		first_position = first_component.position
 		last_component = @structure.components.order(:position).last
@@ -40,8 +42,11 @@ describe "GET component#edit", type: :feature, js: true do
 		@component = @structure.components.first
 	end
 
-	it "isn't blocked by any Rails error" do
+	before(:example) do
 		sign_in user
+	end
+
+	it "isn't blocked by any Rails error" do
 		path = binda.edit_structure_component_path( structure_id: @structure.slug, id: @component.slug ) 
 		visit path
 		expect( page ).to have_current_path( path )
@@ -53,55 +58,57 @@ describe "GET component#edit", type: :feature, js: true do
 	## Failure/Error: raise Capybara::ExpectationNotMet.new('Timed out waiting for Selenium session reset') if (Capybara::Helpers.monotonic_time - start_time) >= 10   
 	##     Capybara::ExpectationNotMet: Timed out waiting for Selenium session reset
 	it "allows to edit a string field" do
-		# sign_in user
-		
-		# path = binda.edit_structure_component_path( @structure, @component )
-		# visit path
+		path = binda.edit_structure_component_path( @structure, @component )
+		visit path
 
-		# expect( page ).to have_current_path( path )
+		expect( page ).to have_current_path( path )
 
-		# @component.reload
+		string_setting = @structure.field_groups.first.field_settings.where(field_type: 'string').first
 
-		# ids = @component.string_ids
+		string_id = @component.strings.where(field_setting_id: string_setting.id).first.id
 
-		# string_field = "component_strings_attributes_#{ids[ids.length-1]}_content"
-		# string_value = 'oh my lorem'
+		string_field = "component_strings_attributes_#{string_id}_content"
+		string_value = 'oh my lorem'
 
-		# find("##{string_field}")
+		find("##{string_field}")
 
-		# fill_in string_field, with: string_value
-		# click_button "save"
+		fill_in string_field, with: string_value
+		click_button "save"
 
-		# expect(page).to have_field(string_field)
-		# expect(page).to have_field(string_field, with: string_value)
-		skip "not implemented yet"
+		expect(page).to have_field(string_field)
+		expect(page).to have_field(string_field, with: string_value)
 	end
 
 	it "allows to edit a string field in a repeater" do
-		# sign_in user
+		path = binda.edit_structure_component_path( @structure, @component )
+		visit path
 		
-		# path = binda.edit_structure_component_path( @structure, @component )
-		# visit path
+		expect( page ).to have_current_path( path )
 		
-		# expect( page ).to have_current_path( path )
+		@component.reload
+
+		ids = @component.repeaters.first.string_ids
+	
+		repeater_expand_btn = "#repeater_#{@component.repeaters.first.id} .form-item--collapse-btn span"
+		find(repeater_expand_btn).click
+		# wait animation
+		sleep 1
 		
-		# @component.reload
+		string_field = "component_repeaters_attributes_#{@component.repeaters.first.id}_strings_attributes_#{ids[ids.length-1]}_content"
+		string_value = 'oh my lorem'
+		find("##{string_field}")
 
-		# # TODO check against @component.repeaters.first.string_ids[0] and see why it doesn't work!
+		fill_in string_field, with: string_value
+		click_button "save"
 
-		# ids = @component.repeaters.first.string_ids
+		visit path
 
-		# string_field = "component_strings_attributes_#{ids[ids.length-1]}_content"
-		# string_value = 'oh my lorem'
+		find(repeater_expand_btn).click
+		# wait animation
+		sleep 1
 
-		# find("##{string_field}")
-
-		# fill_in string_field, with: string_value
-		# click_button "save"
-
-		# expect(page).to have_field(string_field)
-		# expect(page).to have_field(string_field, with: string_value)		
-		skip "not implemented yet"
+		expect(page).to have_field(string_field)
+		expect(page).to have_field(string_field, with: string_value)		
 	end
 
 	it "allows to create multiple new repeater items clicking the button" do
@@ -140,24 +147,61 @@ describe "GET component#edit", type: :feature, js: true do
 		skip "not implemeted yet"
 	end
 
-	it "allows to add an image to an asset field" do
+	it "allows to add an image to an image field and store it" do
+		image_setting = create(:image_setting, field_group_id: @structure.field_groups.first.id)
+		
+		path = binda.edit_structure_component_path( @structure, @component )
+		visit path
+		expect( page ).to have_current_path( path )
+
+		expect( @component.images.first.image.present? ).not_to be_truthy
+
+		field_id = "component_images_attributes_#{@component.images.where(field_setting_id: image_setting.id ).first.id}_image"
+		image_name = 'test-image.jpg'
+		image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
+		page.execute_script("document.getElementById('#{field_id}').style.zIndex = '1'")
+		page.execute_script("document.getElementById('#{field_id}').style.opacity = '1'")
+		page.attach_file( field_id, image_path )
+		
+		wait_for_ajax
+		sleep 1 # wait for animation to complete
+	
+		@component.reload
+		image = @component.images.first
+
+    if CarrierWave::Uploader::Base.storage == CarrierWave::Storage::File
+      file = MiniMagick::Image.open(::Rails.root.join(image.image.path))
+    else
+      file = MiniMagick::Image.open(image.image.url)
+    end
+
+		within "#fileupload-#{image.id}" do
+			expect( page ).to have_content image_name
+			expect( page ).to have_content file.width
+		end
+
+		visit path
+
+		expect( File.basename( image.image.path ) ).to eq image_name
+		within "#fileupload-#{image.id}" do
+			expect( page ).to have_content image_name
+			expect( page ).to have_content file.width
+		end
+	end
+
+	it "allows to add an image to an image field in a repeater" do
 		skip "not implemeted yet"
 	end
 
-	it "allows to add an image to an asset field in a repeater" do
+	it "allows to remove an image to an image field" do
 		skip "not implemeted yet"
 	end
 
-	it "allows to remove an image to an asset field" do
-		skip "not implemeted yet"
-	end
-
-	it "allows to remove an image to an asset field in a repeater" do
+	it "allows to remove an image to an image field in a repeater" do
 		skip "not implemeted yet"
 	end
 
 	it "allows to add a new repeater element" do
-		# sign_in user
 		# path = binda.edit_structure_component_path( @structure, @component )
 		# visit path
 		# expect( page ).to have_current_path( path )
@@ -173,6 +217,14 @@ describe "GET component#edit", type: :feature, js: true do
 
 	it "allows to reorder repeater elements" do
 		# This is pretty difficult, probably not reliable either
+		skip "not implemented yet"
+	end
+
+	it "allows to relate a component to other ones" do
+		skip "not implemented yet"
+	end
+
+	it "should not be possible to relate a component to itself" do
 		skip "not implemented yet"
 	end
 

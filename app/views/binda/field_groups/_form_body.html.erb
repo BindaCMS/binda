@@ -1,71 +1,92 @@
-<div class="row">
-<div class="form-body--container col-sm-12">
+<div class="standard-form">
 
-<%= simple_form_for @field_group, url: get_form_field_group_url, defaults: { label: false }, html: { class: 'form-body' } do |f| %>
+<%= simple_form_for @field_group, url: get_form_field_group_url, html: { class: 'form-body' } do |f| %>
 
-  <% if @field_group.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize( @field_group.errors.count, "error") %> prohibited this field_group from being saved:</h2>
-
+  <%= f.error_notification %>
+  
+  <% if f.object.errors.any? %>
+    <div class="standard-form--error-explanation">
+      <div class="alert alert-error">
+        <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>.
+      </div>
       <ul>
-      <% @field_group.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% f.object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="row">
-    <div class="col-sm-8">
-      <div class="form-section--wide-container row">
-        <div class="col-sm-12">
+  <div class="standard-form--body">
 
-          <h4><%= "#{ t :details }".capitalize %></h4>
-          
-          <h5><%= "#{ t :title }".capitalize %></h5>
-          <%= f.input :name %>
-          
-          <% if @field_group.slug.nil? %>
-            <%= f.input :slug, as: :hidden %>
-          <% else %>
-            <h5><%= "#{ t :slug }".capitalize %></h5>
-            <%= f.input :slug, disabled: true, hint: "#{ t :slug_disable_hint }" %>
-          <% end %>
+    <div class="standard-form--container">
 
-        </div>
+      <div class="standard-form--header">
+        <p><%= "#{ t :details }" %></p>
       </div>
-      <div id="form-section--field-group-<%= @field_group.id %>" class="form-section--wide-container row">
-        <div class="col-sm-12 form-section">
 
-          <%= render "form_section", f: f %>
+      <%= f.input :name, label: "#{ t :title }" %>
+
+      <% if @field_group.slug.nil? %>
+        <%= f.input :slug, as: :hidden %>
+      <% else %>
+        <%= f.input :slug %>
+      <% end %>
+
+    </div>
+
+    <div class="standard-form--container">
+
+      <div id="form-section--field-group-<%= @field_group.id %>" class="form-section--wide-container">
         
+        <div class="standard-form--header">
+          <p><%= "#{ t 'binda.field_settings' }".pluralize %></p>
         </div>
+        
+        <%= render "form_section", f: f %>
+
       </div>
+
       <% @field_group.field_settings.where( field_type: 'repeater' ).order( :position, :id ).each do |repeater| %>
-        <div id="form-section--repeater-<%= repeater.id %>" class="form-section--wide-container row">
-          <div class="col-sm-12 form-section">
-          
-            <h4><%= repeater.name.capitalize %></h4>
+        <div id="form-section--repeater-<%= repeater.id %>" class="form-section--wide-container">
+          <div class="form-section">
+
+            <div class="standard-form--header field-settings-header">
+              <p><%= "#{ t('binda.repeater_field_settings', arg1: repeater.name ) }" %></p>
+            </div>
 
             <%= render "form_section_repeater", f: f, repeater: repeater %>
 
           </div>
         </div>
       <% end %>
-    </div>
-    <div class="col-sm-4">
-      <div class="form-section--narrow-container row">
-        <div class="col-sm-12">
-          <div class="form-actions">
-            
-            <h4><%= "#{ t :setting }".pluralize.capitalize %></h4>
-            <%= f.button :submit, 'Save changes', class: 'btn btn-primary', id: 'save', 'data-entries-number': "Binda::#{@structure.instance_type.classify}".constantize.where(structure_id:@structure.id).count, 'data-instance-type': @structure.instance_type.pluralize %>
 
-          </div>
-        </div>
-      </div>
     </div>
+
+  </div>
+
+  <div class="standard-form--sidebar">
+
+    <div class="standard-form--container">
+
+      <div class="standard-form--header">
+        <p><%= "#{ t :setting }".pluralize %></p>
+      </div>
+
+      <div class="standard-form--main-actions">
+
+        <%= button_tag '<i class="fas fa-check"></i>Save changes'.html_safe, {
+            class: 'b-btn b-btn-primary b-btn-settings',
+            id: 'save',
+            'data-entries-number': "Binda::#{@structure.instance_type.classify}".constantize.where(structure_id:@structure.id).count,
+            'data-instance-type': @structure.instance_type.pluralize
+        } %>
+      </div>
+
+    </div>
+
+  </div>
+
 <% end %>
 
-</div>
 </div>

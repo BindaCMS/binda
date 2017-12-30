@@ -7,6 +7,7 @@ module Binda
 			@field_group = create(:field_group)
 			@radio_setting = create(:radio_setting_with_choices, field_group_id: @field_group.id )
 			@component = create(:component, structure_id: @field_group.structure.id )
+			@component.reload # reload otherwise @component doesn't know about radio (is it possible? this is due to after_save callback)
 		end
 
 		it "should let you choose a value" do

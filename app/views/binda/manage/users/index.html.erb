@@ -1,38 +1,38 @@
 <% content_for :header do %>
   <div class="main-header--buttons">
-    <%= link_to 'New User', new_manage_user_path, class: 'main-header--link btn btn-primary' %>    
+    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New User".html_safe, new_manage_user_path, class: 'main-header--link b-btn b-btn-primary' %>
   </div>
   <h3>Manage Users</h3>
 <% end %>
 
 <% content_for :content do %>
-  <div class="main-table--row row">
-    <div class="col-sm-12">
+  <div class="main-table--container">
 
-      <table class="table table-striped">
-        <thead>
+    <table class="standard-form--container">
+      <thead>
+        <tr>
+          <th style="width: 70%;" class="standard-form--header">Email</th>
+          <th style="width: 30%;" class="standard-form--header"></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <% @users.order( :email ).each.with_index(1) do |manage_user, index| %>
+
           <tr>
-            <th colspan="3">Email</th>
-            <th></th>
+            <td><%= manage_user.email %></td>
+            <td class="main-table--actions">
+              <%= link_to "<i class=\"fas fa-pencil-alt\"></i> Edit".html_safe, edit_manage_user_path( manage_user.id ) %>
+              <%= link_to "<i class=\"far fa-trash-alt\"></i> Destroy".html_safe, manage_user_path( manage_user.id ), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-destroy'  %></td>
           </tr>
-        </thead>
-        <tbody>
 
-          <% @users.order( :email ).each.with_index(1) do |manage_user, index| %>
+        <% end %>
 
-            <tr>
-              <td colspan="3"><%= manage_user.email %></td>
-              <td><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <%= link_to 'Edit', edit_manage_user_path( manage_user.id ) %> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <%= link_to 'Destroy', manage_user_path( manage_user.id ), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger'  %></td>
-            </tr>
+      </tbody>
+    </table>
 
-          <% end %>
+    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New User".html_safe, new_manage_user_path, class: 'main-header--link b-btn b-btn-primary' %>
 
-        </tbody>      
-      </table>
-
-      <%= link_to 'New User', new_manage_user_path, class: 'main-header--link btn btn-default' %>    
-
-    </div>
   </div>
 
 <% end %>

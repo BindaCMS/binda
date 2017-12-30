@@ -3,14 +3,18 @@
 <%# - - - - - - - - - - - - - - %>
 <%= simple_form_for [@instance.structure, @instance], defaults: { label: false }, html: { multipart: true }  do |f| %>
 <!-- SPLIT -->
-	<li id="repeater_<%= @repeater.id %>" class="form-item--repeater">
+	<li id="repeater_<%= @repeater.id %>" class="form-item--repeater form-item--collapsable">
 
 		<%# - - - - - - - - - - - - %>
 		<%# REPEATER HEADER         %>
 		<%# - - - - - - - - - - - - %>
 		<div class="form-item--repeater-header">
-			<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-			<p>ID #<%= @repeater.id %></p>
+			<a class="form-item--collapse-btn" href="#">
+				<span><i class="fas fa-angle-up"></i> <%= t('binda.collapse') %></span>
+				<span><i class="fas fa-angle-down"></i> <%= t('binda.expand') %></span>
+			</a>
+			<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>" data-confirm="<%= t 'binda.confirm_delete' %>"><i class="far fa-trash-alt"></i> <%= t('binda.delete') %></a>
+			<p><%= @repeater.field_setting.name %> <%= t('binda.item') %> #<%= @repeater.id %></p>
 		</div>
 
 		<%# - - - - - - - - - - - - - - %>
@@ -20,7 +24,7 @@
 			<%= f.simple_fields_for "repeaters_attributes[]", @repeater do |ff| %>
 				<%= ff.input :fieldable_id, as: :hidden %>
 				<%= ff.input :fieldable_type, as: :hidden %>
-		  	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: ff.object.field_setting.id } %>
+		  	<%= ff.input :field_setting_id, as: :hidden %>
 				<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
 				<% ff.object.field_setting.children.order( :position, :id ).each do |repeater_setting_child| %>
 				  <%= render "binda/fieldable/form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child %>

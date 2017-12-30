@@ -1,64 +1,86 @@
 <% content_for :header do %>
   <div class="main-header--buttons">
-    <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path , class: 'main-header--link btn btn-primary' %>
+    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path , class: 'main-header--link b-btn b-btn-primary' %>
     <%= get_sort_index_link %>
   </div>
-  <h3><%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></h3>
+  <p class="main-header--title"><%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></p>
 <% end %>
 
-<% content_for :content do %> 
-  <div class="main-table--row row">
-    <div class="col-sm-12">
+<% content_for :content do %>
 
-      <table class="table table-striped">
+    <div class="main-table--container">
+
+      <div class="pagination-links--bar">
+        <%= paginate @components %>
+      </div>
+
+      <table class="standard-form--container" cellspacing="0">
+
         <thead>
-          <tr>
-            <th class="col-sm-5">
-              <a href="<%= 
+
+            <th style="width: 50%", class="standard-form--header">
+              <a href="<%=
                 if params[:order] == 'LOWER(name) ASC'
-                  structure_components_path([@structure], order:'LOWER(name) DESC') 
+                  structure_components_path([@structure], order:'LOWER(name) DESC')
                 else
-                  structure_components_path([@structure], order:'LOWER(name) ASC') 
+                  structure_components_path([@structure], order:'LOWER(name) ASC')
                 end
-                %>">
+                %>" class="sort-link">
                 Title
+                <% if params[:order] == 'LOWER(name) ASC' %>
+                  <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>
+                <% else %>
+                  <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>
+                <% end %>
               </a>
             </th>
-            <th class="col-sm-2">
-              <a href="<%= 
+            <th style="width: 20%", class="standard-form--header">
+              <a href="<%=
                 if params[:order] == 'publish_state ASC, LOWER(name) ASC'
-                  structure_components_path([@structure], order:'publish_state DESC, LOWER(name) ASC') 
+                  structure_components_path([@structure], order:'publish_state DESC, LOWER(name) ASC')
                 else
-                  structure_components_path([@structure], order:'publish_state ASC, LOWER(name) ASC') 
+                  structure_components_path([@structure], order:'publish_state ASC, LOWER(name) ASC')
                 end
-                %>">
+                %>" class="sort-link">
                 Publish state
+                <% if params[:order] == 'LOWER(name) ASC' %>
+                  <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>
+                <% else %>
+                  <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>
+                <% end %>
               </a>
             </th>
-            <th class="col-sm-3"></th>
-          </tr>
+            <th style="width: 30%", class="standard-form--header"><p style="float: right;">Actions</p></th>
+
         </thead>
         <tbody>
           <% @components.each do |component| %>
-            <tr id="component_<%= component.id %>">  
+            <tr class="main-table--hover" id="component_<%= component.id %>">
               <td><%= link_to component.name, structure_component_path( @structure.slug, component ) %></td>
               <td><%= component.publish_state %></td>
-              <td>
-                  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 
-                  <%= link_to 'Edit', edit_structure_component_path( @structure.slug, component ) %> 
-                  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
-                  <%= link_to 'Destroy', structure_component_path( @structure.slug, component.slug ), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+              <td class="main-table--actions">
+                  <%= link_to "<i class=\"fas fa-pencil-alt\"></i> #{t('binda.edit').capitalize}".html_safe, edit_structure_component_path( @structure.slug, component ) %>
+                  
+                  <%= link_to "<i class=\"far fa-trash-alt\"></i> #{t('binda.delete').capitalize}".html_safe, structure_component_path( @structure.slug, component.slug ),
+                              method: :delete,
+                              data: { confirm: 'Are you sure?' },
+                              class: 'text-destroy' %>
               </td>
             </tr>
           <% end %>
         <tbody>
+
       </table>
 
-    <%= paginate @components %>
+      <div class="pagination-links--bar">
+        <%= paginate @components %>
+      </div>
 
-    <%= link_to "New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }", new_structure_component_path, class: 'main-header--link btn btn-default', action: "new" %>    
-    <%= get_sort_index_link %>
-        
-  </div>
-</div>
+      <div class="b-btn--container">
+        <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path, class: 'main-header--link b-btn b-btn-primary', action: "new" %>
+        <%= get_sort_index_link %>
+      </div>
+
+    </div>
+
 <% end %>

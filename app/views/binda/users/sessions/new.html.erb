@@ -1,0 +1,62 @@
+<% content_for :background do %>
+  <div id="background-shader">
+    <%= render 'binda/users/sessions/background' %>
+  </div>
+  <div class="login--header">
+    <p><%= t('binda.login_welcome', { arg1: get_website_name }) %></p>
+  </div>
+  <div class="login--footer">
+    <a href="https://github.com/lacolonia/binda" target="_blank"><%= t('binda.login_credit', { arg1: Binda::VERSION.dup}) %></a>
+  </div>
+<% end %>
+
+<div class="login">
+
+  <%= simple_form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'login--form'} do |f| %>
+
+      <div class="form-inputs">
+        <ol class="login--questions">
+          <li>
+            <span>
+              <label for="email">
+                <i class="far fa-user"></i> <%= t 'binda.login_email' %>
+              </label>
+            </span>
+            <%= f.input 'email', label: false %>
+          </li>
+          <li>        
+            <span>
+              <label for="password">
+                <i class="fas fa-key"></i> <%= t 'binda.login_password' %>
+              </label>
+            </span>
+            <%= f.input 'password', label: false %>
+          </li>
+        </ol>
+      </div>
+
+
+      <div class="login--controls">
+
+        <button class="login--next login--show"></button>
+              
+        <div class="update-form--button form-actions login--submit-button">
+          <%= button_tag '<i class="fas fa-check"></i> ->'.html_safe, {
+              class: 'b-btn b-btn-primary b-btn-alternative',
+              id: 'save',
+          } %>
+        </div>
+
+        <div class="form-inputs login--radio-button">
+          <input type="radio" name="login" id="remember" data-waschecked="true"><label for="remember"><span></span>Remember me</label>
+        </div>
+
+      </div>
+
+  <% end %>
+
+  <%= render "binda/users/shared/links" %>
+
+</div>
+
+

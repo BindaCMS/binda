@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   overflow-y: auto;
-  width: 160px;
+  width: 200px;
   height: 100%;
   border-right: 1px solid $color-gray-lighter;
   background-color: $color-white;
@@ -32,7 +32,7 @@
     }
     .main-sidebar--website-name
     {
-      transform: translateX( -160px );
+      transform: translateX( -200px );
     }
   }
 }
@@ -55,7 +55,7 @@
   width: 100%;
   padding: 0 15px;
   transition: transform .3s ease;
-  transform: translateX(160px);
+  transform: translateX(200px);
 
   i {
     padding-right: 6px;

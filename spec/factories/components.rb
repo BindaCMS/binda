@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   sequence(:article_title) { |n| "This is article number #{ n }" }
 
@@ -17,7 +17,7 @@ FactoryGirl.define do
 
   # Article Component with repeaters
   # WARNING: This shouldn't be called directly, instead use :article_structure_with_components_and_fields factory
-  # @see https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#associations
+  # @see https://github.com/thoughtbot/factory_bot/blob/master/GETTING_STARTED.md#associations
   factory :article_component_with_fields, parent: :article_component do
     transient do
       _count 3
@@ -31,7 +31,7 @@ FactoryGirl.define do
       repeater_setting = field_group.field_settings.find{ |fs| fs.field_type == 'repeater' }
       # create some data
       create_list( :repeater_with_fields, evaluator._count, fieldable: article_component, field_setting: repeater_setting )
-      create_list( :string, evaluator._count, fieldable: article_component, field_setting: string_setting )
+      # create_list( :string, evaluator._count, fieldable: article_component, field_setting: string_setting )
     end
   end
 

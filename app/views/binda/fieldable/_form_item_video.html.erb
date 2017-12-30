@@ -1,24 +1,32 @@
-<%# HEADING %>
-<h5><%= field_setting.name.capitalize %></h5>
+<div id="standard-form--video-<%= field_setting.id %>" class="standard-form--video form-item">
+  <div id="fileupload-<%= ff.object.id %>" 
+    class="fileupload form-group">
 
-<%= ff.input :video, input_html: { class: 'form-item--video--uploader'} %>
-	<a class="btn btn-default <%= 'invisible' unless ff.object.video.present? %>" href="<%= url_for([ff.object, action: :remove_video]) %>" data-method="delete" data-remote="true" data-confirm="Do you really want to remove it?">Delete image <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-  </span>
+    <p class="control-label"><%= field_setting.name.capitalize %></p>
 
-<% if ff.object.video.present? %>
-  <video id="video-<%= ff.object.id %>" controls class="form-item--video--video">
-	  <source src="<%= ff.object.video.url %>" type="video/<%= ff.object.video.file.extension.downcase %>">
-  </video>
-<% end %>
+    <div class="fileupload--dashboard">
 
-<% unless field_setting.description.blank? %>
-	<small class="text-muted"><%= field_setting.description %></small>
-<% end %>
+			<%= ff.input :video, 
+        label: "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> #{t('binda.choose_file_button')}".html_safe, 
+        hint: field_setting.description, 
+        url: url_for([ff.object, action: :remove_video]).html_safe,
+        object: ff.object,
+        wrapper: false,
+				input_html: { 
+					class: 'form-item--video--uploader',
+          'data-url': url_for([@instance.structure, @instance, action: :upload]),
+          'data-id': ff.object.id 
+				} %>
 
-<%= ff.input :video_cache, as: :hidden %>
-<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-<%= ff.input :fieldable_id, as: :hidden %>
-<%= ff.input :fieldable_type, as: :hidden %>
+      
+    </div>
 
-<div class="form-item--video--clearfix"></div>
+    <%= ff.input :video_cache, as: :hidden %>
+    <%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
+    <%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
+    <%= ff.input :fieldable_id, as: :hidden %>
+    <%= ff.input :fieldable_type, as: :hidden %>
+    <div class="clearfix"></div>
+
+  </div>
+</div>

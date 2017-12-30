@@ -40,11 +40,10 @@ module Binda
     end
 
     def update
-      binding.pry
       if @component.update(component_params)
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "#{ @structure.name.capitalize } was successfully updated."
       else
-        redirect_to edit_structure_component_path( @structure.slug, @component.slug ), flash: { alert: @component.errors }
+        render :edit, flash: { alert: @component.errors }
       end
     end
 
@@ -69,9 +68,9 @@ module Binda
     
     def sort
       params[:component].each_with_index do |id, i|
-        Component.find( id ).update({ position: i + 1 })
+        Component.find( id ).update_column('position', i + 1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
       end
-      render js: "$('##{params[:id]}').sortable('option', 'disabled', false); $('.sortable-warning').addClass('sortable-warning--hidden'); $('.sortable').removeClass('sortable--disabled')"
+      render js: "$('##{params[:id]}').sortable('option', 'disabled', false); $('.popup-warning').addClass('popup-warning--hidden'); $('.sortable').removeClass('sortable--disabled')"
     end
 
     def sort_index
@@ -85,8 +84,8 @@ module Binda
           format.json { render json: upload_details }
         end
       else
-        logger.debug("The upload process has failed. #{ @component.errors }")
-        head :bad_request 
+        logger.debug("The upload process has failed. #{ @component.errors.full_messages }")
+        head :bad_request
       end
     end
 

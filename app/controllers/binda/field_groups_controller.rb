@@ -6,7 +6,7 @@ module Binda
     before_action :set_field_group, only: [:show, :edit, :update, :destroy]
 
     def index
-      @field_groups = @structure.field_groups.order('position').all
+      redirect_to structure_field_group_path( @structure.slug )
     end
 
     def show
@@ -32,7 +32,6 @@ module Binda
     end
 
     def update
-      binding.pry
       # Add nested classes
       add_new_field_settings
       add_new_choices

@@ -1,0 +1,35 @@
+<div class="standard-form--header">
+  <p><%= "#{ t :publish }".capitalize %></p>
+</div>
+
+<div class="standard-form--radio">
+  <%= f.input :instance_type,
+            as: :radio_buttons,
+            collection: ['component','board'],
+            include_blank: false,
+            label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x}".html_safe }%>
+
+</div>
+<% if !@structure.new_record? && @structure.instance_type == 'component' %>
+  <div class="standard-form--radio">
+    <%= f.input :has_categories,
+                label: "<span class=\"standard-form--input-box\"></span>#{ t('binda.has_categories')}".html_safe,
+                as: :boolean,
+                include_blank: false,
+                hint: t('binda.has_categories_hint') %>
+  </div>
+  <div class="standard-form--radio">
+    <%= f.input :has_preview,
+                label: "<span class=\"standard-form--input-box\"></span>#{ t('binda.has_preview')}".html_safe,
+                as: :boolean,
+                include_blank: false,
+                hint: "#{t('binda.preview_path_warning')}:<br /> #{binda.root_path}#{@structure.slug}/:slug".html_safe %>
+  </div>
+<% end %>
+<div class="standard-form--main-actions">
+  <%= button_tag '<i class="fas fa-check"></i>Save changes'.html_safe, { class: 'b-btn-block b-btn b-btn-primary b-btn-settings', id: 'save' } %>
+
+  <% unless @structure.new_record? %>
+    <a class="form-body--delete b-btn-block b-btn b-btn-outline-danger b-btn-settings" href="<%= url_for([@structure]) %>" data-method="delete" data-confirm="This operation will delete this structure and there is no coming back. Are you ok with that?"><i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %> <%= @structure.name.capitalize %></a>
+  <% end %>
+</div>

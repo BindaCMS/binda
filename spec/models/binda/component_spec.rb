@@ -45,67 +45,11 @@ module Binda
 			first_component.destroy!
 
 			expect( String.where(id: strings) ).to be_empty
-
 		end
 
 		it "can have multiple categories" do
 			skip "not implemented yet"
 		end
-
-		it "can have multiple associations component" do
-			component_child = create(:component)
-			component_parent_1 = create(:component)
-			component_parent_2 = create(:component)
-
-			association1 = component_child.related_fields.create!(name: "association1", slug: "slug1")
-			association1.parent_relateds << component_parent_1
-			association1.save!
-
-			association2 = component_child.related_fields.create!(name: "association2", slug: "slug2")
-			association2.parent_relateds << component_parent_2
-			association2.save!
-
-			component_child.reload
-			relateds = component_child.related_fields.where(slug:"slug2").first.parent_relateds
-			expect(relateds.first.name).to eq(component_parent_2.name)
-		end
-
-=begin
-		it "can have multiple parents board" do
-			board_child = create(:board_structure)
-			board_parent_1 = create(:board_structure)
-			board_parent_2 = create(:board_structure)
-			board_child.children_fieldables << board_parent_1
-			board_child.children_fieldables << board_parent_2
-			board_child.save!
-			expect(board_child.children_fieldables.length).to eq(2)
-		end
-=end
-
-=begin
-		it "can have multiple parents repeater" do
-			repeater_child = create(:repeater)
-			repeater_parent_1 = create(:repeater)
-			repeater_parent_2 = create(:repeater)
-			repeater_child.children_fieldables << repeater_parent_1
-			repeater_child.children_fieldables << repeater_parent_2
-			repeater_child.save!
-			expect(repeater_child.children_fieldables.length).to eq(2)
-		end
-=end
-
-=begin
-		it "can have multiple parents" do
-			component_child = create(:component)
-			component_parent_1 = create(:component)
-			component_parent_2 = create(:component)
-			component_child.parent_components << component_parent_1
-			component_child.parent_components << component_parent_2
-			component_child.save!
-			expect(component_child.parent_components.length).to eq(2)
-		end
-=end
-
 
 		# - - - - - - - - - - - - - - - - - - - -
 		# COMPONENT HELPERS
@@ -170,5 +114,26 @@ module Binda
 		it "returns false when has_repeater() is not called on a repeater belonging to this component" do
 			skip "not implemented yet"
 		end
+
+		it "can have multiple related components and retrieve them with get_related_components()" do
+			owner = create(:component)
+			relation_setting = create(:relation_setting, field_group_id: owner.structure.field_groups.first.id)
+			dependent_1 = create(:component)
+			dependent_2 = create(:component)
+
+			relation1 = owner.relations.create!(field_setting_id: relation_setting.id)
+			relation1.dependent_components << dependent_1
+			relation1.save!
+
+			relation2 = owner.relations.create!(field_setting_id: relation_setting.id)
+			relation2.dependent_components << dependent_2
+			relation2.save!
+
+			owner.reload
+			dependents = owner.get_related_components(relation_setting.slug)
+
+			expect(dependents.first.name).to eq(dependent_2.name)
+		end
+
   end
 end

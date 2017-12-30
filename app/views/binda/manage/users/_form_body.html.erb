@@ -1,58 +1,63 @@
-<div class="row">
-<div class="form-body--container col-sm-12">
+<div class="standard-form">
 
 <%= simple_form_for manage_user, url: get_form_manage_user_url do |f| %>
-  <% if manage_user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize( manage_user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
+  <%= f.error_notification %>
+  
+  <% if f.object.errors.any? %>
+    <div class="standard-form--error-explanation">
+      <div class="alert alert-error">
+        <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>.
+      </div>
       <ul>
-      <% manage_user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% f.object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-  
-  <div class="row">
-		<div class="col-sm-8">
 
-			<div class="form-section--wide-container row">
-				<div class="col-sm-12">
-				
-					<h4>Edit User Details</h4>
+  <div class="standard-form--body">
 
-					<h5>Email</h5>
-			  	<%= f.input :email, label: false %>
+    <div class="standard-form--container">
 
-					<h5>Password</h5>
-			  	<%= f.input :password, label: false %>
+      <div class="standard-form--header">
+        <p>Edit User Details</p>
+      </div>
 
-					<h5>Password confirmation</h5>
-			  	<%= f.input :password_confirmation, label: false %>
+      <%= f.input :email, label: "Email" %>
+
+      <%= f.input :password, label: "Password" %>
+
+      <%= f.input :password_confirmation, label: "Password confirmation" %>
 
 
-			  	<% if !current_user.is_superadmin %>
-						<h5>Administrator priviledges</h5>
-				  	<%= f.input :is_superadmin, label: false, as: :radio_buttons %>
-			  	<% end %>
+      <% if !current_user.is_superadmin %>
+        <h5>Administrator priviledges</h5>
+        <%= f.input :is_superadmin, label: false, as: :radio_buttons %>
+      <% end %>
 
-			  </div>
-		  </div>
-	  </div>
+    </div>
 
-		<div class="col-sm-4">
-
-			<div class="form-section--narrow-container row">
-				<div class="col-sm-12">
-					<h4>Publish</h4>
-			    <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
-			  </div>
-		  </div>
-
-	  </div>
   </div>
+
+  <div class="standard-form--sidebar">
+
+    <div class="standard-form--header">
+      <p><%= "#{ t :setting }".pluralize.capitalize %></p>
+    </div>
+
+    <div class="standard-form--container">
+
+      <div class="standard-form--main-actions">
+        <%= button_tag "<i class=\"fas fa-check\"></i>Save changes".html_safe, { class: 'b-btn b-btn-primary', id: 'save' } %>
+      </div>
+
+    </div>
+
+  </div>
+
 <% end %>
 
 </div>
-</div>
+

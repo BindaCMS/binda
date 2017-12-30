@@ -1,5 +1,5 @@
 <% content_for :header do %>
-	<h3><%= "#{ t :new }".capitalize %> <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %></h3>
+	<p class="main-header--title"><%= t('binda.new_component',{ arg1: @structure.name.humanize.split.map(&:capitalize).join(' ') }) %></p>
   <a href="<%= structure_components_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= "#{ t :back_to_index }".capitalize %></a>
 <% end %>
 		

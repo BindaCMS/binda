@@ -64,6 +64,13 @@ module Binda
       head :ok
     end
 
+    def sort_index
+      @structures = Structure.order('position').all.page params[:page]
+=begin
+      return redirect_to structure_components_path, alert: "There are too many #{@structure.name.pluralize}. It's not possible to sort more than #{Component.sort_limit} #{@structure.name.pluralize}." if @structure.components.length > Component.sort_limit
+=end
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_structure
@@ -72,7 +79,7 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def structure_params
-        params.require(:structure).permit(:name, :slug, :position, :has_categories, :instance_type, field_groups_attributes: [ :id, :name, :structure_id, :slug ] )
+        params.require(:structure).permit(:name, :slug, :position, :has_categories, :has_preview, :instance_type, field_groups_attributes: [ :id, :name, :structure_id, :slug ] )
       end
 
       def new_params

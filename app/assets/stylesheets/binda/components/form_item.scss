@@ -1,90 +1,83 @@
 .form-item
 {
   display: block;
-  margin-bottom: $font-size-base*1.5;
   transition: all .3s linear;
   transform: scaleY(1);
-  border-bottom: 1px solid $color-gray-lightest;
 
   @extend .clearfix;
+  // .form-group
+  // {
+  //   margin-bottom: 20px;
+  // }
+}
+
+.form-item
+{
+  overflow-y: hidden;
+  transition: max-height .6s ease-out;
+}
+
+.form-item--half-size
+{
+  position: relative;
+  float: left;
+  width: 50%;
+
   .form-group
   {
-    margin-bottom: $font-size-base;
+    border-top: none !important;
+  }
+
+}
+
+.form-item--full-size
+{
+  position: relative;
+  clear: both;
+  width: 100%;
+}
+
+.form-item--main-actions
+{
+  a
+  {
+    float: right;
+    margin-left: 8px;
   }
 }
 
-.form-section--wide-container
+.form-item--new
 {
-  .form-item
-  {
-    overflow-y: hidden;
-    max-height: 10000px;
-    transition: max-height 1s ease-out;
-    h5
-    {
-      float: left;
-      width: 15%;
-    }
-    a
-    {
-      float: right;
-      margin-top: $font-size-base/2;
-      margin-left: $font-size-base/2;
-    }
-  }
-  .form-item--half-size
-  {
-    position: relative;
-    float: left;
-    width: 46%;
-    margin-right: 4%;
-    h5
-    {
-      width: 100%;
-    }
-    .form-item--select-input
-    {
-      margin-left: 0;
-    }
-  }
-  .form-item--full-size
-  {
-    position: relative;
-    clear: both;
-    width: 96%;
-  }
-  .form-item--new
-  {
-    position: absolute;
-    top: 101%;
-    max-height: 0;
-  }
-  .form-group
-  {
-    margin-bottom: $font-size-base;
-  }
+  position: absolute;
+  top: 101%;
+  max-height: 0;
 }
+
 .form-item--select-input
 {
   display: inline-block;
   width: 240px;
   margin-left: 5%;
 }
+
 .form-item--textarea
 {
   display: inline-block;
   width: 70%;
   margin-left: 5%;
 }
+
 .form-item--category
 {
-  margin-bottom: $font-size-base*1.5;
-  padding-bottom: $font-size-base*1.5;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+
   input[type=submit]
   {
     float: left;
     width: 20%;
   }
+
   .form-group
   {
     float: left;
@@ -93,123 +86,176 @@
     margin-right: 10%;
   }
 }
-.form-item--open-button,
-.form-item--close-button
+
+.form-item--toggle-button
 {
   cursor: pointer;
+  transition: transform .3s ease;
+  transform: rotate(0deg);
 }
-.form-item--open-button
+
+.form-item--toggle-button-closed
 {
-  display: none;
+  transform: rotate(180deg);
 }
+
 .form-item--editor
 {
-  // max-height: is set via javascript in app/assets/javscripts/components/form_item_editor.js;
   overflow-y: hidden;
+  // max-height: is set via javascript in app/assets/javscripts/components/form_item_editor.js;
+  // default is 0
+  max-height: 0;
   transition: max-height .6s ease-out;
 }
-.form-item--editor-close
+
+.form-item--repeater
 {
-  max-height: 0 !important;
+  overflow-y: hidden;
+  // inherit transitions from sortable and add max-height
+  transition: box-shadow .3s ease, transform .3s ease, max-height .6s ease-out !important;
 }
-.form-item--label-on-left .form-group
+
+.standard-form--container .form-item--repeater .control-label
 {
-  display: inline-block;
-  width: 70%;
-  margin-left: 5%;
+  @extend .p;
 }
+
 .form-item--repeater-fields
 {
-  margin-bottom: $font-size-base;
-  padding-top: 8px;
-  padding-left: $font-size-base/2;
-  border-bottom: 1px solid $color-gray-lightest;
-  border-left: 2px solid $color-gray-lightest;
+  overflow-y: hidden;
+  transition: all .6s ease;
 }
+
+.font-item--collapsed .form-item--repeater-fields
+{
+  margin-bottom: 8px;
+}
+
 .form-item--repeater-section
 {
+  overflow-x: hidden; // This ensure that the div doesn't become wider when draggin sortable items to the right
   margin-bottom: 0;
-  border: none;
-  > *,
-  ul.sortable li > *
+
+  ul.sortable > li
+  {
+    margin-top: -1px; // this solve the issue of a 2px border between 2 repeaters
+    border: 1px solid $color-gray-darker;
+  }
+
+  ul.sortable > li > *
   {
     display: block;
-    background-color: $body-bg;
   }
+
   ul.sortable
   {
-    margin-bottom: $font-size-base/2;
-    li
-    {
-      padding-bottom: 0;
-      border-bottom: none;
-    }
+    margin-bottom: 0px;
   }
+
   .sortable--toggle-text:first-child
   {
     display: none;
   }
-  h5
+
+  .sortable--toggle
   {
-    float: left;
-    width: 15%;
+    float: right;
+    margin: 0;
   }
-  h5.form-item--repeater-title
+
+  .sortable--enabled
   {
-    font-weight: 300;
-    float: none;
-    width: 100%;
-    margin-bottom: $font-size-base / 2;
-    padding: $font-size-base / 2;
-    background-color: $color-gray-lightest;
+    .form-item--repeater-fields
+    {
+      margin: 0;
+      padding: 0;
+    }
   }
+
   .form-item--new
   {
     position: absolute;
     top: 101%;
     max-height: 0;
   }
-  .form-group
-  {
-    margin-bottom: $font-size-base;
-  }
-  .sortable--toggle
-  {
-    float: right;
-    margin: 0;
-  }
-  .sortable--enabled 
-  {
-		.form-item--repeater-fields
-		{
-			display: none;
-		}
-  }
 }
+
+.form-item--repeater-section--add-new
+{
+  float: right;
+  margin-right: 8px;
+}
+
+.form-item--repeater-title
+{
+  display: block;
+  margin-bottom: 20px;
+}
+
 .form-item--repeater-header
 {
   padding: 4px 0;
-  background-color: $color-gray-lightest !important;
-  p 
+  background-color: $color-white !important;
+
+  p
   {
-		margin-left: 8px;
-		margin-top: 8px;
+    margin-top: 8px;
+    margin-left: 8px;
   }
 }
+.form-item--collapse-btn,
 .form-item--delete-repeater-item
 {
   float: right;
-  margin-top: $font-size-base/2;
-  margin-right: $font-size-base/2;
+  margin-top: 8px;
+  margin-right: 8px;
 }
+
+a.form-item--delete-repeater-item
+{
+  transition: color .2s ease;
+  color: $color-danger;
+  &:hover
+  {
+    color: $color-danger-hover;
+  }
+}
+
+.form-item--collapse-btn
+{
+  span:first-child
+  {
+    display: block;
+  }
+  span:last-child
+  {
+    display: none;
+  }
+}
+
+.form-item--collapsed .form-item--collapse-btn
+{
+  span:first-child
+  {
+    display: none;
+  }
+  span:last-child
+  {
+    display: block;
+  }
+}
+
 .form-item--choices
 {
   position: relative;
 }
+
 .form-item--editor .form-item--choice
 {
   position: relative;
   clear: left;
+
+
   &:last-child
   {
     margin-bottom: $font-size-base;
@@ -217,15 +263,18 @@
     border-bottom: 1px solid $color-gray-lightest;
   }
 }
+
 .form-item--new-choice
 {
   display: none;
 }
+
 .form-item--choice-label,
 .form-item--choice-value
 {
   @extend .form-item--half-size;
 }
+
 .form-item--delete-choice,
 .form-item--js-delete-choice
 {
@@ -233,12 +282,14 @@
   top: 32px;
   right: 0;
 }
+
 .form-item--add-choice
 {
   position: absolute;
   top: 0;
   right: 0;
 }
+
 .form-item--new-choice .form-item--delete-choice
 {
   display: none;

@@ -1,36 +1,41 @@
 <% content_for :header do %>
   <div class="main-header--buttons">
-    <%= link_to 'New Structure', new_structure_path, class: 'main-header--link btn btn-primary' %>    
+    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
+    <%= get_structures_sort_index_link %>
   </div>
   <h3>Structures</h3>
 <% end %>
 
-<% content_for :content do %> 
-  <div class="main-table--row row">
-    <div class="col-sm-12">
+<% content_for :content do %>
+  <div class="main-table--container">
 
-      <table class="table table-striped">
+      <table class="standard-form--container">
         <thead>
           <tr>
-            <th colspan="3">Structure</th>
-            <th></th>
+            <th style="width: 70%" class="standard-form--header">Structures</th>
+            <th style="width: 30%" class="standard-form--header"></th>
           </tr>
         </thead>
         
-        <tbody class="sortable" data-update-url="<%= structures_sort_path() %>">
+        <tbody>
           <% @structures.order( :name ).each do |structure| %>
-            <tr id="structure_<%= structure.id %>">    
-              <td colspan="3"><%= structure.name %></td>
-              <td><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <%= link_to 'Edit', edit_structure_path(structure) %> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <%= link_to 'Destroy', structure, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %></td>
+            <tr class="main-table--hover" id="structure_<%= structure.id %>">
+
+              <td><%= link_to structure.name, structure_path(structure) %></td>
+              <td class="main-table--actions">
+                <%= link_to "<i class=\"fas fa-pencil-alt\"></i> Edit".html_safe, edit_structure_path(structure) %>
+                <%= link_to  "<i class=\"far fa-trash-alt\"></i> Destroy".html_safe, structure, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-destroy' %>
+              </td>
             </tr>
           <% end %>
         <tbody>
       </table>
-    
-    <%= paginate @structures %>
 
-    <%= link_to 'New Structure', new_structure_path, class: 'main-header--link btn btn-default' %>    
-        
+    <div class="b-btn--container">
+      <%= paginate @structures %>
+      <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
+    </div>
+
   </div>
-</div>
+
 <% end %>

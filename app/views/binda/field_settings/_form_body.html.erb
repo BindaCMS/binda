@@ -20,19 +20,19 @@
       <div class="form-section--wide-container row">
         <div class="col-sm-12">
 
-          <h4><%= "#{ t :details }".capitalize %></h4>
+          <h4><%= "#{ t :details } %></h4>
           
-          <h5><%= "#{ t :title }".capitalize %></h5>
+          <h5><%= "#{ t :title }" %></h5>
           <%= f.input :name %>
           
           <% if field_setting.slug.nil? %>
             <%= f.input :slug, as: :hidden %>
           <% else %>
-            <h5><%= "#{ t :slug }".capitalize %></h5>
+            <h5><%= "#{ t :slug }" %></h5>
             <%= f.input :slug, disabled: true, hint: "#{ t :slug_disable_hint }" %>
           <% end %>
 
-          <h5><%= "#{ t :field_type }".capitalize %></h5>
+          <h5><%= "#{ t :field_type }" %></h5>
           <% if field_setting.field_type.nil? %>
             <%= f.input :field_type, as: :select, collection: get_field_types, include_blank: false %>
           <% else %>
@@ -48,7 +48,7 @@
       <div class="form-section--narrow-container row">
         <div class="col-sm-12">
           <div class="form-actions">
-            <h4><%= "#{ t :setting }".pluralize.capitalize %></h4>
+            <h4><%= "#{ t :setting }".pluralize %></h4>
             <%= f.button :submit, 'Save changes', class: 'btn btn-primary' %>
           </div>
         </div>

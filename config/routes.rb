@@ -3,27 +3,29 @@ Binda::Engine.routes.draw do
   # ROOT
   # ----
   # https://github.com/plataformatec/devise/wiki/How-To:-Require-authentication-for-all-components
-  # authenticated :user, class_name: "Binda::User", module: :devise do
-  #   root to: 'boards#dashboard', as: :authenticated_root
-  # end
-  # root to: 'users/sessions#new'
-  root to: 'boards#dashboard'
+  # https://stackoverflow.com/a/24135199/1498118
+  authenticated :user, class_name: "Binda::User", module: 'binda/users' do
+    root to: "boards#dashboard"
+  end
+  unauthenticated :user do
+    devise_scope :user do
+      get "/", to: "users/sessions#new"
+    end
+  end
 
   # DEVISE
   # ------
-  # scope "admindd_ddpanel" do
-    # https://github.com/plataformatec/devise/blob/88724e10adaf9ffd1d8dbfbaadda2b9d40de756a/lib/devise/rails/routes.rb#L143
-    devise_for :users, class_name: "Binda::User", module: 'binda/users',
-    path_names: { 
-      sign_in: 'login', 
-      sign_out: 'logout', 
-      password: 'secret', 
-      confirmation: 'verification', 
-      unlock: 'unblock', 
-      registration: 'register',
-      sign_up: 'signup'
-    }
-  # end
+  # https://github.com/plataformatec/devise/blob/88724e10adaf9ffd1d8dbfbaadda2b9d40de756a/lib/devise/rails/routes.rb#L143
+  devise_for :users, class_name: "Binda::User", module: 'binda/users',
+  path_names: { 
+    sign_in: 'login', 
+    sign_out: 'logout', 
+    password: 'secret', 
+    confirmation: 'verification', 
+    unlock: 'unblock', 
+    registration: 'register',
+    sign_up: 'signup'
+  }
 
   namespace :manage do
     resources :users
@@ -34,6 +36,7 @@ Binda::Engine.routes.draw do
   get  'dashboard', to: 'boards#dashboard', as: :dashboard
 
   post 'structures/sort'
+  get 'structures/sort_index'
   resources :structures do
     post 'field_groups/sort'
     post 'field_groups/add_child'
@@ -63,8 +66,6 @@ Binda::Engine.routes.draw do
 
   resources :choices, only: [:destroy]
   
-  # resources :texts
-  # resources :bindings
   resources :videos do
     member do
       delete 'remove_video'
@@ -77,6 +78,5 @@ Binda::Engine.routes.draw do
     end
   end
   resources :repeaters
-  # resources :dates
 
 end

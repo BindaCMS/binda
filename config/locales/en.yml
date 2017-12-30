@@ -18,7 +18,7 @@ en:
   board: board
   back_to_index: back to list
   back_to: back to
-  slug_disable_hint: 'Editing slug is not possible. If you want a specific slug create a new item and a slug will be extracted from the title.'
+  slug_disable_hint: Editing slug is not possible. If you want a specific slug create a new item and a slug will be extracted from the title.
   field_type: field type
   field_group_title: field group title
   select_field_type: select a field type
@@ -26,7 +26,6 @@ en:
   field_group: field group
   field_setting: field setting
   repeater: repeater
-  new_item_in_repeater: New %{arg1} item
   structure: structure
   hint_create_parent_before_child: you need to create the %{arg1} before being able to add any %{arg2}
   dashboard_title: website settings
@@ -46,8 +45,62 @@ en:
   allow_null: allow null?
   instance: instance
   structure_instance_type: 'This structure is for:'
-  null_is_not_allowed: You need to select at least one choice
 
   binda:
     title: title
     view_website: View website
+    error_related_to_itself: Sorry, this record cannot relate to itself
+    confirm_delete: Do you really want to remove it?
+    upload_button: Upload
+    upload_loading_message: Uploading file...
+    choose_file_button: Choose a file
+    preview: Preview
+    no_preview: No file selected
+    filename: Name
+    filesize: Size
+    filedimension: Dimension
+    select_placeholder: Select a option
+    new_item_in_repeater: New %{arg1} item
+    null_is_not_allowed: You need to select at least one choice
+    delete: delete
+    edit: edit
+    sort: sort
+    structure: Structure
+    structures: Structures
+    field_group: Field group
+    field_groups: Field groups
+    field_setting: Field setting
+    field_settings: Field settings
+    repeater_field_settings: Fields settings of the %{arg1} repeater
+    component: Component
+    components: Component
+    new: new
+    new_structure: New %{arg1} structure
+    new_field_group: New %{arg1} field group
+    new_component: New %{arg1}
+    new_user: New User
+    new_category: New %{arg1} category
+    edit_structure: Edit %{arg1} structure
+    edit_field_group: Edit %{arg1} field group
+    edit_component: Edit %{arg1}
+    edit_user: Edit User
+    edit_category: Edit %{arg1} category
+    has_categories: Enable categories
+    has_preview: Enable preview
+    has_categories_hint: Enable a taxonomy specific to this structure
+    preview_path_warning: Make preview available. Once enabled, remember to create a route in you application for
+    relation_warning: This relation isn't set properly. Ensure the setup of this relation refers to at least one structure.
+    standard_form_error_heading: The form contains
+    standard_form_error: error
+    done: Done
+    sort_items: Sort Items
+    sort_items_loader: Updating %{arg1} position... 
+    sort_index_hint: Drag &amp; drop to sort your %{arg1}. Changes are automatically saved.
+    collapse: Collapse
+    expand: Expand
+    item: item
+    default_choice_id_validation: must be selected. Please make sure you select one default or allow null as choice (not possible on radio buttons).
+    login_email: Enter your email
+    login_password: Enter your password
+    login_welcome: Welcome to %{arg1} admin panel
+    login_credit: Built with Binda CMS - Version %{arg1}
