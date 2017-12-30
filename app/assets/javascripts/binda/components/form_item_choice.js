@@ -24,7 +24,7 @@ class FormItemChoice {
 		{
 			event.preventDefault()
 			// Clone the new choice field
-			var choices = $( this ).parent('.form-item--choices')
+			var choices = $( this ).closest('.form-item--choices')
 			var newchoice = choices.find('.form-item--new-choice')
 			var clone = newchoice.clone().removeClass('form-item--new-choice').toggle()
 			clone.find('.form-item--toggle-choice').toggle()
@@ -38,19 +38,26 @@ class FormItemChoice {
 		{
 			event.preventDefault()
 
-			var choice = $( this ).parent('.form-item--choice')
+			var choice = $( this ).closest('.form-item--choice')
 			var destination = $( this ).attr('href')
-			
+			var self = this
+
 			$.ajax({
 				url: destination,
 				type: 'DELETE',
-				success: function() { choice.remove() }
+				success: function() { 
+					choice.remove()
+					// Update form item editor size
+					_FormItemEditor.resize()
+				}
 			})
 		})
 		$(document).on('click', '.form-item--js-delete-choice', function( event )
 		{
 			event.preventDefault()
-			$( this ).parent('.form-item--choice').remove() 
+			$( this ).closest('.form-item--choice').remove()
+			// Update form item editor size
+			_FormItemEditor.resize()
 		})
 	}
 }

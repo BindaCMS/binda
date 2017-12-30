@@ -112,11 +112,12 @@ var FormItemEditor = function () {
 		key: 'resize',
 		value: function resize() {
 			$(this.target).each(function () {
-				// If the form item edito is closed don't go any further
+				// If the form item editor is closed don't go any further
 				if ($(this).height() === 0) return;
 				// otherwise update the max-height which is needed for the CSS transition
 				// NOTE you need to remove the max-height (inside 'style' attribute) to get the real height
-				$(this).css("max-height", $(this).removeAttr('style').height());
+				$(this).get(0).style.height = 'auto';
+				$(this).get(0).style.maxHeight = $(this).get(0).scrollHeight + "px";
 			});
 		}
 	}]);
@@ -492,11 +493,10 @@ function addNewItem(event) {
 	// Update height (max-height) of the new element
 	var $formItemEditor = $('#new-form-item-' + newFormItemId).find('.form-item--editor');
 
-	$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
+	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 
 	// Increment global id variable `newFormItemId` in case needs to be used again
 	newFormItemId++;
-	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($formItemEditor.find('select'));
 }
@@ -548,7 +548,7 @@ var FormItemChoice = function () {
 			$(document).on('click', '.form-item--add-choice', function (event) {
 				event.preventDefault();
 				// Clone the new choice field
-				var choices = $(this).parent('.form-item--choices');
+				var choices = $(this).closest('.form-item--choices');
 				var newchoice = choices.find('.form-item--new-choice');
 				var clone = newchoice.clone().removeClass('form-item--new-choice').toggle();
 				clone.find('.form-item--toggle-choice').toggle();
@@ -561,20 +561,25 @@ var FormItemChoice = function () {
 			$(document).on('click', '.form-item--delete-choice', function (event) {
 				event.preventDefault();
 
-				var choice = $(this).parent('.form-item--choice');
+				var choice = $(this).closest('.form-item--choice');
 				var destination = $(this).attr('href');
+				var self = this;
 
 				$.ajax({
 					url: destination,
 					type: 'DELETE',
 					success: function success() {
 						choice.remove();
+						// Update form item editor size
+						__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 					}
 				});
 			});
 			$(document).on('click', '.form-item--js-delete-choice', function (event) {
 				event.preventDefault();
-				$(this).parent('.form-item--choice').remove();
+				$(this).closest('.form-item--choice').remove();
+				// Update form item editor size
+				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 			});
 		}
 	}]);
