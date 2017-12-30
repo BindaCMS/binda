@@ -111,6 +111,9 @@ function addNewItem(event)
 	// Update height (max-height) of the new element
 	let $formItemEditor = $('#new-form-item-'+newFormItemId).find('.form-item--editor')
 
+	// override current max-height which is set to 0
+	$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
+
 	_FormItemEditor.resize()
 
 	// Increment global id variable `newFormItemId` in case needs to be used again
