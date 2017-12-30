@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -989,6 +989,129 @@ function hexToShaderRgb(hex) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _LoginForm; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * LOGIN FORM
+ * 
+ * https://tympanus.net/Development/MinimalForm/
+ * https://github.com/codrops/MinimalForm/blob/master/js/stepsForm.js
+ */
+
+var LoginForm = function () {
+	function LoginForm() {
+		_classCallCheck(this, LoginForm);
+
+		this.current = 0;
+		this.isFilled = false;
+	}
+
+	_createClass(LoginForm, [{
+		key: 'isSet',
+		value: function isSet() {
+			if ($('.login--form').length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			this.$form = $('.login--form');
+			this.$questions = $('ol.login--questions > li');
+			this.questionsCount = this.$questions.length;
+			this.$nextButton = $('button.login--next');
+
+			// Mark the first question as the current one
+			this.$questions.first().addClass('login--current');
+
+			//disable form autocomplete
+			this.$form.attr('autocomplete', 'off');
+
+			var self = this;
+
+			// first input
+			var firstInput = this.$questions.get(this.current).querySelector('input, textarea, select');
+
+			// focus
+			var onFocusStart = function onFocusStart() {
+				firstInput.removeEventListener('focus', onFocusStart);
+				self.$nextButton.addClass('login--show');
+			};
+			// show the next question control first time the input gets focused
+			firstInput.addEventListener('focus', onFocusStart);
+
+			// show next question
+			this.$nextButton.on('click', function (event) {
+				event.preventDefault();
+				self._nextQuestion();
+			});
+
+			// pressing enter will jump to next question
+			this.$form.on('keydown', function (event) {
+				var keyCode = event.keyCode || event.which;
+				// enter
+				if (keyCode === 13) {
+					event.preventDefault();
+					self._nextQuestion();
+				}
+			});
+		}
+	}, {
+		key: '_nextQuestion',
+		value: function _nextQuestion() {
+			// check if form is filled
+			if (this.current === this.questionsCount - 1) {
+				this.isFilled = true;
+			}
+
+			// current question
+			var currentQuestion = this.$questions.get(this.current);
+
+			// increment current question iterator
+			++this.current;
+
+			if (!this.isFilled) {
+				// add class "show-next" to form element (start animations)
+				this.$form.addClass('login--show-next');
+
+				// remove class "current" from current question and add it to the next one
+				// current question
+				var nextQuestion = this.$questions.get(this.current);
+				$(currentQuestion).removeClass('login--current');
+				$(nextQuestion).addClass('login--current');
+			}
+
+			// after animation ends, remove class "show-next" from form element and change current question placeholder
+			var self = this;
+			var onEndTransition = function onEndTransition() {
+				if (self.isFilled) {
+					self.$form.submit();
+				} else {
+					self.$form.removeClass('login--show-next');
+					// force the focus on the next input
+					nextQuestion.querySelector('input, textarea, select').focus();
+				}
+			};
+
+			setTimeout(onEndTransition, 400); // Wait for CSS transition to complete
+		}
+	}]);
+
+	return LoginForm;
+}();
+
+var _LoginForm = new LoginForm();
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony default export */ __webpack_exports__["a"] = function () {
     $('input[name="login"]').click(function () {
         var $radio = $(this);
@@ -1005,7 +1128,7 @@ function hexToShaderRgb(hex) {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1089,7 +1212,7 @@ function open() {
 }
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1101,14 +1224,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_shader__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_sortable__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_bootstrap__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_select2__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_login_form__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_sortable__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_field_group_editor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_bootstrap__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_select2__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_radio_toggle__ = __webpack_require__(11);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
+
 
 
 
@@ -1142,16 +1267,18 @@ $(document).ready(function () {
 	if (__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
 	}
-
+	if (__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].setEvents();
+	}
 	if (__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
 		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].start();
 	}
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__components_radio_toggle__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_sortable__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_field_group_editor__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_bootstrap__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__components_select2__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12__components_radio_toggle__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_sortable__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_field_group_editor__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__components_bootstrap__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__components_select2__["a" /* default */])();
 });
 
 // handle event

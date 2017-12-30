@@ -26,7 +26,6 @@
 @import "components/select2";
 @import "components/texts";
 
-// Layout
-@import "layout/components_index";
-@import "layout/dashboard";
-@import "layout/users_sign_in";
+// Controllers
+@import "controllers/components_index";
+@import "controllers/users_sessions_new";

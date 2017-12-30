@@ -1,0 +1,309 @@
+body.sessions-new.devise-view
+{
+
+  #main-container
+  {
+    position: relative;
+    height: 100vh;
+    margin-left: 0;
+  }
+  #main-content
+  {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    max-width: 860px;
+    padding: 11px;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+  }
+
+  canvas
+  {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vw;
+  }
+
+  .login--header
+  {
+    position: fixed;
+    top: 3em;
+    right: 0;
+    left: 0;
+    text-align: center;
+    p
+    {
+      @extend .b-h4;
+      color: $color-white;
+    }
+  }
+
+  .login--footer
+  {
+    position: fixed;
+    bottom: 1em;
+    right: 0;
+    left: 0;
+    text-align: center;
+    a, a:hover, a:visited
+    {
+      color: $color-white;
+      opacity: 0.6;
+    }
+  }
+
+  .login .form-group
+  {
+    // override Binda standard form style
+    margin-bottom: 0;
+  }
+
+  .login--form
+  {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2em 0;
+
+    ol.login--questions
+    {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      transition: height .4s;
+    }
+
+    ol.login--questions::before
+    {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      content: '';
+      background-color: $color-white;
+    }
+
+    .login--questions li
+    {
+      position: relative;
+      z-index: 100;
+      visibility: hidden;
+      height: 0;
+      transition: visibility 0s .4s, height 0s .4s;
+    }
+
+    .login--questions li.login--current
+    {
+      visibility: visible;
+      height: auto;
+      transition: none;
+    }
+
+    .login--questions li > span
+    {
+      display: block;
+      overflow: hidden;
+    }
+
+    .login--questions li > span label
+    {
+      @extend .b-h4;
+      display: block;
+      transition: transform .4s;
+      transform: translateY(-100%);
+      color: $color-white;
+    }
+
+    .login--questions li.login--current > span label
+    {
+      transition: none;
+      transform: translateY(0);
+    }
+
+    .login--questions li.login--current > span label i {
+      padding-right: 8px;
+    }
+
+    .login--questions input
+    {
+      font-size: 3em;
+      line-height: 1;
+      display: block;
+      width: calc(100% - 2em);
+      height: 2em;
+      margin: .3em 0 0 0;
+      padding: 0 1em 0 0;
+      transition: opacity .3s;
+      opacity: 0;
+      color: $color-white;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .login--questions .login--current input
+    {
+      opacity: 1;
+    }
+
+    .login--questions input:focus
+    {
+      outline: none;
+      background-image: none;
+      box-shadow: none;
+    }
+  }
+
+  .login--show-next li.login--current > span label
+  {
+    animation: loginFromMoveUp .4s both;
+  }
+
+  .login--next
+  {
+    font-size: 2.5em;
+    position: absolute;
+    z-index: 100;
+    right: 0;
+    bottom: 2.6em; /* padding-bottom of form plus progress bar height */
+    display: block;
+    width: 2em;
+    height: 2em;
+    padding: 0;
+    cursor: pointer;
+    transition: transform .3s, opacity .3s;
+    transform: translateX(-20%);
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    color: $color-white;
+    border: none;
+    background: none;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  .login--next:hover
+  {
+    transform: translateX(-20%) scale(1.1);
+  }
+
+  .login--next:focus
+  {
+    outline: none;
+    background-image: none;
+    box-shadow: none;
+  }
+
+  .login--next::after
+  {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '\f061';
+    text-transform: none;
+
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .login--next.login--show
+  {
+    transform: translateX(0);
+    pointer-events: auto;
+    opacity: 1;
+  }
+
+  .login--submit-button
+  {
+    display: none;
+    margin-top: 20px;
+
+    input[type='submit']
+    {
+      font-size: 14px;
+      position: relative;
+      left: 50%;
+      padding: 4px 6px;
+      padding: 4px 12px;
+      cursor: pointer;
+      transform: translate(-50%);
+      border: none;
+
+      @extend .default-font;
+      @extend .p;
+      -webkit-appearance: none;
+         -moz-appearance: none;
+    }
+  }
+
+  .login--radio-button
+  {
+    margin-top: 2em;
+
+    input[type='radio']
+    {
+      display: inline-block;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      &:hover + label span
+      {
+        background-color: $color-gray-lightest;
+      }
+      &:checked + label span
+      {
+        background-color: $color-gray-lighter;
+      }
+    }
+
+    label
+    {
+      position: relative;
+      color: $color-white;
+
+      span
+      {
+        position: relative;
+        margin-top: 2px;
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        margin-right: 5px;
+        transition: background-color .2s ease-in-out;
+        border: 1px solid $color-white;
+        border-radius: 1em;
+      }
+    }
+  }
+  /* Remove IE clear cross */
+  input[type=text]::-ms-clear
+  {
+    display: none;
+  }
+}
+
+@keyframes loginFromMoveUp
+{
+  from
+  {
+    transform: translateY(100%);
+  }
+  to
+  {
+    transform: translateY(0);
+  }
+}

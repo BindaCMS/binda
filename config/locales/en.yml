@@ -94,3 +94,7 @@ en:
     expand: Expand
     item: item
     default_choice_id_validation: must be selected. Please make sure you select one default or allow null as choice (not possible on radio buttons).
+    login_email: Enter your email
+    login_password: Enter your password
+    login_welcome: Welcome to %{arg1} admin panel
+    login_credit: Built with Binda CMS - Version %{arg1}
