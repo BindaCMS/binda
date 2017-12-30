@@ -52,6 +52,7 @@ en:
     error_related_to_itself: Sorry, this record cannot relate to itself
     confirm_delete: Do you really want to remove it?
     upload_button: Upload
+    upload_loading_message: Uploading file...
     choose_file_button: Choose a file
     preview: Preview
     no_preview: No file selected
@@ -65,11 +66,14 @@ en:
     edit: edit
     sort: sort
     structure: Structure
+    structures: Structures
     field_group: Field group
     field_groups: Field groups
     field_setting: Field setting
     field_settings: Field settings
     repeater_field_settings: Fields settings of the %{arg1} repeater
+    component: Component
+    components: Component
     new: new
     new_structure: New %{arg1} structure
     new_field_group: New %{arg1} field group
@@ -90,6 +94,8 @@ en:
     standard_form_error: error
     done: Done
     sort_items: Sort Items
+    sort_items_loader: Updating %{arg1} position... 
+    sort_index_hint: Drag &amp; drop to sort your %{arg1}. Changes are automatically saved.
     collapse: Collapse
     expand: Expand
     item: item

@@ -14,9 +14,9 @@ export default function()
 				},
 		  	placeholder: "ui-state-highlight",
 		  	update: function () {
-		  		if ( $('.sortable-warning').length > 0 ) {
+		  		if ( $('.popup-warning').length > 0 ) {
 		  			$('.sortable').addClass('sortable--disabled')
-		  			$('.sortable-warning').removeClass('sortable-warning--hidden')
+		  			$('.popup-warning').removeClass('popup-warning--hidden')
 		  			$(this).sortable('option','disabled', true)
 		  		}
 					let url = $(this).data('update-url')

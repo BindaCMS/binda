@@ -78,6 +78,9 @@ function handle_file(event)
 	// let token = document.querySelector('meta[name="csrf-token"]').content
 	// formData.append('authenticity_token', token)
 
+	// Display loader
+	$('.popup-warning').removeClass('popup-warning--hidden')
+
 	// Open the connection
 	$.ajax(
 	{
@@ -92,9 +95,17 @@ function handle_file(event)
 		else if ( data.type == 'video' ) { setup_video_preview(data, id) } 
 		else { alert('Something went wrong. No preview has been received.') }
 
+		// Hide loaded
+		$('.popup-warning').addClass('popup-warning--hidden')
+
 		// Display details and buttons
 		$parent.find('.fileupload--details').removeClass('fileupload--details--hidden')
 		$parent.find('.fileupload--remove-image-btn').removeClass('fileupload--remove-image-btn--hidden')
+	}).fail( function()
+	{
+		// Hide loaded
+		$('.popup-warning').addClass('popup-warning--hidden')
+		alert('Something went wrong. Upload process failed.')
 	})
 }
 

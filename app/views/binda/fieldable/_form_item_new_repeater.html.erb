@@ -24,7 +24,7 @@
 			<%= f.simple_fields_for "repeaters_attributes[]", @repeater do |ff| %>
 				<%= ff.input :fieldable_id, as: :hidden %>
 				<%= ff.input :fieldable_type, as: :hidden %>
-		  	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: ff.object.field_setting.id } %>
+		  	<%= ff.input :field_setting_id, as: :hidden %>
 				<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
 				<% ff.object.field_setting.children.order( :position, :id ).each do |repeater_setting_child| %>
 				  <%= render "binda/fieldable/form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child %>

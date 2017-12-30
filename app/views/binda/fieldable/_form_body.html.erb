@@ -1,11 +1,11 @@
-<!-- The global progress bar -->
-<div class="fileupload--details fileupload--details--hidden"><!-- The container for the uploaded files -->
-	<div class="progress">
-		<div class="progress-bar progress-bar-striped progress-bar-animated active"></div>
-	</div>
-	<div class="fileupload--files">
-		<p class="fileupload--filename">&nbsp;</p>
-	</div>
+<div class="popup-warning popup-warning--hidden">
+    <div class="popup-warning--loader">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <p><%= t 'binda.upload_loading_message' %></p>
 </div>
 
 <%= simple_form_for [ @instance.structure, @instance ], html: { class: 'form-body', multipart: true } do |f| %>

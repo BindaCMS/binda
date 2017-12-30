@@ -51,7 +51,7 @@ module Binda
     def remove_video
       @video.remove_video!
       @video.save!
-      render js: "$('#video-#{@video.id}').remove(); console.log('#video-#{@video.id}')"
+      render js: "$('#video-#{@video.id}').remove();"
     end
 
     private

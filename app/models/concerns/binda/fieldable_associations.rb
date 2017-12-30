@@ -31,7 +31,7 @@ module Binda
 			has_many :relations,     as: :fieldable, dependent: :destroy 
 
 
-    has_many :owner_relations, class_name: "RelationLink", 
+    	has_many :owner_relations, class_name: "RelationLink", 
                                 dependent: :destroy, 
                                 as: :dependent
 

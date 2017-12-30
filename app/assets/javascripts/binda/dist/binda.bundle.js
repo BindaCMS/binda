@@ -285,6 +285,9 @@ function handle_file(event) {
 	// let token = document.querySelector('meta[name="csrf-token"]').content
 	// formData.append('authenticity_token', token)
 
+	// Display loader
+	$('.popup-warning').removeClass('popup-warning--hidden');
+
 	// Open the connection
 	$.ajax({
 		url: event.target.getAttribute('data-url'),
@@ -301,9 +304,16 @@ function handle_file(event) {
 			alert('Something went wrong. No preview has been received.');
 		}
 
+		// Hide loaded
+		$('.popup-warning').addClass('popup-warning--hidden');
+
 		// Display details and buttons
 		$parent.find('.fileupload--details').removeClass('fileupload--details--hidden');
 		$parent.find('.fileupload--remove-image-btn').removeClass('fileupload--remove-image-btn--hidden');
+	}).fail(function () {
+		// Hide loaded
+		$('.popup-warning').addClass('popup-warning--hidden');
+		alert('Something went wrong. Upload process failed.');
 	});
 }
 
@@ -1150,9 +1160,9 @@ var _LoginForm = new LoginForm();
 			},
 			placeholder: "ui-state-highlight",
 			update: function update() {
-				if ($('.sortable-warning').length > 0) {
+				if ($('.popup-warning').length > 0) {
 					$('.sortable').addClass('sortable--disabled');
-					$('.sortable-warning').removeClass('sortable-warning--hidden');
+					$('.popup-warning').removeClass('popup-warning--hidden');
 					$(this).sortable('option', 'disabled', true);
 				}
 				var url = $(this).data('update-url');
