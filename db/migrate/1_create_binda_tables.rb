@@ -24,6 +24,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :slug
       t.integer          :position
       t.boolean          :has_categories, default: true
+      t.boolean          :has_preview, default: false
       t.index            :slug, unique: true
       t.string           :instance_type, null: false, default: 'component'
       t.timestamps
