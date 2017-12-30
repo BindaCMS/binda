@@ -1,7 +1,6 @@
 .form-item
 {
   display: block;
-  margin-bottom: 20px;
   transition: all .3s linear;
   transform: scaleY(1);
 
@@ -52,11 +51,6 @@
   position: absolute;
   top: 101%;
   max-height: 0;
-}
-
-.form-group
-{
-  margin-bottom: 20px;
 }
 
 .form-item--select-input
@@ -155,7 +149,7 @@
 
   ul.sortable
   {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
   }
 
   .sortable--toggle-text:first-child
@@ -183,11 +177,6 @@
     position: absolute;
     top: 101%;
     max-height: 0;
-  }
-
-  .form-group
-  {
-    margin-bottom: $font-size-base;
   }
 }
 
