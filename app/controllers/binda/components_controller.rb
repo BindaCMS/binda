@@ -63,6 +63,7 @@ module Binda
       params[:repeater].each_with_index do |id, i|
         Repeater.find( id ).update({ position: i + 1 })
       end
+      render js: "$('.popup-warning').addClass('popup-warning--hidden');"
       head :ok
     end
     
