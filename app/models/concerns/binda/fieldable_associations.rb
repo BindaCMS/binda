@@ -126,7 +126,7 @@ module Binda
 		# @return [string] Returns the content of the string 
 		# @return [error]  Raise an error if no record is found
 		def get_string field_slug 
-			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::String' }
+			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type == 'Binda::String' }
 			unless obj.nil?
 				obj.content
 			else
@@ -144,7 +144,7 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_string field_slug 
-			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::String' }
+			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type == 'Binda::String' }
 			raise ArgumentError, "There isn't any string associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			if obj.present?
 				return !obj.content.blank?
