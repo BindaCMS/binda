@@ -54,6 +54,17 @@ module Binda
 				field_setting.default_choice_id = nil
 			end
 
+			# Update field setting with the new default choice
+			update_default_choice_of field_setting
+		end
+
+		# Update field setting with a default choice
+		# 
+		# This method is used by reset_default_choice method.
+		# 
+		# @param field_setting [ActiveRecord Object]
+		def update_default_choice_of field_setting
+
 			# Save and check if it's alright
 			unless field_setting.save
 				raise "It hasn't been possible to set the default choice for the current setting (#{field_setting.slug})."
