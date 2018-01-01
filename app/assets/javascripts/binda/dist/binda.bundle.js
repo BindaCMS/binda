@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -137,9 +137,9 @@ var _FormItemEditor = new FormItemEditor();
  * OPTIONAL (SELECT2 PLUGIN)
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
 	setupSelect2('.select2-item');
-};
+});
 
 function setupSelect2(target) {
 	$(target).each(function () {
@@ -164,10 +164,10 @@ function setupSelect2(target) {
  * BOOSTRAP SCRIPT
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
   // See https://v4-alpha.getbootstrap.com/components/tooltips/#example-enable-tooltips-everywhere
   $('[data-toggle="tooltip"]').tooltip();
-};
+});
 
 /***/ }),
 /* 3 */
@@ -178,7 +178,7 @@ function setupSelect2(target) {
  * FIELD GROUP EDITOR
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
 	$('.field_groups-edit #save').on('click', function (event) {
 		var instanceType = $(this).data('instance-type');
 		var entriesNumber = $(this).data('entries-number');
@@ -189,7 +189,7 @@ function setupSelect2(target) {
 			alert('You have ' + entriesNumber + ' ' + instanceType + '. This operation might take some time to complete. To avoid unexpected behaviour don\'t leave or refresh the page');
 		}
 	});
-};
+});
 
 /***/ }),
 /* 4 */
@@ -288,7 +288,12 @@ function handle_file(event) {
 	// Display loader
 	$('.popup-warning').removeClass('popup-warning--hidden');
 
-	// Open the connection
+	// Once form data are gathered make the request
+	makeRequest(event, formData, $parent);
+}
+
+function makeRequest(event, formData, $parent) {
+	// Make request
 	$.ajax({
 		url: event.target.getAttribute('data-url'),
 		type: 'PATCH',
@@ -384,9 +389,9 @@ function setup_video_preview(data, id) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -527,8 +532,8 @@ function open() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemChoice; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -647,9 +652,9 @@ var _FormItemImage = new FormItemImage();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1130,7 +1135,7 @@ var _LoginForm = new LoginForm();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
     $('input[name="login"]').click(function () {
         var $radio = $(this);
 
@@ -1143,7 +1148,7 @@ var _LoginForm = new LoginForm();
         // remove was checked from other radios
         $radio.siblings('input[name="login"]').data('waschecked', false);
     });
-};
+});
 
 /***/ }),
 /* 12 */
@@ -1154,27 +1159,10 @@ var _LoginForm = new LoginForm();
  * SORTABLE
  */
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
 	if ($('.sortable').length > 0) {
 		// Initialize sortable item
-		$('.sortable').sortable({
-			stop: function stop(event, ui) {
-				ui.item.css('z-index', 0);
-			},
-			placeholder: "ui-state-highlight",
-			update: function update() {
-				if ($('.popup-warning').length > 0) {
-					$('.sortable').addClass('sortable--disabled');
-					$('.popup-warning').removeClass('popup-warning--hidden');
-					$(this).sortable('option', 'disabled', true);
-				}
-				var url = $(this).data('update-url');
-				var data = $(this).sortable('serialize');
-				// If there is a pagination update accordingly
-				data = data.concat('&id=' + $(this).attr('id'));
-				$.post(url, data);
-			}
-		});
+		$('.sortable').sortable(sortableOptions);
 
 		// Check if sortable item needs handles
 		$('.sortable').each(function () {
@@ -1211,7 +1199,7 @@ var _LoginForm = new LoginForm();
 		$(id).toggleClass('sortable--enabled');
 		$(this).children('.sortable--toggle-text').toggle();
 	});
-};
+});
 
 function setupSortableToggle() {
 	$('.sortable--toggle').each(function () {
@@ -1227,6 +1215,27 @@ function close() {
 
 function open() {
 	this.style.maxHeight = this.scrollHeight + "px";
+}
+
+function sortableOptions() {
+	return {
+		stop: function stop(event, ui) {
+			ui.item.css('z-index', 0);
+		},
+		placeholder: "ui-state-highlight",
+		update: function update() {
+			if ($('.popup-warning').length > 0) {
+				$('.sortable').addClass('sortable--disabled');
+				$('.popup-warning').removeClass('popup-warning--hidden');
+				$(this).sortable('option', 'disabled', true);
+			}
+			var url = $(this).data('update-url');
+			var data = $(this).sortable('serialize');
+			// If there is a pagination update accordingly
+			data = data.concat('&id=' + $(this).attr('id'));
+			$.post(url, data);
+		}
+	};
 }
 
 /***/ }),

@@ -81,7 +81,14 @@ function handle_file(event)
 	// Display loader
 	$('.popup-warning').removeClass('popup-warning--hidden')
 
-	// Open the connection
+	// Once form data are gathered make the request
+	makeRequest(event, formData, $parent)
+}
+
+
+function makeRequest(event, formData, $parent) 
+{
+	// Make request
 	$.ajax(
 	{
 		url: event.target.getAttribute('data-url'), 
@@ -108,6 +115,7 @@ function handle_file(event)
 		alert('Something went wrong. Upload process failed.')
 	})
 }
+
 
 function reset_file(event) 
 {
