@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form",          ">= 3.3",        "< 3.6"
   s.add_dependency "tinymce-rails",        ">= 4.1",        "< 4.8"
   s.add_dependency "tinymce-rails-langs",  "~> 4.20160310"
-  s.add_dependency "devise",               ">= 4.1",        "< 4.4"
+  s.add_dependency "devise",               ">= 4.1",        "< 4.5"
   s.add_dependency "devise-i18n",          "~> 1.4"
   s.add_dependency "carrierwave",          ">= 0.10",       "< 1.3"
   s.add_dependency "mini_magick",          ">= 4.5",        "< 4.9"

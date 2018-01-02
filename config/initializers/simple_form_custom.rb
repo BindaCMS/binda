@@ -2,7 +2,7 @@
 SimpleForm.setup do |config|
 
   # Bootstrap Simple Form defaults
-  config.error_notification_class = 'alert alert-danger'
+  config.error_notification_class = 'b-alert b-alert--danger'
   config.button_class = 'b-btn b-btn-default'
   config.boolean_label_class = nil
 

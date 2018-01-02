@@ -13,10 +13,8 @@
   <%= f.error_notification %>
 
   <% if f.object.errors.any? %>
-  <div class="standard-form--error-explanation">
-    <div class="alert alert-error">
-      <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>.
-    </div>
+  <div class="standard-form--error-explanation b-alert b-alert--error">
+    <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>:
     <ul>
       <% f.object.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -40,7 +38,7 @@
     <div class="standard-form--container">
 
         <div class="standard-form--header">
-          <p><%= "#{ t :details }".capitalize %></p>
+          <small><%= "#{ t :details }".capitalize %></small>
         </div>
 
         <div class="standard-form--fields">
@@ -67,12 +65,12 @@
       <div class="standard-form--container">
 
           <div class="standard-form--header">
-            <p><%= field_group.name.capitalize %></p>
+            <small><%= field_group.name.capitalize %></small>
           </div>
 
           <% if f.object.new_record? %>
 
-            <p><%= t( :hint_create_parent_before_child, arg1: "#{@structure.name} #{@structure.instance_type}", arg2: "#{ t :detail }" ).capitalize %></p>
+            <p class="standard-form--hint-on-new-record"><%= t( :hint_create_parent_before_child, arg1: "#{@structure.name} #{@structure.instance_type}", arg2: "#{ t :detail }" ).capitalize %></p>
 
           <% else %>
 

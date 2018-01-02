@@ -44,7 +44,7 @@ describe "In field group editor, user", type: :feature, js: true do
 			field_type_input = "field_group_new_field_settings__field_type-#{click_counter}"
 
 			within "#new-form-item-#{click_counter}" do
-				fill_in field_name_input, with: field_name_value
+				fill_in field_name_input, with: field_name_value, visible: true
 			end
 			select2("#{field_class.downcase.underscore}", field_type_input)
 			
@@ -52,14 +52,13 @@ describe "In field group editor, user", type: :feature, js: true do
 
 			visit path_to_field_group
 
-
 			field_group.reload
 
 			within "#form-item-#{field_group.field_settings.first.id}" do
-				find('.form-item--toggle-button').click
+				find('.form-item--collapse-btn').click
 				# Make sure the form item appeared
 				sleep 1
-				expect(page).to have_field with: field_name_value 
+				expect(page).to have_field with: field_name_value
 			end
 		end
 	end
@@ -105,7 +104,7 @@ describe "In field group editor, user", type: :feature, js: true do
 			repeater.reload
 
 			within "#form-section--repeater-#{repeater.id}" do
-				find('.form-item--toggle-button').click
+				find('.form-item--collapse-btn').click
 				# Make sure the form item appeared
 				sleep 1
 				expect(page).to have_field class: "form-item--input", with: field_name_value 
@@ -123,7 +122,7 @@ describe "In field group editor, user", type: :feature, js: true do
 		visit path_to_field_group
 				
 		within "#form-item-#{field_setting.id}" do
-			find('.form-item--toggle-button').click
+			find('.form-item--collapse-btn').click
 			# Make sure the form item appeared
 			sleep 1
 		end
@@ -137,7 +136,7 @@ describe "In field group editor, user", type: :feature, js: true do
 
 		visit path_to_field_group
 		within "#form-item-#{field_setting.id}" do
-			find('.form-item--toggle-button').click
+			find('.form-item--collapse-btn').click
 			# Make sure the form item appeared
 			sleep 1
 		end

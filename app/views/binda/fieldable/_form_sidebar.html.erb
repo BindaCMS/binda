@@ -1,5 +1,5 @@
 <div class="standard-form--header">
-  <p><%= "#{ t :setting }".pluralize.capitalize %></p>
+  <small><%= "#{ t :setting }".pluralize.capitalize %></small>
 </div>
 
 <div class="standard-form--radio">
@@ -18,11 +18,9 @@
   <% end %>
 
 	<% if @instance.slug.nil? %>
-
-      <h5>
-        <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :instance }" ).capitalize %>
-      </h5>
-
+    <p class="standard-form--hint-on-new-record">
+      <%= t( :hint_create_parent_before_child, arg1: "#{ t :category }", arg2: "#{ t :instance }" ).capitalize %>
+    </p>
 	<% else %>
 
       <div class="standard-form--secondary-actions">

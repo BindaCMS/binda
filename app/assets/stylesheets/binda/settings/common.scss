@@ -1,7 +1,8 @@
 body
 {
+  min-height: 100vh;
   padding: 0;
-  background-color: $body-bg;
+  background-image: linear-gradient( to bottom, $color-gray-lightest, darken($color-gray-lightest, 6%));
 }
 
 // this could be avoided using more recent version of bootstrap or with bourbon
@@ -49,6 +50,6 @@ body
 .pagination
 {
   float: left;
-  margin-top: 0px;
   width: 100%;
+  margin-top: 0;
 }

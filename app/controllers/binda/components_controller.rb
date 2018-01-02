@@ -35,7 +35,8 @@ module Binda
       if @component.save
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "#{ @structure.name } was successfully created."
       else
-        redirect_to new_structure_component_path( @structure.slug ), flash: { alert: @component.errors }
+        @instance = @component
+        render :edit, flash: { alert: @component.errors }
       end
     end
 
@@ -63,6 +64,7 @@ module Binda
       params[:repeater].each_with_index do |id, i|
         Repeater.find( id ).update({ position: i + 1 })
       end
+      render js: "$('.popup-warning').addClass('popup-warning--hidden');"
       head :ok
     end
     

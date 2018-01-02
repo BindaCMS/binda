@@ -35,7 +35,6 @@ module Binda
       # Add nested classes
       add_new_field_settings
       add_new_choices
-
       update_choices
 
       # Update the other ones
@@ -145,13 +144,18 @@ module Binda
         unless new_params[:new_choices].nil? 
           new_params[:new_choices].each do |choice|
             unless choice[:label].blank? || choice[:value].blank?
-              new_choice = Choice.create( choice )
-              unless new_choice
-                return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_choice.errors }
-              end
+              create_new_choice choice
             end
           end
         end 
+      end
+
+      # Create new choice (depends directly from add_new_choice method)
+      def create_new_choice choice
+        new_choice = Choice.create( choice )
+        unless new_choice
+          return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_choice.errors }
+        end
       end
 
       def update_choices

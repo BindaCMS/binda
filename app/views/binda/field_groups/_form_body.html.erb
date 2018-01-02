@@ -5,10 +5,8 @@
   <%= f.error_notification %>
   
   <% if f.object.errors.any? %>
-    <div class="standard-form--error-explanation">
-      <div class="alert alert-error">
-        <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>.
-      </div>
+    <div class="standard-form--error-explanation b-alert b-alert--error">
+      <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>:
       <ul>
         <% f.object.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -22,7 +20,7 @@
     <div class="standard-form--container">
 
       <div class="standard-form--header">
-        <p><%= "#{ t :details }" %></p>
+        <small><%= "#{ t :details }" %></small>
       </div>
 
       <%= f.input :name, label: "#{ t :title }" %>
@@ -40,11 +38,12 @@
       <div id="form-section--field-group-<%= @field_group.id %>" class="form-section--wide-container">
         
         <div class="standard-form--header">
-          <p><%= "#{ t 'binda.field_settings' }".pluralize %></p>
+          <small><%= "#{ t 'binda.field_settings' }" %></small>
         </div>
         
         <%= render "form_section", f: f %>
-
+        
+        <div class="clearfix"></div>
       </div>
 
       <% @field_group.field_settings.where( field_type: 'repeater' ).order( :position, :id ).each do |repeater| %>
@@ -52,11 +51,12 @@
           <div class="form-section">
 
             <div class="standard-form--header field-settings-header">
-              <p><%= "#{ t('binda.repeater_field_settings', arg1: repeater.name ) }" %></p>
+              <small><%= "#{ t('binda.repeater_field_settings', arg1: repeater.name ) }" %></small>
             </div>
 
             <%= render "form_section_repeater", f: f, repeater: repeater %>
 
+            <div class="clearfix"></div>
           </div>
         </div>
       <% end %>
@@ -70,7 +70,7 @@
     <div class="standard-form--container">
 
       <div class="standard-form--header">
-        <p><%= "#{ t :setting }".pluralize %></p>
+        <small><%= "#{ t :setting }".pluralize %></small>
       </div>
 
       <div class="standard-form--main-actions">
