@@ -35,7 +35,6 @@ module Binda
       # Add nested classes
       add_new_field_settings
       add_new_choices
-
       update_choices
 
       # Update the other ones

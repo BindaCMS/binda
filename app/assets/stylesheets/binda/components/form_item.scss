@@ -1,20 +1,15 @@
 .form-item
 {
   display: block;
-  transition: all .3s linear;
-  transform: scaleY(1);
-
-  @extend .clearfix;
-  // .form-group
-  // {
-  //   margin-bottom: 20px;
-  // }
-}
-
-.form-item
-{
   overflow-y: hidden;
   transition: max-height .6s ease-out;
+
+  @extend .clearfix;
+}
+
+.form-item > p
+{
+  padding: 12px;
 }
 
 .form-item--half-size
@@ -27,7 +22,6 @@
   {
     border-top: none !important;
   }
-
 }
 
 .form-item--full-size
@@ -139,7 +133,7 @@
   ul.sortable > li
   {
     margin-top: -1px; // this solve the issue of a 2px border between 2 repeaters
-    border: 1px solid $color-gray-darker;
+    border: 1px solid $color-gray-lighter;
   }
 
   ul.sortable > li > *
@@ -149,7 +143,12 @@
 
   ul.sortable
   {
-    margin-bottom: 0px;
+    margin-bottom: 0;
+  }
+
+  .ui-sortable-handle:hover
+  {
+    background-color: transparent;
   }
 
   .sortable--toggle-text:first-child
@@ -192,10 +191,10 @@
   margin-bottom: 20px;
 }
 
-.form-item--repeater-header
+.form-item--header
 {
-  padding: 4px 0;
-  background-color: $color-white !important;
+  padding: 4px;
+  background-color: $color-gray-lightest !important;
 
   p
   {
@@ -203,8 +202,10 @@
     margin-left: 8px;
   }
 }
+
 .form-item--collapse-btn,
-.form-item--delete-repeater-item
+.form-item--delete-repeater-item,
+.form-item--edit-item
 {
   float: right;
   margin-top: 8px;
@@ -213,8 +214,10 @@
 
 a.form-item--delete-repeater-item
 {
+  cursor: pointer;
   transition: color .2s ease;
   color: $color-danger;
+
   &:hover
   {
     color: $color-danger-hover;

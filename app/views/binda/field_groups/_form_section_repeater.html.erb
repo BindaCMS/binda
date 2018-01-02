@@ -20,6 +20,9 @@
 <%# - - - - - - - - - - - - - - %>
 <%# ADD NEW FIELD TO REPEATER   %>
 <%# - - - - - - - - - - - - - - %>
-<a id="form-item--repeater-<%= repeater.id %>--add-new" class="form-item--add-new main-header--link btn btn-default" data-new-form-item-id="repeater-<%= repeater.id %>--new-form-item" href="#">
-  <%= t :new_item_in_repeater, arg1: repeater.name.capitalize %>
-</a>
+<div class="standard-form--main-actions">		
+	<a id="form-item--repeater-<%= repeater.id %>--add-new" class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" data-new-form-item-id="repeater-<%= repeater.id %>--new-form-item" href="#">
+    <%= "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> #{ t(:new_item_in_repeater, arg1: repeater.name.capitalize) }".html_safe %> <%= t :field_setting %>
+	  <%=  %>
+	</a>
+</div>

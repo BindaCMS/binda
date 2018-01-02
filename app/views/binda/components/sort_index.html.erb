@@ -22,11 +22,11 @@
       <h5 class="text-muted"><%= t('binda.sort_index_hint', { arg1: @structure.name.humanize.split.join(' ').pluralize }).html_safe %></h5>
 
       <table class="standard-form--container table-sort">
-        <thead>
+        <thead  class="standard-form--header">
           <tr>
-            <th style="width: 50%;", class="standard-form--header">Title</th>
-            <th style="width: 50%;", class="standard-form--header">Publish state</th>
-            <th class="standard-form--header"></th>
+            <th style="width: 50%;">Title</th>
+            <th style="width: 50%;">Publish state</th>
+            <th></th>
           </tr>
         </thead>
         <tbody id="<%= @structure.slug %>-components--sort-index" class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">

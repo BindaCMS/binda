@@ -11,11 +11,11 @@
     <h5 class="text-muted"><%= t('binda.sort_index_hint', { arg1: t('binda.structures').downcase }).html_safe %></h5>
 
     <table class="standard-form--container table-sort">
-      <thead>
-      <tr>
-        <th style="width: 70%" class="standard-form--header">Structures</th>
-        <th style="width: 30%" class="standard-form--header"></th>
-      </tr>
+      <thead class="standard-form--header">
+        <tr>
+          <th style="width: 70%">Structures</th>
+          <th style="width: 30%"></th>
+        </tr>
       </thead>
 
       <tbody class="sortable" data-update-url="<%= structures_sort_path() %>">

@@ -35,7 +35,8 @@ module Binda
       if @component.save
         redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "#{ @structure.name } was successfully created."
       else
-        redirect_to new_structure_component_path( @structure.slug ), flash: { alert: @component.errors }
+        @instance = @component
+        render :edit, flash: { alert: @component.errors }
       end
     end
 

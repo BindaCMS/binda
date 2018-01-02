@@ -109,7 +109,7 @@
 			<% end %>
 
 		<% else %>
-			<p>Sorry, no choice is available. 
+			<p class="form-group">Sorry, no choice is available. 
 				<% if current_user.is_superadmin %> 
 					Please ensure you setup at least two possible choices in the <a href="<%= edit_structure_field_group_path( structure_id: @structure.id, id: field_setting.field_group.id )%>">field group setup</a>.
 				<% else %>

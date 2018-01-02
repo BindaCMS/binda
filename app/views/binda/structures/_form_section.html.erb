@@ -1,5 +1,5 @@
 <div class="standard-form--header">
-  <p><%= "#{ t :field_group }".pluralize %></p>
+  <small><%= "#{ t :field_group }".pluralize %></small>
 </div>
 
 <%# - - - - - - - - - - - - %>
@@ -16,36 +16,41 @@
 		<%# - - - - - - - - - - - - %>
 		<%# EDIT/REMOVE BUTTONS     %>
 		<%# - - - - - - - - - - - - %>
+		<div class="standard-form--secondary-header form-item--header form-item--repeater-header">
+			<%# - - - - - - - - - - - - %>
+			<%# BUTTONS                 %>
+			<%# - - - - - - - - - - - - %>
+			<% if ff.object.slug.nil? %>
+				<a class="form-item--delete-repeater-item form-item--remove-item-with-js"
+			     data-confirm="This operation will delete this setting and all related component content. Are you ok with that?">
+					<i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %>
+			  </a>
+			  <p><%= t('binda.new_item_in_repeater', { arg1: '' })%></p>
+			<% else %>
+	      <%= link_to "<i class=\"fas fa-pencil-alt\"></i> #{ t('binda.edit')}".html_safe,
+                    structure_field_group_path( @structure.slug, ff.object.slug ),
+	                  class: 'form-item--edit-item' %>
 
-    <div class="standard-form--secondary-header main-actions--header">
+	      <%= link_to "<i class=\"far fa-trash-alt\"></i> #{t('binda.delete').capitalize}".html_safe,
+	                  structure_field_group_field_setting_path( @structure.slug, ff.object.slug ),
+	                  method: :delete,
+	                  data: { confirm: t('binda.confirm_delete') },
+	                  class: 'form-item--delete-repeater-item' %>
 
-      <% unless ff.object.slug.nil? %>
-
-        <%= link_to  "<i class=\"far fa-trash-alt\"></i>".html_safe,
-                     structure_field_group_path( @structure.slug, ff.object.slug ),
-                     method: :delete,
-                     data: { confirm: 'Are you sure?' },
-                     class: 'text-destroy' %>
-
-        <%= link_to "<i class=\"fas fa-pencil-alt\"></i>".html_safe,
-                    structure_field_group_path( @structure.slug, ff.object.slug ) %>
-
-      <% end %>
-
-    </div>
+	      <p><%= ff.object.name %> (<%= ff.object.name.humanize.capitalize %>)</p>
+			<% end %>
+	  </div>
 
 		<%# - - - - - - - - - - - - %>
 		<%# NAME                    %>
 		<%# - - - - - - - - - - - - %>
-		<%= ff.input :name, label: "#{ t :name }".capitalize  %>
+		<%= ff.input :name, label: "#{ t :name }".capitalize, wrapper_html: { class: "form-item--half-size" }  %>
 
 
 		<%# - - - - - - - - - - - - %>
 		<%# SLUG                    %>
 		<%# - - - - - - - - - - - - %>
-	  <% unless ff.object.slug.nil? %>
-      <%= ff.input :slug, as: :string, input_html: { class: "form-item--input" } %>
-	  <% end %>
+    <%= ff.input :slug, wrapper_html: { class: "form-item--half-size" } %>
 
 	</div>
 
@@ -57,10 +62,25 @@
 <%# - - - - - - - - - - - - %>
 <%= f.simple_fields_for 'new_field_groups[]', @structure.field_groups.build() do |ff| %>
   <div id="field-group-<%= f.object.id %>--new-form-item" class="form-item form-item--new">
+
+		<%# - - - - - - - - - - - - %>
+		<%# EDIT/REMOVE BUTTONS     %>
+		<%# - - - - - - - - - - - - %>
+		<div class="standard-form--secondary-header form-item--header form-item--repeater-header">
+			<%# - - - - - - - - - - - - %>
+			<%# BUTTONS                 %>
+			<%# - - - - - - - - - - - - %>
+			<a class="form-item--delete-repeater-item form-item--remove-item-with-js"
+		     data-confirm="This operation will delete this setting and all related component content. Are you ok with that?">
+				<i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %>
+		  </a>
+		  <p><%= t('binda.new_item_in_repeater', { arg1: '' })%></p>
+	  </div>
 		<div class="form-item--editor">
 			<%= ff.input :structure_id, as: :hidden %>
 			<%= ff.input :id, as: :hidden %>
-			<%= ff.input :name, label: "#{ t :name }".capitalize %>
+			<%= ff.input :name, label: "#{ t :name }".capitalize, wrapper_html: { class: "form-item--half-size" } %>
+      <%= ff.input :slug, wrapper_html: { class: "form-item--half-size" } %>
 		</div>
 	</div>
 <% end %>
@@ -72,7 +92,10 @@
 <% if section.slug.nil? %>
   <p class="standard-form--suggestion"><%= t( :hint_create_parent_before_child, arg1: "#{ t :structure }", arg2: "#{ t :field_group }" ).capitalize %></p>
 <% else %>
-  <a id="form-item--field-group-<%= f.object.id %>--add-new" class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" href="<%= new_structure_field_group_path( @structure.slug ) %>" data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
+	<div class="standard-form--main-actions">		
+	  <a id="form-item--field-group-<%= f.object.id %>--add-new" class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" href="<%= new_structure_field_group_path( @structure.slug ) %>" data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
     <%= "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> #{ t(:new).capitalize }".html_safe %> <%= t :field_group %>	
-  </a>
+	  </a>
+	</div>
+	  
 <% end %>

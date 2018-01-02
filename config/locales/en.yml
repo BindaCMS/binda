@@ -103,4 +103,4 @@ en:
     login_email: Enter your email
     login_password: Enter your password
     login_welcome: Welcome to %{arg1} admin panel
-    login_credit: Built with Binda CMS - Version %{arg1}
+    login_credit: Built with Binda %{arg1}

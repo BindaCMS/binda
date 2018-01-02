@@ -16,9 +16,9 @@
 
       <table class="standard-form--container" cellspacing="0">
 
-        <thead>
-
-            <th style="width: 50%", class="standard-form--header">
+        <thead class="standard-form--header">              
+          <tr>
+            <th style="width: 50%">
               <a href="<%=
                 if params[:order] == 'LOWER(name) ASC'
                   structure_components_path([@structure], order:'LOWER(name) DESC')
@@ -34,7 +34,7 @@
                 <% end %>
               </a>
             </th>
-            <th style="width: 20%", class="standard-form--header">
+            <th style="width: 20%">
               <a href="<%=
                 if params[:order] == 'publish_state ASC, LOWER(name) ASC'
                   structure_components_path([@structure], order:'publish_state DESC, LOWER(name) ASC')
@@ -50,8 +50,8 @@
                 <% end %>
               </a>
             </th>
-            <th style="width: 30%", class="standard-form--header"><p style="float: right;">Actions</p></th>
-
+            <th style="width: 30%">Actions</th>
+          </tr>
         </thead>
         <tbody>
           <% @components.each do |component| %>

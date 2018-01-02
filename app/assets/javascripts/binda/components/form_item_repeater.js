@@ -17,7 +17,7 @@ class FormItemRepeater {
 
 	setEvents()
 	{
-		$(document).on('click', '.form-item--repeater-section--add-new', function(event){ addNewItem(this, event)} )
+		$(document).on('click', '.form-item--repeater-section--add-new', addNewItem )
 		
 		$(document).on('click', '.form-item--remove-item-with-js', function( event )
 		{
@@ -27,31 +27,7 @@ class FormItemRepeater {
 			_FormItemEditor.resize()
 		})
 
-		$(document).on('click', '.form-item--delete-repeater-item', function( event )
-		{
-			// Stop default behaviour
-			event.preventDefault()
-
-			// if ( !confirm($(this).data('confirm')) ) return
-			
-			let record_id = $( this ).data('id') 
-			let target = $('#repeater_' + record_id).get(0)
-			// As max-height isn't set you need to set it manually before changing it, 
-			// otherwise the animation doesn't get triggered
-			target.style.maxHeight = target.scrollHeight + 'px'	
-			// Change max-height after 50ms to trigger css animation
-			setTimeout( function(){ target.style.maxHeight = 0 + 'px'	}, 50)
-
-			$.ajax({
-				url: $( this ).attr('href'),
-				data: { id: record_id, isAjax: true },
-				method: "DELETE"
-			}).done( ()=>{
-				// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
-				setTimeout( function(){ $(target).remove() }, 700)
-				// _FormItemEditor.resize()
-			})
-		})
+		$(document).on('click', '.form-item--delete-repeater-item', deleteRepeter )
 	}
 }
 
@@ -60,19 +36,16 @@ export let _FormItemRepeater = new FormItemRepeater()
 
 /**
  * COMPONENT HELPER FUNCTIONS
- *
- * @param      {string}  target  The target
- * @param      {object}  event   The event
  */
 
-function addNewItem( target, event ) 
+function addNewItem( event ) 
 {
 	// Stop default behaviour
 	event.preventDefault()
 	// Get the child to clone
-	let id = $( target ).data( 'id' )
+	let id = $( this ).data( 'id' )
 	let $list = $('#form-item--repeater-setting-' + id )
-	let url = $( target ).data( 'url' )
+	let url = $( this ).data( 'url' )
 	$.post( url, { repeater_setting_id: id }, function( data )
 	{
 		// Get repaeter code from Rails
@@ -116,5 +89,29 @@ function addNewItem( target, event )
 		{
 			new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + 'px' 
 		}, 50)
+	})
+}
+
+function deleteRepeter( event )
+{
+	// Stop default behaviour
+	event.preventDefault()
+	
+	let record_id = $( this ).data('id') 
+	let target = $('#repeater_' + record_id).get(0)
+	// As max-height isn't set you need to set it manually before changing it, 
+	// otherwise the animation doesn't get triggered
+	target.style.maxHeight = target.scrollHeight + 'px'	
+	// Change max-height after 50ms to trigger css animation
+	setTimeout( function(){ target.style.maxHeight = 0 + 'px'	}, 50)
+
+	$.ajax({
+		url: $( this ).attr('href'),
+		data: { id: record_id, isAjax: true },
+		method: "DELETE"
+	}).done( ()=>{
+		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
+		setTimeout( function(){ $(target).remove() }, 700)
+		// _FormItemEditor.resize()
 	})
 }

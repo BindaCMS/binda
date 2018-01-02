@@ -39,7 +39,6 @@ function handle_file(event)
 {
 	let id = event.target.getAttribute('data-id')
 	let $parent = $('#fileupload-'+id)
-	let $preview = $('#fileupload-'+id+' .fileupload--preview')
 
 	// Get the selected file from the input
 	// This script doesn't consider multiple files upload
@@ -82,12 +81,14 @@ function handle_file(event)
 	$('.popup-warning').removeClass('popup-warning--hidden')
 
 	// Once form data are gathered make the request
-	makeRequest(event, formData, $parent)
+	makeRequest(event, formData )
 }
 
 
-function makeRequest(event, formData, $parent) 
+function makeRequest(event, formData ) 
 {
+	let id = event.target.getAttribute('data-id')
+	let $parent = $('#fileupload-'+id)
 	// Make request
 	$.ajax(
 	{

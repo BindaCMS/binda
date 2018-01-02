@@ -248,7 +248,6 @@ var _FileUpload = new FileUpload();
 function handle_file(event) {
 	var id = event.target.getAttribute('data-id');
 	var $parent = $('#fileupload-' + id);
-	var $preview = $('#fileupload-' + id + ' .fileupload--preview');
 
 	// Get the selected file from the input
 	// This script doesn't consider multiple files upload
@@ -289,10 +288,12 @@ function handle_file(event) {
 	$('.popup-warning').removeClass('popup-warning--hidden');
 
 	// Once form data are gathered make the request
-	makeRequest(event, formData, $parent);
+	makeRequest(event, formData);
 }
 
-function makeRequest(event, formData, $parent) {
+function makeRequest(event, formData) {
+	var id = event.target.getAttribute('data-id');
+	var $parent = $('#fileupload-' + id);
 	// Make request
 	$.ajax({
 		url: event.target.getAttribute('data-url'),
@@ -432,26 +433,6 @@ var FormItem = function () {
 			});
 
 			$(document).on('click', '.form-item--collapse-btn', collapseToggle);
-
-			$(document).on('click', '.form-item--toggle-button', function () {
-
-				var $formItem = $(this).closest('.form-item');
-				var $formItemEditor = $formItem.children('.form-item--editor');
-
-				if ($formItemEditor.get(0).style.maxHeight === '') {
-					// Update height
-					$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
-
-					// Add class to trigger animation
-					$formItem.children('.form-item--toggle-button').removeClass('form-item--toggle-button-closed');
-				} else {
-					// Zero height
-					$formItemEditor.get(0).style.maxHeight = null;
-
-					// Add class to trigger animation
-					$formItem.children('.form-item--toggle-button').addClass('form-item--toggle-button-closed');
-				}
-			});
 		}
 	}]);
 
@@ -522,9 +503,11 @@ function collapseToggle(event) {
 
 	if ($collapsable.hasClass('form-item--collapsed')) {
 		$collapsable.find('.form-item--repeater-fields').each(open);
+		$collapsable.find('.form-item--editor').each(open);
 		$collapsable.removeClass('form-item--collapsed');
 	} else {
 		$collapsable.find('.form-item--repeater-fields').each(close);
+		$collapsable.find('.form-item--editor').each(close);
 		$collapsable.addClass('form-item--collapsed');
 	}
 }
@@ -693,9 +676,7 @@ var FormItemRepeater = function () {
 	}, {
 		key: 'setEvents',
 		value: function setEvents() {
-			$(document).on('click', '.form-item--repeater-section--add-new', function (event) {
-				addNewItem(this, event);
-			});
+			$(document).on('click', '.form-item--repeater-section--add-new', addNewItem);
 
 			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
 				// Stop default behaviour
@@ -704,34 +685,7 @@ var FormItemRepeater = function () {
 				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 			});
 
-			$(document).on('click', '.form-item--delete-repeater-item', function (event) {
-				// Stop default behaviour
-				event.preventDefault();
-
-				// if ( !confirm($(this).data('confirm')) ) return
-
-				var record_id = $(this).data('id');
-				var target = $('#repeater_' + record_id).get(0);
-				// As max-height isn't set you need to set it manually before changing it, 
-				// otherwise the animation doesn't get triggered
-				target.style.maxHeight = target.scrollHeight + 'px';
-				// Change max-height after 50ms to trigger css animation
-				setTimeout(function () {
-					target.style.maxHeight = 0 + 'px';
-				}, 50);
-
-				$.ajax({
-					url: $(this).attr('href'),
-					data: { id: record_id, isAjax: true },
-					method: "DELETE"
-				}).done(function () {
-					// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
-					setTimeout(function () {
-						$(target).remove();
-					}, 700);
-					// _FormItemEditor.resize()
-				});
-			});
+			$(document).on('click', '.form-item--delete-repeater-item', deleteRepeter);
 		}
 	}]);
 
@@ -742,18 +696,15 @@ var _FormItemRepeater = new FormItemRepeater();
 
 /**
  * COMPONENT HELPER FUNCTIONS
- *
- * @param      {string}  target  The target
- * @param      {object}  event   The event
  */
 
-function addNewItem(target, event) {
+function addNewItem(event) {
 	// Stop default behaviour
 	event.preventDefault();
 	// Get the child to clone
-	var id = $(target).data('id');
+	var id = $(this).data('id');
 	var $list = $('#form-item--repeater-setting-' + id);
-	var url = $(target).data('url');
+	var url = $(this).data('url');
 	$.post(url, { repeater_setting_id: id }, function (data) {
 		// Get repaeter code from Rails
 		// Due to the Rails way of creating nested forms it's necessary to 
@@ -793,6 +744,33 @@ function addNewItem(target, event) {
 		setTimeout(function () {
 			new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + 'px';
 		}, 50);
+	});
+}
+
+function deleteRepeter(event) {
+	// Stop default behaviour
+	event.preventDefault();
+
+	var record_id = $(this).data('id');
+	var target = $('#repeater_' + record_id).get(0);
+	// As max-height isn't set you need to set it manually before changing it, 
+	// otherwise the animation doesn't get triggered
+	target.style.maxHeight = target.scrollHeight + 'px';
+	// Change max-height after 50ms to trigger css animation
+	setTimeout(function () {
+		target.style.maxHeight = 0 + 'px';
+	}, 50);
+
+	$.ajax({
+		url: $(this).attr('href'),
+		data: { id: record_id, isAjax: true },
+		method: "DELETE"
+	}).done(function () {
+		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
+		setTimeout(function () {
+			$(target).remove();
+		}, 700);
+		// _FormItemEditor.resize()
 	});
 }
 

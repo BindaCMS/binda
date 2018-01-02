@@ -1,22 +1,30 @@
 .select2-container,
+.select2-selection
+{
+  // https://stackoverflow.com/a/24222873/1498118
+  &:focus,
+  &:focus:active
+  {
+    border: 1px solid $color-gray-dark;
+    outline: none;
+    background-image: none;
+    box-shadow: none;
+  }
+}
+
 .select2-selection {
-	// https://stackoverflow.com/a/24222873/1498118
-	&:focus,
-	&:focus:active {
-		box-shadow: none;
-	  border: 1px solid $color-gray-dark;
-	  background-image: none;
-	  outline: none;
-	}
+  height: auto !important;
+  padding: 3px;
+  padding-top: 2px;
 }
 
 .select2-container--default .select2-selection--multiple,
 .select2-container--default .select2-selection--single
 {
-  border-radius: 0;
-  background-color: $color-white;
   transition: border .3s ease;
   border: 1px solid transparent;
+  border-radius: 0;
+  background-color: $color-gray-lightest;
 
   &:hover
   {
@@ -52,7 +60,8 @@
   border-color: $text-color transparent transparent transparent;
 }
 
-.select2-container--default.select2-container--open .select2-selection--single {
+.select2-container--default.select2-container--open .select2-selection--single
+{
   border: 1px solid $color-gray-lighter;
 }
 
@@ -88,7 +97,7 @@
 
 .select2-container--default.select2-container--disabled .select2-selection--multiple
 {
-  background-color: $color-gray-lightest;
+  background-color: $color-gray-light;
 }
 
 .select2-container--default .select2-search--inline .select2-search__field
@@ -100,11 +109,12 @@
 {
   border: 1px solid $color-gray-lighter;
 
-  &:focus {
-	  border: 1px solid $color-gray-dark;
-	  box-shadow: none;
-	  background-image: none;
-	  outline: none;
+  &:focus
+  {
+    border: 1px solid $color-gray-dark;
+    outline: none;
+    background-image: none;
+    box-shadow: none;
   }
 }
 
@@ -123,4 +133,3 @@
   color: $color-white;
   background-color: $color-gray-darker;
 }
-

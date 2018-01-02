@@ -30,30 +30,6 @@ class FormItem {
 		})
 
 		$(document).on('click', '.form-item--collapse-btn', collapseToggle )
-
-		$(document).on('click', '.form-item--toggle-button', function()
-		{
-
-			let $formItem = $( this ).closest('.form-item')
-			let $formItemEditor = $formItem.children('.form-item--editor')
-
-			if ( $formItemEditor.get(0).style.maxHeight === '' ) 
-			{
-				// Update height
-				$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
-
-				// Add class to trigger animation
-				$formItem.children('.form-item--toggle-button').removeClass('form-item--toggle-button-closed')
-			}
-			else
-			{
-				// Zero height
-				$formItemEditor.get(0).style.maxHeight = null;
-		      
-				// Add class to trigger animation
-				$formItem.children('.form-item--toggle-button').addClass('form-item--toggle-button-closed')
-			}
-		})
 	}
 }
 
@@ -125,11 +101,13 @@ function collapseToggle( event )
 	if ( $collapsable.hasClass('form-item--collapsed') ) 
 	{
 		$collapsable.find('.form-item--repeater-fields').each(open)
+		$collapsable.find('.form-item--editor').each(open)
 		$collapsable.removeClass('form-item--collapsed')
 	}
 	else
 	{
 		$collapsable.find('.form-item--repeater-fields').each(close)
+		$collapsable.find('.form-item--editor').each(close)
 		$collapsable.addClass('form-item--collapsed')
 	}
 }

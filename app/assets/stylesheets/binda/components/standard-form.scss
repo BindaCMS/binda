@@ -29,14 +29,15 @@
 .standard-form--container
 {
   overflow-y: hidden;
-  margin-bottom: 20px;
-  border: 1px solid $color-gray-darker;
+  margin-bottom: 48px;
+  border-bottom: 1px solid $color-gray-lighter;
+  background-color: $color-white;
 
-  &.field-settings-container {
-
+  &.field-settings-container
+  {
     margin-bottom: 0 !important;
-    border-left: none !important;
     border-right: none !important;
+    border-left: none !important;
   }
 
   &.table-sort
@@ -58,11 +59,21 @@
     @extend .text-muted;
   }
 
+  .has-error
+  {
+    .control-label-required,
+    .control-label,
+    span.help-block
+    {
+      color: $color-danger;
+    }
+  }
+
   .form-group
   {
     margin-bottom: 0;
     padding: 20px 12px 28px;
-    border-top: 1px solid $color-gray-darker;
+    border-top: 1px solid $color-gray-lightest;
   }
 
   .form-control
@@ -70,12 +81,13 @@
     transition: border .3s ease-in-out;
     border: none;
     border: 1px solid transparent;
+    background-color: $color-gray-lightest;
     box-shadow: none;
 
     &:hover,
     &:focus
     {
-      border: 1px solid $color-gray;
+      border: 1px solid $color-gray-lighter;
       outline: none;
       background-image: none;
       box-shadow: none;
@@ -84,7 +96,7 @@
     &.disabled
     {
       color: $color-gray-lighter;
-      background-color: $color-white;
+      background-color: $color-gray-lightest;
 
       &:hover
       {
@@ -103,53 +115,17 @@
 
 .standard-form--header
 {
-  padding: 12px 12px;
+  padding: 6px 12px;
   color: $color-white;
-  background-color: $color-gray-darker;
+  background-image: linear-gradient(to right, $color-gray-darker, lighten( $color-gray-darker, 6%));
 
-  p
+  a,
+  small
   {
     // font-weight: bold;
     margin-bottom: 0;
     color: $color-white;
   }
-
-  a
-  {
-    margin-bottom: 0;
-    color: white;
-  }
-}
-
-.standard-form--secondary-header
-{
-  padding: 4px 0;
-  background-color: $color-white !important;
-  p
-  {
-    display: inline-block;
-    width: 92%;
-    margin-top: 8px;
-    margin-left: 8px;
-
-
-  }
-
-  a {
-    margin-right: 10px;
-  }
-
-  &.main-actions-header
-  {
-    padding: 6px 12px;
-    background-color: $color-gray-light !important;
-
-    a
-    {
-      margin-left: 8px;
-    }
-  }
-
 }
 
 .standard-form--boolean,
@@ -198,24 +174,28 @@
 {
   display: inline-block;
   width: 100%;
-  padding: 0px 12px 28px;
+  padding: 0 12px 28px;
 
-  .b-btn-settings:last-child {
+  .b-btn-settings:last-child
+  {
     margin-bottom: 0;
   }
 }
 
-.standard-form--main-actions {
+.standard-form--main-actions
+{
   display: block;
+  float: left;
   width: 100%;
   padding: 20px 12px; // Padding bottom is 20px instead of 28px because there shouldn't be any heading (or label) preceding the main-actions buttons 
-  border-top: 1px solid $text-color;
-  float: left;
+  border-top: 1px solid $color-gray-lightest;
 }
 
 .standard-form--secondary-actions,
-.standard-form--main-actions {
-  .b-btn-settings:last-child {
+.standard-form--main-actions
+{
+  .b-btn-settings:last-child
+  {
     margin-bottom: 0;
   }
 }
@@ -224,5 +204,10 @@
 {
   width: 100%;
   padding: 20px 12px;
-  border-top: 1px solid $text-color;
+  border-top: 1px solid $color-gray-lightest;
+}
+
+.standard-form--hint-on-new-record
+{
+  padding: 12px;
 }
