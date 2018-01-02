@@ -2,6 +2,29 @@
  * SORTABLE
  */
 
+
+var sortableOptions = {
+		stop: function(event, ui)
+		{
+			ui.item.css('z-index', 0)
+		},
+  	placeholder: "ui-state-highlight",
+  	update: function () 
+  	{
+  		if ( $('.popup-warning').length > 0 ) 
+  		{
+  			$('.sortable').addClass('sortable--disabled')
+  			$('.popup-warning').removeClass('popup-warning--hidden')
+  			$(this).sortable('option','disabled', true)
+  		}
+			let url = $(this).data('update-url')
+			let data = $(this).sortable('serialize')
+			// If there is a pagination update accordingly
+			data = data.concat(`&id=${$(this).attr('id')}`)
+			$.post( url, data )
+  	}
+  }
+
 export default function() 
 {
 	if ( $('.sortable').length > 0 ) 
@@ -67,29 +90,4 @@ function close()
 function open()
 {
 	this.style.maxHeight = this.scrollHeight + "px";
-}
-
-function sortableOptions() 
-{
-	return {
-			stop: function(event, ui)
-			{
-				ui.item.css('z-index', 0)
-			},
-	  	placeholder: "ui-state-highlight",
-	  	update: function () 
-	  	{
-	  		if ( $('.popup-warning').length > 0 ) 
-	  		{
-	  			$('.sortable').addClass('sortable--disabled')
-	  			$('.popup-warning').removeClass('popup-warning--hidden')
-	  			$(this).sortable('option','disabled', true)
-	  		}
-				let url = $(this).data('update-url')
-				let data = $(this).sortable('serialize')
-				// If there is a pagination update accordingly
-				data = data.concat(`&id=${$(this).attr('id')}`)
-				$.post( url, data )
-	  	}
-	  }
 }

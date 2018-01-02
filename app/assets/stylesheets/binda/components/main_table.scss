@@ -3,8 +3,9 @@
   table
   {
     width: 100%;
+    background-color: $color-gray-lightest;
 
-    th 
+    th
     {
       padding: 6px 12px;
     }
@@ -48,7 +49,8 @@
       border-bottom: 1px solid $color-gray-darker;
     }
 
-    tr.ui-sortable-handle:hover {
+    tr.ui-sortable-handle:hover
+    {
       border: 1px solid transparent;
     }
   }
@@ -70,9 +72,10 @@
   }
 }
 
-.main-table--hover {
-  background: $color-gray-lightest;
+.main-table--hover
+{
   transition: background .3s ease;
+  background: $color-gray-lightest;
 
   &:hover
   {
