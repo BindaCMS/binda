@@ -144,14 +144,14 @@ module Binda
         unless new_params[:new_choices].nil? 
           new_params[:new_choices].each do |choice|
             unless choice[:label].blank? || choice[:value].blank?
-              create_new_choice chioce
+              create_new_choice choice
             end
           end
         end 
       end
 
       # Create new choice (depends directly from add_new_choice method)
-      def create_new_choice chioce
+      def create_new_choice choice
         new_choice = Choice.create( choice )
         unless new_choice
           return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_choice.errors }

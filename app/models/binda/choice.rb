@@ -66,21 +66,16 @@ module Binda
 		def update_default_choice_of field_setting
 
 			# Save and check if it's alright
-			unless field_setting.save
-				raise "It hasn't been possible to set the default choice for the current setting (#{field_setting.slug})."
-			end
+			raise "It hasn't been possible to set the default choice for the current setting (#{field_setting.slug})." unless field_setting.save
 
 			# Create an empty array in order to avoid generating an error on the following each loop
 			selections = Selection.joins(:field_setting).where(binda_field_settings: {id: field_setting.id })
 
 			# Make sure none of the Binda::Selection instances (radios/checkboxes/selects) are left without a choice
 			selections.each do |selection|
-				unless selection.choices.any?
-					selection.choices << Choice.find(self.field_setting.default_choice_id)
-					unless selection.save
-						raise "It hasn't been possible to set the default choice for Binda::Selection with id=#{selection.id}"
-					end
-				end
+				next if selection.choices.any?
+				selection.choices << Choice.find(self.field_setting.default_choice_id)
+				raise "It hasn't been possible to set the default choice for Binda::Selection with id=#{selection.id}" unless selection.save
 			end
 		end
 
