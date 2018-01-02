@@ -431,23 +431,7 @@ var FormItem = function () {
 				$(this).closest('.form-item').remove();
 			});
 
-			$(document).on('click', '.form-item--collapse-btn', function (event) {
-				// This function is temporarely just set for repeaters.
-				// TODO: Need refactoring in order to be available also for generic form items
-
-				// Stop default behaviour
-				event.preventDefault();
-
-				var $collapsable = $(this).closest('.form-item--collapsable');
-
-				if ($collapsable.hasClass('form-item--collapsed')) {
-					$collapsable.find('.form-item--repeater-fields').each(open);
-					$collapsable.removeClass('form-item--collapsed');
-				} else {
-					$collapsable.find('.form-item--repeater-fields').each(close);
-					$collapsable.addClass('form-item--collapsed');
-				}
-			});
+			$(document).on('click', '.form-item--collapse-btn', collapseToggle);
 
 			$(document).on('click', '.form-item--toggle-button', function () {
 
@@ -527,6 +511,24 @@ function open() {
 	this.style.maxHeight = this.scrollHeight + "px";
 }
 
+function collapseToggle(event) {
+	// This function is temporarely just set for repeaters.
+	// TODO: Need refactoring in order to be available also for generic form items
+
+	// Stop default behaviour
+	event.preventDefault();
+
+	var $collapsable = $(this).closest('.form-item--collapsable');
+
+	if ($collapsable.hasClass('form-item--collapsed')) {
+		$collapsable.find('.form-item--repeater-fields').each(open);
+		$collapsable.removeClass('form-item--collapsed');
+	} else {
+		$collapsable.find('.form-item--repeater-fields').each(close);
+		$collapsable.addClass('form-item--collapsed');
+	}
+}
+
 /***/ }),
 /* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -563,36 +565,9 @@ var FormItemChoice = function () {
 	}, {
 		key: 'setEvents',
 		value: function setEvents() {
-			$(document).on('click', '.form-item--add-choice', function (event) {
-				event.preventDefault();
-				// Clone the new choice field
-				var choices = $(this).closest('.form-item--choices');
-				var newchoice = choices.find('.form-item--new-choice');
-				var clone = newchoice.clone().removeClass('form-item--new-choice').toggle();
-				clone.find('.form-item--toggle-choice').toggle();
-				// Append the clone right after
-				choices.prepend(clone);
-				// Update form item editor size
-				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
-			});
+			$(document).on('click', '.form-item--add-choice', addChoice);
 
-			$(document).on('click', '.form-item--delete-choice', function (event) {
-				event.preventDefault();
-
-				var choice = $(this).closest('.form-item--choice');
-				var destination = $(this).attr('href');
-				var self = this;
-
-				$.ajax({
-					url: destination,
-					type: 'DELETE',
-					success: function success() {
-						choice.remove();
-						// Update form item editor size
-						__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
-					}
-				});
-			});
+			$(document).on('click', '.form-item--delete-choice', deleteChoice);
 			$(document).on('click', '.form-item--js-delete-choice', function (event) {
 				event.preventDefault();
 				$(this).closest('.form-item--choice').remove();
@@ -606,6 +581,41 @@ var FormItemChoice = function () {
 }();
 
 var _FormItemChoice = new FormItemChoice();
+
+/**
+ * HELPER FUNCTIONS
+ */
+
+function addChoice(event) {
+	event.preventDefault();
+	// Clone the new choice field
+	var choices = $(this).closest('.form-item--choices');
+	var newchoice = choices.find('.form-item--new-choice');
+	var clone = newchoice.clone().removeClass('form-item--new-choice').toggle();
+	clone.find('.form-item--toggle-choice').toggle();
+	// Append the clone right after
+	choices.prepend(clone);
+	// Update form item editor size
+	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+}
+
+function deleteChoice(event) {
+	event.preventDefault();
+
+	var choice = $(this).closest('.form-item--choice');
+	var destination = $(this).attr('href');
+	var self = this;
+
+	$.ajax({
+		url: destination,
+		type: 'DELETE',
+		success: function success() {
+			choice.remove();
+			// Update form item editor size
+			__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+		}
+	});
+}
 
 /***/ }),
 /* 7 */
