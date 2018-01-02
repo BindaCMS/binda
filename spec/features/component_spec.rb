@@ -88,7 +88,7 @@ describe "GET component#edit", type: :feature, js: true do
 		@component.reload
 
 		ids = @component.repeaters.first.string_ids
-	
+
 		repeater_expand_btn = "#repeater_#{@component.repeaters.first.id} .form-item--collapse-btn span"
 		find(repeater_expand_btn).click
 		# wait animation

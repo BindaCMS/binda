@@ -6,7 +6,7 @@
     <p><%= t('binda.login_welcome', { arg1: get_website_name }) %></p>
   </div>
   <div class="login--footer">
-    <a href="https://github.com/lacolonia/binda" target="_blank"><%= t('binda.login_credit', { arg1: Binda::VERSION.dup}) %></a>
+    <a href="https://github.com/lacolonia/binda" target="_blank"><%= t('binda.login_credit', { arg1: Binda::VERSION.to_s }) %></a>
   </div>
 <% end %>
 
