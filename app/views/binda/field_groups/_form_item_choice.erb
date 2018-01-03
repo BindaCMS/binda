@@ -104,8 +104,11 @@
 	<%# - - - - - - - - - - - - %>
 	<%# ALLOW NULL              %>
 	<%# - - - - - - - - - - - - %>
-	<div class="form-item--half-size">
-		<h5><%= t(:allow_null).capitalize %></h5>
+	<div class="form-item--full-size form-group allow-null">
+    <div class="control-label">
+      <p><%= t(:allow_null).capitalize %></p>
+    </div>
+
 		<%= ff.input :allow_null, 
 		    as: :boolean, 
 		    boolean_style: :inline, 
