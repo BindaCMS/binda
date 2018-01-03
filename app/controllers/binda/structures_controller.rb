@@ -61,14 +61,12 @@ module Binda
       params[:structure].each_with_index do |id, i|
         Structure.find( id ).update({ position: i + 1 })
       end
+      render js: "$('.popup-warning').addClass('popup-warning--hidden');"
       head :ok
     end
 
     def sort_index
       @structures = Structure.order('position').all.page params[:page]
-=begin
-      return redirect_to structure_components_path, alert: "There are too many #{@structure.name.pluralize}. It's not possible to sort more than #{Component.sort_limit} #{@structure.name.pluralize}." if @structure.components.length > Component.sort_limit
-=end
     end
 
     private

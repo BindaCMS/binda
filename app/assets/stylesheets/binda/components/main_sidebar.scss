@@ -64,10 +64,14 @@
 
 .main-sidebar--nav
 {
-  width: 100%;
+  position: fixed;
+  width: 200px;
   margin: 0;
   padding: 0;
   list-style: none;
+  top: 0;
+  left: 0;
+  margin-bottom: 48px; // create space for sideba-footer
 
   li
   {
@@ -121,10 +125,11 @@
 }
 
 .main-sidebar--footer {
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   padding: 16px;
+  background-color: $color-gray-darker;
 
   a {
     color: $color-gray;

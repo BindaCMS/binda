@@ -1147,6 +1147,25 @@ var _LoginForm = new LoginForm();
  * SORTABLE
  */
 
+var sortableOptions = {
+	stop: function stop(event, ui) {
+		ui.item.css('z-index', 0);
+	},
+	placeholder: "ui-state-highlight",
+	update: function update() {
+		if ($('.popup-warning').length > 0) {
+			$('.sortable').addClass('sortable--disabled');
+			$('.popup-warning').removeClass('popup-warning--hidden');
+			$(this).sortable('option', 'disabled', true);
+		}
+		var url = $(this).data('update-url');
+		var data = $(this).sortable('serialize');
+		// If there is a pagination update accordingly
+		data = data.concat('&id=' + $(this).attr('id'));
+		$.post(url, data);
+	}
+};
+
 /* harmony default export */ __webpack_exports__["a"] = (function () {
 	if ($('.sortable').length > 0) {
 		// Initialize sortable item
@@ -1203,27 +1222,6 @@ function close() {
 
 function open() {
 	this.style.maxHeight = this.scrollHeight + "px";
-}
-
-function sortableOptions() {
-	return {
-		stop: function stop(event, ui) {
-			ui.item.css('z-index', 0);
-		},
-		placeholder: "ui-state-highlight",
-		update: function update() {
-			if ($('.popup-warning').length > 0) {
-				$('.sortable').addClass('sortable--disabled');
-				$('.popup-warning').removeClass('popup-warning--hidden');
-				$(this).sortable('option', 'disabled', true);
-			}
-			var url = $(this).data('update-url');
-			var data = $(this).sortable('serialize');
-			// If there is a pagination update accordingly
-			data = data.concat('&id=' + $(this).attr('id'));
-			$.post(url, data);
-		}
-	};
 }
 
 /***/ }),
