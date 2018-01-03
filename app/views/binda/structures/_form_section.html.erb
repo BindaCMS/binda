@@ -32,7 +32,7 @@
 	                  class: 'form-item--edit-item' %>
 
 	      <%= link_to "<i class=\"far fa-trash-alt\"></i> #{t('binda.delete').capitalize}".html_safe,
-	                  structure_field_group_field_setting_path( @structure.slug, ff.object.slug ),
+	                  structure_field_group_path( @structure.slug, ff.object.slug ),
 	                  method: :delete,
 	                  data: { confirm: t('binda.confirm_delete') },
 	                  class: 'form-item--delete-repeater-item' %>
@@ -82,6 +82,7 @@
 			<%= ff.input :name, label: "#{ t :name }".capitalize, wrapper_html: { class: "form-item--half-size" } %>
       <%= ff.input :slug, wrapper_html: { class: "form-item--half-size" } %>
 		</div>
+
 	</div>
 <% end %>
 
