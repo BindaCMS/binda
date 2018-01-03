@@ -32,7 +32,7 @@ Done! Now you'll see the "Pages" tab in your menu which will contain all your pa
 It's easier learning by doing than by reading. ;-)
 Watch the preview on [Binda's vimeo channel](https://vimeo.com/bindacms/010-preview)
 
-![Binda preview](https://www.dropbox.com/s/04iv6gxh4cjbi4a/binda-preview-01.gif?raw=1)
+![Binda preview](https://www.dropbox.com/s/4mdn7i6lusffpx3/binda-preview-01-mini.gif?raw=1)
 
 ---
 
