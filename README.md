@@ -17,7 +17,7 @@ A modular CMS for Ruby on Rails 5.1.
 
 # Quick Start
 
-**Binda** is a CMS with an intuitive out-of-the-box interface to manage and customize page components.
+**Binda** is a headless CMS with an intuitive out-of-the-box interface which makes very easy to create your application infrastructure.
 
 The core element is the _structure_ element which is the finger print of any _component_ instance. Every _structure_ can have one or more _field-groups_ which can be populated with several _field-settings_. _Field-groups_ and _field-settings_ represent _components_ features, such as galleries, textareas, dates, repeaters and so on.
 
@@ -30,8 +30,9 @@ Let's say your website needs a set of pages with a subtitle. That's super easy.
 Done! Now you'll see the "Pages" tab in your menu which will contain all your pages.
 
 It's easier learning by doing than by reading. ;-)
+Watch the preview on [Binda's vimeo channel](https://vimeo.com/bindacms/010-preview)
 
-![Binda preview](https://www.dropbox.com/s/m7vwrou1homqc6p/binda-01.gif?raw=1)
+![Binda preview](https://www.dropbox.com/s/2u7qv8avudtddrd/binda-preview-mini.gif?raw=1)
 
 ---
 
