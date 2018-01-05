@@ -43,12 +43,16 @@
       border-right: 1px solid $color-gray-darker;
       border-bottom: 1px solid $color-gray-lighter;
       border-left: 1px solid $color-gray-darker;
-      display: block;
     }
 
     tr:last-child
     {
       border-bottom: 1px solid $color-gray-darker;
+    }
+
+    tr.ui-sortable-handle
+    {
+      display: block;
     }
 
     tr.ui-sortable-handle:hover
