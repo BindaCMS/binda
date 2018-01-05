@@ -4,6 +4,7 @@
   {
     width: 100%;
     background-color: $color-gray-lightest;
+    box-sizing: border-box;
 
     th
     {
@@ -42,6 +43,7 @@
       border-right: 1px solid $color-gray-darker;
       border-bottom: 1px solid $color-gray-lighter;
       border-left: 1px solid $color-gray-darker;
+      display: block;
     }
 
     tr:last-child
