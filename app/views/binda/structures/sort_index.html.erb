@@ -9,21 +9,18 @@
   <div class="main-table--container">
     <h5 class="text-muted"><%= t('binda.sort_index_hint', { arg1: t('binda.structures').downcase }).html_safe %></h5>
 
-    <table class="standard-form--container">
-      <thead class="standard-form--header">
-        <tr>
-          <th>Structures</th>
-        </tr>
-      </thead>
-
-      <tbody class="sortable" data-update-url="<%= structures_sort_path() %>">
+    <div class="main-sortable-table">
+      <div class="main-sortable-table--header-row">
+        <div class="main-sortable-table--header-title"><p>Structures</p></div>
+      </div>
+      <div id="structures--sort-index" class="sortable" data-update-url="<%= structures_sort_path() %>">
       <% @structures.order( :name ).each do |structure| %>
-        <tr id="structure_<%= structure.id %>">
-          <td><%= structure.name %></td>
-        </tr>
+        <div id="structure_<%= structure.id %>" class="main-sortable-table--row ui-sortable-handle">
+          <div class="main-sortable-table--row-cell"><%= structure.name %></div>
+        </div>
       <% end %>
-      <tbody>
-      </table>
+      <div>
+    </div>
 
     <%= paginate @structures %>
     <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
