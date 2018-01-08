@@ -27,7 +27,7 @@
 
     <div id="<%= @structure.slug %>-components--sort-index" class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
       <% @components.order( :position, :name ).each do |component| %>
-        <div class="main-sortable-table--row" id="component_<%= component.id %>">
+        <div class="main-sortable-table--row ui-sortable-handle" id="component_<%= component.id %>">
           <div class="main-sortable-table--row-cell"><%= link_to component.name, structure_component_path( @structure.slug, component ) %></div>
           <div class="main-sortable-table--row-cell"><%= component.publish_state %></div>
         </div>

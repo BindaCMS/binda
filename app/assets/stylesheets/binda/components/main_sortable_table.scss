@@ -1,6 +1,10 @@
 .main-sortable-table--row.ui-sortable-handle:hover
 {
   border: 1px solid transparent;
+  cursor: move;
+
+  box-shadow: 0 10px 26px 0 rgba(0, 0, 0, 0.25);
+  transform: scale(1.01);
 }
 
 .main-sortable-table--header-title
@@ -30,12 +34,13 @@
   border-left: 1px solid $color-gray-darker;
   border-right: 1px solid $color-gray-darker;
 
+  transition: box-shadow .3s ease, background .3s ease, transform .3s ease;
+
   &:last-child
   {
     border-bottom: 1px solid $color-gray-darker;
   }
 
-  transition: background .3s ease;
   background: $color-gray-lightest;
 
   &:hover
