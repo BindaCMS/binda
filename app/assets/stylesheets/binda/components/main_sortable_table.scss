@@ -34,6 +34,14 @@
   {
     border-bottom: 1px solid $color-gray-darker;
   }
+
+  transition: background .3s ease;
+  background: $color-gray-lightest;
+
+  &:hover
+  {
+    background: $color-white;
+  }
 }
 
 .main-sortable-table--row-cell
@@ -41,6 +49,5 @@
   display: table-cell;
   width: 50vw;
   padding: 12px;
-  background-color: $gray-lighter;
 }
 
