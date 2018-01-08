@@ -7,10 +7,9 @@
 
 <% content_for :content do %>
   <div class="main-table--container">
-
     <h5 class="text-muted"><%= t('binda.sort_index_hint', { arg1: t('binda.structures').downcase }).html_safe %></h5>
 
-    <table class="standard-form--container table-sort">
+    <table class="standard-form--container">
       <thead class="standard-form--header">
         <tr>
           <th>Structures</th>
@@ -21,7 +20,6 @@
       <% @structures.order( :name ).each do |structure| %>
         <tr id="structure_<%= structure.id %>">
           <td><%= structure.name %></td>
-          <td></td>
         </tr>
       <% end %>
       <tbody>

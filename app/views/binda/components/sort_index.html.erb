@@ -18,7 +18,7 @@
       <p><%= t 'binda.sort_items_loader', { arg1: t('binda.components').downcase } %></p>
   </div>
 
-  <div class="standard-form--container table-sort table" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
+  <div class="main-sortable-table" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
 
     <div class="main-sortable-table--header-row">
       <div class="main-sortable-table--header-title"><p>Title</p></div>
