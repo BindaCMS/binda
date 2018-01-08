@@ -1,7 +1,14 @@
+.table
+{
+  display: table;
+  background-color: $color-gray-lightest;
+}
+
 .main-table--container
 {
   table
   {
+    display: table;
     width: 100%;
     background-color: $color-gray-lightest;
     box-sizing: border-box;
@@ -9,12 +16,14 @@
     th
     {
       padding: 6px 12px;
+      //width: 170px !important;
     }
 
     td
     {
       padding: 12px;
       border-top: none !important;
+      //width: 170px !important;
     }
 
     td:last-child

@@ -17,30 +17,26 @@
       </div>
       <p><%= t 'binda.sort_items_loader', { arg1: t('binda.components').downcase } %></p>
   </div>
-  <div class="main-table--container">
 
-      <h5 class="text-muted"><%= t('binda.sort_index_hint', { arg1: @structure.name.humanize.split.join(' ').pluralize }).html_safe %></h5>
+  <div class="standard-form--container table-sort table" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
 
-      <table class="standard-form--container table-sort">
-        <thead  class="standard-form--header">
-          <tr>
-            <th style="width: 50%;">Title</th>
-            <th style="width: 50%;">Publish state</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="<%= @structure.slug %>-components--sort-index" class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
-          <% @components.order( :position, :name ).each do |component| %>
-            <tr id="component_<%= component.id %>">
-              <td><%= link_to component.name, structure_component_path( @structure.slug, component ) %></td>
-              <td><%= component.publish_state %></td>
-              <td></td>
-            </tr>
-          <% end %>
-        <tbody>
-      </table>
+    <div class="main-sortable-table--header-row">
+      <div class="main-sortable-table--header-title"><p>Title</p></div>
+      <div class="main-sortable-table--header-title"><p>Publish State</p></div>
+    </div>
 
-    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path, class: 'main-header--link b-btn b-btn-primary', action: "new" %>
-        
+    <div id="<%= @structure.slug %>-components--sort-index" class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
+      <% @components.order( :position, :name ).each do |component| %>
+        <div class="main-sortable-table--row" id="component_<%= component.id %>">
+          <div class="main-sortable-table--row-cell"><%= link_to component.name, structure_component_path( @structure.slug, component ) %></div>
+          <div class="main-sortable-table--row-cell"><%= component.publish_state %></div>
+        </div>
+      <% end %>
+    </div>
+
   </div>
+
+  <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path, class: 'main-header--link b-btn b-btn-primary', action: "new" %>
+
+
 <% end %>
