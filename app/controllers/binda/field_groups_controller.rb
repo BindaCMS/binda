@@ -87,24 +87,20 @@ module Binda
       def add_new_field_settings
         # Create new fields if any
         new_params[:new_field_settings].each do |field_setting|
-          unless field_setting[:name].blank?
-            new_field_setting = @field_group.field_settings.create( field_setting )
-            unless new_field_setting
-              return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_field_setting.errors }
-            end
-          end
+          next if field_setting[:name].blank?
+          new_field_setting = @field_group.field_settings.create( field_setting )
+          next if new_field_setting
+          return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_field_setting.errors }
         end
       end
 
       def add_new_choices
         # Create new fields if any
-        unless new_params[:new_choices].nil? 
-          new_params[:new_choices].each do |choice|
-            unless choice[:label].blank? || choice[:value].blank?
-              create_new_choice choice
-            end
-          end
-        end 
+        return if new_params[:new_choices].nil? 
+        new_params[:new_choices].each do |choice|
+          next if choice[:label].blank? || choice[:value].blank?
+          create_new_choice choice
+        end
       end
 
       # Create new choice (depends directly from add_new_choice method)

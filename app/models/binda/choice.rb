@@ -73,11 +73,16 @@ module Binda
 
 			# Make sure none of the Binda::Selection instances (radios/checkboxes/selects) are left without a choice
 			selections.each do |selection|
+				update_selection selection
+			end
+		end
+
+		private 
+			def update_selection selection
 				next if selection.choices.any?
 				selection.choices << Choice.find(self.field_setting.default_choice_id)
 				raise "It hasn't been possible to set the default choice for Binda::Selection with id=#{selection.id}" unless selection.save
 			end
-		end
 
   end
 end

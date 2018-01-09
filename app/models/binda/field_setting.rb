@@ -153,19 +153,29 @@ module Binda
 		def create_field_instances
 			structure = self.field_group.structure
 			field_class = self.field_type.pluralize
+			field_setting_id = self.id
 			case 
 				when structure.components.any?
 					structure.components.each do |component|
-						unless component.send(field_class).where(field_setting_id: self.id).any?
-							component.send(field_class).create!(field_setting_id: self.id)
-						end
+						create_field_instances_for_component( component, field_class, field_setting_id )
 					end
 				when structure.board.present?
-					unless structure.board.send(field_class).where(field_setting_id: self.id).any?
-						structure.board.send(field_class).create!(field_setting_id: self.id)
-					end
+					create_field_instances_for_board( structure.board, field_class, field_setting_id )
 			end
 		end
 
+		# Helper for create_field_instances method
+		def create_field_instances_for_component( component, field_class, field_setting_id )
+			unless component.send(field_class).where(field_setting_id: self.id).any?
+				component.send(field_class).create!(field_setting_id: self.id)
+			end
+		end
+
+		# Helper for create_field_instances method
+		def create_field_instances_for_board ( board, field_class, field_setting_id )
+			unless board.send(field_class).where(field_setting_id: self.id).any?
+				board.send(field_class).create!(field_setting_id: self.id)
+			end
+		end
 	end
 end
