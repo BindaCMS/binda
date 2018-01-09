@@ -5,11 +5,11 @@
 import { _FormItemEditor } from './form_item_editor'
 
 
-class FormItemChoice {
+class FieldSettingChoices {
 	
 	constructor()
 	{
-		this.target = '.form-item--choice'
+		this.target = '.field-setting-choices--choice'
 	}
 
 	isSet()
@@ -20,20 +20,20 @@ class FormItemChoice {
 
 	setEvents()
 	{
-		$(document).on('click', '.form-item--add-choice', addChoice )
+		$(document).on('click', '.field-setting-choices--add-choice', addChoice )
 		
-		$(document).on('click', '.form-item--delete-choice', deleteChoice )
-		$(document).on('click', '.form-item--js-delete-choice', function( event )
+		$(document).on('click', '.field-setting-choices--delete-choice', deleteChoice )
+		$(document).on('click', '.field-setting-choices--js-delete-choice', function( event )
 		{
 			event.preventDefault()
-			$( this ).closest('.form-item--choice').remove()
+			$( this ).closest('.field-setting-choices--choice').remove()
 			// Update form item editor size
 			_FormItemEditor.resize()
 		})
 	}
 }
 
-export let _FormItemChoice = new FormItemChoice()
+export let _FieldSettingChoices = new FieldSettingChoices()
 
 
 /**
@@ -44,10 +44,11 @@ function addChoice(event)
 {
 	event.preventDefault()
 	// Clone the new choice field
-	var choices = $( this ).closest('.form-item--choices')
-	var newchoice = choices.find('.form-item--new-choice')
-	var clone = newchoice.clone().removeClass('form-item--new-choice').toggle()
-	clone.find('.form-item--toggle-choice').toggle()
+	var choices_id = $( this ).data('choices-id')
+	var choices = $(`#${choices_id}`)
+	var newchoice = choices.find('.field-setting-choices--new-choice')
+	var clone = newchoice.clone().removeClass('field-setting-choices--new-choice').toggle()
+	clone.find('.field-setting-choices--toggle-choice').toggle()
 	// Append the clone right after
 	choices.prepend( clone )
 	// Update form item editor size
@@ -59,7 +60,7 @@ function deleteChoice( event )
 {
 	event.preventDefault()
 
-	var choice = $( this ).closest('.form-item--choice')
+	var choice = $( this ).closest('.field-setting-choices--choice')
 	var destination = $( this ).attr('href')
 	var self = this
 

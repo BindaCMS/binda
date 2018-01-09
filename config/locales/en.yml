@@ -37,12 +37,9 @@ en:
   structure_has_categories: Enable categories
   asset: asset
   choices: choices
-  choice_label: label
-  choice_value: value
   add_choice: Add choice
   default_choice: default choice
-  default_choice_description: if you have added/removed any choice you need to click save to update the list of choices
-  allow_null: allow null?
+  default_choice_description: If you have added/removed any choice, this list might not be correct. Please save to update it.
   instance: instance
   structure_instance_type: 'This structure is for:'
 
@@ -104,3 +101,8 @@ en:
     login_password: Enter your password
     login_welcome: Welcome to %{arg1} admin panel
     login_credit: Built with Binda %{arg1}
+    choice_label: label
+    choice_value: value
+    allow_null: Choice method
+    allow_null_true: Allow to not choose any of the choices
+    allow_null_false: Force to make a choice among the available choices
