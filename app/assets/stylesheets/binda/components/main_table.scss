@@ -1,9 +1,3 @@
-.table
-{
-  display: table;
-  background-color: $color-gray-lightest;
-}
-
 .main-table--container
 {
   table
@@ -16,14 +10,12 @@
     th
     {
       padding: 6px 12px;
-      //width: 170px !important;
     }
 
     td
     {
       padding: 12px;
       border-top: none !important;
-      //width: 170px !important;
     }
 
     td:last-child
@@ -57,16 +49,6 @@
     tr:last-child
     {
       border-bottom: 1px solid $color-gray-darker;
-    }
-
-    tr.ui-sortable-handle
-    {
-      display: block;
-    }
-
-    tr.ui-sortable-handle:hover
-    {
-      border: 1px solid transparent;
     }
   }
 

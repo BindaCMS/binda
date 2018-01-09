@@ -19,7 +19,7 @@
 @import "components/login";
 @import "components/standard-form";
 @import "components/form_item";
-@import "components/form_item_choice";
+@import "components/form_item_choices";
 @import "components/form_item_image";
 @import "components/form_item_video";
 @import "components/sortable";
@@ -29,6 +29,7 @@
 @import "components/texts";
 @import "components/popup_warning";
 @import "components/main_sortable_table";
+@import "components/field_setting_choices";
 
 // Controllers
 @import "controllers/components_index";

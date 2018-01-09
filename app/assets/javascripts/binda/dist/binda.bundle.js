@@ -196,6 +196,95 @@ function setupSelect2(target) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FieldSettingChoices; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * FORM ITEM CHOICE
+ */
+
+
+
+var FieldSettingChoices = function () {
+	function FieldSettingChoices() {
+		_classCallCheck(this, FieldSettingChoices);
+
+		this.target = '.field-setting-choices--choice';
+	}
+
+	_createClass(FieldSettingChoices, [{
+		key: 'isSet',
+		value: function isSet() {
+			if ($(this.target).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			$(document).on('click', '.field-setting-choices--add-choice', addChoice);
+
+			$(document).on('click', '.field-setting-choices--delete-choice', deleteChoice);
+			$(document).on('click', '.field-setting-choices--js-delete-choice', function (event) {
+				event.preventDefault();
+				$(this).closest('.field-setting-choices--choice').remove();
+				// Update form item editor size
+				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+			});
+		}
+	}]);
+
+	return FieldSettingChoices;
+}();
+
+var _FieldSettingChoices = new FieldSettingChoices();
+
+/**
+ * HELPER FUNCTIONS
+ */
+
+function addChoice(event) {
+	event.preventDefault();
+	// Clone the new choice field
+	var choices_id = $(this).data('choices-id');
+	var choices = $('#' + choices_id);
+	var newchoice = choices.find('.field-setting-choices--new-choice');
+	var clone = newchoice.clone().removeClass('field-setting-choices--new-choice').toggle();
+	clone.find('.field-setting-choices--toggle-choice').toggle();
+	// Append the clone right after
+	choices.prepend(clone);
+	// Update form item editor size
+	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+}
+
+function deleteChoice(event) {
+	event.preventDefault();
+
+	var choice = $(this).closest('.field-setting-choices--choice');
+	var destination = $(this).attr('href');
+	var self = this;
+
+	$.ajax({
+		url: destination,
+		type: 'DELETE',
+		success: function success() {
+			choice.remove();
+			// Update form item editor size
+			__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+		}
+	});
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FileUpload; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -386,7 +475,7 @@ function setup_video_preview(data, id) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -510,94 +599,6 @@ function collapseToggle(event) {
 		$collapsable.find('.form-item--editor').each(close);
 		$collapsable.addClass('form-item--collapsed');
 	}
-}
-
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemChoice; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * FORM ITEM CHOICE
- */
-
-
-
-var FormItemChoice = function () {
-	function FormItemChoice() {
-		_classCallCheck(this, FormItemChoice);
-
-		this.target = '.form-item--choice';
-	}
-
-	_createClass(FormItemChoice, [{
-		key: 'isSet',
-		value: function isSet() {
-			if ($(this.target).length > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}, {
-		key: 'setEvents',
-		value: function setEvents() {
-			$(document).on('click', '.form-item--add-choice', addChoice);
-
-			$(document).on('click', '.form-item--delete-choice', deleteChoice);
-			$(document).on('click', '.form-item--js-delete-choice', function (event) {
-				event.preventDefault();
-				$(this).closest('.form-item--choice').remove();
-				// Update form item editor size
-				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
-			});
-		}
-	}]);
-
-	return FormItemChoice;
-}();
-
-var _FormItemChoice = new FormItemChoice();
-
-/**
- * HELPER FUNCTIONS
- */
-
-function addChoice(event) {
-	event.preventDefault();
-	// Clone the new choice field
-	var choices = $(this).closest('.form-item--choices');
-	var newchoice = choices.find('.form-item--new-choice');
-	var clone = newchoice.clone().removeClass('form-item--new-choice').toggle();
-	clone.find('.form-item--toggle-choice').toggle();
-	// Append the clone right after
-	choices.prepend(clone);
-	// Update form item editor size
-	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
-}
-
-function deleteChoice(event) {
-	event.preventDefault();
-
-	var choice = $(this).closest('.form-item--choice');
-	var destination = $(this).attr('href');
-	var self = this;
-
-	$.ajax({
-		url: destination,
-		type: 'DELETE',
-		success: function success() {
-			choice.remove();
-			// Update form item editor size
-			__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
-		}
-	});
 }
 
 /***/ }),
@@ -1230,12 +1231,12 @@ function open() {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_shader__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_login_form__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_sortable__ = __webpack_require__(12);
@@ -1271,8 +1272,8 @@ $(document).ready(function () {
 	if (__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].setEvents();
 	}
-	if (__WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__["a" /* _FormItemChoice */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_3__components_form_item_choice__["a" /* _FormItemChoice */].setEvents();
+	if (__WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__["a" /* _FieldSettingChoices */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__["a" /* _FieldSettingChoices */].setEvents();
 	}
 	if (__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].setEvents();
