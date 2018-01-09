@@ -39,12 +39,7 @@
     border-right: none !important;
     border-left: none !important;
   }
-
-  &.table-sort
-  {
-    border: none !important;
-  }
-
+  
   .control-label
   {
     font-weight: bold;
@@ -210,4 +205,8 @@
 .standard-form--hint-on-new-record
 {
   padding: 12px;
+}
+
+.standard-form--choices-header {
+  
 }

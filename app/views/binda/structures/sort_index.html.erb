@@ -2,35 +2,42 @@
   <div class="main-header--buttons">
     <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
   </div>
-  <p><%= t 'binda.structures' %></p>
+  <p class="main-header--title"><%= t 'binda.structures' %></p>
 <% end %>
 
 <% content_for :content do %>
-  <div class="main-table--container">
+  <div class="popup-warning popup-warning--hidden">
+      <div class="popup-warning--loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <p><%= t 'binda.sort_items_loader', { arg1: t('binda.structures').downcase } %></p>
+  </div>
 
+  <div class="main-table--container">
     <h5 class="text-muted"><%= t('binda.sort_index_hint', { arg1: t('binda.structures').downcase }).html_safe %></h5>
 
-    <table class="standard-form--container table-sort">
-      <thead class="standard-form--header">
-        <tr>
-          <th style="width: 70%">Structures</th>
-          <th style="width: 30%"></th>
-        </tr>
-      </thead>
-
-      <tbody class="sortable" data-update-url="<%= structures_sort_path() %>">
+    <div class="main-sortable-table">
+      <div class="main-sortable-table--header-row">
+        <div class="main-sortable-table--header-title">
+          <p>Structures</p>
+        </div>
+      </div>
+      <div id="structures--sort-index" class="sortable" data-update-url="<%= structures_sort_path() %>">
       <% @structures.order( :name ).each do |structure| %>
-        <tr id="structure_<%= structure.id %>">
-          <td><%= structure.name %></td>
-          <td></td>
-        </tr>
+        <div id="structure_<%= structure.id %>" class="main-sortable-table--row ui-sortable-handle">
+          <div class="main-sortable-table--row-cell">
+            <p><%= structure.name %></p>
+          </div>
+        </div>
       <% end %>
-      <tbody>
-      </table>
-
-    <%= paginate @structures %>
-    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
-
+      </div>
+    </div>
   </div>
+
+  <%= paginate @structures %>
+  <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
 
 <% end %>

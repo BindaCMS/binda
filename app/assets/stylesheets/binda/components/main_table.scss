@@ -2,8 +2,10 @@
 {
   table
   {
+    display: table;
     width: 100%;
     background-color: $color-gray-lightest;
+    box-sizing: border-box;
 
     th
     {
@@ -47,11 +49,6 @@
     tr:last-child
     {
       border-bottom: 1px solid $color-gray-darker;
-    }
-
-    tr.ui-sortable-handle:hover
-    {
-      border: 1px solid transparent;
     }
   }
 

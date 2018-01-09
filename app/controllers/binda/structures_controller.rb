@@ -61,8 +61,7 @@ module Binda
       params[:structure].each_with_index do |id, i|
         Structure.find( id ).update({ position: i + 1 })
       end
-      render js: "$('.popup-warning').addClass('popup-warning--hidden');"
-      head :ok
+      render js: "$('##{params[:id]}').sortable('option', 'disabled', false); $('.popup-warning').addClass('popup-warning--hidden'); $('.sortable').removeClass('sortable--disabled')"
     end
 
     def sort_index
