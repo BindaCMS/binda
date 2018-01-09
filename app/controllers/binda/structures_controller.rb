@@ -32,12 +32,10 @@ module Binda
     def update
       # Create new fields if any
       new_params[:new_field_groups].each do |field_group|
-        unless field_group[:name].blank?
-          new_field_group = @structure.field_groups.create( name: field_group[:name] )
-          unless new_field_group
-            return redirect_to structure_path( @structure.slug ), flash: { error: new_field_group.errors }
-          end
-        end
+        next if field_group[:name].blank?
+        new_field_group = @structure.field_groups.create( name: field_group[:name], slug: field_group[:slug] )
+        next if new_field_group
+        return redirect_to structure_path( @structure.slug ), flash: { error: new_field_group.errors }
       end
 
       # Update the other ones
@@ -80,7 +78,7 @@ module Binda
       end
 
       def new_params
-        params.require(:structure).permit( new_field_groups:[ :name, :structure_id ] )
+        params.require(:structure).permit( new_field_groups:[ :name, :slug, :structure_id ] )
       end
   end
 end
