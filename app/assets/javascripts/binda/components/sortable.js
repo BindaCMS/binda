@@ -49,26 +49,7 @@ export default function()
 
 	// Add event to any sortable toggle button
 	// TODO: make this event available to element which aren't standard form repeaters
-	$(document).on('click', '.standard-form--repeater .sortable--toggle', function( event )
-	{
-		event.preventDefault()
-		let id = '#' + $( this ).data('repeater-id')
-
-		if ( $( id ).hasClass('sortable--disabled') )
-		{ 
-			$( id ).sortable('enable')
-			$( id ).find('.form-item--repeater-fields').each(close)
-			$( id ).find('.form-item--collapsable').addClass('form-item--collapsed')
-		}
-		else
-		{ 
-			$( id ).sortable('disable')
-		}
-
-	 	$( id ).toggleClass('sortable--disabled')
-	 	$( id ).toggleClass('sortable--enabled')
-	 	$( this ).children('.sortable--toggle-text').toggle()
-	})
+	$(document).on('click', '.standard-form--repeater .sortable--toggle', toggleSortable)
 }
 
 
@@ -90,4 +71,25 @@ function close()
 function open()
 {
 	this.style.maxHeight = this.scrollHeight + "px";
+}
+
+function toggleSortable(event)
+{
+	event.preventDefault()
+	let id = '#' + $( this ).data('repeater-id')
+
+	if ( $( id ).hasClass('sortable--disabled') )
+	{ 
+		$( id ).sortable('enable')
+		$( id ).find('.form-item--repeater-fields').each(close)
+		$( id ).find('.form-item--collapsable').addClass('form-item--collapsed')
+	}
+	else
+	{ 
+		$( id ).sortable('disable')
+	}
+
+ 	$( id ).toggleClass('sortable--disabled')
+ 	$( id ).toggleClass('sortable--enabled')
+ 	$( this ).children('.sortable--toggle-text').toggle()
 }

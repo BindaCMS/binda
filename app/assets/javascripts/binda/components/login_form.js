@@ -19,8 +19,8 @@ class LoginForm {
     else { return false }
   }
 
-  setEvents () 
-  {
+	init()
+	{
   	this.$form = $('.login--form')
   	this.$questions = $('ol.login--questions > li')
   	this.questionsCount = this.$questions.length
@@ -30,13 +30,16 @@ class LoginForm {
   	this.$questions.first().addClass('login--current')
 		
 		//disable form autocomplete
-		this.$form.attr('autocomplete', 'off')
+		this.$form.attr('autocomplete', 'off')	
+		this.setEvents()
+	}
 
+  setEvents() 
+  {
 		let self = this
-	
 
 		// first input
-		let firstInput = this.$questions.get(this.current).querySelector( 'input, textarea, select' )
+		let firstInput = this.$questions.get(this.current).querySelector( 'input, textarea, select' )		
 
 		// focus
 		let onFocusStart = function() 
@@ -48,21 +51,21 @@ class LoginForm {
 		firstInput.addEventListener('focus', onFocusStart )
 
 		// show next question
-		this.$nextButton.on('click', function( event ) 
-		{
+		this.$nextButton.on('click', ( event )=>{
+
 			event.preventDefault()
-			self._nextQuestion()
+			this._nextQuestion()
 		} )
 
 		// pressing enter will jump to next question
-		this.$form.on('keydown', function( event ) 
-		{
+		this.$form.on('keydown', ( event )=>{
+
 			let keyCode = event.keyCode || event.which
 			// enter
 			if( keyCode === 13 ) 
 			{
 				event.preventDefault()
-				self._nextQuestion()
+				this._nextQuestion()
 			}
 		})
   }
@@ -70,10 +73,7 @@ class LoginForm {
   _nextQuestion() 
   {
 		// check if form is filled
-		if( this.current === this.questionsCount - 1 ) 
-		{
-			this.isFilled = true
-		}
+		if( this.current === this.questionsCount - 1 ) { this.isFilled = true }
 
   	// current question
 		let currentQuestion = this.$questions.get(this.current)

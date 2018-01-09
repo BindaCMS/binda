@@ -21,10 +21,10 @@ $(document).ready( function()
 	if ( _FormItem.isSet() )                 { _FormItem.setEvents() }
 	if ( _FormItemRepeater.isSet() )         { _FormItemRepeater.setEvents() }
 	if ( _FormItemImage.isSet() )            { _FormItemImage.setEvents() }
-	if ( _FieldSettingChoices.isSet() )   { _FieldSettingChoices.setEvents() }
+	if ( _FieldSettingChoices.isSet() )      { _FieldSettingChoices.setEvents() }
 	if ( _FormItemEditor.isSet() )           { _FormItemEditor.setEvents() }
 	if ( _FileUpload.isSet() )               { _FileUpload.setEvents() }
-  if ( _LoginForm.isSet() )                { _LoginForm.setEvents() }
+  if ( _LoginForm.isSet() )                { _LoginForm.init() }
   if ( _Shader.isSet() ) 
   {
 		_Shader.setup()

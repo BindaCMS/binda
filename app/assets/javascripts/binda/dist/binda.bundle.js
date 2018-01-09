@@ -713,39 +713,42 @@ function addNewItem(event) {
 		// the code contained between the two SPLIT comments
 		var parts = data.split('<!-- SPLIT -->');
 		var newRepeater = parts[1];
-
-		// Append the item
-		$list.prepend(newRepeater);
-		var new_repeater_item = $list.find('.form-item--repeater').get(0);
-
-		// Prepare animation
-		new_repeater_item.style.maxHeight = 0;
-
-		// Group fields if sotrable is enabled
-		if ($list.hasClass('sortable--enabled')) {
-			$(new_repeater_item).find('.form-item--repeater-fields').each(function () {
-				this.style.maxHeight = 0 + 'px';
-			});
-		}
-
-		// Setup TinyMCE for the newly created item
-		var textarea_editor_id = $list.find('textarea').last('textarea').attr('id');
-		tinyMCE.EditorManager.execCommand('mceAddEditor', true, textarea_editor_id);
-
-		// Resize the editor (is it needed with the new configuration?)
-		// _FormItemEditor.resize()
-
-		// Update select input for Select2 plugin
-		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find('select'));
-
-		// Refresh Sortable to update the added item with Sortable features
-		$list.sortable('refresh');
-
-		// Run animation 50ms after previous style declaration (see above) otherwise animation doesn't get triggered
-		setTimeout(function () {
-			new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + 'px';
-		}, 50);
+		setupAndAppend(newRepeater, $list);
 	});
+}
+
+function setupAndAppend(newRepeater, $list) {
+	// Append the item
+	$list.prepend(newRepeater);
+	var new_repeater_item = $list.find('.form-item--repeater').get(0);
+
+	// Prepare animation
+	new_repeater_item.style.maxHeight = 0;
+
+	// Group fields if sotrable is enabled
+	if ($list.hasClass('sortable--enabled')) {
+		$(new_repeater_item).find('.form-item--repeater-fields').each(function () {
+			this.style.maxHeight = 0 + 'px';
+		});
+	}
+
+	// Setup TinyMCE for the newly created item
+	var textarea_editor_id = $list.find('textarea').last('textarea').attr('id');
+	tinyMCE.EditorManager.execCommand('mceAddEditor', true, textarea_editor_id);
+
+	// Resize the editor (is it needed with the new configuration?)
+	// _FormItemEditor.resize()
+
+	// Update select input for Select2 plugin
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find('select'));
+
+	// Refresh Sortable to update the added item with Sortable features
+	$list.sortable('refresh');
+
+	// Run animation 50ms after previous style declaration (see above) otherwise animation doesn't get triggered
+	setTimeout(function () {
+		new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + 'px';
+	}, 50);
 }
 
 function deleteRepeter(event) {
@@ -1031,8 +1034,8 @@ var LoginForm = function () {
 			}
 		}
 	}, {
-		key: 'setEvents',
-		value: function setEvents() {
+		key: 'init',
+		value: function init() {
 			this.$form = $('.login--form');
 			this.$questions = $('ol.login--questions > li');
 			this.questionsCount = this.$questions.length;
@@ -1043,6 +1046,12 @@ var LoginForm = function () {
 
 			//disable form autocomplete
 			this.$form.attr('autocomplete', 'off');
+			this.setEvents();
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			var _this = this;
 
 			var self = this;
 
@@ -1059,17 +1068,19 @@ var LoginForm = function () {
 
 			// show next question
 			this.$nextButton.on('click', function (event) {
+
 				event.preventDefault();
-				self._nextQuestion();
+				_this._nextQuestion();
 			});
 
 			// pressing enter will jump to next question
 			this.$form.on('keydown', function (event) {
+
 				var keyCode = event.keyCode || event.which;
 				// enter
 				if (keyCode === 13) {
 					event.preventDefault();
-					self._nextQuestion();
+					_this._nextQuestion();
 				}
 			});
 		}
@@ -1191,22 +1202,7 @@ var sortableOptions = {
 
 	// Add event to any sortable toggle button
 	// TODO: make this event available to element which aren't standard form repeaters
-	$(document).on('click', '.standard-form--repeater .sortable--toggle', function (event) {
-		event.preventDefault();
-		var id = '#' + $(this).data('repeater-id');
-
-		if ($(id).hasClass('sortable--disabled')) {
-			$(id).sortable('enable');
-			$(id).find('.form-item--repeater-fields').each(close);
-			$(id).find('.form-item--collapsable').addClass('form-item--collapsed');
-		} else {
-			$(id).sortable('disable');
-		}
-
-		$(id).toggleClass('sortable--disabled');
-		$(id).toggleClass('sortable--enabled');
-		$(this).children('.sortable--toggle-text').toggle();
-	});
+	$(document).on('click', '.standard-form--repeater .sortable--toggle', toggleSortable);
 });
 
 function setupSortableToggle() {
@@ -1223,6 +1219,23 @@ function close() {
 
 function open() {
 	this.style.maxHeight = this.scrollHeight + "px";
+}
+
+function toggleSortable(event) {
+	event.preventDefault();
+	var id = '#' + $(this).data('repeater-id');
+
+	if ($(id).hasClass('sortable--disabled')) {
+		$(id).sortable('enable');
+		$(id).find('.form-item--repeater-fields').each(close);
+		$(id).find('.form-item--collapsable').addClass('form-item--collapsed');
+	} else {
+		$(id).sortable('disable');
+	}
+
+	$(id).toggleClass('sortable--disabled');
+	$(id).toggleClass('sortable--enabled');
+	$(this).children('.sortable--toggle-text').toggle();
 }
 
 /***/ }),
@@ -1282,7 +1295,7 @@ $(document).ready(function () {
 		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
 	}
 	if (__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].setEvents();
+		__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].init();
 	}
 	if (__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
