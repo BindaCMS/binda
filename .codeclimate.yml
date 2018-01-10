@@ -1,5 +1,5 @@
 ---
-engines:
+plugins:
   brakeman:
     enabled: true
   bundler-audit:
@@ -22,27 +22,9 @@ engines:
     enabled: true
   rubocop:
     enabled: true
-ratings:
-  paths:
-  - Gemfile.lock
-  - "**.erb"
-  - "**.haml"
-  - "**.rb"
-  - "**.rhtml"
-  - "**.slim"
-  - "**.css"
-  - "**.coffee"
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
-  - "**.php"
-  - "**.py"
-exclude_paths:
+exclude_patterns:
 - config/
 - db/
 - spec/
 - test/
 - vendor/
-exclude_patterns:
-- "**/binda.bundle.js"
