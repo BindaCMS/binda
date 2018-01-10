@@ -96,12 +96,18 @@ module Binda
 			unless obj.nil?
 				obj.content
 			else
-				you_mean_string = !self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::String' }.nil?
-				if you_mean_string
-					raise ArgumentError, "This slug (#{field_slug}) is associated to a string not a text. Use get_string() instead on instance (#{self.class.name} ##{self.id}).", caller
-				else
-					raise ArgumentError, "There isn't any text associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller
-				end
+				check_text_error field_slug
+			end
+		end
+
+		# Check why get_text doesn't return a value
+		# This method isn't supposed to be used by anything other than get_text method
+		def check_text_error field_slug
+			you_mean_string = !self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::String' }.nil?
+			if you_mean_string
+				raise ArgumentError, "This slug (#{field_slug}) is associated to a string not a text. Use get_string() instead on instance (#{self.class.name} ##{self.id}).", caller
+			else
+				raise ArgumentError, "There isn't any text associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller
 			end
 		end
 
@@ -130,12 +136,18 @@ module Binda
 			unless obj.nil?
 				obj.content
 			else
-				you_mean_text = !self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }.nil?
-				if you_mean_text
-					raise ArgumentError, "This slug (#{field_slug}) is associated to a text not a string. Use get_text() instead on instance (#{self.class.name} ##{self.id}).", caller
-				else
-					raise ArgumentError, "There isn't any string associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller
-				end
+				check_string_error field_slug
+			end
+		end
+
+		# Check why get_string doesn't return a value
+		# This method isn't supposed to be used by anything other than get_string method
+		def check_string_error field_slug
+			you_mean_text = !self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type = 'Binda::Text' }.nil?
+			if you_mean_text
+				raise ArgumentError, "This slug (#{field_slug}) is associated to a text not a string. Use get_text() instead on instance (#{self.class.name} ##{self.id}).", caller
+			else
+				raise ArgumentError, "There isn't any string associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller
 			end
 		end
 

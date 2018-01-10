@@ -166,15 +166,15 @@ module Binda
 
 		# Helper for create_field_instances method
 		def create_field_instances_for_component( component, field_class, field_setting_id )
-			unless component.send(field_class).where(field_setting_id: self.id).any?
-				component.send(field_class).create!(field_setting_id: self.id)
+			unless component.send(field_class).where(field_setting_id: field_setting_id).any?
+				component.send(field_class).create!(field_setting_id: field_setting_id)
 			end
 		end
 
 		# Helper for create_field_instances method
 		def create_field_instances_for_board ( board, field_class, field_setting_id )
-			unless board.send(field_class).where(field_setting_id: self.id).any?
-				board.send(field_class).create!(field_setting_id: self.id)
+			unless board.send(field_class).where(field_setting_id: field_setting_id).any?
+				board.send(field_class).create!(field_setting_id: field_setting_id)
 			end
 		end
 	end
