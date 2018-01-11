@@ -50,6 +50,7 @@ en:
     confirm_delete: Do you really want to remove it?
     upload_button: Upload
     upload_loading_message: Uploading file...
+    upload_error_message: Ops! Something went wrong. Make sure the file you are uploading is correct.
     choose_file_button: Choose a file
     preview: Preview
     no_preview: No file selected

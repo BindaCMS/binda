@@ -96,5 +96,8 @@ function updateSortable()
 		$(doneData.id).sortable('option', 'disabled', false)
 		$('.popup-warning').addClass('popup-warning--hidden')
 		$(doneData.id).removeClass('sortable--disabled')
+	}).fail(function(failData){
+		$('.popup-warning').addClass('popup-warning--hidden')
+		alert('Error: ' + failData.message)
 	})
 }

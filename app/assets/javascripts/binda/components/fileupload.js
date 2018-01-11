@@ -110,11 +110,12 @@ function makeRequest(event, formData )
 		// Display details and buttons
 		$parent.find('.fileupload--details').removeClass('fileupload--details--hidden')
 		$parent.find('.fileupload--remove-image-btn').removeClass('fileupload--remove-image-btn--hidden')
-	}).fail( function()
+	}).fail( function(dataFail)
 	{
+		console.error("Error:", dataFail.responseJSON)
 		// Hide loaded
 		$('.popup-warning').addClass('popup-warning--hidden')
-		alert('Something went wrong. Upload process failed.')
+		alert($parent.data('error'))
 	})
 }
 
