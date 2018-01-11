@@ -1,12 +1,4 @@
-<div class="popup-warning popup-warning--hidden">
-    <div class="popup-warning--loader">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <p><%= t 'binda.upload_loading_message' %></p>
-</div>
+<%= render 'layouts/binda/popup_warning' %>
 
 <%= simple_form_for [ @instance.structure, @instance ], html: { class: 'form-body', multipart: true } do |f| %>
 

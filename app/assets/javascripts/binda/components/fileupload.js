@@ -78,6 +78,7 @@ function handle_file(event)
 	// formData.append('authenticity_token', token)
 
 	// Display loader
+	$('.popup-warning--message').text( $parent.data('message') )
 	$('.popup-warning').removeClass('popup-warning--hidden')
 
 	// Once form data are gathered make the request
@@ -109,19 +110,17 @@ function makeRequest(event, formData )
 		// Display details and buttons
 		$parent.find('.fileupload--details').removeClass('fileupload--details--hidden')
 		$parent.find('.fileupload--remove-image-btn').removeClass('fileupload--remove-image-btn--hidden')
-	}).fail( function()
+	}).fail( function(dataFail)
 	{
+		console.error("Error:", dataFail.responseJSON)
 		// Hide loaded
 		$('.popup-warning').addClass('popup-warning--hidden')
-		alert('Something went wrong. Upload process failed.')
+		alert($parent.data('error'))
 	})
 }
 
-
-function reset_file(event) 
-{
-	let input = event.target
-	
+function reset_file(input) 
+{	
 	input.value = ''
 
 	if(!/safari/i.test(navigator.userAgent)){
@@ -137,7 +136,10 @@ function remove_preview(event)
 
 	// Reset previews (either image or video)
 	$parent.find('.fileupload--preview').css('background-image','').removeClass('fileupload--preview--uploaded')
-	$parent.find('video source').attr('src', '')
+	$parent.find('video source').removeAttr('src')
+	
+	// Clear input field 
+	reset_file( $parent.find('input[type=file]').get(0) )
 
 	// Reset buttons to initial state
 	$parent.find('.fileupload--remove-image-btn').addClass('fileupload--remove-image-btn--hidden')
@@ -176,7 +178,7 @@ function setup_video_preview(data, id)
 	  .attr('type', 'video/' + data.ext)
 
   // If video source isn't blank load it (consider that a video tag is always present)
-	if ( $preview.find('video source').attr('src').length > 0 )
+	if ( typeof $preview.find('video source').attr('src') != undefined )
 	{
 		$preview.find('video').get(0).load()
 	}
@@ -188,4 +190,5 @@ function setup_video_preview(data, id)
 	// Update details
 	$parent.find('.fileupload--filesize').text(data.size)
 	$parent.find('.fileupload--filename').text(data.name)
+	$parent.find('.fileupload--videolink a').attr('href', data.url)
 }

@@ -50,12 +50,14 @@ en:
     confirm_delete: Do you really want to remove it?
     upload_button: Upload
     upload_loading_message: Uploading file...
+    upload_error_message: Ops! Something went wrong. Make sure the file you are uploading is correct.
     choose_file_button: Choose a file
     preview: Preview
     no_preview: No file selected
     filename: Name
     filesize: Size
     filedimension: Dimension
+    filevideolink: Preview video
     select_placeholder: Select a option
     new_item_in_repeater: New %{arg1} item
     null_is_not_allowed: You need to select at least one choice
@@ -103,6 +105,6 @@ en:
     login_credit: Built with Binda %{arg1}
     choice_label: label
     choice_value: value
-    allow_null: Choice method
-    allow_null_true: Allow to not choose any of the choices
-    allow_null_false: Force to make a choice among the available choices
+    allow_null: Require a choice
+    allow_null_true: Choosing is not required 
+    allow_null_false: Require to choose among the available choices

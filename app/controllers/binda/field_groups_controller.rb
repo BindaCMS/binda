@@ -35,7 +35,7 @@ module Binda
       # Add nested classes
       add_new_field_settings
       add_new_choices
-      update_choices
+      check_if_needs_to_update_choices
 
       # Update the other ones
       if @field_group.update(field_group_params)
@@ -64,63 +64,11 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def field_group_params
-        params.require(:field_group).permit(
-          :name, 
-          :slug, 
-          :description, 
-          :position, 
-          :layout, 
-          :structure_id, 
-          field_settings_attributes: 
-            [ :id, 
-              :field_group_id, 
-              :field_setting_id, 
-              :name, 
-              :slug, 
-              :description, 
-              :field_type, 
-              :position, 
-              :required,
-              :default_text, 
-              :ancestry, 
-              :default_choice_id, 
-              :allow_null,
-              accepted_structure_ids: [],
-              choices: [], 
-              choices_attributes: 
-              [ :id, 
-                :field_setting_id, 
-                :label, 
-                :value 
-              ]
-            ]
-          )
+        params.require(:field_group).permit(:name, :slug, :description, :position, :layout, :structure_id, field_settings_attributes: [ :id, :field_group_id, :field_setting_id, :name, :slug, :description, :field_type, :position, :required, :default_text, :ancestry, :default_choice_id, :allow_null, accepted_structure_ids: [], choices: [], choices_attributes: [ :id, :field_setting_id, :label, :value ]])
       end
 
       def new_params
-        params.require(:field_group).permit( 
-          new_field_settings:
-            [ :id,
-              :field_group_id, 
-              :field_setting_id, 
-              :name, 
-              :slug, 
-              :description, 
-              :field_type, 
-              :position, 
-              :required, 
-              :ancestry, 
-              :default_choice_id,
-              :allow_null,
-              choices: [] 
-            ],
-          new_choices: 
-            [ :id,
-              :field_setting_id, 
-              :label, 
-              :value 
-            ]
-          )
+        params.require(:field_group).permit( new_field_settings: [ :id, :field_group_id, :field_setting_id, :name, :slug, :description, :field_type, :position, :required, :ancestry, :default_choice_id, :allow_null, choices: [] ],new_choices: [ :id, :field_setting_id, :label, :value ])
       end
 
       def reset_field_settings_cache
@@ -130,24 +78,20 @@ module Binda
       def add_new_field_settings
         # Create new fields if any
         new_params[:new_field_settings].each do |field_setting|
-          unless field_setting[:name].blank?
-            new_field_setting = @field_group.field_settings.create( field_setting )
-            unless new_field_setting
-              return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_field_setting.errors }
-            end
-          end
+          next if field_setting[:name].blank?
+          new_field_setting = @field_group.field_settings.create( field_setting )
+          next if new_field_setting
+          return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_field_setting.errors }
         end
       end
 
       def add_new_choices
         # Create new fields if any
-        unless new_params[:new_choices].nil? 
-          new_params[:new_choices].each do |choice|
-            unless choice[:label].blank? || choice[:value].blank?
-              create_new_choice choice
-            end
-          end
-        end 
+        return if new_params[:new_choices].nil? 
+        new_params[:new_choices].each do |choice|
+          next if choice[:label].blank? || choice[:value].blank?
+          create_new_choice choice
+        end
       end
 
       # Create new choice (depends directly from add_new_choice method)
@@ -158,18 +102,21 @@ module Binda
         end
       end
 
-      def update_choices
+      def check_if_needs_to_update_choices
         return if field_group_params[:field_settings_attributes].nil?
         field_group_params[:field_settings_attributes].each do |_, field_setting_params|
           next if field_setting_params[:choices_attributes].nil?
-          field_setting_params[:choices_attributes].each do |_, choice_params|
-            choice = Choice.find(choice_params[:id])
-            unless choice.update(choice_params)
-              return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: choice.errors }
-            end
-          end
+          update_field_setting_choices field_setting_params
         end
       end
 
+      def update_field_setting_choices field_setting_params
+        field_setting_params[:choices_attributes].each do |_, choice_params|
+          choice = Choice.find(choice_params[:id])
+          unless choice.update(choice_params)
+            return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: choice.errors }
+          end
+        end
+      end
   end
 end

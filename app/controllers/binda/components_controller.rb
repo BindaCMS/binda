@@ -64,15 +64,14 @@ module Binda
       params[:repeater].each_with_index do |id, i|
         Repeater.find( id ).update({ position: i + 1 })
       end
-      render js: "$('.popup-warning').addClass('popup-warning--hidden');"
-      head :ok
+      render json: { id: "##{params[:id]}" }, status: 200
     end
     
     def sort
       params[:component].each_with_index do |id, i|
         Component.find( id ).update_column('position', i + 1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
       end
-      render js: "$('##{params[:id]}').sortable('option', 'disabled', false); $('.popup-warning').addClass('popup-warning--hidden'); $('.sortable').removeClass('sortable--disabled')"
+      render json: { id: "##{params[:id]}" }, status: 200
     end
 
     def sort_index
@@ -82,12 +81,9 @@ module Binda
 
     def upload
       if @component.update( upload_params(:component) )
-        respond_to do |format|
-          format.json { render json: upload_details }
-        end
+        render json: upload_details, status: 200
       else
-        logger.debug("The upload process has failed. #{ @component.errors.full_messages }")
-        head :bad_request
+        render json: @component.errors.full_messages, status: 400
       end
     end
 

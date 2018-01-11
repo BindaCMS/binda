@@ -23,7 +23,7 @@
 		
 		</div>
 
-		<ul id="form-item--repeater-setting-<%= repeater_setting.id %>" class="sortable sortable--disabled" data-update-url="<%= url_for([@structure, @instance, :sort_repeaters]) %>">
+		<ul id="form-item--repeater-setting-<%= repeater_setting.id %>" class="sortable sortable--disabled" data-update-url="<%= url_for([@structure, @instance, :sort_repeaters]) %>" data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.components').downcase } %>">
 
 			<% if repeaters.size == 0 %>
 

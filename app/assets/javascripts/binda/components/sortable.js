@@ -4,25 +4,9 @@
 
 
 var sortableOptions = {
-		stop: function(event, ui)
-		{
-			ui.item.css('z-index', 0)
-		},
+		stop: function(event, ui){ ui.item.css('z-index', 0) },
   	placeholder: "ui-state-highlight",
-  	update: function () 
-  	{
-  		if ( $('.popup-warning').length > 0 ) 
-  		{
-  			$('.sortable').addClass('sortable--disabled')
-  			$('.popup-warning').removeClass('popup-warning--hidden')
-  			$(this).sortable('option','disabled', true)
-  		}
-			let url = $(this).data('update-url')
-			let data = $(this).sortable('serialize')
-			// If there is a pagination update accordingly
-			data = data.concat(`&id=${$(this).attr('id')}`)
-			$.post( url, data )
-  	}
+  	update: updateSortable
   }
 
 export default function() 
@@ -49,26 +33,7 @@ export default function()
 
 	// Add event to any sortable toggle button
 	// TODO: make this event available to element which aren't standard form repeaters
-	$(document).on('click', '.standard-form--repeater .sortable--toggle', function( event )
-	{
-		event.preventDefault()
-		let id = '#' + $( this ).data('repeater-id')
-
-		if ( $( id ).hasClass('sortable--disabled') )
-		{ 
-			$( id ).sortable('enable')
-			$( id ).find('.form-item--repeater-fields').each(close)
-			$( id ).find('.form-item--collapsable').addClass('form-item--collapsed')
-		}
-		else
-		{ 
-			$( id ).sortable('disable')
-		}
-
-	 	$( id ).toggleClass('sortable--disabled')
-	 	$( id ).toggleClass('sortable--enabled')
-	 	$( this ).children('.sortable--toggle-text').toggle()
-	})
+	$(document).on('click', '.standard-form--repeater .sortable--toggle', toggleSortable)
 }
 
 
@@ -90,4 +55,49 @@ function close()
 function open()
 {
 	this.style.maxHeight = this.scrollHeight + "px";
+}
+
+function toggleSortable(event)
+{
+	event.preventDefault()
+	let id = '#' + $( this ).data('repeater-id')
+
+	if ( $( id ).hasClass('sortable--disabled') )
+	{ 
+		$( id ).sortable('enable')
+		$( id ).find('.form-item--repeater-fields').each(close)
+		$( id ).find('.form-item--collapsable').addClass('form-item--collapsed')
+	}
+	else
+	{ 
+		$( id ).sortable('disable')
+	}
+
+ 	$( id ).toggleClass('sortable--disabled')
+ 	$( id ).toggleClass('sortable--enabled')
+ 	$( this ).children('.sortable--toggle-text').toggle()
+}
+
+function updateSortable() 
+{
+	if ( $('.popup-warning').length > 0 ) 
+	{
+		$(this).addClass('sortable--disabled')
+		$('.popup-warning--message').text( $(this).data('message') )
+		$('.popup-warning').removeClass('popup-warning--hidden')
+		$(this).sortable('option','disabled', true)
+	}
+	let url = $(this).data('update-url')
+	let data = $(this).sortable('serialize')
+	// If there is a pagination update accordingly
+	data = data.concat(`&id=${$(this).attr('id')}`)
+	$.post( url, data ).done( function(doneData)
+	{
+		$(doneData.id).sortable('option', 'disabled', false)
+		$('.popup-warning').addClass('popup-warning--hidden')
+		$(doneData.id).removeClass('sortable--disabled')
+	}).fail(function(failData){
+		$('.popup-warning').addClass('popup-warning--hidden')
+		alert('Error: ' + failData.message)
+	})
 }

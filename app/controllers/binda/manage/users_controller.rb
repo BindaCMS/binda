@@ -36,19 +36,18 @@ module Binda
     end
 
     def update
-      if @user.is_superadmin && !current_user.is_superadmin
-        redirect_to manage_users_url, notice: 'Sorry, you cannot edit a super administrator.'
-      else
-        respond_to do |format|
-          if @user.update(user_params)
-            format.html { redirect_to manage_user_path( @user.id ), notice: 'User was successfully updated.' }
-            format.xml  { head :ok }
-            format.json { render :show, status: :ok, location: @user }
-          else
-            format.html { redirect_to edit_manage_user_path( @user.id ), flash: { alert: @user.errors } }
-            format.xml  { head :bad_request }
-            format.json { render json: @user.errors, status: :unprocessable_entity }
-          end
+      # Check if the user to be updated is superadmin and the user which is updating is superadmin
+      check_if_superadmin
+
+      respond_to do |format|
+        if @user.update(user_params)
+          format.html { redirect_to manage_user_path( @user.id ), notice: 'User was successfully updated.' }
+          format.xml  { head :ok }
+          format.json { render :show, status: :ok, location: @user }
+        else
+          format.html { redirect_to edit_manage_user_path( @user.id ), flash: { alert: @user.errors } }
+          format.xml  { head :bad_request }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -84,6 +83,12 @@ module Binda
         if params[:user][:password].blank?
           params[:user].delete(:password)
           params[:user].delete(:password_confirmation)
+        end
+      end
+
+      def check_if_superadmin
+        if @user.is_superadmin && !current_user.is_superadmin
+          return redirect_to manage_users_url, notice: 'Sorry, you cannot edit a super administrator.'
         end
       end
   end

@@ -2,7 +2,6 @@
 A modular CMS for Ruby on Rails 5.1.
 
 [![Code Climate](https://codeclimate.com/github/lacolonia/binda/badges/gpa.svg)](https://codeclimate.com/github/lacolonia/binda)
-[![Issue Count](https://codeclimate.com/github/lacolonia/binda/badges/issue_count.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Build Status](https://travis-ci.org/a-barbieri/binda.svg?branch=master)](https://travis-ci.org/lacolonia/binda)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5dc62774a6b8b63aa72b/test_coverage)](https://codeclimate.com/github/lacolonia/binda/test_coverage)
 [![Dependency Status](https://gemnasium.com/badges/github.com/lacolonia/binda.svg)](https://gemnasium.com/github.com/lacolonia/binda)
@@ -25,9 +24,10 @@ Let's say your website needs a set of pages with a subtitle. That's super easy.
 
 - create a "Page" _structure_
 - go to General Details of "Page" _structure_ (see the small pencil icon)
-- set a "Subtitle" _field-settings_ based both on a _String_ field type. 
+- set a "Description" _field-settings_ based both on a _String_ field type. 
+- set a "Featured Image" _field-settings_ based both on a _Image_ field type. 
 
-Done! Now you'll see the "Pages" tab in your menu which will contain all your pages.
+Done! Now you'll see the "Pages" tab in your menu which will contain all your pages and where you can set the description and the featured image.
 
 It's easier learning by doing than by reading. ;-)
 Watch the preview on [Binda's vimeo channel](https://vimeo.com/bindacms/010-preview)

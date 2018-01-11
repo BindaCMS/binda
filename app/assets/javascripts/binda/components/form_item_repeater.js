@@ -54,42 +54,46 @@ function addNewItem( event )
 		// the code contained between the two SPLIT comments
 		let parts = data.split('<!-- SPLIT -->')
 		let newRepeater = parts[1]
-
-		// Append the item
-		$list.prepend( newRepeater )
-		let new_repeater_item = $list.find('.form-item--repeater').get(0)
-
-		// Prepare animation
-		new_repeater_item.style.maxHeight = 0
-
-		// Group fields if sotrable is enabled
-		if ( $list.hasClass('sortable--enabled') ) 
-		{
-			$(new_repeater_item).find('.form-item--repeater-fields').each(function()
-			{
-				this.style.maxHeight = 0 + 'px'
-			})
-		}
-
-		// Setup TinyMCE for the newly created item
-		var textarea_editor_id = $list.find('textarea').last('textarea').attr('id')
-		tinyMCE.EditorManager.execCommand('mceAddEditor',true, textarea_editor_id);
-		
-		// Resize the editor (is it needed with the new configuration?)
-		// _FormItemEditor.resize()
-		
-		// Update select input for Select2 plugin
-		setupSelect2( $list.find('select') )
-
-		// Refresh Sortable to update the added item with Sortable features
-		$list.sortable('refresh')
-	
-		// Run animation 50ms after previous style declaration (see above) otherwise animation doesn't get triggered
-		setTimeout( function()
-		{
-			new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + 'px' 
-		}, 50)
+		setupAndAppend( newRepeater, $list )
 	})
+}
+
+function setupAndAppend( newRepeater, $list )
+{
+	// Append the item
+	$list.prepend( newRepeater )
+	let new_repeater_item = $list.find('.form-item--repeater').get(0)
+
+	// Prepare animation
+	new_repeater_item.style.maxHeight = 0
+
+	// Group fields if sotrable is enabled
+	if ( $list.hasClass('sortable--enabled') ) 
+	{
+		$(new_repeater_item).find('.form-item--repeater-fields').each(function()
+		{
+			this.style.maxHeight = 0 + 'px'
+		})
+	}
+
+	// Setup TinyMCE for the newly created item
+	var textarea_editor_id = $list.find('textarea').last('textarea').attr('id')
+	tinyMCE.EditorManager.execCommand('mceAddEditor',true, textarea_editor_id);
+	
+	// Resize the editor (is it needed with the new configuration?)
+	// _FormItemEditor.resize()
+	
+	// Update select input for Select2 plugin
+	setupSelect2( $list.find('select') )
+
+	// Refresh Sortable to update the added item with Sortable features
+	$list.sortable('refresh')
+
+	// Run animation 50ms after previous style declaration (see above) otherwise animation doesn't get triggered
+	setTimeout( function()
+	{
+		new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + 'px' 
+	}, 50)
 }
 
 function deleteRepeter( event )

@@ -1,6 +1,8 @@
 <div id="standard-form--video-<%= field_setting.id %>" class="standard-form--video form-item">
   <div id="fileupload-<%= ff.object.id %>" 
-    class="fileupload form-group">
+    class="fileupload form-group"
+    data-message="<%= t('binda.upload_loading_message') %>"
+    data-error="<%= t('binda.upload_error_message')%>">
 
     <p class="control-label"><%= field_setting.name.capitalize %></p>
 
@@ -15,7 +17,7 @@
 				input_html: { 
 					class: 'form-item--video--uploader',
           'data-url': url_for([@instance.structure, @instance, action: :upload]),
-          'data-id': ff.object.id 
+          'data-id': ff.object.id,
 				} %>
 
       

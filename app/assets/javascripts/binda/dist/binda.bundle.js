@@ -286,6 +286,8 @@ function deleteChoice(event) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FileUpload; });
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -374,6 +376,7 @@ function handle_file(event) {
 	// formData.append('authenticity_token', token)
 
 	// Display loader
+	$('.popup-warning--message').text($parent.data('message'));
 	$('.popup-warning').removeClass('popup-warning--hidden');
 
 	// Once form data are gathered make the request
@@ -405,16 +408,15 @@ function makeRequest(event, formData) {
 		// Display details and buttons
 		$parent.find('.fileupload--details').removeClass('fileupload--details--hidden');
 		$parent.find('.fileupload--remove-image-btn').removeClass('fileupload--remove-image-btn--hidden');
-	}).fail(function () {
+	}).fail(function (dataFail) {
+		console.error("Error:", dataFail.responseJSON);
 		// Hide loaded
 		$('.popup-warning').addClass('popup-warning--hidden');
-		alert('Something went wrong. Upload process failed.');
+		alert($parent.data('error'));
 	});
 }
 
-function reset_file(event) {
-	var input = event.target;
-
+function reset_file(input) {
 	input.value = '';
 
 	if (!/safari/i.test(navigator.userAgent)) {
@@ -429,7 +431,10 @@ function remove_preview(event) {
 
 	// Reset previews (either image or video)
 	$parent.find('.fileupload--preview').css('background-image', '').removeClass('fileupload--preview--uploaded');
-	$parent.find('video source').attr('src', '');
+	$parent.find('video source').removeAttr('src');
+
+	// Clear input field 
+	reset_file($parent.find('input[type=file]').get(0));
 
 	// Reset buttons to initial state
 	$parent.find('.fileupload--remove-image-btn').addClass('fileupload--remove-image-btn--hidden');
@@ -461,7 +466,7 @@ function setup_video_preview(data, id) {
 	$preview.removeClass('fileupload--preview--uploaded').find('video').attr('id', 'video-' + id).find('source').attr('src', data.url).attr('type', 'video/' + data.ext);
 
 	// If video source isn't blank load it (consider that a video tag is always present)
-	if ($preview.find('video source').attr('src').length > 0) {
+	if (_typeof($preview.find('video source').attr('src')) != undefined) {
 		$preview.find('video').get(0).load();
 	}
 
@@ -472,6 +477,7 @@ function setup_video_preview(data, id) {
 	// Update details
 	$parent.find('.fileupload--filesize').text(data.size);
 	$parent.find('.fileupload--filename').text(data.name);
+	$parent.find('.fileupload--videolink a').attr('href', data.url);
 }
 
 /***/ }),
@@ -713,39 +719,42 @@ function addNewItem(event) {
 		// the code contained between the two SPLIT comments
 		var parts = data.split('<!-- SPLIT -->');
 		var newRepeater = parts[1];
-
-		// Append the item
-		$list.prepend(newRepeater);
-		var new_repeater_item = $list.find('.form-item--repeater').get(0);
-
-		// Prepare animation
-		new_repeater_item.style.maxHeight = 0;
-
-		// Group fields if sotrable is enabled
-		if ($list.hasClass('sortable--enabled')) {
-			$(new_repeater_item).find('.form-item--repeater-fields').each(function () {
-				this.style.maxHeight = 0 + 'px';
-			});
-		}
-
-		// Setup TinyMCE for the newly created item
-		var textarea_editor_id = $list.find('textarea').last('textarea').attr('id');
-		tinyMCE.EditorManager.execCommand('mceAddEditor', true, textarea_editor_id);
-
-		// Resize the editor (is it needed with the new configuration?)
-		// _FormItemEditor.resize()
-
-		// Update select input for Select2 plugin
-		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find('select'));
-
-		// Refresh Sortable to update the added item with Sortable features
-		$list.sortable('refresh');
-
-		// Run animation 50ms after previous style declaration (see above) otherwise animation doesn't get triggered
-		setTimeout(function () {
-			new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + 'px';
-		}, 50);
+		setupAndAppend(newRepeater, $list);
 	});
+}
+
+function setupAndAppend(newRepeater, $list) {
+	// Append the item
+	$list.prepend(newRepeater);
+	var new_repeater_item = $list.find('.form-item--repeater').get(0);
+
+	// Prepare animation
+	new_repeater_item.style.maxHeight = 0;
+
+	// Group fields if sotrable is enabled
+	if ($list.hasClass('sortable--enabled')) {
+		$(new_repeater_item).find('.form-item--repeater-fields').each(function () {
+			this.style.maxHeight = 0 + 'px';
+		});
+	}
+
+	// Setup TinyMCE for the newly created item
+	var textarea_editor_id = $list.find('textarea').last('textarea').attr('id');
+	tinyMCE.EditorManager.execCommand('mceAddEditor', true, textarea_editor_id);
+
+	// Resize the editor (is it needed with the new configuration?)
+	// _FormItemEditor.resize()
+
+	// Update select input for Select2 plugin
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find('select'));
+
+	// Refresh Sortable to update the added item with Sortable features
+	$list.sortable('refresh');
+
+	// Run animation 50ms after previous style declaration (see above) otherwise animation doesn't get triggered
+	setTimeout(function () {
+		new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + 'px';
+	}, 50);
 }
 
 function deleteRepeter(event) {
@@ -1031,8 +1040,8 @@ var LoginForm = function () {
 			}
 		}
 	}, {
-		key: 'setEvents',
-		value: function setEvents() {
+		key: 'init',
+		value: function init() {
 			this.$form = $('.login--form');
 			this.$questions = $('ol.login--questions > li');
 			this.questionsCount = this.$questions.length;
@@ -1043,6 +1052,12 @@ var LoginForm = function () {
 
 			//disable form autocomplete
 			this.$form.attr('autocomplete', 'off');
+			this.setEvents();
+		}
+	}, {
+		key: 'setEvents',
+		value: function setEvents() {
+			var _this = this;
 
 			var self = this;
 
@@ -1059,17 +1074,19 @@ var LoginForm = function () {
 
 			// show next question
 			this.$nextButton.on('click', function (event) {
+
 				event.preventDefault();
-				self._nextQuestion();
+				_this._nextQuestion();
 			});
 
 			// pressing enter will jump to next question
 			this.$form.on('keydown', function (event) {
+
 				var keyCode = event.keyCode || event.which;
 				// enter
 				if (keyCode === 13) {
 					event.preventDefault();
-					self._nextQuestion();
+					_this._nextQuestion();
 				}
 			});
 		}
@@ -1153,18 +1170,7 @@ var sortableOptions = {
 		ui.item.css('z-index', 0);
 	},
 	placeholder: "ui-state-highlight",
-	update: function update() {
-		if ($('.popup-warning').length > 0) {
-			$('.sortable').addClass('sortable--disabled');
-			$('.popup-warning').removeClass('popup-warning--hidden');
-			$(this).sortable('option', 'disabled', true);
-		}
-		var url = $(this).data('update-url');
-		var data = $(this).sortable('serialize');
-		// If there is a pagination update accordingly
-		data = data.concat('&id=' + $(this).attr('id'));
-		$.post(url, data);
-	}
+	update: updateSortable
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (function () {
@@ -1191,22 +1197,7 @@ var sortableOptions = {
 
 	// Add event to any sortable toggle button
 	// TODO: make this event available to element which aren't standard form repeaters
-	$(document).on('click', '.standard-form--repeater .sortable--toggle', function (event) {
-		event.preventDefault();
-		var id = '#' + $(this).data('repeater-id');
-
-		if ($(id).hasClass('sortable--disabled')) {
-			$(id).sortable('enable');
-			$(id).find('.form-item--repeater-fields').each(close);
-			$(id).find('.form-item--collapsable').addClass('form-item--collapsed');
-		} else {
-			$(id).sortable('disable');
-		}
-
-		$(id).toggleClass('sortable--disabled');
-		$(id).toggleClass('sortable--enabled');
-		$(this).children('.sortable--toggle-text').toggle();
-	});
+	$(document).on('click', '.standard-form--repeater .sortable--toggle', toggleSortable);
 });
 
 function setupSortableToggle() {
@@ -1223,6 +1214,44 @@ function close() {
 
 function open() {
 	this.style.maxHeight = this.scrollHeight + "px";
+}
+
+function toggleSortable(event) {
+	event.preventDefault();
+	var id = '#' + $(this).data('repeater-id');
+
+	if ($(id).hasClass('sortable--disabled')) {
+		$(id).sortable('enable');
+		$(id).find('.form-item--repeater-fields').each(close);
+		$(id).find('.form-item--collapsable').addClass('form-item--collapsed');
+	} else {
+		$(id).sortable('disable');
+	}
+
+	$(id).toggleClass('sortable--disabled');
+	$(id).toggleClass('sortable--enabled');
+	$(this).children('.sortable--toggle-text').toggle();
+}
+
+function updateSortable() {
+	if ($('.popup-warning').length > 0) {
+		$(this).addClass('sortable--disabled');
+		$('.popup-warning--message').text($(this).data('message'));
+		$('.popup-warning').removeClass('popup-warning--hidden');
+		$(this).sortable('option', 'disabled', true);
+	}
+	var url = $(this).data('update-url');
+	var data = $(this).sortable('serialize');
+	// If there is a pagination update accordingly
+	data = data.concat('&id=' + $(this).attr('id'));
+	$.post(url, data).done(function (doneData) {
+		$(doneData.id).sortable('option', 'disabled', false);
+		$('.popup-warning').addClass('popup-warning--hidden');
+		$(doneData.id).removeClass('sortable--disabled');
+	}).fail(function (failData) {
+		$('.popup-warning').addClass('popup-warning--hidden');
+		alert('Error: ' + failData.message);
+	});
 }
 
 /***/ }),
@@ -1282,7 +1311,7 @@ $(document).ready(function () {
 		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
 	}
 	if (__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].setEvents();
+		__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].init();
 	}
 	if (__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].isSet()) {
 		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();

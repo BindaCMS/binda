@@ -16,7 +16,7 @@ spec/**/uploads/**/*
 
 .yardoc
 doc
-.gem
+*.gem
 coverage
 cc-test-reporter
 .idea

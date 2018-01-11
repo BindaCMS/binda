@@ -6,15 +6,8 @@
 <% end %>
 
 <% content_for :content do %>
-  <div class="popup-warning popup-warning--hidden">
-      <div class="popup-warning--loader">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <p><%= t 'binda.sort_items_loader', { arg1: t('binda.structures').downcase } %></p>
-  </div>
+
+  <%= render 'layouts/binda/popup_warning' %>
 
   <div class="main-table--container">
     <h5 class="text-muted"><%= t('binda.sort_index_hint', { arg1: t('binda.structures').downcase }).html_safe %></h5>
@@ -25,7 +18,7 @@
           <p>Structures</p>
         </div>
       </div>
-      <div id="structures--sort-index" class="sortable" data-update-url="<%= structures_sort_path() %>">
+      <div id="structures--sort-index" class="sortable" data-update-url="<%= structures_sort_path() %>" data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.components').downcase } %>">
       <% @structures.order( :name ).each do |structure| %>
         <div id="structure_<%= structure.id %>" class="main-sortable-table--row ui-sortable-handle">
           <div class="main-sortable-table--row-cell">
