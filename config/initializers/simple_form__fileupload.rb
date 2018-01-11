@@ -54,7 +54,8 @@ module SimpleForm
             html << '" data-id="'
             html << obj.id.to_s
             html << '">'
-              html << '<i class="fa fa-trash-alt" aria-hidden="true"></i> Delete image'
+              html << '<i class="fa fa-trash-alt" aria-hidden="true"></i>'
+              html << t('binda.delete')
           html << '</a>'
           html << '<div class="clearfix"></div>'
         end
@@ -100,6 +101,12 @@ module SimpleForm
           html << '</span> x <span class="fileupload--height">'
           html << image[:height].to_s unless image.nil?
           html << '</span> px</p>'
+          html << '<p class="fileupload--videolink"><a href="'
+          html << obj.video.url if obj.video.present?
+          html << '" target="_blank"><i class="fas fa-external-link-alt"></i> <strong>'
+          html << t('binda.filevideolink')
+          html << '</strong></a></p>'
+
           html << '</div>'
         end
       end

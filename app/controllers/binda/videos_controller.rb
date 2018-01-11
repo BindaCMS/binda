@@ -50,8 +50,11 @@ module Binda
 
     def remove_video
       @video.remove_video!
-      @video.save!
-      render js: "$('#video-#{@video.id}').remove();"
+      if @video.save
+        head :ok
+      else
+        render json: @video.errors.full_messages, status: 400
+      end
     end
 
     private

@@ -50,8 +50,11 @@ module Binda
 
     def remove_image
       @image.remove_image!
-      @image.save!
-      head :ok
+      if @image.save
+        head :ok
+      else
+        render json: @image.errors.full_messages, status: 400
+      end
     end
 
     private

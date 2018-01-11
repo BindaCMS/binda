@@ -136,7 +136,7 @@ function remove_preview(event)
 
 	// Reset previews (either image or video)
 	$parent.find('.fileupload--preview').css('background-image','').removeClass('fileupload--preview--uploaded')
-	$parent.find('video source').attr('src', '')
+	$parent.find('video source').removeAttr('src')
 	
 	// Clear input field 
 	reset_file( $parent.find('input[type=file]').get(0) )
@@ -178,7 +178,7 @@ function setup_video_preview(data, id)
 	  .attr('type', 'video/' + data.ext)
 
   // If video source isn't blank load it (consider that a video tag is always present)
-	if ( $preview.find('video source').attr('src').length > 0 )
+	if ( typeof $preview.find('video source').attr('src') != undefined )
 	{
 		$preview.find('video').get(0).load()
 	}
@@ -190,4 +190,5 @@ function setup_video_preview(data, id)
 	// Update details
 	$parent.find('.fileupload--filesize').text(data.size)
 	$parent.find('.fileupload--filename').text(data.name)
+	$parent.find('.fileupload--videolink a').attr('href', data.url)
 }

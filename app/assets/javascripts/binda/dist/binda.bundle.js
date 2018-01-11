@@ -286,6 +286,8 @@ function deleteChoice(event) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FileUpload; });
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -429,7 +431,7 @@ function remove_preview(event) {
 
 	// Reset previews (either image or video)
 	$parent.find('.fileupload--preview').css('background-image', '').removeClass('fileupload--preview--uploaded');
-	$parent.find('video source').attr('src', '');
+	$parent.find('video source').removeAttr('src');
 
 	// Clear input field 
 	reset_file($parent.find('input[type=file]').get(0));
@@ -464,7 +466,7 @@ function setup_video_preview(data, id) {
 	$preview.removeClass('fileupload--preview--uploaded').find('video').attr('id', 'video-' + id).find('source').attr('src', data.url).attr('type', 'video/' + data.ext);
 
 	// If video source isn't blank load it (consider that a video tag is always present)
-	if ($preview.find('video source').attr('src').length > 0) {
+	if (_typeof($preview.find('video source').attr('src')) != undefined) {
 		$preview.find('video').get(0).load();
 	}
 
@@ -475,6 +477,7 @@ function setup_video_preview(data, id) {
 	// Update details
 	$parent.find('.fileupload--filesize').text(data.size);
 	$parent.find('.fileupload--filename').text(data.name);
+	$parent.find('.fileupload--videolink a').attr('href', data.url);
 }
 
 /***/ }),
