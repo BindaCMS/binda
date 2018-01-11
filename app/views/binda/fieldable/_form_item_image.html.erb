@@ -1,6 +1,7 @@
 <div id="standard-form--image-<%= field_setting.id %>" class="standard-form--image form-item">
   <div id="fileupload-<%= ff.object.id %>" 
-    class="fileupload form-group">
+    class="fileupload form-group"
+    data-message="<%= t('binda.upload_loading_message') %>">
 
     <p class="control-label"><%= field_setting.name.capitalize %></p>
 
@@ -19,7 +20,7 @@
             @instance, 
             action: :upload, 
             repeater: { id: "#{field_setting.parent_id}" }]),
-          'data-id': ff.object.id 
+          'data-id': ff.object.id
         } %>
 
     </div>

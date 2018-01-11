@@ -78,6 +78,7 @@ function handle_file(event)
 	// formData.append('authenticity_token', token)
 
 	// Display loader
+	$('.popup-warning--message').text( $parent.data('message') )
 	$('.popup-warning').removeClass('popup-warning--hidden')
 
 	// Once form data are gathered make the request
@@ -117,11 +118,8 @@ function makeRequest(event, formData )
 	})
 }
 
-
-function reset_file(event) 
-{
-	let input = event.target
-	
+function reset_file(input) 
+{	
 	input.value = ''
 
 	if(!/safari/i.test(navigator.userAgent)){
@@ -138,6 +136,9 @@ function remove_preview(event)
 	// Reset previews (either image or video)
 	$parent.find('.fileupload--preview').css('background-image','').removeClass('fileupload--preview--uploaded')
 	$parent.find('video source').attr('src', '')
+	
+	// Clear input field 
+	reset_file( $parent.find('input[type=file]').get(0) )
 
 	// Reset buttons to initial state
 	$parent.find('.fileupload--remove-image-btn').addClass('fileupload--remove-image-btn--hidden')

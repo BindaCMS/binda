@@ -374,6 +374,7 @@ function handle_file(event) {
 	// formData.append('authenticity_token', token)
 
 	// Display loader
+	$('.popup-warning--message').text($parent.data('message'));
 	$('.popup-warning').removeClass('popup-warning--hidden');
 
 	// Once form data are gathered make the request
@@ -412,9 +413,7 @@ function makeRequest(event, formData) {
 	});
 }
 
-function reset_file(event) {
-	var input = event.target;
-
+function reset_file(input) {
 	input.value = '';
 
 	if (!/safari/i.test(navigator.userAgent)) {
@@ -430,6 +429,9 @@ function remove_preview(event) {
 	// Reset previews (either image or video)
 	$parent.find('.fileupload--preview').css('background-image', '').removeClass('fileupload--preview--uploaded');
 	$parent.find('video source').attr('src', '');
+
+	// Clear input field 
+	reset_file($parent.find('input[type=file]').get(0));
 
 	// Reset buttons to initial state
 	$parent.find('.fileupload--remove-image-btn').addClass('fileupload--remove-image-btn--hidden');
@@ -1164,18 +1166,7 @@ var sortableOptions = {
 		ui.item.css('z-index', 0);
 	},
 	placeholder: "ui-state-highlight",
-	update: function update() {
-		if ($('.popup-warning').length > 0) {
-			$('.sortable').addClass('sortable--disabled');
-			$('.popup-warning').removeClass('popup-warning--hidden');
-			$(this).sortable('option', 'disabled', true);
-		}
-		var url = $(this).data('update-url');
-		var data = $(this).sortable('serialize');
-		// If there is a pagination update accordingly
-		data = data.concat('&id=' + $(this).attr('id'));
-		$.post(url, data);
-	}
+	update: updateSortable
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (function () {
@@ -1236,6 +1227,24 @@ function toggleSortable(event) {
 	$(id).toggleClass('sortable--disabled');
 	$(id).toggleClass('sortable--enabled');
 	$(this).children('.sortable--toggle-text').toggle();
+}
+
+function updateSortable() {
+	if ($('.popup-warning').length > 0) {
+		$(this).addClass('sortable--disabled');
+		$('.popup-warning--message').text($(this).data('message'));
+		$('.popup-warning').removeClass('popup-warning--hidden');
+		$(this).sortable('option', 'disabled', true);
+	}
+	var url = $(this).data('update-url');
+	var data = $(this).sortable('serialize');
+	// If there is a pagination update accordingly
+	data = data.concat('&id=' + $(this).attr('id'));
+	$.post(url, data).done(function (doneData) {
+		$(doneData.id).sortable('option', 'disabled', false);
+		$('.popup-warning').addClass('popup-warning--hidden');
+		$(doneData.id).removeClass('sortable--disabled');
+	});
 }
 
 /***/ }),

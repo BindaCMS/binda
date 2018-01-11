@@ -103,6 +103,6 @@ en:
     login_credit: Built with Binda %{arg1}
     choice_label: label
     choice_value: value
-    allow_null: Choice method
-    allow_null_true: Allow to not choose any of the choices
-    allow_null_false: Force to make a choice among the available choices
+    allow_null: Require a choice
+    allow_null_true: Choosing is not required 
+    allow_null_false: Require to choose among the available choices

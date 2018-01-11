@@ -8,15 +8,8 @@
 <% end %>
 
 <% content_for :content do %>
-  <div class="popup-warning popup-warning--hidden">
-      <div class="popup-warning--loader">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <p><%= t 'binda.sort_items_loader', { arg1: t('binda.components').downcase } %></p>
-  </div>
+
+  <%= render 'layouts/binda/popup_warning' %>
 
   <div class="main-sortable-table">
 
@@ -25,7 +18,7 @@
       <div class="main-sortable-table--header-title"><p>Publish State</p></div>
     </div>
 
-    <div id="<%= @structure.slug %>-components--sort-index" class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>">
+    <div id="<%= @structure.slug %>-components--sort-index" class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>" data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.components').downcase } %>">
       <% @components.order( :position, :name ).each do |component| %>
         <div class="main-sortable-table--row ui-sortable-handle" id="component_<%= component.id %>">
           <div class="main-sortable-table--row-cell"><%= link_to component.name, structure_component_path( @structure.slug, component ) %></div>
