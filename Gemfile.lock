@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    binda (0.1.2)
+    binda (0.1.3)
       aasm (>= 4.11, < 4.13)
       ancestry (>= 2.1, < 3.1)
       bourbon (= 4.3.4)
@@ -170,7 +170,7 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.1)
-    multi_json (1.13.0)
+    multi_json (1.13.1)
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
