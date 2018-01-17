@@ -319,10 +319,10 @@ module Binda
 			return obj.present?
 		end
 
-		# Get the all repeater instances
+		# Get the all repeater instances sorted by position
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [hash]
+		# @return [array] An array of repeater items which have all sorts of fields attached
 		def get_repeater field_slug 
 			obj = self.repeaters.find_all{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			raise ArgumentError, "There isn't any repeater associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
