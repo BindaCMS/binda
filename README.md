@@ -518,6 +518,18 @@ To change appereance and behaviour of the page add your styles to `app/assets/st
 
 ---
 
+## Orphans
+
+Sometime playing with Rails console you might end up creating orphans, which basically are components without a field setting parent. They might cause errors in some queries and they hard to track down.
+
+To avoid the problem run the following command from your shell:
+
+```bash
+rails binda:remove_orphan_fields
+```
+
+---
+
 
 # Plugins
 
@@ -531,10 +543,7 @@ Here a list of useful plugins:
 
 # Upgrade
 
-Here some upgrade instruction.
-
-
-To upgrade from 0.0.6 to 0.0.7 please refer to the [release documentation](https://github.com/lacolonia/binda/releases/tag/0.0.7)
+If you are going to upgrade from a previous version please check the guidelines attached to the version release which can be found on this [Github page](https://github.com/lacolonia/binda/releases).
 
 ---
 
