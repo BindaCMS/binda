@@ -1,6 +1,6 @@
 <% content_for :header do %>
 	<h3>New Field Group</h3>
-  <a href="<%= structure_path( @structure.slug ) %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= "#{ t :back_to }".capitalize %> <%= @structure.name.capitalize %></a>
+  <a href="<%= structure_path( @structure.slug ) %>" class="main-header--back"><i class="fas fa-list-ul"></i> <%= "#{ t :back_to }".capitalize %> <%= @structure.name.capitalize %></a>
 <% end %>
 		
 <% content_for :content do %> 

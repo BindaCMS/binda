@@ -44,7 +44,7 @@ en:
   structure_instance_type: 'This structure is for:'
 
   binda:
-    title: title
+    title: Title
     view_website: View website
     error_related_to_itself: Sorry, this record cannot relate to itself
     confirm_delete: Do you really want to remove it?
@@ -73,7 +73,7 @@ en:
     repeater_field_settings: Fields settings of the %{arg1} repeater
     component: Component
     components: Component
-    new: new
+    new: New
     new_structure: New %{arg1} structure
     new_field_group: New %{arg1} field group
     new_component: New %{arg1}
@@ -108,3 +108,4 @@ en:
     allow_null: Require a choice
     allow_null_true: Choosing is not required 
     allow_null_false: Require to choose among the available choices
+    publish_state: Publish state

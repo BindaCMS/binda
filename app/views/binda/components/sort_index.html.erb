@@ -4,7 +4,7 @@
   </div>
 
   <p class="main-header--title"><%= t('binda.sort').capitalize %> <%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></p>
-  <a href="<%= structure_components_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= "#{ t :back_to_index }".capitalize %></a>
+  <a href="<%= structure_components_path %>" class="main-header--back"><i class="fas fa-list-ul"></i> <%= "#{ t :back_to_index }".capitalize %></a>
 <% end %>
 
 <% content_for :content do %>

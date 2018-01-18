@@ -3,7 +3,7 @@
     <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
   </div>
 	<p class="main-header--title"><%= t('binda.edit_structure', { arg1: @structure.name })%></p>
-  <a href="<%= structures_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> Back to list</a>
+  <a href="<%= structures_path %>" class="main-header--back"><i class="fas fa-list-ul"></i> <%= "#{ t :back_to_index }".capitalize %></a>
 <% end %>
 
 <% content_for :content do %>
