@@ -1,56 +1,47 @@
-#assets-manager-index
-{
+#assets-manager-index {
   display: none;
 }
 
-.assets-manager--list
-{
+.assets-manager--list {
   width: 100%;
   list-style: none;
 }
 
-.assets-manager--item
-{
+.assets-manager--item {
   position: relative;
   display: inline-block;
   margin-bottom: $font-size-base * 2;
   padding: $font-size-base / 2;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   @extend .box-shadowed;
 
-  &:hover
-  {
+  &:hover {
     @extend .box-shadowed-up;
   }
 }
 
-.assets-manager--image-buttons
-{
+.assets-manager--image-buttons {
   position: absolute;
   top: 8px;
   right: 8px;
 
-  a
-  {
+  a {
     display: block;
     margin: 3px;
     padding: 3px;
-    transition: opacity .3s ease-in;
-    opacity: .7;
+    transition: opacity 0.3s ease-in;
+    opacity: 0.7;
     background-color: #fff;
   }
-  a:hover
-  {
+  a:hover {
     opacity: 1;
   }
 }
 
-.assets-manager--selected
-{
+.assets-manager--selected {
   background-color: #aaa;
-  img
-  {
-    opacity: .7;
+  img {
+    opacity: 0.7;
   }
 }

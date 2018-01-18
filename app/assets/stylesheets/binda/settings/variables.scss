@@ -1,85 +1,80 @@
-// - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - -
 // GLOBAL PARAMETERS
-// - - - - - - - - - - - - - - - - - - 
-
+// - - - - - - - - - - - - - - - - - -
 
 // MEDIA QUERIES
 // -------------
 $tablet: 480px;
 $desktop: 960px;
 
-
 // FROM BOOTSTRAP
 // --------------
 
-$color-black:                 #000;
-$color-white:                 #FFF;
+$color-black: #000;
+$color-white: #fff;
 
 //== Colors
 //
 //## Gray and colors for use across Bootstrap.
 
-$color-gray-darkest:          rgb( 17, 17, 17 );
-$color-gray-darker:           rgb( 51, 51, 51 );
-$color-gray-dark:             rgb( 102, 102, 102 );
-$color-gray:                  rgb( 128, 128, 128 );
-$color-gray-light:            rgb( 153, 153, 153 );
-$color-gray-lighter:          rgb( 193, 193, 193 );
-$color-gray-lightest:         rgb( 238, 238, 238 );
+$color-gray-darkest: rgb(17, 17, 17);
+$color-gray-darker: rgb(51, 51, 51);
+$color-gray-dark: rgb(102, 102, 102);
+$color-gray: rgb(128, 128, 128);
+$color-gray-light: rgb(153, 153, 153);
+$color-gray-lighter: rgb(193, 193, 193);
+$color-gray-lightest: rgb(238, 238, 238);
 
-$color-primary:               #337ab7;
-$color-success:               #67CD9B;
-$color-info:                  #5bc0de;
-$color-warning:               #f0ad4e;
-$color-danger:                #fc4242;
-$color-danger-hover:          darken( $color-danger, 20%);
-
+$color-primary: #337ab7;
+$color-success: #67cd9b;
+$color-info: #5bc0de;
+$color-warning: #f0ad4e;
+$color-danger: #fc4242;
+$color-danger-hover: darken($color-danger, 20%);
 
 //== Scaffolding
 //
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               $color-gray-lightest;
+$body-bg: $color-gray-lightest;
 //** Global text color on `<body>`.
-$text-color:            $color-gray-darker;
+$text-color: $color-gray-darker;
 
 //** Global textual link color.
-$link-color:            $color-primary;
+$link-color: $color-primary;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      darken($link-color, 15%);
+$link-hover-color: darken($link-color, 15%);
 //** Link hover decoration.
 $link-hover-decoration: underline;
-
 
 //== Typography
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-family-serif:       Georgia, "Times New Roman", Times, serif;
+$font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif: Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
-$font-family-base:        $font-family-sans-serif;
+$font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-family-base: $font-family-sans-serif;
 
-$font-size-base:          14px;
-$font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
-$font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
+$font-size-base: 14px;
+$font-size-large: ceil(($font-size-base * 1.25)); // ~18px
+$font-size-small: ceil(($font-size-base * 0.85)); // ~12px
 
-$font-size-h1:            floor(($font-size-base * 2.6)); // ~36px
-$font-size-h2:            floor(($font-size-base * 2.15)); // ~30px
-$font-size-h3:            ceil(($font-size-base * 1.7)); // ~24px
-$font-size-h4:            ceil(($font-size-base * 1.25)); // ~18px
-$font-size-h5:            $font-size-base;
-$font-size-h6:            ceil(($font-size-base * 0.85)); // ~12px
-
+$font-size-h1: floor(($font-size-base * 2.6)); // ~36px
+$font-size-h2: floor(($font-size-base * 2.15)); // ~30px
+$font-size-h3: ceil(($font-size-base * 1.7)); // ~24px
+$font-size-h4: ceil(($font-size-base * 1.25)); // ~18px
+$font-size-h5: $font-size-base;
+$font-size-h6: ceil(($font-size-base * 0.85)); // ~12px
 
 // MIXINS
 // ------
 @mixin font-size( $pixels, $lineheight: $pixels, $default: $font-size-base ) {
-	// NOTE this function works only if you put 
+	// NOTE this function works only if you put
 	// 'font-size: $font-size-base' in 'body' styles
-  font-size: #{$pixels/$default}em;
+	font-size: #{$pixels/$default}em;
 	line-height: #{$lineheight/$pixels}em;
 }
 

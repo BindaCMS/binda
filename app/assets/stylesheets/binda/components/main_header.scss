@@ -1,26 +1,21 @@
-#main-header
-{
+#main-header {
   width: 100%;
   padding: 32px 24px;
 }
-.main-header--title
-{
+.main-header--title {
   @extend .b-h3;
   display: block;
 }
 
-.main-header--buttons
-{
+.main-header--buttons {
   float: right;
 }
 
-a.main-header--back
-{
+a.main-header--back {
   font-weight: 300;
   color: $color-gray-light;
 
-  &:hover
-  {
+  &:hover {
     color: $color-gray;
   }
 }

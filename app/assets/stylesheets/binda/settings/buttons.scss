@@ -1,27 +1,27 @@
 .b-btn-primary {
   color: $color-white;
-  background-color: $color-gray-darker; 
-  transition: background-color .3s ease-out;
+  background-color: $color-gray-darker;
+  transition: background-color 0.3s ease-out;
 }
 
 .b-btn-alternative {
   color: #555555;
   background-color: white;
-  transition: background-color .3s ease-out;
+  transition: background-color 0.3s ease-out;
 }
 
 .b-btn-primary:hover {
-  background-color: $color-gray; 
+  background-color: $color-gray;
 }
 
 .b-btn-danger {
   color: $color-white;
-  background-color: $color-danger; 
-  transition: background-color .3s ease-out;
+  background-color: $color-danger;
+  transition: background-color 0.3s ease-out;
 }
 
 .b-btn-danger:hover {
-  background-color: lighten($color-danger, 10%); 
+  background-color: lighten($color-danger, 10%);
 }
 
 .b-btn {
@@ -29,8 +29,7 @@
   border-radius: 0px;
   padding: 4px 12px;
 
-  i
-  {
+  i {
     padding-right: 6px;
   }
 }
