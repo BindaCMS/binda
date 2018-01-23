@@ -1,3 +1,8 @@
+<% content_for :title do %>
+  <%= t('binda.edit_structure', { arg1: @structure.name })%>  
+<% end %>
+
+
 <% content_for :header do %>
   <div class="main-header--buttons">
   	<a href="<%= new_structure_path %>"

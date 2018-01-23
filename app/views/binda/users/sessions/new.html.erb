@@ -1,3 +1,8 @@
+<% content_for :title do %>
+  <%= t('binda.login_welcome', { arg1: get_website_name }) %>    
+<% end %>
+
+
 <% content_for :background do %>
   <div id="background-shader">
     <%= render 'binda/users/sessions/background' %>

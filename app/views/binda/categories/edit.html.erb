@@ -1,3 +1,8 @@
+<% content_for :title do %>
+	<%= t('binda.edit_category', { arg1: @category.name }) %>	
+<% end %>
+
+
 <% content_for :header do %>
   <div class="main-header--buttons">
     <a href="<%= new_structure_category_path %>"
@@ -7,14 +12,17 @@
       <%= t(:category).capitalize %>
     </a>
   </div>
-	<p class="main-header--title"><%= t('binda.edit_category', { arg1: @category.name }) %></p>
+	<p class="main-header--title">
+		<%= t('binda.edit_category', { arg1: @category.name }) %>	
+	</p>
   <a href="<%= structure_categories_path %>" 
   	class="main-header--back">
   	<i class="fas fa-list-ul"></i> 
   	<%= t(:back_to_index).capitalize %>
   </a>
 <% end %>
-		
+
+
 <% content_for :content do %> 
 	<%= render 'form', category: @category, structure: @structure %>
 <% end %>

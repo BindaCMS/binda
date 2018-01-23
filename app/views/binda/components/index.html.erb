@@ -1,3 +1,8 @@
+<% content_for :title do %>
+  <%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %>
+<% end %>
+
+
 <% content_for :header do %>
   <div class="main-header--buttons">
     <a href="<%= new_structure_component_path %>"

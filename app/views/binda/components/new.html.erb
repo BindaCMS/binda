@@ -1,3 +1,7 @@
+<% content_for :title do %>
+	<%= t('binda.new_component',{ arg1: @structure.name.humanize.split.map(&:capitalize).join(' ') }) %>	
+<% end %>
+
 <% content_for :header do %>
 	<p class="main-header--title">
 		<%= t('binda.new_component',{ arg1: @structure.name.humanize.split.map(&:capitalize).join(' ') }) %>	

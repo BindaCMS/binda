@@ -1,3 +1,8 @@
+<% content_for :title do %>
+  <%= "#{ t(:new).capitalize } #{ @structure.name.humanize } #{ t(:category).capitalize }" %>  
+<% end %>
+
+
 <% content_for :header do %>
   <div class="main-header--buttons">
     <a href="<%= new_structure_category_path %>"
@@ -6,7 +11,10 @@
       <%= t(:new).capitalize %> 
       <%= t(:category).capitalize %>
     </a>
-  </div>	<h3><%= "#{ t(:new).capitalize } #{ @structure.name.humanize } #{ t(:category).capitalize }" %></h3>
+  </div>	
+  <h3>
+    <%= "#{ t(:new).capitalize } #{ @structure.name.humanize } #{ t(:category).capitalize }" %>  
+  </h3>
   <a href="<%= structure_categories_path %>" 
   	class="main-header--back">
   	<i class="fas fa-list-ul"></i> 

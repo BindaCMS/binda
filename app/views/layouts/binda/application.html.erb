@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <title>Binda CMS -- <%= controller_name.capitalize %> <%= action_name.capitalize %></title>
+    <title>Binda CMS -- <%= yield :title %></title>
     <%= csrf_meta_tags %>
 
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,600" rel="stylesheet">

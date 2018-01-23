@@ -99,7 +99,7 @@ en:
         field_setting_id: cannot be blank. The %{arg1} must be associated with a field setting
     new: New
     new_structure: New structure
-    new_field_group: New %{arg1} field group
+    new_field_group: New field group
     new_component: New %{arg1}
     new_user: New User
     new_category: New %{arg1} category

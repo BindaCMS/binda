@@ -1,3 +1,8 @@
+<% content_for :title do %>
+  <%= t('binda.edit_field_group', { arg1: @field_group.name }) %> 
+<% end %>
+
+
 <% content_for :header do %>
   <p class="main-header--title">
   	<%= t('binda.edit_field_group', { arg1: @field_group.name }) %>	

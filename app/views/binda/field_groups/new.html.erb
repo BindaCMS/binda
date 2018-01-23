@@ -1,5 +1,12 @@
+<% content_for :title do %>
+	<%= t('binda.new_field_group') %>
+<% end %>
+
+
 <% content_for :header do %>
-	<h3>New Field Group</h3>
+	<h3>
+		<%= t('binda.new_field_group') %>
+	</h3>
   <a href="<%= structure_path( @structure.slug ) %>" 
   	class="main-header--back">
   	<i class="fas fa-list-ul"></i> 
