@@ -42,7 +42,7 @@ en:
   default_choice_description: If you have added/removed any choice, this list might not be correct. Please save to update it.
   instance: instance
   structure_instance_type: 'This structure is for:'
-
+  
   binda:
     title: Title
     view_website: View website
@@ -68,24 +68,35 @@ en:
     structures: Structures
     structure:
       confirm_delete: This operation will delete this structure and there is no coming back. Are you ok with that?    
+      validation_message: 
+        instance_type: "%{arg1} is not a valid instance"
     field_group: Field group
     field_groups: Field groups
     field_group:
       confirm_delete: This operation will delete this group of settings and all related component content. Are you ok with that?
-      name_validation_message: Field group name cannot be blank.
-      slug_validation_message: "The following slug cannot be used: %{arg1}. Please choose a different slug."
-      field_type_validation_message: "The selected field type isn't valid. Select a field type among these: %{arg1}."
+      validation_message:
+        name: Field group name cannot be blank.
+        slug: "The following slug cannot be used: %{arg1}. Please choose a different slug."
+        field_type: "The selected field type isn't valid. Select a field type among these: %{arg1}."
+    default_field_group:
+      name: General details
+      error_on_create: General Details group hasn't been created
     field_setting: Field setting
     field_settings: Field settings
     repeater_field_settings: Fields settings of the %{arg1} repeater
     field_setting:
       confirm_delete: This operation will delete this setting and all related component content. Are you ok with that?
-      name_validation_message: Field setting name cannot be blank.
-      slug_validation_message: "The following slug cannot be used: %{arg1}. Please choose a different slug."
-      field_type_validation_message: "The selected field type isn't valid. Select a field type among these: %{arg1}."
-      field_group_id_validation_message: "Field setting named \"%{arg1}\" must be associated to a field group. Check if field_group_id propriety is set."
+      validation_message:
+        name: Field setting name cannot be blank.
+        slug: "The following slug cannot be used: %{arg1}. Please choose a different slug."
+        field_type: "The selected field type isn't valid. Select a field type among these: %{arg1}."
+        field_group_id: "Field setting named \"%{arg1}\" must be associated to a field group. Check if field_group_id propriety is set."
     component: Component
     components: Component
+    asset:
+      validation_message:
+        fieldable_id: The %{arg1} must be associated with a component or a board
+        field_setting_id: The %{arg1} must be associated with a field setting
     new: New
     new_structure: New %{arg1} structure
     new_field_group: New %{arg1} field group
@@ -117,9 +128,10 @@ en:
     login_welcome: Welcome to %{arg1} admin panel
     login_credit: Built with Binda %{arg1}
     choice: 
-      label_validation_message: Label cannot be blank
-      value_validation_message: Value cannot be blank
-      field_setting_id_validation_message: "Choice must be associated to a field setting. Check if field_setting_id propriety is set."
+      validation_message:
+        label: Label cannot be blank
+        value: Value cannot be blank
+        field_setting_id: "Choice must be associated to a field setting. Check if field_setting_id propriety is set."
     choice_label: label
     choice_value: value
     allow_null: Require a choice

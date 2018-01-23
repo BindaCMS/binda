@@ -10,7 +10,7 @@ module Binda
 
 		# Validations
 		validates :name, presence: {
-			message: I18n.t("binda.field_group.name_validation_message") 
+			message: I18n.t("binda.field_group.validation_message.name") 
 		}
 		validate :slug_uniqueness
 		validates_associated :field_settings
@@ -47,8 +47,9 @@ module Binda
 		end
 
 		def slug_uniqueness
-			if self.class.where(slug: slug).any?
-				errors.add(:slug, I18n.t("binda.field_group.slug_validation_message", { arg1: slug })) 
+			record_with_same_slug = self.class.where(slug: slug)
+			if record_with_same_slug.any? && !record_with_same_slug.ids.include?(id)
+				errors.add(:slug, I18n.t("binda.field_group.validation_message.slug", { arg1: slug }))
 			end
 		end
 

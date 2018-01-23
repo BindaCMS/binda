@@ -28,7 +28,7 @@
 
             <td><%= link_to structure.name, structure_path(structure) %></td>
             <td class="main-table--actions">
-              <a href="<%= edit_structure_path %>">
+              <a href="<%= edit_structure_path(structure.id) %>">
                 <i class="fas fa-pencil-alt"></i>
                 <%= t('binda.edit') %>
               </a>

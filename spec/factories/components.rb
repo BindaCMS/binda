@@ -25,6 +25,8 @@ FactoryBot.define do
     after(:create) do |article_component, evaluator|
       # fetch the default field group
       field_group = article_component.structure.field_groups.first
+      # make sure field_group ActiveRecord object is gathering all associated field_settings
+      field_group.reload
       # fetch field settings belonging to that field group 
       # (they have been created before in :article_structure_with_components_and_fields factory)
       string_setting = field_group.field_settings.find{ |fs| fs.field_type == 'string' }

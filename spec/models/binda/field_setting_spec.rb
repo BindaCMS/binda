@@ -4,13 +4,13 @@ module Binda
 	RSpec.describe FieldSetting, type: :model do
 
 
-		# this shouldn't be here. Need fixing
+		# this shouldn't be here. FIX needed
 		# before(:context) do
 		# 	@component = create( :component )
 		# 	@radio = create( :radio, fieldable: @component )
 		# end
 
-		# this shouldn't be here. Need fixing
+		# this shouldn't be here. FIX needed
 		# it "should let you create a radio item with choices" do
 		# 	choices = @radio.get_choices
 		# 	expect( choices.length ).to eq(3)

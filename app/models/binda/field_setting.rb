@@ -70,18 +70,18 @@ module Binda
 
 		# Validations
 		validates :name, presence: { 
-			message: I18n.t("binda.field_settings.name_validation_message") 
+			message: I18n.t("binda.field_setting.validation_message.name") 
 		}
 		validates :field_type, inclusion: { 
 			in: [ *FieldSetting.get_field_classes.map{ |fc| fc.to_s.underscore } ], 
 			allow_nil: false, 
 			message: I18n.t(
-				"binda.field_settings.field_type_validation_message", 
+				"binda.field_setting.validation_message.field_type", 
 				{ arg1: "#{FieldSetting.get_field_classes.join(", ")}" }
 			)
 		}
 		validates :field_group_id, presence: {
-			message: I18n.t("binda.field_setting.field_group_id_validation_message", { arg1: self.slug })
+			message: I18n.t("binda.field_setting.validation_message.field_group_id", { arg1: "%{value}" })
 		}
 		validate :slug_uniqueness
 
@@ -122,8 +122,9 @@ module Binda
 		end
 
 		def slug_uniqueness
-			if self.class.where(slug: slug).any?
-				errors.add(:slug, I18n.t("binda.field_setting.slug_validation_message", { arg1: slug })) 
+			record_with_same_slug = self.class.where(slug: slug)
+			if record_with_same_slug.any? && !record_with_same_slug.ids.include?(id)
+				errors.add(:slug, I18n.t("binda.field_setting.validation_message.slug", { arg1: slug })) 
 			end
 		end
 

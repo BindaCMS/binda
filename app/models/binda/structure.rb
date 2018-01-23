@@ -13,7 +13,10 @@ module Binda
 		validates :name, presence: true
 		validates :slug, uniqueness: true
 		validates_associated :field_groups
-		validates :instance_type, presence: true, inclusion: { in: %w(component board), message: "%{value} is not a valid instance" }
+		validates :instance_type, presence: true, inclusion: { 
+			in: %w(component board), 
+			message: I18n.t('binda.structure.validation_message.instance_type', { arg1: "%{value}" })
+		}
 		accepts_nested_attributes_for :field_groups, allow_destroy: true, reject_if: :is_rejected
 
 		# Slug
@@ -55,10 +58,10 @@ module Binda
 		# @return [redirect]
 		def add_default_field_group
 			# Creates a default empty field group 
-			field_group = self.field_groups.build( name: 'General Details', position: 1 )
+			field_group = self.field_groups.build(name: I18n.t('binda.default_field_group.name'), position: 1)
 			# Unless there is a problem...
 			unless field_group.save
-				return redirect_to structure_path( self.slug ), flash: { error: 'General Details group hasn\'t been created' }
+				return redirect_to structure_path(self.slug), flash: { error: I18n.t('binda.default_field_group.error_on_create') }
 			end
 		end
 
@@ -69,10 +72,10 @@ module Binda
 		#   It also disable categories (this could be a different method, or method could be more explicit)
 		def add_instance_details
 			if self.instance_type == 'board'
-				self.update_attribute 'has_categories', false
+				self.update_attribute('has_categories', false)
 				board = self.build_board( name: self.name )
 				unless board.save
-					return redirect_to structure_path( self.slug ), flash: { error: 'The board instance hasn\'t been created' }
+					return redirect_to structure_path(self.slug), flash: { error: I18n.t('binda.default_field_group.error_on_create') }
 				end
 			end
 		end
