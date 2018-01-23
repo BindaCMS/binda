@@ -12,6 +12,7 @@ module Binda
 		# Validations
 		validates :name, presence: true
 		validates :slug, uniqueness: true
+		validates_associated :field_groups
 		validates :instance_type, presence: true, inclusion: { in: %w(component board), message: "%{value} is not a valid instance" }
 		accepts_nested_attributes_for :field_groups, allow_destroy: true, reject_if: :is_rejected
 
@@ -28,7 +29,7 @@ module Binda
 		# Method inherited from friendly id 
 		# @see https://github.com/norman/friendly_id/issues/436
 		def should_generate_new_friendly_id?
-			slug.blank? || name_changed?
+			slug.blank?
 		end
 
 		#

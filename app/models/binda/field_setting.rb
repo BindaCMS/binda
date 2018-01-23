@@ -69,9 +69,21 @@ module Binda
 		end
 
 		# Validations
-		validates :name, presence: true
-		validates :field_type, inclusion: { in: [ *FieldSetting.get_field_classes.map{ |fc| fc.to_s.underscore } ], allow_nil: false, message: "Select field type among these: #{ FieldSetting.get_field_classes.join(", ") }" }
-		validates :field_group_id, presence: true
+		validates :name, presence: { 
+			message: I18n.t("binda.field_settings.name_validation_message") 
+		}
+		validates :field_type, inclusion: { 
+			in: [ *FieldSetting.get_field_classes.map{ |fc| fc.to_s.underscore } ], 
+			allow_nil: false, 
+			message: I18n.t(
+				"binda.field_settings.field_type_validation_message", 
+				{ arg1: "#{FieldSetting.get_field_classes.join(", ")}" }
+			)
+		}
+		validates :field_group_id, presence: {
+			message: I18n.t("binda.field_setting.field_group_id_validation_message", { arg1: self.slug })
+		}
+		validate :slug_uniqueness
 
 		# Slug
 		extend FriendlyId
@@ -107,6 +119,12 @@ module Binda
 			]
 
 			return possible_names
+		end
+
+		def slug_uniqueness
+			if self.class.where(slug: slug).any?
+				errors.add(:slug, I18n.t("binda.field_setting.slug_validation_message", { arg1: slug })) 
+			end
 		end
 
 		# Retrieve the ID if a slug is provided and update the field_settings_array 

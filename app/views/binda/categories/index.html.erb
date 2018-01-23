@@ -1,37 +1,55 @@
 <% content_for :header do %>
   <div class="main-header--buttons">
-    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> #{ t(:new).capitalize } #{ t(:category).capitalize }".html_safe, new_structure_category_path, class: 'main-header--link b-btn b-btn-primary' %>
+    <a href="<%= new_structure_category_path %>"
+      class="main-header--link b-btn b-btn-primary">
+      <i class="fa fa-plus" aria-hidden="true"></i> 
+      <%= t(:new).capitalize %> 
+      <%= t(:category).capitalize %>
+    </a>
   </div>
-  <h3><%= @structure.name.capitalize %> <%= t(:category).capitalize.pluralize %></h3>
+  <h3>
+    <%= @structure.name.capitalize %> 
+    <%= t(:category).capitalize.pluralize %>
+  </h3>
 <% end %>
 
 <% content_for :content do %> 
   <div class="main-table--container">
-
-      <table class="standard-form--container">
-        <thead class="standard-form--header">
-          <tr>
-            <th style="width: 70%;"><%= t(:category).capitalize.pluralize %></th>
-            <th style="width: 30%;"></th>
+    <table class="standard-form--container">
+      <thead class="standard-form--header">
+        <tr>
+          <th colspan="7"><%= t(:category).capitalize.pluralize %></th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @categories.order( :position, :name ).each do |category| %>
+          <tr class="main-table--hover" id="category_<%= category.id %>">
+            <td colspan="7"><%= link_to category.name, structure_category_path( @structure.slug, category) %></td>
+            <td colspan="3" class="main-table--actions">
+              <a href="<%= edit_structure_category_path( @structure.slug, category) %>">
+                <i class="fas fa-pencil-alt"></i>
+                <%= t('binda.edit').capitalize %>
+              </a>
+              <a href="structure_category_path( @structure.slug, category )"
+                class="text-destroy"
+                data-method="delete"
+                data-confirm="<%= t('binda.confirm_delete') %>">
+                <i class="far fa-trash-alt"></i>
+                <%= t('binda.delete').capitalize %>
+              </a>
+            </td>
           </tr>
-        </thead>
-        
-        <tbody>
-          <% @categories.order( :position, :name ).each do |category| %>
-            <tr class="main-table--hover" id="category_<%= category.id %>">
-              <td><%= link_to category.name, structure_category_path( @structure.slug, category) %></td>
-              <td class="main-table--actions">
-                <%= link_to "<i class=\"fas fa-pencil-alt\"></i> Edit".html_safe, edit_structure_category_path( @structure.slug, category) %>
-                <%= link_to "<i class=\"far fa-trash-alt\"></i> Destroy".html_safe, structure_category_path( @structure.slug, category ), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-destroy' %>
-              </td>
-            </tr>
-          <% end %>
-        <tbody>
-      </table>
-
+        <% end %>
+      <tbody>
+    </table>
     <div class="b-btn--container">
-      <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i>New #{ t(:category).capitalize }".html_safe, new_structure_category_path, class: 'main-header--link b-btn b-btn-primary' %>
+      <a href="<%= new_structure_category_path %>" 
+        class="main-header--link b-btn b-btn-primary">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        <%= t(:new).capitalize %> 
+        <%= t(:category).capitalize %>
+      </a>
     </div>
-
   </div>
 <% end %>

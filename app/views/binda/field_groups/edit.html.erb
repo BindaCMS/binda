@@ -1,6 +1,13 @@
 <% content_for :header do %>
-  <p class="main-header--title"><%= t('binda.edit_field_group', { arg1: @field_group.name }) %></p>
-  <a href="<%= structure_path( @structure.slug ) %>" class="main-header--back"><i class="fas fa-list-ul"></i> <%= "#{ t :back_to }".capitalize %> <%= @structure.name.capitalize %></a>
+  <p class="main-header--title">
+  	<%= t('binda.edit_field_group', { arg1: @field_group.name }) %>	
+	</p>
+  <a href="<%= structure_path( @structure.slug ) %>" 
+  	class="main-header--back">
+  	<i class="fas fa-list-ul"></i> 
+  	<%= "#{ t :back_to }".capitalize %> 
+  	<%= @structure.name.capitalize %>
+  </a>
 <% end %>
 
 <% content_for :content do %>

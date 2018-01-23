@@ -1,36 +1,50 @@
 <% content_for :header do %>
   <div class="main-header--buttons">
-    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
+    <a href="<%= new_structure_path %>"
+      class="main-header--link b-btn b-btn-primary">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      <%= t('binda.new_structure') %>
+    </a>
   </div>
   <p class="main-header--title"><%= t 'binda.structures' %></p>
 <% end %>
 
+
 <% content_for :content do %>
-
   <%= render 'layouts/binda/popup_warning' %>
-
   <div class="main-table--container">
-    <h5 class="text-muted"><%= t('binda.sort_index_hint', { arg1: t('binda.structures').downcase }).html_safe %></h5>
-
+    <h5 class="text-muted">
+      <%= t('binda.sort_index_hint', { arg1: t('binda.structures').downcase }).html_safe %>  
+    </h5>
     <div class="main-sortable-table">
       <div class="main-sortable-table--header-row">
         <div class="main-sortable-table--header-title">
-          <p>Structures</p>
+          <p>
+            <%= t('binda.structures') %>
+          </p>
         </div>
       </div>
-      <div id="structures--sort-index" class="sortable" data-update-url="<%= structures_sort_path() %>" data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.components').downcase } %>">
-      <% @structures.order( :name ).each do |structure| %>
-        <div id="structure_<%= structure.id %>" class="main-sortable-table--row ui-sortable-handle">
-          <div class="main-sortable-table--row-cell">
-            <p><%= structure.name %></p>
+      <div id="structures--sort-index" 
+        class="sortable" 
+        data-update-url="<%= structures_sort_path() %>" 
+        data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.components').downcase } %>">
+        <% @structures.order( :name ).each do |structure| %>
+          <div id="structure_<%= structure.id %>" 
+            class="main-sortable-table--row ui-sortable-handle">
+            <div class="main-sortable-table--row-cell">
+              <p>
+                <%= structure.name %>
+              </p>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
       </div>
     </div>
   </div>
-
   <%= paginate @structures %>
-  <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New Structure".html_safe, new_structure_path, class: 'main-header--link b-btn b-btn-primary' %>
-
+  <a href="<%= new_structure_path %>"
+    class="main-header--link b-btn b-btn-primary">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    <%= t('binda.new_structure') %>
+  </a>
 <% end %>

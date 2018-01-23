@@ -26,7 +26,7 @@ module Binda
 
 			aasm :column => 'publish_state' do
 					state :draft, initial: true
-					state :published    
+					state :published
 
 				event :publish do
 					transitions from: :draft, to: :published

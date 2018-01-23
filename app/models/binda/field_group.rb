@@ -9,8 +9,11 @@ module Binda
 		has_many :field_settings, dependent: :destroy
 
 		# Validations
-		validates :name, presence: true
-		validates :slug, uniqueness: true
+		validates :name, presence: {
+			message: I18n.t("binda.field_group.name_validation_message") 
+		}
+		validate :slug_uniqueness
+		validates_associated :field_settings
 		accepts_nested_attributes_for :field_settings, allow_destroy: true, reject_if: :is_rejected
 
 		# Slug
@@ -41,6 +44,12 @@ module Binda
 		# Sets the validation rules to accept and save an attribute
 		def is_rejected( attributes )
 			attributes['name'].blank? && attributes['field_type'].blank?
+		end
+
+		def slug_uniqueness
+			if self.class.where(slug: slug).any?
+				errors.add(:slug, I18n.t("binda.field_group.slug_validation_message", { arg1: slug })) 
+			end
 		end
 
 		private 

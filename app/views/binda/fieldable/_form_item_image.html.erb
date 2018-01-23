@@ -3,12 +3,11 @@
     class="fileupload form-group"
     data-message="<%= t('binda.upload_loading_message') %>"
     data-error="<%= t('binda.upload_error_message')%>">
-
-    <p class="control-label"><%= field_setting.name.capitalize %></p>
-
+    <p class="control-label">
+        <%= field_setting.name.capitalize %>    
+    </p>
     <% image = ff.object.image.thumb.url if ff.object.image.present? %>
     <div class="fileupload--dashboard">
-
       <%= ff.input :image, 
         label: "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> #{t('binda.choose_file_button')}".html_safe, 
         hint: field_setting.description, 
@@ -23,15 +22,12 @@
             repeater: { id: "#{field_setting.parent_id}" }]),
           'data-id': ff.object.id
         } %>
-
     </div>
-
     <%= ff.input :image_cache, as: :hidden %>
     <%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
     <%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
     <%= ff.input :fieldable_id, as: :hidden %>
     <%= ff.input :fieldable_type, as: :hidden %>
     <div class="clearfix"></div>
-
   </div>
 </div>

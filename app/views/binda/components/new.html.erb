@@ -1,6 +1,12 @@
 <% content_for :header do %>
-	<p class="main-header--title"><%= t('binda.new_component',{ arg1: @structure.name.humanize.split.map(&:capitalize).join(' ') }) %></p>
-  <a href="<%= structure_components_path %>" class="main-header--back"><i class="fas fa-list-ul"></i> <%= "#{ t :back_to_index }".capitalize %></a>
+	<p class="main-header--title">
+		<%= t('binda.new_component',{ arg1: @structure.name.humanize.split.map(&:capitalize).join(' ') }) %>	
+	</p>
+  <a href="<%= structure_components_path %>" 
+  	class="main-header--back">
+  	<i class="fas fa-list-ul"></i> 
+  	<%= "#{ t :back_to_index }".capitalize %>
+  </a>
 <% end %>
 		
 <% content_for :content do %> 

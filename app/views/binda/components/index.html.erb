@@ -3,7 +3,7 @@
     <a href="<%= new_structure_component_path %>"
       class="main-header--link b-btn b-btn-primary">
       <i class="fa fa-plus" aria-hidden="true"></i> 
-      <%= t 'binda.new' %> 
+      <%= t('binda.new') %> 
       <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %>
     </a>
     <%= get_sort_index_link %>
@@ -45,12 +45,18 @@
               </td>
               <td colspan="2"><%= component.publish_state %></td>
               <td class="main-table--actions">
-                  <%= link_to "<i class=\"fas fa-pencil-alt\"></i> #{t('binda.edit').capitalize}".html_safe, edit_structure_component_path( @structure.slug, component ) %>
-                  
-                  <%= link_to "<i class=\"far fa-trash-alt\"></i> #{t('binda.delete').capitalize}".html_safe, structure_component_path( @structure.slug, component.slug ),
-                              method: :delete,
-                              data: { confirm: 'Are you sure?' },
-                              class: 'text-destroy' %>
+                <a href="<%= edit_structure_component_path( @structure.slug, component ) %>">
+                  <i class="fas fa-pencil-alt"></i> 
+                  <%= t('binda.edit').capitalize %>
+                </a>
+                <a href="<%= structure_component_path( @structure.slug, component.slug ) %>"
+                  class="text-destroy"
+                  data-method="delete"
+                  data-confirm="<%= t('binda.confirm_delete') %>"
+                  >
+                  <i class="far fa-trash-alt"></i> 
+                  <%= t('binda.delete').capitalize %>
+                </a>                  
               </td colspan="1">
             </tr>
           <% end %>
@@ -60,7 +66,12 @@
         <%= paginate @components %>
       </div>
       <div class="b-btn--container">
-        <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path, class: 'main-header--link b-btn b-btn-primary', action: "new" %>
+        <a href="<%= new_structure_component_path %>"
+          class="main-header--link b-btn b-btn-primary">
+          <i class="fa fa-plus" aria-hidden="true"></i> 
+          <%= t('binda.new') %> 
+          <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %>
+        </a>
         <%= get_sort_index_link %>
       </div>
     </div>

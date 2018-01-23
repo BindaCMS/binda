@@ -1,38 +1,49 @@
 <% content_for :header do %>
-  <div class="main-header--buttons">
-    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New User".html_safe, new_manage_user_path, class: 'main-header--link b-btn b-btn-primary' %>
+  <div class="main-header--buttons" class="main-header--link b-btn b-btn-primary">
+    <a href="<%= new_manage_user_path %>">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      <%= t('binda.new') %> <%= t('binda.user') %>
+    </a>
   </div>
-  <h3>Manage Users</h3>
+  <h3>
+    <%= t('binda.manage_users') %>
+  </h3>
 <% end %>
+
 
 <% content_for :content do %>
   <div class="main-table--container">
-
     <table class="standard-form--container">
       <thead class="standard-form--header">
         <tr>
-          <th style="width: 70%;">Email</th>
-          <th style="width: 30%;"></th>
+          <th colspan="7">Email</th>
+          <th colspan="3"></th>
         </tr>
       </thead>
       <tbody>
-
         <% @users.order( :email ).each.with_index(1) do |manage_user, index| %>
-
           <tr>
-            <td><%= manage_user.email %></td>
-            <td class="main-table--actions">
-              <%= link_to "<i class=\"fas fa-pencil-alt\"></i> Edit".html_safe, edit_manage_user_path( manage_user.id ) %>
-              <%= link_to "<i class=\"far fa-trash-alt\"></i> Destroy".html_safe, manage_user_path( manage_user.id ), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-destroy'  %></td>
+            <td colspan="7"><%= manage_user.email %></td>
+            <td colspan="3" class="main-table--actions">
+              <a href="<%= edit_manage_user_path( manage_user.id ) %>">
+                <i class="fas fa-pencil-alt"></i>
+                <%= t('binda.edit') %>
+              </a>
+              <a href="<%= manage_user_path( manage_user.id ) %>"
+                class="text-destroy" 
+                data-method="delete"
+                data-confirm="<%= t('binda.confirm_delete') %>">
+                <i class="far fa-trash-alt"></i>
+                <%= t('binda.delete') %>
+              </a>
           </tr>
-
         <% end %>
-
       </tbody>
     </table>
-
-    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New User".html_safe, new_manage_user_path, class: 'main-header--link b-btn b-btn-primary' %>
-
+    <a href="<%= new_manage_user_path %>"
+      clas="main-header--link b-btn b-btn-primary">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      <%= t('binda.new') %> <%= t('binda.user') %>
+    </a>
   </div>
-
 <% end %>

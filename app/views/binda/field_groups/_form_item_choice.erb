@@ -1,19 +1,16 @@
-<%# - - - - - - - - - - - - %>
-<%# CHOICES                 %>
-<%# - - - - - - - - - - - - %>
 <div class="field-setting-choices--header field-settings-header">
-	<a href="#" class="field-setting-choices--toggle-choice field-setting-choices--add-choice" data-choices-id="field-setting-choices-<%= ff.object.id %>">
-		<i class="fa fa-plus" aria-hidden="true"></i> <%= t(:add_choice).capitalize %>
+	<a href="#" 
+		class="field-setting-choices--toggle-choice field-setting-choices--add-choice" 
+		data-choices-id="field-setting-choices-<%= ff.object.id %>">
+		<i class="fa fa-plus" aria-hidden="true"></i> 
+		<%= t(:add_choice).capitalize %>
 	</a>
-	<p class="control-label"><%= t(:choices).capitalize %></p>
+	<p class="control-label">
+		<%= t(:choices).capitalize %>	
+	</p>
 </div>
-
 <div id="field-setting-choices-<%= ff.object.id %>" class="field-setting-choices">
-	
-	<%# - - - - - - - - - - - - %>
-	<%# NEW CHOICE              %>
-	<%# - - - - - - - - - - - - %>
-	<%= f.simple_fields_for "new_choices[]", ff.object.choices.build(), defaults: {label: false}  do |fff| %>
+	<%= f.simple_fields_for "new_choices[]", ff.object.choices.build(), defaults: { label: false }  do |fff| %>
 	  <div class="field-setting-choices--choice field-setting-choices--new-choice">
 			<%= fff.association :field_setting, as: :hidden %>
 	  	<div class="field-setting-choices--choice-label">
@@ -28,7 +25,6 @@
 			<div class="clearfix"></div>
 	  </div>
 	<% end %>
-
 	<%= ff.simple_fields_for :choices, ff.object.choices.order( :label ), defaults: {label: false} do |fff| %>
 	  <div id="field-setting-choices--choice-<%= fff.object.id %>" class="field-setting-choices--choice">
 			<%= fff.input :id, as: :hidden %>
@@ -45,10 +41,6 @@
 			<div class="clearfix"></div>
 	  </div>
 	<% end %>
-
-	<%# - - - - - - - - - - - - %>
-	<%# DEFAULT INITIAL CHOICE  %>
-	<%# - - - - - - - - - - - - %>
 	<% unless ff.object.choices.find_all{|c| c.persisted? }.any? %>
 		<%= f.simple_fields_for "new_choices[]", ff.object.choices.build(), defaults: {label: false} do |fff| %>
 		  <div class="field-setting-choices--choice">
@@ -66,15 +58,8 @@
 		  </div>
 		<% end %>
 	<% end %>
-
 </div>
-
 <div class="clearfix"></div>
-
-
-<%# - - - - - - - - - - - - %>
-<%# DEFAULT CHOICE          %>
-<%# - - - - - - - - - - - - %>
 <% if ff.object.choices.find_all{|c| c.persisted? }.any? %>
 	<div class="form-item--full-size">
 		<%= ff.input :default_choice_id, 
@@ -86,12 +71,7 @@
 		    input_html: {class: 'select2-item'} %>
 	</div>
 <% end %>
-
-
 <% if ff.object.field_type == 'checkbox' %>
-	<%# - - - - - - - - - - - - %>
-	<%# ALLOW NULL              %>
-	<%# - - - - - - - - - - - - %>
 	<div class="form-item--full-size standard-form--checkbox field-setting-choices--allow-null">
 		<%= ff.input :allow_null, 
 				as: :radio_buttons,

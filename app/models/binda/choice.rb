@@ -4,9 +4,15 @@ module Binda
   	belongs_to :field_setting
   	has_and_belongs_to_many :selections
 
-		validates :label, presence: true
-		validates :value, presence: true
-		validates :field_setting_id, presence: true
+		validates :label, presence: {
+			message: I18n.t('binda.choice.label_validation_message')
+		}
+		validates :value, presence: {
+			message: I18n.t('binda.choice.value_validation_message')
+		}
+		validates :field_setting_id, presence: {
+			message: I18n.t('binda.choice.field_setting_id_validation_message')
+		}
 
 		after_create :set_default_choice
 		after_destroy :reset_default_choice

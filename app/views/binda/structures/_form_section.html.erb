@@ -1,80 +1,56 @@
 <div class="standard-form--header">
-  <small><%= "#{ t :field_group }".pluralize %></small>
+  <small>
+  	<%= "#{ t :field_group }".pluralize %>
+  </small>
 </div>
-
-<%# - - - - - - - - - - - - %>
-<%# FORM ITEM               %>
-<%# - - - - - - - - - - - - %>
 <%= f.simple_fields_for :field_groups, f.object.field_groups.order( :position, :name ) do |ff| %>
-
   <div id="form-item-<%= ff.object.id %>" class="form-item">
-
 		<%= ff.input :structure_id, as: :hidden %>
 		<%= ff.input :id, as: :hidden %>
-
-
-		<%# - - - - - - - - - - - - %>
-		<%# EDIT/REMOVE BUTTONS     %>
-		<%# - - - - - - - - - - - - %>
 		<div class="standard-form--secondary-header form-item--header form-item--repeater-header">
-			<%# - - - - - - - - - - - - %>
-			<%# BUTTONS                 %>
-			<%# - - - - - - - - - - - - %>
 			<% if ff.object.slug.nil? %>
 				<a class="form-item--delete-repeater-item form-item--remove-item-with-js"
 			     data-confirm="This operation will delete this setting and all related component content. Are you ok with that?">
 					<i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %>
 			  </a>
-			  <p><%= t('binda.new_item_in_repeater', { arg1: '' })%></p>
+			  <p>
+			  	<%= t('binda.new_item_in_repeater', { arg1: '' })%>		
+			  </p>
 			<% else %>
-	      <%= link_to "<i class=\"fas fa-pencil-alt\"></i> #{ t('binda.edit')}".html_safe,
-                    structure_field_group_path( @structure.slug, ff.object.slug ),
-	                  class: 'form-item--edit-item' %>
-
-	      <%= link_to "<i class=\"far fa-trash-alt\"></i> #{t('binda.delete').capitalize}".html_safe,
-	                  structure_field_group_path( @structure.slug, ff.object.slug ),
-	                  method: :delete,
-	                  data: { confirm: t('binda.confirm_delete') },
-	                  class: 'form-item--delete-repeater-item' %>
-
+				<a href="<%= structure_field_group_path( @structure.slug, ff.object.slug ) %>"
+					class="form-item--edit-item">
+					<i class="fas fa-pencil-alt"></i>
+					<%= t('binda.edit') %>
+				</a>
+				<a href="<%= structure_field_group_path( @structure.slug, ff.object.slug ) %>"
+					class="form-item--delete-repeater-item"
+					data-confirm="<%= t('binda.confirm_delete') %>"
+					data-method="delete">
+					<i class="far fa-trash-alt"></i> 
+					<%= t('binda.delete').capitalize %>
+				</a>
 	      <p><%= ff.object.name %></p>
 			<% end %>
 	  </div>
-
-		<%# - - - - - - - - - - - - %>
-		<%# NAME                    %>
-		<%# - - - - - - - - - - - - %>
-		<%= ff.input :name, label: "#{ t :name }".capitalize, wrapper_html: { class: "form-item--half-size" }  %>
-
-
-		<%# - - - - - - - - - - - - %>
-		<%# SLUG                    %>
-		<%# - - - - - - - - - - - - %>
-    <%= ff.input :slug, wrapper_html: { class: "form-item--half-size" } %>
-
+		<%= ff.input :name, 
+			label: "#{ t :name }".capitalize, 
+			wrapper_html: { class: "form-item--half-size" }  
+		%>
+    <%= ff.input :slug, 
+    	wrapper_html: { class: "form-item--half-size" } 
+    %>
 	</div>
-
 <% end %>
-
-
-<%# - - - - - - - - - - - - %>
-<%# FORM NEW ITEM           %>
-<%# - - - - - - - - - - - - %>
 <%= f.simple_fields_for 'new_field_groups[]', @structure.field_groups.build() do |ff| %>
   <div id="field-group-<%= f.object.id %>--new-form-item" class="form-item form-item--new">
-
-		<%# - - - - - - - - - - - - %>
-		<%# EDIT/REMOVE BUTTONS     %>
-		<%# - - - - - - - - - - - - %>
 		<div class="standard-form--secondary-header form-item--header form-item--repeater-header">
-			<%# - - - - - - - - - - - - %>
-			<%# BUTTONS                 %>
-			<%# - - - - - - - - - - - - %>
 			<a class="form-item--delete-repeater-item form-item--remove-item-with-js"
 		     data-confirm="This operation will delete this setting and all related component content. Are you ok with that?">
 				<i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %>
 		  </a>
-		  <p><%= t('binda.new_item_in_repeater', { arg1: '' })%></p>
+		  <p>
+		  	<%= t('binda.new_item_in_repeater', { arg1: '' })%>
+	  	</p>
 	  </div>
 		<div class="form-item--editor">
 			<%= ff.input :structure_id, as: :hidden %>
@@ -82,21 +58,21 @@
 			<%= ff.input :name, label: "#{ t :name }".capitalize, wrapper_html: { class: "form-item--half-size" } %>
       <%= ff.input :slug, wrapper_html: { class: "form-item--half-size" } %>
 		</div>
-
 	</div>
 <% end %>
-
-
-<%# - - - - - - - - - - - - - - %>
-<%# 'ADD NEW FORM ITEM' BUTTON  %>
-<%# - - - - - - - - - - - - - - %>
 <% if section.slug.nil? %>
-  <p class="standard-form--suggestion"><%= t( :hint_create_parent_before_child, arg1: "#{ t :structure }", arg2: "#{ t :field_group }" ).capitalize %></p>
+  <p class="standard-form--suggestion">
+  	<%= t( :hint_create_parent_before_child, arg1: "#{ t :structure }", arg2: "#{ t :field_group }" ).capitalize %>
+	</p>
 <% else %>
 	<div class="standard-form--main-actions">		
-	  <a id="form-item--field-group-<%= f.object.id %>--add-new" class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" href="<%= new_structure_field_group_path( @structure.slug ) %>" data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
-    <%= "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> #{ t(:new).capitalize }".html_safe %> <%= t :field_group %>	
+	  <a id="form-item--field-group-<%= f.object.id %>--add-new" 
+	  	class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" 
+	  	href="<%= new_structure_field_group_path( @structure.slug ) %>" 
+	  	data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
+    	<i class="fa fa-plus" aria-hidden="true"></i>
+    	<%= t('binda.new') %>
+    	<%= t('binda.field_group') %>	
 	  </a>
 	</div>
-	  
 <% end %>
