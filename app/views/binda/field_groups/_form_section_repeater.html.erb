@@ -9,9 +9,12 @@
   </div>
 <% end %>
 <div class="standard-form--main-actions">		
-	<a id="form-item--repeater-<%= repeater.id %>--add-new" class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" data-new-form-item-id="repeater-<%= repeater.id %>--new-form-item" href="#">
+	<a id="form-item--repeater-<%= repeater.id %>--add-new" 
+    class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" 
+    data-new-form-item-id="repeater-<%= repeater.id %>--new-form-item" 
+    href="#">
     <i class="fa fa-plus" aria-hidden="true"></i>
     <%= t(:new_item_in_repeater, arg1: repeater.name.capitalize) %> 
-    <%= t('binda.field_setting') %>
+    <%= t('binda.field_setting.singular') %>
 	</a>
 </div>

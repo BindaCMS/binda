@@ -8,7 +8,7 @@
     <%= get_structures_sort_index_link %>
   </div>
   <p class="main-header--title">
-    <%= t('binda.structures') %>
+    <%= t('binda.structure.plural') %>
   </p>
 <% end %>
 
@@ -18,7 +18,7 @@
     <table class="standard-form--container">
       <thead class="standard-form--header">
         <tr>
-          <th colspan="7"><%= t('binda.structures') %></th>
+          <th colspan="7"><%= t('binda.structure.plural') %></th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -26,13 +26,13 @@
         <% @structures.order( :name ).each do |structure| %>
           <tr class="main-table--hover" id="structure_<%= structure.id %>">
 
-            <td><%= link_to structure.name, structure_path(structure) %></td>
-            <td class="main-table--actions">
-              <a href="<%= edit_structure_path(structure.id) %>">
+            <td colspan="7"><%= link_to structure.name, structure_path(structure) %></td>
+            <td colspan="3" class="main-table--actions">
+              <a href="<%= edit_structure_path(structure) %>">
                 <i class="fas fa-pencil-alt"></i>
                 <%= t('binda.edit') %>
               </a>
-              <a href="<%= structure_path %>"
+              <a href="<%= structure_path(structure) %>"
                 class="text-destroy"
                 data-method="delete"
                 data-confirm="<%= t('binda.structure.confirm_delete') %>">

@@ -64,41 +64,41 @@ en:
     delete: delete
     edit: edit
     sort: sort
-    structure: Structure
-    structures: Structures
     structure:
+      singular: Structure
+      plural: Structures
       confirm_delete: This operation will delete this structure and there is no coming back. Are you ok with that?    
       validation_message: 
         instance_type: "%{arg1} is not a valid instance"
-    field_group: Field group
-    field_groups: Field groups
     field_group:
+      singular: Field group
+      plural: FIeld groups
       confirm_delete: This operation will delete this group of settings and all related component content. Are you ok with that?
       validation_message:
-        name: Field group name cannot be blank.
-        slug: "The following slug cannot be used: %{arg1}. Please choose a different slug."
-        field_type: "The selected field type isn't valid. Select a field type among these: %{arg1}."
+        name: cannot be blank.
+        slug: "\"%{arg1}\" already in use. Please choose a different slug."
+        field_type: "isn't valid. Select a field type among these: %{arg1}."
     default_field_group:
       name: General details
       error_on_create: General Details group hasn't been created
-    field_setting: Field setting
-    field_settings: Field settings
     repeater_field_settings: Fields settings of the %{arg1} repeater
     field_setting:
+      singular: Field setting
+      plural: Field settings
       confirm_delete: This operation will delete this setting and all related component content. Are you ok with that?
       validation_message:
         name: Field setting name cannot be blank.
-        slug: "The following slug cannot be used: %{arg1}. Please choose a different slug."
-        field_type: "The selected field type isn't valid. Select a field type among these: %{arg1}."
-        field_group_id: "Field setting named \"%{arg1}\" must be associated to a field group. Check if field_group_id propriety is set."
+        slug: "\"%{arg1}\" already in use. Please choose a different slug."
+        field_type: "isn't valid. Select a field type among these: %{arg1}."
+        field_group_id: "cannot be blank. Field setting named \"%{arg1}\" must be associated to a field group. Check if field_group_id propriety is set."
     component: Component
     components: Component
     asset:
       validation_message:
-        fieldable_id: The %{arg1} must be associated with a component or a board
-        field_setting_id: The %{arg1} must be associated with a field setting
+        fieldable_id: cannot be blank. The %{arg1} must be associated with a component or a board
+        field_setting_id: cannot be blank. The %{arg1} must be associated with a field setting
     new: New
-    new_structure: New %{arg1} structure
+    new_structure: New structure
     new_field_group: New %{arg1} field group
     new_component: New %{arg1}
     new_user: New User
@@ -131,7 +131,7 @@ en:
       validation_message:
         label: Label cannot be blank
         value: Value cannot be blank
-        field_setting_id: "Choice must be associated to a field setting. Check if field_setting_id propriety is set."
+        field_setting_id: "cannot be blank. Choice must be associated to a field setting. Check if field_setting_id propriety is set."
     choice_label: label
     choice_value: value
     allow_null: Require a choice

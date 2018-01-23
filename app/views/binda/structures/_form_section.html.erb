@@ -11,7 +11,8 @@
 			<% if ff.object.slug.nil? %>
 				<a class="form-item--delete-repeater-item form-item--remove-item-with-js"
 			     data-confirm="This operation will delete this setting and all related component content. Are you ok with that?">
-					<i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %>
+					<i class="far fa-trash-alt"></i> 
+					<%= t('binda.delete').capitalize %>
 			  </a>
 			  <p>
 			  	<%= t('binda.new_item_in_repeater', { arg1: '' })%>		
@@ -45,8 +46,9 @@
   <div id="field-group-<%= f.object.id %>--new-form-item" class="form-item form-item--new">
 		<div class="standard-form--secondary-header form-item--header form-item--repeater-header">
 			<a class="form-item--delete-repeater-item form-item--remove-item-with-js"
-		     data-confirm="This operation will delete this setting and all related component content. Are you ok with that?">
-				<i class="far fa-trash-alt"></i> <%= t('binda.delete').capitalize %>
+		     data-confirm="<%= t('binda.structure.confirm_delete') %>">
+				<i class="far fa-trash-alt"></i> 
+				<%= t('binda.delete').capitalize %>
 		  </a>
 		  <p>
 		  	<%= t('binda.new_item_in_repeater', { arg1: '' })%>
@@ -72,7 +74,7 @@
 	  	data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
     	<i class="fa fa-plus" aria-hidden="true"></i>
     	<%= t('binda.new') %>
-    	<%= t('binda.field_group') %>	
+    	<%= t('binda.field_group.singular') %>	
 	  </a>
 	</div>
 <% end %>

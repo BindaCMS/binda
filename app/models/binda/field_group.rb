@@ -10,7 +10,7 @@ module Binda
 
 		# Validations
 		validates :name, presence: {
-			message: I18n.t("binda.field_group.validation_message.name") 
+			message: I18n.t("binda.field_group.validation_message.name")
 		}
 		validate :slug_uniqueness
 		validates_associated :field_settings
@@ -57,7 +57,7 @@ module Binda
 
 			def update_position
 				if self.position.nil?
-					self.update_attribute( 'position', self.structure.field_groups.length )
+					self.update_attribute('position', self.structure.field_groups.length)
 				end
 			end
 

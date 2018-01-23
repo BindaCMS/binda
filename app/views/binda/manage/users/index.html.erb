@@ -1,6 +1,7 @@
 <% content_for :header do %>
   <div class="main-header--buttons" class="main-header--link b-btn b-btn-primary">
-    <a href="<%= new_manage_user_path %>">
+    <a href="<%= new_manage_user_path %>"
+      class="main-header--link b-btn b-btn-primary">
       <i class="fa fa-plus" aria-hidden="true"></i>
       <%= t('binda.new') %> <%= t('binda.user') %>
     </a>
@@ -41,7 +42,7 @@
       </tbody>
     </table>
     <a href="<%= new_manage_user_path %>"
-      clas="main-header--link b-btn b-btn-primary">
+      class="main-header--link b-btn b-btn-primary">
       <i class="fa fa-plus" aria-hidden="true"></i>
       <%= t('binda.new') %> <%= t('binda.user') %>
     </a>

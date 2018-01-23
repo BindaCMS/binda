@@ -31,7 +31,7 @@
                 <i class="fas fa-pencil-alt"></i>
                 <%= t('binda.edit').capitalize %>
               </a>
-              <a href="structure_category_path( @structure.slug, category )"
+              <a href="<%= structure_category_path(@structure.slug, category) %>"
                 class="text-destroy"
                 data-method="delete"
                 data-confirm="<%= t('binda.confirm_delete') %>">

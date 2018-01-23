@@ -6,7 +6,7 @@
       <%= t('binda.new_structure') %>
     </a>
   </div>
-  <p class="main-header--title"><%= t 'binda.structures' %></p>
+  <p class="main-header--title"><%= t 'binda.structure.plural' %></p>
 <% end %>
 
 
@@ -14,13 +14,13 @@
   <%= render 'layouts/binda/popup_warning' %>
   <div class="main-table--container">
     <h5 class="text-muted">
-      <%= t('binda.sort_index_hint', { arg1: t('binda.structures').downcase }).html_safe %>  
+      <%= t('binda.sort_index_hint', { arg1: t('binda.structure.plural').downcase }).html_safe %>  
     </h5>
     <div class="main-sortable-table">
       <div class="main-sortable-table--header-row">
         <div class="main-sortable-table--header-title">
           <p>
-            <%= t('binda.structures') %>
+            <%= t('binda.structure.plural') %>
           </p>
         </div>
       </div>
