@@ -84,11 +84,11 @@ var FormItemEditor = function () {
 	function FormItemEditor() {
 		_classCallCheck(this, FormItemEditor);
 
-		this.target = '.form-item--editor';
+		this.target = ".form-item--editor";
 	}
 
 	_createClass(FormItemEditor, [{
-		key: 'isSet',
+		key: "isSet",
 		value: function isSet() {
 			if ($(this.target).length > 0) {
 				return true;
@@ -97,7 +97,7 @@ var FormItemEditor = function () {
 			}
 		}
 	}, {
-		key: 'setEvents',
+		key: "setEvents",
 		value: function setEvents() {
 			var _this = this;
 
@@ -109,14 +109,14 @@ var FormItemEditor = function () {
 			});
 		}
 	}, {
-		key: 'resize',
+		key: "resize",
 		value: function resize() {
 			$(this.target).each(function () {
 				// If the form item editor is closed don't go any further
 				if ($(this).height() === 0) return;
 				// otherwise update the max-height which is needed for the CSS transition
 				// NOTE you need to remove the max-height (inside 'style' attribute) to get the real height
-				$(this).get(0).style.height = 'auto';
+				$(this).get(0).style.height = "auto";
 				$(this).get(0).style.maxHeight = $(this).get(0).scrollHeight + "px";
 			});
 		}
@@ -138,14 +138,14 @@ var _FormItemEditor = new FormItemEditor();
  */
 
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-	setupSelect2('.select2-item');
+	setupSelect2(".select2-item");
 });
 
 function setupSelect2(target) {
 	$(target).each(function () {
-		var placeholder = $(this).attr('placeholder');
-		if (typeof placeholder == 'undefined') {
-			placeholder = 'Select a option';
+		var placeholder = $(this).attr("placeholder");
+		if (typeof placeholder == "undefined") {
+			placeholder = "Select a option";
 		}
 
 		$(this).select2({
@@ -179,14 +179,14 @@ function setupSelect2(target) {
  */
 
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-	$('.field_groups-edit #save').on('click', function (event) {
-		var instanceType = $(this).data('instance-type');
-		var entriesNumber = $(this).data('entries-number');
+	$(".field_groups-edit #save").on("click", function (event) {
+		var instanceType = $(this).data("instance-type");
+		var entriesNumber = $(this).data("entries-number");
 
 		// If the current structure have many entries updating the field group
 		// might be a slow operation, therefore it's good practice to inform the user
 		if (entriesNumber > 500) {
-			alert('You have ' + entriesNumber + ' ' + instanceType + '. This operation might take some time to complete. To avoid unexpected behaviour don\'t leave or refresh the page');
+			alert("You have " + entriesNumber + " " + instanceType + ". This operation might take some time to complete. To avoid unexpected behaviour don't leave or refresh the page");
 		}
 	});
 });
@@ -212,11 +212,11 @@ var FieldSettingChoices = function () {
 	function FieldSettingChoices() {
 		_classCallCheck(this, FieldSettingChoices);
 
-		this.target = '.field-setting-choices--choice';
+		this.target = ".field-setting-choices--choice";
 	}
 
 	_createClass(FieldSettingChoices, [{
-		key: 'isSet',
+		key: "isSet",
 		value: function isSet() {
 			if ($(this.target).length > 0) {
 				return true;
@@ -225,14 +225,14 @@ var FieldSettingChoices = function () {
 			}
 		}
 	}, {
-		key: 'setEvents',
+		key: "setEvents",
 		value: function setEvents() {
-			$(document).on('click', '.field-setting-choices--add-choice', addChoice);
+			$(document).on("click", ".field-setting-choices--add-choice", addChoice);
 
-			$(document).on('click', '.field-setting-choices--delete-choice', deleteChoice);
-			$(document).on('click', '.field-setting-choices--js-delete-choice', function (event) {
+			$(document).on("click", ".field-setting-choices--delete-choice", deleteChoice);
+			$(document).on("click", ".field-setting-choices--js-delete-choice", function (event) {
 				event.preventDefault();
-				$(this).closest('.field-setting-choices--choice').remove();
+				$(this).closest(".field-setting-choices--choice").remove();
 				// Update form item editor size
 				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 			});
@@ -251,11 +251,11 @@ var _FieldSettingChoices = new FieldSettingChoices();
 function addChoice(event) {
 	event.preventDefault();
 	// Clone the new choice field
-	var choices_id = $(this).data('choices-id');
-	var choices = $('#' + choices_id);
-	var newchoice = choices.find('.field-setting-choices--new-choice');
-	var clone = newchoice.clone().removeClass('field-setting-choices--new-choice').toggle();
-	clone.find('.field-setting-choices--toggle-choice').toggle();
+	var choices_id = $(this).data("choices-id");
+	var choices = $("#" + choices_id);
+	var newchoice = choices.find(".field-setting-choices--new-choice");
+	var clone = newchoice.clone().removeClass("field-setting-choices--new-choice").toggle();
+	clone.find(".field-setting-choices--toggle-choice").toggle();
 	// Append the clone right after
 	choices.prepend(clone);
 	// Update form item editor size
@@ -265,13 +265,13 @@ function addChoice(event) {
 function deleteChoice(event) {
 	event.preventDefault();
 
-	var choice = $(this).closest('.field-setting-choices--choice');
-	var destination = $(this).attr('href');
+	var choice = $(this).closest(".field-setting-choices--choice");
+	var destination = $(this).attr("href");
 	var self = this;
 
 	$.ajax({
 		url: destination,
-		type: 'DELETE',
+		type: "DELETE",
 		success: function success() {
 			choice.remove();
 			// Update form item editor size
@@ -294,20 +294,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 /**
  * FILE UPLOAD
- * 
+ *
  * see https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/
- * 
+ *
  */
 
 var FileUpload = function () {
 	function FileUpload() {
 		_classCallCheck(this, FileUpload);
 
-		this.target = '.fileupload';
+		this.target = ".fileupload";
 	}
 
 	_createClass(FileUpload, [{
-		key: 'isSet',
+		key: "isSet",
 		value: function isSet() {
 			if ($(this.target).length > 0) {
 				return true;
@@ -316,13 +316,13 @@ var FileUpload = function () {
 			}
 		}
 	}, {
-		key: 'setEvents',
+		key: "setEvents",
 		value: function setEvents() {
 			var self = this;
 
-			$(document).on('click', '.fileupload--remove-image-btn', remove_preview);
+			$(document).on("click", ".fileupload--remove-image-btn", remove_preview);
 
-			$(document).on('change', this.target + ' input.file', handle_file);
+			$(document).on("change", this.target + " input.file", handle_file);
 		}
 	}]);
 
@@ -337,15 +337,15 @@ var _FileUpload = new FileUpload();
 
 // Reference --> http://blog.teamtreehouse.com/uploading-files-ajax
 function handle_file(event) {
-	var id = event.target.getAttribute('data-id');
-	var $parent = $('#fileupload-' + id);
+	var id = event.target.getAttribute("data-id");
+	var $parent = $("#fileupload-" + id);
 
 	// Get the selected file from the input
 	// This script doesn't consider multiple files upload
 	var file = event.target.files[0];
 
 	// Don't go any further if no file has been selected
-	if (typeof file === 'undefined') {
+	if (typeof file != "undefined") {
 		return;
 	}
 
@@ -353,22 +353,20 @@ function handle_file(event) {
 	var formData = new FormData();
 
 	// Get data from the input element
-	$parent.find('input').each(function () {
+	$parent.find("input").each(function () {
 		if (this.isSameNode(event.target)) {
 			// Add the file to the request
-			formData.append(this.getAttribute('name'), file, file.name);
+			formData.append(this.getAttribute("name"), file, file.name);
 		} else {
 			// Add secondary values to the request
-			formData.append(this.getAttribute('name'), this.getAttribute('value'));
+			formData.append(this.getAttribute("name"), this.getAttribute("value"));
 		}
 	});
 
 	// If it's inside a repeater add repeater parameters
-	var $parent_repeater = $parent.closest('.form-item--repeater-fields');
-	if ($parent.closest('.form-item--repeater-fields').length > 0) {
-		$parent_repeater.children('.form-group').find('input').each(function () {
-			formData.append(this.getAttribute('name'), this.getAttribute('value'));
-		});
+	var $parent_repeater = $parent.closest(".form-item--repeater-fields");
+	if ($parent.closest(".form-item--repeater-fields").length > 0) {
+		gatherData($parent_repeater, formData);
 	}
 
 	// Is this needed? Apparently it works without it. Is it a security issue?
@@ -376,108 +374,120 @@ function handle_file(event) {
 	// formData.append('authenticity_token', token)
 
 	// Display loader
-	$('.popup-warning--message').text($parent.data('message'));
-	$('.popup-warning').removeClass('popup-warning--hidden');
+	$(".popup-warning--message").text($parent.data("message"));
+	$(".popup-warning").removeClass("popup-warning--hidden");
 
 	// Once form data are gathered make the request
 	makeRequest(event, formData);
 }
 
+function gatherData($parent_repeater, formData) {
+	$parent_repeater.children(".form-group").find("input").each(function () {
+		formData.append(this.getAttribute("name"), this.getAttribute("value"));
+	});
+}
+
 function makeRequest(event, formData) {
-	var id = event.target.getAttribute('data-id');
-	var $parent = $('#fileupload-' + id);
+	var id = event.target.getAttribute("data-id");
+	var $parent = $("#fileupload-" + id);
 	// Make request
 	$.ajax({
-		url: event.target.getAttribute('data-url'),
-		type: 'PATCH',
+		url: event.target.getAttribute("data-url"),
+		type: "PATCH",
 		processData: false, // needed to pass formData with the current format
 		contentType: false, // needed to pass formData with the current format
 		data: formData
 	}).done(function (data) {
-		if (data.type == 'image') {
-			setup_image_preview(data, id);
-		} else if (data.type == 'video') {
-			setup_video_preview(data, id);
-		} else {
-			alert('Something went wrong. No preview has been received.');
-		}
-
-		// Hide loaded
-		$('.popup-warning').addClass('popup-warning--hidden');
-
-		// Display details and buttons
-		$parent.find('.fileupload--details').removeClass('fileupload--details--hidden');
-		$parent.find('.fileupload--remove-image-btn').removeClass('fileupload--remove-image-btn--hidden');
+		updateFileuploadField(data, id);
 	}).fail(function (dataFail) {
 		console.error("Error:", dataFail.responseJSON);
 		// Hide loaded
-		$('.popup-warning').addClass('popup-warning--hidden');
-		alert($parent.data('error'));
+		$(".popup-warning").addClass("popup-warning--hidden");
+		alert($parent.data("error"));
 	});
 }
 
+function updateFileuploadField(data, id) {
+	var $parent = $("#fileupload-" + id);
+
+	if (data.type == "image") {
+		setup_image_preview(data, id);
+	} else if (data.type == "video") {
+		setup_video_preview(data, id);
+	} else {
+		alert("Something went wrong. No preview has been received.");
+	}
+
+	// Hide loaded
+	$(".popup-warning").addClass("popup-warning--hidden");
+
+	// Display details and buttons
+	$parent.find(".fileupload--details").removeClass("fileupload--details--hidden");
+	$parent.find(".fileupload--remove-image-btn").removeClass("fileupload--remove-image-btn--hidden");
+}
+
 function reset_file(input) {
-	input.value = '';
+	input.value = "";
 
 	if (!/safari/i.test(navigator.userAgent)) {
-		input.type = '';
-		input.type = 'file';
+		input.type = "";
+		input.type = "file";
 	}
 }
 
 function remove_preview(event) {
-	var id = event.target.getAttribute('data-id');
-	var $parent = $('#fileupload-' + id);
+	var id = event.target.getAttribute("data-id");
+	var $parent = $("#fileupload-" + id);
 
 	// Reset previews (either image or video)
-	$parent.find('.fileupload--preview').css('background-image', '').removeClass('fileupload--preview--uploaded');
-	$parent.find('video source').removeAttr('src');
+	$parent.find(".fileupload--preview").css("background-image", "").removeClass("fileupload--preview--uploaded");
+	$parent.find("video source").removeAttr("src");
 
-	// Clear input field 
-	reset_file($parent.find('input[type=file]').get(0));
+	// Clear input field
+	reset_file($parent.find("input[type=file]").get(0));
 
 	// Reset buttons to initial state
-	$parent.find('.fileupload--remove-image-btn').addClass('fileupload--remove-image-btn--hidden');
-	$parent.find('.fileupload--details').addClass('fileupload--details--hidden');
+	$parent.find(".fileupload--remove-image-btn").addClass("fileupload--remove-image-btn--hidden");
+	$parent.find(".fileupload--details").addClass("fileupload--details--hidden");
 }
 
 function setup_image_preview(data, id) {
-	var $parent = $('#fileupload-' + id);
-	var $preview = $('#fileupload-' + id + ' .fileupload--preview');
+	var $parent = $("#fileupload-" + id);
+	var $preview = $("#fileupload-" + id + " .fileupload--preview");
 
 	// Update thumbnail
-	$preview.css('background-image', 'url(' + data.thumbnailUrl + ')');
+	$preview.css("background-image", "url(" + data.thumbnailUrl + ")");
 
 	// Remove and add class to trigger css animation
-	var uploadedClass = 'fileupload--preview--uploaded';
+	var uploadedClass = "fileupload--preview--uploaded";
 	$preview.removeClass(uploadedClass).addClass(uploadedClass);
 
 	// Update details
-	$parent.find('.fileupload--width').text(data.width);
-	$parent.find('.fileupload--height').text(data.height);
-	$parent.find('.fileupload--filesize').text(data.size);
-	$parent.find('.fileupload--filename').text(data.name);
+	$parent.find(".fileupload--width").text(data.width);
+	$parent.find(".fileupload--height").text(data.height);
+	$parent.find(".fileupload--filesize").text(data.size);
+	$parent.find(".fileupload--filename").text(data.name);
 }
 
 function setup_video_preview(data, id) {
-	var $parent = $('#fileupload-' + id);
-	var $preview = $('#fileupload-' + id + ' .fileupload--preview');
+	var $parent = $("#fileupload-" + id);
+	var $preview = $("#fileupload-" + id + " .fileupload--preview");
 
-	$preview.removeClass('fileupload--preview--uploaded').find('video').attr('id', 'video-' + id).find('source').attr('src', data.url).attr('type', 'video/' + data.ext);
+	$preview.removeClass("fileupload--preview--uploaded").find("video").attr("id", "video-" + id).find("source").attr("src", data.url).attr("type", "video/" + data.ext);
 
 	// If video source isn't blank load it (consider that a video tag is always present)
-	if (_typeof($preview.find('video source').attr('src')) != undefined) {
-		$preview.find('video').get(0).load();
+	if (_typeof($preview.find("video source").attr("src")) != undefined) {
+		$preview.find("video").get(0).load();
 	}
 
 	// Remove and add class to trigger css animation
-	var uploadedClass = 'fileupload--preview--uploaded';
+	var uploadedClass = "fileupload--preview--uploaded";
 	$preview.removeClass(uploadedClass).addClass(uploadedClass);
 
 	// Update details
-	$parent.find('.fileupload--filesize').text(data.size);
-	$parent.find('.fileupload--filename').text(data.name);
-	$parent.find('.fileupload--videolink a').attr('href', data.url);
+	$parent.find(".fileupload--filesize").text(data.size);
+	$parent.find(".fileupload--filename").text(data.name);
+	$parent.find(".fileupload--videolink a").attr("href", data.url);
 }
 
 /***/ }),
@@ -508,26 +518,26 @@ var FormItem = function () {
 	}
 
 	_createClass(FormItem, [{
-		key: 'isSet',
+		key: "isSet",
 		value: function isSet() {
-			if ($('.form-item').length > 0) {
+			if ($(".form-item").length > 0) {
 				return true;
 			} else {
 				return false;
 			}
 		}
 	}, {
-		key: 'setEvents',
+		key: "setEvents",
 		value: function setEvents() {
-			$(document).on('click', '.form-item--add-new', addNewItem);
+			$(document).on("click", ".form-item--add-new", addNewItem);
 
-			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
+			$(document).on("click", ".form-item--remove-item-with-js", function (event) {
 				// Stop default behaviour
 				event.preventDefault();
-				$(this).closest('.form-item').remove();
+				$(this).closest(".form-item").remove();
 			});
 
-			$(document).on('click', '.form-item--collapse-btn', collapseToggle);
+			$(document).on("click", ".form-item--collapse-btn", collapseToggle);
 		}
 	}]);
 
@@ -540,33 +550,33 @@ var _FormItem = new FormItem();
 /// COMPONENT HELPER FUNCTIONS
 ///- - - - - - - - - - - - - - - - - - - -
 
-// This function could be improved as it generates an issue with 
+// This function could be improved as it generates an issue with
 // input ids which are duplicated after the entire target has been cloned
 function addNewItem(event) {
 	// Stop default behaviour
 	event.preventDefault();
-	// Get the child to clone 
+	// Get the child to clone
 	// (`this` always refers to the second argument of the $(document).on() method, in this case '.form-item--add-new')
-	var id = $(this).data('new-form-item-id');
-	var $newChild = $('#' + id);
+	var id = $(this).data("new-form-item-id");
+	var $newChild = $("#" + id);
 	// Clone child and remove id and styles from cloned child
 	$newChild.clone().insertAfter($newChild);
 	// Remove class in order to remove styles, and change id so it's reachable when testing
-	$newChild.removeClass('form-item--new').attr('id', 'new-form-item-' + newFormItemId);
+	$newChild.removeClass("form-item--new").attr("id", "new-form-item-" + newFormItemId);
 
 	// // Update all ids to avoid duplication
-	$newChild.find('[id]').each(function () {
-		var oldId = $(this).attr('id');
-		var newId = oldId + '-' + newFormItemId;
-		$(this).attr('id', newId);
-		var $forId = $newChild.find('[for=' + oldId + ']');
+	$newChild.find("[id]").each(function () {
+		var oldId = $(this).attr("id");
+		var newId = oldId + "-" + newFormItemId;
+		$(this).attr("id", newId);
+		var $forId = $newChild.find("[for=" + oldId + "]");
 		if ($forId.length > 0) {
-			$forId.attr('for', newId);
+			$forId.attr("for", newId);
 		}
 	});
 
 	// Update height (max-height) of the new element
-	var $formItemEditor = $('#new-form-item-' + newFormItemId).find('.form-item--editor');
+	var $formItemEditor = $("#new-form-item-" + newFormItemId).find(".form-item--editor");
 
 	// override current max-height which is set to 0
 	$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
@@ -576,11 +586,11 @@ function addNewItem(event) {
 	// Increment global id variable `newFormItemId` in case needs to be used again
 	newFormItemId++;
 
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($formItemEditor.find('select'));
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($formItemEditor.find("select"));
 }
 
 function close() {
-	this.style.maxHeight = '0px';
+	this.style.maxHeight = "0px";
 }
 
 function open() {
@@ -594,16 +604,16 @@ function collapseToggle(event) {
 	// Stop default behaviour
 	event.preventDefault();
 
-	var $collapsable = $(this).closest('.form-item--collapsable');
+	var $collapsable = $(this).closest(".form-item--collapsable");
 
-	if ($collapsable.hasClass('form-item--collapsed')) {
-		$collapsable.find('.form-item--repeater-fields').each(open);
-		$collapsable.find('.form-item--editor').each(open);
-		$collapsable.removeClass('form-item--collapsed');
+	if ($collapsable.hasClass("form-item--collapsed")) {
+		$collapsable.find(".form-item--repeater-fields").each(open);
+		$collapsable.find(".form-item--editor").each(open);
+		$collapsable.removeClass("form-item--collapsed");
 	} else {
-		$collapsable.find('.form-item--repeater-fields').each(close);
-		$collapsable.find('.form-item--editor').each(close);
-		$collapsable.addClass('form-item--collapsed');
+		$collapsable.find(".form-item--repeater-fields").each(close);
+		$collapsable.find(".form-item--editor").each(close);
+		$collapsable.addClass("form-item--collapsed");
 	}
 }
 
@@ -625,11 +635,11 @@ var FormItemImage = function () {
 	function FormItemImage() {
 		_classCallCheck(this, FormItemImage);
 
-		this.target = '.form-item--image--uploader';
+		this.target = ".form-item--image--uploader";
 	}
 
 	_createClass(FormItemImage, [{
-		key: 'isSet',
+		key: "isSet",
 		value: function isSet() {
 			if ($(this.target).length > 0) {
 				return true;
@@ -638,7 +648,7 @@ var FormItemImage = function () {
 			}
 		}
 	}, {
-		key: 'setEvents',
+		key: "setEvents",
 		value: function setEvents() {}
 	}]);
 
@@ -672,27 +682,27 @@ var FormItemRepeater = function () {
 	}
 
 	_createClass(FormItemRepeater, [{
-		key: 'isSet',
+		key: "isSet",
 		value: function isSet() {
-			if ($('.form-item--repeater-section').length > 0) {
+			if ($(".form-item--repeater-section").length > 0) {
 				return true;
 			} else {
 				return false;
 			}
 		}
 	}, {
-		key: 'setEvents',
+		key: "setEvents",
 		value: function setEvents() {
-			$(document).on('click', '.form-item--repeater-section--add-new', addNewItem);
+			$(document).on("click", ".form-item--repeater-section--add-new", addNewItem);
 
-			$(document).on('click', '.form-item--remove-item-with-js', function (event) {
+			$(document).on("click", ".form-item--remove-item-with-js", function (event) {
 				// Stop default behaviour
 				event.preventDefault();
-				$(this).parent('.form-item--repeater-section').remove();
+				$(this).parent(".form-item--repeater-section").remove();
 				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
 			});
 
-			$(document).on('click', '.form-item--delete-repeater-item', deleteRepeter);
+			$(document).on("click", ".form-item--delete-repeater-item", deleteRepeter);
 		}
 	}]);
 
@@ -709,15 +719,15 @@ function addNewItem(event) {
 	// Stop default behaviour
 	event.preventDefault();
 	// Get the child to clone
-	var id = $(this).data('id');
-	var $list = $('#form-item--repeater-setting-' + id);
-	var url = $(this).data('url');
+	var id = $(this).data("id");
+	var $list = $("#form-item--repeater-setting-" + id);
+	var url = $(this).data("url");
 	$.post(url, { repeater_setting_id: id }, function (data) {
 		// Get repaeter code from Rails
-		// Due to the Rails way of creating nested forms it's necessary to 
+		// Due to the Rails way of creating nested forms it's necessary to
 		// create the nested item inside a different new form, then get just
 		// the code contained between the two SPLIT comments
-		var parts = data.split('<!-- SPLIT -->');
+		var parts = data.split("<!-- SPLIT -->");
 		var newRepeater = parts[1];
 		setupAndAppend(newRepeater, $list);
 	});
@@ -726,34 +736,34 @@ function addNewItem(event) {
 function setupAndAppend(newRepeater, $list) {
 	// Append the item
 	$list.prepend(newRepeater);
-	var new_repeater_item = $list.find('.form-item--repeater').get(0);
+	var new_repeater_item = $list.find(".form-item--repeater").get(0);
 
 	// Prepare animation
 	new_repeater_item.style.maxHeight = 0;
 
 	// Group fields if sotrable is enabled
-	if ($list.hasClass('sortable--enabled')) {
-		$(new_repeater_item).find('.form-item--repeater-fields').each(function () {
-			this.style.maxHeight = 0 + 'px';
+	if ($list.hasClass("sortable--enabled")) {
+		$(new_repeater_item).find(".form-item--repeater-fields").each(function () {
+			this.style.maxHeight = 0 + "px";
 		});
 	}
 
 	// Setup TinyMCE for the newly created item
-	var textarea_editor_id = $list.find('textarea').last('textarea').attr('id');
-	tinyMCE.EditorManager.execCommand('mceAddEditor', true, textarea_editor_id);
+	var textarea_editor_id = $list.find("textarea").last("textarea").attr("id");
+	tinyMCE.EditorManager.execCommand("mceAddEditor", true, textarea_editor_id);
 
 	// Resize the editor (is it needed with the new configuration?)
 	// _FormItemEditor.resize()
 
 	// Update select input for Select2 plugin
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find('select'));
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find("select"));
 
 	// Refresh Sortable to update the added item with Sortable features
-	$list.sortable('refresh');
+	$list.sortable("refresh");
 
 	// Run animation 50ms after previous style declaration (see above) otherwise animation doesn't get triggered
 	setTimeout(function () {
-		new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + 'px';
+		new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + "px";
 	}, 50);
 }
 
@@ -761,18 +771,18 @@ function deleteRepeter(event) {
 	// Stop default behaviour
 	event.preventDefault();
 
-	var record_id = $(this).data('id');
-	var target = $('#repeater_' + record_id).get(0);
-	// As max-height isn't set you need to set it manually before changing it, 
+	var record_id = $(this).data("id");
+	var target = $("#repeater_" + record_id).get(0);
+	// As max-height isn't set you need to set it manually before changing it,
 	// otherwise the animation doesn't get triggered
-	target.style.maxHeight = target.scrollHeight + 'px';
+	target.style.maxHeight = target.scrollHeight + "px";
 	// Change max-height after 50ms to trigger css animation
 	setTimeout(function () {
-		target.style.maxHeight = 0 + 'px';
+		target.style.maxHeight = 0 + "px";
 	}, 50);
 
 	$.ajax({
-		url: $(this).attr('href'),
+		url: $(this).attr("href"),
 		data: { id: record_id, isAjax: true },
 		method: "DELETE"
 	}).done(function () {
@@ -795,128 +805,124 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Shader = function () {
-    function Shader() {
-        _classCallCheck(this, Shader);
+  function Shader() {
+    _classCallCheck(this, Shader);
+  }
+
+  _createClass(Shader, [{
+    key: "isSet",
+    value: function isSet() {
+      if ($("#background-shader").length > 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
-    _createClass(Shader, [{
-        key: 'isSet',
-        value: function isSet() {
-            if ($('#background-shader').length > 0) {
-                return true;
-            } else {
-                return false;
-            }
+    // SETUP SHADER
+
+  }, {
+    key: "setup",
+    value: function setup() {
+      // Create a container object called the `stage`
+      this.stage = new PIXI.Container();
+
+      // Create 'renderer'
+      this.renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight);
+
+      // //Add the canvas to the HTML document
+
+      document.getElementById("background-shader").appendChild(this.renderer.view);
+
+      this.renderer.backgroundColor = 0xff00ff;
+
+      // canvas full window
+      this.renderer.view.style.position = "fixed";
+      this.renderer.view.style.display = "block";
+
+      var fragmentShader = document.getElementById("fragmentShader").innerHTML;
+
+      var currentTime = Math.sin(Date.now()) + 0.5;
+
+      this.uniforms = {
+        uTime: { type: "1f", value: 0.0 },
+        uCurrentTime: { type: "1f", value: currentTime },
+        uMouse: {
+          type: "2f",
+          value: [window.innerWidth, window.innerHeight]
+        },
+        uWindowSize: {
+          type: "2f",
+          value: [window.innerWidth, window.innerHeight]
         }
+      };
 
-        // SETUP SHADER
+      this.customShader = new PIXI.AbstractFilter(null, fragmentShader, this.uniforms);
+      this.drawRectagle();
+    }
 
-    }, {
-        key: 'setup',
-        value: function setup() {
+    // DRAW RECTANGLE
 
-            var Container = PIXI.Container,
-                autoDetectRenderer = PIXI.autoDetectRenderer,
-                loader = PIXI.loader,
-                resources = PIXI.loader.resources,
-                Sprite = PIXI.Sprite;
+  }, {
+    key: "drawRectagle",
+    value: function drawRectagle() {
+      this.rectangle = new PIXI.Graphics();
 
-            // Create a container object called the `stage`
-            this.stage = new Container();
+      // Set the default background color wo if browser doesn't support the filter we still see the primary color
+      var colorWithHash = "#FF00FF";
+      var colorWith0x = "0x" + colorWithHash.slice(1, 7);
+      this.rectangle.beginFill(colorWith0x);
 
-            // Create 'renderer'
-            this.renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight);
+      // Create the background rectanlge
+      this.rectangle.drawRect(0, 0, window.innerWidth, window.innerHeight);
+      this.rectangle.endFill();
 
-            // //Add the canvas to the HTML document
+      // Setup the filter (shader)
+      this.rectangle.filters = [this.customShader];
 
-            document.getElementById('background-shader').appendChild(this.renderer.view);
+      // Add background to stage
+      this.stage.addChild(this.rectangle);
+    }
 
-            this.renderer.backgroundColor = 0xFF00FF;
+    // START ANIMATION
 
-            // canvas full window
-            this.renderer.view.style.position = "fixed";
-            this.renderer.view.style.display = "block";
+  }, {
+    key: "start",
+    value: function start() {
+      animate();
+    }
 
-            var fragmentShader = document.getElementById("fragmentShader").innerHTML;
+    // MOUSE UPDATE
 
-            var currentTime = Math.sin(Date.now()) + 0.5;
+  }, {
+    key: "mouseUpdate",
+    value: function mouseUpdate(event) {
+      // If uniforms haven't been set yet don't do anything and exit
+      if (typeof this.uniforms === "undefined") return;
 
-            this.uniforms = {
-                uTime: { type: '1f', value: 0.0 },
-                uCurrentTime: { type: '1f', value: currentTime },
-                uMouse: { type: '2f', value: [window.innerWidth, window.innerHeight] },
-                uWindowSize: { type: '2f', value: [window.innerWidth, window.innerHeight] }
-            };
+      // udpate mouse coordinates for the shader
+      this.customShader.uniforms.uMouse = [event.pageX, event.pageY];
+    }
 
-            this.customShader = new PIXI.AbstractFilter(null, fragmentShader, this.uniforms);
-            this.drawRectagle();
-        }
+    // RESIZE
 
-        // DRAW RECTANGLE
+  }, {
+    key: "resize",
+    value: function resize() {
+      // let scale = scaleToWindow( this.renderer.view )
+      var prevWidth = this.renderer.view.style.width;
+      var prevHeight = this.renderer.view.style.height;
+      this.renderer.view.style.width = window.innerWidth + "px";
+      this.renderer.view.style.height = window.innerHeight + "px";
+      this.customShader.uniforms.uWindowSize = [window.innerWidth, window.innerHeight];
 
-    }, {
-        key: 'drawRectagle',
-        value: function drawRectagle() {
+      // Plese check this out ↴↴↴
+      // this.rectangle.scale.x = window.innerWidth / prevWidth
+      // this.rectangle.scale.y = window.innerHeight / prevHeight
+    }
+  }]);
 
-            this.rectangle = new PIXI.Graphics();
-
-            // Set the default background color wo if browser doesn't support the filter we still see the primary color
-            var colorWithHash = '#FF00FF';
-            var colorWith0x = '0x' + colorWithHash.slice(1, 7);
-            this.rectangle.beginFill(colorWith0x);
-
-            // Create the background rectanlge
-            this.rectangle.drawRect(0, 0, window.innerWidth, window.innerHeight);
-            this.rectangle.endFill();
-
-            // Setup the filter (shader)
-            this.rectangle.filters = [this.customShader];
-
-            // Add background to stage
-            this.stage.addChild(this.rectangle);
-        }
-
-        // START ANIMATION
-
-    }, {
-        key: 'start',
-        value: function start() {
-            animate();
-        }
-
-        // MOUSE UPDATE
-
-    }, {
-        key: 'mouseUpdate',
-        value: function mouseUpdate(event) {
-
-            // If uniforms haven't been set yet don't do anything and exit
-            if (typeof this.uniforms === 'undefined') return;
-
-            // udpate mouse coordinates for the shader
-            this.customShader.uniforms.uMouse = [event.pageX, event.pageY];
-        }
-
-        // RESIZE
-
-    }, {
-        key: 'resize',
-        value: function resize() {
-
-            // let scale = scaleToWindow( this.renderer.view )
-            var prevWidth = this.renderer.view.style.width;
-            var prevHeight = this.renderer.view.style.height;
-            this.renderer.view.style.width = window.innerWidth + "px";
-            this.renderer.view.style.height = window.innerHeight + "px";
-            this.customShader.uniforms.uWindowSize = [window.innerWidth, window.innerHeight];
-
-            // Plese check this out ↴↴↴
-            // this.rectangle.scale.x = window.innerWidth / prevWidth
-            // this.rectangle.scale.y = window.innerHeight / prevHeight
-        }
-    }]);
-
-    return Shader;
+  return Shader;
 }();
 
 var _Shader = new Shader();
@@ -924,33 +930,35 @@ var _Shader = new Shader();
 // ANIMATE
 // -------
 function animate() {
-
-    // start the timer for the next animation loop
-    requestAnimationFrame(animate);
-    _Shader.customShader.uniforms.uTime += 0.01;
-    // this is the main render call that makes pixi draw your container and its children.
-    _Shader.renderer.render(_Shader.stage);
+  // start the timer for the next animation loop
+  requestAnimationFrame(animate);
+  _Shader.customShader.uniforms.uTime += 0.01;
+  // this is the main render call that makes pixi draw your container and its children.
+  _Shader.renderer.render(_Shader.stage);
 }
 
 // CONVERT HEX TO RGB COLORS
 // -------------------------
 function hexToShaderRgb(hex) {
+  // Precision of the float number
+  var precision = 100;
+  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+    return r + r + g + g + b + b;
+  });
 
-    // Precision of the float number
-    var precision = 100;
-    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-        return r + r + g + g + b + b;
-    });
-
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        // Get a number between 0.00 and 1.00
-        r: Math.round(parseInt(result[1], 16) * precision / 255) / precision,
-        g: Math.round(parseInt(result[2], 16) * precision / 255) / precision,
-        b: Math.round(parseInt(result[3], 16) * precision / 255) / precision
-    } : null;
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if (result) {
+    return {
+      // Get a number between 0.00 and 1.00
+      r: Math.round(parseInt(result[1], 16) * precision / 255) / precision,
+      g: Math.round(parseInt(result[2], 16) * precision / 255) / precision,
+      b: Math.round(parseInt(result[3], 16) * precision / 255) / precision
+    };
+  } else {
+    return null;
+  }
 }
 
 // REQUEST ANIMATION POLYFILL
@@ -960,49 +968,49 @@ function hexToShaderRgb(hex) {
 // requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
 // MIT license
 (function () {
-    var lastTime = 0;
-    var vendors = ['ms', 'moz', 'webkit', 'o'];
-    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
-        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
-    }
+  var lastTime = 0;
+  var vendors = ["ms", "moz", "webkit", "o"];
+  for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+    window.requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"];
+    window.cancelAnimationFrame = window[vendors[x] + "CancelAnimationFrame"] || window[vendors[x] + "CancelRequestAnimationFrame"];
+  }
 
-    if (!window.requestAnimationFrame) window.requestAnimationFrame = function (callback, element) {
-        var currTime = new Date().getTime();
-        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-        var id = window.setTimeout(function () {
-            callback(currTime + timeToCall);
-        }, timeToCall);
-        lastTime = currTime + timeToCall;
-        return id;
-    };
+  if (!window.requestAnimationFrame) window.requestAnimationFrame = function (callback, element) {
+    var currTime = new Date().getTime();
+    var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+    var id = window.setTimeout(function () {
+      callback(currTime + timeToCall);
+    }, timeToCall);
+    lastTime = currTime + timeToCall;
+    return id;
+  };
 
-    if (!window.cancelAnimationFrame) window.cancelAnimationFrame = function (id) {
-        clearTimeout(id);
-    };
+  if (!window.cancelAnimationFrame) window.cancelAnimationFrame = function (id) {
+    clearTimeout(id);
+  };
 })();
 
 // Mozilla MDN optimized resize
 // https://developer.mozilla.org/en-US/docs/Web/Events/resize
 (function () {
-    var throttle = function throttle(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function func() {
-            if (running) {
-                return;
-            }
-            running = true;
-            requestAnimationFrame(function () {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
+  var throttle = function throttle(type, name, obj) {
+    obj = obj || window;
+    var running = false;
+    var func = function func() {
+      if (running) {
+        return;
+      }
+      running = true;
+      requestAnimationFrame(function () {
+        obj.dispatchEvent(new CustomEvent(name));
+        running = false;
+      });
     };
+    obj.addEventListener(type, func);
+  };
 
-    /* init - you can init any event */
-    throttle("resize", "optimizedResize");
+  /* init - you can init any event */
+  throttle("resize", "optimizedResize");
 })();
 
 /***/ }),
@@ -1017,7 +1025,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 /**
  * LOGIN FORM
- * 
+ *
  * https://tympanus.net/Development/MinimalForm/
  * https://github.com/codrops/MinimalForm/blob/master/js/stepsForm.js
  */
@@ -1031,57 +1039,55 @@ var LoginForm = function () {
 	}
 
 	_createClass(LoginForm, [{
-		key: 'isSet',
+		key: "isSet",
 		value: function isSet() {
-			if ($('.login--form').length > 0) {
+			if ($(".login--form").length > 0) {
 				return true;
 			} else {
 				return false;
 			}
 		}
 	}, {
-		key: 'init',
+		key: "init",
 		value: function init() {
-			this.$form = $('.login--form');
-			this.$questions = $('ol.login--questions > li');
+			this.$form = $(".login--form");
+			this.$questions = $("ol.login--questions > li");
 			this.questionsCount = this.$questions.length;
-			this.$nextButton = $('button.login--next');
+			this.$nextButton = $("button.login--next");
 
 			// Mark the first question as the current one
-			this.$questions.first().addClass('login--current');
+			this.$questions.first().addClass("login--current");
 
 			//disable form autocomplete
-			this.$form.attr('autocomplete', 'off');
+			this.$form.attr("autocomplete", "off");
 			this.setEvents();
 		}
 	}, {
-		key: 'setEvents',
+		key: "setEvents",
 		value: function setEvents() {
 			var _this = this;
 
 			var self = this;
 
 			// first input
-			var firstInput = this.$questions.get(this.current).querySelector('input, textarea, select');
+			var firstInput = this.$questions.get(this.current).querySelector("input, textarea, select");
 
 			// focus
 			var onFocusStart = function onFocusStart() {
-				firstInput.removeEventListener('focus', onFocusStart);
-				self.$nextButton.addClass('login--show');
+				firstInput.removeEventListener("focus", onFocusStart);
+				self.$nextButton.addClass("login--show");
 			};
 			// show the next question control first time the input gets focused
-			firstInput.addEventListener('focus', onFocusStart);
+			firstInput.addEventListener("focus", onFocusStart);
 
 			// show next question
-			this.$nextButton.on('click', function (event) {
-
+			this.$nextButton.on("click", function (event) {
 				event.preventDefault();
 				_this._nextQuestion();
 			});
 
 			// pressing enter will jump to next question
-			this.$form.on('keydown', function (event) {
-
+			this.$form.on("keydown", function (event) {
 				var keyCode = event.keyCode || event.which;
 				// enter
 				if (keyCode === 13) {
@@ -1091,7 +1097,7 @@ var LoginForm = function () {
 			});
 		}
 	}, {
-		key: '_nextQuestion',
+		key: "_nextQuestion",
 		value: function _nextQuestion() {
 			// check if form is filled
 			if (this.current === this.questionsCount - 1) {
@@ -1106,13 +1112,13 @@ var LoginForm = function () {
 
 			if (!this.isFilled) {
 				// add class "show-next" to form element (start animations)
-				this.$form.addClass('login--show-next');
+				this.$form.addClass("login--show-next");
 
 				// remove class "current" from current question and add it to the next one
 				// current question
 				var nextQuestion = this.$questions.get(this.current);
-				$(currentQuestion).removeClass('login--current');
-				$(nextQuestion).addClass('login--current');
+				$(currentQuestion).removeClass("login--current");
+				$(nextQuestion).addClass("login--current");
 			}
 
 			// after animation ends, remove class "show-next" from form element and change current question placeholder
@@ -1121,9 +1127,9 @@ var LoginForm = function () {
 				if (self.isFilled) {
 					self.$form.submit();
 				} else {
-					self.$form.removeClass('login--show-next');
+					self.$form.removeClass("login--show-next");
 					// force the focus on the next input
-					nextQuestion.querySelector('input, textarea, select').focus();
+					nextQuestion.querySelector("input, textarea, select").focus();
 				}
 			};
 
@@ -1146,13 +1152,13 @@ var _LoginForm = new LoginForm();
         var $radio = $(this);
 
         // if this was previously checked
-        if ($radio.data('waschecked') === true) {
-            $radio.prop('checked', false);
-            $radio.data('waschecked', false);
-        } else $radio.data('waschecked', true);
+        if ($radio.data("waschecked") === true) {
+            $radio.prop("checked", false);
+            $radio.data("waschecked", false);
+        } else $radio.data("waschecked", true);
 
         // remove was checked from other radios
-        $radio.siblings('input[name="login"]').data('waschecked', false);
+        $radio.siblings('input[name="login"]').data("waschecked", false);
     });
 });
 
@@ -1167,49 +1173,49 @@ var _LoginForm = new LoginForm();
 
 var sortableOptions = {
 	stop: function stop(event, ui) {
-		ui.item.css('z-index', 0);
+		ui.item.css("z-index", 0);
 	},
 	placeholder: "ui-state-highlight",
 	update: updateSortable
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-	if ($('.sortable').length > 0) {
+	if ($(".sortable").length > 0) {
 		// Initialize sortable item
-		$('.sortable').sortable(sortableOptions);
+		$(".sortable").sortable(sortableOptions);
 
 		// Check if sortable item needs handles
-		$('.sortable').each(function () {
-			if ($(this).find('.sortable--handle').length > 0) {
-				$(this).sortable('option', 'handle', '.sortable--handle');
+		$(".sortable").each(function () {
+			if ($(this).find(".sortable--handle").length > 0) {
+				$(this).sortable("option", "handle", ".sortable--handle");
 			} else {
-				$(this).addClass('sortable--no-handle');
+				$(this).addClass("sortable--no-handle");
 			}
 		});
 
-		$('.sortable--disabled').sortable('disable');
+		$(".sortable--disabled").sortable("disable");
 	}
 
 	// If there is a sortable toggle button prepare the sortable items accordingly
-	if ($('.sortable--toggle').length > 0) {
+	if ($(".sortable--toggle").length > 0) {
 		setupSortableToggle();
 	}
 
 	// Add event to any sortable toggle button
 	// TODO: make this event available to element which aren't standard form repeaters
-	$(document).on('click', '.standard-form--repeater .sortable--toggle', toggleSortable);
+	$(document).on("click", ".standard-form--repeater .sortable--toggle", toggleSortable);
 });
 
 function setupSortableToggle() {
-	$('.sortable--toggle').each(function () {
-		var id = '#' + $(this).data('repeater-id');
-		$(id).find('.form-item--collapsable').addClass('form-item--collapsed');
-		$(id).find('.form-item--repeater-fields').each(close);
+	$(".sortable--toggle").each(function () {
+		var id = "#" + $(this).data("repeater-id");
+		$(id).find(".form-item--collapsable").addClass("form-item--collapsed");
+		$(id).find(".form-item--repeater-fields").each(close);
 	});
 }
 
 function close() {
-	this.style.maxHeight = '0px';
+	this.style.maxHeight = "0px";
 }
 
 function open() {
@@ -1218,39 +1224,39 @@ function open() {
 
 function toggleSortable(event) {
 	event.preventDefault();
-	var id = '#' + $(this).data('repeater-id');
+	var id = "#" + $(this).data("repeater-id");
 
-	if ($(id).hasClass('sortable--disabled')) {
-		$(id).sortable('enable');
-		$(id).find('.form-item--repeater-fields').each(close);
-		$(id).find('.form-item--collapsable').addClass('form-item--collapsed');
+	if ($(id).hasClass("sortable--disabled")) {
+		$(id).sortable("enable");
+		$(id).find(".form-item--repeater-fields").each(close);
+		$(id).find(".form-item--collapsable").addClass("form-item--collapsed");
 	} else {
-		$(id).sortable('disable');
+		$(id).sortable("disable");
 	}
 
-	$(id).toggleClass('sortable--disabled');
-	$(id).toggleClass('sortable--enabled');
-	$(this).children('.sortable--toggle-text').toggle();
+	$(id).toggleClass("sortable--disabled");
+	$(id).toggleClass("sortable--enabled");
+	$(this).children(".sortable--toggle-text").toggle();
 }
 
 function updateSortable() {
-	if ($('.popup-warning').length > 0) {
-		$(this).addClass('sortable--disabled');
-		$('.popup-warning--message').text($(this).data('message'));
-		$('.popup-warning').removeClass('popup-warning--hidden');
-		$(this).sortable('option', 'disabled', true);
+	if ($(".popup-warning").length > 0) {
+		$(this).addClass("sortable--disabled");
+		$(".popup-warning--message").text($(this).data("message"));
+		$(".popup-warning").removeClass("popup-warning--hidden");
+		$(this).sortable("option", "disabled", true);
 	}
-	var url = $(this).data('update-url');
-	var data = $(this).sortable('serialize');
+	var url = $(this).data("update-url");
+	var data = $(this).sortable("serialize");
 	// If there is a pagination update accordingly
-	data = data.concat('&id=' + $(this).attr('id'));
+	data = data.concat("&id=" + $(this).attr("id"));
 	$.post(url, data).done(function (doneData) {
-		$(doneData.id).sortable('option', 'disabled', false);
-		$('.popup-warning').addClass('popup-warning--hidden');
-		$(doneData.id).removeClass('sortable--disabled');
+		$(doneData.id).sortable("option", "disabled", false);
+		$(".popup-warning").addClass("popup-warning--hidden");
+		$(doneData.id).removeClass("sortable--disabled");
 	}).fail(function (failData) {
-		$('.popup-warning').addClass('popup-warning--hidden');
-		alert('Error: ' + failData.message);
+		$(".popup-warning").addClass("popup-warning--hidden");
+		alert("Error: " + failData.message);
 	});
 }
 

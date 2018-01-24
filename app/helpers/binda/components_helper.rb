@@ -40,15 +40,15 @@ module Binda
 		# 
     def get_sort_link_by arg
       if params[:order].nil? 
-      	structure_components_path( [@structure], order: {"#{arg}": "DESC"} )
+      	structure_components_path( [@structure], { order: {"#{arg}": "DESC"} } )
       else
       	order_hash = params[:order].permit(:name, :publish_state).to_h
       	if order_hash[arg] == "ASC"
 	        order_hash[arg] = "DESC"
-	        structure_components_path( [@structure], order: order_hash  )
+	        structure_components_path( [@structure], { order: order_hash }  )
 	      else
 	      	order_hash[arg] = "ASC"
-	        structure_components_path( [@structure], order: order_hash  )
+	        structure_components_path( [@structure], { order: order_hash }  )
 	      end
 	    end
     end

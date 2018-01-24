@@ -43,7 +43,7 @@ function handle_file(event) {
 	let file = event.target.files[0];
 
 	// Don't go any further if no file has been selected
-	if (typeof file === "undefined") {
+	if (typeof file != "undefined") {
 		return;
 	}
 
@@ -64,12 +64,7 @@ function handle_file(event) {
 	// If it's inside a repeater add repeater parameters
 	let $parent_repeater = $parent.closest(".form-item--repeater-fields");
 	if ($parent.closest(".form-item--repeater-fields").length > 0) {
-		$parent_repeater
-			.children(".form-group")
-			.find("input")
-			.each(function() {
-				formData.append(this.getAttribute("name"), this.getAttribute("value"));
-			});
+		gatherData($parent_repeater, formData);
 	}
 
 	// Is this needed? Apparently it works without it. Is it a security issue?
@@ -84,6 +79,15 @@ function handle_file(event) {
 	makeRequest(event, formData);
 }
 
+function gatherData($parent_repeater, formData) {
+	$parent_repeater
+		.children(".form-group")
+		.find("input")
+		.each(function() {
+			formData.append(this.getAttribute("name"), this.getAttribute("value"));
+		});
+}
+
 function makeRequest(event, formData) {
 	let id = event.target.getAttribute("data-id");
 	let $parent = $("#fileupload-" + id);
@@ -96,24 +100,7 @@ function makeRequest(event, formData) {
 		data: formData
 	})
 		.done(function(data) {
-			if (data.type == "image") {
-				setup_image_preview(data, id);
-			} else if (data.type == "video") {
-				setup_video_preview(data, id);
-			} else {
-				alert("Something went wrong. No preview has been received.");
-			}
-
-			// Hide loaded
-			$(".popup-warning").addClass("popup-warning--hidden");
-
-			// Display details and buttons
-			$parent
-				.find(".fileupload--details")
-				.removeClass("fileupload--details--hidden");
-			$parent
-				.find(".fileupload--remove-image-btn")
-				.removeClass("fileupload--remove-image-btn--hidden");
+			updateFileuploadField(data, id);
 		})
 		.fail(function(dataFail) {
 			console.error("Error:", dataFail.responseJSON);
@@ -121,6 +108,29 @@ function makeRequest(event, formData) {
 			$(".popup-warning").addClass("popup-warning--hidden");
 			alert($parent.data("error"));
 		});
+}
+
+function updateFileuploadField(data, id) {
+	let $parent = $("#fileupload-" + id);
+
+	if (data.type == "image") {
+		setup_image_preview(data, id);
+	} else if (data.type == "video") {
+		setup_video_preview(data, id);
+	} else {
+		alert("Something went wrong. No preview has been received.");
+	}
+
+	// Hide loaded
+	$(".popup-warning").addClass("popup-warning--hidden");
+
+	// Display details and buttons
+	$parent
+		.find(".fileupload--details")
+		.removeClass("fileupload--details--hidden");
+	$parent
+		.find(".fileupload--remove-image-btn")
+		.removeClass("fileupload--remove-image-btn--hidden");
 }
 
 function reset_file(input) {
