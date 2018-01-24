@@ -45,7 +45,7 @@
           <%= button_tag '<i class="fas fa-check"></i>Save changes'.html_safe, {
               class: 'b-btn b-btn-primary b-btn-settings',
               id: 'save',
-              'data-entries-number': "Binda::#{@structure.instance_type.classify}".constantize.where(structure_id:@structure.id).count,
+              'data-entries-number': get_entries_number,
               'data-instance-type': @structure.instance_type.pluralize
           } %>
         </div>

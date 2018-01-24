@@ -37,12 +37,12 @@ module Binda
 			#   
 			# @return [ActiveRelation Object] if slug is nil or is an array
 			# 
-			def get_components slug = nil
+			def get_components(slug = nil)
 				if slug.nil?
 					Component.all
 				else
 					# Generate query
-					Component.where( structure_id: Structure.where( slug: slug ) )
+					Component.where(structure_id: Structure.where(slug: slug))
 				end
 			end
 
@@ -66,11 +66,11 @@ module Binda
 			#   
 			# @return [ActiveRelation Object] if slug is nil or is an array  
 			# 
-			def get_boards slug = nil
+			def get_boards(slug = nil)
 				if slug.nil?
 					Board.all
 				else
-					Board.where( structure_id: Structure.where( slug: slug ) )
+					Board.where(structure_id: Structure.where(slug: slug))
 				end
 			end
 
@@ -94,11 +94,11 @@ module Binda
 			#   
 			# @return [ActiveRelation Object] 
 			# 
-			def get_categories slug = nil
+			def get_categories(slug = nil)
 				if slug.nil?
 					Category.all
 				else
-					Category.where( structure_id: Structure.where( slug: slug ) )
+					Category.where(structure_id: Structure.where(slug: slug))
 				end
 			end
 
@@ -119,7 +119,7 @@ module Binda
 			# 
 			# @return [ActiveRelation Object] 
 			# 
-			def get_field_settings slug = nil
+			def get_field_settings(slug = nil)
 				if slug.nil?
 					FieldSetting.all
 				else
@@ -134,14 +134,14 @@ module Binda
 			# 
 			# @return [Array] 
 			# 
-			def get_relation_owners field_slug
+			def get_relation_owners(field_slug)
 				owner_class = Structure.includes(field_groups: :field_settings)
-					.where(binda_field_settings: {id: FieldSetting.where(slug: field_slug)})
+					.where(binda_field_settings: { id: FieldSetting.where(slug: field_slug) })
 					.first
 				obj = "Binda::#{owner_class.instance_type.classify}".constantize
 					.distinct
 					.includes(relations: :dependent_components)
-					.where(binda_relations: {field_setting_id: FieldSetting.where(slug: field_slug)})
+					.where(binda_relations: { field_setting_id: FieldSetting.where(slug: field_slug) })
 				raise ArgumentError, "There isn't any instance with a relation associated to the current slug (#{field_slug}).", caller if obj.nil?
 				return obj
 			end
@@ -162,25 +162,37 @@ module Binda
 			# 
 			# @return [Array] 
 			# 
-			def get_relation_dependents field_slug, instance_type = nil
+			def get_relation_dependents(field_slug, instance_type = nil)
 				raise ArgumentError, "There isn't any instance named: #{instance_type}. Make sure is either 'component' or 'board'", caller if !instance_type.nil? && ['board','component'].include?(instance_type)
 				
-				dependents = []
-				if instance_type != 'board'
-					dependent_components = Component.distinct
-						.includes(:owner_components)
-						.where(binda_relations: {field_setting_id: FieldSetting.where(slug: field_slug)})
-					dependents = [ *dependents, *dependent_components ]
-				elsif instance_type != 'component'
-					dependent_boards = Board.distinct
-						.includes(:owner_components)
-						.where(binda_relations: {field_setting_id: FieldSetting.where(slug: field_slug)})
-					dependents = [ *dependents, *dependent_boards ]
-				end
+				dependents = get_dependents(instance_type, field_slug)
 				
 				raise ArgumentError, "There isn't any instance with a relation associated to the current slug (#{field_slug}).", caller unless dependents.any?
 				return dependents
 			end
+
+			private
+
+				# Get dependents based on slug and instance type
+				# 
+				# @param instance_type [string] The instance type of the record (either board or component)
+				# @param field_slug [string] The record slug
+				# @return [array] Array of ActiveRecord dependents
+				def get_dependents(instance_type, field_slug)
+					dependents = []
+					if instance_type != 'board'
+						dependent_components = Component.distinct
+							.includes(:owner_components)
+							.where(binda_relations: { field_setting_id: FieldSetting.where(slug: field_slug) })
+						dependents = [ *dependents, *dependent_components ]
+					elsif instance_type != 'component'
+						dependent_boards = Board.distinct
+							.includes(:owner_components)
+							.where(binda_relations: { field_setting_id: FieldSetting.where(slug: field_slug) })
+						dependents = [ *dependents, *dependent_boards ]
+					end
+					return dependents
+				end
 	  end
 	end
 end

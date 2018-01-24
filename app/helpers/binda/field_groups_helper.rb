@@ -22,5 +22,14 @@ module Binda
 	  	end
   	end
 
+    def get_entries_number
+      instance_type = @structure.instance_type.classify
+      if ['board', 'component'].include? instance_type
+        "Binda::#{instance_type.classify}".constantize.where(structure_id:@structure.id).count 
+      else
+        0
+      end
+    end
+
   end
 end
