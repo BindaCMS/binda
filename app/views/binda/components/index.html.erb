@@ -28,13 +28,13 @@
         <thead class="standard-form--header">              
           <tr>
             <th colspan="4">
-              <a href="<%= get_sort_link_by('name').html_safe %>" class="sort-link">
+              <a href="<%= get_sort_link_by('name').html_safe %>">
                 <%= t 'binda.title' %>
                 <%= get_sort_link_icon_by('name').html_safe %>
               </a>
             </th>
             <th colspan="2">
-              <a href="<%= get_sort_link_by('publish_state').html_safe %>" class="sort-link">
+              <a href="<%= get_sort_link_by('publish_state').html_safe %>">
                 <%= t 'binda.publish_state' %>
                 <%= get_sort_link_icon_by('publish_state').html_safe %>
               </a>

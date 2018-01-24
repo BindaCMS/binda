@@ -40,7 +40,7 @@ module Binda
 		# 
     def get_sort_link_by arg
       if params[:order].nil? 
-      	structure_components_path( [@structure], order: {"#{arg}": "ASC"} )
+      	structure_components_path( [@structure], order: {"#{arg}": "DESC"} )
       else
       	order_hash = params[:order].permit(:name, :publish_state).to_h
       	if order_hash[arg] == "ASC"
@@ -61,11 +61,14 @@ module Binda
 		# @return [string] The icon which needs to be escaped with the `html_safe` method
 		# 
     def get_sort_link_icon_by arg
-      if !params[:order].nil? && params[:order][arg] == "ASC"
+    	case 
+    	when params[:order].nil?
         '<i class="fas fa-sort-alpha-down"></i>'
-      else
+    	when params[:order][arg] == "DESC"
         '<i class="fas fa-sort-alpha-up"></i>'
-      end
+    	else
+        '<i class="fas fa-sort-alpha-down"></i>'
+    	end
     end
 
 	end
