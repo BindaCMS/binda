@@ -66,6 +66,8 @@
   top: 0;
   left: 0;
   margin-bottom: 48px; // create space for sideba-footer
+  overflow-y: auto;
+  height: 100vh;
 
   li {
     > a {
