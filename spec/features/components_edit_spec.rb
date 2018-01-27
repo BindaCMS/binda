@@ -1,38 +1,5 @@
 require "rails_helper"
 
-describe "GET components#sort_index:", type: :feature, js: true do
-	let(:user) { Binda::User.first }
-
-	before(:context) do
-		@structure = create(:article_structure_with_components)
-	end
-	
-	before(:example) do
-		sign_in user
-	end
-
-	it "displays components sorted by position" do
-		first_component = @structure.components.order(:position).first
-		first_position = first_component.position
-		last_component = @structure.components.order(:position).last
-		last_position = last_component.position
-
-		path = binda.structure_components_sort_index_path( structure_id: @structure.id ) 
-		visit path
-		expect( page ).to have_current_path( path )
-		expect( page.body.index( first_component.name ) ).to be < page.body.index( last_component.name ) 
-
-		first_component.update_attribute( 'position', last_position )
-		last_component.update_attribute( 'position', first_position )
-
-		first_component.reload
-		last_component.reload
-
-		visit path
-		expect( page.body.index( first_component.name ) ).to be > page.body.index( last_component.name )
-	end
-end
-
 describe "GET component#edit", type: :feature, js: true do
 
 	let(:user){ Binda::User.first }
@@ -44,13 +11,11 @@ describe "GET component#edit", type: :feature, js: true do
 
 	before(:example) do
 		sign_in user
-	end
-
-	it "isn't blocked by any Rails error" do
-		path = binda.edit_structure_component_path( structure_id: @structure.slug, id: @component.slug ) 
-		visit path
-		expect( page ).to have_current_path( path )
-		expect( page ).to have_selector "#component_name[value='#{ @component.name }']"
+		@path = binda.edit_structure_component_path(@structure, @component)
+		visit @path
+		expect(page).to have_current_path(@path)
+		# make sure the ActiveRecord object (@component) is updated with the real state of the component
+		@component.reload
 	end
 
 	# This test should be refactored as often ends throwing this error:
@@ -58,11 +23,6 @@ describe "GET component#edit", type: :feature, js: true do
 	## Failure/Error: raise Capybara::ExpectationNotMet.new('Timed out waiting for Selenium session reset') if (Capybara::Helpers.monotonic_time - start_time) >= 10   
 	##     Capybara::ExpectationNotMet: Timed out waiting for Selenium session reset
 	it "allows to edit a string field" do
-		path = binda.edit_structure_component_path( @structure, @component )
-		visit path
-
-		expect( page ).to have_current_path( path )
-
 		string_setting = @structure.field_groups.first.field_settings.where(field_type: 'string').first
 
 		string_id = @component.strings.where(field_setting_id: string_setting.id).first.id
@@ -80,13 +40,6 @@ describe "GET component#edit", type: :feature, js: true do
 	end
 
 	it "allows to edit a string field in a repeater" do
-		path = binda.edit_structure_component_path( @structure, @component )
-		visit path
-		
-		expect( page ).to have_current_path( path )
-		
-		@component.reload
-
 		ids = @component.repeaters.first.string_ids
 
 		repeater_expand_btn = "#repeater_#{@component.repeaters.first.id} .form-item--collapse-btn span"
@@ -101,7 +54,7 @@ describe "GET component#edit", type: :feature, js: true do
 		fill_in string_field, with: string_value
 		click_button "save"
 
-		visit path
+		visit @path
 
 		find(repeater_expand_btn).click
 		# wait animation
@@ -148,26 +101,30 @@ describe "GET component#edit", type: :feature, js: true do
 	end
 
 	it "allows to add an image to an image field and store it" do
+		# Create an image field setting on which will work
 		image_setting = create(:image_setting, field_group_id: @structure.field_groups.first.id)
 		
-		path = binda.edit_structure_component_path( @structure, @component )
-		visit path
-		expect( page ).to have_current_path( path )
+		# Refresh the page so the image field appear on the editor
+		visit @path
 
-		expect( @component.images.first.image.present? ).not_to be_truthy
+		expect(@component.images.first.image.present?).not_to be_truthy
 
 		field_id = "component_images_attributes_#{@component.images.where(field_setting_id: image_setting.id ).first.id}_image"
 		image_name = 'test-image.jpg'
 		image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
 		page.execute_script("document.getElementById('#{field_id}').style.zIndex = '1'")
 		page.execute_script("document.getElementById('#{field_id}').style.opacity = '1'")
-		page.attach_file( field_id, image_path )
+		page.attach_file(field_id, image_path)
 		
 		wait_for_ajax
 		sleep 1 # wait for animation to complete
 	
 		@component.reload
 		image = @component.images.first
+
+		within "#fileupload-#{image.id}" do
+			expect(page).to have_content image_name
+		end
 
     if CarrierWave::Uploader::Base.storage == CarrierWave::Storage::File
       file = MiniMagick::Image.open(::Rails.root.join(image.image.path))
@@ -176,11 +133,10 @@ describe "GET component#edit", type: :feature, js: true do
     end
 
 		within "#fileupload-#{image.id}" do
-			expect( page ).to have_content image_name
 			expect( page ).to have_content file.width
 		end
 
-		visit path
+		visit @path
 
 		expect( File.basename( image.image.path ) ).to eq image_name
 		within "#fileupload-#{image.id}" do
@@ -202,9 +158,6 @@ describe "GET component#edit", type: :feature, js: true do
 	end
 
 	it "allows to add a new repeater element" do
-		# path = binda.edit_structure_component_path( @structure, @component )
-		# visit path
-		# expect( page ).to have_current_path( path )
 		# initial_repeaters_count = @component.repeaters.count
 		# expect( all('.form-item--repeater-fields').count ).to eq( initial_repeaters_count )
 		# click_link "form-item--repeater-#{@component.repeaters.first.field_setting.id}--add-new-button"
@@ -216,7 +169,7 @@ describe "GET component#edit", type: :feature, js: true do
 	end
 
 	it "allows to reorder repeater elements" do
-		# This is pretty difficult, probably not reliable either
+		# This is pretty difficult to on a 'feature' spec, probably not reliable either
 		skip "not implemented yet"
 	end
 

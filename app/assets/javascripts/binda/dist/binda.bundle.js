@@ -33,9 +33,6 @@
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -63,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -160,13 +157,76 @@ function setupSelect2(target) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/**
- * BOOSTRAP SCRIPT
- */
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_shader__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_login_form__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_sortable__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_field_group_editor__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_bootstrap__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_select2__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_radio_toggle__ = __webpack_require__(13);
+///- - - - - - - - - - - - - - - - - - - -
+/// INDEX OF BINDA'S SCRIPTS
+///- - - - - - - - - - - - - - - - - - - -
 
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-  // See https://v4-alpha.getbootstrap.com/components/tooltips/#example-enable-tooltips-everywhere
-  $('[data-toggle="tooltip"]').tooltip();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$(document).ready(function () {
+	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__["a" /* _FieldSettingChoices */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__["a" /* _FieldSettingChoices */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].init();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
+		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].start();
+	}
+	Object(__WEBPACK_IMPORTED_MODULE_12__components_radio_toggle__["a" /* default */])();
+	Object(__WEBPACK_IMPORTED_MODULE_8__components_sortable__["a" /* default */])();
+	Object(__WEBPACK_IMPORTED_MODULE_9__components_field_group_editor__["a" /* default */])();
+	Object(__WEBPACK_IMPORTED_MODULE_10__components_bootstrap__["a" /* default */])();
+	Object(__WEBPACK_IMPORTED_MODULE_11__components_select2__["a" /* default */])();
+});
+
+// handle event
+window.addEventListener("optimizedResize", function () {
+	if (__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].isSet()) {
+		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].resize();
+	}
 });
 
 /***/ }),
@@ -174,25 +234,307 @@ function setupSelect2(target) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 /**
- * FIELD GROUP EDITOR
+ * FORM ITEM
  */
 
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-	$(".field_groups-edit #save").on("click", function (event) {
-		var instanceType = $(this).data("instance-type");
-		var entriesNumber = $(this).data("entries-number");
 
-		// If the current structure have many entries updating the field group
-		// might be a slow operation, therefore it's good practice to inform the user
-		if (entriesNumber > 500) {
-			alert("You have " + entriesNumber + " " + instanceType + ". This operation might take some time to complete. To avoid unexpected behaviour don't leave or refresh the page");
+
+
+// Component Global Variables
+var newFormItemId = 1;
+
+var FormItem = function () {
+	function FormItem() {
+		_classCallCheck(this, FormItem);
+	}
+
+	_createClass(FormItem, [{
+		key: "isSet",
+		value: function isSet() {
+			if ($(".form-item").length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: "setEvents",
+		value: function setEvents() {
+			$(document).on("click", ".form-item--add-new", addNewItem);
+
+			$(document).on("click", ".form-item--remove-item-with-js", function (event) {
+				// Stop default behaviour
+				event.preventDefault();
+				$(this).closest(".form-item").remove();
+			});
+
+			$(document).on("click", ".form-item--collapse-btn", collapseToggle);
+		}
+	}]);
+
+	return FormItem;
+}();
+
+var _FormItem = new FormItem();
+
+///- - - - - - - - - - - - - - - - - - - -
+/// COMPONENT HELPER FUNCTIONS
+///- - - - - - - - - - - - - - - - - - - -
+
+// This function could be improved as it generates an issue with
+// input ids which are duplicated after the entire target has been cloned
+function addNewItem(event) {
+	// Stop default behaviour
+	event.preventDefault();
+	// Get the child to clone
+	// (`this` always refers to the second argument of the $(document).on() method, in this case '.form-item--add-new')
+	var id = $(this).data("new-form-item-id");
+	var $newChild = $("#" + id);
+	// Clone child and remove id and styles from cloned child
+	$newChild.clone().insertAfter($newChild);
+	// Remove class in order to remove styles, and change id so it's reachable when testing
+	$newChild.removeClass("form-item--new").attr("id", "new-form-item-" + newFormItemId);
+
+	// // Update all ids to avoid duplication
+	$newChild.find("[id]").each(function () {
+		var oldId = $(this).attr("id");
+		var newId = oldId + "-" + newFormItemId;
+		$(this).attr("id", newId);
+		var $forId = $newChild.find("[for=" + oldId + "]");
+		if ($forId.length > 0) {
+			$forId.attr("for", newId);
 		}
 	});
-});
+
+	// Update height (max-height) of the new element
+	var $formItemEditor = $("#new-form-item-" + newFormItemId).find(".form-item--editor");
+
+	// override current max-height which is set to 0
+	$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
+
+	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+
+	// Increment global id variable `newFormItemId` in case needs to be used again
+	newFormItemId++;
+
+	Object(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($formItemEditor.find("select"));
+}
+
+function close() {
+	this.style.maxHeight = "0px";
+}
+
+function open() {
+	this.style.maxHeight = this.scrollHeight + "px";
+}
+
+function collapseToggle(event) {
+	// This function is temporarely just set for repeaters.
+	// TODO: Need refactoring in order to be available also for generic form items
+
+	// Stop default behaviour
+	event.preventDefault();
+
+	var $collapsable = $(this).closest(".form-item--collapsable");
+
+	if ($collapsable.hasClass("form-item--collapsed")) {
+		$collapsable.find(".form-item--repeater-fields").each(open);
+		$collapsable.find(".form-item--editor").each(open);
+		$collapsable.removeClass("form-item--collapsed");
+	} else {
+		$collapsable.find(".form-item--repeater-fields").each(close);
+		$collapsable.find(".form-item--editor").each(close);
+		$collapsable.addClass("form-item--collapsed");
+	}
+}
 
 /***/ }),
 /* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * FORM ITEM REPEATER
+ */
+
+
+
+
+var FormItemRepeater = function () {
+	function FormItemRepeater() {
+		_classCallCheck(this, FormItemRepeater);
+	}
+
+	_createClass(FormItemRepeater, [{
+		key: "isSet",
+		value: function isSet() {
+			if ($(".form-item--repeater-section").length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: "setEvents",
+		value: function setEvents() {
+			$(document).on("click", ".form-item--repeater-section--add-new", addNewItem);
+
+			$(document).on("click", ".form-item--remove-item-with-js", function (event) {
+				// Stop default behaviour
+				event.preventDefault();
+				$(this).parent(".form-item--repeater-section").remove();
+				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+			});
+
+			$(document).on("click", ".form-item--delete-repeater-item", deleteRepeter);
+		}
+	}]);
+
+	return FormItemRepeater;
+}();
+
+var _FormItemRepeater = new FormItemRepeater();
+
+/**
+ * COMPONENT HELPER FUNCTIONS
+ */
+
+function addNewItem(event) {
+	// Stop default behaviour
+	event.preventDefault();
+	// Get the child to clone
+	var id = $(this).data("id");
+	var $list = $("#form-item--repeater-setting-" + id);
+	var url = $(this).data("url");
+	$.post(url, { repeater_setting_id: id }, function (data) {
+		// Get repaeter code from Rails
+		// Due to the Rails way of creating nested forms it's necessary to
+		// create the nested item inside a different new form, then get just
+		// the code contained between the two SPLIT comments
+		var parts = data.split("<!-- SPLIT -->");
+		var newRepeater = parts[1];
+		setupAndAppend(newRepeater, $list);
+	});
+}
+
+function setupAndAppend(newRepeater, $list) {
+	// Append the item
+	$list.prepend(newRepeater);
+	var new_repeater_item = $list.find(".form-item--repeater").get(0);
+
+	// Prepare animation
+	new_repeater_item.style.maxHeight = 0;
+
+	// Group fields if sotrable is enabled
+	if ($list.hasClass("sortable--enabled")) {
+		$(new_repeater_item).find(".form-item--repeater-fields").each(function () {
+			this.style.maxHeight = 0 + "px";
+		});
+	}
+
+	// Setup TinyMCE for the newly created item
+	var textarea_editor_id = $list.find("textarea").last("textarea").attr("id");
+	tinyMCE.EditorManager.execCommand("mceAddEditor", true, textarea_editor_id);
+
+	// Resize the editor (is it needed with the new configuration?)
+	// _FormItemEditor.resize()
+
+	// Update select input for Select2 plugin
+	Object(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find("select"));
+
+	// Refresh Sortable to update the added item with Sortable features
+	$list.sortable("refresh");
+
+	// Run animation 50ms after previous style declaration (see above) otherwise animation doesn't get triggered
+	setTimeout(function () {
+		new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + "px";
+	}, 50);
+}
+
+function deleteRepeter(event) {
+	// Stop default behaviour
+	event.preventDefault();
+
+	var record_id = $(this).data("id");
+	var target = $("#repeater_" + record_id).get(0);
+	// As max-height isn't set you need to set it manually before changing it,
+	// otherwise the animation doesn't get triggered
+	target.style.maxHeight = target.scrollHeight + "px";
+	// Change max-height after 50ms to trigger css animation
+	setTimeout(function () {
+		target.style.maxHeight = 0 + "px";
+	}, 50);
+
+	$.ajax({
+		url: $(this).attr("href"),
+		data: { id: record_id, isAjax: true },
+		method: "DELETE"
+	}).done(function () {
+		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
+		setTimeout(function () {
+			$(target).remove();
+		}, 700);
+		// _FormItemEditor.resize()
+	});
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemImage; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * FORM ITEM IMAGE
+ */
+
+var FormItemImage = function () {
+	function FormItemImage() {
+		_classCallCheck(this, FormItemImage);
+
+		this.target = ".form-item--image--uploader";
+	}
+
+	_createClass(FormItemImage, [{
+		key: "isSet",
+		value: function isSet() {
+			if ($(this.target).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: "setEvents",
+		value: function setEvents() {}
+	}]);
+
+	return FormItemImage;
+}();
+
+var _FormItemImage = new FormItemImage();
+
+/***/ }),
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -281,7 +623,7 @@ function deleteChoice(event) {
 }
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -337,6 +679,7 @@ var _FileUpload = new FileUpload();
 
 // Reference --> http://blog.teamtreehouse.com/uploading-files-ajax
 function handle_file(event) {
+	console.log('handle file!');
 	var id = event.target.getAttribute("data-id");
 	var $parent = $("#fileupload-" + id);
 
@@ -345,7 +688,7 @@ function handle_file(event) {
 	var file = event.target.files[0];
 
 	// Don't go any further if no file has been selected
-	if (typeof file != "undefined") {
+	if (typeof file == "undefined") {
 		return;
 	}
 
@@ -388,6 +731,7 @@ function gatherData($parent_repeater, formData) {
 }
 
 function makeRequest(event, formData) {
+	console.log('make request!');
 	var id = event.target.getAttribute("data-id");
 	var $parent = $("#fileupload-" + id);
 	// Make request
@@ -491,311 +835,7 @@ function setup_video_preview(data, id) {
 }
 
 /***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * FORM ITEM
- */
-
-
-
-
-// Component Global Variables
-var newFormItemId = 1;
-
-var FormItem = function () {
-	function FormItem() {
-		_classCallCheck(this, FormItem);
-	}
-
-	_createClass(FormItem, [{
-		key: "isSet",
-		value: function isSet() {
-			if ($(".form-item").length > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}, {
-		key: "setEvents",
-		value: function setEvents() {
-			$(document).on("click", ".form-item--add-new", addNewItem);
-
-			$(document).on("click", ".form-item--remove-item-with-js", function (event) {
-				// Stop default behaviour
-				event.preventDefault();
-				$(this).closest(".form-item").remove();
-			});
-
-			$(document).on("click", ".form-item--collapse-btn", collapseToggle);
-		}
-	}]);
-
-	return FormItem;
-}();
-
-var _FormItem = new FormItem();
-
-///- - - - - - - - - - - - - - - - - - - -
-/// COMPONENT HELPER FUNCTIONS
-///- - - - - - - - - - - - - - - - - - - -
-
-// This function could be improved as it generates an issue with
-// input ids which are duplicated after the entire target has been cloned
-function addNewItem(event) {
-	// Stop default behaviour
-	event.preventDefault();
-	// Get the child to clone
-	// (`this` always refers to the second argument of the $(document).on() method, in this case '.form-item--add-new')
-	var id = $(this).data("new-form-item-id");
-	var $newChild = $("#" + id);
-	// Clone child and remove id and styles from cloned child
-	$newChild.clone().insertAfter($newChild);
-	// Remove class in order to remove styles, and change id so it's reachable when testing
-	$newChild.removeClass("form-item--new").attr("id", "new-form-item-" + newFormItemId);
-
-	// // Update all ids to avoid duplication
-	$newChild.find("[id]").each(function () {
-		var oldId = $(this).attr("id");
-		var newId = oldId + "-" + newFormItemId;
-		$(this).attr("id", newId);
-		var $forId = $newChild.find("[for=" + oldId + "]");
-		if ($forId.length > 0) {
-			$forId.attr("for", newId);
-		}
-	});
-
-	// Update height (max-height) of the new element
-	var $formItemEditor = $("#new-form-item-" + newFormItemId).find(".form-item--editor");
-
-	// override current max-height which is set to 0
-	$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
-
-	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
-
-	// Increment global id variable `newFormItemId` in case needs to be used again
-	newFormItemId++;
-
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($formItemEditor.find("select"));
-}
-
-function close() {
-	this.style.maxHeight = "0px";
-}
-
-function open() {
-	this.style.maxHeight = this.scrollHeight + "px";
-}
-
-function collapseToggle(event) {
-	// This function is temporarely just set for repeaters.
-	// TODO: Need refactoring in order to be available also for generic form items
-
-	// Stop default behaviour
-	event.preventDefault();
-
-	var $collapsable = $(this).closest(".form-item--collapsable");
-
-	if ($collapsable.hasClass("form-item--collapsed")) {
-		$collapsable.find(".form-item--repeater-fields").each(open);
-		$collapsable.find(".form-item--editor").each(open);
-		$collapsable.removeClass("form-item--collapsed");
-	} else {
-		$collapsable.find(".form-item--repeater-fields").each(close);
-		$collapsable.find(".form-item--editor").each(close);
-		$collapsable.addClass("form-item--collapsed");
-	}
-}
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemImage; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * FORM ITEM IMAGE
- */
-
-var FormItemImage = function () {
-	function FormItemImage() {
-		_classCallCheck(this, FormItemImage);
-
-		this.target = ".form-item--image--uploader";
-	}
-
-	_createClass(FormItemImage, [{
-		key: "isSet",
-		value: function isSet() {
-			if ($(this.target).length > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}, {
-		key: "setEvents",
-		value: function setEvents() {}
-	}]);
-
-	return FormItemImage;
-}();
-
-var _FormItemImage = new FormItemImage();
-
-/***/ }),
 /* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * FORM ITEM REPEATER
- */
-
-
-
-
-var FormItemRepeater = function () {
-	function FormItemRepeater() {
-		_classCallCheck(this, FormItemRepeater);
-	}
-
-	_createClass(FormItemRepeater, [{
-		key: "isSet",
-		value: function isSet() {
-			if ($(".form-item--repeater-section").length > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}, {
-		key: "setEvents",
-		value: function setEvents() {
-			$(document).on("click", ".form-item--repeater-section--add-new", addNewItem);
-
-			$(document).on("click", ".form-item--remove-item-with-js", function (event) {
-				// Stop default behaviour
-				event.preventDefault();
-				$(this).parent(".form-item--repeater-section").remove();
-				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
-			});
-
-			$(document).on("click", ".form-item--delete-repeater-item", deleteRepeter);
-		}
-	}]);
-
-	return FormItemRepeater;
-}();
-
-var _FormItemRepeater = new FormItemRepeater();
-
-/**
- * COMPONENT HELPER FUNCTIONS
- */
-
-function addNewItem(event) {
-	// Stop default behaviour
-	event.preventDefault();
-	// Get the child to clone
-	var id = $(this).data("id");
-	var $list = $("#form-item--repeater-setting-" + id);
-	var url = $(this).data("url");
-	$.post(url, { repeater_setting_id: id }, function (data) {
-		// Get repaeter code from Rails
-		// Due to the Rails way of creating nested forms it's necessary to
-		// create the nested item inside a different new form, then get just
-		// the code contained between the two SPLIT comments
-		var parts = data.split("<!-- SPLIT -->");
-		var newRepeater = parts[1];
-		setupAndAppend(newRepeater, $list);
-	});
-}
-
-function setupAndAppend(newRepeater, $list) {
-	// Append the item
-	$list.prepend(newRepeater);
-	var new_repeater_item = $list.find(".form-item--repeater").get(0);
-
-	// Prepare animation
-	new_repeater_item.style.maxHeight = 0;
-
-	// Group fields if sotrable is enabled
-	if ($list.hasClass("sortable--enabled")) {
-		$(new_repeater_item).find(".form-item--repeater-fields").each(function () {
-			this.style.maxHeight = 0 + "px";
-		});
-	}
-
-	// Setup TinyMCE for the newly created item
-	var textarea_editor_id = $list.find("textarea").last("textarea").attr("id");
-	tinyMCE.EditorManager.execCommand("mceAddEditor", true, textarea_editor_id);
-
-	// Resize the editor (is it needed with the new configuration?)
-	// _FormItemEditor.resize()
-
-	// Update select input for Select2 plugin
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find("select"));
-
-	// Refresh Sortable to update the added item with Sortable features
-	$list.sortable("refresh");
-
-	// Run animation 50ms after previous style declaration (see above) otherwise animation doesn't get triggered
-	setTimeout(function () {
-		new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + "px";
-	}, 50);
-}
-
-function deleteRepeter(event) {
-	// Stop default behaviour
-	event.preventDefault();
-
-	var record_id = $(this).data("id");
-	var target = $("#repeater_" + record_id).get(0);
-	// As max-height isn't set you need to set it manually before changing it,
-	// otherwise the animation doesn't get triggered
-	target.style.maxHeight = target.scrollHeight + "px";
-	// Change max-height after 50ms to trigger css animation
-	setTimeout(function () {
-		target.style.maxHeight = 0 + "px";
-	}, 50);
-
-	$.ajax({
-		url: $(this).attr("href"),
-		data: { id: record_id, isAjax: true },
-		method: "DELETE"
-	}).done(function () {
-		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
-		setTimeout(function () {
-			$(target).remove();
-		}, 700);
-		// _FormItemEditor.resize()
-	});
-}
-
-/***/ }),
-/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1014,7 +1054,7 @@ function hexToShaderRgb(hex) {
 })();
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1143,27 +1183,7 @@ var LoginForm = function () {
 var _LoginForm = new LoginForm();
 
 /***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-    $('input[name="login"]').click(function () {
-        var $radio = $(this);
-
-        // if this was previously checked
-        if ($radio.data("waschecked") === true) {
-            $radio.prop("checked", false);
-            $radio.data("waschecked", false);
-        } else $radio.data("waschecked", true);
-
-        // remove was checked from other radios
-        $radio.siblings('input[name="login"]').data("waschecked", false);
-    });
-});
-
-/***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1261,80 +1281,59 @@ function updateSortable() {
 }
 
 /***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * FIELD GROUP EDITOR
+ */
+
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+	$(".field_groups-edit #save").on("click", function (event) {
+		var instanceType = $(this).data("instance-type");
+		var entriesNumber = $(this).data("entries-number");
+
+		// If the current structure have many entries updating the field group
+		// might be a slow operation, therefore it's good practice to inform the user
+		if (entriesNumber > 500) {
+			alert("You have " + entriesNumber + " " + instanceType + ". This operation might take some time to complete. To avoid unexpected behaviour don't leave or refresh the page");
+		}
+	});
+});
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * BOOSTRAP SCRIPT
+ */
+
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+  // See https://v4-alpha.getbootstrap.com/components/tooltips/#example-enable-tooltips-everywhere
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+/***/ }),
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_shader__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_login_form__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_sortable__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_field_group_editor__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_bootstrap__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_select2__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_radio_toggle__ = __webpack_require__(11);
-///- - - - - - - - - - - - - - - - - - - -
-/// INDEX OF BINDA'S SCRIPTS
-///- - - - - - - - - - - - - - - - - - - -
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+    $('input[name="login"]').click(function () {
+        var $radio = $(this);
 
+        // if this was previously checked
+        if ($radio.data("waschecked") === true) {
+            $radio.prop("checked", false);
+            $radio.data("waschecked", false);
+        } else $radio.data("waschecked", true);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-$(document).ready(function () {
-	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__["a" /* _FieldSettingChoices */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__["a" /* _FieldSettingChoices */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].init();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
-		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].start();
-	}
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_12__components_radio_toggle__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_sortable__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_field_group_editor__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__components_bootstrap__["a" /* default */])();
-	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__components_select2__["a" /* default */])();
-});
-
-// handle event
-window.addEventListener("optimizedResize", function () {
-	if (__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].resize();
-	}
+        // remove was checked from other radios
+        $radio.siblings('input[name="login"]').data("waschecked", false);
+    });
 });
 
 /***/ })

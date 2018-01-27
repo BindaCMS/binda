@@ -35,6 +35,7 @@ export let _FileUpload = new FileUpload();
 
 // Reference --> http://blog.teamtreehouse.com/uploading-files-ajax
 function handle_file(event) {
+	console.log('handle file!');
 	let id = event.target.getAttribute("data-id");
 	let $parent = $("#fileupload-" + id);
 
@@ -43,7 +44,7 @@ function handle_file(event) {
 	let file = event.target.files[0];
 
 	// Don't go any further if no file has been selected
-	if (typeof file != "undefined") {
+	if (typeof file == "undefined") {
 		return;
 	}
 
@@ -89,6 +90,7 @@ function gatherData($parent_repeater, formData) {
 }
 
 function makeRequest(event, formData) {
+	console.log('make request!');
 	let id = event.target.getAttribute("data-id");
 	let $parent = $("#fileupload-" + id);
 	// Make request

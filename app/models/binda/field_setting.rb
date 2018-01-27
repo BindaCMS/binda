@@ -1,13 +1,21 @@
 module Binda
 	class FieldSetting < ApplicationRecord
+		cattr_accessor :field_settings_array
+		cattr_accessor :get_field_classes
+
+    # An array of all classes which represent fields associated to Binda::FieldSetting
+    # This definition must stay on the top of the file
+		def self.get_field_classes
+			%w( String Text Date Image Video Repeater Radio Selection Checkbox Relation )
+		end
+
+		# ASSOCIATIONS
+		# ------------
 
 		belongs_to :field_group
 		has_ancestry orphan_strategy: :destroy
 
-		# Is this reallly needed? Or can we just use accepted_structures? 
-		# has_and_belongs_to_many :structures
-
-		# Fields Associations
+		# FIELDS ASSOCIATIONS
 		# 
 		# If you add a new field remember to update:
 		#   - get_field_classes (see here below)
@@ -38,7 +46,7 @@ module Binda
 		has_many :checkboxes,     dependent: :destroy
 		has_many :relations,      dependent: :destroy
 
-		has_many :choices,        dependent: :destroy
+		has_many :choices,        dependent: :delete_all # we don't want to run callbacks for choices!
 		has_one  :default_choice, -> (field_setting) { where(id: field_setting.default_choice_id) }, class_name: 'Binda::Choice'
 		
 		has_and_belongs_to_many :accepted_structures, class_name: 'Binda::Structure'
@@ -52,23 +60,32 @@ module Binda
 			attributes['label'].blank? || attributes['content'].blank?
 		end
 
-		cattr_accessor :field_settings_array
+
+
+		# CALLBACKS
+		# ---------
 
     after_create do 
-    	self.class.reset_field_settings_array 
+    	self.class.reset_field_settings_array
     	set_allow_null
     	create_field_instances
+    end
+
+    after_update do
+			if %w(radio selection checkbox).include?(self.field_type) && self.choices.empty?
+				check_allow_null_option
+			end
     end
 
     after_destroy do 
     	self.class.reset_field_settings_array 
     end
 
-		def self.get_field_classes
-			%w( String Text Date Image Video Repeater Radio Selection Checkbox Relation )
-		end
 
-		# Validations
+
+    # VALIDATIONS
+    # -----------
+
 		validates :name, presence: { 
 			message: I18n.t("binda.field_setting.validation_message.name") 
 		}
@@ -84,11 +101,17 @@ module Binda
 			message: I18n.t("binda.field_setting.validation_message.field_group_id", { arg1: "%{value}" })
 		}
 		validate :slug_uniqueness
+		validates :allow_null, 
+			inclusion: { in: [false], message: "%{value} canont be true on a radio setting" }, 
+			if: Proc.new { |a| a.field_type == 'radio' }
 
-		# Slug
+
+
+    # FRIENDLY ID
+    # -----------
+
 		extend FriendlyId
 		friendly_id :default_slug, use: [:slugged, :finders]
-
 
 		# Friendly id preference on slug generation
 		#
@@ -110,17 +133,15 @@ module Binda
 				slug << '-' 
 				slug << self.parent.name 
 			end
-			
 			possible_names = [ 
 				"#{ slug }--#{ self.name }",
 				"#{ slug }--#{ self.name }-1",
 				"#{ slug }--#{ self.name }-2",
 				"#{ slug }--#{ self.name }-3"
 			]
-
-			return possible_names
 		end
 
+		# Check slug uniqueness
 		def slug_uniqueness
 			record_with_same_slug = self.class.where(slug: slug)
 			if record_with_same_slug.any? && !record_with_same_slug.ids.include?(id)
@@ -128,12 +149,17 @@ module Binda
 			end
 		end
 
+
+
+		# MISCELLANEOUS
+		# -------------
+
 		# Retrieve the ID if a slug is provided and update the field_settings_array 
 		#   in order to avoid calling the database (or the cached response) every time.
 		#   This should speed up requests and make Rails logs are cleaner.
 		# 
 		# @return [integer] The ID of the field setting
-		def self.get_id( field_slug )
+		def self.get_id(field_slug)
 			# Get field setting id from slug, without multiple calls to database 
 			# (the query runs once and caches the result, then any further call uses the cached result)
 			@@field_settings_array = self.pluck(:slug, :id) if @@field_settings_array.nil?
@@ -155,7 +181,9 @@ module Binda
 		end
 
 		# Make sure that allow_null is set to false instead of nil.
-		#   This isn't done with a database constraint in order to gain flexibility
+		#   (This isn't done with a database constraint in order to gain flexibility)
+		# 
+		# REVIEW: not sure what flexibility is needed. Maybe should be done differently
 		def set_allow_null
 			self.allow_null = false if self.allow_null.nil?
 		end
@@ -176,25 +204,46 @@ module Binda
 			case 
 				when structure.components.any?
 					structure.components.each do |component|
-						create_field_instances_for_component( component, field_class, field_setting_id )
+						create_field_instances_for_component(component, field_class, field_setting_id)
 					end
 				when structure.board.present?
-					create_field_instances_for_board( structure.board, field_class, field_setting_id )
+					create_field_instances_for_board(structure.board, field_class, field_setting_id)
 			end
 		end
 
 		# Helper for create_field_instances method
-		def create_field_instances_for_component( component, field_class, field_setting_id )
+		def create_field_instances_for_component(component, field_class, field_setting_id)
 			unless component.send(field_class).where(field_setting_id: field_setting_id).any?
 				component.send(field_class).create!(field_setting_id: field_setting_id)
 			end
 		end
 
 		# Helper for create_field_instances method
-		def create_field_instances_for_board ( board, field_class, field_setting_id )
+		def create_field_instances_for_board(board, field_class, field_setting_id)
 			unless board.send(field_class).where(field_setting_id: field_setting_id).any?
 				board.send(field_class).create!(field_setting_id: field_setting_id)
 			end
 		end
+
+		# Check `allow_null` option
+		# 
+		# Creating a selection with `allow_null` set to `false` will automatically generate a critical error.
+		#   This is due to the fact that 1) there is no choice to select, but 2) the selection field must have at least one.
+		#   The error can be easily removed by assigning a choice to the current field setting.
+		# 
+		# This method is preferred to a validation because it allows to remove all choices before adding new ones.
+		#   
+		def check_allow_null_option
+    	# TODO: check if allow_null has been set to false -> if it is 
+    	# you want to check that all Binda::Selection objects
+    	# related to it have at least one choice -> if some don't
+    	# have any choice, throw a warning and set a critical error 
+    	# banner on the views related to those Binda::Selection objects
+    	return if self.allow_null?
+
+  		Selection.check_all_selections_depending_on(self)
+			warn("WARNING: Binda::FieldSetting \"#{self.slug}\" must have at least one choice.")
+		end
+
 	end
 end

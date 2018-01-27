@@ -19,6 +19,25 @@ module Binda
 		}
 		accepts_nested_attributes_for :field_groups, allow_destroy: true, reject_if: :is_rejected
 
+
+
+
+
+
+		# Alerts is a special array of errors that needs to be verified before being removed
+		# for example: 
+		# - components having selections which are required to have at least a choice 
+		#   when there is none available
+		# Alerts should be made of:
+		# - a message
+		# - a link to a page where the issue can be solved
+		attr_accessor :critical_alerts
+
+
+
+
+
+
 		# Slug
 		extend FriendlyId
 		friendly_id :default_slug, use: [:slugged, :finders]

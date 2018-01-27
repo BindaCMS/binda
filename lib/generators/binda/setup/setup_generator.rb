@@ -34,14 +34,14 @@ module Binda
       # Use radio field_type untill truefalse isn't available
       unless @field_settings.find_by(slug: 'maintenance-mode').present?
         maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio', position: 1 )
-        # make sure slug works
-        maintenance_mode.update_attributes( slug: 'maintenance-mode' )
         # create active and disabled choices
         maintenance_mode.choices.create!( label: 'active', value: 'true' )
         maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
         radio = @dashboard.radios.find_or_create_by!( field_setting_id: maintenance_mode.id )
         radio.choices << maintenance_mode.choices.last
         radio.save!
+        # make sure slug works
+        maintenance_mode.update_attributes( slug: 'maintenance-mode' )
       end
       puts "The maintenance-mode option has been set up."
       puts 

@@ -39,7 +39,6 @@ require 'pry'
 # end
 Capybara.javascript_driver = :selenium
 
-
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -91,7 +90,6 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-
   # DEVISE
   # ------
   # Include Devise Helper
@@ -114,18 +112,32 @@ RSpec.configure do |config|
 
   # CLEAN TEST DATABASE BEFORE TESTING
   # ----------------------------------
-  # https://github.com/DatabaseCleaner/database_cleaner#rspec-with-capybara-example
-  # https://github.com/DatabaseCleaner/database_cleaner#rspec-example
+  # @see https://github.com/DatabaseCleaner/database_cleaner#rspec-with-capybara-example
+  # @see https://github.com/DatabaseCleaner/database_cleaner#rspec-example
+  # 
+  # PRECOMPILE ASSETS BEFORE INTEGRATION/FEATURE TEST
+  # -------------------------------------------------
+  # @see https://gist.github.com/linjunpop/4367228
+  # @see https://stackoverflow.com/questions/46480226/run-rake-assetsprecompile-before-tests-that-include-js-tag-and-skip-otherwise
   config.before(:suite) do
-
+    # if ENV["PRECOMPILE_ASSET"]
+    #   %x[rails app:assets:precompile]
+    # end
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean
-    
     # http://stackoverflow.com/a/19930700/1498118
     Rails.application.load_seed # loading seeds
-
+    # Create first user
     FactoryBot.create(:user)
   end
+
+  # REMOVE PRECOMPILED ASSETS AFTER INTEGRATION/FEATURE TEST
+  # --------------------------------------------------------
+  # @see https://gist.github.com/linjunpop/4367228
+  # @see https://stackoverflow.com/questions/46480226/run-rake-assetsprecompile-before-tests-that-include-js-tag-and-skip-otherwise
+  # config.after(:suite) do
+  #   FileUtils.rm_rf(Dir["#{::Rails.root}/public/assets"])
+  # end
 
   # CARRIERWAVE
   # -----------
@@ -133,8 +145,7 @@ RSpec.configure do |config|
   # https://til.codes/testing-carrierwave-file-uploads-with-rspec-and-factorygirl/
 
   config.after(:each) do
-    if Rails.env.test? || Rails.env.cucumber?
-      FileUtils.rm_rf(Dir["#{Binda::Engine.root}/spec/support/uploads"])
-    end 
+    FileUtils.rm_rf(Dir["#{::Rails.root}/public/uploads"])
   end
+
 end

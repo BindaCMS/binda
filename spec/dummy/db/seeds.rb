@@ -13,10 +13,11 @@ puts "Setting up maintenance mode"
 
 # Use radio field_type untill truefalse isn't available
 maintenance_mode = field_settings.create!( name: 'Maintenance Mode', field_type: 'radio')
-maintenance_mode.update_attributes( slug: 'maintenance-mode' )
 disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
 active   = maintenance_mode.choices.create!( label: 'active', value: 'true' )
-
+@dashboard.radios.first.choices << disabled
+@dashboard.save!
+maintenance_mode.update( slug: 'maintenance-mode' )
 
 # WEBSITE NAME
 puts "Setting up website name"

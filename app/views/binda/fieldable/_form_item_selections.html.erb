@@ -1,121 +1,24 @@
 <div id="standard-form--<%= field_setting.field_type %>-<%= field_setting.id %>" class="standard-form--<%= field_setting.field_type %> form-item">	
-		
 		<% if field_setting.choices.any? %>
-
-			<%# - - - - - - - - - - - - %>
-			<%# RADIO                   %>
-			<%# - - - - - - - - - - - - %>
 			<% if field_setting.field_type === 'radio' %>
-				<% current = f.object.find_or_create_a_field_by( field_setting.id, 'radio' ) %>
-				<%= f.simple_fields_for "radios_attributes[]", current do |ff| %>
-					<% if ff.object.choices.any? %>
-						<%= ff.input :choice_ids, 
-									label: field_setting.name.capitalize, 
-									hint: prepare_description_for_form_hint(field_setting), 
-									as: :radio_buttons, 
-									collection: field_setting.choices.order(:label), 
-									label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x[:label]}".html_safe },
-									value_method: :id, 
-									checked: ff.object.choices.first.id, 
-									include_blank: field_setting.allow_null %>
-					<% else %>
-						<%= ff.input :choice_ids,
-									label: field_setting.name.capitalize,
-									hint: prepare_description_for_form_hint(field_setting),
-									as: :radio_buttons,
-									collection: field_setting.choices.order(:label),
-									label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x[:label]}".html_safe },
-									value_method: :id,
-									checked: ( field_setting.default_choice.id unless field_setting.allow_null ),
-									include_blank: field_setting.allow_null %>
-					<% end %>
-					<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-					<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-					<%= ff.input :fieldable_id, as: :hidden %>
-					<%= ff.input :fieldable_type, as: :hidden %>
-				<% end %>
-
-
-			<%# - - - - - - - - - - - - %>
-			<%# SELECT                  %>
-			<%# - - - - - - - - - - - - %>
+				<%= render 'binda/fieldable/form_item_selections/form_item_radio', f: f, field_setting: field_setting %>
 			<% elsif field_setting.field_type === 'selection' %>
-				<% current = f.object.find_or_create_a_field_by( field_setting.id, 'selection' ) %>
-				<%= f.simple_fields_for "selections_attributes[]", current do |ff| %>
-					<% if ff.object.choices.any? %>
-						<%= ff.input :choice_ids,
-									label: field_setting.name.capitalize,
-									hint: prepare_description_for_form_hint(field_setting),
-									as: :select,
-									collection: field_setting.choices.order(:label),
-									label_method: :label,
-									value_method: :id,
-									selected: ff.object.choices.first.id,
-									include_blank: field_setting.allow_null,
-									input_html: { class: 'select2-item' } %>
-					<% else %>
-						<%= ff.input :choice_ids,
-									label: field_setting.name.capitalize,
-									hint: prepare_description_for_form_hint(field_setting),
-									as: :select,
-									collection: field_setting.choices.order(:label),
-									label_method: :label,
-									value_method: :id,
-									selected: ( field_setting.default_choice.id unless field_setting.allow_null ),
-									include_blank: field_setting.allow_null,
-									input_html: { class: 'select2-item' } %>
-					<% end %>
-					<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-					<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-					<%= ff.input :fieldable_id, as: :hidden %>
-					<%= ff.input :fieldable_type, as: :hidden %>
-				<% end %>
-
-
-			<%# - - - - - - - - - - - - %>
-			<%# CHECKBOX                %>
-			<%# - - - - - - - - - - - - %>
+				<%= render 'binda/fieldable/form_item_selections/form_item_selection', f: f, field_setting: field_setting %>
 			<% elsif field_setting.field_type === 'checkbox' %>
-				<% current = f.object.find_or_create_a_field_by( field_setting.id, 'checkbox' ) %>
-				<%= f.simple_fields_for "checkboxes_attributes[]", current do |ff| %>
-					<% if ff.object.choices.any? %>
-						<%= ff.input :choice_ids,
-									label: field_setting.name.capitalize,
-									hint: "#{t('binda.null_is_not_allowed')}. #{field_setting.description}",
-									as: :check_boxes,
-									collection: field_setting.choices.order(:label),
-									label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x[:label]}".html_safe },
-									value_method: :id,
-									checked: ff.object.choice_ids,
-									include_blank: field_setting.allow_null,
-									include_hidden: field_setting.allow_null %>
-					<% else %>
-						<%= ff.input :choice_ids,
-									label: field_setting.name.capitalize,
-									hint: "#{t('binda.null_is_not_allowed')}. #{field_setting.description}",
-									as: :check_boxes,
-									collection: field_setting.choices.order(:label),
-									label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x[:label]}".html_safe },
-									value_method: :id,
-									checked: ( field_setting.default_choice.id unless field_setting.allow_null ),
-									include_blank: field_setting.allow_null,
-									include_hidden: field_setting.allow_null %>
-					<% end %>
-					<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
-					<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-					<%= ff.input :fieldable_id, as: :hidden %>
-					<%= ff.input :fieldable_type, as: :hidden %>
-				<% end %>
+				<%= render 'binda/fieldable/form_item_selections/form_item_checkbox', f: f, field_setting: field_setting %>
 			<% end %>
-
 		<% else %>
-			<p class="form-group">Sorry, no choice is available. 
+			<p class="form-group">
+				<%= t('binda.no_available_choice') %>
 				<% if current_user.is_superadmin %> 
-					Please ensure you setup at least two possible choices in the <a href="<%= edit_structure_field_group_path( structure_id: @structure.id, id: field_setting.field_group.id )%>">field group setup</a>.
+					<%= t('binda.no_available_choice_superadmin_hint') %>
+					<a href="<%= edit_structure_field_group_path( structure_id: @structure.id, id: field_setting.field_group.id )%>">
+						<%= field_setting.field_group.name %>
+						<%= t('binda.field_group.singular').downcase %>
+					</a>
 				<% else %>
-					Please contact the administrator.
+					<%= t('binda.no_available_choice_user_hint') %>
 				<% end %>
 			</p>
 		<% end %>
-
 </div>

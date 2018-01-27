@@ -43,7 +43,6 @@ FactoryBot.define do
 
 	factory :selection_setting, parent: :field_setting do
 		field_type 'selection'
-		allow_null false
 	end
 
 	factory :selection_setting_with_choices, parent: :selection_setting do
@@ -54,6 +53,20 @@ FactoryBot.define do
       create_list( :choice, evaluator._count, field_setting: selection_setting )
 		end
 	end
+
+	factory :checkbox_setting, parent: :field_setting do
+		field_type 'checkbox'
+	end
+
+	factory :checkbox_setting_with_choices, parent: :checkbox_setting do
+    transient do
+      _count 3
+    end
+		after(:create) do |checkbox_setting, evaluator|
+      create_list( :choice, evaluator._count, field_setting: checkbox_setting )
+		end
+	end
+
 
 	factory :relation_setting, parent: :field_setting do
 		field_type 'relation'

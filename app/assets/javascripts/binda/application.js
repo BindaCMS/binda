@@ -17,9 +17,6 @@
 //= require jquery-ui/widgets/sortable
 //= require jquery-ui/widget
 
-// TinyMCE
-//= require tinymce-jquery
-
 // Bootstrap dependency 
 // https://v4-alpha.getbootstrap.com/components/tooltips/
 // require tether.min
@@ -35,6 +32,9 @@
 // GSAP/EasePack.min
 // GSAP/ScrollToPlugin.min
 // GSAP/TweenLite.min
+
+// TinyMCE
+//= require tinymce-jquery
 
 // Binda scripts
 //= require binda/dist/binda.bundle.js

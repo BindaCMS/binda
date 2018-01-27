@@ -1,6 +1,8 @@
 require "rails_helper"
 
-describe "Field group", type: :feature do
+Capybara.default_max_wait_time = 10
+
+describe "GET field_groups#edit", type: :feature, js: true do
 	
 	let(:user) { Binda::User.first }
 
@@ -9,16 +11,11 @@ describe "Field group", type: :feature do
 		create(:field_group, structure_id: @structure.id )
 	end
 
-	it "should be listed on the structure page to which it belongs" do
+	before(:example) do
 		sign_in user
-		path_to_structure = binda.edit_structure_path( @structure.slug )
-		visit path_to_structure
-		expect( page ).to have_current_path( path_to_structure )
-		field_groups = @structure.field_groups.order( :position )
-		expect( page.body.index( field_groups.first.name ) ).to be < page.body.index( field_groups.last.name )
 	end
 
-	it "should display an editor with its field settings" do 
+	it "displays the field group editor" do 
 		sign_in user
 		field_group = @structure.field_groups.first
 		path_to_field_group = binda.edit_structure_field_group_path( structure_id: @structure.slug, id: field_group.slug )
@@ -26,5 +23,4 @@ describe "Field group", type: :feature do
 		expect( page ).to have_current_path( path_to_field_group )
 		expect( page ).to have_selector( ".form-item--editor" )
 	end
-
 end

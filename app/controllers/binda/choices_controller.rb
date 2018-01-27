@@ -6,8 +6,11 @@ module Binda
   	before_action :set_choice
 
   	def destroy
-  		@choice.destroy
-  		head :ok
+  		if @choice.destroy
+    		head :ok
+      else
+        head :internal_server_error
+      end
   	end
 
   	private

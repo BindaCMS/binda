@@ -141,3 +141,6 @@ en:
     user: User
     manage_users: Manage Users
     remember_me: Remember me
+    no_available_choice: Sorry, no choice is available. 
+    no_available_choice_user_hint: Please contact the administrator
+    no_available_choice_superadmin_hint: Please ensure you setup at least two possible choices when editing the
