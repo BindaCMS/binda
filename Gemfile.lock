@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    binda (0.1.3)
+    binda (0.1.4)
       aasm (>= 4.11, < 4.13)
       ancestry (>= 2.1, < 3.1)
       bourbon (= 4.3.4)
@@ -100,7 +100,7 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
-    devise-i18n (1.5.0)
+    devise-i18n (1.5.1)
       devise (>= 3.4)
     diff-lcs (1.3)
     docile (1.1.5)
