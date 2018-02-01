@@ -352,23 +352,43 @@ Every _field setting_ is based on a field type. You can create several field set
 
 Here below a list of field types available and their use:
 
-| Field setting | Use details | |
+| Field type | Usage | |
 |---|---|---|
-| String | Store a string. No formatting options available. | [source](http://www.rubydoc.info/gems/binda/Binda/String) |
-| Text | Store a text. TinyMCE let's you format the text as you like. | [source](http://www.rubydoc.info/gems/binda/Binda/Text) |
-| Image | Store image. | [source](http://www.rubydoc.info/gems/binda/Binda/Image) |
-| Video | Store video. | [source](http://www.rubydoc.info/gems/binda/Binda/Video) |
-| Date | Store a date. | [source](http://www.rubydoc.info/gems/binda/Binda/Date) |
-| Radio | Select one choice amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Radio) |
-| Selection | Select one or more choices amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Selection) |
-| Checkbox | Select one or more choices amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Checkbox) |
-| Repeater | Store multiple instances of a field or a collection of fields. | [source](http://www.rubydoc.info/gems/binda/Binda/Repeater) |
-| Relation | Connect multiple instances of a _component_ or _board_ to each other. | [source](http://www.rubydoc.info/gems/binda/Binda/Relation) |
+| string | Store a string. No formatting options available. | [source](http://www.rubydoc.info/gems/binda/Binda/String) |
+| text | Store a text. TinyMCE let's you format the text as you like. | [source](http://www.rubydoc.info/gems/binda/Binda/Text) |
+| image | Store image. | [source](http://www.rubydoc.info/gems/binda/Binda/Image) |
+| video | Store video. | [source](http://www.rubydoc.info/gems/binda/Binda/Video) |
+| date | Store a date. | [source](http://www.rubydoc.info/gems/binda/Binda/Date) |
+| radio | Select one choice amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Radio) |
+| selection | Select one or more choices amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Selection) |
+| checkbox | Select one or more choices amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Checkbox) |
+| repeater | Store multiple instances of a field or a collection of fields. | [source](http://www.rubydoc.info/gems/binda/Binda/Repeater) |
+| relation | Connect multiple instances of a _component_ or _board_ to each other. | [source](http://www.rubydoc.info/gems/binda/Binda/Relation) |
 
 ## Available setting and customization
 
 Sometime you might want to specify a behaviour or a restriction for a specific _field_.
 To konw more about a specific _field_ click on the **source** link where you can find a more comprehensive documentation.
+
+## Reload!
+
+In order to keep consistency between _fields_ and their own _settings_ Binda use **callbacks**. 
+
+For example the following line will create a _field setting_, but under the hood it provide each _component_ with the relative _field_:
+
+```ruby
+# Create a field setting
+@structure.field_groups_first.field_settings.create(name: 'my text', field_type: 'text')
+# => <Binda::FieldSetting id: 1, ...>
+
+# You don't have to create a text field for each component, it's alreay been done for you
+@structure.components.first.texts.first
+# => <Binda::Text id: 1, field_setting_id: 1, ...>
+```
+
+IMPORTANT: Sometimes callbacks run and the `ActiveRecord` object stored in your variable might get outdated. Use `reload` to make sure the `ActiveRecord` in your variable correspond to the real database record. (run `mycomponent.reload`)
+
+Some callbacks can a bit sneaky. For example _field settings_ with `field_type='radio'` cannot have `allow_null=true` so no matter how many times you try to update `allow_null=true` it will never change.
 
 ## How to get field content
 

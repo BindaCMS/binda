@@ -32,12 +32,13 @@ module Binda
 	#   # => []
 	#   ```
 	#   
-	# 4. When a **field setting** is created there is no **choice** available yet. When a new **choice** is created 
-	#   it's automatically set as the **default choice** for the **field setting** and applied to all **selections** 
-	#   that didn't have any choice selected. NOTE: this behavior exists just for the **field setting** that requires at 
-	#   least a choice and has just been created. Changing the field setting **default choice** persisted on the database
-	#   with another one won't change the **selected choice** of any **selections** created before: 
-	#   they will keep the previous **default choice**. For more info look at `Binda::Choice` 
+	# 4. When a **field setting** is created there is no **choice** available yet. Only if a **setting** requires 
+	#   at least a **choice**, a new **choice** is created. In that case the **choice** is also automatically set as 
+	#   the **default choice** for the **field setting** and applied to all **selections** that didn't have any **choice**. 
+	#   Again, this behaviour exists just for **field settings** that requires at least a **choice** and has just 
+	#   been created. Changing the **field setting** **default choice** persisted on the database with another one 
+	#   won't change the **selected choice** of any **selections** created before: they will keep the previous 
+	#   **default choice**. For more info look at `Binda::Choice` 
 	#   [documentation](http://www.rubydoc.info/gems/binda/Binda/Choice)
 	#   ```ruby
 	#   # Create a field setting for a component (note: allow_null is set to false)
@@ -49,20 +50,10 @@ module Binda
 	#   )
 	#   # If field setting doesn't allow null, it means we always expect a choice to be selected
 	#   component.get_selection_choices(field_setting.slug)
-	#   # A default choice is returned (not that this is a fake choice)
-	#   # => [{ label: 'Choice not available', value: 'choice-not-available' }]
-	#   field_setting.choices.create(
-	#       label: 'first', 
-	#       value: 'first'
-	#   )
-	#   # Creating a choice will make sure a default choice is set
-	#   field_setting.reload
-	#   field_setting.default_choice.label
-	#   # => 'first'
-	#   # We expect selection has the same default now
-	#   component.reload
+	#   # A default choice is returned
+	#   # => [{ label: 'Temporary choice', value: 'temporary-choice' }]
 	#   component.get_selection_choices(field_setting.slug)
-	#   # => [{ label: 'first', value: 'first' }]
+	#   # => [{ label: 'Temporary choice', value: 'temporary-choice' }]
 	#   # When we remove the initial choice we fallback to default
 	#   field_setting.choices.first.delete
 	#   # => error!
@@ -70,8 +61,8 @@ module Binda
 	#       label: 'second', 
 	#       value: 'second'
 	#   )
-	#   field_setting.reload.choices.first.delete
-	#   component.reload.get_selection_choices(field_setting.slug)
+	#   field_setting.choices.first.destroy
+	#   component.get_selection_choices(field_setting.slug)
 	#   # => [{ label: 'second', value: 'second' }]
 	#   ```
 	# 
@@ -123,13 +114,7 @@ module Binda
 	#       field_type: 'selection', 
 	#       allow_null: false
 	#   )
-	#   field_setting.choices.create(
-	#       label: 'First', 
-	#       value: 'first'
-	#   )
-	#   component.get_selection_choices(field_setting.slug)
-	#   # => [{ label: 'First', value: 'first' }]
-	#   # Trying to delete the only choice won't work
+	#   # Trying to delete the default temporary choice, which is the only one, won't work
 	#   field_setting.choices.first.destroy
 	#   # => false
 	#   # You need to create another choice first
@@ -140,6 +125,9 @@ module Binda
 	#   field_setting.choices.first.destroy
 	#   component.reload.get_selection_choices(field_setting.slug)
 	#   # => [{ label: 'second', value: 'second' }]
+	#   # BE AWARE THAT:
+	#   field_setting.choices.delete_all
+	#   # => deletes everything skipping callbacks and will cause inconsistency throughout the database
 	#   ```
 	# 
 	class Selection < ApplicationRecord
