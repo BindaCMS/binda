@@ -37,9 +37,9 @@ module Binda
 		# @param field_setting [Binda::FieldSetting] The field setting object
 		def prepare_description_for_selections_form_hint(field_setting)
 			description = []
-			if field_setting.description.blank? && field_setting.allow_null?
-				description << field_setting.description
-				description << I18n.t("binda.null_is_not_allowed") if !field_setting.allow_null?
+			unless field_setting.description.blank? && field_setting.allow_null?
+				description << field_setting.description unless field_setting.description.blank?
+				description << I18n.t("binda.null_is_not_allowed") if !field_setting.allow_null? 
 				return description.join('. ')
 			else
 				return false 

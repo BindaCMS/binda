@@ -1,5 +1,18 @@
 class Shader {
-  constructor() {}
+  constructor() {
+    this.uniforms = {
+      uTime: { type: "1f", value: 0.0 },
+      uCurrentTime: { type: "1f", value: Math.sin(Date.now()) + 0.5 },
+      uMouse: {
+        type: "2f",
+        value: [window.innerWidth, window.innerHeight]
+      },
+      uWindowSize: {
+        type: "2f",
+        value: [window.innerWidth, window.innerHeight]
+      }
+    };
+  }
 
   isSet() {
     if ($("#background-shader").length > 0) {
@@ -20,7 +33,7 @@ class Shader {
       window.innerHeight
     );
 
-    //Add the canvas to the HTML document
+    // //Add the canvas to the HTML document
 
     document
       .getElementById("background-shader")
@@ -32,27 +45,14 @@ class Shader {
     this.renderer.view.style.position = "fixed";
     this.renderer.view.style.display = "block";
 
+    let fragmentShader = document.getElementById("fragmentShader").innerHTML;
+
     this.customShader = new PIXI.AbstractFilter(
       null,
-      document.getElementById("fragmentShader").innerHTML,
+      fragmentShader,
       this.uniforms
     );
     this.drawRectagle();
-  }
-
-  uniforms() {
-    return {
-      uTime: { type: "1f", value: 0.0 },
-      uCurrentTime: { type: "1f", value: Math.sin(Date.now()) + 0.5 },
-      uMouse: {
-        type: "2f",
-        value: [window.innerWidth, window.innerHeight]
-      },
-      uWindowSize: {
-        type: "2f",
-        value: [window.innerWidth, window.innerHeight]
-      }
-    };
   }
 
   // DRAW RECTANGLE

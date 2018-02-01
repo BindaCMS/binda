@@ -852,6 +852,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Shader = function () {
   function Shader() {
     _classCallCheck(this, Shader);
+
+    this.uniforms = {
+      uTime: { type: "1f", value: 0.0 },
+      uCurrentTime: { type: "1f", value: Math.sin(Date.now()) + 0.5 },
+      uMouse: {
+        type: "2f",
+        value: [window.innerWidth, window.innerHeight]
+      },
+      uWindowSize: {
+        type: "2f",
+        value: [window.innerWidth, window.innerHeight]
+      }
+    };
   }
 
   _createClass(Shader, [{
@@ -875,7 +888,7 @@ var Shader = function () {
       // Create 'renderer'
       this.renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight);
 
-      //Add the canvas to the HTML document
+      // //Add the canvas to the HTML document
 
       document.getElementById("background-shader").appendChild(this.renderer.view);
 
@@ -885,24 +898,10 @@ var Shader = function () {
       this.renderer.view.style.position = "fixed";
       this.renderer.view.style.display = "block";
 
-      this.customShader = new PIXI.AbstractFilter(null, document.getElementById("fragmentShader").innerHTML, this.uniforms);
+      var fragmentShader = document.getElementById("fragmentShader").innerHTML;
+
+      this.customShader = new PIXI.AbstractFilter(null, fragmentShader, this.uniforms);
       this.drawRectagle();
-    }
-  }, {
-    key: "uniforms",
-    value: function uniforms() {
-      return {
-        uTime: { type: "1f", value: 0.0 },
-        uCurrentTime: { type: "1f", value: Math.sin(Date.now()) + 0.5 },
-        uMouse: {
-          type: "2f",
-          value: [window.innerWidth, window.innerHeight]
-        },
-        uWindowSize: {
-          type: "2f",
-          value: [window.innerWidth, window.innerHeight]
-        }
-      };
     }
 
     // DRAW RECTANGLE
