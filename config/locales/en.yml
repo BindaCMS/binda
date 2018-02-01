@@ -89,8 +89,10 @@ en:
       validation_message:
         name: Field setting name cannot be blank.
         slug: "\"%{arg1}\" already in use. Please choose a different slug."
-        field_type: "isn't valid. Select a field type among these: %{arg1}."
+        field_type: "isn't valid. Please associate the field setting named \"%{arg1}\" with one of the following field types: %{arg2}."
         field_group_id: "cannot be blank. Field setting named \"%{arg1}\" must be associated to a field group. Check if field_group_id propriety is set."
+        allow_null: "canont be true on a radio setting. Please ensure to set allow_null=false for the field setting named \"%{arg1}\" before saving it."
+        has_choice_before_updating_allow_null_to_false: "In order to require at least a choice, it's mandatory that at least one is available. Please create a choice for the field setting with slug \"%{arg1}\" before continuing."
     component: Component
     components: Component
     asset:
@@ -127,16 +129,22 @@ en:
     login_password: Enter your password
     login_welcome: Welcome to %{arg1} admin panel
     login_credit: Built with Binda %{arg1}
+    selection:
+      validation_message:
+        choices: "The selection field with id=%{arg1} depending on \"%{arg2}\" must have at least a choice."
     choice: 
+      default_label: Temporary choice
+      default_value: temporary-choice
       validation_message:
         label: Label cannot be blank
         value: Value cannot be blank
-        field_setting_id: "cannot be blank. Choice must be associated to a field setting. Check if field_setting_id propriety is set."
+        field_setting_id: cannot be blank. Choice must be associated to a field setting. Check if field_setting_id propriety is set.
+        destroy: It's not possible to delete the last choice as this field setting requires at least one exists. Before trying again, please add another choice.
     choice_label: label
     choice_value: value
     allow_null: Require a choice
     allow_null_true: Choosing is not required 
-    allow_null_false: Require to choose among the available choices
+    allow_null_false: Require at least one choice
     publish_state: Publish state
     user: User
     manage_users: Manage Users

@@ -45,8 +45,15 @@ module Binda
 		has_many :selections,     dependent: :destroy
 		has_many :checkboxes,     dependent: :destroy
 		has_many :relations,      dependent: :destroy
+		has_many :assets,         dependent: :destroy
+		has_many :images,         dependent: :destroy
+		has_many :videos,         dependent: :destroy
 
-		has_many :choices,        dependent: :delete_all # we don't want to run callbacks for choices!
+		# We don't want to run callbacks for choices!
+		# If you run a callback the last choice will throw a error
+		# @see `Binda::Choice` `before_destroy :check_last_choice`
+		has_many :choices,        dependent: :delete_all 
+
 		has_one  :default_choice, -> (field_setting) { where(id: field_setting.default_choice_id) }, class_name: 'Binda::Choice'
 		
 		has_and_belongs_to_many :accepted_structures, class_name: 'Binda::Structure'
@@ -65,9 +72,17 @@ module Binda
 		# CALLBACKS
 		# ---------
 
+		before_save do
+			check_allow_null_for_radio
+		end
+
+		after_save do
+			add_choice_if_allow_null_is_false
+		end
+
     after_create do 
     	self.class.reset_field_settings_array
-    	set_allow_null
+    	convert_allow_null__nil_to_false
     	create_field_instances
     end
 
@@ -85,26 +100,30 @@ module Binda
 
     # VALIDATIONS
     # -----------
+    # @see http://guides.rubyonrails.org/active_record_validations.html#message
 
 		validates :name, presence: { 
 			message: I18n.t("binda.field_setting.validation_message.name") 
 		}
 		validates :field_type, inclusion: { 
 			in: [ *FieldSetting.get_field_classes.map{ |fc| fc.to_s.underscore } ], 
-			allow_nil: false, 
-			message: I18n.t(
-				"binda.field_setting.validation_message.field_type", 
-				{ arg1: "#{FieldSetting.get_field_classes.join(", ")}" }
-			)
+			allow_nil: false,
+			message: -> (field_setting, data) { 
+				I18n.t(
+					"binda.field_setting.validation_message.field_type", 
+					{ arg1: field_setting.name, arg2: "#{FieldSetting.get_field_classes.join(", ")}" }
+				)
+			}
 		}
 		validates :field_group_id, presence: {
-			message: I18n.t("binda.field_setting.validation_message.field_group_id", { arg1: "%{value}" })
+			message: -> (field_setting, data) {
+				I18n.t(
+					"binda.field_setting.validation_messag e.field_group_id", 
+					{ arg1: field_setting.name, arg2: data[:value] }
+				)
+			}
 		}
 		validate :slug_uniqueness
-		validates :allow_null, 
-			inclusion: { in: [false], message: "%{value} canont be true on a radio setting" }, 
-			if: Proc.new { |a| a.field_type == 'radio' }
-
 
 
     # FRIENDLY ID
@@ -145,10 +164,20 @@ module Binda
 		def slug_uniqueness
 			record_with_same_slug = self.class.where(slug: slug)
 			if record_with_same_slug.any? && !record_with_same_slug.ids.include?(id)
-				errors.add(:slug, I18n.t("binda.field_setting.validation_message.slug", { arg1: slug })) 
+				errors.add(:slug, I18n.t("binda.field_setting.validation_message.slug", { arg1: slug }))
+				return false
+			else
+				return true 
 			end
 		end
 
+		# It makes sure radio buttons have allow_null set to false.
+		def check_allow_null_for_radio
+			if field_type == 'radio' && allow_null?
+				self.allow_null = false
+				warn "WARNING: it's not possible that a field setting with type `radio` has allow_null=true."
+			end
+		end
 
 
 		# MISCELLANEOUS
@@ -164,7 +193,7 @@ module Binda
 			# (the query runs once and caches the result, then any further call uses the cached result)
 			@@field_settings_array = self.pluck(:slug, :id) if @@field_settings_array.nil?
 			selected_field_setting = @@field_settings_array.select{ |fs| fs[0] == field_slug }[0]
-			raise ArgumentError, "There isn't any field setting with the current slug.", caller if selected_field_setting.nil?
+			raise ArgumentError, "There isn't any field setting with the current slug \"#{field_slug}\".", caller if selected_field_setting.nil?
 			id = selected_field_setting[1]
 			return id
 		end
@@ -184,8 +213,28 @@ module Binda
 		#   (This isn't done with a database constraint in order to gain flexibility)
 		# 
 		# REVIEW: not sure what flexibility is needed. Maybe should be done differently
-		def set_allow_null
+		def convert_allow_null__nil_to_false
 			self.allow_null = false if self.allow_null.nil?
+		end
+
+		# Get structure on which the current field setting is attached. It should be one, but in order to 
+		#   be able to add other methods to the query this methods returns a `ActiveRecord::Relation` object, not
+		#   a `ActiveRecord`
+		# 
+		# @return [ActiveRecord::Relation] An array of `Binda::Structure` instances
+		def structures
+			Structure.left_outer_joins(
+				field_groups: [:field_settings]
+			).where(
+				binda_field_settings: { id: self.id }
+			)
+		end
+
+		# Get the structure of the field group to which the field setting belongs.
+		# 
+		# @return [ActiveRecord] The `Binda::Structure` instance
+		def structure
+			self.structures.first
 		end
 
 		# Generates a default field instances for each existing component or board
@@ -198,31 +247,32 @@ module Binda
 		#   a field instance is always present no matter if the component has been created
 		#   before the field setting or the other way around.
 		def create_field_instances
-			structure = self.field_group.structure
-			field_class = self.field_type.pluralize
-			field_setting_id = self.id
-			case 
-				when structure.components.any?
-					structure.components.each do |component|
-						create_field_instances_for_component(component, field_class, field_setting_id)
-					end
-				when structure.board.present?
-					create_field_instances_for_board(structure.board, field_class, field_setting_id)
+			# Get the structure
+			structure = self.structures.includes(:board, components: [:repeaters]).first
+			field_class = "Binda::#{self.field_type.classify}"
+			structure.components.each do |component|
+				create_field_instances_for_instance(component, field_class, self.id)
+			end
+			create_field_instances_for_instance(structure.board, field_class, self.id) if structure.board.present?
+		end
+
+		def create_field_instance_for(instance)
+			if self.is_root?
+				create_field_instances_for_instance(instance, field_class, self.id)
+			else
+				instance.repeaters.select{|r| field_setting_id == self.parent_id}.each do |repeater|
+					create_field_instances_for_instance(repeater, field_class, self.id)
+				end
 			end
 		end
 
 		# Helper for create_field_instances method
-		def create_field_instances_for_component(component, field_class, field_setting_id)
-			unless component.send(field_class).where(field_setting_id: field_setting_id).any?
-				component.send(field_class).create!(field_setting_id: field_setting_id)
-			end
-		end
-
-		# Helper for create_field_instances method
-		def create_field_instances_for_board(board, field_class, field_setting_id)
-			unless board.send(field_class).where(field_setting_id: field_setting_id).any?
-				board.send(field_class).create!(field_setting_id: field_setting_id)
-			end
+		def create_field_instances_for_instance(instance, field_class, field_setting_id)
+			field_class.constantize.find_or_create_by!(
+				field_setting_id: field_setting_id,
+				fieldable_id: instance.id,
+				fieldable_type: instance.class.name
+			)
 		end
 
 		# Check `allow_null` option
@@ -234,15 +284,24 @@ module Binda
 		# This method is preferred to a validation because it allows to remove all choices before adding new ones.
 		#   
 		def check_allow_null_option
-    	# TODO: check if allow_null has been set to false -> if it is 
-    	# you want to check that all Binda::Selection objects
-    	# related to it have at least one choice -> if some don't
-    	# have any choice, throw a warning and set a critical error 
-    	# banner on the views related to those Binda::Selection objects
     	return if self.allow_null?
-
   		Selection.check_all_selections_depending_on(self)
-			warn("WARNING: Binda::FieldSetting \"#{self.slug}\" must have at least one choice.")
+		end
+
+		# Validation method that check if the current `Binda::Selection` instance has at least a choice before 
+		#   updating allow null to false
+		def add_choice_if_allow_null_is_false
+			if %(selection radio checkbox).include?(self.field_type) && 
+				!self.allow_null?
+				if self.choices.empty?
+					# Add a choice if there is none, it will be automatically assign as default choice
+					self.choices.create!(label: I18n.t("binda.choice.default_label"), value: I18n.t("binda.choice.default_value"))
+				elsif self.default_choice_id.nil?
+					# Assign a choice as default one if there is any
+					# REVIEW there is some deprecation going on, but I'm not sure i directly involves the `update` method
+					self.update!(default_choice_id: self.choices.first.id)
+				end
+			end
 		end
 
 	end

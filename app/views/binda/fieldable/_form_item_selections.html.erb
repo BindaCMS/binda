@@ -8,17 +8,22 @@
 				<%= render 'binda/fieldable/form_item_selections/form_item_checkbox', f: f, field_setting: field_setting %>
 			<% end %>
 		<% else %>
-			<p class="form-group">
-				<%= t('binda.no_available_choice') %>
-				<% if current_user.is_superadmin %> 
-					<%= t('binda.no_available_choice_superadmin_hint') %>
-					<a href="<%= edit_structure_field_group_path( structure_id: @structure.id, id: field_setting.field_group.id )%>">
-						<%= field_setting.field_group.name %>
-						<%= t('binda.field_group.singular').downcase %>
-					</a>
-				<% else %>
-					<%= t('binda.no_available_choice_user_hint') %>
-				<% end %>
-			</p>
+			<div class="form-group">
+		    <p class="control-label">
+	        <%= field_setting.name.capitalize %>    
+		    </p>
+		    <p>
+					<%= t('binda.no_available_choice') %>
+					<% if current_user.is_superadmin %> 
+						<%= t('binda.no_available_choice_superadmin_hint') %>
+						<a href="<%= edit_structure_field_group_path( structure_id: @structure.id, id: field_setting.field_group.id )%>">
+							<%= field_setting.field_group.name %>
+							<%= t('binda.field_group.singular').downcase %>
+						</a>
+					<% else %>
+						<%= t('binda.no_available_choice_user_hint') %>
+					<% end %>
+				</p>
+			</div>
 		<% end %>
 </div>

@@ -21,6 +21,9 @@ module Binda
     belongs_to :fieldable, polymorphic: true
     belongs_to :field_setting
 
+    validates :fieldable_id, presence: true
+    validates :fieldable_type, presence: true
+
     # Relations are the connection between a Owner to its Dependents
     # The Active Relation connects a Relation to a Dependent (which is can be a Component or a Board)
     # The Passive Relation connects a Relation to a Owner (which is can be a Component or a Board)

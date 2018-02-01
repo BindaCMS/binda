@@ -18,13 +18,18 @@ class FieldSettingChoices {
 	}
 
 	setEvents() {
-		$(document).on("click", ".field-setting-choices--add-choice", addChoice);
+		$(document).on(
+			"click", 
+			".field-setting-choices--add-choice", 
+			addChoice
+		);
 
 		$(document).on(
 			"click",
 			".field-setting-choices--delete-choice",
 			deleteChoice
 		);
+
 		$(document).on(
 			"click",
 			".field-setting-choices--js-delete-choice",
@@ -72,11 +77,12 @@ function deleteChoice(event) {
 
 	$.ajax({
 		url: destination,
-		type: "DELETE",
-		success: function() {
-			choice.remove();
-			// Update form item editor size
-			_FormItemEditor.resize();
-		}
+		type: "DELETE"
+	}).done(function() {
+		choice.remove();
+		// Update form item editor size
+		_FormItemEditor.resize();
+	}).fail(function(data){
+		alert(data.responseJSON.errors);
 	});
 }

@@ -1,0 +1,11 @@
+<% if ff.object.field_type != 'radio' %>
+	<div class="form-item--full-size standard-form--checkbox field-setting-choices--allow-null">
+		<%= ff.input :allow_null, 
+				as: :radio_buttons,
+				label: t('binda.allow_null'),
+				collection: [[t('binda.allow_null_true'), true], [t('binda.allow_null_false'), false]],
+				label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x[0]}".html_safe },
+		    checked: ff.object.allow_null, 
+		    default: true %>
+	</div>
+<% end %>

@@ -3,7 +3,7 @@
 	<% if ff.object.choices.any? %>
 		<%= ff.input :choice_ids, 
 					label: field_setting.name.capitalize, 
-					hint: prepare_description_for_form_hint(field_setting), 
+					hint: prepare_description_for_selections_form_hint(field_setting), 
 					as: :radio_buttons, 
 					collection: field_setting.choices.order(:label), 
 					label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x[:label]}".html_safe },
@@ -13,12 +13,12 @@
 	<% else %>
 		<%= ff.input :choice_ids,
 					label: field_setting.name.capitalize,
-					hint: prepare_description_for_form_hint(field_setting),
+					hint: prepare_description_for_selections_form_hint(field_setting),
 					as: :radio_buttons,
 					collection: field_setting.choices.order(:label),
 					label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x[:label]}".html_safe },
 					value_method: :id,
-					checked: ( field_setting.default_choice.id unless field_setting.allow_null ),
+					checked: ( field_setting.default_choice.id unless field_setting.default_choice_id.nil? ),
 					include_blank: field_setting.allow_null %>
 	<% end %>
 	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>

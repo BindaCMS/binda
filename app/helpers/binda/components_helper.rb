@@ -14,16 +14,37 @@ module Binda
 			end
 		end
 
-		# Prepare description for form hint
+		# Prepare description for form hint.
 		# 
 		# This helper return the field description (as `string`) or false (as `boolean`)
 		#   in order to tell Simple Form whether to generate or not the hint html tag.
-		#   
-		def prepare_description_for_form_hint field_setting
+		# 
+		# @param field_setting [Binda::FieldSetting] The field setting object
+		def prepare_description_for_form_hint(field_setting)
 			if field_setting.description.blank?
 				return false
-			else 
+			else
 				return field_setting.description
+			end
+		end
+
+
+		# Prepare description for form hint belonging to select, radio and checkbox fields.
+		# 
+		# This helper return the field description (as `string`) or false (as `boolean`)
+		#   in order to tell Simple Form whether to generate or not the hint html tag.
+		# 
+		# @param field_setting [Binda::FieldSetting] The field setting object
+		def prepare_description_for_selections_form_hint(field_setting)
+			case 
+			when field_setting.description.blank? && field_setting.allow_null?
+				false
+			when !field_setting.description.blank? && field_setting.allow_null?
+				field_setting.description
+			when !field_setting.description.blank? && !field_setting.allow_null?
+				"#{field_setting.description}. #{I18n.t("binda.null_is_not_allowed")}"
+			when field_setting.description.blank? && !field_setting.allow_null?
+				I18n.t("binda.null_is_not_allowed")
 			end
 		end
 

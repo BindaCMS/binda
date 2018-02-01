@@ -1,0 +1,11 @@
+<% if ff.object.choices.find_all{|c| c.persisted? }.any? && !ff.object.allow_null? %>
+	<div class="form-item--full-size">
+		<%= ff.input :default_choice_id, 
+		    as: :select, collection: ff.object.choices.find_all{|c| c.persisted? }, 
+		    label_method: :label,
+		    include_blank: false, 
+		    selected: ff.object.default_choice_id, 
+		    hint: t(:default_choice_description),
+		    input_html: {class: 'select2-item'} %>
+	</div>
+<% end %>

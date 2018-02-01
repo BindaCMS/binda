@@ -1,9 +1,9 @@
 module Binda
 	# Fieldable associations are Binda's core feature. 
 	# 
-	# They provide model classes with a collection of fields (texts, assets, dates and so on)
-	#   to store data in a simple yet powerful way. It's possible to make use of a set of helpers to 
-	#   retrieve fields data belonging to each model instance. See the following methods. 
+	# They provide model classes like `Binda::Component` and `Binda::Board` with a collection of fields 
+	#   (texts, assets, dates and so on) to store data in a simple yet powerful way. It's possible to 
+	#   make use of a set of helpers to retrieve fields data belonging to each model instance. 
 	module FieldableAssociations
 
 		extend ActiveSupport::Concern
@@ -82,7 +82,6 @@ module Binda
 		  #     end
 		  #   end
 		  # end
-	
 		end
 
 		# Get the object related to that field setting
@@ -340,7 +339,7 @@ module Binda
 			field_setting = FieldSetting.find_by(slug:field_slug)
 			obj = self.radios.find{ |t| t.field_setting_id == field_setting.id }
 			raise ArgumentError, "There isn't any radio associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
-			raise "There isn't any choice available for the current radio (#{field_slug}) on instance (#{self.class.name} ##{self.id})." unless field_setting.choices.any?
+			raise "There isn't any choice available for the current radio (#{field_slug}) on instance (#{self.class.name} ##{self.id})." unless obj.choices.any?
 			return { label: obj.choices.first.label, value: obj.choices.first.value }
 		end
 
@@ -351,9 +350,21 @@ module Binda
 		def get_selection_choice(field_slug)
 			field_setting = FieldSetting.find_by(slug:field_slug)
 			obj = self.selections.find{ |t| t.field_setting_id == field_setting.id }
-			raise ArgumentError, "There isn't any radio associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
-			raise "There isn't any choice available for the current radio (#{field_slug}) on instance (#{self.class.name} ##{self.id})." unless field_setting.choices.any?
+			raise ArgumentError, "There isn't any selection associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
+			raise "There isn't any choice available for the current selection (#{field_slug}) on instance (#{self.class.name} ##{self.id})." unless field_setting.choices.any?
 			return { label: obj.choices.first.label, value: obj.choices.first.value }
+		end
+
+		# Get the select choices
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [array] An array of hashes of containing label and value of the selected choices. `{ label: 'the label', 'value': 'the value'}`
+		def get_selection_choices(field_slug)
+			field_setting = FieldSetting.find_by(slug:field_slug)
+			obj = self.selections.find{ |t| t.field_setting_id == field_setting.id }
+			raise ArgumentError, "There isn't any selection associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
+			raise "There isn't any choice available for the current selection (#{field_slug}) on instance (#{self.class.name} ##{self.id})." unless field_setting.choices.any?
+			return obj.choices.map{|choice| { label: choice.label, value: choice.value }}
 		end
 
 		# Get the checkbox choice
@@ -364,7 +375,7 @@ module Binda
 			field_setting = FieldSetting.find_by(slug:field_slug)
 			obj = self.checkboxes.find{ |t| t.field_setting_id == field_setting.id }
 			raise ArgumentError, "There isn't any checkbox associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
-			raise "There isn't any choice available for the current radio (#{field_slug}) on instance (#{self.class.name} ##{self.id})." unless field_setting.choices.any?
+			raise "There isn't any choice available for the current checkbox (#{field_slug}) on instance (#{self.class.name} ##{self.id})." unless field_setting.choices.any?
 			obj_array = []
 			obj.choices.order('label').each do |o|
 				obj_array << { label: o.label, value: o.value }
@@ -506,6 +517,5 @@ module Binda
 					return obj
 				end 
 			end
-
 	end
 end

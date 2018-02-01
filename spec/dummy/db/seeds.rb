@@ -15,7 +15,7 @@ puts "Setting up maintenance mode"
 maintenance_mode = field_settings.create!( name: 'Maintenance Mode', field_type: 'radio')
 disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
 active   = maintenance_mode.choices.create!( label: 'active', value: 'true' )
-@dashboard.radios.first.choices << disabled
+@dashboard.reload.radios.first.choices << disabled
 @dashboard.save!
 maintenance_mode.update( slug: 'maintenance-mode' )
 

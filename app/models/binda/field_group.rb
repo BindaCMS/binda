@@ -50,6 +50,9 @@ module Binda
 			record_with_same_slug = self.class.where(slug: slug)
 			if record_with_same_slug.any? && !record_with_same_slug.ids.include?(id)
 				errors.add(:slug, I18n.t("binda.field_group.validation_message.slug", { arg1: slug }))
+				return false
+			else
+				return true
 			end
 		end
 

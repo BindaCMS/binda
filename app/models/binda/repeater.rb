@@ -7,6 +7,9 @@ module Binda
   	belongs_to :fieldable, polymorphic: true
     belongs_to :field_setting
 
+    validates :fieldable_id, presence: true
+    validates :fieldable_type, presence: true
+
     # The following direct association is used to securely delete associated fields
     # Infact via `fieldable` the associated fields might not be deleted 
     # as the fieldable_id is related to the `component` rather than the `field_setting`

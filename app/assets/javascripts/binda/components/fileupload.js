@@ -35,7 +35,6 @@ export let _FileUpload = new FileUpload();
 
 // Reference --> http://blog.teamtreehouse.com/uploading-files-ajax
 function handle_file(event) {
-	console.log('handle file!');
 	let id = event.target.getAttribute("data-id");
 	let $parent = $("#fileupload-" + id);
 
@@ -90,7 +89,6 @@ function gatherData($parent_repeater, formData) {
 }
 
 function makeRequest(event, formData) {
-	console.log('make request!');
 	let id = event.target.getAttribute("data-id");
 	let $parent = $("#fileupload-" + id);
 	// Make request
@@ -105,7 +103,6 @@ function makeRequest(event, formData) {
 			updateFileuploadField(data, id);
 		})
 		.fail(function(dataFail) {
-			console.error("Error:", dataFail.responseJSON);
 			// Hide loaded
 			$(".popup-warning").addClass("popup-warning--hidden");
 			alert($parent.data("error"));

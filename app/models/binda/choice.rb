@@ -1,4 +1,16 @@
 module Binda
+	# Choices are used in **select**, **radio** and **checkboxes** and defined by a **field setting**. 
+	#
+	# The architecture of this class is a bit complex and deserves some attention:
+	#   Here the rules that defines the class behaviour:
+	# 
+	# 1. **Choices** must be associated to a **field setting**
+	# 2. Every **choice** can be associated to several **select/radio/checkbox**
+	# 3. (This is tricky) Assuming you are going to delete a choice and 1) **field setting** requires at least one choice
+	#   2) some **select/checkbox/radio** are associated just to that **choice**. To be able to do it you must first replace 
+	#   that **choice** on those **select/checkbox/radio**. Only then you can delete that **choice**.
+	#   
+	# The **default choice** is applied only to field that requires at least a **choice**.
   class Choice < ApplicationRecord
 
   	belongs_to :field_setting
@@ -14,24 +26,48 @@ module Binda
 			message: I18n.t('binda.choice.field_setting_id_validation_message')
 		}
 
+		before_destroy :check_last_choice
 		after_create :set_default_choice
 		after_destroy :reset_default_choice
+
+		# Some field setting requires at least one choice. To avoid leaving this kind of field setting without
+		#   any choice, a validation checks that there is at least an alternative choice that will become the default one.
+		# This validation is skipped when deleting the field setting from which the choice depends because choice are 
+		#   deleted directly from database (see `dependent: :delete_all`).
+		def check_last_choice
+			if !self.field_setting.allow_null? && Choice.where(field_setting_id: self.field_setting.id).length == 1
+				errors.add(:base, I18n.t('binda.choice.validation_message.destroy'))
+				throw(:abort)
+			end
+		end
 
 		# In order to make sure that a default choice is set, this method is executed after
 		#   the first choice is associated to the field setting. What does it do? 
 		#   If there isn't a default it sets the current choice as the default one.
 		#   The method is executed as well if new choices are added.
 		def set_default_choice
-			
 			# Make sure you are referring to the updated ActiveRecord object where the choice has already been deleted
 			#	Infact: self.field_setting != FieldSetting.find( self.field_setting.id )
 			field_setting = FieldSetting.find(self.field_setting.id)
-			
-			# unless Choice.find(field_setting.default_choice_id).present?
-			return unless field_setting.default_choice_id.nil?
-			field_setting.default_choice_id = self.id
-			unless field_setting.save
-				raise "It hasn't been possible to set the default choice for the current setting (#{field_setting.slug})."
+
+			if field_setting.default_choice_id.nil? && !field_setting.allow_null?
+				field_setting.default_choice_id = self.id
+				unless field_setting.save
+					raise "It hasn't been possible to set the default choice for the current setting (#{field_setting.slug})."
+				end
+				assign_choice_to_selections(field_setting, self)
+			end
+		end
+
+		# Assign a choice to `Binda::Selection` items belonging to a specific field setting.
+		# @param field_setting [Binda::FieldSetting]
+		# @param new_default_choice [Binda::Choice]
+		def assign_choice_to_selections(field_setting, new_default_choice)
+			Selection.where(field_setting_id: field_setting.id).each do |selection|
+				selection.choices << new_default_choice
+				unless selection.save
+					raise "It hasn't been possible to set the default choice for #{selection.class.name} with id=#{selection.id}."
+				end
 			end
 		end
 
@@ -49,7 +85,7 @@ module Binda
 			field_setting = FieldSetting.find(self.field_setting.id)
 
 			# Don't do anything if the default choice isn't the one we just destroyed
-			return if field_setting.choice_ids.include? field_setting.default_choice_id
+			return if field_setting.choice_ids.include?(field_setting.default_choice_id)
 			
 			# Make sure the default choice is needed
 			return if field_setting.allow_null? && field_setting.field_type != 'radio'

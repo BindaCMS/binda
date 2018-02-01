@@ -25,12 +25,10 @@ module Binda
 		it "should let you see the choosen value" do
 			# clean choice selection
 			radio = @component.radios.first
-			radio.choices.clear
-			radio.save!
-			radio.reload
 			radio.choices << @radio_setting.choices.first
-			selection = @component.get_radio_choice( @radio_setting.slug )
-			expect( selection ).to eq( { label: radio.choices.first.label, value: radio.choices.first.value } )
+			radio.save!
+			radio_selection = @component.get_radio_choice( @radio_setting.slug )
+			expect( radio_selection ).to eq( { label: radio.choices.first.label, value: radio.choices.first.value } )
 		end
 		
 	end

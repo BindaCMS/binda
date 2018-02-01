@@ -140,4 +140,12 @@ describe "In field group editor, user", type: :feature, js: true do
 		expect(page).to have_field label_field, with: "bar"
 	end
 
+	it "shouldn't be able to delete the only choice of a field setting if it requires at least one" do
+		skip "not implemented yet"
+	end
+
+	it "shouldn't be able to delete a choice of a field setting if it requires at least one but there's more than one" do
+		skip "not implemented yet"
+	end
+
 end

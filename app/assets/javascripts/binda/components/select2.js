@@ -13,9 +13,15 @@ export function setupSelect2(target) {
 			placeholder = "Select a option";
 		}
 
+		let allowClear = false;
+		if ($(this).hasClass("select2-item-include-blank")) {
+			allowClear = true;
+		}
+
 		$(this).select2({
 			minimumResultsForSearch: 32, // 31 are max number of day in a month, which you don't want to be searchable
-			placeholder: placeholder
+			placeholder: placeholder,
+			allowClear: allowClear
 		});
 	});
 }

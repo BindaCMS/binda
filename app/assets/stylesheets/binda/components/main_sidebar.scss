@@ -70,6 +70,10 @@
   height: 100vh;
 
   li {
+    &:last-child {
+      margin-bottom: 64px;
+    }
+
     > a {
       font-weight: 300;
       display: block;

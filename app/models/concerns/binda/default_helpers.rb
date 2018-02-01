@@ -35,7 +35,7 @@ module Binda
 			# @param slug [string] The slug of the structure to which the components belong
 			# @param slug [array] The slugs of the structures to which the components belongs
 			#   
-			# @return [ActiveRelation Object] if slug is nil or is an array
+			# @return [ActiveRecord::Relation Object] if slug is nil or is an array
 			# 
 			def get_components(slug = nil)
 				if slug.nil?
@@ -64,7 +64,7 @@ module Binda
 			# @param slug [string] The slug of the structure on which the board is based
 			# @param slug [array] The slugs of the structures to which the board belongs
 			#   
-			# @return [ActiveRelation Object] if slug is nil or is an array  
+			# @return [ActiveRecord::Relation Object] if slug is nil or is an array  
 			# 
 			def get_boards(slug = nil)
 				if slug.nil?
@@ -92,7 +92,7 @@ module Binda
 			# @param slug [string] The slug of the structure to which categories belong
 			# @param slug [array] The slugs of the structures to which categories belong
 			#   
-			# @return [ActiveRelation Object] 
+			# @return [ActiveRecord::Relation Object] 
 			# 
 			def get_categories(slug = nil)
 				if slug.nil?
@@ -112,12 +112,12 @@ module Binda
 			# 	# returns all field settings
 			# 	
 			# 	B.get_field_settings('subtitle')
-			# 	# returns an ActiveRelation (a sort of Array) containing the 'subtitle' field setting
+			# 	# returns an ActiveRecord::Relation (a sort of Array) containing the 'subtitle' field setting
 			# 	
 			# @param slug [string] The slug of a specific field setting
 			# @param slug [array] The slugs of the selected field settings
 			# 
-			# @return [ActiveRelation Object] 
+			# @return [ActiveRecord::Relation] 
 			# 
 			def get_field_settings(slug = nil)
 				if slug.nil?

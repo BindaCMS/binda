@@ -9,7 +9,7 @@ module Binda
   		if @choice.destroy
     		head :ok
       else
-        head :internal_server_error
+        render json: { errors: @choice.errors.full_messages }, status: 500
       end
   	end
 

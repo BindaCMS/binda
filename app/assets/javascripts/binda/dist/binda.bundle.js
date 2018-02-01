@@ -145,9 +145,15 @@ function setupSelect2(target) {
 			placeholder = "Select a option";
 		}
 
+		var allowClear = false;
+		if ($(this).hasClass("select2-item-include-blank")) {
+			allowClear = true;
+		}
+
 		$(this).select2({
 			minimumResultsForSearch: 32, // 31 are max number of day in a month, which you don't want to be searchable
-			placeholder: placeholder
+			placeholder: placeholder,
+			allowClear: allowClear
 		});
 	});
 }
@@ -572,6 +578,7 @@ var FieldSettingChoices = function () {
 			$(document).on("click", ".field-setting-choices--add-choice", addChoice);
 
 			$(document).on("click", ".field-setting-choices--delete-choice", deleteChoice);
+
 			$(document).on("click", ".field-setting-choices--js-delete-choice", function (event) {
 				event.preventDefault();
 				$(this).closest(".field-setting-choices--choice").remove();
@@ -613,12 +620,13 @@ function deleteChoice(event) {
 
 	$.ajax({
 		url: destination,
-		type: "DELETE",
-		success: function success() {
-			choice.remove();
-			// Update form item editor size
-			__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
-		}
+		type: "DELETE"
+	}).done(function () {
+		choice.remove();
+		// Update form item editor size
+		__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+	}).fail(function (data) {
+		alert(data.responseJSON.errors);
 	});
 }
 
@@ -679,7 +687,6 @@ var _FileUpload = new FileUpload();
 
 // Reference --> http://blog.teamtreehouse.com/uploading-files-ajax
 function handle_file(event) {
-	console.log('handle file!');
 	var id = event.target.getAttribute("data-id");
 	var $parent = $("#fileupload-" + id);
 
@@ -731,7 +738,6 @@ function gatherData($parent_repeater, formData) {
 }
 
 function makeRequest(event, formData) {
-	console.log('make request!');
 	var id = event.target.getAttribute("data-id");
 	var $parent = $("#fileupload-" + id);
 	// Make request
@@ -744,7 +750,6 @@ function makeRequest(event, formData) {
 	}).done(function (data) {
 		updateFileuploadField(data, id);
 	}).fail(function (dataFail) {
-		console.error("Error:", dataFail.responseJSON);
 		// Hide loaded
 		$(".popup-warning").addClass("popup-warning--hidden");
 		alert($parent.data("error"));

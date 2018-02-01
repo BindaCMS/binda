@@ -3,25 +3,25 @@
 	<% if ff.object.choices.any? %>
 		<%= ff.input :choice_ids,
 					label: field_setting.name.capitalize,
-					hint: prepare_description_for_form_hint(field_setting),
+					hint: prepare_description_for_selections_form_hint(field_setting),
 					as: :select,
 					collection: field_setting.choices.order(:label),
 					label_method: :label,
 					value_method: :id,
-					selected: ff.object.choices.first.id,
-					include_blank: field_setting.allow_null,
-					input_html: { class: 'select2-item' } %>
+					selected: ff.object.choices.ids,
+					include_blank: field_setting.allow_null ? '.' : false,
+					input_html: { class: "select2-item #{ "select2-item-include-blank" if field_setting.allow_null }"  } %>
 	<% else %>
 		<%= ff.input :choice_ids,
 					label: field_setting.name.capitalize,
-					hint: prepare_description_for_form_hint(field_setting),
+					hint: prepare_description_for_selections_form_hint(field_setting),
 					as: :select,
 					collection: field_setting.choices.order(:label),
 					label_method: :label,
 					value_method: :id,
-					selected: ( field_setting.default_choice.id unless field_setting.allow_null ),
-					include_blank: field_setting.allow_null,
-					input_html: { class: 'select2-item' } %>
+					selected: ( field_setting.default_choice.id if !field_setting.allow_null && !field_setting.default_choice_id.nil?),
+					include_blank: field_setting.allow_null ? '.' : false,
+					input_html: { class: "select2-item #{ "select2-item-include-blank" if field_setting.allow_null }"  } %>
 	<% end %>
 	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 	<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
