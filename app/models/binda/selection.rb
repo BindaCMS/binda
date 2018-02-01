@@ -215,7 +215,8 @@ module Binda
 						binda_choices_selections: { selection_id: nil },
 						binda_field_settings: { allow_null: false }
 					)
-			elsif field_setting_id == FieldSetting.get_id(field_setting.slug)
+			else
+				field_setting_id = FieldSetting.get_id(field_setting.slug)
 				Selection.includes(:choices, :field_setting)
 					.where(
 						binda_choices_selections: { selection_id: nil }, 

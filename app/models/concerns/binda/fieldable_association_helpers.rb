@@ -130,12 +130,12 @@ module Binda
 			# Alternative query
 			# obj = Image.where(field_setting_id: FieldSetting.get_id( field_slug ), fieldable_id: self.id, fieldable_type: self.class.to_s ).first
 			raise ArgumentError, "There isn't any image associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
-			if obj.image.present?
-				if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
+			if obj.image.present? && obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
 					obj.image.send(size).send(info)
-				else
-					obj.image.send(info)
-				end
+			elsif obj.image.present?
+				obj.image.send(info)
+			else
+				raise "Looks like the image you are looking for isn't present. See field setting with slug=\"#{field_slug}\" on component with id=\"self.id\""
 			end
 		end
 
@@ -143,12 +143,12 @@ module Binda
 			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 
 			raise ArgumentError, "There isn't any image associated to  the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
-			if obj.image.present?
-				if obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
+			if obj.image.present? && obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
 					obj.image.send(size).send(info)
-				else
-					obj.image.send(info)
-				end
+			elsif obj.image.present?
+				obj.image.send(info)
+			else
+				raise "Looks like the image you are looking for isn't present. See field setting with slug=\"#{field_slug}\" on component with id=\"self.id\""
 			end
 		end
 
