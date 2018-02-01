@@ -1,0 +1,14 @@
+<div class="form-item--editor">
+	<div class="form-item--half-size">
+		<%= ff.input :name, as: :string, input_html: { class: "form-item--input" } %>
+	</div>
+	<% if ff.object.new_record? %>
+		<%= render 'binda/field_groups/form_item/form_item_new_editor', ff: ff %>
+	<% else %>
+		<%= render 'binda/field_groups/form_item/form_item_persisted_editor', ff: ff %>
+		<% if %w(radio selection checkbox).include?(ff.object.field_type) %>
+			<%= render 'binda/field_groups/form_item/form_item_choice_editor', f: f, ff: ff  %>
+		<% end %>
+	<% end %>
+	<div class="clearfix"></div>
+</div>

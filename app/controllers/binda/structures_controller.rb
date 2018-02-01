@@ -79,9 +79,13 @@ module Binda
       def add_new_field_groups
         new_params[:new_field_groups].each do |field_group|
           next if field_group[:name].blank?
-          new_field_group = @structure.field_groups.create( name: field_group[:name], slug: field_group[:slug] )
-          next if new_field_group
-          return redirect_to structure_path( @structure.slug ), flash: { error: new_field_group.errors }
+          new_field_group = @structure.field_groups.create(name: field_group[:name], slug: field_group[:slug])
+          unless new_field_group
+            return redirect_to(
+              structure_path(@structure.slug), 
+              flash: { error: new_field_group.errors }
+            )
+          end
         end
       end
   end

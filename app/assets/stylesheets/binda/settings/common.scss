@@ -1,54 +1,49 @@
-body
-{
+body {
   min-height: 100vh;
   padding: 0;
-  background-image: linear-gradient( to bottom, $color-gray-lightest, darken($color-gray-lightest, 6%));
+  background-image: linear-gradient(
+    to bottom,
+    $color-gray-lightest,
+    darken($color-gray-lightest, 6%)
+  );
 }
 
 // this could be avoided using more recent version of bootstrap or with bourbon
-.clearfix
-{
-  &::after
-  {
+.clearfix {
+  &::after {
     display: table;
     clear: both;
-    content: '';
+    content: "";
   }
 }
 
 // useful to debug
-.bordered
-{
+.bordered {
   border: 2px solid red;
 }
 
-.vertical-center
-{
+.vertical-center {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.absolute-center
-{
+.absolute-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.box-shadowed
-{
-  box-shadow: 0 3px 6px 0 rgba( 200, 200, 200, .7 );
+.box-shadowed {
+  box-shadow: 0 3px 6px 0 rgba(200, 200, 200, 0.7);
 }
 
-.box-shadowed-up
-{
-  box-shadow: 0 3px 10px 2px rgba( 150, 150, 150, .7 );
+.box-shadowed-up {
+  box-shadow: 0 3px 10px 2px rgba(150, 150, 150, 0.7);
 }
 
-.pagination
-{
+.pagination {
   float: left;
   width: 100%;
   margin-top: 0;

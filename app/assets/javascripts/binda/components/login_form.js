@@ -1,116 +1,108 @@
 /**
  * LOGIN FORM
- * 
+ *
  * https://tympanus.net/Development/MinimalForm/
  * https://github.com/codrops/MinimalForm/blob/master/js/stepsForm.js
  */
 
 class LoginForm {
-
-  constructor()
-  {
-  	this.current = 0
-  	this.isFilled = false
-  }
-
-  isSet()
-  {
-    if ( $('.login--form').length > 0 ) { return true }
-    else { return false }
-  }
-
-	init()
-	{
-  	this.$form = $('.login--form')
-  	this.$questions = $('ol.login--questions > li')
-  	this.questionsCount = this.$questions.length
-		this.$nextButton = $('button.login--next')
-
-		// Mark the first question as the current one
-  	this.$questions.first().addClass('login--current')
-		
-		//disable form autocomplete
-		this.$form.attr('autocomplete', 'off')	
-		this.setEvents()
+	constructor() {
+		this.current = 0;
+		this.isFilled = false;
 	}
 
-  setEvents() 
-  {
-		let self = this
+	isSet() {
+		if ($(".login--form").length > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	init() {
+		this.$form = $(".login--form");
+		this.$questions = $("ol.login--questions > li");
+		this.questionsCount = this.$questions.length;
+		this.$nextButton = $("button.login--next");
+
+		// Mark the first question as the current one
+		this.$questions.first().addClass("login--current");
+
+		//disable form autocomplete
+		this.$form.attr("autocomplete", "off");
+		this.setEvents();
+	}
+
+	setEvents() {
+		let self = this;
 
 		// first input
-		let firstInput = this.$questions.get(this.current).querySelector( 'input, textarea, select' )		
+		let firstInput = this.$questions
+			.get(this.current)
+			.querySelector("input, textarea, select");
 
 		// focus
-		let onFocusStart = function() 
-		{
-			firstInput.removeEventListener( 'focus', onFocusStart )
-			self.$nextButton.addClass('login--show')
-		}
+		let onFocusStart = function() {
+			firstInput.removeEventListener("focus", onFocusStart);
+			self.$nextButton.addClass("login--show");
+		};
 		// show the next question control first time the input gets focused
-		firstInput.addEventListener('focus', onFocusStart )
+		firstInput.addEventListener("focus", onFocusStart);
 
 		// show next question
-		this.$nextButton.on('click', ( event )=>{
-
-			event.preventDefault()
-			this._nextQuestion()
-		} )
+		this.$nextButton.on("click", event => {
+			event.preventDefault();
+			this._nextQuestion();
+		});
 
 		// pressing enter will jump to next question
-		this.$form.on('keydown', ( event )=>{
-
-			let keyCode = event.keyCode || event.which
+		this.$form.on("keydown", event => {
+			let keyCode = event.keyCode || event.which;
 			// enter
-			if( keyCode === 13 ) 
-			{
-				event.preventDefault()
-				this._nextQuestion()
+			if (keyCode === 13) {
+				event.preventDefault();
+				this._nextQuestion();
 			}
-		})
-  }
+		});
+	}
 
-  _nextQuestion() 
-  {
+	_nextQuestion() {
 		// check if form is filled
-		if( this.current === this.questionsCount - 1 ) { this.isFilled = true }
+		if (this.current === this.questionsCount - 1) {
+			this.isFilled = true;
+		}
 
-  	// current question
-		let currentQuestion = this.$questions.get(this.current)
+		// current question
+		let currentQuestion = this.$questions.get(this.current);
 
 		// increment current question iterator
-		++this.current
+		++this.current;
 
-		if( !this.isFilled ) 
-		{
+		if (!this.isFilled) {
 			// add class "show-next" to form element (start animations)
-			this.$form.addClass('login--show-next')
+			this.$form.addClass("login--show-next");
 
 			// remove class "current" from current question and add it to the next one
 			// current question
-			var nextQuestion = this.$questions.get(this.current)
-			$(currentQuestion).removeClass('login--current')
-			$(nextQuestion).addClass('login--current')
+			var nextQuestion = this.$questions.get(this.current);
+			$(currentQuestion).removeClass("login--current");
+			$(nextQuestion).addClass("login--current");
 		}
 
 		// after animation ends, remove class "show-next" from form element and change current question placeholder
-		let self = this
-		let onEndTransition = function() 
-		{
-			if( self.isFilled ) 
-			{
-				self.$form.submit()
-			}
-			else 
-			{
-				self.$form.removeClass('login--show-next')
+		let self = this;
+		let onEndTransition = function() {
+			if (self.isFilled) {
+				self.$form.submit();
+			} else {
+				self.$form.removeClass("login--show-next");
 				// force the focus on the next input
-				nextQuestion.querySelector( 'input, textarea, select' ).focus()
+				nextQuestion.querySelector("input, textarea, select").focus();
 			}
-		}
+		};
 
-		setTimeout( onEndTransition, 400 ) // Wait for CSS transition to complete
+		setTimeout(onEndTransition, 400); // Wait for CSS transition to complete
 	}
 }
 
-export let _LoginForm = new LoginForm()
+export let _LoginForm = new LoginForm();

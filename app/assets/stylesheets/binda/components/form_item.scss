@@ -1,79 +1,66 @@
-.form-item
-{
+.form-item {
   display: block;
   overflow-y: hidden;
-  transition: max-height .6s ease-out;
+  transition: max-height 0.6s ease-out;
 
   @extend .clearfix;
 }
 
-.form-item > p
-{
+.form-item > p {
   padding: 12px;
 }
 
-.form-item--half-size
-{
+.form-item--half-size {
   position: relative;
   float: left;
   width: 50%;
 
-  .form-group
-  {
+  .form-group {
     border-top: none !important;
   }
 }
 
-.form-item--full-size
-{
+.form-item--full-size {
   position: relative;
   clear: both;
   width: 100%;
 }
 
-.form-item--main-actions
-{
-  a
-  {
+.form-item--main-actions {
+  a {
     float: right;
     margin-left: 8px;
   }
 }
 
-.form-item--new
-{
+.form-item--new {
   position: absolute;
   top: 101%;
   max-height: 0;
 }
 
-.form-item--select-input
-{
+.form-item--select-input {
   display: inline-block;
   width: 240px;
   margin-left: 5%;
 }
 
-.form-item--textarea
-{
+.form-item--textarea {
   display: inline-block;
   width: 70%;
   margin-left: 5%;
 }
 
-.form-item--category
-{
+.form-item--category {
   margin-bottom: 20px;
   padding-bottom: 20px;
 
-  input[type=submit]
-  {
+  input[type="submit"] {
     float: left;
     width: 20%;
   }
 
-  .form-group
-  {
+  .form-group {
     float: left;
     width: 70%;
     margin: 0;
@@ -81,123 +68,103 @@
   }
 }
 
-.form-item--toggle-button
-{
+.form-item--toggle-button {
   cursor: pointer;
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
   transform: rotate(0deg);
 }
 
-.form-item--toggle-button-closed
-{
+.form-item--toggle-button-closed {
   transform: rotate(180deg);
 }
 
-.form-item--editor
-{
+.form-item--editor {
   overflow-y: hidden;
   // max-height: is set via javascript in app/assets/javscripts/components/form_item_editor.js;
   // default is 0
   max-height: 0;
-  transition: max-height .6s ease-out;
+  transition: max-height 0.6s ease-out;
 }
 
-.form-item--repeater
-{
+.form-item--repeater {
   overflow-y: hidden;
   // inherit transitions from sortable and add max-height
-  transition: box-shadow .3s ease, transform .3s ease, max-height .6s ease-out !important;
+  transition: box-shadow 0.3s ease, transform 0.3s ease,
+    max-height 0.6s ease-out !important;
 }
 
-.standard-form--container .form-item--repeater .control-label
-{
+.standard-form--container .form-item--repeater .control-label {
   @extend .p;
 }
 
-.form-item--repeater-fields
-{
+.form-item--repeater-fields {
   overflow-y: hidden;
-  transition: all .6s ease;
+  transition: all 0.6s ease;
 }
 
-.font-item--collapsed .form-item--repeater-fields
-{
+.font-item--collapsed .form-item--repeater-fields {
   margin-bottom: 8px;
 }
 
-.form-item--repeater-section
-{
+.form-item--repeater-section {
   overflow-x: hidden; // This ensure that the div doesn't become wider when draggin sortable items to the right
   margin-bottom: 0;
 
-  ul.sortable > li
-  {
+  ul.sortable > li {
     margin-top: -1px; // this solve the issue of a 2px border between 2 repeaters
     border: 1px solid $color-gray-lighter;
   }
 
-  ul.sortable > li > *
-  {
+  ul.sortable > li > * {
     display: block;
   }
 
-  ul.sortable
-  {
+  ul.sortable {
     margin-bottom: 0;
   }
 
-  .ui-sortable-handle:hover
-  {
+  .ui-sortable-handle:hover {
     background-color: transparent;
   }
 
-  .sortable--toggle-text:first-child
-  {
+  .sortable--toggle-text:first-child {
     display: none;
   }
 
-  .sortable--toggle
-  {
+  .sortable--toggle {
     float: right;
     margin: 0;
   }
 
-  .sortable--enabled
-  {
-    .form-item--repeater-fields
-    {
+  .sortable--enabled {
+    .form-item--repeater-fields {
       margin: 0;
       padding: 0;
     }
   }
 
-  .form-item--new
-  {
+  .form-item--new {
     position: absolute;
     top: 101%;
     max-height: 0;
   }
 }
 
-.form-item--repeater-section--add-new
-{
+.form-item--repeater-section--add-new {
   float: right;
   margin-right: 8px;
 }
 
-.form-item--repeater-title
-{
+.form-item--repeater-title {
   display: block;
   margin-bottom: 20px;
 }
 
-.form-item--header
-{
+.form-item--header {
   padding: 4px;
   background-color: $color-gray-lightest !important;
 
-  p
-  {
+  p {
     margin-top: 8px;
     margin-left: 8px;
   }
@@ -205,45 +172,36 @@
 
 .form-item--collapse-btn,
 .form-item--delete-repeater-item,
-.form-item--edit-item
-{
+.form-item--edit-item {
   float: right;
   margin-top: 8px;
   margin-right: 8px;
 }
 
-a.form-item--delete-repeater-item
-{
+a.form-item--delete-repeater-item {
   cursor: pointer;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
   color: $color-danger;
 
-  &:hover
-  {
+  &:hover {
     color: $color-danger-hover;
   }
 }
 
-.form-item--collapse-btn
-{
-  span:first-child
-  {
+.form-item--collapse-btn {
+  span:first-child {
     display: block;
   }
-  span:last-child
-  {
+  span:last-child {
     display: none;
   }
 }
 
-.form-item--collapsed .form-item--collapse-btn
-{
-  span:first-child
-  {
+.form-item--collapsed .form-item--collapse-btn {
+  span:first-child {
     display: none;
   }
-  span:last-child
-  {
+  span:last-child {
     display: block;
   }
 }

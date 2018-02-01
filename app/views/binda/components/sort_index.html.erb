@@ -1,23 +1,36 @@
+<% content_for :title do %>
+  <%= t('binda.sort').capitalize %> 
+  <%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %>  
+<% end %>
+
+
 <% content_for :header do %>
   <div class="main-header--buttons">
-    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path , class: 'main-header--link b-btn b-btn-primary' %>
+    <a href="<%= new_structure_component_path %>"
+      class="main-header--link b-btn b-btn-primary">
+      <i class="fa fa-plus" aria-hidden="true"></i> 
+      <%= t('binda.new') %> 
+      <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %>
+    </a>
   </div>
-
-  <p class="main-header--title"><%= t('binda.sort').capitalize %> <%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %></p>
-  <a href="<%= structure_components_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= "#{ t :back_to_index }".capitalize %></a>
+  <p class="main-header--title">
+    <%= t('binda.sort').capitalize %> 
+    <%= @structure.name.humanize.split.map(&:capitalize).join(' ').pluralize %>  
+  </p>
+  <a href="<%= structure_components_path %>" 
+    class="main-header--back">
+    <i class="fas fa-list-ul"></i> 
+    <%= "#{ t :back_to_index }".capitalize %>
+  </a>
 <% end %>
 
 <% content_for :content do %>
-
   <%= render 'layouts/binda/popup_warning' %>
-
   <div class="main-sortable-table">
-
     <div class="main-sortable-table--header-row">
       <div class="main-sortable-table--header-title"><p>Title</p></div>
       <div class="main-sortable-table--header-title"><p>Publish State</p></div>
     </div>
-
     <div id="<%= @structure.slug %>-components--sort-index" class="sortable" data-update-url="<%= structure_components_sort_path( @structure.slug ) %>" data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.components').downcase } %>">
       <% @components.order( :position, :name ).each do |component| %>
         <div class="main-sortable-table--row ui-sortable-handle" id="component_<%= component.id %>">
@@ -26,10 +39,12 @@
         </div>
       <% end %>
     </div>
-
   </div>
-
-  <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> New #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path, class: 'main-header--link b-btn b-btn-primary', action: "new" %>
-
-
+  <a href="<%= new_structure_component_path %>" 
+    class="main-header--link b-btn b-btn-primary"
+    action: "new">
+    <i class="fa fa-plus" aria-hidden="true"></i> 
+    <%= t('binda.new') %> 
+    <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %>
+  </a>
 <% end %>

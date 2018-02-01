@@ -1,5 +1,5 @@
 toolbar:
-  - styleselect | bold italic | undo redo | link image
+  - bold italic | link image insert | undo redo | code
 plugins:
   - link
   - paste
@@ -11,5 +11,5 @@ plugins:
 forced_root_block: false
 paste_text_sticky_default: true
 paste_text_sticky: true
-menubar: edit format tools
+menubar: edit format
 selector: '.tinymce'

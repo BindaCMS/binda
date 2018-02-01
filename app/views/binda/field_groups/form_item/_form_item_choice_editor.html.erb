@@ -1,0 +1,11 @@
+<%= render 'binda/field_groups/form_item/form_item_choice/form_item_choice_header', ff: ff %>
+<div id="field-setting-choices-<%= ff.object.id %>" class="field-setting-choices">
+	<%= render 'binda/field_groups/form_item/form_item_choice/form_item_new_choice', f: f, ff: ff, choice_class: 'field-setting-choices--new-choice' %>
+	<% if ff.object.choices.select{|c| c.persisted?}.empty? %>
+		<%= render 'binda/field_groups/form_item/form_item_choice/form_item_new_choice', f: f, ff: ff, choice_class: 'field-setting-choices--plain-choice' %>
+	<% end %>
+	<%= render 'binda/field_groups/form_item/form_item_choice/form_item_persisted_choices', f: f, ff: ff %>
+</div>
+<div class="clearfix"></div>
+<%= render 'binda/field_groups/form_item/form_item_choice/form_item_default_choice', ff: ff %>
+<%= render 'binda/field_groups/form_item/form_item_choice/form_item_allow_null_choice', ff: ff %>

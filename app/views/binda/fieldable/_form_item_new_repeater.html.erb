@@ -1,13 +1,6 @@
-<%# - - - - - - - - - - - - - - %>
-<%# REPEATER NEW FIELDS         %>
-<%# - - - - - - - - - - - - - - %>
 <%= simple_form_for [@instance.structure, @instance], defaults: { label: false }, html: { multipart: true }  do |f| %>
 <!-- SPLIT -->
 	<li id="repeater_<%= @repeater.id %>" class="form-item--repeater form-item--collapsable">
-
-		<%# - - - - - - - - - - - - %>
-		<%# REPEATER HEADER         %>
-		<%# - - - - - - - - - - - - %>
 		<div class="form-item--header">
 			<a class="form-item--collapse-btn" href="#">
 				<span><i class="fas fa-angle-up"></i> <%= t('binda.collapse') %></span>
@@ -16,10 +9,6 @@
 			<a class="form-item--delete-repeater-item" href="<%= repeater_path( id: @repeater.id ) %>" data-id="<%= @repeater.id %>" data-confirm="<%= t 'binda.confirm_delete' %>"><i class="far fa-trash-alt"></i> <%= t('binda.delete') %></a>
 			<p><%= @repeater.field_setting.name %> <%= t('binda.item') %> #<%= @repeater.id %></p>
 		</div>
-
-		<%# - - - - - - - - - - - - - - %>
-		<%# FIRST REPEATER              %>
-		<%# - - - - - - - - - - - - - - %>
 		<div class="form-item--repeater-fields">
 			<%= f.simple_fields_for "repeaters_attributes[]", @repeater do |ff| %>
 				<%= ff.input :fieldable_id, as: :hidden %>
@@ -31,8 +20,6 @@
 			  <% end %>
 			<% end %>
 		</div>
-
 	</li>
-
 <!-- SPLIT -->
 <% end %>

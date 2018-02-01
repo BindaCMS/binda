@@ -1,47 +1,38 @@
-
 // STANDARD FORM -- GENERAL STYLES
 
-.standard-form
-{
+.standard-form {
   width: 100%;
 }
 
-.standard-form--body
-{
+.standard-form--body {
   float: left;
   width: 75%;
   padding-right: 24px;
   vertical-align: top;
 }
 
-
 // STANDARD FORM -- SIDEBAR
 
-.standard-form--sidebar
-{
+.standard-form--sidebar {
   float: left;
   width: 25%;
 }
 
-
 // STANDARD FORM -- SECTION
 
-.standard-form--container
-{
+.standard-form--container {
   overflow-y: hidden;
   margin-bottom: 48px;
   border-bottom: 1px solid $color-gray-lighter;
   background-color: $color-white;
 
-  &.field-settings-container
-  {
+  &.field-settings-container {
     margin-bottom: 0 !important;
     border-right: none !important;
     border-left: none !important;
   }
-  
-  .control-label
-  {
+
+  .control-label {
     font-weight: bold;
     margin-top: 0;
     margin-bottom: 8px;
@@ -49,74 +40,67 @@
     @extend .b-h4;
   }
 
-  .control-label-required
-  {
+  .control-label-required {
     @extend .text-muted;
   }
 
-  .has-error
-  {
+  .has-error {
     .control-label-required,
     .control-label,
-    span.help-block
-    {
+    span.help-block {
       color: $color-danger;
     }
   }
 
-  .form-group
-  {
+  .form-group {
     margin-bottom: 0;
     padding: 20px 12px 28px;
     border-top: 1px solid $color-gray-lightest;
   }
 
-  .form-control
-  {
-    transition: border .3s ease-in-out;
+  .form-control {
+    transition: border 0.3s ease-in-out;
     border: none;
     border: 1px solid transparent;
     background-color: $color-gray-lightest;
     box-shadow: none;
 
     &:hover,
-    &:focus
-    {
+    &:focus {
       border: 1px solid $color-gray-lighter;
       outline: none;
       background-image: none;
       box-shadow: none;
     }
 
-    &.disabled
-    {
+    &.disabled {
       color: $color-gray-lighter;
       background-color: $color-gray-lightest;
 
-      &:hover
-      {
+      &:hover {
         border: 1px solid transparent;
       }
     }
   }
-  .help-block
-  {
+  .help-block {
     color: $color-gray;
   }
 }
 
-
 // STANDARD FORM -- HEADER
 
-.standard-form--header
-{
+.standard-form--header {
   padding: 6px 12px;
   color: $color-white;
-  background-image: linear-gradient(to right, $color-gray-darker, lighten( $color-gray-darker, 6%));
+  background-image: linear-gradient(
+    to right,
+    $color-gray-darker,
+    lighten($color-gray-darker, 6%)
+  );
 
   a,
-  small
-  {
+  small,
+  i {
     // font-weight: bold;
     margin-bottom: 0;
     color: $color-white;
@@ -125,88 +109,74 @@
 
 .standard-form--boolean,
 .standard-form--radio,
-.standard-form--checkbox
-{
-  .standard-form--input-box
-  {
+.standard-form--checkbox {
+  .standard-form--input-box {
     position: relative;
     top: 2px;
     display: inline-block;
     width: 1em;
     height: 1em;
     margin-right: 5px;
-    transition: background-color .2s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
     border: 1px solid $text-color;
   }
 
-  input[type='radio'],
-  input[type='checkbox']
-  {
+  input[type="radio"],
+  input[type="checkbox"] {
     position: relative;
     display: inline-block;
     width: 1px;
     height: 1px;
-    transition: background-color .3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
     opacity: 0;
-    &:hover + span
-    {
+    &:hover + span {
       background-color: $color-gray-lighter;
     }
-    &:checked + span
-    {
+    &:checked + span {
       background-color: $color-gray-dark;
     }
   }
 }
 
 .standard-form--boolean label span,
-.standard-form--radio label span
-{
+.standard-form--radio label span {
   border-radius: 1em;
 }
 
-.standard-form--secondary-actions
-{
+.standard-form--secondary-actions {
   display: inline-block;
   width: 100%;
   padding: 0 12px 28px;
 
-  .b-btn-settings:last-child
-  {
+  .b-btn-settings:last-child {
     margin-bottom: 0;
   }
 }
 
-.standard-form--main-actions
-{
+.standard-form--main-actions {
   display: block;
   float: left;
   width: 100%;
-  padding: 20px 12px; // Padding bottom is 20px instead of 28px because there shouldn't be any heading (or label) preceding the main-actions buttons 
+  padding: 20px 12px; // Padding bottom is 20px instead of 28px because there shouldn't be any heading (or label) preceding the main-actions buttons
   border-top: 1px solid $color-gray-lightest;
 }
 
 .standard-form--secondary-actions,
-.standard-form--main-actions
-{
-  .b-btn-settings:last-child
-  {
+.standard-form--main-actions {
+  .b-btn-settings:last-child {
     margin-bottom: 0;
   }
 }
 
-.standard-form--suggestion
-{
+.standard-form--suggestion {
   width: 100%;
   padding: 20px 12px;
   border-top: 1px solid $color-gray-lightest;
 }
 
-.standard-form--hint-on-new-record
-{
+.standard-form--hint-on-new-record {
   padding: 12px;
 }
 
 .standard-form--choices-header {
-  
 }

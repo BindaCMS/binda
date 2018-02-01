@@ -42,9 +42,9 @@ en:
   default_choice_description: If you have added/removed any choice, this list might not be correct. Please save to update it.
   instance: instance
   structure_instance_type: 'This structure is for:'
-
+  
   binda:
-    title: title
+    title: Title
     view_website: View website
     error_related_to_itself: Sorry, this record cannot relate to itself
     confirm_delete: Do you really want to remove it?
@@ -64,18 +64,44 @@ en:
     delete: delete
     edit: edit
     sort: sort
-    structure: Structure
-    structures: Structures
-    field_group: Field group
-    field_groups: Field groups
-    field_setting: Field setting
-    field_settings: Field settings
+    structure:
+      singular: Structure
+      plural: Structures
+      confirm_delete: This operation will delete this structure and there is no coming back. Are you ok with that?    
+      validation_message: 
+        instance_type: "%{arg1} is not a valid instance"
+    field_group:
+      singular: Field group
+      plural: FIeld groups
+      confirm_delete: This operation will delete this group of settings and all related component content. Are you ok with that?
+      validation_message:
+        name: cannot be blank.
+        slug: "\"%{arg1}\" already in use. Please choose a different slug."
+        field_type: "isn't valid. Select a field type among these: %{arg1}."
+    default_field_group:
+      name: General details
+      error_on_create: General Details group hasn't been created
     repeater_field_settings: Fields settings of the %{arg1} repeater
+    field_setting:
+      singular: Field setting
+      plural: Field settings
+      confirm_delete: This operation will delete this setting and all related component content. Are you ok with that?
+      validation_message:
+        name: Field setting name cannot be blank.
+        slug: "\"%{arg1}\" already in use. Please choose a different slug."
+        field_type: "isn't valid. Please associate the field setting named \"%{arg1}\" with one of the following field types: %{arg2}."
+        field_group_id: "cannot be blank. Field setting named \"%{arg1}\" must be associated to a field group. Check if field_group_id propriety is set."
+        allow_null: "canont be true on a radio setting. Please ensure to set allow_null=false for the field setting named \"%{arg1}\" before saving it."
+        has_choice_before_updating_allow_null_to_false: "In order to require at least a choice, it's mandatory that at least one is available. Please create a choice for the field setting with slug \"%{arg1}\" before continuing."
     component: Component
     components: Component
-    new: new
-    new_structure: New %{arg1} structure
-    new_field_group: New %{arg1} field group
+    asset:
+      validation_message:
+        fieldable_id: cannot be blank. The %{arg1} must be associated with a component or a board
+        field_setting_id: cannot be blank. The %{arg1} must be associated with a field setting
+    new: New
+    new_structure: New structure
+    new_field_group: New field group
     new_component: New %{arg1}
     new_user: New User
     new_category: New %{arg1} category
@@ -103,8 +129,26 @@ en:
     login_password: Enter your password
     login_welcome: Welcome to %{arg1} admin panel
     login_credit: Built with Binda %{arg1}
+    selection:
+      validation_message:
+        choices: "The selection field with id=%{arg1} depending on \"%{arg2}\" must have at least a choice."
+    choice: 
+      default_label: Temporary choice
+      default_value: temporary-choice
+      validation_message:
+        label: Label cannot be blank
+        value: Value cannot be blank
+        field_setting_id: cannot be blank. Choice must be associated to a field setting. Check if field_setting_id propriety is set.
+        destroy: It's not possible to delete the last choice as this field setting requires at least one exists. Before trying again, please add another choice.
     choice_label: label
     choice_value: value
     allow_null: Require a choice
     allow_null_true: Choosing is not required 
-    allow_null_false: Require to choose among the available choices
+    allow_null_false: Require at least one choice
+    publish_state: Publish state
+    user: User
+    manage_users: Manage Users
+    remember_me: Remember me
+    no_available_choice: Sorry, no choice is available. 
+    no_available_choice_user_hint: Please contact the administrator
+    no_available_choice_superadmin_hint: Please ensure you setup at least two possible choices when editing the

@@ -138,7 +138,7 @@ Once the _structure_ has been created it's possible to add field groups. By defa
 
 In order to add _field settings_ that will let you add content to your _component_ (or _board_) you need to enter on of the _structure's field groups_.
 
-## Retrieve a structure
+## Retrieve structure elements
 
 Once you create a _structure_ you can call it from your controller like so:
 
@@ -149,16 +149,21 @@ Once you create a _structure_ you can call it from your controller like so:
 From that you can do all sorts of things.
 
 ```ruby
-# get all field groups
+# get all field groups:
 @field_groups = @my_structure.field_groups
 
-# get all field settings
+# get all field settings:
+# (loop method) (returns an Array object)
 @field_settings = []
 @field_groups.each do |group|
   group.field_settings.each do |setting|
     @field_settings << setting
   end
 end
+# (single query method) (returns an ActiveRelation object)
+@field_settings = Binda::FieldSetting
+  .includes(field_group: [:structure])
+  .where(binda_field_groups: {structure_id: @my_structure.id})
 ```
 
 Depending on the structure type, to retrieve all related _components_ or the related _board_ you can use the Binda helper (which is suggested if you care about performance, see [component](#Components) or [board](#Boards)) or do it the usual Ruby on Rails way like so:
@@ -170,6 +175,20 @@ Depending on the structure type, to retrieve all related _components_ or the rel
 # if structure is a board type
 @board = @my_structure.board
 ```
+
+To retrieve _field groups_ or a _structure_ from a _field setting_ you can do the following:
+
+```Ruby
+@field_setting = Binda::FieldSetting.find_by(slug: 'my-field')
+
+# Get the field group
+@field_setting.field_group
+
+# Get the structure
+@field_setting.structure
+```
+
+Note that `@field_setting.structure` is a convenient method Binda offers to get the structure, but don't over think: this doesn't mean there is a association `Binda::Structure  --has_many-->  Binda::FieldSetting`! The association is always mediated by `Binda::FieldGroup`.
 
 ---
 
@@ -258,9 +277,9 @@ You can add any other option to the query then:
 
 ## Enable preview
 
-When you created the component structure you might have enabled the **preview mode**. The easiest way to integrate the preview with yor application is to update the `config/routes.rb` file with a redirect that binds the component preview url to the controller that is in chardge of showing that component in your application.
+When you created the _component structure_ you might want to enable the **preview mode**. The easiest way to integrate the preview with yor application is to update the `config/routes.rb` file with a redirect that binds the _component_ preview url to the controller that is in chardge of showing that _component_ in your application.
 
-For example let's say you have a *animal* structure with slug `animal`: 
+For example let's say you have a *animal* _structure_ with `slug = animal`: 
 
 ```ruby 
 # your application single animal route
@@ -278,11 +297,11 @@ get "admin_panel/animal/:slug", to: redirect('/animals/%{slug}')
 
 _Boards_ give you the possibility to have a panel where to list some specific settings. 
 
-A great example of a _board_ is the _Dashboard_. This board is useful to store the generic data which can be used throughout the application, like the website name and description.
+A great example of a _board_ is the _Dashboard_. This _board_ is useful to store the generic data which can be used throughout the application, like the website name and description.
 
-You can create as many _boards_ you like and add any field you want. To set up a _board_ go to _Structures_ and create a new _structure_ with type "_board_". The name of the structure will determine also the name of the board. Once created a new tab will appear on the main sidebar. The newly created structure is already populated with the _General Details_ field group which is initially empty. To add new field settings you can decide to edit this field group or create a new field group.
+You can create as many _boards_ you like and add any field you want. To set up a _board_ go to _Structures_ and create a new _structure_ with type "_board_". The name of the _structure_ will determine also the name of the _board_. Once created a new tab will appear on the main sidebar. The newly created _structure_ is already populated with the _General Details_ _field group_ which is initially empty. To add new _field settings_ you can decide to edit this _field group_ or create a new _field group_.
 
-Once ready you can head to the _board_ page by clicking the tab on the main sidebar and populate the fields with your content.
+Once ready you can head to the _board_ page by clicking the tab on the main sidebar and populate the _fields_ with your content.
 
 To retrieve _board_ content you can use one of those methods:
 
@@ -333,18 +352,43 @@ Every _field setting_ is based on a field type. You can create several field set
 
 Here below a list of field types available and their use:
 
-| Field setting | Use details |
-|---|---|
-| String | Store a string. No formatting options available. |
-| Text | Store a text. TinyMCE let's you format the text as you like.   |
-| Image | Store image. |
-| Video | Store video. |
-| Date | Store a date. |
-| Radio | Select one choice amongst a custom set. |
-| Selection | Select one or more choices amongst a custom set. |
-| Check Box | Select one or more choices amongst a custom set. |
-| Repeater | Store multiple instances of a field or a collection of fields. |
-| Relation | Connect multiple instances of a _component_ or _board_ to each other. |
+| Field type | Usage | |
+|---|---|---|
+| string | Store a string. No formatting options available. | [source](http://www.rubydoc.info/gems/binda/Binda/String) |
+| text | Store a text. TinyMCE let's you format the text as you like. | [source](http://www.rubydoc.info/gems/binda/Binda/Text) |
+| image | Store image. | [source](http://www.rubydoc.info/gems/binda/Binda/Image) |
+| video | Store video. | [source](http://www.rubydoc.info/gems/binda/Binda/Video) |
+| date | Store a date. | [source](http://www.rubydoc.info/gems/binda/Binda/Date) |
+| radio | Select one choice amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Radio) |
+| selection | Select one or more choices amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Selection) |
+| checkbox | Select one or more choices amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Checkbox) |
+| repeater | Store multiple instances of a field or a collection of fields. | [source](http://www.rubydoc.info/gems/binda/Binda/Repeater) |
+| relation | Connect multiple instances of a _component_ or _board_ to each other. | [source](http://www.rubydoc.info/gems/binda/Binda/Relation) |
+
+## Available setting and customization
+
+Sometime you might want to specify a behaviour or a restriction for a specific _field_.
+To konw more about a specific _field_ click on the **source** link where you can find a more comprehensive documentation.
+
+## Reload!
+
+In order to keep consistency between _fields_ and their own _settings_ Binda use **callbacks**. 
+
+For example the following line will create a _field setting_, but under the hood it provide each _component_ with the relative _field_:
+
+```ruby
+# Create a field setting
+@structure.field_groups_first.field_settings.create(name: 'my text', field_type: 'text')
+# => <Binda::FieldSetting id: 1, ...>
+
+# You don't have to create a text field for each component, it's alreay been done for you
+@structure.components.first.texts.first
+# => <Binda::Text id: 1, field_setting_id: 1, ...>
+```
+
+IMPORTANT: Sometimes callbacks run and the `ActiveRecord` object stored in your variable might get outdated. Use `reload` to make sure the `ActiveRecord` in your variable correspond to the real database record. (run `mycomponent.reload`)
+
+Some callbacks can a bit sneaky. For example _field settings_ with `field_type='radio'` cannot have `allow_null=true` so no matter how many times you try to update `allow_null=true` it will never change.
 
 ## How to get field content
 
@@ -371,7 +415,7 @@ Here below a list of helpers.
 
 You can retrieve field content from a instance of `Binda::Component`, `Binda::Board` or `Binda::Repeater`. See [How to get field content](#How_to_get_field_content).
 
-**NOTE: source links are based on the latest public version.** If you are using an older version or a specific branch please refer to the [source](https://github.com/lacolonia/binda/blob/master/app/models/concerns/binda/fieldable_associations.rb) switching to the branch/tag you are looking for.
+**NOTE: source links are based on the latest public version.** If you are using an older version or a specific branch please refer to the [source on github](https://github.com/lacolonia/binda/blob/master/app/models/concerns/binda/fieldable_associations.rb) and switch to the branch/tag you are looking for.
 
 | Helper |||
 |---|---|---|
@@ -518,6 +562,22 @@ To change appereance and behaviour of the page add your styles to `app/assets/st
 
 ---
 
+# Field settings and field groups
+
+---
+
+## Orphans
+
+Sometime playing with Rails console you might end up creating orphans, which basically are components without a field setting parent. They might cause errors in some queries and they hard to track down.
+
+To avoid the problem run the following command from your shell:
+
+```bash
+rails binda:remove_orphan_fields
+```
+
+---
+
 
 # Plugins
 
@@ -531,10 +591,7 @@ Here a list of useful plugins:
 
 # Upgrade
 
-Here some upgrade instruction.
-
-
-To upgrade from 0.0.6 to 0.0.7 please refer to the [release documentation](https://github.com/lacolonia/binda/releases/tag/0.0.7)
+If you are going to upgrade from a previous version please check the guidelines attached to the version release which can be found on this [Github page](https://github.com/lacolonia/binda/releases).
 
 ---
 
@@ -755,6 +812,7 @@ To contribute [fork this project](https://github.com/lacolonia/binda/wiki/_new#f
 - if you are not adding a core feature consider writing a plugin instead
 - improve and/or add new I18n translations
 - when fixing a bug, provide a failing test case that your patch solves
+- write deprecation warning for methods instead of deleting them (`app/models/concerns/binda/deprecations.rb`)
 
 ## How to work locally
 Ensure you have installed Binda dependencies.

@@ -1,8 +1,19 @@
-<% content_for :header do %>
-	<h3>New User</h3>
-  <a href="<%= manage_users_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> Back to list</a>
+<% content_for :title do %>
+  <%= t('binda.new') %> <%= t('binda.user') %>
 <% end %>
-	
+
+
+<% content_for :header do %>
+	<h3>
+    <%= t('binda.new') %> <%= t('binda.user') %>
+	</h3>
+  <a href="<%= manage_users_path %>" class="main-header--back">
+  	<i class="fas fa-list-ul"></i> 
+  	<%= "#{ t :back_to_index }".capitalize %>
+  </a>
+<% end %>
+
+
 <% content_for :content do %>
 	<%= render 'form_body', manage_user: @user %>
 <% end %>

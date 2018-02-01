@@ -1,7 +1,18 @@
-<% content_for :header do %>
-  <h3>New Structure</h3>
-  <a href="<%= structures_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> Back to list</a>
+<% content_for :title do %>
+	<%= t('binda.new_structure') %>
 <% end %>
+
+<% content_for :header do %>
+  <h3>
+  	<%= t('binda.new_structure') %>
+  </h3>
+  <a href="<%= structures_path %>" 
+  	class="main-header--back">
+  	<i class="fas fa-list-ul"></i>
+  	<%= "#{ t :back_to_index }".capitalize %>
+  </a>
+<% end %>
+
 
 <% content_for :content do %>
 	<%= render 'form_body', structure: @structure %>

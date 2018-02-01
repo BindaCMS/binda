@@ -1,9 +1,7 @@
-require "rails_helper"
-
-Capybara.default_max_wait_time = 10
+require 'rails_helper'
 
 describe "In field group editor, user", type: :feature, js: true do
-	
+
 	let(:user) { Binda::User.first }
 
 	before(:context) do
@@ -15,14 +13,13 @@ describe "In field group editor, user", type: :feature, js: true do
 		sign_in user
 	end
 
-# Sometime this might fail because of the following error.
-# Capybara::ElementNotFound:
-#        Unable to find visible field "field_group_new_field_settings__name" that is not disabled within #<Capybara::Node::Element tag="div" path="/html/body/div/div[3]/div/div/form/div/div[1]/div[3]">
-#        
-# Run the test again, the code it's fine, it's just an issue of Capybara with Ajax requests
+	# Sometime this might fail because of the following error.
+	# Capybara::ElementNotFound:
+	#        Unable to find visible field "field_group_new_field_settings__name" that is not disabled within #<Capybara::Node::Element tag="div" path="/html/body/div/div[3]/div/div/form/div/div[1]/div[3]">
+	#        
+	# Run the test again, the code it's fine, it's just an issue of Capybara with Ajax requests
 	Binda::FieldSetting.get_field_classes.each do |field_class|
 		it "should be able to create a #{field_class.downcase.underscore}" do
-			
 			field_group = @structure.field_groups.first
 			path_to_field_group = binda.edit_structure_field_group_path( structure_id: @structure.slug, id: field_group.slug )
 
@@ -141,6 +138,14 @@ describe "In field group editor, user", type: :feature, js: true do
 			sleep 1
 		end
 		expect(page).to have_field label_field, with: "bar"
+	end
+
+	it "shouldn't be able to delete the only choice of a field setting if it requires at least one" do
+		skip "not implemented yet"
+	end
+
+	it "shouldn't be able to delete a choice of a field setting if it requires at least one but there's more than one" do
+		skip "not implemented yet"
 	end
 
 end

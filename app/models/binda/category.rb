@@ -7,6 +7,7 @@ module Binda
 
 		# Validations
 		validates :name, presence: true
+		validates :structure_id, presence: true
 
   	# Slug
 		extend FriendlyId

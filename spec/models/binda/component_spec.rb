@@ -47,6 +47,10 @@ module Binda
 			expect( String.where(id: strings) ).to be_empty
 		end
 
+		it "shouldn't be possible to associate multiple components to one field (eg. text field)" do 
+			skip "not implemented yet"
+		end
+
 		it "can have multiple categories" do
 			skip "not implemented yet"
 		end
@@ -133,6 +137,10 @@ module Binda
 			dependents = owner.get_related_components(relation_setting.slug)
 
 			expect(dependents.first.name).to eq(dependent_2.name)
+		end
+
+		it "gets an array of choices calling get_selections_choices()" do
+			skip "not implemented yet"
 		end
 
   end

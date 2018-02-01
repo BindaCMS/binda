@@ -1,90 +1,75 @@
-.field-setting-choices
-{
+.field-setting-choices {
   position: relative;
   margin: 12px;
   margin-top: 0;
   background-color: $color-gray-lightest;
 
-  .form-control
-  {
+  .form-control {
     background-color: $color-white;
   }
 }
 
-.field-setting-choices--header
-{
+.field-setting-choices--header {
   position: relative;
   padding: 20px 12px 8px;
   border-top: 1px solid $color-gray-lightest;
 
-  p.control-label
-  {
+  p.control-label {
     margin: 0;
   }
 }
 
-.field-setting-choices--add-choice
-{
+.field-setting-choices--add-choice {
   float: right;
 }
 
-.form-item--editor .field-setting-choices--choice
-{
+.form-item--editor .field-setting-choices--choice {
   position: relative;
   clear: left;
 
-  .form-group
-  {
+  .form-group {
     padding-bottom: 0;
   }
 
-  &:last-child
-  {
+  &:last-child {
     margin-bottom: 16px;
     padding-bottom: 8px;
     border-bottom: 1px solid $color-gray-lightest;
   }
 
-  &:last-child .form-group
-  {
+  &:last-child .form-group {
     padding-bottom: 20px;
   }
 }
 
-.field-setting-choices--new-choice
-{
+.field-setting-choices--new-choice {
   display: none;
 }
 
 .field-setting-choices--choice-label,
-.field-setting-choices--choice-value
-{
+.field-setting-choices--choice-value {
   position: relative;
   float: left;
   width: calc(50% - 16px);
 }
 
 .field-setting-choices--delete-choice,
-.field-setting-choices--js-delete-choice
-{
+.field-setting-choices--js-delete-choice {
   position: absolute;
   top: 30px;
   right: 16px;
-  transition: color .3s;
+  transition: color 0.3s;
   color: $color-danger;
 
-  &:hover
-  {
+  &:hover {
     color: $color-danger-hover;
   }
 }
 
-.field-setting-choices--new-choice .field-setting-choices--delete-choice
-{
+.field-setting-choices--new-choice .field-setting-choices--delete-choice {
   display: none;
 }
 
-.field-setting-choices--allow-null
-{
+.field-setting-choices--allow-null {
   border-top: 1px solid $color-gray-lightest;
 }

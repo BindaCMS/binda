@@ -2,8 +2,7 @@
  * BOOSTRAP SCRIPT
  */
 
-export default function() 
-{
+export default function() {
 	// See https://v4-alpha.getbootstrap.com/components/tooltips/#example-enable-tooltips-everywhere
-  $('[data-toggle="tooltip"]').tooltip()
+	$('[data-toggle="tooltip"]').tooltip();
 }

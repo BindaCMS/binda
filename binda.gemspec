@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sass-rails",           "~> 5.0"
   s.add_dependency "aasm",                 ">= 4.11",       "< 4.13"
   s.add_dependency "simple_form",          ">= 3.3",        "< 3.6"
-  s.add_dependency "tinymce-rails",        ">= 4.1",        "< 4.8"
+  s.add_dependency "tinymce-rails",        ">= 4.1",        "<= 4.8"
   s.add_dependency "tinymce-rails-langs",  "~> 4.20160310"
   s.add_dependency "devise",               ">= 4.1",        "< 4.5"
   s.add_dependency "devise-i18n",          "~> 1.4"
@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   # DEVELOPMENT GEMS
   # ----------------
   s.add_development_dependency "listen",                      "~> 3.1"
-  s.add_development_dependency "pg",                          "~> 0.21"
+  s.add_development_dependency "pg",                          ">= 0.21", "< 1.0"
   s.add_development_dependency "pry-rails",                   "~> 0.3.5"
   s.add_development_dependency "rspec-rails",                 ">= 3.5",  "< 3.8"
   s.add_development_dependency "autoprefixer-rails",          "~> 7.1",  "< 8"
@@ -56,5 +56,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "redcarpet",                   "~> 3.4"
   s.add_development_dependency "github-markup",               ">= 1.6", "< 2"
   s.add_development_dependency "travis",                      "~> 1.8"
+  s.add_development_dependency "rubocop",                     "~> 0.52.1"
+  s.add_development_dependency "mry"
 
 end

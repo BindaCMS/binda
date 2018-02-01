@@ -1,14 +1,10 @@
-body.sessions-new.devise-view
-{
-
-  #main-container
-  {
+body.sessions-new.devise-view {
+  #main-container {
     position: relative;
     height: 100vh;
     margin-left: 0;
   }
-  #main-content
-  {
+  #main-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -19,108 +15,96 @@ body.sessions-new.devise-view
     background-color: transparent;
   }
 
-  canvas
-  {
+  canvas {
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vw;
   }
 
-  .login--header
-  {
+  .login--header {
     position: fixed;
     top: 3em;
     right: 0;
     left: 0;
     text-align: center;
-    p
-    {
+    p {
       @extend .b-h4;
       color: $color-white;
     }
   }
 
-  .login--footer
-  {
+  .login--footer {
     position: fixed;
     bottom: 1em;
     right: 0;
     left: 0;
     text-align: center;
-    a, a:hover, a:visited
-    {
+    a,
+    a:hover,
+    a:visited {
       color: $color-white;
       opacity: 0.6;
     }
   }
 
-  .login .form-group
-  {
+  .login .form-group {
     // override Binda standard form style
     margin-bottom: 0;
   }
 
-  .login--form
-  {
+  .login--form {
     position: relative;
     width: 100%;
     margin: 0 auto;
     padding: 2em 0;
 
-    ol.login--questions
-    {
+    ol.login--questions {
       position: relative;
       margin: 0;
       padding: 0;
       list-style: none;
-      transition: height .4s;
+      transition: height 0.4s;
     }
 
-    ol.login--questions::before
-    {
+    ol.login--questions::before {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
       height: 2px;
-      content: '';
+      content: "";
       background-color: $color-white;
     }
 
-    .login--questions li
-    {
+    .login--questions li {
       position: relative;
       z-index: 100;
       visibility: hidden;
       height: 0;
-      transition: visibility 0s .4s, height 0s .4s;
+      transition: visibility 0s 0.4s, height 0s 0.4s;
     }
 
-    .login--questions li.login--current
-    {
+    .login--questions li.login--current {
       visibility: visible;
       height: auto;
       transition: none;
     }
 
-    .login--questions li > span
-    {
+    .login--questions li > span {
       display: block;
       overflow: hidden;
     }
 
-    .login--questions li > span label
-    {
+    .login--questions li > span label {
       @extend .b-h4;
       display: block;
-      transition: transform .4s;
+      transition: transform 0.4s;
       transform: translateY(-100%);
       color: $color-white;
     }
 
-    .login--questions li.login--current > span label
-    {
+    .login--questions li.login--current > span label {
       transition: none;
       transform: translateY(0);
     }
@@ -129,16 +113,15 @@ body.sessions-new.devise-view
       padding-right: 8px;
     }
 
-    .login--questions input
-    {
+    .login--questions input {
       font-size: 3em;
       line-height: 1;
       display: block;
       width: calc(100% - 2em);
       height: 2em;
-      margin: .3em 0 0 0;
+      margin: 0.3em 0 0 0;
       padding: 0 1em 0 0;
-      transition: opacity .3s;
+      transition: opacity 0.3s;
       opacity: 0;
       color: $color-white;
       border: none;
@@ -146,26 +129,22 @@ body.sessions-new.devise-view
       box-shadow: none;
     }
 
-    .login--questions .login--current input
-    {
+    .login--questions .login--current input {
       opacity: 1;
     }
 
-    .login--questions input:focus
-    {
+    .login--questions input:focus {
       outline: none;
       background-image: none;
       box-shadow: none;
     }
   }
 
-  .login--show-next li.login--current > span label
-  {
-    animation: loginFromMoveUp .4s both;
+  .login--show-next li.login--current > span label {
+    animation: loginFromMoveUp 0.4s both;
   }
 
-  .login--next
-  {
+  .login--next {
     font-size: 2.5em;
     position: absolute;
     z-index: 100;
@@ -176,7 +155,7 @@ body.sessions-new.devise-view
     height: 2em;
     padding: 0;
     cursor: pointer;
-    transition: transform .3s, opacity .3s;
+    transition: transform 0.3s, opacity 0.3s;
     transform: translateX(-20%);
     text-align: center;
     pointer-events: none;
@@ -188,21 +167,18 @@ body.sessions-new.devise-view
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
-  .login--next:hover
-  {
+  .login--next:hover {
     transform: translateX(-20%) scale(1.1);
   }
 
-  .login--next:focus
-  {
+  .login--next:focus {
     outline: none;
     background-image: none;
     box-shadow: none;
   }
 
-  .login--next::after
-  {
-    font-family: 'Font Awesome 5 Free';
+  .login--next::after {
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     font-style: normal;
     font-variant: normal;
@@ -212,7 +188,7 @@ body.sessions-new.devise-view
     left: 0;
     width: 100%;
     height: 100%;
-    content: '\f061';
+    content: "\f061";
     text-transform: none;
 
     speak: none;
@@ -220,20 +196,17 @@ body.sessions-new.devise-view
     -moz-osx-font-smoothing: grayscale;
   }
 
-  .login--next.login--show
-  {
+  .login--next.login--show {
     transform: translateX(0);
     pointer-events: auto;
     opacity: 1;
   }
 
-  .login--submit-button
-  {
+  .login--submit-button {
     display: none;
     margin-top: 20px;
 
-    input[type='submit']
-    {
+    input[type="submit"] {
       font-size: 14px;
       position: relative;
       left: 50%;
@@ -246,64 +219,54 @@ body.sessions-new.devise-view
       @extend .default-font;
       @extend .p;
       -webkit-appearance: none;
-         -moz-appearance: none;
+      -moz-appearance: none;
     }
   }
 
-  .login--radio-button
-  {
+  .login--radio-button {
     margin-top: 2em;
 
-    input[type='radio']
-    {
+    input[type="radio"] {
       display: inline-block;
       width: 1px;
       height: 1px;
       opacity: 0;
-      &:hover + label span
-      {
+      &:hover + label span {
         background-color: $color-gray-lightest;
       }
-      &:checked + label span
-      {
+      &:checked + label span {
         background-color: $color-gray-lighter;
       }
     }
 
-    label
-    {
+    label {
       position: relative;
       color: $color-white;
 
-      span
-      {
+      span {
         position: relative;
         margin-top: 2px;
         display: inline-block;
         width: 1em;
         height: 1em;
         margin-right: 5px;
-        transition: background-color .2s ease-in-out;
+        transition: background-color 0.2s ease-in-out;
         border: 1px solid $color-white;
         border-radius: 1em;
       }
     }
   }
   /* Remove IE clear cross */
-  input[type=text]::-ms-clear
-  {
+  input[type="text"]::-ms-clear {
     display: none;
   }
 }
 
-@keyframes loginFromMoveUp
-{
-  from
-  {
+@keyframes loginFromMoveUp {
+  from {
     transform: translateY(100%);
   }
-  to
-  {
+  to {
     transform: translateY(0);
   }
 }

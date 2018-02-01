@@ -1,10 +1,8 @@
 .select2-container,
-.select2-selection
-{
+.select2-selection {
   // https://stackoverflow.com/a/24222873/1498118
   &:focus,
-  &:focus:active
-  {
+  &:focus:active {
     border: 1px solid $color-gray-dark;
     outline: none;
     background-image: none;
@@ -19,98 +17,100 @@
 }
 
 .select2-container--default .select2-selection--multiple,
-.select2-container--default .select2-selection--single
-{
-  transition: border .3s ease;
+.select2-container--default .select2-selection--single {
+  transition: border 0.3s ease;
   border: 1px solid transparent;
   border-radius: 0;
   background-color: $color-gray-lightest;
 
-  &:hover
-  {
+  &:hover {
     border: 1px solid $color-gray-lighter;
   }
 }
 
-.select2-dropdown
-{
+.select2-dropdown {
   border-radius: 0;
   background-color: $color-white;
 }
 
-.select2-close-mask
-{
+.select2-close-mask {
   background-color: $color-white;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__placeholder,
-.select2-container--default .select2-selection--single .select2-selection__rendered
-{
+.select2-container--default
+  .select2-selection--multiple
+  .select2-selection__placeholder,
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
   color: $text-color;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__placeholder
-{
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__placeholder {
   color: $color-gray-lighter;
 }
 
-.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b,
-.select2-container--default .select2-selection--single .select2-selection__arrow b
-{
+.select2-container--default.select2-container--open
+  .select2-selection--single
+  .select2-selection__arrow
+  b,
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow
+  b {
   border-color: $text-color transparent transparent transparent;
 }
 
-.select2-container--default.select2-container--open .select2-selection--single
-{
+.select2-container--default.select2-container--open .select2-selection--single {
   border: 1px solid $color-gray-lighter;
 }
 
-.select2-container--default.select2-container--disabled .select2-selection--single
-{
+.select2-container--default.select2-container--disabled
+  .select2-selection--single {
   color: $color-gray-lighter;
   background-color: $color-white;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice
-{
+.select2-container--default
+  .select2-selection--multiple
+  .select2-selection__choice {
   color: $color-white;
   border: 1px solid transparent;
   border-radius: 0;
   background-color: $color-gray-darker;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice__remove
-{
-  transition: color .3s ease;
+.select2-container--default
+  .select2-selection--multiple
+  .select2-selection__choice__remove {
+  transition: color 0.3s ease;
   color: $color-white;
 
-  &:hover
-  {
+  &:hover {
     color: $color-gray-lighter;
   }
 }
 
-.select2-container--default.select2-container--focus .select2-selection--multiple
-{
+.select2-container--default.select2-container--focus
+  .select2-selection--multiple {
   border: 1px solid $color-gray-darker;
 }
 
-.select2-container--default.select2-container--disabled .select2-selection--multiple
-{
+.select2-container--default.select2-container--disabled
+  .select2-selection--multiple {
   background-color: $color-gray-light;
 }
 
-.select2-container--default .select2-search--inline .select2-search__field
-{
+.select2-container--default .select2-search--inline .select2-search__field {
   margin-top: 7px;
 }
 
-.select2-container--default .select2-search--dropdown .select2-search__field
-{
+.select2-container--default .select2-search--dropdown .select2-search__field {
   border: 1px solid $color-gray-lighter;
 
-  &:focus
-  {
+  &:focus {
     border: 1px solid $color-gray-dark;
     outline: none;
     background-image: none;
@@ -118,18 +118,16 @@
   }
 }
 
-.select2-container--default .select2-results__option[aria-disabled=true]
-{
+.select2-container--default .select2-results__option[aria-disabled="true"] {
   color: $text-color;
 }
 
-.select2-container--default .select2-results__option[aria-selected=true]
-{
+.select2-container--default .select2-results__option[aria-selected="true"] {
   background-color: $color-gray-lightest;
 }
 
-.select2-container--default .select2-results__option--highlighted[aria-selected]
-{
+.select2-container--default
+  .select2-results__option--highlighted[aria-selected] {
   color: $color-white;
   background-color: $color-gray-darker;
 }

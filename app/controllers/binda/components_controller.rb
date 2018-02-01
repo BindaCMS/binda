@@ -9,10 +9,12 @@ module Binda
     include FieldableHelpers
 
     def index
-      # if a specific order is requested otherwise order by position 
-      avilable_orders = ['LOWER(name) ASC', 'LOWER(name) DESC', 'publish_state ASC, LOWER(name) ASC', 'publish_state DESC, LOWER(name) ASC']
-      params[:order] = avilable_orders[0] if params[:order].nil? || !avilable_orders.include?(params[:order])
-      order = params[:order]
+      # set default value
+      order = 'LOWER(name) ASC'
+      unless params[:order].nil?
+        order_hash = params[:order].permit(:name, :publish_state).to_h 
+        order = order_hash.map{|k,v| "LOWER(#{k}) #{v}"}.join(', ') if order_hash.any?
+      end
       @components = @structure.components.order(order).all.page params[:page]
     end
 

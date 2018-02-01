@@ -1,5 +1,4 @@
-#main-sidebar
-{
+#main-sidebar {
   position: fixed;
   z-index: 1000;
   top: 0;
@@ -7,63 +6,58 @@
   overflow-y: auto;
   width: 200px;
   height: 100%;
-  background-image: linear-gradient( to bottom, $color-gray-darkest, $color-gray-darker);
+  background-image: linear-gradient(
+    to bottom,
+    $color-gray-darkest,
+    $color-gray-darker
+  );
 }
 
-.main-sidebar--brand
-{
+.main-sidebar--brand {
   position: relative;
   overflow-x: hidden;
   height: 124px;
-  transition: background-color .3s ease;
+  transition: background-color 0.3s ease;
 
-  a
-  {
+  a {
     width: 100%;
     height: 100%;
   }
 
-  &:hover
-  {
-    .main-sidebar--view-website
-    {
-      transform: translateX( 0px );
+  &:hover {
+    .main-sidebar--view-website {
+      transform: translateX(0px);
     }
-    .main-sidebar--website-name
-    {
-      transform: translateX( -200px );
+    .main-sidebar--website-name {
+      transform: translateX(-200px);
     }
   }
 }
 
-.main-sidebar--website-name
-{
+.main-sidebar--website-name {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   padding: 0 15px;
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }
 
-.main-sidebar--view-website
-{
+.main-sidebar--view-website {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   padding: 0 15px;
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
   transform: translateX(200px);
 
-  i
-  {
+  i {
     padding-right: 6px;
   }
 }
 
-.main-sidebar--nav
-{
+.main-sidebar--nav {
   position: fixed;
   width: 200px;
   margin: 0;
@@ -72,55 +66,57 @@
   top: 0;
   left: 0;
   margin-bottom: 48px; // create space for sideba-footer
+  overflow-y: auto;
+  height: 100vh;
 
-  li
-  {
-     > a
-    {
+  li {
+    &:last-child {
+      margin-bottom: 64px;
+    }
+
+    > a {
       font-weight: 300;
       display: block;
       padding: 12px;
-      transition: all .3s ease;
+      transition: all 0.3s ease;
       text-decoration: none;
       color: $color-gray;
 
-      &:hover
-      {
+      &:hover {
         padding-left: 16px;
         text-decoration: none;
         color: $color-white;
         border-bottom: none;
-        background-image: linear-gradient( to right, lighten( $color-gray-darker, 2% ), $color-gray-darker );
+        background-image: linear-gradient(
+          to right,
+          lighten($color-gray-darker, 2%),
+          $color-gray-darker
+        );
       }
 
       &:active,
-      &:focus
-      {
+      &:focus {
         text-decoration: none;
       }
     }
   }
 }
 
-.main-sidebar--nav .glyphicon
-{
+.main-sidebar--nav i {
   padding-right: 8px;
   text-indent: 0;
 }
 
-.main-sidebar--nav li a.main-sidebar--logout p
-{
+.main-sidebar--nav li a.main-sidebar--logout p {
   color: $color-danger;
 }
 
 .main-sidebar--structure,
-.main-sidebar--nav li:last-child
-{
+.main-sidebar--nav li:last-child {
   border-bottom: 1px solid $color-gray-darker;
 }
 
-.main-sidebar--first-structure
-{
+.main-sidebar--first-structure {
   border-top: 1px solid $color-gray-darker;
 }
 
@@ -133,7 +129,7 @@
 
   a {
     color: $color-gray;
-    transition: color .3s;
+    transition: color 0.3s;
   }
   a:hover {
     color: $color-gray-lighter;

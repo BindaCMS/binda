@@ -1,14 +1,11 @@
-.main-table--container
-{
-  table
-  {
+.main-table--container {
+  table {
     display: table;
     width: 100%;
     background-color: $color-gray-lightest;
     box-sizing: border-box;
 
-    th
-    {
+    th {
       padding: 6px 12px;
     }
 
@@ -16,78 +13,64 @@
       text-align: right;
     }
 
-    td
-    {
+    td {
       padding: 12px;
       border-top: none !important;
     }
 
-    td:last-child
-    {
+    td:last-child {
       text-align: right;
 
-      span
-      {
+      span {
         margin-left: $font-size-base;
 
-        &:not(:first-child)
-        {
+        &:not(:first-child) {
           padding-left: $font-size-base;
           border-left: 1px solid #ccc;
         }
       }
     }
 
-    .no-hover
-    {
+    .no-hover {
       background: none;
     }
 
-    tr
-    {
+    tr {
       border-right: 1px solid $color-gray-darker;
       border-bottom: 1px solid $color-gray-lighter;
       border-left: 1px solid $color-gray-darker;
     }
 
-    tr:last-child
-    {
+    tr:last-child {
       border-bottom: 1px solid $color-gray-darker;
     }
   }
 
-  .prev
-  {
+  .prev {
     margin-left: 1%;
   }
 
-  .next
-  {
+  .next {
     float: right;
     margin-right: 1%;
   }
 
-  .last
-  {
+  .last {
     float: right;
   }
 }
 
-.main-table--hover
-{
-  transition: background .3s ease;
+.main-table--hover {
+  transition: background 0.3s ease;
   background: $color-gray-lightest;
 
-  &:hover
-  {
+  &:hover {
     background: $color-white;
   }
 }
 
-.main-table--actions
-{
-  a
-  {
+.main-table--actions {
+  a {
     margin-left: 8px;
   }
 }

@@ -1,0 +1,10 @@
+<% if f.object.errors.any? %>
+  <div class="standard-form--error-explanation b-alert b-alert--error">
+    <%= t('binda.standard_form_error_heading') %> <%= pluralize(f.object.errors.count, t("binda.standard_form_error")) %>:
+    <ul>
+      <% f.object.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

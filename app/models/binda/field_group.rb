@@ -9,8 +9,11 @@ module Binda
 		has_many :field_settings, dependent: :destroy
 
 		# Validations
-		validates :name, presence: true
-		validates :slug, uniqueness: true
+		validates :name, presence: {
+			message: I18n.t("binda.field_group.validation_message.name")
+		}
+		validate :slug_uniqueness
+		validates_associated :field_settings
 		accepts_nested_attributes_for :field_settings, allow_destroy: true, reject_if: :is_rejected
 
 		# Slug
@@ -43,11 +46,21 @@ module Binda
 			attributes['name'].blank? && attributes['field_type'].blank?
 		end
 
+		def slug_uniqueness
+			record_with_same_slug = self.class.where(slug: slug)
+			if record_with_same_slug.any? && !record_with_same_slug.ids.include?(id)
+				errors.add(:slug, I18n.t("binda.field_group.validation_message.slug", { arg1: slug }))
+				return false
+			else
+				return true
+			end
+		end
+
 		private 
 
 			def update_position
 				if self.position.nil?
-					self.update_attribute( 'position', self.structure.field_groups.length )
+					self.update_attribute('position', self.structure.field_groups.length)
 				end
 			end
 

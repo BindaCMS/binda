@@ -1,28 +1,20 @@
-<%# - - - - - - - - - - - - %>
-<%# FORM ITEMS              %>
-<%# - - - - - - - - - - - - %>
 <%= f.simple_fields_for :field_settings, repeater.children.order( :position, :name ) do |ff| %>
 	<div id="form-item-<%= ff.object.id %>" class="form-item <%= "form-item--#{ ff.object.field_type }" unless ff.object.field_type.nil? %>">
 	  <%= render 'form_item', f: f, ff: ff %>
 	</div>
 <% end %>
-
-<%# - - - - - - - - - - - - %>
-<%# NEW FORM ITEM           %>
-<%# - - - - - - - - - - - - %>
 <%= f.simple_fields_for 'new_field_settings[]', repeater.children.build( field_group: @field_group ) do |ff| %>
   <div id="repeater-<%= repeater.id %>--new-form-item" class="form-item form-item--new">
     <%= render 'form_item', f: f, ff: ff %>
   </div>
 <% end %>
-
-
-<%# - - - - - - - - - - - - - - %>
-<%# ADD NEW FIELD TO REPEATER   %>
-<%# - - - - - - - - - - - - - - %>
 <div class="standard-form--main-actions">		
-	<a id="form-item--repeater-<%= repeater.id %>--add-new" class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" data-new-form-item-id="repeater-<%= repeater.id %>--new-form-item" href="#">
-    <%= "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i> #{ t(:new_item_in_repeater, arg1: repeater.name.capitalize) }".html_safe %> <%= t :field_setting %>
-	  <%=  %>
+	<a id="form-item--repeater-<%= repeater.id %>--add-new" 
+    class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" 
+    data-new-form-item-id="repeater-<%= repeater.id %>--new-form-item" 
+    href="#">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    <%= t(:new_item_in_repeater, arg1: repeater.name.capitalize) %> 
+    <%= t('binda.field_setting.singular') %>
 	</a>
 </div>

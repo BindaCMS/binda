@@ -1,7 +1,4 @@
 Rails.application.configure do
-  
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  config.action_mailer.raise_delivery_errors = true
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -43,4 +40,16 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Precompile assets once, so Capybara doens't have to compile them at every example
+  # then check the /public folder to retrieve them
+  # @see https://gist.github.com/a-barbieri/d28f76224fe4deed82db6258c5857c80
+  # if ENV["PRECOMPILE_ASSET"]
+  #   config.public_file_server.enabled = true
+  #   config.static_cache_control = "public, max-age=3600"
+  #   config.assets.compress = true
+  #   config.assets.compile = false
+  #   config.assets.digest = true
+  # end
+
 end

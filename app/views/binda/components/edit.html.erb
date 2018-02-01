@@ -1,13 +1,36 @@
+<% content_for :title do %> 
+  <%= "#{ t :edit }".capitalize %> 
+  <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %> 
+<% end %>
+
+
 <% content_for :header do %>
   <div class="main-header--buttons">
   	<% if @structure.has_preview %>
-	    <%= link_to "<i class=\"fas fa-link\"></i>#{ t 'binda.preview' } #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, "#{binda.root_path}#{@structure.slug}/#{@instance.slug}", class: 'main-header--link b-btn b-btn-primary' %>
+	    <a href="<%= "#{binda.root_path}#{@structure.slug}/#{@instance.slug}" %>"
+	    	class="main-header--link b-btn b-btn-primary">
+	    	<i class="fas fa-link"></i>
+	    	<%= t 'binda.preview' %> 
+	    	<%= @structure.name.humanize.split.map(&:capitalize).join(' ') %> 
+	    </a>
     <% end %>
-    <%= link_to "<i class=\"fa fa-plus\" aria-hidden=\"true\"></i>#{ t 'binda.new' } #{ @structure.name.humanize.split.map(&:capitalize).join(' ') }".html_safe, new_structure_component_path , class: 'main-header--link b-btn b-btn-primary' %>
+    <a href="<%= new_structure_component_path %>"
+    	class="main-header--link b-btn b-btn-primary">
+	    <i class="fa fa-plus" aria-hidden="true"></i>	
+	    <%= t 'binda.new' %> 
+	    <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %>
+    </a>
   </div>
-  <p class="main-header--title"><%= "#{ t :edit }".capitalize %> <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %></p>
-  <a href="<%= structure_components_path %>" class="main-header--back"><span class="glyphicon glyphicon-list"></span> <%= "#{ t :back_to_index }".capitalize %></a>
+  <p class="main-header--title">
+  	<%= "#{ t :edit }".capitalize %> 
+  	<%= @structure.name.humanize.split.map(&:capitalize).join(' ') %>	
+	</p>
+  <a href="<%= structure_components_path %>" class="main-header--back">
+  	<i class="fas fa-list-ul"></i> 
+  	<%= "#{ t :back_to_index }".capitalize %>
+  </a>
 <% end %>
+
 
 <% content_for :content do %>
 	<%= render 'binda/fieldable/form_body' %>

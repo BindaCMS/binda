@@ -1,0 +1,16 @@
+<%= f.simple_fields_for "new_choices[]", ff.object.choices.build(), defaults: { label: false }  do |fff| %>
+  <div class="field-setting-choices--choice <%= choice_class %>">
+		<%= fff.association :field_setting, as: :hidden %>
+  	<div class="field-setting-choices--choice-label">
+			<%= fff.input :label, placeholder: t('binda.choice_label') %>
+		</div>
+		<div class="field-setting-choices--choice-value">
+			<%= fff.input :value, placeholder: t('binda.choice_value')  %>
+		</div>
+		<a href="#" class="field-setting-choices--toggle-choice field-setting-choices--js-delete-choice">
+			<i class="far fa-trash-alt"></i>
+		</a>
+		<div class="clearfix"></div>
+  </div>
+
+<% end %>

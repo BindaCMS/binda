@@ -1,0 +1,27 @@
+<div class="form-item--half-size">
+	<%= ff.input :slug, as: :string, input_html: { class: "form-item--input" } %>
+</div>
+<div class="form-item--full-size">
+  <% if ff.object.field_type.nil? %>
+    <%= ff.input :field_type, as: :select, collection: get_field_types, include_blank: false, prompt: t(:select_field_type), input_html: { class: 'form-item--select-input' } %>
+  <% else %>
+    <%= ff.input :field_type, as: :string, disabled: true, input_html: { class: "form-item--input" } %>
+  <% end %>
+</div>
+<div class="form-item--full-size">
+	<%= ff.input :description, input_html: { class: "form-item--input" } %>
+</div>
+<div class="form-item--full-size">
+	<%= ff.input :position, as: :integer, input_html: { class: "form-item--input" } %>
+</div>
+<% if ff.object.field_type == 'relation' %>
+  <div class="form-item--full-size">
+    <%= ff.input :accepted_structure_ids, 
+    		collection: Binda::Structure.all, 
+    		as: :select, 
+    		input_html: { multiple: true, class: 'select2-item' }, 
+    		checked: ff.object.accepted_structures, 
+    		include_blank: false, 
+    		include_hidden: false %>
+  </div>
+<% end %>
