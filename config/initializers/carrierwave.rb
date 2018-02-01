@@ -1,5 +1,5 @@
 # see: https://til.codes/testing-carrierwave-file-uploads-with-rspec-and-factorygirl/
-# This apparently doesn't work... needs further investigation
+# REVIEW This apparently doesn't work... needs further investigation
 if Rails.env.test? || Rails.env.cucumber?
 
   # Setup Carrierwave to use local storage and disable file processing in test env
@@ -24,7 +24,8 @@ if Rails.env.test? || Rails.env.cucumber?
 
   # Setting asset_host
   # (this line should stay outside the initial if statement)
-  CarrierWave::Uploader::Base.descendants.each do |klass|
+  # REVIEW maybe the problem lies here...
+  CarrierWave::Uploader::Base.descendants.each do |_|
   	# Set the asset_host option for the carrierwave. 
     config.asset_host = ActionController::Base.asset_host
   end

@@ -56,5 +56,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "redcarpet",                   "~> 3.4"
   s.add_development_dependency "github-markup",               ">= 1.6", "< 2"
   s.add_development_dependency "travis",                      "~> 1.8"
+  s.add_development_dependency "rubocop",                     "~> 0.52.1"
+  s.add_development_dependency "mry"
 
 end

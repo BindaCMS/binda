@@ -215,7 +215,7 @@ module Binda
 						binda_choices_selections: { selection_id: nil },
 						binda_field_settings: { allow_null: false }
 					)
-			elsif field_setting_id = FieldSetting.get_id(field_setting.slug)
+			elsif field_setting_id == FieldSetting.get_id(field_setting.slug)
 				Selection.includes(:choices, :field_setting)
 					.where(
 						binda_choices_selections: { selection_id: nil }, 
@@ -230,13 +230,13 @@ module Binda
 			field_setting = self.field_setting
 			case 
 			when self.new_record?
-				true
+				return true
 			when !field_setting.allow_null? && field_setting.choices.any? && self.choices.empty?
-				false
 				errors.add(:base, I18n.t("binda.selection.validation_message.choices", { arg1: self.id, arg2: field_setting.slug })
 				)
+				return false
 			else
-				true
+				return true
 			end
 		end
 

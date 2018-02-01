@@ -36,15 +36,13 @@ module Binda
 		# 
 		# @param field_setting [Binda::FieldSetting] The field setting object
 		def prepare_description_for_selections_form_hint(field_setting)
-			case 
-			when field_setting.description.blank? && field_setting.allow_null?
-				false
-			when !field_setting.description.blank? && field_setting.allow_null?
-				field_setting.description
-			when !field_setting.description.blank? && !field_setting.allow_null?
-				"#{field_setting.description}. #{I18n.t("binda.null_is_not_allowed")}"
-			when field_setting.description.blank? && !field_setting.allow_null?
-				I18n.t("binda.null_is_not_allowed")
+			description = []
+			if field_setting.description.blank? && field_setting.allow_null?
+				description << field_setting.description
+				description << I18n.t("binda.null_is_not_allowed") if !field_setting.allow_null?
+				return description.join('. ')
+			else
+				return false 
 			end
 		end
 
@@ -59,20 +57,21 @@ module Binda
 		# @param arg [string] This should be the database column on which sort will be based
 		# @return [string] The URL with the encoded parameters
 		# 
-    def get_sort_link_by arg
-      if params[:order].nil? 
-      	structure_components_path( [@structure], { order: {"#{arg}": "DESC"} } )
-      else
-      	order_hash = params[:order].permit(:name, :publish_state).to_h
-      	if order_hash[arg] == "ASC"
-	        order_hash[arg] = "DESC"
-	        structure_components_path( [@structure], { order: order_hash }  )
-	      else
-	      	order_hash[arg] = "ASC"
-	        structure_components_path( [@structure], { order: order_hash }  )
-	      end
-	    end
-    end
+		def get_sort_link_by argument
+			arg = "#{argument}".to_sym
+			if params[:order].nil? 
+				structure_components_path( [@structure], { order: {arg => "DESC"} } )
+			else
+				order_hash = params[:order].permit(:name, :publish_state).to_h
+				if order_hash[arg] == "ASC"
+					order_hash[arg] = "DESC"
+					structure_components_path( [@structure], { order: order_hash }  )
+				else
+					order_hash[arg] = "ASC"
+					structure_components_path( [@structure], { order: order_hash }  )
+				end
+			end
+		end
 
 		# Get sort link icon by argument
 		#
@@ -81,16 +80,16 @@ module Binda
 		# @param arg [string] This should be the database column on which sort will be based
 		# @return [string] The icon which needs to be escaped with the `html_safe` method
 		# 
-    def get_sort_link_icon_by arg
-    	case 
-    	when params[:order].nil?
-        '<i class="fas fa-sort-alpha-down"></i>'
-    	when params[:order][arg] == "DESC"
-        '<i class="fas fa-sort-alpha-up"></i>'
-    	else
-        '<i class="fas fa-sort-alpha-down"></i>'
-    	end
-    end
+		def get_sort_link_icon_by arg
+			case 
+			when params[:order].nil?
+				'<i class="fas fa-sort-alpha-down"></i>'
+			when params[:order][arg] == "DESC"
+				'<i class="fas fa-sort-alpha-up"></i>'
+			else
+				'<i class="fas fa-sort-alpha-down"></i>'
+			end
+		end
 
 	end
 end

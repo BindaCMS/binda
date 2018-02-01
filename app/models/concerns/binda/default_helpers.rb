@@ -3,9 +3,6 @@ module Binda
 	module DefaultHelpers
 		extend ActiveSupport::Concern
 
-		included do 
-		end
-
 	  class_methods do
 
 			# Get components

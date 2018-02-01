@@ -108,7 +108,7 @@ module Binda
 		validates :field_type, inclusion: { 
 			in: [ *FieldSetting.get_field_classes.map{ |fc| fc.to_s.underscore } ], 
 			allow_nil: false,
-			message: -> (field_setting, data) { 
+			message: -> (field_setting) { 
 				I18n.t(
 					"binda.field_setting.validation_message.field_type", 
 					{ arg1: field_setting.name, arg2: "#{FieldSetting.get_field_classes.join(", ")}" }
@@ -152,7 +152,7 @@ module Binda
 				slug << '-' 
 				slug << self.parent.name 
 			end
-			possible_names = [ 
+			return [ 
 				"#{ slug }--#{ self.name }",
 				"#{ slug }--#{ self.name }-1",
 				"#{ slug }--#{ self.name }-2",
@@ -260,7 +260,7 @@ module Binda
 			if self.is_root?
 				create_field_instances_for_instance(instance, field_class, self.id)
 			else
-				instance.repeaters.select{|r| field_setting_id == self.parent_id}.each do |repeater|
+				instance.repeaters.select{|r| r.field_setting_id == self.parent_id}.each do |repeater|
 					create_field_instances_for_instance(repeater, field_class, self.id)
 				end
 			end

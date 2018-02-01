@@ -73,11 +73,16 @@ module Binda
 		def add_instance_details
 			if self.instance_type == 'board'
 				self.update_attribute('has_categories', false)
-				if Board.where(structure_id: self.id).empty?
-					board = self.build_board( name: self.name )
-					unless board.save
-						return redirect_to structure_path(self.slug), flash: { error: I18n.t('binda.default_field_group.error_on_create') }
-					end
+					add_default_board
+			end
+		end
+
+		# Add default board to a structure if needed
+		def add_default_board
+			if Board.where(structure_id: self.id).empty?
+				board = self.build_board( name: self.name )
+				unless board.save
+					return redirect_to structure_path(self.slug), flash: { error: I18n.t('binda.default_field_group.error_on_create') }
 				end
 			end
 		end
