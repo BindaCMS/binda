@@ -148,7 +148,7 @@ module Binda
 			elsif obj.image.present?
 				obj.image.send(info)
 			else
-				raise "Looks like the image you are looking for isn't present. See field setting with slug=\"#{field_slug}\" on component with id=\"self.id\""
+				raise "Looks like the image you are looking for isn't present. See field setting with slug=\"#{field_slug}\" on component with id=\"#{self.id}\""
 			end
 		end
 
