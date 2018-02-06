@@ -145,7 +145,7 @@ module Binda
 		# @return [string] with image type
 		def get_image_size(field_slug)
 			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-     	return bytes_to_megabytes(image_record.file_size)
+     	return bytes_to_megabytes(obj.file_size)
 		end
 
     # Convert bytes to megabites
@@ -159,7 +159,7 @@ module Binda
 		# @return [string] with image type
 		def get_image_mime_type(field_slug)
 			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-     	return image_record.content_type
+     	return obj.content_type
 		end
 
 		# Get image dimension
@@ -168,7 +168,7 @@ module Binda
 		# @return [hash] with width and height
 		def get_image_dimension(field_slug)
 			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-     	return { width: image_record.file_width, height: image_record.file_height }
+     	return { width: obj.file_width, height: obj.file_height }
 		end
 
 		# Check if the field has an attached video
