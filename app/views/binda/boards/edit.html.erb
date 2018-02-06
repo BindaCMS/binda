@@ -7,7 +7,8 @@
   <div class="main-header--buttons">
   	<% if @structure.has_preview %>
   		<a href="<%= "#{binda.root_path}#{@structure.slug}/#{@instance.slug}" %>" 
-  			class="main-header--link b-btn b-btn-primary">
+  			class="main-header--link b-btn b-btn-primary"
+        target="_blank">
   			<i class="fas fa-link"></i> 
   			<%= t 'binda.preview' %> 
   			<%= @structure.name.humanize.split.map(&:capitalize).join(' ') %>
