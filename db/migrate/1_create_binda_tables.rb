@@ -92,6 +92,10 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :image
       t.belongs_to       :field_setting
       t.references       :fieldable, polymorphic: true, index: true
+      t.string           :content_type
+      t.float            :file_size
+      t.float            :file_width
+      t.float            :file_height
       t.timestamps
     end
 

@@ -49,8 +49,8 @@ module Binda
 			# Make sure you are referring to the updated ActiveRecord object where the choice has already been deleted
 			#	Infact: self.field_setting != FieldSetting.find( self.field_setting.id )
 			field_setting = FieldSetting.find(self.field_setting.id)
-
 			if field_setting.default_choice_id.nil? && !field_setting.allow_null?
+				# if field_setting.field_type = 'radio' 
 				field_setting.default_choice_id = self.id
 				unless field_setting.save
 					raise "It hasn't been possible to set the default choice for the current setting (#{field_setting.slug})."
@@ -60,6 +60,10 @@ module Binda
 		end
 
 		# Assign a choice to `Binda::Selection` items belonging to a specific field setting.
+		# 
+		# TODO it shouldn't be possible to add another choice to a radio button. 
+		#   The only reasonable way is to change has_many association in a has_one
+		# 
 		# @param field_setting [Binda::FieldSetting]
 		# @param new_default_choice [Binda::Choice]
 		def assign_choice_to_selections(field_setting, new_default_choice)

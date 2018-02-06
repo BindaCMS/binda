@@ -52,7 +52,7 @@
 <%# REPEATER                %>
 <%# - - - - - - - - - - - - %>
 <% elsif field_setting.field_type == 'repeater' %>
-  <% repeaters = @instance.repeaters.where( field_setting: field_setting ).order('position') %>
+  <% repeaters = @instance.repeaters.where( field_setting: field_setting ).order('position DESC') %>
   <%= render 'binda/fieldable/form_item_repeater', f: f, repeater_setting: field_setting, repeaters: repeaters %>
 
 

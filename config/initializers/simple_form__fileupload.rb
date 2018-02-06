@@ -72,14 +72,6 @@ module SimpleForm
         @detail ||= begin
           obj = options[:object]
 
-          if obj.image.present?
-            if CarrierWave::Uploader::Base.storage == CarrierWave::Storage::File
-              image = MiniMagick::Image.open(::Rails.root.join(obj.image.path))
-            else
-              image = MiniMagick::Image.open(obj.image.url)
-            end
-          end
-
           html = '<div class="fileupload--details'
           html << ' fileupload--details--hidden' unless obj.image.present? || obj.video.present?
           html << '"><p class="fileupload--name">'
@@ -91,15 +83,14 @@ module SimpleForm
           html << '<p class="fileupload--size">'
           html << "<strong>#{t 'binda.filesize'}:</strong> "
           html << '<span class="fileupload--filesize">'
-          html << bytes_to_megabytes(obj.image.size).to_s if obj.image.present?
-          html << bytes_to_megabytes(obj.video.size).to_s if obj.video.present?
+          html << bytes_to_megabytes(obj.file_size).to_s unless obj.file_size.blank?
           html << 'MB</span></p>'
           html << '<p class="fileupload--dimension">'
           html << "<strong>#{t 'binda.filedimension'}:</strong> "
           html << '<span class="fileupload--width">'
-          html << image[:width].to_s unless image.nil?
+          html << obj.file_width.round.to_s unless obj.file_width.blank?
           html << '</span> x <span class="fileupload--height">'
-          html << image[:height].to_s unless image.nil?
+          html << obj.file_height.round.to_s unless obj.file_height.blank?
           html << '</span> px</p>'
           html << '<p class="fileupload--videolink"><a href="'
           html << obj.video.url if obj.video.present?

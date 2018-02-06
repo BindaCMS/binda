@@ -5,6 +5,9 @@ module Binda
     # include CarrierWave::RMagick
     include CarrierWave::MiniMagick
 
+    process :register_image_details
+    process :register_details
+
     # Choose what kind of storage to use for this uploader:
     # storage :file
     # storage :fog
@@ -64,6 +67,20 @@ module Binda
     #   "something.jpg" if original_filename
     # end
 
+    # @see https://github.com/carrierwaveuploader/carrierwave/wiki/How-to%3A-Get-image-dimensions
+    def register_image_details
+      if file && model
+        model.file_width, model.file_height = ::MiniMagick::Image.open(file.file)[:dimensions]
+      end
+    end
+
+    # @see https://github.com/carrierwaveuploader/carrierwave/wiki/how-to:-store-the-uploaded-file-size-and-content-type
+    def register_details
+      if file && model
+        model.content_type = file.content_type if file.content_type
+        model.file_size = file.size
+      end
+    end
 
     # Generating medium and large version creates slowness if the uploaded file is a gif.
     #   Conditional versioning could be a solution, but you might want to do it in your 

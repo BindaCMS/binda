@@ -32,16 +32,16 @@ module Binda
       puts "2) Setting up maintenance mode"
 
       # Use radio field_type untill truefalse isn't available
-      unless @field_settings.find_by(slug: 'maintenance-mode').present?
-        maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio', position: 1 )
+      unless FieldSetting.find_by(slug: 'maintenance-mode').present?
+        maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio', position: 1, allow_null: false )
         # create active and disabled choices
+        disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
         maintenance_mode.choices.create!( label: 'active', value: 'true' )
-        maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
-        radio = @dashboard.radios.find_or_create_by!( field_setting_id: maintenance_mode.id )
-        radio.choices << maintenance_mode.choices.last
-        radio.save!
-        # make sure slug works
-        maintenance_mode.update_attributes( slug: 'maintenance-mode' )
+
+        # assign disabled choice and remove the temporary choice
+        @dashboard.reload
+        @dashboard.radios.first.choices << disabled
+        @dashboard.radios.first.choices.select{|choice| choice.label != 'disabled'}.first.destroy
       end
       puts "The maintenance-mode option has been set up."
       puts 
@@ -49,7 +49,7 @@ module Binda
 
     def setup_website_name 
       puts "3) Setting up website name"
-      puts "We need few details. Don't worry you can modify them later."
+      puts "Don't worry you can modify it later."
 
       website_name_obj = @field_settings.find_by(slug: 'website-name')
       unless website_name_obj.present?
@@ -63,6 +63,7 @@ module Binda
 
     def setup_website_content
       puts "4) Setting up website description"
+      puts "Don't worry you can modify it later."
 
       website_description_obj = @field_settings.find_by(slug: 'website-description')
       unless website_description_obj.present?

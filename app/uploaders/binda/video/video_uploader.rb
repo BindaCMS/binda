@@ -5,6 +5,8 @@ module Binda
     # include CarrierWave::RMagick
     # include CarrierWave::MiniMagick
 
+    process :register_details
+
     # Choose what kind of storage to use for this uploader:
     # storage :file
     # storage :fog
@@ -46,6 +48,15 @@ module Binda
     # def filename
     #   "something.jpg" if original_filename
     # end
+
+
+    # @see https://github.com/carrierwaveuploader/carrierwave/wiki/how-to:-store-the-uploaded-file-size-and-content-type
+    def register_details
+        if file && model
+            model.content_type = file.content_type if file.content_type
+            model.file_size = file.size
+        end
+    end
 
   end
 end

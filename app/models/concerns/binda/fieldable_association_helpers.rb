@@ -139,17 +139,36 @@ module Binda
 			end
 		end
 
+		# Get image size
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [float] with image type
+		def get_image_size(field_slug)
+			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+     	return bytes_to_megabytes(obj.file_size)
+		end
+
+    # Convert bytes to megabites
+    def bytes_to_megabytes bytes
+      (bytes.to_f / 1.megabyte).round(2)
+    end
+
+		# Get image type
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [string] with image type
+		def get_image_mime_type(field_slug)
+			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+     	return obj.content_type
+		end
+
+		# Get image dimension
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [hash] with width and height as floats
 		def get_image_dimension(field_slug)
 			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
-
-			raise ArgumentError, "There isn't any image associated to  the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
-			if obj.image.present? && obj.image.respond_to?(size) && %w[thumb medium large].include?(size)
-					obj.image.send(size).send(info)
-			elsif obj.image.present?
-				obj.image.send(info)
-			else
-				raise "Looks like the image you are looking for isn't present. See field setting with slug=\"#{field_slug}\" on component with id=\"self.id\""
-			end
+     	return { width: obj.file_width, height: obj.file_height }
 		end
 
 		# Check if the field has an attached video
@@ -231,20 +250,26 @@ module Binda
 		# 
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
-		def has_repeater(field_slug)
+		def has_repeaters(field_slug)
 			obj = self.repeaters.find_all{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			raise ArgumentError, "There isn't any repeater associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			return obj.present?
+		end
+		def has_repeater(field_slug)
+			has_repeaters(field_slug)
 		end
 
 		# Get the all repeater instances sorted by position
 		# 
 		# @param field_slug [string] The slug of the field setting
 		# @return [array] An array of repeater items which have all sorts of fields attached
-		def get_repeater(field_slug)
+		def get_repeaters(field_slug)
 			obj = self.repeaters.find_all{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 			raise ArgumentError, "There isn't any repeater associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			obj.sort_by(&:position)
+		end
+		def get_repeater(field_slug)
+			get_repeaters(field_slug)
 		end
 
 		# Get the radio choice

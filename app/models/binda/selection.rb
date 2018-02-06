@@ -175,17 +175,13 @@ module Binda
 
 		# Check all Binda::Selection records which are required to have a choice.
 		# 
-		# The purpose of this method is to check, not to update. You don't won't to decide which choice 
-		#   must be selected if the selection is required to have one. You just want the user to know that
-		#   it's not possible to leave it without any.
-		# 
 		# @param field_setting [ActiveRecord Object]
 		def self.check_all_selections_depending_on(field_setting)
 			# Make sure Active Record object of field setting is updated
 			field_setting.reload
 
 			# Don't bother if field setting allow having no choice or if default_choice isn't set
-			return if field_setting.allow_null? || field_setting.default_choice_id.nil?
+			return if field_setting.allow_null? || !field_setting.default_choice.present?
 
 			# Get all selection related to this field setting which have an issue with choices
 			selections = Selection.get_selections_which_must_have_a_choice_but_have_none(field_setting)
