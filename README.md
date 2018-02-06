@@ -953,7 +953,7 @@ More info can be found at the [semantic versioning documentation](https://semver
 
 ### Bug reporting
 Please refer to this [guide](http://yourbugreportneedsmore.info).
-If you need direct help you can join [Binda Slack Community](https://bindacms.slack.com).
+If you need direct help you can join [Binda Slack Channel](https://bindacms.slack.com).
 
 
 ### License

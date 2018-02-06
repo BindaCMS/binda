@@ -10,14 +10,15 @@
             include_blank: false,
             label_method: -> (x){ "<span class=\"standard-form--input-box\"></span>#{x}".html_safe }%>
 </div>
-<div class="standard-form--radio">
-  <%= f.input :has_preview,
-              label: "<span class=\"standard-form--input-box\"></span>#{ t('binda.has_preview')}".html_safe,
-              as: :boolean,
-              include_blank: false,
-              hint: "#{t('binda.preview_path_warning')}:<br /> #{binda.root_path}#{@structure.slug}/:slug".html_safe %>
-</div>
-
+<% if !@structure.new_record? %>
+  <div class="standard-form--radio">
+    <%= f.input :has_preview,
+                label: "<span class=\"standard-form--input-box\"></span>#{ t('binda.has_preview')}".html_safe,
+                as: :boolean,
+                include_blank: false,
+                hint: "#{t('binda.preview_path_warning')}:<br /> #{binda.root_path}#{@structure.slug}/:slug".html_safe %>
+  </div>
+<% end %>
 <% if !@structure.new_record? && @structure.instance_type == 'component' %>
   <div class="standard-form--radio">
     <%= f.input :has_categories,
