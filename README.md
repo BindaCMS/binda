@@ -603,9 +603,9 @@ Here a list of useful plugins:
 
 
 
-# Upgrade
+# Upgrade from a previous version
 
-If you are going to upgrade from a previous version please check the guidelines attached to the version release which can be found on this [Github page](https://github.com/lacolonia/binda/releases).
+If you are going to upgrade from a previous version of Binda please check the guidelines attached to the version release which can be found on this [Github page](https://github.com/lacolonia/binda/releases).
 
 ---
 
