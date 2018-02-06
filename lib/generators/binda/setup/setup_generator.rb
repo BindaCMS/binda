@@ -41,7 +41,7 @@ module Binda
         # assign disabled choice and remove the temporary choice
         @dashboard.reload
         @dashboard.radios.first.choices << disabled
-        @dashboard.radios.first.choices.select{|choice| choice.label != 'disabled'}.destroy
+        @dashboard.radios.first.choices.select{|choice| choice.label != 'disabled'}.first.destroy
       end
       puts "The maintenance-mode option has been set up."
       puts 
