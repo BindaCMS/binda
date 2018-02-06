@@ -331,7 +331,7 @@ DEPENDENCIES
   factory_bot_rails (~> 4.8)
   github-markup (>= 1.6, < 2)
   listen (~> 3.1)
-  mry
+  mry (~> 0.52)
   pg (>= 0.21, < 1.0)
   pry-rails (~> 0.3.5)
   redcarpet (~> 3.4)
