@@ -142,7 +142,7 @@ module Binda
 		# Get image size
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [string] with image type
+		# @return [float] with image type
 		def get_image_size(field_slug)
 			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
      	return bytes_to_megabytes(obj.file_size)
@@ -165,7 +165,7 @@ module Binda
 		# Get image dimension
 		# 
 		# @param field_slug [string] The slug of the field setting
-		# @return [hash] with width and height
+		# @return [hash] with width and height as floats
 		def get_image_dimension(field_slug)
 			obj = self.images.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
      	return { width: obj.file_width, height: obj.file_height }

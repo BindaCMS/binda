@@ -83,15 +83,14 @@ module SimpleForm
           html << '<p class="fileupload--size">'
           html << "<strong>#{t 'binda.filesize'}:</strong> "
           html << '<span class="fileupload--filesize">'
-          html << bytes_to_megabytes(obj.file_size).to_s if obj.image.present? && !obj.file_size.blank?
-          html << bytes_to_megabytes(obj.file_size).to_s if obj.video.present? && !obj.file_size.blank?
+          html << bytes_to_megabytes(obj.file_size).to_s unless obj.file_size.blank?
           html << 'MB</span></p>'
           html << '<p class="fileupload--dimension">'
           html << "<strong>#{t 'binda.filedimension'}:</strong> "
           html << '<span class="fileupload--width">'
-          html << obj.file_width.round.to_s unless obj.image.present? && obj.file_width.blank?
+          html << obj.file_width.round.to_s unless obj.file_width.blank?
           html << '</span> x <span class="fileupload--height">'
-          html << obj.file_height.round.to_s unless obj.image.present? && obj.file_height.blank?
+          html << obj.file_height.round.to_s unless obj.file_height.blank?
           html << '</span> px</p>'
           html << '<p class="fileupload--videolink"><a href="'
           html << obj.video.url if obj.video.present?

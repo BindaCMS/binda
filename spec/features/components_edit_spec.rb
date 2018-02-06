@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe "GET component#edit", type: :feature, js: true do
+  include CarrierWave::Test::Matchers
 
 	let(:user){ Binda::User.first }
 
@@ -101,6 +102,8 @@ describe "GET component#edit", type: :feature, js: true do
 	end
 
 	it "allows to add an image to an image field and store it" do
+    Binda::Image::ImageUploader.enable_processing = true
+
 		# Create an image field setting on which will work
 		image_setting = create(:image_setting, field_group_id: @structure.field_groups.first.id)
 		
@@ -143,6 +146,8 @@ describe "GET component#edit", type: :feature, js: true do
 			expect( page ).to have_content image_name
 			expect( page ).to have_content file.width
 		end
+
+    Binda::Image::ImageUploader.enable_processing = false
 	end
 
 	it "allows to add an image to an image field in a repeater" do

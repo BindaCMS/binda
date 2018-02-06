@@ -4,6 +4,9 @@ module Binda
 
     mount_uploader :image, ImageUploader
 
+    # Register image details
+    # 
+    # This method is used by a rake task
     def register_deatils
       if !self.image.present?
         puts "Ops, there is no image for Binda::Image id=#{self.id}"
@@ -16,6 +19,9 @@ module Binda
       end
     end
 
+    # Register image details
+    # 
+    # This method is used by register_deatils in a rake task
     def register_details_of(file)
       self.file_width = file.width
       self.file_height = file.height
