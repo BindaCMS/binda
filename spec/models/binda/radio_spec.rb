@@ -31,5 +31,11 @@ module Binda
 			expect( radio_selection ).to eq( { label: radio.choices.first.label, value: radio.choices.first.value } )
 		end
 		
+		it "cannot have more than one choice" do
+			# radio = @component.radios.first
+			# expect{radio.choice << @radio_setting.choices.first}.to raise_error ActiveModel::ValidationError
+			skip('not implemented yet')
+		end
+
 	end
 end

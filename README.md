@@ -73,21 +73,28 @@ Now you are good to go. Good job!
 
 Binda is totally bound to its database in order to let you structure your CMS directly from the admin panel. The recommended workflow is:
 
-1. Install and develop the application locally
-2. Migrate server and database to production once ready
-3. For any update sync your local database with the production one
+1. **Install** and develop the application locally
+2. **Migrate** server and database to production once ready
+3. **Restart** after having synched the database. This ensure settings are cached correctly
+4. Rinse and repeat 😀
 
-This ensure the application structure remains the same.
-
-If you want to avoid copying the entire database you can just refer to the following `binda_structures`
-
-## Reset credentials and initial settings
+## Reset initial settings
 
 If you need to re-install Binda and reset initial database settings (such as username and password for example) execute the following command from the application root.
 
 ```bash
 rails generate binda:setup
 ```
+
+## Credentials
+
+If you have lost your username/password you can run 
+
+```
+rails binda:create_superadmin_user
+```
+
+This lets you create another temporary super admin user.
 
 ## Specific needs
 In order to use Carrierwave to process images you need to run MiniMagik. Please refer to [Carrierwave documentation](https://github.com/carrierwaveuploader/carrierwave#using-minimagick) to find more information.
@@ -383,7 +390,10 @@ For example the following line will create a _field setting_, but under the hood
 # => <Binda::FieldSetting id: 1, ...>
 
 # You don't have to create a text field for each component, it's alreay been done for you
+# WARNING! You won't find immediately the text record associated, you need to reload!
 @structure.components.first.texts.first
+# => nil
+@structure.reload.components.first.texts.first
 # => <Binda::Text id: 1, field_setting_id: 1, ...>
 ```
 
@@ -427,14 +437,17 @@ You can retrieve field content from a instance of `Binda::Component`, `Binda::Bo
 |`has_image`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_image) |
 |`get_image_url(size)`| Returns the url of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_image_url) |
 |`get_image_path(size)`| Returns the path of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_image_path) |
+|`get_image_size`| Returns the image size in MB. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_image_size) |
+|`get_image_dimension`| Returns a hash { width: xxx, height: xxx } with image dimension. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_image_dimension) |
+|`get_image_mime_type`| Returns the mime type of the image. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_image_mime_type) |
 |`has_video`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_video) |
 |`get_video_url`| Returns the url of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_video_url) |
 |`get_video_path`| Returns the path of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_image_path) |
 |`has_date`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_date) |
 |`get_date`| Returns the date in `datetime` format. Use [`strftime`](https://apidock.com/rails/ActiveSupport/TimeWithZone/strftime) to change date format. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_date) |
-|`has_repeater`| Returns `true/false`| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_repeater) |
-|`get_repeater`| Returns an array of repeaters. See next session for more details. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_repeater) |
-|`get_selection_choice`| Returns an hash with label and value of the selected choice. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_selection_choice) |
+|`has_repeaters`| Returns `true/false`| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_repeaters) |
+|`get_repeaters`| Returns an array of repeaters. See next session for more details. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_repeaters) |
+|`get_selection_choices`| Returns an hash with label and value of the selected choice. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_selection_choices) |
 |`get_radio_choice`| Returns an hash with label and value of the selected choice. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_radio_choice) |
 |`get_checkbox_choices`| Returns an array of label/value pairs of all the selected choices. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:get_checkbox_choices) |
 |`has_related_components`| Check if has related components. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociations:has_related_components) |

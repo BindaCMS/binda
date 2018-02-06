@@ -107,15 +107,15 @@ module Binda
 			skip "not implemented yet"
 		end
 
-		it "gets text content using get_repeater()" do
+		it "gets text content using get_repeaters()" do
 			skip "not implemented yet"
 		end
 
-		it "throws an error calling get_repeater() on wrong slug" do
+		it "throws an error calling get_repeaters() on wrong slug" do
 			skip "not implemented yet"
 		end
 
-		it "returns false when has_repeater() is not called on a repeater belonging to this component" do
+		it "returns false when has_repeaters() is not called on a repeater belonging to this component" do
 			skip "not implemented yet"
 		end
 
