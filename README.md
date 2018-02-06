@@ -934,6 +934,23 @@ Same thing can be done on linux usign another binary code (see [documentation](h
 
 
 
+# Binda versioning
+
+It's possible to test edge versions of Binda on real projects. Edge versions can be found only in the github repository and can be referenced by tag.
+
+For example once `v0.1.0` is published any new edge release which can be considered stable enough for a real project is tagged with alpha or beta (`v0.1.1.alpha`, `v0.1.1.alpha.1`, `v0.1.1.beta`, etc). These tags won't change and won't be removed so you can safely add them to you gemfile like so:
+
+```ruby
+gem 'binda', github: 'lacolonia/binda', ref: 'v0.1.1.alpha.1'
+```
+
+The same tag is listed as the gem version, but it's not published to Rubygems.
+
+More info can be found at the [semantic versioning documentation](https://semver.org/spec/v2.0.0-rc.1.html).
+---
+
+
+
 ### Bug reporting
 Please refer to this [guide](http://yourbugreportneedsmore.info).
 If you need direct help you can join [Binda Slack Community](https://bindacms.slack.com).
