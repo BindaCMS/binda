@@ -5,13 +5,13 @@
 						input_html: { value: @instance.get_text( field_setting.slug ), class: 'tinymce' }, 
 						as: :text,
 						hint: field_setting.description,
-						label: field_setting.name.capitalize %>
+						label: field_setting.name %>
 	<% else %>
 			<%= ff.input :content, 
 						input_html: { class: 'tinymce' }, 
 						as: :text,
 						hint: field_setting.description,
-						label: field_setting.name.capitalize %>
+						label: field_setting.name %>
 	<% end %>
 
 	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>

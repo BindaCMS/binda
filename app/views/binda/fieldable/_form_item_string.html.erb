@@ -5,12 +5,12 @@
 						input_html: { value: @instance.get_string( field_setting.slug ) }, 
 						as: :string, 
 						hint: field_setting.description, 
-						label: field_setting.name.capitalize %>
+						label: field_setting.name %>
 	<% else %>
 			<%= ff.input :content, 
 						as: :string, 
 						hint: field_setting.description, 
-						label: field_setting.name.capitalize  %>
+						label: field_setting.name  %>
 	<% end %>
 
 	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>

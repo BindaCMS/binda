@@ -6,7 +6,7 @@
 		<%= ff.input :dependent_component_ids, collection: get_relationable_components(field_setting), 
 			as: :select,
 			input_html: { multiple: true, class: 'select2-item' },
-			label: field_setting.name.capitalize,
+			label: field_setting.name,
 			hint: field_setting.description,
 			value_method: :id,
 			checked: ff.object.dependent_component_ids, 
@@ -19,7 +19,7 @@
 		<%= ff.input :dependent_board_ids, collection: get_relationable_boards(field_setting), 
 			as: :select, 
 			input_html: { multiple: true, class: 'select2-item' }, 
-			label: field_setting.name.capitalize,
+			label: field_setting.name,
 			hint: field_setting.description,
 			value_method: :id, 
 			checked: ff.object.dependent_board_ids, 
@@ -31,7 +31,7 @@
 	<% unless field_setting.accepted_structures.any? %>
 		<div class="form-group">
 			<div class="control-label-wrap">
-				<label class="control-label"><%= field_setting.name.capitalize %></label>
+				<label class="control-label"><%= field_setting.name %></label>
 			</div>
 			<p><%= t('binda.relation_warning') %></p>
 		</div>

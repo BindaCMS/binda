@@ -4,7 +4,7 @@
 				start_year: Date.today.year - 200, 
 				end_year: Date.today.year + 200, 
 				hint: field_setting.description, 
-				label: field_setting.name.capitalize, 
+				label: field_setting.name, 
 				input_html: { class: 'select2-item' } %>		
 	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 	<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>

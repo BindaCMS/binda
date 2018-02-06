@@ -1,0 +1,25 @@
+<div class="form-item--repeater-title">
+	<a class="b-btn b-btn-primary sortable--toggle" 
+		href="#" 
+		data-repeater-id="form-item--repeater-setting-<%= repeater_setting.id %>">
+		<span class="sortable--toggle-text">
+			<i class="fa fa-check" aria-hidden="true"></i> 
+			<%= t'binda.done' %>
+		</span>
+		<span class="sortable--toggle-text">
+			<i class="fa fa-random" aria-hidden="true"></i> 
+			<%= t'binda.sort_items' %>
+		</span>
+	</a>
+	<a id="form-item--repeater-<%= repeater_setting.id %>--add-new-button" 
+		class="form-item--repeater-section--add-new main-header--link b-btn b-btn-primary" 
+		href="#" 
+		data-url="<%= url_for([@structure, @instance, :new_repeater]) %>" 
+		data-id="<%= repeater_setting.id %>">
+	  <i class="fas fa-plus"></i> 
+	  <%= t('binda.new_item_in_repeater', arg1: repeater_setting.name ) %>
+	</a>
+	<p class="control-label clearfix">
+		<%= repeater_setting.name %>
+	</p>
+</div>
