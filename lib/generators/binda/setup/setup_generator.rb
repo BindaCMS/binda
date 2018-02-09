@@ -24,7 +24,7 @@ module Binda
 
     def create_credentials
       puts "1) Create a superadmin user"
-      rake 'binda:create_superadmin_user'
+      User.create_super_admin_user
       puts 
     end
 
@@ -33,7 +33,7 @@ module Binda
 
       # Use radio field_type untill truefalse isn't available
       unless FieldSetting.find_by(slug: 'maintenance-mode').present?
-        maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio', position: 1, allow_null: false )
+        maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio', position: 1, allow_null: false, slug: 'maintenance-mode' )
         # create active and disabled choices
         disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
         maintenance_mode.choices.create!( label: 'active', value: 'true' )
@@ -41,7 +41,8 @@ module Binda
         # assign disabled choice and remove the temporary choice
         @dashboard.reload
         @dashboard.radios.first.choices << disabled
-        @dashboard.radios.first.choices.select{|choice| choice.label != 'disabled'}.first.destroy
+        unwanted = @dashboard.radios.first.choices.select{|choice| choice.label != 'disabled'}
+        unwanted.each{|choice| choice.destroy} if unwanted.any?
       end
       puts "The maintenance-mode option has been set up."
       puts 
@@ -57,7 +58,10 @@ module Binda
         # make sure slug works
         website_name_obj.update_attribute( 'slug', 'website-name' )
       end
-      website_name = ask("How would you like to name your website? ['MySite']\n").presence || 'MySite'
+      # website_name = ask("How would you like to name your website? ['MySite']\n").presence || 'MySite'
+      STDOUT.puts "How would you like to name your website? ['MySite']"
+      website_name = STDIN.gets
+      website_name = 'MySite' if website_name.blank?
       @dashboard.strings.find_or_create_by( field_setting_id: website_name_obj.id ).update_attribute('content', website_name )
     end
 
@@ -71,20 +75,12 @@ module Binda
         # make sure slug works
         website_description_obj.update_attribute( 'slug', 'website-description' )
       end
-      website_description = ask("What is your website about? ['A website about the world']\n").presence || 'A website about the world'
+      # website_description = ask("What is your website about? ['A website about the world']\n").presence || 'A website about the world'
+    
+      STDOUT.puts "What is your website about? ['A website about the world']"
+      website_description = STDIN.gets
+      website_description = 'A website about the world' if website_description.blank?
       @dashboard.texts.find_or_create_by!( field_setting_id: website_description_obj.id ).update_attribute( 'content', website_description )
-    end
-
-    # Setup default helpers
-    # 
-    # This operation creates a class called `B` from which is possible to call any
-    #   Binda helper contained in Binda::DefaultHelpers. This is possible by inheriting the
-    #   `Binda::B` class.
-    def setup_default_helpers
-      puts "5) Setting up default helpers"
-      generate "model", "B --no-migration --parent=::Binda::B"
-      puts "Default helpers has been set up."
-      puts 
     end
 
     def feedback

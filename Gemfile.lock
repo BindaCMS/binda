@@ -120,6 +120,9 @@ GEM
     ffi (1.9.18)
     friendly_id (5.2.3)
       activerecord (>= 4.0.0)
+    generator_spec (0.9.4)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     gh (0.15.1)
       addressable (~> 2.4.0)
       backports
@@ -329,6 +332,7 @@ DEPENDENCIES
   capybara (>= 2.14, < 3)
   database_cleaner (>= 1.6, < 2)
   factory_bot_rails (~> 4.8)
+  generator_spec (~> 0.9.4)
   github-markup (>= 1.6, < 2)
   listen (~> 3.1)
   mry (~> 0.52)

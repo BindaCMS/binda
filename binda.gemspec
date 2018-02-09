@@ -58,5 +58,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "travis",                      "~> 1.8"
   s.add_development_dependency "rubocop",                     "~> 0.52.1"
   s.add_development_dependency "mry",                         "~> 0.52"
+  s.add_development_dependency "generator_spec",              "~> 0.9.4"
 
 end
