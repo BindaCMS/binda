@@ -3,7 +3,7 @@ require_dependency "binda/application_controller"
 module Binda
   class FieldGroupsController < ApplicationController
     before_action :set_structure
-    before_action :set_field_group, only: [:show, :edit, :update, :destroy]
+    before_action :set_field_group, only: [:show, :edit, :update, :destroy, :new_field_setting]
 
     def index
       redirect_to structure_field_group_path( @structure.slug )
@@ -33,7 +33,6 @@ module Binda
 
     def update
       # Add nested classes
-      add_new_field_settings
       add_new_choices
       check_if_needs_to_update_choices
 
@@ -47,9 +46,49 @@ module Binda
     end
 
     def destroy
-      @field_group.destroy
+      @field_group.destroy!
       reset_field_settings_cache
       redirect_to structure_path( @structure.slug ), notice: 'Field group was successfully destroyed.'
+    end
+
+    def sort
+      params[:field_group].each_with_index do |id, i|
+        FieldGroup.find( id ).update_column('position', i + 1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
+      end
+      render json: { id: "##{params[:id]}" }, status: 200
+    end
+
+    def sort_field_settings
+      params["form-item"].each_with_index do |id, i|
+        FieldSetting.find( id ).update_column('position', i + 1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
+      end
+      render json: { id: "##{params[:id]}" }, status: 200
+    end
+
+    def new_field_setting
+      # We set some default values in order to be able to save the field setting
+      # (if field setting isn't save it makes impossible to sort the order)
+      @field_setting = FieldSetting.new(
+        name: "#{I18n.t('binda.field_setting.new')}",
+        field_group_id: @field_group.id, 
+        field_type: 'string'
+      )
+      @field_setting[:ancestry] = params[:ancestry]
+      @field_setting.save!
+      # Put new repeater to first position, then store all the other ones
+      if params["form-item"].nil?
+        field_settings = [
+          @field_setting.id.to_s, 
+          *@field_group.field_settings.select{|fs| fs.ancestry == @field_setting.ancestry }.map(&:id)
+        ]
+      else
+        field_settings = [
+          @field_setting.id.to_s,
+          *params["form-item"]
+        ]
+      end
+      sort_field_setting_by(field_settings)
+      render 'binda/field_groups/_form_new_item', layout: false
     end
 
     private
@@ -73,16 +112,6 @@ module Binda
 
       def reset_field_settings_cache
         FieldSetting.reset_field_settings_array
-      end
-
-      def add_new_field_settings
-        # Create new fields if any
-        new_params[:new_field_settings].each do |field_setting|
-          next if field_setting[:name].blank?
-          new_field_setting = @field_group.field_settings.create( field_setting )
-          next if new_field_setting
-          return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: new_field_setting.errors }
-        end
       end
 
       def add_new_choices
@@ -116,6 +145,15 @@ module Binda
           unless choice.update(choice_params)
             return redirect_to edit_structure_field_group_path( @structure.slug, @field_group.slug ), flash: { error: choice.errors }
           end
+        end
+      end
+
+      # Sort field settings following the order with which are listed in the array provided as a argument.
+      #
+      # @param field_settings [Array] the list of ids of the field settings
+      def sort_field_setting_by(field_settings)
+        field_settings.each_with_index do |id, i|
+          FieldSetting.find( id ).update!({ position: i + 1 })
         end
       end
   end

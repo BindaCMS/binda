@@ -178,5 +178,43 @@
   padding: 12px;
 }
 
-.standard-form--choices-header {
+.standard-form--repeater,
+.standard-form--field-group {
+  overflow-x: hidden; // This ensure that the div doesn't become wider when draggin sortable items to the right
+  margin-bottom: 0;
+
+  ul.sortable > li {
+    margin-top: -1px; // this solve the issue of a 2px border between 2 repeaters
+    border: 1px solid $color-gray-lighter;
+  }
+
+  ul.sortable > li > * {
+    display: block;
+  }
+
+  ul.sortable {
+    margin-bottom: 0;
+  }
+
+  .ui-sortable-handle:hover {
+    background-color: transparent;
+  }
+
+  .sortable--toggle-text:first-child {
+    display: none;
+  }
+
+  .sortable--toggle {
+    float: right;
+    margin: 0;
+  }
+
+  .sortable--enabled {
+    .form-item--collapsable-stack {
+      margin: 0;
+      padding: 0;
+      max-height: 0;
+    }
+  }
 }
+

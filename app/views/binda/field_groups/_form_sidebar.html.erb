@@ -1,0 +1,13 @@
+<div class="standard-form--container">
+  <div class="standard-form--header">
+    <small><%= "#{ t :setting }".pluralize %></small>
+  </div>
+  <div class="standard-form--main-actions">
+    <%= button_tag '<i class="fas fa-check"></i>Save changes'.html_safe, {
+        class: 'b-btn b-btn-primary b-btn-settings',
+        id: 'save',
+        'data-entries-number': get_entries_number,
+        'data-instance-type': @structure.instance_type.pluralize
+    } %>
+  </div>
+</div>

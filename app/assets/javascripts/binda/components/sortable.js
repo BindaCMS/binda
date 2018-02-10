@@ -33,22 +33,21 @@ export default function() {
 	}
 
 	// Add event to any sortable toggle button
-	// TODO: make this event available to element which aren't standard form repeaters
 	$(document).on(
 		"click",
-		".standard-form--repeater .sortable--toggle",
+		".standard-form--repeater .sortable--toggle, .standard-form--field-group .sortable--toggle",
 		toggleSortable
 	);
 }
 
 function setupSortableToggle() {
 	$(".sortable--toggle").each(function() {
-		let id = "#" + $(this).data("repeater-id");
+		let id = "#" + $(this).data("sortable-target-id");
 		$(id)
 			.find(".form-item--collapsable")
 			.addClass("form-item--collapsed");
 		$(id)
-			.find(".form-item--repeater-fields")
+			.find(".form-item--collapsable-stack")
 			.each(close);
 	});
 }
@@ -63,12 +62,12 @@ function open() {
 
 function toggleSortable(event) {
 	event.preventDefault();
-	let id = "#" + $(this).data("repeater-id");
+	let id = "#" + $(this).data("sortable-target-id");
 
 	if ($(id).hasClass("sortable--disabled")) {
 		$(id).sortable("enable");
 		$(id)
-			.find(".form-item--repeater-fields")
+			.find(".form-item--collapsable-stack")
 			.each(close);
 		$(id)
 			.find(".form-item--collapsable")

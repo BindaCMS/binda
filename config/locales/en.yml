@@ -83,6 +83,7 @@ en:
       error_on_create: General Details group hasn't been created
     repeater_field_settings: Fields settings of the %{arg1} repeater
     field_setting:
+      new: New field setting
       singular: Field setting
       plural: Field settings
       confirm_delete: This operation will delete this setting and all related component content. Are you ok with that?

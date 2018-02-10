@@ -1,30 +1,20 @@
 <%# This form is only for settings which are not part of any repeater. %>
 <%# This is done using `where( ancestry: nil )` %>
-<%= f.simple_fields_for :field_settings, f.object.field_settings.where( ancestry: nil ).order( :position, :name ) do |ff| %>
-  <div id="form-item-<%= ff.object.id %>" 
-    class="form-item <%= "form-item--#{ ff.object.field_type }" unless ff.object.field_type.nil? %>">
-    <%= render 'form_item', f: f, ff: ff %>
+
+<div class="standard-form--container">
+  <div id="form-section--field-group-<%= @field_group.id %>" 
+    class="form-section--wide-container standard-form--field-group">
+    <div class="standard-form--header">
+      <small><%= "#{ t 'binda.field_setting.plural' }" %></small>
+    </div>
+    <div class="form-group">
+      <%= render 'binda/field_groups/form_section/form_section_header', f: f %>
+      <%= render 'binda/field_groups/form_section/form_section_list', f: f %>
+    </div>
+    <% if @field_group.slug.nil? %>
+      <p>
+        <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ).capitalize %>
+      </p>
+    <% end %>
   </div>
-<% end %>
-<%= f.simple_fields_for 'new_field_settings[]', @field_group.field_settings.build( field_group: @field_group ) do |ff| %>
-  <div id="field-group-<%= f.object.id %>--new-form-item" 
-    class="form-item form-item--new">
-    <%= render 'form_item', f: f, ff: ff %>
-  </div>
-<% end %>
-<% if @field_group.slug.nil? %>
-  <p>
-    <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ).capitalize %>  
-  </p>
-<% else %>
-  <div class="standard-form--main-actions">    
-    <a id="form-item--field-group-<%= f.object.id %>--add-new" 
-      class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" 
-      href="<%= new_structure_field_group_field_setting_path( field_group_id: @field_group.slug ) %>" 
-      data-new-form-item-id="field-group-<%= f.object.id %>--new-form-item">
-      <i class="fa fa-plus" aria-hidden="true"></i>
-      <%= t('binda.new').capitalize %> 
-      <%= t('binda.field_setting.singular') %>
-    </a>
-  </div>
-<% end %>
+</div>

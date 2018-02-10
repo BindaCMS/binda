@@ -29,18 +29,16 @@ describe "In field group editor, user", type: :feature, js: true do
 
 			find(add_new__button).click
 
-			# Upon clicking the 'add_new__button' link, a script clones and 
-			# changes the id of the new form item adding a suffix based on the number of clicks.
-			click_counter = 1
-			
-			# Make sure the form item appeared
-			sleep 1
+			wait_for_ajax
+			sleep 1.2
 
-			field_name_input = "field_group_new_field_settings__name-#{click_counter}"
-			field_name_value = "#{field_class.downcase.underscore}-test-#{click_counter}"
-			field_type_input = "field_group_new_field_settings__field_type-#{click_counter}"
+			new_field_setting = field_group.field_settings.order('id ASC').last
 
-			within "#new-form-item-#{click_counter}" do
+			field_name_input = "field_group_field_settings_attributes_#{new_field_setting.id}_name"
+			field_name_value = "Test #{new_field_setting.id}"
+			field_type_input = "field_group_field_settings_attributes_#{new_field_setting.id}_field_type"
+
+			within "#form-item-#{new_field_setting.id}" do
 				fill_in field_name_input, with: field_name_value, visible: true
 			end
 			select2("#{field_class.downcase.underscore}", field_type_input)
@@ -51,7 +49,7 @@ describe "In field group editor, user", type: :feature, js: true do
 
 			field_group.reload
 
-			within "#form-item-#{field_group.field_settings.first.id}" do
+			within "#form-item-#{new_field_setting.id}" do
 				find('.form-item--collapse-btn').click
 				# Make sure the form item appeared
 				sleep 1
@@ -69,25 +67,24 @@ describe "In field group editor, user", type: :feature, js: true do
 			path_to_field_group = binda.edit_structure_field_group_path( structure_id: @structure.slug, id: field_group.slug )
 
 			visit path_to_field_group
-			wrapper = "#form-section--repeater-#{repeater.id}"
+			wrapper = "#form-item--field-list-#{repeater.id}"
 
 			# create variable to be available throughout the example
 			field_name_value = ''
 			field_type_input = ''
 
 			within wrapper do
-				find("#form-item--repeater-#{repeater.id}--add-new").click
+				add_new__button = "#form-item--repeater-#{repeater.id}--add-new"
+				find(add_new__button).click
+				wait_for_ajax
+				sleep 1.2
 
-				# Upon clicking the 'add_new__button' link, a script clones and 
-				# changes the id of the new form item adding a suffix based on the number of clicks.
-				click_counter = 1
-				
-				# Make sure the form item appeared
-				sleep 1
+				new_field_setting = field_group.field_settings.order('id ASC').last
 
-				field_name_input = "field_group_new_field_settings__name-#{click_counter}"
-				field_name_value = "#{field_class.downcase}-test-#{click_counter}"
-				field_type_input = "field_group_new_field_settings__field_type-#{click_counter}"
+				field_name_input = "field_group_field_settings_attributes_#{new_field_setting.id}_name"
+				field_name_value = "Test #{new_field_setting.id}"
+				field_type_input = "field_group_field_settings_attributes_#{new_field_setting.id}_field_type"
+
 				fill_in field_name_input, with: field_name_value
 			end
 
@@ -100,7 +97,7 @@ describe "In field group editor, user", type: :feature, js: true do
 			field_group.reload
 			repeater.reload
 
-			within "#form-section--repeater-#{repeater.id}" do
+			within "#form-item--field-list-#{repeater.id}" do
 				find('.form-item--collapse-btn').click
 				# Make sure the form item appeared
 				sleep 1

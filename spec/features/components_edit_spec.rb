@@ -69,6 +69,12 @@ describe "GET component#edit", type: :feature, js: true do
 		skip "not implemeted yet"
 	end
 
+	describe "when creating a new repeater" do
+		it "sets the new item as the first one (set its position as well)" do
+			skip "not implemeted yet"
+		end
+	end
+
 	it "allows to edit a text field" do
 		skip "not implemeted yet"
 	end

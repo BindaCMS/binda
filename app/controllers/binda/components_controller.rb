@@ -57,15 +57,24 @@ module Binda
 
     def new_repeater
       @repeater_setting = FieldSetting.find( params[:repeater_setting_id] )
-      position = @instance.repeaters.find_all{|r| r.field_setting_id=@repeater_setting.id }.length + 1
-      @repeater = @instance.repeaters.create( field_setting: @repeater_setting, position: position )
+      @repeater = @instance.repeaters.create( field_setting: @repeater_setting )
+      # Put new repeater to first position, then store all the other ones
+      if params[:repeater].nil?
+        repeaters = [
+          @repeater.id.to_s, 
+          *@instance.repeaters.select{|r| r.field_setting_id=@repeater_setting.id }.map(&:id)
+        ]
+      else
+        repeaters = [
+          @repeater.id.to_s, 
+          *params[:repeater]]
+      end
+      sort_repeaters_by(repeaters)
       render 'binda/fieldable/_form_item_new_repeater', layout: false
     end
 
     def sort_repeaters
-      params[:repeater].each_with_index do |id, i|
-        Repeater.find( id ).update({ position: i + 1 })
-      end
+      sort_repeaters_by(params[:repeater])
       render json: { id: "##{params[:id]}" }, status: 200
     end
     
@@ -111,6 +120,14 @@ module Binda
           {categories_attributes: [ :id, :category_id ]}, *fieldable_params )
       end
 
+      # Sort repeaters following the order with which are listed in the array provided as a argument.
+      #
+      # @param repeaters [Array] the list of ids of the repeaters
+      def sort_repeaters_by(repeaters)
+        repeaters.each_with_index do |id, i|
+          Repeater.find( id ).update!({ position: i + 1 })
+        end
+      end
   end
 end
 

@@ -1,0 +1,10 @@
+<%= simple_form_for [@field_group.structure, @field_group], defaults: { label: false }, html: { multipart: true }  do |f| %>
+<!-- SPLIT -->
+  <%= f.simple_fields_for "field_settings_attributes[]", @field_setting do |ff| %>
+    <li id="form-item-<%= ff.object.id %>" 
+		  class="form-item form-item--new form-item--collapsable">
+	    <%= render 'form_item', f: f, ff: ff, isNew: true %>
+	  </li>
+	<% end %>
+<!-- SPLIT -->
+<% end %>

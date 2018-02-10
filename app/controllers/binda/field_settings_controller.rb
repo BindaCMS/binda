@@ -40,8 +40,20 @@ module Binda
     end
 
     def destroy
-      @field_setting.destroy
-      redirect_to structure_field_group_path( @structure, @field_group ), notice: 'Field setting and all dependent content were successfully destroyed.'
+      @field_setting.destroy!
+      FieldSetting.reset_field_settings_array
+      if params[:isAjax]
+        render json: { target_id: params[:target_id] }, status: 200
+      else
+        redirect_to structure_field_group_path( @structure, @field_group ), notice: 'Field setting and all dependent content were successfully destroyed.'
+      end
+    end
+
+    def sort
+      params[:field_setting].each_with_index do |id, i|
+        FieldSetting.find( id ).update_column('position', i + 1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
+      end
+      render json: { id: "##{params[:id]}" }, status: 200
     end
 
     private

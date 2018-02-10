@@ -1,8 +1,6 @@
 .form-item {
   display: block;
   overflow-y: hidden;
-  transition: max-height 0.6s ease-out;
-
   @extend .clearfix;
 }
 
@@ -11,9 +9,14 @@
 }
 
 .form-item--half-size {
-  position: relative;
-  float: left;
-  width: 50%;
+  // OLD SOLUTION (nicer, but can't be used with max-height=0 and overflow-y=hidden)
+  // position: relative;
+  // float: left;
+  // width: 50%;
+
+  // NEW SOLUTION (not very nice but plays nicely with max-height=0 and overflow-y=hidden) 
+  display: inline-block;
+  width: calc(50% - 3px); // 5px are for the weird issue caused by non-blank space around the inline-block elements
 
   .form-group {
     border-top: none !important;
@@ -31,12 +34,6 @@
     float: right;
     margin-left: 8px;
   }
-}
-
-.form-item--new {
-  position: absolute;
-  top: 101%;
-  max-height: 0;
 }
 
 .form-item--select-input {
@@ -78,14 +75,6 @@
   transform: rotate(180deg);
 }
 
-.form-item--editor {
-  overflow-y: hidden;
-  // max-height: is set via javascript in app/assets/javscripts/components/form_item_editor.js;
-  // default is 0
-  max-height: 0;
-  transition: max-height 0.6s ease-out;
-}
-
 .form-item--repeater {
   overflow-y: hidden;
   // inherit transitions from sortable and add max-height
@@ -102,54 +91,15 @@
   transition: all 0.6s ease;
 }
 
-.font-item--collapsed .form-item--repeater-fields {
+.form-item--collapsable {
+  transition: box-shadow 0.3s ease, transform 0.3s ease, max-height 0.6s ease-out !important;
+}
+
+.font-item--collapsed .form-item--collapsable-stack {
   margin-bottom: 8px;
 }
 
-.form-item--repeater-section {
-  overflow-x: hidden; // This ensure that the div doesn't become wider when draggin sortable items to the right
-  margin-bottom: 0;
-
-  ul.sortable > li {
-    margin-top: -1px; // this solve the issue of a 2px border between 2 repeaters
-    border: 1px solid $color-gray-lighter;
-  }
-
-  ul.sortable > li > * {
-    display: block;
-  }
-
-  ul.sortable {
-    margin-bottom: 0;
-  }
-
-  .ui-sortable-handle:hover {
-    background-color: transparent;
-  }
-
-  .sortable--toggle-text:first-child {
-    display: none;
-  }
-
-  .sortable--toggle {
-    float: right;
-    margin: 0;
-  }
-
-  .sortable--enabled {
-    .form-item--repeater-fields {
-      margin: 0;
-      padding: 0;
-    }
-  }
-
-  .form-item--new {
-    position: absolute;
-    top: 101%;
-    max-height: 0;
-  }
-}
-
+.form-item--add-new,
 .form-item--repeater-section--add-new {
   float: right;
   margin-right: 8px;
@@ -172,12 +122,14 @@
 
 .form-item--collapse-btn,
 .form-item--delete-repeater-item,
+.form-item--delete-item,
 .form-item--edit-item {
   float: right;
   margin-top: 8px;
   margin-right: 8px;
 }
 
+a.form-item--delete-item,
 a.form-item--delete-repeater-item {
   cursor: pointer;
   transition: color 0.2s ease;

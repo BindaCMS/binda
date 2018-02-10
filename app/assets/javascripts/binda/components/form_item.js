@@ -12,7 +12,7 @@ class FormItem {
 	constructor() {}
 
 	isSet() {
-		if ($(".form-item").length > 0) {
+		if ($(".form-item--add-new").length > 0) {
 			return true;
 		} else {
 			return false;
@@ -21,15 +21,7 @@ class FormItem {
 
 	setEvents() {
 		$(document).on("click", ".form-item--add-new", addNewItem);
-
-		$(document).on("click", ".form-item--remove-item-with-js", function(event) {
-			// Stop default behaviour
-			event.preventDefault();
-			$(this)
-				.closest(".form-item")
-				.remove();
-		});
-
+		$(document).on("click", ".form-item--delete-item", deleteItem);
 		$(document).on("click", ".form-item--collapse-btn", collapseToggle);
 	}
 }
@@ -40,9 +32,73 @@ export let _FormItem = new FormItem();
 /// COMPONENT HELPER FUNCTIONS
 ///- - - - - - - - - - - - - - - - - - - -
 
+function addNewItem(event) {
+	// Stop default behaviour
+	event.preventDefault();
+	// Get the child to clone
+	let id = $(this).data("id");
+	let $list = $("#form-item--field-list-" + id);
+	let url = $(this).data("url");
+	let data = $list.sortable("serialize");
+	let params = $(this).data("params");
+	if (params) {
+		data = data.concat(`&${params}`);
+	}
+
+	$.post(url, data, function(data) {
+		// Get repaeter code from Rails
+		// Due to the Rails way of creating nested forms it's necessary to
+		// create the nested item inside a different new form, then get just
+		// the code contained between the two SPLIT comments
+		let parts = data.split("<!-- SPLIT -->");
+		let newItem = parts[1];
+		setupAndAppend(newItem, $list);
+	});
+}
+
+function setupAndAppend(newItem, $list) {
+	// Append the item
+	$list.prepend(newItem);
+	let collapsable = $list.find(".form-item--collapsable").get(0);
+
+	// Prepare collapsable animation
+	collapsable.style.maxHeight = "0px";
+
+	// Setup TinyMCE for the newly created item
+	var textarea_editor_id = $list
+		.find("textarea")
+		.last("textarea")
+		.attr("id");
+	tinyMCE.EditorManager.execCommand("mceAddEditor", true, textarea_editor_id);
+
+	// Prepare collapsable stack animation
+	$(collapsable)
+		.find(".form-item--collapsable-stack")
+		.each(function() {
+			if (!$list.hasClass("sortable--enabled")) {
+				// Prepare field stack for collapsable animation
+				this.style.maxHeight = collapsable.scrollHeight + "px";
+			}
+		});
+
+	// Resize the editor (is it needed with the new configuration?)
+	// _FormItemEditor.resize()
+
+	// Update select input for Select2 plugin
+	setupSelect2($list.find("select"));
+
+	// Refresh Sortable to update the added item with Sortable features
+	$list.sortable("refresh");
+
+	// Run animation 500ms after previous style declaration (see above) otherwise animation doesn't get triggered
+	setTimeout(function() {
+		collapsable.style.maxHeight = collapsable.scrollHeight + "px";
+	}, 50);
+}
+
 // This function could be improved as it generates an issue with
 // input ids which are duplicated after the entire target has been cloned
-function addNewItem(event) {
+function DEPRECATEDaddNewItem(event) {
 	// Stop default behaviour
 	event.preventDefault();
 	// Get the child to clone
@@ -102,12 +158,39 @@ function collapseToggle(event) {
 	let $collapsable = $(this).closest(".form-item--collapsable");
 
 	if ($collapsable.hasClass("form-item--collapsed")) {
-		$collapsable.find(".form-item--repeater-fields").each(open);
+		$collapsable.find(".form-item--collapsable-stack").each(open);
 		$collapsable.find(".form-item--editor").each(open);
 		$collapsable.removeClass("form-item--collapsed");
 	} else {
-		$collapsable.find(".form-item--repeater-fields").each(close);
+		$collapsable.find(".form-item--collapsable-stack").each(close);
 		$collapsable.find(".form-item--editor").each(close);
 		$collapsable.addClass("form-item--collapsed");
 	}
+}
+
+function deleteItem(event) {
+	// Stop default behaviour
+	event.preventDefault();
+	let record_id = $(this).data("id");
+	let targetId = `#form-item-${record_id}`
+	let target = $(targetId).get(0);
+	// As max-height isn't set you need to set it manually before changing it,
+	// otherwise the animation doesn't get triggered
+	target.style.maxHeight = target.scrollHeight + "px";
+	// Change max-height after 50ms to trigger css animation
+	setTimeout(function() {
+		target.style.maxHeight = "0px";
+	}, 50);
+
+	$.ajax({
+		url: $(this).attr("href"),
+		data: { id: record_id, target_id: targetId, isAjax: true },
+		method: "DELETE"
+	}).done(data => {
+		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
+		setTimeout(function() {
+			$(data.target_id).remove();
+		}, 700);
+	});
+	// TODO add a fallback if request fails
 }

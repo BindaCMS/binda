@@ -1,4 +1,3 @@
-<% repeater = @instance.find_or_create_a_field_by( repeater_setting.id, 'repeater' ) %>
 <li id="repeater_<%= repeater.id %>" 
 	class="form-item--repeater form-item--collapsable">
 	<div class="form-item--header">
@@ -14,6 +13,7 @@
 		</a>
 		<a class="form-item--delete-repeater-item" 
 			href="<%= repeater_path( id: repeater.id ) %>" 
+			data-id="<%= repeater.id %>" 
 			data-confirm="<%= t 'binda.confirm_delete' %>">
 			<i class="far fa-trash-alt"></i> 
 			<%= t('binda.delete').capitalize %>
@@ -24,15 +24,16 @@
 			#<%= repeater.id %>	
 		</p>
 	</div>
-	<div class="form-item--repeater-fields">
+	<div class="form-item--repeater-fields form-item--collapsable-stack">
     <%= f.simple_fields_for "repeaters_attributes[]", repeater do |ff| %>
+    	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: ff.object.field_setting.id } %>
+			<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
 			<%= ff.input :fieldable_id, as: :hidden %>
 			<%= ff.input :fieldable_type, as: :hidden %>
-    	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: repeater_setting.id } %>
-			<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>
-			<% repeater_setting.children.order( :position, :id ).each do |repeater_setting_child| %>
-			  <%= render "binda/fieldable/form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child %>
+			<%# DON'T USE ff.input :position otherwise it will override the order set by rails via ajax when adding a new item %>
+			<% ff.object.field_setting.children.order( :position, :id ).each do |repeater_setting_child| %>
+			  <%= render "binda/fieldable/form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child, repeater: repeater %>
 		  <% end %>
-		<% end %>
+	  <% end %>
 	</div>
 </li>

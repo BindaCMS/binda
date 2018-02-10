@@ -1,16 +1,18 @@
 <ul id="form-item--repeater-setting-<%= repeater_setting.id %>" 
 	class="sortable sortable--disabled" 
 	data-update-url="<%= url_for([@structure, @instance, :sort_repeaters]) %>" 
-	data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.components').downcase } %>">
+	data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.field_setting.plural').downcase } %>">
 	<% if repeaters.size == 0 %>
-		<%= render 'binda/fieldable/form_item_repeater/form_item_repeater_empty_list', 
-			repeaters: repeaters,
+			<%= render 'binda/fieldable/form_item_repeater/form_item_repeater_list_item', 
+			repeater: @instance.find_or_create_a_field_by( repeater_setting.id, 'repeater' ),
 			repeater_setting: repeater_setting, 
 			f: f %>
 	<% else %>
-		<%= render 'binda/fieldable/form_item_repeater/form_item_repeater_default_list', 
-			repeaters: repeaters,
-			repeater_setting: repeater_setting, 
-			f: f %>		
+		<% repeaters.each do |repeater| %>
+			<%= render 'binda/fieldable/form_item_repeater/form_item_repeater_list_item', 
+				repeater: repeater,
+				repeater_setting: repeater_setting, 
+				f: f %>
+		<% end %>
 	<% end %>
 </ul>

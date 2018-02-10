@@ -1,25 +1,16 @@
-<div class="standard-form--secondary-header form-item--header form-item--repeater-header">
-	<% if ff.object.slug.nil? %>
-		<a class="form-item--delete-repeater-item form-item--remove-item-with-js"
-	     data-confirm="<%= t('binda.field_setting.confirm_delete') %>">
-			<i class="far fa-trash-alt"></i> 
-			<%= t('binda.delete').capitalize %>
-	  </a>
-	  <p><%= t('binda.new_item_in_repeater', { arg1: '' })%></p>
-	<% else %>
-		<a class="form-item--collapse-btn" href="#">
-			<span><i class="fas fa-angle-up"></i> <%= t('binda.collapse') %></span>
-			<span><i class="fas fa-angle-down"></i> <%= t('binda.expand') %></span>
-		</a>
-		<a href="<%= structure_field_group_field_setting_path( @structure, @field_group, ff.object ) %>"
-			class="form-item--delete-repeater-item"
-			data-method="delete"
-			data-confirm="<%= t('binda.confirm_delete') %>">
-			<i class="far fa-trash-alt"></i> 
-			<%= t('binda.delete').capitalize %>
-		</a>
-    <p>
-    	<%= ff.object.name %> (<%= ff.object.field_type.humanize.capitalize %>)
-    </p>
-	<% end %>
+<div class="standard-form--secondary-header form-item--header">
+	<a class="form-item--collapse-btn" href="#">
+		<span><i class="fas fa-angle-up"></i> <%= t('binda.collapse') %></span>
+		<span><i class="fas fa-angle-down"></i> <%= t('binda.expand') %></span>
+	</a>
+	<a href="<%= structure_field_group_field_setting_path( @structure, @field_group, ff.object ) %>"
+		class="form-item--delete-item"
+		data-id="<%= ff.object.id %>"
+		data-confirm="<%= t('binda.confirm_delete') %>">
+		<i class="far fa-trash-alt"></i> 
+		<%= t('binda.delete').capitalize %>
+	</a>
+  <p>
+  	<%= ff.object.name %> (<%= ff.object.field_type.humanize.capitalize %>)
+  </p>
 </div>

@@ -48,7 +48,6 @@ module Binda
           end
         end
         rake 'db:migrate'
-        
       end
 
       def add_route

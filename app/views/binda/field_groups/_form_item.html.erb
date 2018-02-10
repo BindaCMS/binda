@@ -1,7 +1,3 @@
-<div class="standard-form--container field-settings-container form-item--collapsable form-item--collapsed">
-	<%= ff.input :field_group_id, as: :hidden %>
-	<%= ff.input :id, as: :hidden %>
-	<%= ff.input :ancestry, as: :hidden unless ff.object.is_root? %>
-	<%= render 'binda/field_groups/form_item/form_item_header', ff: ff %>
-	<%= render 'binda/field_groups/form_item/form_item_editor', f: f, ff: ff %>
-</div>
+<%# DON'T USE ff.input :position otherwise it will override the order set by Binda via ajax when adding a new item %>
+<%= render 'binda/field_groups/form_item/form_item_header', ff: ff %>
+<%= render 'binda/field_groups/form_item/form_item_editor', f: f, ff: ff, isNew: isNew %>

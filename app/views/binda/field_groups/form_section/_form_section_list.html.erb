@@ -1,0 +1,12 @@
+<ul id="form-item--field-list-<%= defined?(repeater) ? repeater.id : f.object.id %>"
+	class="sortable sortable--disabled"
+  data-update-url="<%= url_for([@structure, @field_group, :sort_field_settings]) %>" 
+  data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.field_setting.plural').downcase } %>">
+  <% ancestry = defined?(repeater) ? repeater.id.to_s : nil %>
+  <%= f.simple_fields_for :field_settings, f.object.field_settings.where( ancestry: ancestry ).order( :position, :name ) do |ff| %>
+    <li id="form-item-<%= ff.object.id %>" 
+      class="form-item <%= "form-item--#{ ff.object.field_type }" %> form-item--collapsable form-item--collapsed">
+      <%= render 'form_item', f: f, ff: ff, isNew: false %>
+    </li>
+  <% end %>
+</ul>

@@ -1,14 +1,17 @@
-<div class="form-item--editor">
+<div class="form-item--editor form-item--collapsable-stack">
 	<div class="form-item--half-size">
 		<%= ff.input :name, as: :string, input_html: { class: "form-item--input" } %>
 	</div>
-	<% if ff.object.new_record? %>
-		<%= render 'binda/field_groups/form_item/form_item_new_editor', ff: ff %>
+	<% if isNew %>
+		<%= render 'binda/field_groups/form_item/form_item_editor_new_item', ff: ff %>
 	<% else %>
-		<%= render 'binda/field_groups/form_item/form_item_persisted_editor', ff: ff %>
+		<%= render 'binda/field_groups/form_item/form_item_editor_existing_item', ff: ff %>
 		<% if %w(radio selection checkbox).include?(ff.object.field_type) %>
 			<%= render 'binda/field_groups/form_item/form_item_choice_editor', f: f, ff: ff  %>
 		<% end %>
 	<% end %>
+	<%= ff.input :field_group_id, as: :hidden %>
+	<%= ff.input :id, as: :hidden %>
+	<%= ff.input :ancestry, as: :hidden unless ff.object.is_root? %>
 	<div class="clearfix"></div>
 </div>

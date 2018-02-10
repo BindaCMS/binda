@@ -11,9 +11,6 @@
 <div class="form-item--full-size">
 	<%= ff.input :description, input_html: { class: "form-item--input" } %>
 </div>
-<div class="form-item--full-size">
-	<%= ff.input :position, as: :integer, input_html: { class: "form-item--input" } %>
-</div>
 <% if ff.object.field_type == 'relation' %>
   <div class="form-item--full-size">
     <%= ff.input :accepted_structure_ids, 

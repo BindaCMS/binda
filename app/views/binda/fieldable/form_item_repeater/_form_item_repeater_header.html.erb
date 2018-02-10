@@ -1,7 +1,7 @@
 <div class="form-item--repeater-title">
 	<a class="b-btn b-btn-primary sortable--toggle" 
 		href="#" 
-		data-repeater-id="form-item--repeater-setting-<%= repeater_setting.id %>">
+		data-sortable-target-id="form-item--repeater-setting-<%= repeater_setting.id %>">
 		<span class="sortable--toggle-text">
 			<i class="fa fa-check" aria-hidden="true"></i> 
 			<%= t'binda.done' %>
@@ -22,4 +22,9 @@
 	<p class="control-label clearfix">
 		<%= repeater_setting.name %>
 	</p>
+	<% unless repeater_setting.description.blank? %>
+		<p class="help-block">
+			<%= repeater_setting.description %>
+		</p>
+	<% end %>
 </div>

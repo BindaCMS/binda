@@ -35,10 +35,10 @@ module Binda
 
     # DELETE /repeaters/1
     def destroy
-      @repeater.destroy
+      @repeater.destroy!
       # redirect_to repeaters_url, notice: 'Repeater was successfully destroyed.'
       if params['isAjax']
-        head :ok
+        render json: { target_id: params[:target_id] }, status: 200
       else
         redirect_to :back, notice: 'Field group was successfully destroyed.'
       end

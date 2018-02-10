@@ -1,20 +1,19 @@
-<%= f.simple_fields_for :field_settings, repeater.children.order( :position, :name ) do |ff| %>
-	<div id="form-item-<%= ff.object.id %>" class="form-item <%= "form-item--#{ ff.object.field_type }" unless ff.object.field_type.nil? %>">
-	  <%= render 'form_item', f: f, ff: ff %>
-	</div>
-<% end %>
-<%= f.simple_fields_for 'new_field_settings[]', repeater.children.build( field_group: @field_group ) do |ff| %>
-  <div id="repeater-<%= repeater.id %>--new-form-item" class="form-item form-item--new">
-    <%= render 'form_item', f: f, ff: ff %>
+<div class="standard-form--container">
+  <div id="form-section--field-group<%= repeater.id %>"
+    class="form-section--wide-container standard-form--field-group">
+    <div class="form-section">
+      <div class="standard-form--header">
+        <small><%= "#{ t('binda.repeater_field_settings', arg1: repeater.name ) }" %></small>
+      </div>
+      <div class="form-group">
+        <%= render 'binda/field_groups/form_section/form_section_header', f: f, repeater: repeater %>
+        <%= render 'binda/field_groups/form_section/form_section_list', f: f, repeater: repeater %>
+      </div>
+      <% if @field_group.slug.nil? %>
+        <p>
+          <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ).capitalize %>
+        </p>
+      <% end %>
+    </div>
   </div>
-<% end %>
-<div class="standard-form--main-actions">		
-	<a id="form-item--repeater-<%= repeater.id %>--add-new" 
-    class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" 
-    data-new-form-item-id="repeater-<%= repeater.id %>--new-form-item" 
-    href="#">
-    <i class="fa fa-plus" aria-hidden="true"></i>
-    <%= t(:new_item_in_repeater, arg1: repeater.name.capitalize) %> 
-    <%= t('binda.field_setting.singular') %>
-	</a>
 </div>

@@ -23,6 +23,7 @@ module Binda
 
 		    prepare_destination
 		    # @old_stdin = STDIN
+		    # Mock user input by adding 4 newlines which answer the setup questions (see setup generator)
 		    STDIN = StringIO.new("\n\n\n\n")
 		    run_generator
 		    # STDIN = @old_stdin
@@ -69,18 +70,18 @@ module Binda
 		describe "executing from an existing application" do
 
 		  before(:all) do
-		    ::DatabaseCleaner.strategy = :truncation
-		    ::DatabaseCleaner.clean
+		    # ::DatabaseCleaner.strategy = :truncation
+		    # ::DatabaseCleaner.clean
 			
 		    prepare_destination
 		    # @old_stdin = STDIN
-		    STDIN = StringIO.new("mail@admin.com\npassword\nWebsite name\nWebsite description\n")
+		    STDIN = StringIO.new("new@admin.com\npassword\nWebsite name\nWebsite description\n")
 		    run_generator
 		    # STDIN = @old_stdin
 		  end
 
 		  it "can create a default user" do
-		    expect(Binda::User.where(email: 'mail@admin.com').present?).to be true
+		    expect(Binda::User.where(email: 'new@admin.com').present?).to be true
 			end
 		end
 	end
