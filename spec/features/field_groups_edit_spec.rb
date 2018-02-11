@@ -20,6 +20,6 @@ describe "GET field_groups#edit", type: :feature, js: true do
 		path_to_field_group = binda.edit_structure_field_group_path( structure_id: @structure.slug, id: field_group.slug )
 		visit path_to_field_group
 		expect( page ).to have_current_path(path_to_field_group)
-		expect( page ).to have_selector(".form-item--editor", visible: false)
+		expect( page ).to have_selector(".form--list", visible: false)
 	end
 end

@@ -19,10 +19,6 @@ describe "GET component#edit", type: :feature, js: true do
 		@component.reload
 	end
 
-	# This test should be refactored as often ends throwing this error:
-	# 
-	## Failure/Error: raise Capybara::ExpectationNotMet.new('Timed out waiting for Selenium session reset') if (Capybara::Helpers.monotonic_time - start_time) >= 10   
-	##     Capybara::ExpectationNotMet: Timed out waiting for Selenium session reset
 	it "allows to edit a string field" do
 		string_setting = @structure.field_groups.first.field_settings.where(field_type: 'string').first
 

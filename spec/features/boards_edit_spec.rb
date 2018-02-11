@@ -1,13 +1,13 @@
 require "rails_helper"
 
-describe "GET board#edit", type: :feature, js: true do
+describe "GET component#edit", type: :feature, js: true do
   include CarrierWave::Test::Matchers
 
 	let(:user){ Binda::User.first }
 
 	before(:context) do
 		@structure = create(:board_structure_with_fields)
-		@board = @structure.boards.first
+		@board = @structure.board
 	end
 
 	before(:example) do
@@ -19,10 +19,6 @@ describe "GET board#edit", type: :feature, js: true do
 		@board.reload
 	end
 
-	# This test should be refactored as often ends throwing this error:
-	# 
-	## Failure/Error: raise Capybara::ExpectationNotMet.new('Timed out waiting for Selenium session reset') if (Capybara::Helpers.monotonic_time - start_time) >= 10   
-	##     Capybara::ExpectationNotMet: Timed out waiting for Selenium session reset
 	it "allows to edit a string field" do
 		string_setting = @structure.field_groups.first.field_settings.where(field_type: 'string').first
 
@@ -43,11 +39,12 @@ describe "GET board#edit", type: :feature, js: true do
 	it "allows to edit a string field in a repeater" do
 		ids = @board.repeaters.first.string_ids
 
-		repeater_expand_btn = "#form--list-#{@board.repeaters.first.id} .form-item--collapse-btn span"
+		repeater_expand_btn = "#form--list-item-#{@board.repeaters.first.id} .form-item--collapse-btn"
+
 		find(repeater_expand_btn).click
 		# wait animation
 		sleep 1
-		
+
 		string_field = "board_repeaters_attributes_#{@board.repeaters.first.id}_strings_attributes_#{ids[ids.length-1]}_content"
 		string_value = 'oh my lorem'
 		find("##{string_field}")
@@ -56,6 +53,9 @@ describe "GET board#edit", type: :feature, js: true do
 		click_button "save"
 
 		visit @path
+		
+		# wait animation
+		sleep 1
 
 		find(repeater_expand_btn).click
 		# wait animation

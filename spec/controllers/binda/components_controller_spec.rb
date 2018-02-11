@@ -56,12 +56,12 @@ module Binda
         repeaters = @component.repeaters.order('position').find_all{ |r| r.field_setting_id = repeater_setting_id }
         
         expect(repeaters.first.position).to eq(0)
-        expect(repeaters.last.position).to eq(repeaters.length)
+        expect(repeaters.last.position).to eq(repeaters.length-1)
 
         first_shuffled_id = shuffled_ids[0]
         last_shuffled_id = shuffled_ids[shuffled_ids.length-1]
-        expect(@component.repeaters.find(first_shuffled_id).position).to eq(1)
-        expect(@component.repeaters.find(last_shuffled_id).position).to eq(@component.repeaters.count)
+        expect(@component.repeaters.find(first_shuffled_id).position).to eq(0)
+        expect(@component.repeaters.find(last_shuffled_id).position).to eq(@component.repeaters.length-1)
       end
     end
 
