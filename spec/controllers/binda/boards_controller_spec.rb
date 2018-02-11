@@ -55,7 +55,7 @@ module Binda
         first_shuffled_id = shuffled_ids[0]
         last_shuffled_id = shuffled_ids[shuffled_ids.length-1]
         expect(@board.repeaters.find(first_shuffled_id).position).to eq(0)
-        expect(@board.repeaters.find(last_shuffled_id).position).to eq(@board.repeaters.count)
+        expect(@board.repeaters.find(last_shuffled_id).position).to eq(@board.repeaters.lenght-1)
       end
     end
 

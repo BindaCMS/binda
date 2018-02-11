@@ -62,7 +62,11 @@ module Binda
       if params[:repeater].nil?
         repeaters = [
           @repeater.id.to_s, 
-          *@instance.repeaters.select{|r| r.field_setting_id=@repeater_setting.id }.map(&:id)
+          *@instance
+            .repeaters
+            .order('position ASC')
+            .select{|r| r.field_setting_id == @repeater_setting.id }
+            .map(&:id)
         ]
       else
         repeaters = [

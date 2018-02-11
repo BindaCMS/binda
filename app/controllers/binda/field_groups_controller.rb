@@ -79,7 +79,11 @@ module Binda
       if params["form-item"].nil?
         field_settings = [
           @field_setting.id.to_s, 
-          *@field_group.field_settings.select{|fs| fs.ancestry == @field_setting.ancestry }.map(&:id)
+          *@field_group
+            .field_settings
+            .order('position ASC')
+            .select{|fs| fs.ancestry == @field_setting.ancestry }
+            .map(&:id)
         ]
       else
         field_settings = [
