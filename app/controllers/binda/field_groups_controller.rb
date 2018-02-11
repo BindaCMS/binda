@@ -3,7 +3,7 @@ require_dependency "binda/application_controller"
 module Binda
   class FieldGroupsController < ApplicationController
     before_action :set_structure
-    before_action :set_field_group, only: [:show, :edit, :update, :destroy, :new_field_setting]
+    before_action :set_field_group, only: [:show, :edit, :update, :destroy, :add_field_setting]
 
     def index
       redirect_to structure_field_group_path( @structure.slug )
@@ -53,19 +53,19 @@ module Binda
 
     def sort
       params[:field_group].each_with_index do |id, i|
-        FieldGroup.find( id ).update_column('position', i + 1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
+        FieldGroup.find( id ).update_column('position', i ) # use update_column to skip callbacks (which leads to huge useless memory consumption)
       end
       render json: { id: "##{params[:id]}" }, status: 200
     end
 
     def sort_field_settings
       params["form-item"].each_with_index do |id, i|
-        FieldSetting.find( id ).update_column('position', i + 1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
+        FieldSetting.find( id ).update_column('position', i ) # use update_column to skip callbacks (which leads to huge useless memory consumption)
       end
       render json: { id: "##{params[:id]}" }, status: 200
     end
 
-    def new_field_setting
+    def add_field_setting
       # We set some default values in order to be able to save the field setting
       # (if field setting isn't save it makes impossible to sort the order)
       @field_setting = FieldSetting.new(
@@ -153,7 +153,7 @@ module Binda
       # @param field_settings [Array] the list of ids of the field settings
       def sort_field_setting_by(field_settings)
         field_settings.each_with_index do |id, i|
-          FieldSetting.find( id ).update!({ position: i + 1 })
+          FieldSetting.find( id ).update!({ position: i })
         end
       end
   end

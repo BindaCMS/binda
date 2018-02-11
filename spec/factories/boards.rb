@@ -1,12 +1,10 @@
 FactoryBot.define do
 
-	# Boards are automatically generated when you create 
-	# a structure with `instance_type` = `board`
-	factory :board_structure, class: Binda::Structure do
-    sequence(:name) { |n| "##{n} board" }
-    slug { "#{name}".parameterize }
-    instance_type 'board'
-	end
+  # IMPORTANT:
+  # if you need to create a board use :board_structure
+  # 
+  # Boards are automatically generated when you create 
+  # a structure with `instance_type` = `board`
 
 	factory :board_structure_with_fields, parent: :board_structure do
     transient do

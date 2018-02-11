@@ -1,22 +1,22 @@
 require "rails_helper"
 
-describe "GET component#edit", type: :feature, js: true do
+describe "GET board#edit", type: :feature, js: true do
   include CarrierWave::Test::Matchers
 
 	let(:user){ Binda::User.first }
 
 	before(:context) do
-		@structure = create(:article_structure_with_components_and_fields)
-		@component = @structure.components.first
+		@structure = create(:board_structure_with_fields)
+		@board = @structure.boards.first
 	end
 
 	before(:example) do
 		sign_in user
-		@path = binda.edit_structure_component_path(@structure, @component)
+		@path = binda.edit_structure_board_path(@structure, @board)
 		visit @path
 		expect(page).to have_current_path(@path)
-		# make sure the ActiveRecord object (@component) is updated with the real state of the component
-		@component.reload
+		# make sure the ActiveRecord object (@board) is updated with the real state of the board
+		@board.reload
 	end
 
 	# This test should be refactored as often ends throwing this error:
@@ -26,9 +26,9 @@ describe "GET component#edit", type: :feature, js: true do
 	it "allows to edit a string field" do
 		string_setting = @structure.field_groups.first.field_settings.where(field_type: 'string').first
 
-		string_id = @component.strings.where(field_setting_id: string_setting.id).first.id
+		string_id = @board.strings.where(field_setting_id: string_setting.id).first.id
 
-		string_field = "component_strings_attributes_#{string_id}_content"
+		string_field = "board_strings_attributes_#{string_id}_content"
 		string_value = 'oh my lorem'
 
 		find("##{string_field}")
@@ -41,15 +41,14 @@ describe "GET component#edit", type: :feature, js: true do
 	end
 
 	it "allows to edit a string field in a repeater" do
-		ids = @component.repeaters.first.string_ids
+		ids = @board.repeaters.first.string_ids
 
-		repeater_expand_btn = "#form--list-item-#{@component.repeaters.first.id} .form-item--collapse-btn"
-
+		repeater_expand_btn = "#form--list-#{@board.repeaters.first.id} .form-item--collapse-btn span"
 		find(repeater_expand_btn).click
 		# wait animation
 		sleep 1
 		
-		string_field = "component_repeaters_attributes_#{@component.repeaters.first.id}_strings_attributes_#{ids[ids.length-1]}_content"
+		string_field = "board_repeaters_attributes_#{@board.repeaters.first.id}_strings_attributes_#{ids[ids.length-1]}_content"
 		string_value = 'oh my lorem'
 		find("##{string_field}")
 
@@ -117,9 +116,9 @@ describe "GET component#edit", type: :feature, js: true do
 		# Refresh the page so the image field appear on the editor
 		visit @path
 
-		expect(@component.images.first.image.present?).not_to be_truthy
+		expect(@board.images.first.image.present?).not_to be_truthy
 
-		field_id = "component_images_attributes_#{@component.images.where(field_setting_id: image_setting.id ).first.id}_image"
+		field_id = "board_images_attributes_#{@board.images.where(field_setting_id: image_setting.id ).first.id}_image"
 		image_name = 'test-image.jpg'
 		image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
 		page.execute_script("document.getElementById('#{field_id}').style.zIndex = '1'")
@@ -129,8 +128,8 @@ describe "GET component#edit", type: :feature, js: true do
 		wait_for_ajax
 		sleep 1 # wait for animation to complete
 	
-		@component.reload
-		image = @component.images.first
+		@board.reload
+		image = @board.images.first
 
 		within "#fileupload-#{image.id}" do
 			expect(page).to have_content image_name
@@ -170,11 +169,11 @@ describe "GET component#edit", type: :feature, js: true do
 	end
 
 	it "allows to add a new repeater element" do
-		# initial_repeaters_count = @component.repeaters.count
+		# initial_repeaters_count = @board.repeaters.count
 		# expect( all('.form-item--repeater-fields').count ).to eq( initial_repeaters_count )
-		# click_link "form-item--repeater-#{@component.repeaters.first.field_setting.id}--add-new-button"
+		# click_link "form-item--repeater-#{@board.repeaters.first.field_setting.id}--add-new-button"
 		# # This find method forces Capybara to wait for Ajax request
-		# find "#repeater_#{@component.repeaters.pluck(:id).last}"
+		# find "#repeater_#{@board.repeaters.pluck(:id).last}"
 		# sleep 3
 		# expect( all('.form-item--repeater-fields').count ).to eq( initial_repeaters_count + 1 )
 		skip "not implemented yet"
@@ -185,11 +184,11 @@ describe "GET component#edit", type: :feature, js: true do
 		skip "not implemented yet"
 	end
 
-	it "allows to relate a component to other ones" do
+	it "allows to relate a board to other ones" do
 		skip "not implemented yet"
 	end
 
-	it "should not be possible to relate a component to itself" do
+	it "should not be possible to relate a board to itself" do
 		skip "not implemented yet"
 	end
 

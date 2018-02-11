@@ -11,7 +11,7 @@ class LoginForm {
 		this.isFilled = false;
 	}
 
-	isSet() {
+	isPresent() {
 		if ($(".login--form").length > 0) {
 			return true;
 		} else {

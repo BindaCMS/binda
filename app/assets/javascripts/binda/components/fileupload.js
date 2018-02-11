@@ -10,7 +10,7 @@ class FileUpload {
 		this.target = ".fileupload";
 	}
 
-	isSet() {
+	isPresent() {
 		if ($(this.target).length > 0) {
 			return true;
 		} else {

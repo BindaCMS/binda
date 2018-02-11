@@ -44,7 +44,7 @@ Binda::Engine.routes.draw do
       post 'field_settings/add_child'
       post 'field_settings/sort'
       post 'sort_field_settings'
-      post 'new_field_setting'
+      post 'add_field_setting'
       resources :field_settings
     end
     resources :boards do

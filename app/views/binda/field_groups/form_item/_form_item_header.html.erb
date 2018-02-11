@@ -1,10 +1,18 @@
 <div class="standard-form--secondary-header form-item--header">
-	<a class="form-item--collapse-btn" href="#">
-		<span><i class="fas fa-angle-up"></i> <%= t('binda.collapse') %></span>
-		<span><i class="fas fa-angle-down"></i> <%= t('binda.expand') %></span>
+	<a class="form-item--collapse-btn" 
+		href="#"
+		data-sortable-target-id="form--list-<%= ff.object.id %>">
+		<span>
+			<i class="fas fa-angle-up"></i> 
+			<%= t('binda.collapse') %>
+		</span>
+		<span>
+			<i class="fas fa-angle-down"></i> 
+			<%= t('binda.expand') %>
+		</span>
 	</a>
 	<a href="<%= structure_field_group_field_setting_path( @structure, @field_group, ff.object ) %>"
-		class="form-item--delete-item"
+		class="form--delete-list-item"
 		data-id="<%= ff.object.id %>"
 		data-confirm="<%= t('binda.confirm_delete') %>">
 		<i class="far fa-trash-alt"></i> 

@@ -1,8 +1,8 @@
 <div class="form-item--editor form-item--collapsable-stack">
 	<div class="form-item--half-size">
-		<%= ff.input :name, as: :string, input_html: { class: "form-item--input" } %>
+		<%= ff.input :name, as: :string, input_html: { class: "form-item--default-input", "test-hook": "field_group_field_settings_name" } %>
 	</div>
-	<% if isNew %>
+	<% if is_new %>
 		<%= render 'binda/field_groups/form_item/form_item_editor_new_item', ff: ff %>
 	<% else %>
 		<%= render 'binda/field_groups/form_item/form_item_editor_existing_item', ff: ff %>
@@ -13,5 +13,6 @@
 	<%= ff.input :field_group_id, as: :hidden %>
 	<%= ff.input :id, as: :hidden %>
 	<%= ff.input :ancestry, as: :hidden unless ff.object.is_root? %>
+	<%# DON'T USE ff.input :position otherwise it will override the order set by Binda via ajax when adding a new item %>
 	<div class="clearfix"></div>
 </div>

@@ -1,3 +1,5 @@
-<%# DON'T USE ff.input :position otherwise it will override the order set by Binda via ajax when adding a new item %>
-<%= render 'binda/field_groups/form_item/form_item_header', ff: ff %>
-<%= render 'binda/field_groups/form_item/form_item_editor', f: f, ff: ff, isNew: isNew %>
+<li id="form--list-item-<%= ff.object.id %>" 
+  class="form-item form-item--collapsable <%= "form-item--#{ ff.object.field_type }" %> <%= "form-item--new" if is_new %> <%= "form-item--collapsed" unless is_new %>">
+	<%= render 'binda/field_groups/form_item/form_item_header', ff: ff %>
+	<%= render 'binda/field_groups/form_item/form_item_editor', f: f, ff: ff, is_new: is_new %>
+</li>

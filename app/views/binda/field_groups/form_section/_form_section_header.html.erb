@@ -1,7 +1,7 @@
-<div class="form-item--field-group-title">
+<div>
 	<a class="b-btn b-btn-primary sortable--toggle" 
 		href="#" 
-		data-sortable-target-id="form-item--field-list-<%= defined?(repeater) ? repeater.id : f.object.id %>">
+		data-sortable-target-id="form--list-<%= defined?(repeater) ? repeater.id : f.object.id %>">
 		<span class="sortable--toggle-text">
 			<i class="fa fa-check" aria-hidden="true"></i> 
 			<%= t'binda.done' %>
@@ -12,10 +12,10 @@
 		</span>
 	</a>
 	<% if defined? repeater %>
-  	<a id="form-item--repeater-<%= repeater.id %>--add-new" 
-      class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" 
+  	<a id="form--list-<%= repeater.id %>--add-list-item" 
+      class="form--add-list-item main-header--link b-btn b-btn-primary b-btn-settings" 
       href="#"
-	    data-url="<%= structure_field_group_new_field_setting_path(field_group_id: @field_group.id) %>"
+	    data-url="<%= structure_field_group_add_field_setting_path(field_group_id: @field_group.id) %>"
 	    data-id="<%= repeater.id %>"
 	    data-params="id=<%= f.object.id %>&ancestry=<%= repeater.id %>">
       <i class="fa fa-plus" aria-hidden="true"></i>	
@@ -23,10 +23,10 @@
       <%= t('binda.field_setting.singular') %>
     </a>
 	<% else %>
-	  <a id="form-item--field-group-<%= f.object.id %>--add-new" 
-	    class="form-item--add-new main-header--link b-btn b-btn-primary b-btn-settings" 
+	  <a id="form--list-<%= f.object.id %>--add-list-item" 
+	    class="form--add-list-item main-header--link b-btn b-btn-primary b-btn-settings" 
 	    href="#" 
-	    data-url="<%= structure_field_group_new_field_setting_path(field_group_id: @field_group.id) %>"
+	    data-url="<%= structure_field_group_add_field_setting_path(field_group_id: @field_group.id) %>"
 	    data-id="<%= f.object.id %>"
 	    data-params="id=<%= f.object.id %>">
 	    <i class="fa fa-plus" aria-hidden="true"></i>

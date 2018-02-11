@@ -1,10 +1,8 @@
 <%= simple_form_for [@field_group.structure, @field_group], defaults: { label: false }, html: { multipart: true }  do |f| %>
 <!-- SPLIT -->
-  <%= f.simple_fields_for "field_settings_attributes[]", @field_setting do |ff| %>
-    <li id="form-item-<%= ff.object.id %>" 
-		  class="form-item form-item--new form-item--collapsable">
-	    <%= render 'form_item', f: f, ff: ff, isNew: true %>
-	  </li>
+	<%# see https://stackoverflow.com/questions/32984498/rails-4-adding-child-index-to-dynamically-added-nested-form-fields-with-cocoo %>
+	<%= f.simple_fields_for :field_settings, @field_setting, child_index: (Time.now + rand(10000)).to_i do |ff| %>
+		<%= render 'binda/field_groups/form_item', f: f, ff: ff, is_new: true %>
 	<% end %>
 <!-- SPLIT -->
 <% end %>

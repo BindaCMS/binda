@@ -64,67 +64,7 @@
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemEditor; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * FORM ITEM EDITOR
- */
-
-var FormItemEditor = function () {
-	function FormItemEditor() {
-		_classCallCheck(this, FormItemEditor);
-
-		this.target = ".form-item--editor";
-	}
-
-	_createClass(FormItemEditor, [{
-		key: "isSet",
-		value: function isSet() {
-			if ($(this.target).length > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}, {
-		key: "setEvents",
-		value: function setEvents() {
-			var _this = this;
-
-			// run resize to set initial size
-			this.resize();
-			// run resize on each of these events
-			$(window).resize(function () {
-				_this.resize();
-			});
-		}
-	}, {
-		key: "resize",
-		value: function resize() {
-			$(this.target).each(function () {
-				// If the form item editor is closed don't go any further
-				if ($(this).height() === 0) return;
-				// otherwise update the max-height which is needed for the CSS transition
-				// NOTE you need to remove the max-height (inside 'style' attribute) to get the real height
-				$(this).get(0).style.height = "auto";
-				$(this).get(0).style.maxHeight = $(this).get(0).scrollHeight + "px";
-			});
-		}
-	}]);
-
-	return FormItemEditor;
-}();
-
-var _FormItemEditor = new FormItemEditor();
-
-/***/ }),
+/* 0 */,
 /* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -164,19 +104,17 @@ function setupSelect2(target) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_form_item_image__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_fileupload__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_login_shader__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_login_form__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_sortable__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_field_group_editor__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_bootstrap__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_select2__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_radio_toggle__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item_collapsable__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_image__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_field_setting_choices__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_fileupload__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_login_shader__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_login_form__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sortable__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_bootstrap__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_select2__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_radio_toggle__ = __webpack_require__(13);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
@@ -193,391 +131,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-
 $(document).ready(function () {
-	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_0__components_form_item__["a" /* _FormItem */].setEvents();
+	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item_collapsable__["a" /* _FormItemCollapsable */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_0__components_form_item_collapsable__["a" /* _FormItemCollapsable */].setEvents();
 	}
-	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_1__components_form_item_repeater__["a" /* _FormItemRepeater */].setEvents();
+	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_image__["a" /* _FormItemImage */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_1__components_form_item_image__["a" /* _FormItemImage */].setEvents();
 	}
-	if (__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_2__components_form_item_image__["a" /* _FormItemImage */].setEvents();
+	if (__WEBPACK_IMPORTED_MODULE_2__components_field_setting_choices__["a" /* _FieldSettingChoices */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_2__components_field_setting_choices__["a" /* _FieldSettingChoices */].setEvents();
 	}
-	if (__WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__["a" /* _FieldSettingChoices */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_3__components_field_setting_choices__["a" /* _FieldSettingChoices */].setEvents();
+	if (__WEBPACK_IMPORTED_MODULE_3__components_fileupload__["a" /* _FileUpload */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_3__components_fileupload__["a" /* _FileUpload */].setEvents();
 	}
-	if (__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_4__components_form_item_editor__["a" /* _FormItemEditor */].setEvents();
+	if (__WEBPACK_IMPORTED_MODULE_5__components_login_form__["a" /* _LoginForm */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_5__components_login_form__["a" /* _LoginForm */].init();
 	}
-	if (__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_5__components_fileupload__["a" /* _FileUpload */].setEvents();
+	if (__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].setup();
+		__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].start();
 	}
-	if (__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_7__components_login_form__["a" /* _LoginForm */].init();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].setup();
-		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].start();
-	}
-	Object(__WEBPACK_IMPORTED_MODULE_12__components_radio_toggle__["a" /* default */])();
-	Object(__WEBPACK_IMPORTED_MODULE_8__components_sortable__["a" /* default */])();
-	Object(__WEBPACK_IMPORTED_MODULE_9__components_field_group_editor__["a" /* default */])();
-	Object(__WEBPACK_IMPORTED_MODULE_10__components_bootstrap__["a" /* default */])();
-	Object(__WEBPACK_IMPORTED_MODULE_11__components_select2__["a" /* default */])();
+	Object(__WEBPACK_IMPORTED_MODULE_10__components_radio_toggle__["a" /* default */])();
+	Object(__WEBPACK_IMPORTED_MODULE_6__components_sortable__["a" /* default */])();
+	Object(__WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__["a" /* default */])();
+	Object(__WEBPACK_IMPORTED_MODULE_8__components_bootstrap__["a" /* default */])();
+	Object(__WEBPACK_IMPORTED_MODULE_9__components_select2__["a" /* default */])();
 });
 
 // handle event
 window.addEventListener("optimizedResize", function () {
-	if (__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].isSet()) {
-		__WEBPACK_IMPORTED_MODULE_6__components_login_shader__["a" /* _Shader */].resize();
+	if (__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].resize();
 	}
 });
 
 /***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItem; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * FORM ITEM
- */
-
-
-
-
-// Component Global Variables
-var newFormItemId = 1;
-
-var FormItem = function () {
-	function FormItem() {
-		_classCallCheck(this, FormItem);
-	}
-
-	_createClass(FormItem, [{
-		key: "isSet",
-		value: function isSet() {
-			if ($(".form-item--add-new").length > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}, {
-		key: "setEvents",
-		value: function setEvents() {
-			$(document).on("click", ".form-item--add-new", addNewItem);
-			$(document).on("click", ".form-item--delete-item", deleteItem);
-			$(document).on("click", ".form-item--collapse-btn", collapseToggle);
-		}
-	}]);
-
-	return FormItem;
-}();
-
-var _FormItem = new FormItem();
-
-///- - - - - - - - - - - - - - - - - - - -
-/// COMPONENT HELPER FUNCTIONS
-///- - - - - - - - - - - - - - - - - - - -
-
-function addNewItem(event) {
-	// Stop default behaviour
-	event.preventDefault();
-	// Get the child to clone
-	var id = $(this).data("id");
-	var $list = $("#form-item--field-list-" + id);
-	var url = $(this).data("url");
-	var data = $list.sortable("serialize");
-	var params = $(this).data("params");
-	if (params) {
-		data = data.concat("&" + params);
-	}
-
-	$.post(url, data, function (data) {
-		// Get repaeter code from Rails
-		// Due to the Rails way of creating nested forms it's necessary to
-		// create the nested item inside a different new form, then get just
-		// the code contained between the two SPLIT comments
-		var parts = data.split("<!-- SPLIT -->");
-		var newItem = parts[1];
-		setupAndAppend(newItem, $list);
-	});
-}
-
-function setupAndAppend(newItem, $list) {
-	// Append the item
-	$list.prepend(newItem);
-	var collapsable = $list.find(".form-item--collapsable").get(0);
-
-	// Prepare collapsable animation
-	collapsable.style.maxHeight = "0px";
-
-	// Setup TinyMCE for the newly created item
-	var textarea_editor_id = $list.find("textarea").last("textarea").attr("id");
-	tinyMCE.EditorManager.execCommand("mceAddEditor", true, textarea_editor_id);
-
-	// Prepare collapsable stack animation
-	$(collapsable).find(".form-item--collapsable-stack").each(function () {
-		if (!$list.hasClass("sortable--enabled")) {
-			// Prepare field stack for collapsable animation
-			this.style.maxHeight = collapsable.scrollHeight + "px";
-		}
-	});
-
-	// Resize the editor (is it needed with the new configuration?)
-	// _FormItemEditor.resize()
-
-	// Update select input for Select2 plugin
-	Object(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find("select"));
-
-	// Refresh Sortable to update the added item with Sortable features
-	$list.sortable("refresh");
-
-	// Run animation 500ms after previous style declaration (see above) otherwise animation doesn't get triggered
-	setTimeout(function () {
-		collapsable.style.maxHeight = collapsable.scrollHeight + "px";
-	}, 50);
-}
-
-// This function could be improved as it generates an issue with
-// input ids which are duplicated after the entire target has been cloned
-function DEPRECATEDaddNewItem(event) {
-	// Stop default behaviour
-	event.preventDefault();
-	// Get the child to clone
-	// (`this` always refers to the second argument of the $(document).on() method, in this case '.form-item--add-new')
-	var id = $(this).data("new-form-item-id");
-	var $newChild = $("#" + id);
-	// Clone child and remove id and styles from cloned child
-	$newChild.clone().insertAfter($newChild);
-	// Remove class in order to remove styles, and change id so it's reachable when testing
-	$newChild.removeClass("form-item--new").attr("id", "new-form-item-" + newFormItemId);
-
-	// // Update all ids to avoid duplication
-	$newChild.find("[id]").each(function () {
-		var oldId = $(this).attr("id");
-		var newId = oldId + "-" + newFormItemId;
-		$(this).attr("id", newId);
-		var $forId = $newChild.find("[for=" + oldId + "]");
-		if ($forId.length > 0) {
-			$forId.attr("for", newId);
-		}
-	});
-
-	// Update height (max-height) of the new element
-	var $formItemEditor = $("#new-form-item-" + newFormItemId).find(".form-item--editor");
-
-	// override current max-height which is set to 0
-	$formItemEditor.get(0).style.maxHeight = $formItemEditor.get(0).scrollHeight + "px";
-
-	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
-
-	// Increment global id variable `newFormItemId` in case needs to be used again
-	newFormItemId++;
-
-	Object(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($formItemEditor.find("select"));
-}
-
-function close() {
-	this.style.maxHeight = "0px";
-}
-
-function open() {
-	this.style.maxHeight = this.scrollHeight + "px";
-}
-
-function collapseToggle(event) {
-	// This function is temporarely just set for repeaters.
-	// TODO: Need refactoring in order to be available also for generic form items
-
-	// Stop default behaviour
-	event.preventDefault();
-
-	var $collapsable = $(this).closest(".form-item--collapsable");
-
-	if ($collapsable.hasClass("form-item--collapsed")) {
-		$collapsable.find(".form-item--collapsable-stack").each(open);
-		$collapsable.find(".form-item--editor").each(open);
-		$collapsable.removeClass("form-item--collapsed");
-	} else {
-		$collapsable.find(".form-item--collapsable-stack").each(close);
-		$collapsable.find(".form-item--editor").each(close);
-		$collapsable.addClass("form-item--collapsed");
-	}
-}
-
-function deleteItem(event) {
-	// Stop default behaviour
-	event.preventDefault();
-	var record_id = $(this).data("id");
-	var targetId = "#form-item-" + record_id;
-	var target = $(targetId).get(0);
-	// As max-height isn't set you need to set it manually before changing it,
-	// otherwise the animation doesn't get triggered
-	target.style.maxHeight = target.scrollHeight + "px";
-	// Change max-height after 50ms to trigger css animation
-	setTimeout(function () {
-		target.style.maxHeight = "0px";
-	}, 50);
-
-	$.ajax({
-		url: $(this).attr("href"),
-		data: { id: record_id, target_id: targetId, isAjax: true },
-		method: "DELETE"
-	}).done(function (data) {
-		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
-		setTimeout(function () {
-			$(data.target_id).remove();
-		}, 700);
-	});
-	// TODO add a fallback if request fails
-}
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemRepeater; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select2__ = __webpack_require__(1);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * FORM ITEM REPEATER
- */
-
-
-
-
-var FormItemRepeater = function () {
-	function FormItemRepeater() {
-		_classCallCheck(this, FormItemRepeater);
-	}
-
-	_createClass(FormItemRepeater, [{
-		key: "isSet",
-		value: function isSet() {
-			if ($(".form-item--repeater-section").length > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}, {
-		key: "setEvents",
-		value: function setEvents() {
-			$(document).on("click", ".form-item--repeater-section--add-new", addNewItem);
-			$(document).on("click", ".form-item--delete-repeater-item", deleteRepeter);
-		}
-	}]);
-
-	return FormItemRepeater;
-}();
-
-var _FormItemRepeater = new FormItemRepeater();
-
-/**
- * COMPONENT HELPER FUNCTIONS
- */
-
-function addNewItem(event) {
-	// Stop default behaviour
-	event.preventDefault();
-	// Get the child to clone
-	var id = $(this).data("id");
-	var $list = $("#form-item--repeater-setting-" + id);
-	var url = $(this).data("url");
-	var data = $list.sortable("serialize");
-	data = data.concat("&repeater_setting_id=" + id);
-
-	$.post(url, data, function (data) {
-		// Get repaeter code from Rails
-		// Due to the Rails way of creating nested forms it's necessary to
-		// create the nested item inside a different new form, then get just
-		// the code contained between the two SPLIT comments
-		var parts = data.split("<!-- SPLIT -->");
-		var newRepeater = parts[1];
-		setupAndAppend(newRepeater, $list);
-	});
-}
-
-function setupAndAppend(newRepeater, $list) {
-	// Append the item
-	$list.prepend(newRepeater);
-	var new_repeater_item = $list.find(".form-item--repeater").get(0);
-
-	// Prepare repeater animation
-	new_repeater_item.style.maxHeight = "0px";
-
-	// Setup TinyMCE for the newly created item
-	var textarea_editor_id = $list.find("textarea").last("textarea").attr("id");
-	tinyMCE.EditorManager.execCommand("mceAddEditor", true, textarea_editor_id);
-
-	// // Prepare collapsable stack animation
-	// $(new_repeater_item)
-	// 	.find(".form-item--collapsable-stack")
-	// 	.each(function() {
-	// 		if (!$list.hasClass("sortable--enabled")) {
-	// 			// Prepare field stack for collapsable animation
-	// 			this.style.maxHeight = new_repeater_item.scrollHeight + "px";
-	// 		}
-	// 	});
-
-	// Resize the editor (is it needed with the new configuration?)
-	// _FormItemEditor.resize()
-
-	// Update select input for Select2 plugin
-	Object(__WEBPACK_IMPORTED_MODULE_1__select2__["b" /* setupSelect2 */])($list.find("select"));
-
-	// Refresh Sortable to update the added item with Sortable features
-	$list.sortable("refresh");
-
-	// Run animation 50ms after previous style declaration (see above) otherwise animation doesn't get triggered
-	setTimeout(function () {
-		new_repeater_item.style.maxHeight = new_repeater_item.scrollHeight + "px";
-	}, 50);
-}
-
-function deleteRepeter(event) {
-	// Stop default behaviour
-	event.preventDefault();
-
-	var record_id = $(this).data("id");
-	var targetId = "#repeater_" + record_id;
-	var target = $(targetId).get(0);
-	// As max-height isn't set you need to set it manually before changing it,
-	// otherwise the animation doesn't get triggered
-	target.style.maxHeight = target.scrollHeight + "px";
-	// Change max-height after 50ms to trigger css animation
-	setTimeout(function () {
-		target.style.maxHeight = 0 + "px";
-	}, 50);
-
-	$.ajax({
-		url: $(this).attr("href"),
-		data: { id: record_id, target_id: targetId, isAjax: true },
-		method: "DELETE"
-	}).done(function (data) {
-		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
-		setTimeout(function () {
-			$(data.target_id).remove();
-		}, 700);
-	});
-}
-
-/***/ }),
+/* 3 */,
+/* 4 */,
 /* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -599,8 +189,8 @@ var FormItemImage = function () {
 	}
 
 	_createClass(FormItemImage, [{
-		key: "isSet",
-		value: function isSet() {
+		key: "isPresent",
+		value: function isPresent() {
 			if ($(this.target).length > 0) {
 				return true;
 			} else {
@@ -623,7 +213,7 @@ var _FormItemImage = new FormItemImage();
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FieldSettingChoices; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_editor__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__ = __webpack_require__(14);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -642,8 +232,8 @@ var FieldSettingChoices = function () {
 	}
 
 	_createClass(FieldSettingChoices, [{
-		key: "isSet",
-		value: function isSet() {
+		key: "isPresent",
+		value: function isPresent() {
 			if ($(this.target).length > 0) {
 				return true;
 			} else {
@@ -661,7 +251,7 @@ var FieldSettingChoices = function () {
 				event.preventDefault();
 				$(this).closest(".field-setting-choices--choice").remove();
 				// Update form item editor size
-				__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+				Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["d" /* resizeCollapsableStacks */])();
 			});
 		}
 	}]);
@@ -686,7 +276,7 @@ function addChoice(event) {
 	// Append the clone right after
 	choices.prepend(clone);
 	// Update form item editor size
-	__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+	Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["d" /* resizeCollapsableStacks */])();
 }
 
 function deleteChoice(event) {
@@ -702,7 +292,7 @@ function deleteChoice(event) {
 	}).done(function () {
 		choice.remove();
 		// Update form item editor size
-		__WEBPACK_IMPORTED_MODULE_0__form_item_editor__["a" /* _FormItemEditor */].resize();
+		Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["d" /* resizeCollapsableStacks */])();
 	}).fail(function (data) {
 		alert(data.responseJSON.errors);
 	});
@@ -735,8 +325,8 @@ var FileUpload = function () {
 	}
 
 	_createClass(FileUpload, [{
-		key: "isSet",
-		value: function isSet() {
+		key: "isPresent",
+		value: function isPresent() {
 			if ($(this.target).length > 0) {
 				return true;
 			} else {
@@ -946,8 +536,8 @@ var Shader = function () {
   }
 
   _createClass(Shader, [{
-    key: "isSet",
-    value: function isSet() {
+    key: "isPresent",
+    value: function isPresent() {
       if ($("#background-shader").length > 0) {
         return true;
       } else {
@@ -1160,8 +750,8 @@ var LoginForm = function () {
 	}
 
 	_createClass(LoginForm, [{
-		key: "isSet",
-		value: function isSet() {
+		key: "isPresent",
+		value: function isPresent() {
 			if ($(".login--form").length > 0) {
 				return true;
 			} else {
@@ -1268,9 +858,12 @@ var _LoginForm = new LoginForm();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__ = __webpack_require__(14);
 /**
  * SORTABLE
  */
+
+
 
 var sortableOptions = {
 	stop: function stop(event, ui) {
@@ -1280,6 +873,14 @@ var sortableOptions = {
 	update: updateSortable
 };
 
+/* Initialize jQuery Sortable
+ * 
+ * This function handles several things:
+ * - it sets Sortable for each ".sortable" element
+ * - it adds handles only if required
+ * - it disable itself if it finds ".sortable--disabled" class
+ * - it sets up a toggle button and behaviour if required 
+ */
 /* harmony default export */ __webpack_exports__["a"] = (function () {
 	if ($(".sortable").length > 0) {
 		// Initialize sortable item
@@ -1301,25 +902,19 @@ var sortableOptions = {
 	if ($(".sortable--toggle").length > 0) {
 		setupSortableToggle();
 	}
-
-	// Add event to any sortable toggle button
-	$(document).on("click", ".standard-form--repeater .sortable--toggle, .standard-form--field-group .sortable--toggle", toggleSortable);
 });
 
+/* Setup Sortable Toggle
+ *
+ * It sets up each toggle button and add the events needed to enable or disable Sortable.
+ */
 function setupSortableToggle() {
 	$(".sortable--toggle").each(function () {
 		var id = "#" + $(this).data("sortable-target-id");
-		$(id).find(".form-item--collapsable").addClass("form-item--collapsed");
-		$(id).find(".form-item--collapsable-stack").each(close);
+		Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["b" /* closeCollapsableStacks */])(id);
 	});
-}
-
-function close() {
-	this.style.maxHeight = "0px";
-}
-
-function open() {
-	this.style.maxHeight = this.scrollHeight + "px";
+	// Add event to any sortable toggle button
+	$(document).on("click", ".sortable--toggle", toggleSortable);
 }
 
 function toggleSortable(event) {
@@ -1328,10 +923,10 @@ function toggleSortable(event) {
 
 	if ($(id).hasClass("sortable--disabled")) {
 		$(id).sortable("enable");
-		$(id).find(".form-item--collapsable-stack").each(close);
-		$(id).find(".form-item--collapsable").addClass("form-item--collapsed");
+		Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["b" /* closeCollapsableStacks */])(id);
 	} else {
 		$(id).sortable("disable");
+		Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["c" /* openCollapsableStacks */])(id);
 	}
 
 	$(id).toggleClass("sortable--disabled");
@@ -1415,6 +1010,233 @@ function updateSortable() {
         $radio.siblings('input[name="login"]').data("waschecked", false);
     });
 });
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemCollapsable; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = closeCollapsableStacks;
+/* harmony export (immutable) */ __webpack_exports__["c"] = openCollapsableStacks;
+/* harmony export (immutable) */ __webpack_exports__["d"] = resizeCollapsableStacks;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__select2__ = __webpack_require__(1);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * FORM ITEM
+ */
+
+
+
+// Component Global Variables
+var newFormItemId = 1;
+
+var FormItemCollapsable = function () {
+	function FormItemCollapsable() {
+		_classCallCheck(this, FormItemCollapsable);
+	}
+
+	_createClass(FormItemCollapsable, [{
+		key: "isPresent",
+		value: function isPresent() {
+			if ($(".form--list").length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: "setEvents",
+		value: function setEvents() {
+			$(document).on("click", ".form--add-list-item", addNewItem);
+			$(document).on("click", ".form--delete-list-item", deleteItem);
+			$(document).on("click", ".form-item--collapse-btn", collapseToggle);
+			$(window).resize(resizeCollapsableStacks);
+			// Make sure all collapsable items are resized already at every page load
+			resizeCollapsableStacks();
+		}
+	}]);
+
+	return FormItemCollapsable;
+}();
+
+var _FormItemCollapsable = new FormItemCollapsable();
+
+/**
+ * COMPONENT HELPER FUNCTIONS
+ */
+
+/**
+ * Adds a new item.
+ *
+ * @param      {event}  event   The event
+ */
+function addNewItem(event) {
+	// Stop default behaviour
+	event.preventDefault();
+	// Get the child to clone
+	var id = $(this).data("id");
+	var $list = $("#form--list-" + id);
+	var url = $(this).data("url");
+	var data = $list.sortable("serialize");
+	var params = $(this).data("params");
+	if (params) {
+		data = data.concat("&" + params);
+	}
+
+	$.post(url, data, function (data) {
+		// Get repaeter code from Rails
+		// Due to the Rails way of creating nested forms it's necessary to
+		// create the nested item inside a different new form, then get just
+		// the code contained between the two SPLIT comments
+		var parts = data.split("<!-- SPLIT -->");
+		var newItem = parts[1];
+		setupAndAppend(newItem, $list);
+	});
+}
+
+/**
+ * Setup and append new item
+ *
+ * @param      {string}  newItem  The new item
+ * @param      {object}  $list    The list
+ */
+function setupAndAppend(newItem, $list) {
+	// Append the item
+	$list.prepend(newItem);
+	var collapsable = $list.find(".form-item--collapsable").get(0);
+
+	// Update select input for Select2 plugin
+	Object(__WEBPACK_IMPORTED_MODULE_0__select2__["b" /* setupSelect2 */])($list.find("select"));
+
+	// Setup TinyMCE for the newly created item
+	var textarea_editor_id = $list.find("textarea").last("textarea").attr("id");
+	tinyMCE.EditorManager.execCommand("mceAddEditor", true, textarea_editor_id);
+
+	// Prepare collapsable animation
+	collapsable.style.maxHeight = "0px";
+
+	// Prepare collapsable stack animation
+	openCollapsableStacks(collapsable);
+
+	// Refresh Sortable to update the added item with Sortable features
+	$list.sortable("refresh");
+
+	// Run animation 500ms after previous style declaration (see above) otherwise animation doesn't get triggered
+	setTimeout(function () {
+		collapsable.style.maxHeight = collapsable.scrollHeight + "px";
+	}, 50);
+}
+
+/**
+ * Close collapsable stacks
+ *
+ * It closes all collapsable stacks inside the collapsable item passed as argument
+ *
+ * @param      {object, string}  target  The target
+ */
+function closeCollapsableStacks(obj) {
+	$(obj).addClass("form-item--collapsed").find(".form-item--collapsable-stack").each(function () {
+		this.style.maxHeight = "0px";
+	});
+}
+
+/**
+ * Open collapsable stacks
+ *
+ * It opens all collapsable stacks inside the collapsable item passed as argument
+ *
+ * @param      {object, string}  target  The target
+ */
+function openCollapsableStacks(obj) {
+	// Don't execute this if sortable is enabled
+	if ($(obj).closest(".sortable").hasClass("sortable--enabled")) {
+		return;
+	}
+	$(obj).removeClass("form-item--collapsed").find(".form-item--collapsable-stack").each(function () {
+		this.style.maxHeight = this.scrollHeight + "px";
+	});
+}
+
+/**
+ * Toggle a collapsable item
+ *
+ * Basically it opens it or closes it based on its state
+ *
+ * @param      {event}  event   The event
+ */
+function collapseToggle(event) {
+	// Stop default behaviour
+	event.preventDefault();
+
+	var $collapsable = $(this).closest(".form-item--collapsable");
+
+	if ($collapsable.hasClass("form-item--collapsed")) {
+		openCollapsableStacks($collapsable);
+	} else {
+		closeCollapsableStacks($collapsable);
+	}
+}
+
+/**
+ * Delete collapsable item and hide it
+ *
+ * @param      {event}  event   The event
+ */
+function deleteItem(event) {
+	// Stop default behaviour
+	event.preventDefault();
+	var record_id = $(this).data("id");
+	var targetId = "#form--list-item-" + record_id;
+	var target = $(targetId).get(0);
+	// As max-height isn't set you need to set it manually before changing it,
+	// otherwise the animation doesn't get triggered
+	target.style.maxHeight = target.scrollHeight + "px";
+	// Change max-height after 50ms to trigger css animation
+	setTimeout(function () {
+		target.style.maxHeight = "0px";
+	}, 50);
+
+	$.ajax({
+		url: $(this).attr("href"),
+		data: { id: record_id, target_id: targetId, isAjax: true },
+		method: "DELETE"
+	}).done(function (data) {
+		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
+		setTimeout(function () {
+			$(data.target_id).remove();
+		}, 700);
+	});
+	// TODO add a fallback if request fails
+}
+
+/**
+ */
+
+/**
+ * Resize all collapsable item
+ *
+ * If a target is passed as a argument the function will resize only that target and its children.
+ *
+ * @param      {object, string}  target  The target
+ */
+function resizeCollapsableStacks(target) {
+	target = _.isUndefined(target) ? $(".form-item--collapsable-stack") : target;
+	$(target).each(function () {
+		// If the collapsable item is closed don't go any further
+		if ($(this).height() === 0 || $(this).closest(".form-item--collapsable").hasClass("form-item--collapsed")) {
+			this.style.maxHeight = "0px";
+		} else {
+			// otherwise update the max-height which is needed for the CSS transition
+			// NOTE you need to remove the max-height (inside 'style' attribute) to get the real height
+			this.style.height = "auto";
+			this.style.maxHeight = this.scrollHeight + "px";
+		}
+	});
+}
 
 /***/ })
 /******/ ]);

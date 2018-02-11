@@ -80,7 +80,7 @@ module Binda
     
     def sort
       params[:component].each_with_index do |id, i|
-        Component.find( id ).update_column('position', i + 1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
+        Component.find( id ).update_column('position', i) # use update_column to skip callbacks (which leads to huge useless memory consumption)
       end
       render json: { id: "##{params[:id]}" }, status: 200
     end
@@ -125,7 +125,7 @@ module Binda
       # @param repeaters [Array] the list of ids of the repeaters
       def sort_repeaters_by(repeaters)
         repeaters.each_with_index do |id, i|
-          Repeater.find( id ).update!({ position: i + 1 })
+          Repeater.find( id ).update!({ position: i })
         end
       end
   end

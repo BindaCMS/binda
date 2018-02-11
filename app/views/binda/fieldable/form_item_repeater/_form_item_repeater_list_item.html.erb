@@ -1,5 +1,5 @@
-<li id="repeater_<%= repeater.id %>" 
-	class="form-item--repeater form-item--collapsable">
+<li id="form--list-item-<%= repeater.id %>" 
+	class="form-item--repeater form-item--collapsable form-item--collapsed">
 	<div class="form-item--header">
 		<a class="form-item--collapse-btn" href="#">
 			<span>
@@ -11,7 +11,7 @@
 				<%= t('binda.expand') %>
 			</span>
 		</a>
-		<a class="form-item--delete-repeater-item" 
+		<a class="form--delete-list-item" 
 			href="<%= repeater_path( id: repeater.id ) %>" 
 			data-id="<%= repeater.id %>" 
 			data-confirm="<%= t 'binda.confirm_delete' %>">

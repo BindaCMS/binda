@@ -55,7 +55,7 @@ module Binda
         repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
         repeaters = @component.repeaters.order('position').find_all{ |r| r.field_setting_id = repeater_setting_id }
         
-        expect(repeaters.first.position).to eq(1)
+        expect(repeaters.first.position).to eq(0)
         expect(repeaters.last.position).to eq(repeaters.length)
 
         first_shuffled_id = shuffled_ids[0]
@@ -78,8 +78,8 @@ module Binda
           component_id: @component.slug
         }
         @component.reload
-        expect( @component.repeaters.order('position').length ).to eq( initial_repeaters_length + 1 )
-        expect( @component.repeaters.order('position').last.position ).to eq( @component.repeaters.length )
+        expect(@component.repeaters.order('position').length).to eq(initial_repeaters_length + 1)
+        expect(@component.repeaters.order('position').last.position).to eq(@component.repeaters.length)
       end
     end
 

@@ -14,9 +14,11 @@
   // float: left;
   // width: 50%;
 
-  // NEW SOLUTION (not very nice but plays nicely with max-height=0 and overflow-y=hidden) 
+  // NEW SOLUTION (not very nice but plays nicely with max-height=0 and overflow-y=hidden)
   display: inline-block;
-  width: calc(50% - 3px); // 5px are for the weird issue caused by non-blank space around the inline-block elements
+  width: calc(
+    50% - 3px
+  ); // 5px are for the weird issue caused by non-blank space around the inline-block elements
 
   .form-group {
     border-top: none !important;
@@ -92,22 +94,22 @@
 }
 
 .form-item--collapsable {
-  transition: box-shadow 0.3s ease, transform 0.3s ease, max-height 0.6s ease-out !important;
+  transition: box-shadow 0.3s ease, transform 0.3s ease,
+    max-height 0.6s ease-out !important;
+}
+
+.form-item--collapsable-stack {
+  transition: box-shadow 0.3s ease, transform 0.3s ease,
+    max-height 0.6s ease-out !important;
 }
 
 .font-item--collapsed .form-item--collapsable-stack {
   margin-bottom: 8px;
 }
 
-.form-item--add-new,
-.form-item--repeater-section--add-new {
+.form--add-list-item {
   float: right;
   margin-right: 8px;
-}
-
-.form-item--repeater-title {
-  display: block;
-  margin-bottom: 20px;
 }
 
 .form-item--header {
@@ -121,16 +123,14 @@
 }
 
 .form-item--collapse-btn,
-.form-item--delete-repeater-item,
-.form-item--delete-item,
+.form--delete-list-item,
 .form-item--edit-item {
   float: right;
   margin-top: 8px;
   margin-right: 8px;
 }
 
-a.form-item--delete-item,
-a.form-item--delete-repeater-item {
+a.form--delete-list-item {
   cursor: pointer;
   transition: color 0.2s ease;
   color: $color-danger;
