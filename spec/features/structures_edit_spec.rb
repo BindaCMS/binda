@@ -27,7 +27,30 @@ describe "GET structures#edit", type: :feature, js: true do
 	end
 
 	it "lets you add new field groups" do
-		skip "not implemented yet"
+		num_of_groups = all("#form--list-#{@structure.id} li").length
+		find('.form--add-list-item').click
+		wait_for_ajax
+		# wait for animation
+		sleep 1
+		expect(all("#form--list-#{@structure.id} li").length).to eq(num_of_groups+1)
 	end
 
+	# there was a subtle but very irritating error which this test make sure won't happen again
+	it "lets you destroy a field group and the save the structure" do
+		find('.form--add-list-item').click
+		wait_for_ajax
+		# wait for animation
+		sleep 1
+		id = @structure.reload.field_groups.order('created_at ASC').last.id
+		expect(page).to have_selector("#form--list-item-#{id}")
+		accept_alert do
+			find("#form--list-item-#{id} .form--delete-list-item").click
+		end
+		wait_for_ajax
+		# wait for animation
+		sleep 1
+		click_button "save"
+		# look for anything, just to make sure the page isn't throwing a error
+		expect(page).to have_content(@structure.name)
+	end
 end
