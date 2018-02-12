@@ -30,9 +30,6 @@ module Binda
     end
 
     def update
-      # Create new fields if any
-      add_new_field_groups
-
       # Update the other ones
       if @structure.update(structure_params)
         redirect_to structure_path( @structure.slug ), notice: "#{ @structure.name.capitalize } structure was successfully updated."
