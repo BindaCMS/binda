@@ -87,6 +87,7 @@ module Binda
     end
 
     after_update do
+			self.class.remove_orphan_fields
 			if %w(radio selection checkbox).include?(self.field_type) && self.choices.empty?
 				check_allow_null_option
 			end
@@ -302,6 +303,45 @@ module Binda
 					self.update!(default_choice_id: self.choices.first.id)
 				end
 			end
+		end
+
+		# Remove all orphan fields
+		# 
+		# Specifically:
+		# - all fields where their field setting doesn't exist anymore
+		# - all fields where their field setting has change type
+		# 
+		# Used by task `rails binda:remove_orphan_fields`
+		def self.remove_orphan_fields
+			self.class.get_field_classes.each do |field_class|
+				"Binda::#{field_class}"
+					.constantize
+					.includes(:field_setting)
+					.where(binda_field_settings: {id: nil})
+					.each do |s| 
+						s.destroy
+						puts "Binda::#{field_class} with id ##{s.id} successfully destroyed"
+					end
+				field_types = []
+				case field_class
+				when 'Selection'
+					field_types = %w(selection checkbox radio)
+				when 'Text'
+					field_types = %w(string text)
+				else
+					field_types = [ field_class.underscore ]
+				end
+				"Binda::#{field_class}"
+					.constantize
+					.includes(:field_setting)
+					.where.not(binda_field_settings: {field_type: field_types})
+					.each do |s| 
+						s.destroy
+						puts "Binda::#{field_class} with id ##{s.id} but wrong type successfully destroyed"
+					end
+			end
+			puts
+			puts "All orphans have been removed successfully"
 		end
 
 	end
