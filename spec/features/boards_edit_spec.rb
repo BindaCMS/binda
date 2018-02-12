@@ -21,19 +21,12 @@ describe "GET component#edit", type: :feature, js: true do
 
 	it "allows to edit a string field" do
 		string_setting = @structure.field_groups.first.field_settings.where(field_type: 'string').first
-
 		string_id = @board.strings.where(field_setting_id: string_setting.id).first.id
-
 		string_field = "board_strings_attributes_#{string_id}_content"
 		string_value = 'oh my lorem'
-
-		find("##{string_field}")
-
+		find_field(string_field)
 		fill_in string_field, with: string_value
 		click_button "save"
-		
-		visit @path
-
 		expect(page).to have_field(string_field)
 		expect(page).to have_field(string_field, with: string_value)
 	end
