@@ -193,6 +193,7 @@ function setupAndAppend(newItem, $list) {
 function closeCollapsableStacks(obj) {
 	$(obj).addClass("form-item--collapsed").find(".form-item--collapsable-stack").each(function () {
 		this.style.maxHeight = "0px";
+		this.style.pointerEvents = "none";
 	});
 }
 
@@ -210,6 +211,7 @@ function openCollapsableStacks(obj) {
 	}
 	$(obj).removeClass("form-item--collapsed").find(".form-item--collapsable-stack").each(function () {
 		this.style.maxHeight = this.scrollHeight + "px";
+		this.style.pointerEvents = "auto";
 	});
 }
 
@@ -223,9 +225,7 @@ function openCollapsableStacks(obj) {
 function collapseToggle(event) {
 	// Stop default behaviour
 	event.preventDefault();
-
 	var $collapsable = $(this).closest(".form-item--collapsable");
-
 	if ($collapsable.hasClass("form-item--collapsed")) {
 		$collapsable.each(function () {
 			openCollapsableStacks(this);
@@ -254,8 +254,8 @@ function deleteItem(event) {
 	// Change max-height after 50ms to trigger css animation
 	setTimeout(function () {
 		target.style.maxHeight = "0px";
+		target.style.pointerEvents = "none";
 	}, 50);
-
 	$.ajax({
 		url: $(this).attr("href"),
 		data: { id: record_id, target_id: targetId, isAjax: true },
@@ -287,11 +287,13 @@ function resizeCollapsableStacks(target) {
 		// If the collapsable item is closed don't go any further
 		if ($(this).height() === 0 || $(this).closest(".form-item--collapsable").hasClass("form-item--collapsed")) {
 			this.style.maxHeight = "0px";
+			this.style.pointerEvents = "none";
 		} else {
 			// otherwise update the max-height which is needed for the CSS transition
 			// NOTE you need to remove the max-height (inside 'style' attribute) to get the real height
 			this.style.height = "auto";
 			this.style.maxHeight = this.scrollHeight + "px";
+			this.style.pointerEvents = "auto";
 		}
 	});
 }
