@@ -34,7 +34,7 @@
 	  </a>
   <% end %>
 	<p class="control-label clearfix">
-		<%= f.object.name %>
+		<%= defined?(repeater) ? repeater.name : f.object.name %> <%= t('binda.settings').downcase %>
 	</p>
 	<% unless f.object.description.blank? %>
 		<p class="help-block">

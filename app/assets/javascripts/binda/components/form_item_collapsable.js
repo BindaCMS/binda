@@ -153,9 +153,13 @@ function collapseToggle(event) {
 	let $collapsable = $(this).closest(".form-item--collapsable");
 
 	if ($collapsable.hasClass("form-item--collapsed")) {
-		openCollapsableStacks($collapsable);
+		$collapsable.each(function(){
+			openCollapsableStacks(this);
+		});
 	} else {
-		closeCollapsableStacks($collapsable);
+		$collapsable.each(function(){
+			closeCollapsableStacks(this);
+		});
 	}
 }
 
@@ -200,10 +204,12 @@ function deleteItem(event) {
  *
  * If a target is passed as a argument the function will resize only that target and its children.
  *
- * @param      {object, string}  target  The target
+ * @param      {object, string}  target  The target.
  */
 export function resizeCollapsableStacks(target) {
 	target = _.isUndefined(target) ? $(".form-item--collapsable-stack") : target;
+	// target CANNOT BE a jquery object because it leads to the following error
+	// TypeError: undefined is not an object (evaluating 't.ownerDocument.defaultView')
 	$(target).each(function() {
 		// If the collapsable item is closed don't go any further
 		if (
