@@ -52,7 +52,11 @@ function addNewItem(event) {
 		data = data.concat(`&${params}`);
 	}
 
-	$.post(url, data, function(data) {
+	$.ajax({
+		url: url,
+		data: data,
+		method: "POST;"
+	}).done(function(data) {
 		// Get repaeter code from Rails
 		// Due to the Rails way of creating nested forms it's necessary to
 		// create the nested item inside a different new form, then get just
@@ -153,11 +157,11 @@ function collapseToggle(event) {
 	event.preventDefault();
 	let $collapsable = $(this).closest(".form-item--collapsable");
 	if ($collapsable.hasClass("form-item--collapsed")) {
-		$collapsable.each(function(){
+		$collapsable.each(function() {
 			openCollapsableStacks(this);
 		});
 	} else {
-		$collapsable.each(function(){
+		$collapsable.each(function() {
 			closeCollapsableStacks(this);
 		});
 	}
@@ -186,7 +190,7 @@ function deleteItem(event) {
 		url: $(this).attr("href"),
 		data: { id: record_id, target_id: targetId, isAjax: true },
 		method: "DELETE"
-	}).done(function(data){
+	}).done(function(data) {
 		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
 		setTimeout(function() {
 			$(data.target_id).remove();
@@ -228,4 +232,3 @@ export function resizeCollapsableStacks(target) {
 		}
 	});
 }
-
