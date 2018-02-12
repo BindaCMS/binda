@@ -31,9 +31,8 @@ describe "GET component#edit", type: :feature, js: true do
 
 		fill_in string_field, with: string_value
 		click_button "save"
-
-		# This should make Capybara wait the right amount of time (otherwise it fails)
-		find("##{string_field}")
+		
+		visit @path
 
 		expect(page).to have_field(string_field)
 		expect(page).to have_field(string_field, with: string_value)
