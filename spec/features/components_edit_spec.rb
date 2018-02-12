@@ -21,49 +21,67 @@ describe "GET component#edit", type: :feature, js: true do
 
 	it "allows to edit a string field" do
 		string_setting = @structure.field_groups.first.field_settings.where(field_type: 'string').first
-
 		string_id = @component.strings.where(field_setting_id: string_setting.id).first.id
-
 		string_field = "component_strings_attributes_#{string_id}_content"
 		string_value = 'oh my lorem'
-
 		find("##{string_field}")
-
 		fill_in string_field, with: string_value
 		click_button "save"
-
 		expect(page).to have_field(string_field)
 		expect(page).to have_field(string_field, with: string_value)
 	end
 
 	it "allows to edit a string field in a repeater" do
 		ids = @component.repeaters.first.string_ids
-
 		repeater_expand_btn = "#form--list-item-#{@component.repeaters.first.id} .form-item--collapse-btn"
-
 		find(repeater_expand_btn).click
 		# wait animation
 		sleep 1
-		
 		string_field = "component_repeaters_attributes_#{@component.repeaters.first.id}_strings_attributes_#{ids[ids.length-1]}_content"
 		string_value = 'oh my lorem'
 		find("##{string_field}")
-
 		fill_in string_field, with: string_value
 		click_button "save"
-
 		visit @path
-
 		find(repeater_expand_btn).click
 		# wait animation
 		sleep 1
-
 		expect(page).to have_field(string_field)
 		expect(page).to have_field(string_field, with: string_value)		
 	end
 
-	it "allows to create multiple new repeater items clicking the button" do
-		skip "not implemeted yet"
+	# there was a subtle but very irritating error which this test make sure won't happen again
+	it "allows to destroy a field and the save the component" do
+		repeater_setting = @component.repeaters.first.field_setting
+		find("#standard-form--repeater-#{repeater_setting.id} .form--add-list-item").click
+		wait_for_ajax
+		# wait for animation
+		sleep 1
+		id = @component.reload.repeaters.order('created_at ASC').last.id
+		expect(page).to have_selector("#form--list-item-#{id}")
+		accept_alert do
+			find("#form--list-item-#{id} .form--delete-list-item").click
+		end
+		wait_for_ajax
+		# wait for animation
+		sleep 1
+		click_button "save"
+		# look for anything, just to make sure the page isn't throwing a error
+		expect(page).to have_field("component_name", with: @component.name)
+	end
+
+
+	it "allows to create multiple new repeater items clicking the button" do		
+		repeater_setting = @component.repeaters.first.field_setting
+		find("#standard-form--repeater-#{repeater_setting.id} .form--add-list-item").click
+		wait_for_ajax
+		# wait for animation
+		sleep 1
+		find("#standard-form--repeater-#{repeater_setting.id} .form--add-list-item").click
+		wait_for_ajax
+		# wait for animation
+		sleep 1
+		expect(all("#form--list-#{@structure.id} li").length).to eq(num_of_groups+2)
 	end
 
 	describe "when creating a new repeater" do

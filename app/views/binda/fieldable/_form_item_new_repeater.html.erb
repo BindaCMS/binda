@@ -1,8 +1,11 @@
 <%= simple_form_for [@instance.structure, @instance], defaults: { label: false }, html: { multipart: true }  do |f| %>
 <!-- SPLIT -->
 	<%# see https://stackoverflow.com/questions/32984498/rails-4-adding-child-index-to-dynamically-added-nested-form-fields-with-cocoo %>
-  <%= f.simple_fields_for "relations_attributes[]", @repeater, child_index: (Time.now * rand(10000)).to_i do |ff| %>
-     <%= render 'binda/fieldable/form_item_relation', ff: ff, field_setting: @repeater.field_setting %>
+  <%= f.simple_fields_for "relations_attributes[]", @repeater, child_index: (Time.now.to_i * rand(10000)) do |ff| %>
+		<%= render 'binda/fieldable/form_item_repeater/form_item_repeater_list_item', 
+			repeater: ff.object,
+			repeater_setting: ff.object.field_setting, 
+			f: f %>
   <% end %>
 <!-- SPLIT -->
 <% end %>

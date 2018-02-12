@@ -32,7 +32,10 @@
 			<%= ff.input :fieldable_type, as: :hidden %>
 			<%# DON'T USE ff.input :position otherwise it will override the order set by rails via ajax when adding a new item %>
 			<% ff.object.field_setting.children.order( :position, :id ).each do |repeater_setting_child| %>
-			  <%= render "binda/fieldable/form_section_repeater", f: ff, repeater_setting_child: repeater_setting_child, repeater: repeater %>
+			  <%= render "binda/fieldable/form_section_repeater", 
+			  	f: ff, 
+			  	repeater_setting_child: repeater_setting_child, 
+			  	repeater: repeater %>
 		  <% end %>
 	  <% end %>
 	</div>

@@ -1,7 +1,7 @@
 <%= simple_form_for @structure, defaults: { label: false }, html: { multipart: true }  do |f| %>
 <!-- SPLIT -->
 	<%# see https://stackoverflow.com/questions/32984498/rails-4-adding-child-index-to-dynamically-added-nested-form-fields-with-cocoo %>
-	<%= f.simple_fields_for :field_groups, @field_group, child_index: (Time.now + rand(10000)).to_i do |ff| %>
+	<%= f.simple_fields_for :field_groups, @field_group, child_index: (Time.now.to_i * rand(10000)) do |ff| %>
 		<%= render 'form_field_group_item', f: f, ff: ff %>
 	<% end %>
 <!-- SPLIT -->

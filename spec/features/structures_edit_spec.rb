@@ -26,7 +26,7 @@ describe "GET structures#edit", type: :feature, js: true do
 		expect(page).to have_current_path(binda.new_structure_path)
 	end
 
-	it "lets you add new field groups" do
+	it "allows to add new field groups" do
 		num_of_groups = all("#form--list-#{@structure.id} li").length
 		find('.form--add-list-item').click
 		wait_for_ajax
@@ -36,7 +36,7 @@ describe "GET structures#edit", type: :feature, js: true do
 	end
 
 	# there was a subtle but very irritating error which this test make sure won't happen again
-	it "lets you destroy a field group and the save the structure" do
+	it "allows to destroy a field group and the save the structure" do
 		find('.form--add-list-item').click
 		wait_for_ajax
 		# wait for animation

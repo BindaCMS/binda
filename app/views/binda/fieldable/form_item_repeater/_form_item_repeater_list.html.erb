@@ -4,7 +4,7 @@
 	data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.field_setting.plural').downcase } %>"
 >
 	<% if repeaters.size == 0 %>
-			<%= render 'binda/fieldable/form_item_repeater/form_item_repeater_list_item', 
+		<%= render 'binda/fieldable/form_item_repeater/form_item_repeater_list_item', 
 			repeater: @instance.find_or_create_a_field_by( repeater_setting.id, 'repeater' ),
 			repeater_setting: repeater_setting, 
 			f: f %>
