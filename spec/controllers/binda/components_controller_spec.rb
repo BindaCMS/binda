@@ -46,7 +46,7 @@ module Binda
 
         # call sort_repeaters method via post request
         post :sort_repeaters, params: { 
-          repeater: shuffled_ids,
+          "form--list-item": shuffled_ids,
           structure_id: @structure.slug,
           component_id: @component.slug 
         }

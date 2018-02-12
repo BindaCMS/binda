@@ -53,13 +53,13 @@ describe "GET component#edit", type: :feature, js: true do
 		click_button "save"
 
 		visit @path
-		
-		# wait animation
-		sleep 1
+
 
 		find(repeater_expand_btn).click
 		# wait animation
 		sleep 1
+		# there is something that causes a error and sleeping for a seconds seems to avoid it...
+		sleep 2
 
 		expect(page).to have_field(string_field)
 		expect(page).to have_field(string_field, with: string_value)		
