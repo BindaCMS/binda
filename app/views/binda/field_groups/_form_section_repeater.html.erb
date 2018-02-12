@@ -3,7 +3,7 @@
     class="form-section--wide-container standard-form--field-group">
     <div class="form-section">
       <div class="standard-form--header">
-        <small><%= "#{ t('binda.repeater_field_settings', arg1: repeater.name ) }" %></small>
+        <small><%= t('binda.repeater_field_settings', arg1: repeater.name ) %></small>
       </div>
       <div class="form-group">
         <%= render 'binda/field_groups/form_section/form_section_header', f: f, repeater: repeater %>
@@ -11,7 +11,7 @@
       </div>
       <% if @field_group.slug.nil? %>
         <p>
-          <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ).capitalize %>
+          <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ) %>
         </p>
       <% end %>
     </div>

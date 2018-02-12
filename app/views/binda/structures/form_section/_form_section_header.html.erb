@@ -1,0 +1,26 @@
+<div>
+	<a class="b-btn b-btn-primary sortable--toggle" 
+		href="#" 
+		data-sortable-target-id="form--list-<%= defined?(repeater) ? repeater.id : f.object.id %>">
+		<span class="sortable--toggle-text">
+			<i class="fa fa-check" aria-hidden="true"></i> 
+			<%= t'binda.done' %>
+		</span>
+		<span class="sortable--toggle-text">
+			<i class="fa fa-random" aria-hidden="true"></i> 
+			<%= t'binda.sort_items' %>
+		</span>
+	</a>
+  <a id="form--list-<%= f.object.id %>--add-list-item" 
+    class="form--add-list-item main-header--link b-btn b-btn-primary b-btn-settings" 
+    href="#" 
+    data-url="<%= structure_add_field_group_path(@structure) %>"
+    data-id="<%= f.object.id %>"
+    data-params="id=<%= f.object.id %>">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    <%= t('binda.field_setting.new') %>
+  </a>
+	<p class="control-label clearfix">
+		<%= f.object.name %> <%= t('binda.field_group.plural') %>
+	</p>
+</div>

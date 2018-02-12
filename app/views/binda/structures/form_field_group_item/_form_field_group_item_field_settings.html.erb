@@ -1,0 +1,24 @@
+<div class="standard-form--fields-list">	
+	<div class="form-group">
+		<p class="control-label clearfix">
+			<%= t('binda.field_setting.plural') %>
+		</p>
+		<p class="help-block">
+			<%= t('binda.fields_list_hint') %>
+		</p>
+	</div>
+	<%= ff.simple_fields_for :field_settings, ff.object.field_settings.order( :position, :name ) do |fff| %>
+		<div class="form-item--half-size">
+			<%= fff.input :name, 
+				label: false,
+				as: :string, 
+				input_html: { class: "form-item--default-input" } %>
+		</div>
+		<div class="form-item--half-size">
+			<%= fff.input :slug, 
+				label: false,
+				as: :string, 
+				input_html: { class: "form-item--input" } %>
+		</div>
+	<% end %>
+</div>

@@ -2,7 +2,7 @@ require_dependency "binda/application_controller"
 
 module Binda
   class StructuresController < ApplicationController
-    before_action :set_structure, only: [:show, :edit, :update, :destroy, :fields_update ]
+    before_action :set_structure, only: [:show, :edit, :update, :destroy, :fields_update, :add_field_group ]
 
     def index
       @structures = Structure.order('position').all.page params[:page]
@@ -52,13 +52,44 @@ module Binda
 
     def sort
       params[:structure].each_with_index do |id, i|
-        Structure.find( id ).update({ position: i + 1 })
+        Structure.find( id ).update({ position: i })
       end
       render js: "$('##{params[:id]}').sortable('option', 'disabled', false); $('.popup-warning').addClass('popup-warning--hidden'); $('.sortable').removeClass('sortable--disabled')"
     end
 
     def sort_index
       @structures = Structure.order('position').all.page params[:page]
+    end
+
+    def sort_field_groups
+      params["form--list-item"].each_with_index do |id, i|
+        FieldGroup.find( id ).update_column('position', i ) # use update_column to skip callbacks (which leads to huge useless memory consumption)
+      end
+      render json: { id: "##{params[:id]}" }, status: 200
+    end
+
+    def add_field_group
+      # We set some default values in order to be able to save the field setting
+      # (if field setting isn't save it makes impossible to sort the order)
+      @field_group = FieldGroup.new(
+        name: "#{I18n.t('binda.field_group.new')}",
+        structure_id: @structure.id
+      )
+      @field_group.save!
+      # Put new repeater to first position, then store all the other ones
+      if params["form--list-item"].nil?
+        field_groups = [
+          @field_group.id.to_s, 
+          *@structure.field_groups.order('position ASC').ids
+        ]
+      else
+        field_groups = [
+          @field_group.id.to_s,
+          *params["form--list-item"]
+        ]
+      end
+      sort_field_group_by(field_groups)
+      render 'binda/structures/_form_new_field_group_item', layout: false
     end
 
     private
@@ -76,17 +107,14 @@ module Binda
         params.require(:structure).permit( new_field_groups:[ :name, :slug, :structure_id ] )
       end
 
-      def add_new_field_groups
-        new_params[:new_field_groups].each do |field_group|
-          next if field_group[:name].blank?
-          new_field_group = @structure.field_groups.create(name: field_group[:name], slug: field_group[:slug])
-          unless new_field_group
-            return redirect_to(
-              structure_path(@structure.slug), 
-              flash: { error: new_field_group.errors }
-            )
-          end
+      # Sort field settings following the order with which are listed in the array provided as a argument.
+      #
+      # @param field_settings [Array] the list of ids of the field settings
+      def sort_field_group_by(field_groups)
+        field_groups.each_with_index do |id, i|
+          FieldGroup.find( id ).update!({ position: i })
         end
       end
+
   end
 end

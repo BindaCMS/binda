@@ -59,7 +59,7 @@ module Binda
       @repeater_setting = FieldSetting.find( params[:repeater_setting_id] )
       @repeater = @instance.repeaters.create( field_setting: @repeater_setting )
       # Put new repeater to first position, then store all the other ones
-      if params[:repeater].nil?
+      if params["form--list-item"].nil?
         repeaters = [
           @repeater.id.to_s, 
           *@instance
@@ -71,14 +71,14 @@ module Binda
       else
         repeaters = [
           @repeater.id.to_s, 
-          *params[:repeater]]
+          *params["form--list-item"]]
       end
       sort_repeaters_by(repeaters)
       render 'binda/fieldable/_form_item_new_repeater', layout: false
     end
 
     def sort_repeaters
-      sort_repeaters_by(params[:repeater])
+      sort_repeaters_by(params["form--list-item"])
       render json: { id: "##{params[:id]}" }, status: 200
     end
     

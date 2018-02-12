@@ -5,7 +5,7 @@
   <div id="form-section--field-group-<%= @field_group.id %>" 
     class="form-section--wide-container standard-form--field-group">
     <div class="standard-form--header">
-      <small><%= "#{ t 'binda.field_setting.plural' }" %></small>
+      <small><%= t('binda.field_setting.plural') %></small>
     </div>
     <div class="form-group">
       <%= render 'binda/field_groups/form_section/form_section_header', f: f %>
@@ -13,7 +13,7 @@
     </div>
     <% if @field_group.slug.nil? %>
       <p>
-        <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ).capitalize %>
+        <%= t( :hint_create_parent_before_child, arg1: "#{ t :field_group }", arg2: "#{ t :field_setting }" ) %>
       </p>
     <% end %>
   </div>

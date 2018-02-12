@@ -59,7 +59,7 @@ module Binda
     end
 
     def sort_field_settings
-      params["form-item"].each_with_index do |id, i|
+      params["form--list-item"].each_with_index do |id, i|
         FieldSetting.find( id ).update_column('position', i ) # use update_column to skip callbacks (which leads to huge useless memory consumption)
       end
       render json: { id: "##{params[:id]}" }, status: 200
@@ -76,7 +76,7 @@ module Binda
       @field_setting[:ancestry] = params[:ancestry]
       @field_setting.save!
       # Put new repeater to first position, then store all the other ones
-      if params["form-item"].nil?
+      if params["form--list-item"].nil?
         field_settings = [
           @field_setting.id.to_s, 
           *@field_group
@@ -88,7 +88,7 @@ module Binda
       else
         field_settings = [
           @field_setting.id.to_s,
-          *params["form-item"]
+          *params["form--list-item"]
         ]
       end
       sort_field_setting_by(field_settings)

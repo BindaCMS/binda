@@ -179,7 +179,8 @@
 }
 
 .standard-form--repeater,
-.standard-form--field-group {
+.standard-form--field-group,
+.standard-form--structure {
   overflow-x: hidden; // This ensure that the div doesn't become wider when draggin sortable items to the right
   margin-bottom: 0;
 
@@ -218,3 +219,14 @@
   }
 }
 
+.standard-form--fields-list { 
+
+  .form-group {
+    padding: 0px 12px 28px ;
+  }
+
+  > .form-group {
+    padding-top: 20px;
+    padding-bottom: 0;
+  }
+}

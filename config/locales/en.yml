@@ -27,7 +27,7 @@ en:
   field_setting: field setting
   repeater: repeater
   structure: structure
-  hint_create_parent_before_child: you need to create the %{arg1} before being able to add any %{arg2}
+  hint_create_parent_before_child: You need to create the %{arg1} before being able to add any %{arg2}
   dashboard_title: website settings
   dashboard: dashboard
   component: component
@@ -70,9 +70,11 @@ en:
       confirm_delete: This operation will delete this structure and there is no coming back. Are you ok with that?    
       validation_message: 
         instance_type: "%{arg1} is not a valid instance"
+    fields_list_hint: The left field contains the field setting NAME, the right one to the SLUG.
     field_group:
+      new: New field group
       singular: Field group
-      plural: FIeld groups
+      plural: Field groups
       confirm_delete: This operation will delete this group of settings and all related component content. Are you ok with that?
       validation_message:
         name: cannot be blank.
