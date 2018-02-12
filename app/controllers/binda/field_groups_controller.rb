@@ -48,7 +48,11 @@ module Binda
     def destroy
       @field_group.destroy!
       reset_field_settings_cache
-      redirect_to structure_path( @structure.slug ), notice: 'Field group was successfully destroyed.'
+      if params[:isAjax]
+        render json: { target_id: params[:target_id] }, status: 200
+      else
+        redirect_to structure_path( @structure.slug ), notice: 'Field group was successfully destroyed along with all dependents.'
+      end
     end
 
     def sort

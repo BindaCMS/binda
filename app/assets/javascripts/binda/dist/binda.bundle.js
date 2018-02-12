@@ -64,7 +64,236 @@
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemCollapsable; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = closeCollapsableStacks;
+/* harmony export (immutable) */ __webpack_exports__["c"] = openCollapsableStacks;
+/* harmony export (immutable) */ __webpack_exports__["d"] = resizeCollapsableStacks;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__select2__ = __webpack_require__(1);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * FORM ITEM
+ */
+
+
+
+// Component Global Variables
+var newFormItemId = 1;
+
+var FormItemCollapsable = function () {
+	function FormItemCollapsable() {
+		_classCallCheck(this, FormItemCollapsable);
+	}
+
+	_createClass(FormItemCollapsable, [{
+		key: "isPresent",
+		value: function isPresent() {
+			if ($(".form--list").length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: "setEvents",
+		value: function setEvents() {
+			$(document).on("click", ".form--add-list-item", addNewItem);
+			$(document).on("click", ".form--delete-list-item", deleteItem);
+			$(document).on("click", ".form-item--collapse-btn", collapseToggle);
+			$(window).resize(resizeCollapsableStacks);
+			// Make sure all collapsable items are resized already at every page load
+			resizeCollapsableStacks();
+		}
+	}]);
+
+	return FormItemCollapsable;
+}();
+
+var _FormItemCollapsable = new FormItemCollapsable();
+
+/**
+ * COMPONENT HELPER FUNCTIONS
+ */
+
+/**
+ * Adds a new item.
+ *
+ * @param      {event}  event   The event
+ */
+function addNewItem(event) {
+	// Stop default behaviour
+	event.preventDefault();
+	// Get the child to clone
+	var id = $(this).data("id");
+	var $list = $("#form--list-" + id);
+	var url = $(this).data("url");
+	var data = $list.sortable("serialize");
+	var params = $(this).data("params");
+	if (params) {
+		data = data.concat("&" + params);
+	}
+
+	$.post(url, data, function (data) {
+		// Get repaeter code from Rails
+		// Due to the Rails way of creating nested forms it's necessary to
+		// create the nested item inside a different new form, then get just
+		// the code contained between the two SPLIT comments
+		var parts = data.split("<!-- SPLIT -->");
+		var newItem = parts[1];
+		setupAndAppend(newItem, $list);
+	});
+}
+
+/**
+ * Setup and append new item
+ *
+ * @param      {string}  newItem  The new item
+ * @param      {object}  $list    The list
+ */
+function setupAndAppend(newItem, $list) {
+	// Append the item
+	$list.prepend(newItem);
+	var collapsable = $list.find(".form-item--collapsable").get(0);
+
+	// Update select input for Select2 plugin
+	Object(__WEBPACK_IMPORTED_MODULE_0__select2__["b" /* setupSelect2 */])($list.find("select"));
+
+	// Setup TinyMCE for the newly created item
+	var textarea_editor_id = $list.find("textarea").last("textarea").attr("id");
+	tinyMCE.EditorManager.execCommand("mceAddEditor", true, textarea_editor_id);
+
+	// Prepare collapsable animation
+	collapsable.style.maxHeight = "0px";
+
+	// Prepare collapsable stack animation
+	openCollapsableStacks(collapsable);
+
+	// Refresh Sortable to update the added item with Sortable features
+	$list.sortable("refresh");
+
+	// Run animation 500ms after previous style declaration (see above) otherwise animation doesn't get triggered
+	setTimeout(function () {
+		collapsable.style.maxHeight = collapsable.scrollHeight + "px";
+	}, 50);
+}
+
+/**
+ * Close collapsable stacks
+ *
+ * It closes all collapsable stacks inside the collapsable item passed as argument
+ *
+ * @param      {object, string}  target  The target
+ */
+function closeCollapsableStacks(obj) {
+	$(obj).addClass("form-item--collapsed").find(".form-item--collapsable-stack").each(function () {
+		this.style.maxHeight = "0px";
+	});
+}
+
+/**
+ * Open collapsable stacks
+ *
+ * It opens all collapsable stacks inside the collapsable item passed as argument
+ *
+ * @param      {object, string}  target  The target
+ */
+function openCollapsableStacks(obj) {
+	// Don't execute this if sortable is enabled
+	if ($(obj).closest(".sortable").hasClass("sortable--enabled")) {
+		return;
+	}
+	$(obj).removeClass("form-item--collapsed").find(".form-item--collapsable-stack").each(function () {
+		this.style.maxHeight = this.scrollHeight + "px";
+	});
+}
+
+/**
+ * Toggle a collapsable item
+ *
+ * Basically it opens it or closes it based on its state
+ *
+ * @param      {event}  event   The event
+ */
+function collapseToggle(event) {
+	// Stop default behaviour
+	event.preventDefault();
+
+	var $collapsable = $(this).closest(".form-item--collapsable");
+
+	if ($collapsable.hasClass("form-item--collapsed")) {
+		openCollapsableStacks($collapsable);
+	} else {
+		closeCollapsableStacks($collapsable);
+	}
+}
+
+/**
+ * Delete collapsable item and hide it
+ *
+ * @param      {event}  event   The event
+ */
+function deleteItem(event) {
+	// Stop default behaviour
+	event.preventDefault();
+	var record_id = $(this).data("id");
+	var targetId = "#form--list-item-" + record_id;
+	var target = $(targetId).get(0);
+	// As max-height isn't set you need to set it manually before changing it,
+	// otherwise the animation doesn't get triggered
+	target.style.maxHeight = target.scrollHeight + "px";
+	// Change max-height after 50ms to trigger css animation
+	setTimeout(function () {
+		target.style.maxHeight = "0px";
+	}, 50);
+
+	$.ajax({
+		url: $(this).attr("href"),
+		data: { id: record_id, target_id: targetId, isAjax: true },
+		method: "DELETE"
+	}).done(function (data) {
+		console.log(data);
+
+		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
+		setTimeout(function () {
+			console.log(data.target_id);
+			$(data.target_id).remove();
+		}, 700);
+	});
+	// TODO add a fallback if request fails
+}
+
+/**
+ */
+
+/**
+ * Resize all collapsable item
+ *
+ * If a target is passed as a argument the function will resize only that target and its children.
+ *
+ * @param      {object, string}  target  The target
+ */
+function resizeCollapsableStacks(target) {
+	target = _.isUndefined(target) ? $(".form-item--collapsable-stack") : target;
+	$(target).each(function () {
+		// If the collapsable item is closed don't go any further
+		if ($(this).height() === 0 || $(this).closest(".form-item--collapsable").hasClass("form-item--collapsed")) {
+			this.style.maxHeight = "0px";
+		} else {
+			// otherwise update the max-height which is needed for the CSS transition
+			// NOTE you need to remove the max-height (inside 'style' attribute) to get the real height
+			this.style.height = "auto";
+			this.style.maxHeight = this.scrollHeight + "px";
+		}
+	});
+}
+
+/***/ }),
 /* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -104,17 +333,17 @@ function setupSelect2(target) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item_collapsable__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_image__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_field_setting_choices__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_fileupload__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_login_shader__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_login_form__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sortable__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_bootstrap__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item_collapsable__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_image__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_field_setting_choices__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_fileupload__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_login_shader__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_login_form__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sortable__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_bootstrap__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_select2__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_radio_toggle__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_radio_toggle__ = __webpack_require__(11);
 ///- - - - - - - - - - - - - - - - - - - -
 /// INDEX OF BINDA'S SCRIPTS
 ///- - - - - - - - - - - - - - - - - - - -
@@ -166,9 +395,7 @@ window.addEventListener("optimizedResize", function () {
 });
 
 /***/ }),
-/* 3 */,
-/* 4 */,
-/* 5 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -208,12 +435,12 @@ var FormItemImage = function () {
 var _FormItemImage = new FormItemImage();
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FieldSettingChoices; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -299,7 +526,7 @@ function deleteChoice(event) {
 }
 
 /***/ }),
-/* 7 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -508,7 +735,7 @@ function setup_video_preview(data, id) {
 }
 
 /***/ }),
-/* 8 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -725,7 +952,7 @@ function hexToShaderRgb(hex) {
 })();
 
 /***/ }),
-/* 9 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -854,11 +1081,11 @@ var LoginForm = function () {
 var _LoginForm = new LoginForm();
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__ = __webpack_require__(0);
 /**
  * SORTABLE
  */
@@ -956,7 +1183,7 @@ function updateSortable() {
 }
 
 /***/ }),
-/* 11 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -978,7 +1205,7 @@ function updateSortable() {
 });
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -992,7 +1219,7 @@ function updateSortable() {
 });
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1010,233 +1237,6 @@ function updateSortable() {
         $radio.siblings('input[name="login"]').data("waschecked", false);
     });
 });
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemCollapsable; });
-/* harmony export (immutable) */ __webpack_exports__["b"] = closeCollapsableStacks;
-/* harmony export (immutable) */ __webpack_exports__["c"] = openCollapsableStacks;
-/* harmony export (immutable) */ __webpack_exports__["d"] = resizeCollapsableStacks;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__select2__ = __webpack_require__(1);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * FORM ITEM
- */
-
-
-
-// Component Global Variables
-var newFormItemId = 1;
-
-var FormItemCollapsable = function () {
-	function FormItemCollapsable() {
-		_classCallCheck(this, FormItemCollapsable);
-	}
-
-	_createClass(FormItemCollapsable, [{
-		key: "isPresent",
-		value: function isPresent() {
-			if ($(".form--list").length > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}, {
-		key: "setEvents",
-		value: function setEvents() {
-			$(document).on("click", ".form--add-list-item", addNewItem);
-			$(document).on("click", ".form--delete-list-item", deleteItem);
-			$(document).on("click", ".form-item--collapse-btn", collapseToggle);
-			$(window).resize(resizeCollapsableStacks);
-			// Make sure all collapsable items are resized already at every page load
-			resizeCollapsableStacks();
-		}
-	}]);
-
-	return FormItemCollapsable;
-}();
-
-var _FormItemCollapsable = new FormItemCollapsable();
-
-/**
- * COMPONENT HELPER FUNCTIONS
- */
-
-/**
- * Adds a new item.
- *
- * @param      {event}  event   The event
- */
-function addNewItem(event) {
-	// Stop default behaviour
-	event.preventDefault();
-	// Get the child to clone
-	var id = $(this).data("id");
-	var $list = $("#form--list-" + id);
-	var url = $(this).data("url");
-	var data = $list.sortable("serialize");
-	var params = $(this).data("params");
-	if (params) {
-		data = data.concat("&" + params);
-	}
-
-	$.post(url, data, function (data) {
-		// Get repaeter code from Rails
-		// Due to the Rails way of creating nested forms it's necessary to
-		// create the nested item inside a different new form, then get just
-		// the code contained between the two SPLIT comments
-		var parts = data.split("<!-- SPLIT -->");
-		var newItem = parts[1];
-		setupAndAppend(newItem, $list);
-	});
-}
-
-/**
- * Setup and append new item
- *
- * @param      {string}  newItem  The new item
- * @param      {object}  $list    The list
- */
-function setupAndAppend(newItem, $list) {
-	// Append the item
-	$list.prepend(newItem);
-	var collapsable = $list.find(".form-item--collapsable").get(0);
-
-	// Update select input for Select2 plugin
-	Object(__WEBPACK_IMPORTED_MODULE_0__select2__["b" /* setupSelect2 */])($list.find("select"));
-
-	// Setup TinyMCE for the newly created item
-	var textarea_editor_id = $list.find("textarea").last("textarea").attr("id");
-	tinyMCE.EditorManager.execCommand("mceAddEditor", true, textarea_editor_id);
-
-	// Prepare collapsable animation
-	collapsable.style.maxHeight = "0px";
-
-	// Prepare collapsable stack animation
-	openCollapsableStacks(collapsable);
-
-	// Refresh Sortable to update the added item with Sortable features
-	$list.sortable("refresh");
-
-	// Run animation 500ms after previous style declaration (see above) otherwise animation doesn't get triggered
-	setTimeout(function () {
-		collapsable.style.maxHeight = collapsable.scrollHeight + "px";
-	}, 50);
-}
-
-/**
- * Close collapsable stacks
- *
- * It closes all collapsable stacks inside the collapsable item passed as argument
- *
- * @param      {object, string}  target  The target
- */
-function closeCollapsableStacks(obj) {
-	$(obj).addClass("form-item--collapsed").find(".form-item--collapsable-stack").each(function () {
-		this.style.maxHeight = "0px";
-	});
-}
-
-/**
- * Open collapsable stacks
- *
- * It opens all collapsable stacks inside the collapsable item passed as argument
- *
- * @param      {object, string}  target  The target
- */
-function openCollapsableStacks(obj) {
-	// Don't execute this if sortable is enabled
-	if ($(obj).closest(".sortable").hasClass("sortable--enabled")) {
-		return;
-	}
-	$(obj).removeClass("form-item--collapsed").find(".form-item--collapsable-stack").each(function () {
-		this.style.maxHeight = this.scrollHeight + "px";
-	});
-}
-
-/**
- * Toggle a collapsable item
- *
- * Basically it opens it or closes it based on its state
- *
- * @param      {event}  event   The event
- */
-function collapseToggle(event) {
-	// Stop default behaviour
-	event.preventDefault();
-
-	var $collapsable = $(this).closest(".form-item--collapsable");
-
-	if ($collapsable.hasClass("form-item--collapsed")) {
-		openCollapsableStacks($collapsable);
-	} else {
-		closeCollapsableStacks($collapsable);
-	}
-}
-
-/**
- * Delete collapsable item and hide it
- *
- * @param      {event}  event   The event
- */
-function deleteItem(event) {
-	// Stop default behaviour
-	event.preventDefault();
-	var record_id = $(this).data("id");
-	var targetId = "#form--list-item-" + record_id;
-	var target = $(targetId).get(0);
-	// As max-height isn't set you need to set it manually before changing it,
-	// otherwise the animation doesn't get triggered
-	target.style.maxHeight = target.scrollHeight + "px";
-	// Change max-height after 50ms to trigger css animation
-	setTimeout(function () {
-		target.style.maxHeight = "0px";
-	}, 50);
-
-	$.ajax({
-		url: $(this).attr("href"),
-		data: { id: record_id, target_id: targetId, isAjax: true },
-		method: "DELETE"
-	}).done(function (data) {
-		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
-		setTimeout(function () {
-			$(data.target_id).remove();
-		}, 700);
-	});
-	// TODO add a fallback if request fails
-}
-
-/**
- */
-
-/**
- * Resize all collapsable item
- *
- * If a target is passed as a argument the function will resize only that target and its children.
- *
- * @param      {object, string}  target  The target
- */
-function resizeCollapsableStacks(target) {
-	target = _.isUndefined(target) ? $(".form-item--collapsable-stack") : target;
-	$(target).each(function () {
-		// If the collapsable item is closed don't go any further
-		if ($(this).height() === 0 || $(this).closest(".form-item--collapsable").hasClass("form-item--collapsed")) {
-			this.style.maxHeight = "0px";
-		} else {
-			// otherwise update the max-height which is needed for the CSS transition
-			// NOTE you need to remove the max-height (inside 'style' attribute) to get the real height
-			this.style.height = "auto";
-			this.style.maxHeight = this.scrollHeight + "px";
-		}
-	});
-}
 
 /***/ })
 /******/ ]);

@@ -178,13 +178,17 @@ function deleteItem(event) {
 		target.style.maxHeight = "0px";
 	}, 50);
 
+
 	$.ajax({
 		url: $(this).attr("href"),
 		data: { id: record_id, target_id: targetId, isAjax: true },
 		method: "DELETE"
-	}).done(data => {
+	}).done(function(data){
+		console.log(data)
+
 		// Make sure the animation completes before removing the item (it should last 600ms + 50ms)
 		setTimeout(function() {
+			console.log(data.target_id)
 			$(data.target_id).remove();
 		}, 700);
 	});
