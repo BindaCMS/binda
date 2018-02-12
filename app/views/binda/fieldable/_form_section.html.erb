@@ -4,7 +4,7 @@
 <% if field_setting.field_type == 'text' %>
   <% current = @instance.find_or_create_a_field_by( field_setting.id, 'text' ) %>
   <%= f.simple_fields_for "texts_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_text', ff: ff, field_setting: field_setting %>
+    <%= render 'binda/fieldable/form_item_text', f: f, ff: ff, field_setting: field_setting %>
   <% end %>
 
 
@@ -14,7 +14,7 @@
 <% elsif field_setting.field_type == 'string' %>
   <% current = @instance.find_or_create_a_field_by( field_setting.id, 'string' ) %>
   <%= f.simple_fields_for "strings_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_string', ff: ff, field_setting: field_setting %>
+    <%= render 'binda/fieldable/form_item_string', f: f, ff: ff, field_setting: field_setting %>
   <% end %>
 
 

@@ -1,8 +1,8 @@
 <div id="standard-form--string-<%= field_setting.id %>" class="standard-form--string form-item">
 	
-	<% if @instance.has_string( field_setting.slug ) %>
+	<% if f.object.has_string( field_setting.slug ) %>
 			<%= ff.input :content, 
-						input_html: { value: @instance.get_string( field_setting.slug ) }, 
+						input_html: { value: f.object.get_string( field_setting.slug ) }, 
 						as: :string, 
 						hint: field_setting.description, 
 						label: field_setting.name %>
