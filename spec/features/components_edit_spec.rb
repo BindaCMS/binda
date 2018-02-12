@@ -73,6 +73,12 @@ describe "GET component#edit", type: :feature, js: true do
 
 	it "allows to create multiple new repeater items clicking the button" do		
 		repeater_setting = @component.repeaters.first.field_setting
+		num_of_repeaters = Binda::Repeater.where(
+			field_setting_id: repeater_setting.id,
+			fieldable_id: @component.id,
+			fieldable_type: @component.class.name
+		).length
+		expect(all("#form--list-#{repeater_setting.id} li").length).to eq(num_of_repeaters)
 		find("#standard-form--repeater-#{repeater_setting.id} .form--add-list-item").click
 		wait_for_ajax
 		# wait for animation
@@ -81,7 +87,7 @@ describe "GET component#edit", type: :feature, js: true do
 		wait_for_ajax
 		# wait for animation
 		sleep 1
-		expect(all("#form--list-#{@structure.id} li").length).to eq(num_of_groups+2)
+		expect(all("#form--list-#{repeater_setting.id} li").length).to eq(num_of_repeaters+2)
 	end
 
 	describe "when creating a new repeater" do
