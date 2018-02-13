@@ -51,11 +51,10 @@ function addNewItem(event) {
 	if (params) {
 		data = data.concat(`&${params}`);
 	}
-
 	$.ajax({
 		url: url,
 		data: data,
-		method: "POST;"
+		method: "POST"
 	}).done(function(data) {
 		// Get repaeter code from Rails
 		// Due to the Rails way of creating nested forms it's necessary to

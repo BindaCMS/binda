@@ -313,7 +313,7 @@ module Binda
 		# 
 		# Used by task `rails binda:remove_orphan_fields`
 		def self.remove_orphan_fields
-			self.class.get_field_classes.each do |field_class|
+			FieldSetting.get_field_classes.each do |field_class|
 				"Binda::#{field_class}"
 					.constantize
 					.includes(:field_setting)
