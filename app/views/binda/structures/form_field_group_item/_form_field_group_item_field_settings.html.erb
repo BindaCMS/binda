@@ -7,18 +7,12 @@
 			<%= t('binda.fields_list_hint') %>
 		</p>
 	</div>
-	<%= ff.simple_fields_for :field_settings, ff.object.field_settings.order( :position, :name ) do |fff| %>
-		<div class="form-item--half-size">
-			<%= fff.input :name, 
-				label: false,
-				as: :string, 
-				input_html: { class: "form-item--default-input" } %>
-		</div>
-		<div class="form-item--half-size">
-			<%= fff.input :slug, 
-				label: false,
-				as: :string, 
-				input_html: { class: "form-item--input" } %>
-		</div>
+	<%= ff.simple_fields_for :field_settings, ff.object.field_settings.where(ancestry: nil).order(:position, :name) do |fff| %>
+		<%= render 'binda/structures/form_field_group_item/form_field_group_item_field_setting_form', fff: fff %>
+		<% if fff.object.has_children? %>
+			<%= ff.simple_fields_for :field_settings, fff.object.children.order(:position, :name) do |fff| %>
+				<%= render 'binda/structures/form_field_group_item/form_field_group_item_field_setting_form', fff: fff %>
+			<% end %>
+		<% end %>
 	<% end %>
 </div>
