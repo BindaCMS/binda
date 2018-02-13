@@ -53,4 +53,13 @@ describe "GET structures#edit", type: :feature, js: true do
 		# look for anything, just to make sure the page isn't throwing a error
 		expect(page).to have_content(@structure.name)
 	end
+
+	describe "for a specific field group" do
+		it "lets edit a name of a field setting" do
+			pending("Not implemented yet")
+		end
+		it "lets edit a slug of a field setting" do
+			pending("Not implemented yet")
+		end
+	end
 end
