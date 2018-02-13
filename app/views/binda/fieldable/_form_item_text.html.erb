@@ -1,18 +1,10 @@
 <div id="standard-form--text-<%= field_setting.id %>" class="standard-form--text form-item">
 
-	<% if f.object.has_text( field_setting.slug ) %>
-			<%= ff.input :content, 
-						input_html: { value: f.object.get_text( field_setting.slug ), class: 'tinymce' }, 
-						as: :text,
-						hint: field_setting.description,
-						label: field_setting.name %>
-	<% else %>
-			<%= ff.input :content, 
-						input_html: { class: 'tinymce' }, 
-						as: :text,
-						hint: field_setting.description,
-						label: field_setting.name %>
-	<% end %>
+	<%= ff.input :content, 
+				input_html: { value: ff.object.content, class: 'tinymce' }, 
+				as: :text,
+				hint: field_setting.description,
+				label: field_setting.name %>
 
 	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
 	<%= ff.input :id, as: :hidden, input_html: { value: ff.object.id } %>

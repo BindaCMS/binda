@@ -10,9 +10,15 @@ module Binda
 		# @return [string] Returns the content of the text 
 		# @return [error]  Raise an error if no record is found
 		def get_text(field_slug)
-			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type != 'Binda::String' }	
+			obj = Text
+				.includes(:field_setting)
+				.where(fieldable_id: self.id, fieldable_type: self.class.name)
+				.where(binda_field_settings: { slug: field_slug })
+				.where.not(binda_field_settings: { field_type: "string" })
+				.first
 			unless obj.nil?
-				obj.content
+				# to_s ensures the returned object is class String
+				obj.content.to_s
 			else
 				check_text_error field_slug
 			end
@@ -34,7 +40,12 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_text(field_slug)
-			obj = self.texts.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type != 'Binda::String' }
+			obj = Text
+				.includes(:field_setting)
+				.where(fieldable_id: self.id, fieldable_type: self.class.name)
+				.where(binda_field_settings: { slug: field_slug })
+				.where.not(binda_field_settings: { field_type: "string" })
+				.first
 			raise ArgumentError, "There isn't any text associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			if obj.present?
 				return !obj.content.nil?
@@ -50,9 +61,14 @@ module Binda
 		# @return [string] Returns the content of the string 
 		# @return [error]  Raise an error if no record is found
 		def get_string(field_slug)
-			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type == 'Binda::String' }
+			obj = Text
+				.includes(:field_setting)
+				.where(fieldable_id: self.id, fieldable_type: self.class.name)
+				.where(binda_field_settings: { slug: field_slug, field_type: "string" })
+				.first
 			unless obj.nil?
-				obj.content
+				# to_s ensures the returned object is class String
+				obj.content.to_s
 			else
 				check_string_error field_slug
 			end
@@ -74,7 +90,11 @@ module Binda
 		# @param field_slug [string] The slug of the field setting
 		# @return [boolean]
 		def has_string(field_slug)
-			obj = self.strings.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) && t.type == 'Binda::String' }
+			obj = Text
+				.includes(:field_setting)
+				.where(fieldable_id: self.id, fieldable_type: self.class.name)
+				.where(binda_field_settings: { slug: field_slug, field_type: "string" })
+				.first
 			raise ArgumentError, "There isn't any string associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 			if obj.present?
 				return !obj.content.nil?
