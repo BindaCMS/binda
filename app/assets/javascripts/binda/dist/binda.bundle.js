@@ -167,9 +167,7 @@ function setupAndAppend(newItem, $list) {
 	// Update select input for Select2 plugin
 	Object(__WEBPACK_IMPORTED_MODULE_0__select2__["b" /* setupSelect2 */])($list.find("select"));
 
-	// Setup TinyMCE for the newly created item
-	var textarea_editor_id = $list.find("textarea").last("textarea").attr("id");
-	tinyMCE.EditorManager.execCommand("mceAddEditor", true, textarea_editor_id);
+	setupTinyMCE($list.find("textarea"));
 
 	// Prepare collapsable animation
 	collapsable.style.maxHeight = "0px";
@@ -273,9 +271,6 @@ function deleteItem(event) {
 }
 
 /**
- */
-
-/**
  * Resize all collapsable item
  *
  * If a target is passed as a argument the function will resize only that target and its children.
@@ -298,6 +293,17 @@ function resizeCollapsableStacks(target) {
 			this.style.maxHeight = this.scrollHeight + "px";
 			this.style.pointerEvents = "auto";
 		}
+	});
+}
+
+/**
+ * Setup TinyMCE
+ *
+ * @param      {jQuery object}  $textareas  The textareas
+ */
+function setupTinyMCE($textareas) {
+	$textareas.each(function () {
+		tinyMCE.EditorManager.execCommand("mceAddEditor", true, this.getAttribute('id'));
 	});
 }
 
