@@ -20,6 +20,7 @@ describe "GET boards#edit", type: :feature, js: true do
 	end
 
 	it "allows to edit a string field" do
+		print page.body
 		string_setting = @structure.field_groups.first.field_settings.where(field_type: 'string').first
 		string_id = @board.strings.where(field_setting_id: string_setting.id).first.id
 		string_field = "board_strings_attributes_#{string_id}_content"

@@ -56,10 +56,10 @@ describe "GET structures#edit", type: :feature, js: true do
 
 	describe "for a specific field group" do
 		it "lets edit a name of a field setting" do
-			pending("Not implemented yet")
+			skip("Not implemented yet")
 		end
 		it "lets edit a slug of a field setting" do
-			pending("Not implemented yet")
+			skip("Not implemented yet")
 		end
 	end
 end

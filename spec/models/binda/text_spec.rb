@@ -17,29 +17,29 @@ module Binda
 		end
 
 		it 'belongs to a component' do
-			expect( @component_text.fieldable ).to eq( @component )
+			expect(@component_text.fieldable).to eq(@component)
 		end
 
 		it 'belongs to a repeater' do
-			expect( @repeater_text.fieldable ).not_to eq( @component )
-			expect( @repeater_text.fieldable ).to eq( @repeater )
+			expect(@repeater_text.fieldable).not_to eq(@component)
+			expect(@repeater_text.fieldable).to eq(@repeater)
 		end
 
 		it 'returns blank on get_text() if there is no content' do 
 			slug = @component_text.field_setting.slug
-			expect( @component.get_text( slug ) ).to eq( @component_text.content )
-			expect( @component.get_text( slug ) ).to eq( nil )
+			expect(@component.get_text(slug)).to eq(@component_text.content.to_s)
+			expect(@component.get_text(slug)).to eq("")
 		end
 		
-		it "returns nil on get_text() if the text field has been recently created but the component doesn't have any text belonging to that text field" do
+		it "returns a empty string on get_text() immediately after text setting has been created" do
 			@text_field_setting = @structure.field_groups.first.field_settings.create(name: 'Testing sting', field_type: 'text')
 			
 			# expect error, use block with {} parethesis 
 			# see https://stackoverflow.com/questions/19960831/rspec-expect-vs-expect-with-block-whats-the-difference
-			expect{ @component.get_text( @text_field_setting.slug ) }.to raise_error ArgumentError
+			expect{ @component.get_text(@text_field_setting.slug) }.not_to raise_error
 
 			@component.texts.create({ content: 'Lorem', field_setting_id: @text_field_setting.id })
-			expect( @component.get_text( @text_field_setting.slug ) ).to eq('Lorem')
+			expect(@component.get_text(@text_field_setting.slug)).to eq('Lorem')
 		end
 
 	end

@@ -236,10 +236,10 @@ module Binda
 		# test method Binda::FieldSetting.remove_orphan_fields
 		describe "dealing with orphans" do
 			it "makes sure changing field setting type will remove any orphan with the previous type" do
-				pending "not implemented yet"
+				skip "not implemented yet"
 			end
 			it "removes any field which has an association with a non existing field setting" do
-				pending "not implemented yet"
+				skip "not implemented yet"
 			end
 		end
 	end
