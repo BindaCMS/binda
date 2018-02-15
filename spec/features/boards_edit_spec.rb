@@ -20,7 +20,11 @@ describe "GET boards#edit", type: :feature, js: true do
 	end
 
 	it "allows to edit a string field" do
-		print page.body
+		# Sometimes webdriver isn't fast enough to render this page on Travis
+		# We will use find('#main-content') to force Capybara to wait before executing anything
+		# (with print page.body test passes)
+		find('#main-content')
+		
 		string_setting = @structure.field_groups.first.field_settings.where(field_type: 'string').first
 		string_id = @board.strings.where(field_setting_id: string_setting.id).first.id
 		string_field = "board_strings_attributes_#{string_id}_content"
