@@ -23,11 +23,16 @@
     <% @structure.field_groups.order( :position, :name ).each_with_index do |field_group, index| %>
       <div class="standard-form--container">
         <div class="standard-form--header">
-          <small><%= field_group.name.capitalize %></small>
+          <small><%= field_group.name %></small>
         </div>
         <% if f.object.new_record? %>
           <p class="standard-form--hint-on-new-record"><%= t( :hint_create_parent_before_child, arg1: "#{@structure.name} #{@structure.instance_type}", arg2: "#{ t :detail }" ).capitalize %></p>
         <% else %>
+          <% unless field_group.description.blank? %>
+            <div class="standard-form--field-group-description">
+              <%== field_group.description %>
+            </div>
+          <% end %>
           <% field_group.field_settings.order( :position, :name ).each do |field_setting| %>
             <% next unless field_setting.is_root? %>
             <%= render "binda/fieldable/form_section", f: f, field_setting: field_setting %>
