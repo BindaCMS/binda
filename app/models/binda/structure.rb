@@ -23,6 +23,7 @@ module Binda
 		extend FriendlyId
 		friendly_id :default_slug, use: [:slugged, :finders]
 
+		before_save :board_contraints
 		after_create :add_default_field_group
 		after_save :add_instance_details
 		after_create :set_default_position
@@ -72,9 +73,12 @@ module Binda
 		#   It also disable categories (this could be a different method, or method could be more explicit)
 		def add_instance_details
 			if self.instance_type == 'board'
-				self.update_attribute('has_categories', false)
-					add_default_board
+				add_default_board
 			end
+		end
+
+		def board_contraints
+			self.has_categories = false if self.instance_type == 'board'
 		end
 
 		# Add default board to a structure if needed
@@ -82,7 +86,8 @@ module Binda
 			if Board.where(structure_id: self.id).empty?
 				board = self.build_board( name: self.name )
 				unless board.save
-					return redirect_to structure_path(self.slug), flash: { error: I18n.t('binda.default_field_group.error_on_create') }
+					errors.add(:base, I18n.t('binda.default_field_group.error_on_create'))
+					# return redirect_to structure_path(self.slug), flash: { error: I18n.t('binda.default_field_group.error_on_create') }
 				end
 			end
 		end

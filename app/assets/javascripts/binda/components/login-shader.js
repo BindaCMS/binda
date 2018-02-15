@@ -14,7 +14,7 @@ class Shader {
     };
   }
 
-  isSet() {
+  isPresent() {
     if ($("#background-shader").length > 0) {
       return true;
     } else {

@@ -18,11 +18,8 @@ module Binda
   #   relation.dependent_components << dependent
   class Relation < ApplicationRecord
 
-    belongs_to :fieldable, polymorphic: true
-    belongs_to :field_setting
-
-    validates :fieldable_id, presence: true
-    validates :fieldable_type, presence: true
+    include Fields
+    include FieldUniqueness
 
     # Relations are the connection between a Owner to its Dependents
     # The Active Relation connects a Relation to a Dependent (which is can be a Component or a Board)

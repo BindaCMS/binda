@@ -1,9 +1,8 @@
 module Binda
 	# Fieldable associations are Binda's core feature. 
 	# 
-	# They provide model classes like `Binda::Component` and `Binda::Board` with a collection of fields 
-	#   (texts, assets, dates and so on) to store data in a simple yet powerful way. It's possible to 
-	#   make use of a set of helpers to retrieve fields data belonging to each model instance. 
+	# They provide classes like `Binda::Component` and `Binda::Board` with a collection of fields 
+	#   (texts, assets, dates and so on) to store data in a simple yet powerful way. 
 	module FieldableAssociations
 
 		extend ActiveSupport::Concern

@@ -6,7 +6,7 @@ module Binda
 
       def check_if_production
         if Rails.env.production?
-          puts "Sorry Binda can only be installed in development mode"
+          warn "Sorry Binda can only be installed in development mode"
           exit
         end
       end
@@ -14,8 +14,8 @@ module Binda
       def check_previous_install
         # Ensure Binda is not installed
         if ActiveRecord::Base.connection.data_source_exists? 'binda_components'
-          puts "Binda has already been installed on this database."
-          puts "Please ensure Binda is completely removed from the database before trying to install it again."
+          warn "Binda has already been installed on this database."
+          warn "Please ensure Binda is completely removed from the database before trying to install it again."
           exit
         end
       end
@@ -37,8 +37,8 @@ module Binda
         else
           # If there is any previous Binda migration
           if previous_migrations.size != previous_binda_migrations.size
-            puts "You have several migrations, please manually delete Binda's ones then run 'rails g binda:install' again."
-            puts "Keep in mind that Binda will place the new migration after the existing ones."
+            warn "You have several migrations, please manually delete Binda's ones then run 'rails g binda:install' again."
+            warn "Keep in mind that Binda will place the new migration after the existing ones."
             exit
           else
             # Remove previous Binda migrations
@@ -48,7 +48,6 @@ module Binda
           end
         end
         rake 'db:migrate'
-        
       end
 
       def add_route
@@ -118,6 +117,18 @@ module Binda
         puts "4) Setup Carrierwave"
         template 'config/initializers/carrierwave.rb'
         puts "==============================================================================="
+      end
+      
+      # Setup default helpers
+      # 
+      # This operation creates a class called `B` from which is possible to call any
+      #   Binda helper contained in Binda::DefaultHelpers. This is possible by inheriting the
+      #   `Binda::B` class.
+      def setup_default_helpers
+        puts "5) Setting up default helpers"
+        generate "model", "B --no-migration --parent=::Binda::B"
+        puts "Default helpers has been set up."
+        puts 
       end
 
       def setup_settings

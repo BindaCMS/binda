@@ -70,6 +70,14 @@ body#tinymce {
 
 .mce-btn {
   background-color: $color-gray-lightest !important;
+
+  &.mce-active {
+    background-color: $color-gray !important;
+  }
+}
+
+.mce-primary {
+  background-color: $color-gray !important;
 }
 
 .mce-btn:hover,

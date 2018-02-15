@@ -14,6 +14,10 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+# https://www.viget.com/articles/rails-engine-testing-with-rspec-capybara-and-factorygirl/
+# Dir[File.join(File.dirname(__FILE__), 'tasks/**/*.rake')].each {|f| load f }
+# require 'rspec/core'
+
 APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
 load 'rails/tasks/engine.rake'
 

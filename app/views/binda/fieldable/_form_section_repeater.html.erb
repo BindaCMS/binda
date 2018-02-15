@@ -4,7 +4,7 @@
 <% if repeater_setting_child.field_type == 'text' %>
   <% current = @instance.repeaters.select{|r| r.id == f.object.id}.first.find_or_create_a_field_by( repeater_setting_child.id, 'text' ) %>
   <%= f.simple_fields_for "texts_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_text', ff: ff, field_setting: repeater_setting_child %>
+    <%= render 'binda/fieldable/form_item_text', f: f, ff: ff, field_setting: repeater_setting_child %>
   <% end %>
 
 
@@ -14,7 +14,7 @@
 <% elsif repeater_setting_child.field_type == 'string' %>
   <% current = @instance.repeaters.select{|r| r.id == f.object.id}.first.find_or_create_a_field_by( repeater_setting_child.id, 'string' ) %>
   <%= f.simple_fields_for "strings_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_string', ff: ff, field_setting: repeater_setting_child %>
+    <%= render 'binda/fieldable/form_item_string', f: f, ff: ff, field_setting: repeater_setting_child %>
   <% end %>
 
 
@@ -46,7 +46,6 @@
   <%= f.simple_fields_for "videos_attributes[]", current do |ff| %>
     <%= render 'binda/fieldable/form_item_video', ff: ff, field_setting: repeater_setting_child %>
   <% end %>
-
 
 
 <%# - - - - - - - - - - - - %>

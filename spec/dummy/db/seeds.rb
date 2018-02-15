@@ -25,7 +25,7 @@ puts "Setting up website name"
 
 website_name = field_settings.create!( name: 'Website Name', field_type: 'string' )
 website_name.update_attributes( slug: 'website-name' )
-@dashboard.strings.create!( field_setting_id: website_name.id ).update_attributes(content: 'MySite' )
+@dashboard.strings.find_by( field_setting_id: website_name.id ).update_attributes(content: 'MySite' )
 
 
 # WEBSITE CONTENT
@@ -33,7 +33,7 @@ puts "Setting up website description"
 
 website_description = field_settings.create!( name: 'Website Description', field_type: 'string' )
 website_description.update_attributes( slug: 'website-description' )
-@dashboard.texts.create!( field_setting_id: website_description.id ).update_attributes( content: 'A website about the world' )
+@dashboard.texts.find_by( field_setting_id: website_description.id ).update_attributes( content: 'A website about the world' )
 
 puts "Setting up page component"
 

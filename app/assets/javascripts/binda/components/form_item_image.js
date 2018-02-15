@@ -7,7 +7,7 @@ class FormItemImage {
 		this.target = ".form-item--image--uploader";
 	}
 
-	isSet() {
+	isPresent() {
 		if ($(this.target).length > 0) {
 			return true;
 		} else {

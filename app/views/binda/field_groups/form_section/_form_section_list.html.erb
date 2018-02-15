@@ -1,0 +1,9 @@
+<ul id="form--list-<%= defined?(repeater) ? repeater.id : f.object.id %>"
+	class="sortable sortable--disabled form--list"
+  data-update-url="<%= url_for([@structure, @field_group, :sort_field_settings]) %>" 
+  data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.field_setting.plural').downcase } %>">
+  <% ancestry = defined?(repeater) ? repeater.id.to_s : nil %>
+  <%= f.simple_fields_for :field_settings, f.object.field_settings.where( ancestry: ancestry ).order( :position, :name ) do |ff| %>
+    <%= render 'binda/field_groups/form_item', f: f, ff: ff, is_new: false %>
+  <% end %>
+</ul>

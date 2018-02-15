@@ -1,0 +1,18 @@
+<div class="standard-form--fields-list">	
+	<div class="form-group">
+		<p class="control-label clearfix">
+			<%= t('binda.field_setting.plural') %>
+		</p>
+		<p class="help-block">
+			<%= t('binda.fields_list_hint') %>
+		</p>
+	</div>
+	<%= ff.simple_fields_for :field_settings, ff.object.field_settings.where(ancestry: nil).order(:position, :name) do |fff| %>
+		<%= render 'binda/structures/form_field_group_item/form_field_group_item_field_setting_form', fff: fff %>
+		<% if fff.object.has_children? %>
+			<%= ff.simple_fields_for :field_settings, fff.object.children.order(:position, :name) do |fff| %>
+				<%= render 'binda/structures/form_field_group_item/form_field_group_item_field_setting_form', fff: fff %>
+			<% end %>
+		<% end %>
+	<% end %>
+</div>

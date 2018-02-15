@@ -6,15 +6,19 @@ class Binda::MaintenanceGenerator < Rails::Generators::Base
 		puts ""
 		puts "1) Adding controller"
 		if File.exist?(Rails.root.join('app', 'controllers', 'maintenance_controller.rb' ))
-			puts "-------------------------------------------------------------------------------"
-			puts "WARNING: Apparently you have already a controller named MaintenanceController."
-			puts "Unless you know what you are doing, delete it and run the generator again."
-			puts "-------------------------------------------------------------------------------"
+			puts "\e[31m-------------------------------------------------------------------------------\e[0m"
+			puts "\e[31mWARNING! Binda::MaintenanceController is already registered here:\e[0m"
+			puts "\e[31m    app/controllers/maintenance_controller.rb\e[0m"
+			puts
+			puts "\e[31mUnless you know what you are doing, delete that file and run:\e[0m"
+			puts "\e[31m    rails generate binda:maintenance\e[0m"
+			puts "\e[31m-------------------------------------------------------------------------------\e[0m"
 			exit
-		end
-		generate "controller", "maintenance index --no-assets --no-helper"
-		inject_into_file Rails.root.join('app', 'controllers', 'maintenance_controller.rb'), after: "def index" do
-			"\n render template: 'layouts/maintenance'"
+		else
+			generate "controller", "maintenance index --no-assets --no-helper"
+			inject_into_file Rails.root.join('app', 'controllers', 'maintenance_controller.rb'), after: "def index" do
+				"\n render template: 'layouts/maintenance'"
+			end
 		end
 	end
 

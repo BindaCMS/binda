@@ -57,21 +57,34 @@ module Binda
 
     def new_repeater
       @repeater_setting = FieldSetting.find( params[:repeater_setting_id] )
-      position = @instance.repeaters.find_all{|r| r.field_setting_id=@repeater_setting.id }.length + 1
-      @repeater = @instance.repeaters.create( field_setting: @repeater_setting, position: position )
+      @repeater = @instance.repeaters.create( field_setting: @repeater_setting )
+      # Put new repeater to first position, then store all the other ones
+      if params["form--list-item"].nil?
+        repeaters = [
+          @repeater.id.to_s, 
+          *@instance
+            .repeaters
+            .order('position ASC')
+            .select{|r| r.field_setting_id == @repeater_setting.id }
+            .map(&:id)
+        ]
+      else
+        repeaters = [
+          @repeater.id.to_s, 
+          *params["form--list-item"]]
+      end
+      sort_repeaters_by(repeaters)
       render 'binda/fieldable/_form_item_new_repeater', layout: false
     end
 
-    def sort_repeaters
-      params[:repeater].each_with_index do |id, i|
-        Repeater.find( id ).update({ position: i + 1 })
-      end
+    def sort_repeaters      
+      sort_repeaters_by(params["form--list-item"])
       render json: { id: "##{params[:id]}" }, status: 200
     end
     
     def sort
       params[:component].each_with_index do |id, i|
-        Component.find( id ).update_column('position', i + 1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
+        Component.find( id ).update_column('position', i) # use update_column to skip callbacks (which leads to huge useless memory consumption)
       end
       render json: { id: "##{params[:id]}" }, status: 200
     end
@@ -111,6 +124,14 @@ module Binda
           {categories_attributes: [ :id, :category_id ]}, *fieldable_params )
       end
 
+      # Sort repeaters following the order with which are listed in the array provided as a argument.
+      #
+      # @param repeaters [Array] the list of ids of the repeaters
+      def sort_repeaters_by(repeaters)
+        repeaters.each_with_index do |id, i|
+          Repeater.find( id ).update!({ position: i })
+        end
+      end
   end
 end
 

@@ -27,6 +27,9 @@
 // Select2
 //= require select2/select2.full.min
 
+// Lodash
+//= require lodash
+
 // TweenLite
 // GSAP/CSSPlugin.min
 // GSAP/EasePack.min

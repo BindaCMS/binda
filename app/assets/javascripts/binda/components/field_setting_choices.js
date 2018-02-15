@@ -2,14 +2,14 @@
  * FORM ITEM CHOICE
  */
 
-import { _FormItemEditor } from "./form_item_editor";
+import { resizeCollapsableStacks } from "./form_item_collapsable";
 
 class FieldSettingChoices {
 	constructor() {
 		this.target = ".field-setting-choices--choice";
 	}
 
-	isSet() {
+	isPresent() {
 		if ($(this.target).length > 0) {
 			return true;
 		} else {
@@ -39,7 +39,7 @@ class FieldSettingChoices {
 					.closest(".field-setting-choices--choice")
 					.remove();
 				// Update form item editor size
-				_FormItemEditor.resize();
+				resizeCollapsableStacks();
 			}
 		);
 	}
@@ -65,7 +65,7 @@ function addChoice(event) {
 	// Append the clone right after
 	choices.prepend(clone);
 	// Update form item editor size
-	_FormItemEditor.resize();
+	resizeCollapsableStacks();
 }
 
 function deleteChoice(event) {
@@ -81,7 +81,7 @@ function deleteChoice(event) {
 	}).done(function() {
 		choice.remove();
 		// Update form item editor size
-		_FormItemEditor.resize();
+		resizeCollapsableStacks();
 	}).fail(function(data){
 		alert(data.responseJSON.errors);
 	});

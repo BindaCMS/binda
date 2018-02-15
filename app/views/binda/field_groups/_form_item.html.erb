@@ -1,7 +1,5 @@
-<div class="standard-form--container field-settings-container form-item--collapsable form-item--collapsed">
-	<%= ff.input :field_group_id, as: :hidden %>
-	<%= ff.input :id, as: :hidden %>
-	<%= ff.input :ancestry, as: :hidden unless ff.object.is_root? %>
+<li id="form--list-item-<%= ff.object.id %>" 
+  class="form-item form-item--collapsable <%= "form-item--#{ ff.object.field_type }" %> <%= "form-item--new" if is_new %> <%= "form-item--collapsed" unless is_new %>">
 	<%= render 'binda/field_groups/form_item/form_item_header', ff: ff %>
-	<%= render 'binda/field_groups/form_item/form_item_editor', f: f, ff: ff %>
-</div>
+	<%= render 'binda/field_groups/form_item/form_item_editor', f: f, ff: ff, is_new: is_new %>
+</li>

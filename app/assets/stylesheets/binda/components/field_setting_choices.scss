@@ -20,7 +20,10 @@
 }
 
 .field-setting-choices--add-choice {
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 20px 12px 8px;
 }
 
 .form-item--editor .field-setting-choices--choice {
@@ -48,8 +51,7 @@
 
 .field-setting-choices--choice-label,
 .field-setting-choices--choice-value {
-  position: relative;
-  float: left;
+  display: inline-block;
   width: calc(50% - 16px);
 }
 

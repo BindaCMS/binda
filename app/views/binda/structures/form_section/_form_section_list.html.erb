@@ -1,0 +1,8 @@
+<ul id="form--list-<%= f.object.id %>"
+	class="sortable sortable--disabled form--list"
+  data-update-url="<%= url_for([@structure, :sort_field_groups]) %>" 
+  data-message="<%= t 'binda.sort_items_loader', { arg1: t('binda.field_setting.plural').downcase } %>">
+	<%= f.simple_fields_for :field_groups, f.object.field_groups.order( :position, :name ) do |ff| %>
+		<%= render 'form_field_group_item', f: f, ff: ff %>
+	<% end %>
+</ul>

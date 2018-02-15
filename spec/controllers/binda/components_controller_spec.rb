@@ -46,22 +46,22 @@ module Binda
 
         # call sort_repeaters method via post request
         post :sort_repeaters, params: { 
-          repeater: shuffled_ids,
+          "form--list-item": shuffled_ids,
           structure_id: @structure.slug,
           component_id: @component.slug 
         }
         @component.reload
 
-        repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
+        repeater_setting_id = @structure.reload.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
         repeaters = @component.repeaters.order('position').find_all{ |r| r.field_setting_id = repeater_setting_id }
         
-        expect(repeaters.first.position).to eq(1)
-        expect(repeaters.last.position).to eq(repeaters.length)
+        expect(repeaters.first.position).to eq(0)
+        expect(repeaters.last.position).to eq(repeaters.length-1)
 
         first_shuffled_id = shuffled_ids[0]
         last_shuffled_id = shuffled_ids[shuffled_ids.length-1]
-        expect(@component.repeaters.find(first_shuffled_id).position).to eq(1)
-        expect(@component.repeaters.find(last_shuffled_id).position).to eq(@component.repeaters.count)
+        expect(@component.repeaters.find(first_shuffled_id).position).to eq(0)
+        expect(@component.repeaters.find(last_shuffled_id).position).to eq(@component.repeaters.length-1)
       end
     end
 
@@ -70,7 +70,7 @@ module Binda
         sign_in user
 
         initial_repeaters_length = @component.repeaters.length
-        repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
+        repeater_setting_id = @structure.reload.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
 
         post :new_repeater, params: { 
           repeater_setting_id: repeater_setting_id, 
@@ -78,8 +78,8 @@ module Binda
           component_id: @component.slug
         }
         @component.reload
-        expect( @component.repeaters.order('position').length ).to eq( initial_repeaters_length + 1 )
-        expect( @component.repeaters.order('position').last.position ).to eq( @component.repeaters.length )
+        expect(@component.repeaters.order('position').length).to eq(initial_repeaters_length + 1)
+        expect(@component.repeaters.order('position').last.position).to eq(@component.repeaters.length)
       end
     end
 

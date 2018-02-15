@@ -1,0 +1,18 @@
+<div class="form-item--editor form-item--collapsable-stack">
+	<div class="form-item--half-size">
+		<%= ff.input :name, as: :string, input_html: { class: "form-item--default-input", "test-hook": "structure_field_groups_name" } %>
+	</div>
+	<div class="form-item--half-size">
+		<%= ff.input :slug, as: :string, input_html: { class: "form-item--input" } %>
+	</div>
+	<div class="form-item--full-size">
+		<%= ff.input :description, input_html: { class: "form-item--input" } %>
+	</div>
+	<%= ff.input :structure_id, as: :hidden %>
+	<%= ff.input :id, as: :hidden %>
+	<%# DON'T USE ff.input :position otherwise it will override the order set by Binda via ajax when adding a new item %>
+	<div class="clearfix"></div>
+	<% if ff.object.field_settings.any? %>
+		<%= render 'binda/structures/form_field_group_item/form_field_group_item_field_settings', ff: ff %>
+	<% end %>
+</div>

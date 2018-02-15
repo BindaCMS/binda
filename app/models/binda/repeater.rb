@@ -2,13 +2,7 @@ module Binda
   class Repeater < ApplicationRecord
 
     include FieldableAssociations
-
-  	# Associations
-  	belongs_to :fieldable, polymorphic: true
-    belongs_to :field_setting
-
-    validates :fieldable_id, presence: true
-    validates :fieldable_type, presence: true
+    include Fields
 
     # The following direct association is used to securely delete associated fields
     # Infact via `fieldable` the associated fields might not be deleted 

@@ -2,6 +2,8 @@
  * SORTABLE
  */
 
+import { openCollapsableStacks, closeCollapsableStacks } from './form_item_collapsable';
+
 var sortableOptions = {
 	stop: function(event, ui) {
 		ui.item.css("z-index", 0);
@@ -10,6 +12,14 @@ var sortableOptions = {
 	update: updateSortable
 };
 
+/* Initialize jQuery Sortable
+ * 
+ * This function handles several things:
+ * - it sets Sortable for each ".sortable" element
+ * - it adds handles only if required
+ * - it disable itself if it finds ".sortable--disabled" class
+ * - it sets up a toggle button and behaviour if required 
+ */
 export default function() {
 	if ($(".sortable").length > 0) {
 		// Initialize sortable item
@@ -31,50 +41,31 @@ export default function() {
 	if ($(".sortable--toggle").length > 0) {
 		setupSortableToggle();
 	}
-
-	// Add event to any sortable toggle button
-	// TODO: make this event available to element which aren't standard form repeaters
-	$(document).on(
-		"click",
-		".standard-form--repeater .sortable--toggle",
-		toggleSortable
-	);
 }
 
+/* Setup Sortable Toggle
+ *
+ * It sets up each toggle button and add the events needed to enable or disable Sortable.
+ */
 function setupSortableToggle() {
 	$(".sortable--toggle").each(function() {
-		let id = "#" + $(this).data("repeater-id");
-		$(id)
-			.find(".form-item--collapsable")
-			.addClass("form-item--collapsed");
-		$(id)
-			.find(".form-item--repeater-fields")
-			.each(close);
+		let id = "#" + $(this).data("sortable-target-id");
+		closeCollapsableStacks(id);
 	});
-}
-
-function close() {
-	this.style.maxHeight = "0px";
-}
-
-function open() {
-	this.style.maxHeight = this.scrollHeight + "px";
+	// Add event to any sortable toggle button
+	$(document).on("click", ".sortable--toggle", toggleSortable);
 }
 
 function toggleSortable(event) {
 	event.preventDefault();
-	let id = "#" + $(this).data("repeater-id");
+	let id = "#" + $(this).data("sortable-target-id");
 
 	if ($(id).hasClass("sortable--disabled")) {
 		$(id).sortable("enable");
-		$(id)
-			.find(".form-item--repeater-fields")
-			.each(close);
-		$(id)
-			.find(".form-item--collapsable")
-			.addClass("form-item--collapsed");
+		closeCollapsableStacks(id);
 	} else {
 		$(id).sortable("disable");
+		openCollapsableStacks(id);
 	}
 
 	$(id).toggleClass("sortable--disabled");

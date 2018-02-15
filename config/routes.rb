@@ -40,9 +40,13 @@ Binda::Engine.routes.draw do
   resources :structures do
     post 'field_groups/sort'
     post 'field_groups/add_child'
+    post 'sort_field_groups'
+    post 'add_field_group'
     resources :field_groups do
       post 'field_settings/add_child'
       post 'field_settings/sort'
+      post 'sort_field_settings'
+      post 'add_field_setting'
       resources :field_settings
     end
     resources :boards do
