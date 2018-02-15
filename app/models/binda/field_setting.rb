@@ -317,8 +317,6 @@ module Binda
 				FieldSetting.remove_orphan_fields_with_no_settings(field_class)
 				FieldSetting.remove_orphan_fields_with_wrong_field_type(field_class)
 			end
-			puts
-			puts "All orphans have been removed successfully"
 		end
 
 		def self.remove_orphan_fields_with_no_settings(field_class)

@@ -156,3 +156,4 @@ en:
     no_available_choice_user_hint: Please contact the administrator
     no_available_choice_superadmin_hint: Please ensure you setup at least two possible choices when editing the
     settings: Settings
+    duplicate_validation: There is already one %{arg1} associated to component '%{arg2}' and field setting '%{arg3}'

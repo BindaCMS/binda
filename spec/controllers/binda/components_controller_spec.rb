@@ -52,7 +52,7 @@ module Binda
         }
         @component.reload
 
-        repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
+        repeater_setting_id = @structure.reload.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
         repeaters = @component.repeaters.order('position').find_all{ |r| r.field_setting_id = repeater_setting_id }
         
         expect(repeaters.first.position).to eq(0)
@@ -70,7 +70,7 @@ module Binda
         sign_in user
 
         initial_repeaters_length = @component.repeaters.length
-        repeater_setting_id = @structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
+        repeater_setting_id = @structure.reload.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
 
         post :new_repeater, params: { 
           repeater_setting_id: repeater_setting_id, 

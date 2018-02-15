@@ -132,11 +132,11 @@ module Binda
 	# 
 	class Selection < ApplicationRecord
 
-		has_and_belongs_to_many :choices
-		belongs_to :field_setting
+  	include Fields
+  	include FieldUniqueness
 
+		has_and_belongs_to_many :choices
 		validate :has_choices
-		validates :fieldable_id, presence: true
 
 		after_save do
 			if !self.field_setting.allow_null && 

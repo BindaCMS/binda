@@ -6,10 +6,10 @@ module Binda
 
     # Register image details
     # 
-    # This method is used by a rake task
+    # Do not delete. This method is used by a rake task
     def register_deatils
       if !self.image.present?
-        puts "Ops, there is no image for Binda::Image id=#{self.id}"
+        warn "Ops, there is no image for Binda::Image id=#{self.id}"
       elsif CarrierWave::Uploader::Base.storage == CarrierWave::Storage::File
         file = MiniMagick::Image.open(::Rails.root.join(self.image.path))
         register_details_of(file)

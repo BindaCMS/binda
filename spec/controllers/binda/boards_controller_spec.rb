@@ -46,7 +46,7 @@ module Binda
         }
         @board.reload
 
-        repeater_setting_id = @board_structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
+        repeater_setting_id = @board_structure.reload.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
         repeaters = @board.repeaters.order('position').find_all{ |r| r.field_setting_id = repeater_setting_id }
         
         expect(repeaters.first.position).to eq(0)
@@ -64,7 +64,7 @@ module Binda
       it "create a new repeater with correct position" do
         @board.reload # apparently this is needed as the variable isn't updated to reflect the real record state
         initial_repeaters_length = @board.repeaters.length
-        repeater_setting_id = @board_structure.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
+        repeater_setting_id = @board_structure.reload.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
 
         post :new_repeater, params: { 
           repeater_setting_id: repeater_setting_id, 

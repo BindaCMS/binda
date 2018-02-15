@@ -5,13 +5,14 @@ module Binda
 
 		before(:context) do
 			@structure = create(:article_structure_with_components_and_fields)
-			# @structure = build_stubbed(:article_structure_with_components_and_fields)
+			# Update variable after callbacks
+			@structure.reload
 			@component = @structure.components.first
 			@repeater = @component.repeaters.first
 			@settings = @structure.field_groups.first.field_settings
 
 			@component_text_setting = @settings.find{ |fs| fs.field_type == 'text' }
-			@component_text = @component.texts.find{ |t| t.field_setting_id = @component_text_setting.id }
+			@component_text = @component.texts.find{ |t| t.field_setting_id == @component_text_setting.id }
 			@repeater_text_setting = @settings.find{ |fs| fs.field_type == 'repeater' }.children.find{ |c| c.field_type == 'text' }
 			@repeater_text = @repeater.texts.find{ |t| t.field_setting_id == @repeater_text_setting.id }
 		end
@@ -37,9 +38,12 @@ module Binda
 			# expect error, use block with {} parethesis 
 			# see https://stackoverflow.com/questions/19960831/rspec-expect-vs-expect-with-block-whats-the-difference
 			expect{ @component.get_text(@text_field_setting.slug) }.not_to raise_error
+		end
 
-			@component.texts.create({ content: 'Lorem', field_setting_id: @text_field_setting.id })
-			expect(@component.get_text(@text_field_setting.slug)).to eq('Lorem')
+		it "is not possible to create 2 texts instances for the same component and the same text setting" do
+			@text_field_setting = @structure.field_groups.first.field_settings.create(name: 'Testing sting 2', field_type: 'text')
+			new_text = @component.texts.build({ field_setting_id: @text_field_setting.id })
+			expect{ new_text.save! }.to raise_error ActiveRecord::RecordInvalid
 		end
 
 	end

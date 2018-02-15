@@ -3,9 +3,7 @@ module Binda
 	# all the classes that deal with files.
   class Asset < ApplicationRecord
 
-  	# Associations
-  	belongs_to :fieldable, polymorphic: true
-  	belongs_to :field_setting
+  	include Fields
 
   end
 end

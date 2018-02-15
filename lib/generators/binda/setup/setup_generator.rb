@@ -15,7 +15,7 @@ module Binda
       puts "Implement Binda settings"
       puts 
 
-      dashboard_structure = ::Binda::Structure.find_or_create_by( name: 'dashboard', slug: 'dashboard', instance_type: 'board' )
+      dashboard_structure = Structure.find_or_create_by( name: 'dashboard', slug: 'dashboard', instance_type: 'board' )
       @dashboard = dashboard_structure.board
 
       # By default each structure has a field group which will be used to store the default field settings
@@ -52,35 +52,35 @@ module Binda
       puts "3) Setting up website name"
       puts "Don't worry you can modify it later."
 
-      website_name_obj = @field_settings.find_by(slug: 'website-name')
-      unless website_name_obj.present?
-        website_name_obj = @field_settings.create!( name: 'Website Name', field_type: 'string', position: 2 )
+      name_field_setting = FieldSetting.find_by(slug: 'website-name')
+      unless name_field_setting.present?
+        name_field_setting = @field_settings.create!( name: 'Website Name', field_type: 'string', position: 2 )
         # make sure slug works
-        website_name_obj.update_attribute( 'slug', 'website-name' )
+        name_field_setting.update_attribute( 'slug', 'website-name' )
       end
-      # website_name = ask("How would you like to name your website? ['MySite']\n").presence || 'MySite'
       STDOUT.puts "How would you like to name your website? ['MySite']"
       website_name = STDIN.gets
       website_name = 'MySite' if website_name.blank?
-      @dashboard.strings.find_or_create_by( field_setting_id: website_name_obj.id ).update_attribute('content', website_name )
+      @dashboard.strings.find_or_create_by( field_setting_id: name_field_setting.id ).update_attribute('content', website_name )
+      puts 
     end
 
     def setup_website_content
       puts "4) Setting up website description"
       puts "Don't worry you can modify it later."
 
-      website_description_obj = @field_settings.find_by(slug: 'website-description')
-      unless website_description_obj.present?
-        website_description_obj = @field_settings.find_or_create_by( name: 'Website Description', field_type: 'text', position: 3 )
+      description_field_setting = FieldSetting.find_by(slug: 'website-description')
+      unless description_field_setting.present?
+        description_field_setting = @field_settings.find_or_create_by( name: 'Website Description', field_type: 'text', position: 3 )
         # make sure slug works
-        website_description_obj.update_attribute( 'slug', 'website-description' )
+        description_field_setting.update_attribute( 'slug', 'website-description' )
       end
-      # website_description = ask("What is your website about? ['A website about the world']\n").presence || 'A website about the world'
     
       STDOUT.puts "What is your website about? ['A website about the world']"
       website_description = STDIN.gets
       website_description = 'A website about the world' if website_description.blank?
-      @dashboard.texts.find_or_create_by!( field_setting_id: website_description_obj.id ).update_attribute( 'content', website_description )
+      @dashboard.texts.find_or_create_by!( field_setting_id: description_field_setting.id ).update_attribute( 'content', website_description )
+      puts 
     end
 
     def feedback

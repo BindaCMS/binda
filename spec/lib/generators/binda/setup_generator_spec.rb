@@ -1,3 +1,6 @@
+# REVIEW this test aren't reliable. Always run generator manually on a new app to see results.
+
+
 require "generator_spec"
 require "rails_helper"
 require "./lib/generators/binda/setup/setup_generator.rb"
@@ -20,6 +23,7 @@ module Binda
 			before(:all) do
 		    ::DatabaseCleaner.strategy = :truncation
 		    ::DatabaseCleaner.clean
+		    expect(Structure.all.any?).to be false
 
 		    prepare_destination
 		    # @old_stdin = STDIN
@@ -62,6 +66,35 @@ module Binda
 		  	  .first
 		    expect(maintenance_mode_choice.label).to eq 'disabled'
 		    expect(maintenance_mode_choice.value).to eq 'false'
+			end
+
+			it "sets a dashboard structure" do
+				expect(Binda::Structure.all.any?).to be true
+				expect(Binda::Structure.where(slug: 'dashboard').length).to eq 1
+			end
+
+			it "sets website name" do
+				dashboard = Binda::Board.where(slug: 'dashboard').first
+				website_name = Binda::String
+					.includes(:field_setting)
+					.where(
+						binda_texts: { fieldable_id: dashboard.id, fieldable_type: dashboard.class.name},
+						binda_field_settings: { slug: 'website-name' }
+				)
+				expect(website_name.any?).to be true
+				expect(website_name.first.content).not_to be nil
+			end
+
+			it "sets website description" do
+				dashboard = Binda::Board.where(slug: 'dashboard').first
+				website_desc = Binda::Text
+					.includes(:field_setting)
+					.where(
+						binda_texts: { fieldable_id: dashboard.id, fieldable_type: dashboard.class.name},
+						binda_field_settings: { slug: 'website-description' }
+				)
+				expect(website_desc.any?).to be true
+				expect(website_desc.first.content).not_to be nil
 			end
 
 		end

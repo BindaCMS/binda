@@ -12,10 +12,18 @@ FactoryBot.define do
 		field_type 'repeater'
 	end
 
-	factory :repeater_setting_with_fields, parent: :repeater_setting do
+	factory :repeater_setting_with_children_settings, parent: :repeater_setting do
 		after(:create) do |repeater|
-			repeater.children.create( name: attributes_for( :field_setting )[:name], field_type: 'string', field_group: repeater.field_group )
-			repeater.children.create( name: attributes_for( :field_setting )[:name], field_type: 'text', field_group: repeater.field_group )
+			repeater.children.create(
+				name: attributes_for(:field_setting)[:name], 
+				field_type: 'string', 
+				field_group: repeater.field_group
+			)
+			repeater.children.create(
+				name: attributes_for(:field_setting)[:name], 
+				field_type: 'text', 
+				field_group: repeater.field_group
+			)
 		end
 	end
 
@@ -37,7 +45,7 @@ FactoryBot.define do
       _count 3
     end
 		after(:create) do |radio_setting, evaluator|
-      create_list( :choice, evaluator._count, field_setting: radio_setting )
+      create_list(:choice, evaluator._count, field_setting: radio_setting)
 		end
 	end
 
@@ -51,7 +59,7 @@ FactoryBot.define do
       _count 3
     end
 		after(:create) do |selection_setting, evaluator|
-      create_list( :choice, evaluator._count, field_setting: selection_setting )
+      create_list(:choice, evaluator._count, field_setting: selection_setting)
 		end
 	end
 
@@ -65,7 +73,7 @@ FactoryBot.define do
       _count 3
     end
 		after(:create) do |checkbox_setting, evaluator|
-      create_list( :choice, evaluator._count, field_setting: checkbox_setting )
+      create_list(:choice, evaluator._count, field_setting: checkbox_setting)
 		end
 	end
 
