@@ -140,4 +140,8 @@ describe "In field group editor, user", type: :feature, js: true do
 		expect(page).to have_field("field_group_name", with: field_group.name)
 	end
 
+	it "allows to sort field settings" do
+		skip "not implemented yet"
+	end
+
 end

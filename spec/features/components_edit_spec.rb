@@ -209,7 +209,11 @@ describe "GET component#edit", type: :feature, js: true do
 		skip "not implemented yet"
 	end
 
-	it "should not be possible to relate a component to itself" do
+	it "doesn't allow to relate a component to itself" do
+		skip "not implemented yet"
+	end
+
+	it "allows to sort repeaters" do
 		skip "not implemented yet"
 	end
 

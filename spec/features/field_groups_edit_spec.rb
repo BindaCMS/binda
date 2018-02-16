@@ -21,4 +21,5 @@ describe "GET field_groups#edit", type: :feature, js: true do
 		expect( page ).to have_current_path(path_to_field_group)
 		expect( page ).to have_selector(".form--list", visible: false)
 	end
+
 end

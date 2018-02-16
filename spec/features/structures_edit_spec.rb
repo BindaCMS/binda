@@ -62,4 +62,9 @@ describe "GET structures#edit", type: :feature, js: true do
 			skip("Not implemented yet")
 		end
 	end
+
+	it "allows to sort field groups" do
+		skip "not implemented yet"
+	end
+
 end

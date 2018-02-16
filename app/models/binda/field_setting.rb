@@ -250,25 +250,25 @@ module Binda
 		def create_field_instances
 			# Get the structure
 			structure = self.structures.includes(:board, components: [:repeaters]).first
-			field_class = "Binda::#{self.field_type.classify}"
 			structure.components.each do |component|
-				create_field_instances_for_instance(component, field_class, self.id)
+				create_field_instance_for(component)
 			end
-			create_field_instances_for_instance(structure.board, field_class, self.id) if structure.board.present?
+			create_field_instance_for(structure.board) if structure.board.present?
 		end
 
 		def create_field_instance_for(instance)
+			field_class = "Binda::#{self.field_type.classify}"
 			if self.is_root?
-				create_field_instances_for_instance(instance, field_class, self.id)
+				create_field_instance_for_instance(instance, field_class, self.id)
 			else
 				instance.repeaters.select{|r| r.field_setting_id == self.parent_id}.each do |repeater|
-					create_field_instances_for_instance(repeater, field_class, self.id)
+					create_field_instance_for_instance(repeater, field_class, self.id)
 				end
 			end
 		end
 
 		# Helper for create_field_instances method
-		def create_field_instances_for_instance(instance, field_class, field_setting_id)
+		def create_field_instance_for_instance(instance, field_class, field_setting_id)
 			field_class.constantize.find_or_create_by!(
 				field_setting_id: field_setting_id,
 				fieldable_id: instance.id,

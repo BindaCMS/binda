@@ -143,5 +143,11 @@ module Binda
 			skip "not implemented yet"
 		end
 
+		describe "after has been created" do
+			it "generates all its fields instances" do
+				skip "not implemented yet"
+			end
+		end
+
   end
 end
