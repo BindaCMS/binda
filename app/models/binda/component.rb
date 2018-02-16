@@ -16,6 +16,7 @@ module Binda
 		accepts_nested_attributes_for :categories, allow_destroy: true
 
 		after_create :set_position
+		# after_create :create_field_instances
 
 		# Slug
 		extend FriendlyId

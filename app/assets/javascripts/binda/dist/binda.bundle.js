@@ -278,7 +278,7 @@ function deleteItem(event) {
  * @param      {object, string}  target  The target.
  */
 function resizeCollapsableStacks(target) {
-	target = _.isUndefined(target) ? ".form-item--collapsable-stack" : target;
+	target = _.isUndefined(target) ? document.querySelector(".form-item--collapsable-stack") : target;
 	// target CANNOT BE a jquery object because it leads to the following error
 	// TypeError: undefined is not an object (evaluating 't.ownerDocument.defaultView')
 	$(target).each(function () {
@@ -302,13 +302,17 @@ function resizeCollapsableStacks(target) {
  * @param      {jQuery object}  $textareas  The textareas
  */
 function setupTinyMCE($textareas) {
+	var editor_ids = _.map(tinyMCE.editors, function (editor) {
+		return editor.id;
+	});
+	// console.log({editors});
 	$textareas.each(function () {
-		// tinyMCE.createEditor(this.getAttribute('id'));
-		tinyMCE.once('mceAddEditor', function (event) {
-			console.log({ event: event });
-			resizeCollapsableStacks();
+		if (_.includes(editor_ids, this.getAttribute('id'))) {
+			return;
+		}
+		tinyMCE.init({
+			selector: "#" + this.getAttribute("id")
 		});
-		tinyMCE.EditorManager.execCommand("mceAddEditor", true, this.getAttribute('id'));
 	});
 }
 
