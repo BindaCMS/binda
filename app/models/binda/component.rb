@@ -15,7 +15,7 @@ module Binda
 
 		accepts_nested_attributes_for :categories, allow_destroy: true
 
-		after_create :set_position
+		after_create :set_default_position
 		after_create :create_field_instances
 
 		# Slug
@@ -54,15 +54,11 @@ module Binda
 
 		private 
 
-			# By default a newly created component gets the last position
-	    def set_position
-	    	# check whats the latest component
-	    	last_position = self.structure.components.order(:position).pluck(:position).last
-	    	# if latest component position isn't set get position by counting the amount of components
-	    	last_position = self.structure.components.length if last_position.nil?
-	    	# update component
-	      self.update_attributes(position: last_position + 1)
-	    end
+			def set_default_position
+				Component
+					.where(structure_id: self.structure_id)
+					.each{|component| component.increment(:position).save!}
+			end
 
 	    # Create field instances for the current component
 	    def create_field_instances

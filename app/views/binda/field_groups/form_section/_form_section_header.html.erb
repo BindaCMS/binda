@@ -1,7 +1,8 @@
 <div>
 	<a class="b-btn b-btn-primary sortable--toggle" 
 		href="#" 
-		data-sortable-target-id="form--list-<%= defined?(repeater) ? repeater.id : f.object.id %>">
+		data-sortable-target-id="form--list-<%= defined?(repeater) ? repeater.id : f.object.id %>"
+		test-hook="sortable--toggle-<%= defined?(repeater) ? repeater.id : f.object.id %>">
 		<span class="sortable--toggle-text">
 			<i class="fa fa-check" aria-hidden="true"></i> 
 			<%= t'binda.done' %>

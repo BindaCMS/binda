@@ -40,7 +40,7 @@ module Binda
 
         # call sort_repeaters method via post request
         post :sort_repeaters, params: { 
-          repeater: shuffled_ids,
+          'form--list-item': shuffled_ids,
           structure_id: @board_structure.slug,
           board_id: @board.slug 
         }
@@ -49,13 +49,13 @@ module Binda
         repeater_setting_id = @board_structure.reload.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
         repeaters = @board.repeaters.order('position').find_all{ |r| r.field_setting_id = repeater_setting_id }
         
-        expect(repeaters.first.position).to eq(0)
-        expect(repeaters.last.position).to eq(repeaters.length-1)
+        expect(repeaters.first.position).to eq 1
+        expect(repeaters.last.position).to eq repeaters.length
 
         first_shuffled_id = shuffled_ids[0]
         last_shuffled_id = shuffled_ids[shuffled_ids.length-1]
-        expect(@board.repeaters.find(first_shuffled_id).position).to eq(0)
-        expect(@board.repeaters.find(last_shuffled_id).position).to eq(@board.repeaters.length-1)
+        expect(@board.repeaters.find(first_shuffled_id).position).to eq 1
+        expect(@board.repeaters.find(last_shuffled_id).position).to eq @board.repeaters.length
       end
     end
 
@@ -64,10 +64,16 @@ module Binda
       it "create a new repeater with correct position" do
         @board.reload # apparently this is needed as the variable isn't updated to reflect the real record state
         initial_repeaters_length = @board.repeaters.length
-        repeater_setting_id = @board_structure.reload.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
+        repeater_setting = Binda::FieldSetting
+          .includes(:field_group)
+          .where(
+            binda_field_groups: { structure_id: @board_structure.id },
+            binda_field_settings: { field_type: 'repeater', ancestry: nil }
+          )
+          .first
 
         post :new_repeater, params: { 
-          repeater_setting_id: repeater_setting_id, 
+          repeater_setting_id: repeater_setting.id, 
           structure_id: @board_structure.slug, 
           board_id: @board.slug
         }

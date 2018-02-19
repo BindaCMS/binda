@@ -38,7 +38,7 @@ module Binda
     end
     
     describe "POST #sort_repeaters" do
-      it "reorder repeater based on position value" do
+      it "reorders repeaters based on position value" do
         sign_in user
 
         ordered_ids = @component.repeater_ids
@@ -66,26 +66,32 @@ module Binda
     end
 
     describe "POST #new_repeater" do
-      it "create a new repeater with correct position" do
+      it "creates a new repeater with correct position" do
         sign_in user
 
         initial_repeaters_length = @component.repeaters.length
-        repeater_setting_id = @structure.reload.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
+        repeater_setting = Binda::FieldSetting
+          .includes(:field_group)
+          .where(
+            binda_field_groups: { structure_id: @structure.id },
+            binda_field_settings: { field_type: 'repeater', ancestry: nil }
+          )
+          .first
 
         post :new_repeater, params: { 
-          repeater_setting_id: repeater_setting_id, 
+          repeater_setting_id: repeater_setting.id, 
           structure_id: @structure.slug, 
           component_id: @component.slug
         }
         @component.reload
-        expect(@component.repeaters.order('position').length).to eq(initial_repeaters_length + 1)
-        expect(@component.repeaters.order('position').last.position).to eq(@component.repeaters.length)
+        expect(@component.repeaters.order('position').length).to eq initial_repeaters_length + 1
+        expect(@component.repeaters.order('position').last.position).to eq @component.repeaters.length
       end
     end
 
 
     describe "POST #sort" do
-      it "reorder components based on position value" do
+      it "reorders components based on position value" do
         # sign_in user
 
         # component_one = Component.where( structure_id: @structure ).order('created_at').first

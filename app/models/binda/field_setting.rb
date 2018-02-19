@@ -84,6 +84,7 @@ module Binda
     	self.class.reset_field_settings_array
     	convert_allow_null__nil_to_false
     	create_field_instances
+    	set_default_position
     end
 
     after_update do
@@ -109,10 +110,10 @@ module Binda
 		validates :field_type, inclusion: { 
 			in: [ *FieldSetting.get_field_classes.map{ |fc| fc.to_s.underscore } ], 
 			allow_nil: false,
-			message: -> (field_setting) { 
+			message: -> (field_setting, data) { 
 				I18n.t(
 					"binda.field_setting.validation_message.field_type", 
-					{ arg1: field_setting.name, arg2: "#{FieldSetting.get_field_classes.join(", ")}" }
+					{ arg1: field_setting.name, arg2: FieldSetting.get_field_classes.join(", ") }
 				)
 			}
 		}
@@ -145,6 +146,7 @@ module Binda
 		#
 		# It generates 4 possible slugs before falling back to FriendlyId default behaviour
 		def default_slug
+			return self.name if self.field_group_id.nil?
 			slug = ''
 			slug << self.field_group.structure.name
 			slug << '-'
@@ -319,6 +321,7 @@ module Binda
 			end
 		end
 
+		# Remove orphan fields that isn't associated to any field setting
 		def self.remove_orphan_fields_with_no_settings(field_class)
 			"Binda::#{field_class}"
 				.constantize
@@ -330,6 +333,7 @@ module Binda
 				end
 		end
 
+		# Remove orphan fields with wrong field type
 		def self.remove_orphan_fields_with_wrong_field_type(field_class)
 			field_types = []
 			case field_class
@@ -348,6 +352,17 @@ module Binda
 					s.destroy!
 					puts "Binda::#{field_class} with id ##{s.id} but wrong type successfully destroyed"
 				end
+		end
+
+		# Set a default position if isn't set and updates all related field settings
+		# Update all field settings related to the one created
+		def set_default_position
+			FieldSetting
+				.where(
+					field_group_id: self.field_group_id,
+					ancestry: self.ancestry
+				)
+				.each{|field_setting| field_setting.increment(:position).save!}
 		end
 
 	end

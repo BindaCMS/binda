@@ -99,8 +99,7 @@ module Binda
 		# 
 		# @return [object] Repeater instance
 		def set_default_position
-			position = Structure.all.length
-			self.update_attribute('position', position)
+      Structure.all.each{|structure| structure.increment(:position).save!}
 		end
 
 	end

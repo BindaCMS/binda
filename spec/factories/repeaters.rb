@@ -4,6 +4,7 @@ FactoryBot.define do
 
 	# Article repeater
   factory :repeater, class: Binda::Repeater do
+		association :field_setting, factory: :selection_setting
   end
 
 end

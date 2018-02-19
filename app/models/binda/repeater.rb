@@ -14,17 +14,19 @@ module Binda
     # 
     # This methods ensure that every repeater instance has an explicit position.
     #   The latest repeater created gets the highest position number.
-    #   The first position is 1 (not 0).
     # 
     # @return [object] Repeater instance
     def set_default_position
-        # apparently `self.fieldable != self.fieldable_type.constantize.find( self.fieldable_id )`
-        # as the former has always one repeater, the latter has all repeaters created so far
-        # that's way we use the longer version
-        instance = self.fieldable_type.constantize.find( self.fieldable_id )
-        position = instance.repeaters.find_all{ |r| r.field_setting_id == self.field_setting.id }.length
-        self.update_attribute 'position', position
+        Repeater
+            .where(
+                field_setting_id: self.field_setting_id,
+                fieldable_id: self.fieldable_id,
+                fieldable_type: self.fieldable_type
+            )
+            .each{|repeater| repeater.increment(:position).save!}
     end
+
+
 
   end
 end

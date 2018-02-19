@@ -51,7 +51,7 @@ module Binda
 
     def sort
       params[:field_setting].each_with_index do |id, i|
-        FieldSetting.find( id ).update_column('position', i + 1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
+        FieldSetting.find( id ).update_column('position', i+1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
       end
       render json: { id: "##{params[:id]}" }, status: 200
     end

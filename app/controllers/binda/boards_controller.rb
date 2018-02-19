@@ -16,7 +16,7 @@ module Binda
 
     def update
       if @board.update(board_params)
-        redirect_to structure_board_path( @structure.slug, @board.slug ), notice: 'Setting was successfully updated.'
+        redirect_to structure_board_path(@structure.slug, @board.slug), notice: 'Setting was successfully updated.'
       else
         render :edit, flash: { alert: @board.errors }
       end
@@ -28,20 +28,8 @@ module Binda
     end
 
     def new_repeater
-      @repeater_setting = FieldSetting.find( params[:repeater_setting_id] )
-      @repeater = @instance.repeaters.create( field_setting: @repeater_setting )
-      # Put new repeater to first position, then store all the other ones
-      if params[:repeater].nil?
-        repeaters = [
-          @repeater.id.to_s, 
-          *@instance.repeaters.select{|r| r.field_setting_id=@repeater_setting.id }.map(&:id)
-        ]
-      else
-        repeaters = [
-          @repeater.id.to_s, 
-          *params[:repeater]]
-      end
-      sort_repeaters_by(repeaters)
+      @repeater_setting = FieldSetting.find(params[:repeater_setting_id])
+      @repeater = @instance.repeaters.create(field_setting: @repeater_setting)
       render 'binda/fieldable/_form_item_new_repeater', layout: false
     end
 
@@ -58,7 +46,7 @@ module Binda
     end
 
     def upload
-      if @board.update( upload_params(:board) )
+      if @board.update(upload_params(:board))
         respond_to do |format|
           format.json { render json: upload_details }
         end
@@ -84,10 +72,10 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def board_params
-        params.require(:board).permit( 
+        params.require(:board).permit(
           :name, :slug, :position, :structure_id,
           { structure_attributes:  [ :id ] },
-          *fieldable_params )
+          *fieldable_params)
       end
 
       # Sort repeaters following the order with which are listed in the array provided as a argument.
@@ -95,7 +83,7 @@ module Binda
       # @param repeaters [Array] the list of ids of the repeaters
       def sort_repeaters_by(repeaters)
         repeaters.each_with_index do |id, i|
-          Repeater.find( id ).update!({ position: i })
+          Repeater.find(id).update_column('position', i+1)
         end
       end
   end

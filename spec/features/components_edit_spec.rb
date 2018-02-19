@@ -17,6 +17,7 @@ describe "GET component#edit", type: :feature, js: true do
 		expect(page).to have_current_path(@path)
 		# make sure the ActiveRecord object (@component) is updated with the real state of the component
 		@component.reload
+		@structure.reload
 	end
 
 	it "allows to edit a string field" do
@@ -130,44 +131,33 @@ describe "GET component#edit", type: :feature, js: true do
 
 	it "allows to add an image to an image field and store it" do
     Binda::Image::ImageUploader.enable_processing = true
-
 		# Create an image field setting on which will work
 		image_setting = create(:image_setting, field_group_id: @structure.field_groups.first.id)
-		
 		# Refresh the page so the image field appear on the editor
 		visit @path
-
 		expect(@component.images.first.image.present?).not_to be_truthy
-
 		field_id = "component_images_attributes_#{@component.images.where(field_setting_id: image_setting.id ).first.id}_image"
 		image_name = 'test-image.jpg'
 		image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
 		page.execute_script("document.getElementById('#{field_id}').style.zIndex = '1'")
 		page.execute_script("document.getElementById('#{field_id}').style.opacity = '1'")
 		page.attach_file(field_id, image_path)
-		
 		wait_for_ajax
 		sleep 1 # wait for animation to complete
-	
 		@component.reload
 		image = @component.images.first
-
 		within "#fileupload-#{image.id}" do
 			expect(page).to have_content image_name
 		end
-
     if CarrierWave::Uploader::Base.storage == CarrierWave::Storage::File
       file = MiniMagick::Image.open(::Rails.root.join(image.image.path))
     else
       file = MiniMagick::Image.open(image.image.url)
     end
-
 		within "#fileupload-#{image.id}" do
 			expect( page ).to have_content file.width
 		end
-
 		visit @path
-
 		expect( File.basename( image.image.path ) ).to eq image_name
 		within "#fileupload-#{image.id}" do
 			expect( page ).to have_content image_name
@@ -214,7 +204,47 @@ describe "GET component#edit", type: :feature, js: true do
 	end
 
 	it "allows to sort repeaters" do
-		skip "not implemented yet"
+		@structure.reload
+		repeater_setting = @structure.field_groups.first.field_settings.find{|field_setting| field_setting.field_type == 'repeater' }
+		# Make sure there are at least 2 repeaters
+		Binda::Repeater.create([{
+			fieldable_id: @component.id,
+			fieldable_type: @component.class.name,
+			field_setting_id: repeater_setting.id
+		},{
+			fieldable_id: @component.id,
+			fieldable_type: @component.class.name,
+			field_setting_id: repeater_setting.id			
+		}])
+		# Get all repeaters associated to repeater_setting and component
+		repeaters_ids = Binda::Repeater.where(
+			fieldable_id: @component.id,
+			fieldable_type: @component.class.name,
+			field_setting_id: repeater_setting.id
+		).order(:position).ids
+		# Once all repeaters are created visit the page
+		visit @path
+		# They sohuld be sorted by position
+		repeaters_dom_ids = all("ul#form--list-#{repeater_setting.id} li").map{|item| item[:id]}
+		expect(repeaters_dom_ids.first).to eq "form--list-item-#{repeaters_ids.first}"
+		expect(repeaters_dom_ids.last).to eq "form--list-item-#{repeaters_ids.last}"
+		# Enable sorting
+		find("a[test-hook=\"sortable--toggle-#{repeater_setting.id}\"]").click
+		# Scroll down in order to have first and last visible on viewport
+		# @see http://www.rubydoc.info/gems/selenium-webdriver/Selenium/WebDriver/SearchContext#find_element-instance_method
+		# Drag and drop first item to last position (you need drag_and_drop_by to move it slightly lower than last item)
+		# @see http://www.rubydoc.info/gems/selenium-webdriver/Selenium%2FWebDriver%2FActionBuilder:drag_and_drop
+		target = find("#form--list-#{repeater_setting.id} #form--list-item-#{repeaters_ids.first}").native
+		position = find("#form--list-#{repeater_setting.id} #form--list-item-#{repeaters_ids.last} .form-item--collapsable-stack").native
+		position.location_once_scrolled_into_view
+		page.driver.browser.action
+			.drag_and_drop(target, position)
+			.perform
+		wait_for_ajax
+		# They should be sorted by new position
+		repeaters_dom_ids = all("ul#form--list-#{repeater_setting.id} li").map{|item| item[:id]}
+		expect(repeaters_dom_ids.last).to eq "form--list-item-#{repeaters_ids.first}"
+		expect(repeaters_dom_ids.first).to eq "form--list-item-#{repeaters_ids[1]}"
 	end
 
 end

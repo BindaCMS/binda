@@ -35,7 +35,7 @@ module Binda
       @component = @structure.components.build(component_params)
 
       if @component.save
-        redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "#{ @structure.name } was successfully created."
+        redirect_to structure_component_path(@structure.slug, @component.slug), notice: "#{ @structure.name } was successfully created."
       else
         @instance = @component
         render :edit, flash: { alert: @component.errors }
@@ -44,7 +44,7 @@ module Binda
 
     def update
       if @component.update(component_params)
-        redirect_to structure_component_path( @structure.slug, @component.slug ), notice: "#{ @structure.name.capitalize } was successfully updated."
+        redirect_to structure_component_path(@structure.slug, @component.slug), notice: "#{ @structure.name.capitalize } was successfully updated."
       else
         render :edit, flash: { alert: @component.errors }
       end
@@ -52,28 +52,12 @@ module Binda
 
     def destroy
       @component.destroy
-      redirect_to structure_components_url( @structure.slug ), notice: "#{ @structure.name.capitalize } was successfully destroyed."
+      redirect_to structure_components_url(@structure.slug), notice: "#{ @structure.name.capitalize } was successfully destroyed."
     end
 
     def new_repeater
-      @repeater_setting = FieldSetting.find( params[:repeater_setting_id] )
-      @repeater = @instance.repeaters.create( field_setting: @repeater_setting )
-      # Put new repeater to first position, then store all the other ones
-      if params["form--list-item"].nil?
-        repeaters = [
-          @repeater.id.to_s, 
-          *@instance
-            .repeaters
-            .order('position ASC')
-            .select{|r| r.field_setting_id == @repeater_setting.id }
-            .map(&:id)
-        ]
-      else
-        repeaters = [
-          @repeater.id.to_s, 
-          *params["form--list-item"]]
-      end
-      sort_repeaters_by(repeaters)
+      @repeater_setting = FieldSetting.find(params[:repeater_setting_id])
+      @repeater = @instance.repeaters.create!(field_setting: @repeater_setting)
       render 'binda/fieldable/_form_item_new_repeater', layout: false
     end
 
@@ -84,7 +68,7 @@ module Binda
     
     def sort
       params[:component].each_with_index do |id, i|
-        Component.find( id ).update_column('position', i) # use update_column to skip callbacks (which leads to huge useless memory consumption)
+        Component.find(id).update_column('position', i+1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
       end
       render json: { id: "##{params[:id]}" }, status: 200
     end
@@ -95,7 +79,7 @@ module Binda
     end
 
     def upload
-      if @component.update( upload_params(:component) )
+      if @component.update(upload_params(:component))
         render json: upload_details, status: 200
       else
         render json: @component.errors.full_messages, status: 400
@@ -105,7 +89,7 @@ module Binda
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_structure
-        @structure = Structure.friendly.find( params[:structure_id] )
+        @structure = Structure.friendly.find(params[:structure_id])
       end
 
       def set_component
@@ -118,10 +102,10 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def component_params
-        params.require(:component).permit( 
+        params.require(:component).permit(
           :name, :slug, :position, :publish_state, :structure_id, :category_ids,
           {structure_attributes:  [ :id ]}, 
-          {categories_attributes: [ :id, :category_id ]}, *fieldable_params )
+          {categories_attributes: [ :id, :category_id ]}, *fieldable_params)
       end
 
       # Sort repeaters following the order with which are listed in the array provided as a argument.
@@ -129,7 +113,7 @@ module Binda
       # @param repeaters [Array] the list of ids of the repeaters
       def sort_repeaters_by(repeaters)
         repeaters.each_with_index do |id, i|
-          Repeater.find( id ).update!({ position: i })
+          Repeater.find(id).update_column('position', i)
         end
       end
   end
