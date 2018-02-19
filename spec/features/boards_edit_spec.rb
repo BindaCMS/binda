@@ -15,8 +15,9 @@ describe "GET boards#edit", type: :feature, js: true do
 		@path = binda.edit_structure_board_path(@structure, @board)
 		visit @path
 		expect(page).to have_current_path(@path)
-		# make sure the ActiveRecord object (@board) is updated with the real state of the board
+		# make sure the ActiveRecord objects are updated with the record present n database
 		@board.reload
+		@structure.reload
 	end
 
 	it "allows to edit a string field" do
@@ -175,7 +176,47 @@ describe "GET boards#edit", type: :feature, js: true do
 	end
 
 	it "allows to sort repeaters" do
-		skip "not implemented yet"
+		@structure.reload
+		repeater_setting = @structure.field_groups.first.field_settings.find{|field_setting| field_setting.field_type == 'repeater' }
+		# Make sure there are at least 2 repeaters
+		Binda::Repeater.create([{
+			fieldable_id: @board.id,
+			fieldable_type: @board.class.name,
+			field_setting_id: repeater_setting.id
+		},{
+			fieldable_id: @board.id,
+			fieldable_type: @board.class.name,
+			field_setting_id: repeater_setting.id			
+		}])
+		# Get all repeaters associated to repeater_setting and board
+		repeaters_ids = Binda::Repeater.where(
+			fieldable_id: @board.id,
+			fieldable_type: @board.class.name,
+			field_setting_id: repeater_setting.id
+		).order(:position).ids
+		# Once all repeaters are created visit the page
+		visit @path
+		# They sohuld be sorted by position
+		repeaters_dom_ids = all("ul#form--list-#{repeater_setting.id} li").map{|item| item[:id]}
+		expect(repeaters_dom_ids.first).to eq "form--list-item-#{repeaters_ids.first}"
+		expect(repeaters_dom_ids.last).to eq "form--list-item-#{repeaters_ids.last}"
+		# Enable sorting
+		find("a[test-hook=\"sortable--toggle-#{repeater_setting.id}\"]").click
+		# Scroll down in order to have first and last visible on viewport
+		# @see http://www.rubydoc.info/gems/selenium-webdriver/Selenium/WebDriver/SearchContext#find_element-instance_method
+		# Drag and drop first item to last position (you need drag_and_drop_by to move it slightly lower than last item)
+		# @see http://www.rubydoc.info/gems/selenium-webdriver/Selenium%2FWebDriver%2FActionBuilder:drag_and_drop
+		target = find("#form--list-#{repeater_setting.id} #form--list-item-#{repeaters_ids.first}").native
+		position = find("#form--list-#{repeater_setting.id} #form--list-item-#{repeaters_ids.last} .form-item--collapsable-stack").native
+		position.location_once_scrolled_into_view
+		page.driver.browser.action
+			.drag_and_drop(target, position)
+			.perform
+		wait_for_ajax
+		# They should be sorted by new position
+		repeaters_dom_ids = all("ul#form--list-#{repeater_setting.id} li").map{|item| item[:id]}
+		expect(repeaters_dom_ids.last).to eq "form--list-item-#{repeaters_ids.first}"
+		expect(repeaters_dom_ids.first).to eq "form--list-item-#{repeaters_ids[1]}"
 	end
 
 end
