@@ -278,7 +278,7 @@ function deleteItem(event) {
  * @param      {object, string}  target  The target.
  */
 function resizeCollapsableStacks(target) {
-	target = _.isUndefined(target) ? document.querySelector(".form-item--collapsable-stack") : target;
+	target = _.isUndefined(target) ? document.getElementsByClassName("form-item--collapsable-stack") : target;
 	// target CANNOT BE a jquery object because it leads to the following error
 	// TypeError: undefined is not an object (evaluating 't.ownerDocument.defaultView')
 	$(target).each(function () {
