@@ -208,7 +208,8 @@ describe "GET boards#edit", type: :feature, js: true do
 		# @see http://www.rubydoc.info/gems/selenium-webdriver/Selenium%2FWebDriver%2FActionBuilder:drag_and_drop
 		target = find("#form--list-#{repeater_setting.id} #form--list-item-#{repeaters_ids.first}").native
 		position = find("#form--list-#{repeater_setting.id} #form--list-item-#{repeaters_ids.last} .form-item--collapsable-stack").native
-		position.location_once_scrolled_into_view
+		page.evaluate_script("window.scrollTo(0, document.body.scrollHeight)")
+		# position.location_once_scrolled_into_view
 		page.driver.browser.action
 			.drag_and_drop(target, position)
 			.perform
