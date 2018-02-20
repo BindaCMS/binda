@@ -5,7 +5,6 @@ FactoryBot.define do
   # Component
   factory :component, class: Binda::Component do
     sequence(:name) { |n| "##{n} component" }
-    sequence(:position) { |n| n }
     slug { "#{name}".parameterize }
     association :structure
   end

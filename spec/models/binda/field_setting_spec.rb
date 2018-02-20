@@ -86,7 +86,7 @@ module Binda
 				expect(@selection_setting.choices.any?).to be false
 			end
 
-			it "has a default choice by default if allow_null=true" do
+			it "doesn't have a default choice by default if allow_null=false" do
 				expect(@selection_setting.default_choice_id).to be_nil
 			end
 
@@ -94,8 +94,8 @@ module Binda
 				expect(@radio_setting.choices.any?).to be true
 			end
 
-			it "doesn't have a default choice by default if allow_null=false" do
-				expect(@radio_setting.default_choice_id).to be_nil
+			it "has a default choice by default if allow_null=true" do
+				expect(@selection_setting.default_choice_id).to be_nil
 			end
 
 			it "doesn't automatically sets the first created choice as the default one if it doesn't require at least a choice" do
@@ -233,6 +233,14 @@ module Binda
 			end
 		end
 
+		it "generates a error if field type isn't specified" do
+			expect{create(:field_setting)}.to raise_error ActiveRecord::RecordInvalid
+		end
+
+		it "generates a error if field group isn't specified" do
+			expect{Binda::FieldSetting.create!(name: 'foo', field_type: 'text')}.to raise_error ActiveRecord::RecordInvalid
+		end
+
 		# test method Binda::FieldSetting.remove_orphan_fields
 		describe "dealing with orphans" do
 			it "makes sure changing field setting type will remove any orphan with the previous type" do
@@ -241,6 +249,18 @@ module Binda
 			it "removes any field which has an association with a non existing field setting" do
 				skip "not implemented yet"
 			end
+		end
+
+		it "position is assigned by default upon creation" do
+			first_field_setting = create(:string_setting) # no reason to use string, just an excuse to set field_type
+			expect(first_field_setting.reload.position).to eq 1
+		end
+
+		it "position increments every time a new item is created" do
+			first_field_setting = create(:string_setting) # no reason to use string, just an excuse to set field_type
+			second_field_setting = create(:string_setting, field_group_id: first_field_setting.field_group.id)
+			expect(second_field_setting.reload.position).to eq 1
+			expect(first_field_setting.reload.position).to eq 2
 		end
 	end
 end

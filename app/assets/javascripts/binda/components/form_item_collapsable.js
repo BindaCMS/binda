@@ -80,7 +80,7 @@ function setupAndAppend(newItem, $list) {
 	// Update select input for Select2 plugin
 	setupSelect2($list.find("select"));
 
-	setupTinyMCE($list.find("textarea"))
+	setupTinyMCE($list.find("textarea"));
 
 	// Prepare collapsable animation
 	collapsable.style.maxHeight = "0px";
@@ -201,7 +201,7 @@ function deleteItem(event) {
  * @param      {object, string}  target  The target.
  */
 export function resizeCollapsableStacks(target) {
-	target = _.isUndefined(target) ? $(".form-item--collapsable-stack") : target;
+	target = _.isUndefined(target) ? document.getElementsByClassName("form-item--collapsable-stack") : target;
 	// target CANNOT BE a jquery object because it leads to the following error
 	// TypeError: undefined is not an object (evaluating 't.ownerDocument.defaultView')
 	$(target).each(function() {
@@ -230,7 +230,16 @@ export function resizeCollapsableStacks(target) {
  * @param      {jQuery object}  $textareas  The textareas
  */
 function setupTinyMCE($textareas) {
-	$textareas.each(function(){
-		tinyMCE.EditorManager.execCommand("mceAddEditor", true, this.getAttribute('id'));
-	})
+	let editor_ids = _.map(tinyMCE.editors, editor => {
+			return editor.id;
+		})
+	// console.log({editors});
+	$textareas.each(function() {
+		if (_.includes(editor_ids, this.getAttribute('id'))){
+			return;
+		}		
+		tinyMCE.init({
+		  selector: `#${this.getAttribute("id")}`
+		});
+	});
 }

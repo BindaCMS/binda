@@ -31,4 +31,8 @@ describe "GET components#sort_index:", type: :feature, js: true do
 		visit path
 		expect(page.body.index(first_component.name)).to be > page.body.index(last_component.name)
 	end
+
+	it "sorts components order with drag and drop" do
+		skip("Not implemented yet")
+	end
 end

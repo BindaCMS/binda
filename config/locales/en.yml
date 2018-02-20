@@ -92,7 +92,7 @@ en:
       validation_message:
         name: Field setting name cannot be blank.
         slug: "\"%{arg1}\" already in use. Please choose a different slug."
-        field_type: "isn't valid. Please associate the field setting named \"%{arg1}\" with one of the following field types: %{arg2}."
+        field_type: "isn't valid. Please associate field setting named \"%{arg1}\" with one of the following field types: %{arg2}."
         field_group_id: "cannot be blank. Field setting named \"%{arg1}\" must be associated to a field group. Check if field_group_id propriety is set."
         allow_null: "canont be true on a radio setting. Please ensure to set allow_null=false for the field setting named \"%{arg1}\" before saving it."
         has_choice_before_updating_allow_null_to_false: "In order to require at least a choice, it's mandatory that at least one is available. Please create a choice for the field setting with slug \"%{arg1}\" before continuing."

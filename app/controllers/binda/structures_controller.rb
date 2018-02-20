@@ -59,9 +59,7 @@ module Binda
     end
 
     def sort_field_groups
-      params["form--list-item"].each_with_index do |id, i|
-        FieldGroup.find( id ).update_column('position', i ) # use update_column to skip callbacks (which leads to huge useless memory consumption)
-      end
+      sort_field_group_by(params["form--list-item"])
       render json: { id: "##{params[:id]}" }, status: 200
     end
 
@@ -73,19 +71,6 @@ module Binda
         structure_id: @structure.id
       )
       @field_group.save!
-      # Put new repeater to first position, then store all the other ones
-      if params["form--list-item"].nil?
-        field_groups = [
-          @field_group.id.to_s, 
-          *@structure.field_groups.order('position ASC').ids
-        ]
-      else
-        field_groups = [
-          @field_group.id.to_s,
-          *params["form--list-item"]
-        ]
-      end
-      sort_field_group_by(field_groups)
       render 'binda/structures/_form_new_field_group_item', layout: false
     end
 
@@ -99,7 +84,7 @@ module Binda
       def structure_params
         params.require(:structure).permit(
           :name, :slug, :position, :has_categories, :has_preview, :instance_type, field_groups_attributes: [ 
-            :id, :name, :structure_id, :slug, field_settings_attributes: [
+            :id, :name, :structure_id, :slug, :description, field_settings_attributes: [
               :id, :name, :slug, :field_group_id
             ]
           ]
@@ -115,7 +100,7 @@ module Binda
       # @param field_settings [Array] the list of ids of the field settings
       def sort_field_group_by(field_groups)
         field_groups.each_with_index do |id, i|
-          FieldGroup.find( id ).update!({ position: i })
+          FieldGroup.find( id ).update_column('position', i+1)
         end
       end
 

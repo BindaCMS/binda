@@ -39,12 +39,10 @@ describe "In field group editor, user", type: :feature, js: true do
 			click_button "save"
 			visit path_to_field_group
 			field_group.reload
-			within "#form--list-item-#{new_field_setting.id}" do
-				find('.form-item--collapse-btn').click
-				# Make sure the form item appeared
-				sleep 1
-				expect(page).to have_field with: field_name_value
-			end
+			find("#form--list-item-#{new_field_setting.id} .form-item--collapse-btn").click
+			# Make sure the form item appeared
+			sleep 1
+			expect(page).to have_field with: field_name_value
 		end
 	end
 
@@ -75,14 +73,12 @@ describe "In field group editor, user", type: :feature, js: true do
 			visit path_to_field_group
 			field_group.reload
 			field_setting_child = field_group.field_settings.where.not(ancestry:nil).first
-			within "#form--list-item-#{field_setting_child.id}" do
-				find('.form-item--collapse-btn').click
-				# see https://stackoverflow.com/questions/32984498/rails-4-adding-child-index-to-dynamically-added-nested-form-fields-with-cocoo
-				field_name_id_reloaded = find('.form-item--default-input')[:id]
-				# Make sure the form item appeared
-				sleep 1
-				expect(page).to have_field field_name_id_reloaded, with: field_name_value 
-			end
+			find("#form--list-item-#{field_setting_child.id} .form-item--collapse-btn").click
+			# see https://stackoverflow.com/questions/32984498/rails-4-adding-child-index-to-dynamically-added-nested-form-fields-with-cocoo
+			field_name_id_reloaded = find("#form--list-item-#{field_setting_child.id} .form-item--default-input")[:id]
+			# Make sure the form item appeared
+			sleep 1
+			expect(page).to have_field field_name_id_reloaded, with: field_name_value 
 		end
 	end
 
@@ -138,6 +134,10 @@ describe "In field group editor, user", type: :feature, js: true do
 		click_button "save"
 		# look for anything, just to make sure the page isn't throwing a error
 		expect(page).to have_field("field_group_name", with: field_group.name)
+	end
+
+	it "allows to sort field settings" do
+		skip "not implemented yet"
 	end
 
 end

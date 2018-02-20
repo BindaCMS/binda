@@ -4,7 +4,7 @@ module Binda
   RSpec.describe Component, type: :model do
 		
 		before(:all) do
-			@structure = build(:structure)
+			@structure = create(:structure)
 		end
 
 		let( :new_component ) { Component.new }
@@ -31,11 +31,6 @@ module Binda
 			expect( new_component.slug ).to eq "component-1"
 		end
 
-		it "automatically sets a postion after create" do
-			component = create(:component)
-			expect( component.position ).not_to be_nil
-		end
-
 		it "destroys all fields related to it when it's deleted" do
 			structure = create(:article_structure_with_components_and_fields)
 			first_component = structure.components.first
@@ -44,10 +39,10 @@ module Binda
 
 			first_component.destroy!
 
-			expect( String.where(id: strings) ).to be_empty
+			expect(String.where(id: strings)).to be_empty
 		end
 
-		it "shouldn't be possible to associate multiple components to one field (eg. text field)" do 
+		it "is not possible to simultaneously associate multiple components to one field and same field setting" do 
 			skip "not implemented yet"
 		end
 
@@ -141,6 +136,31 @@ module Binda
 
 		it "gets an array of choices calling get_selections_choices()" do
 			skip "not implemented yet"
+		end
+
+		describe "after has been created" do
+
+			it "generates all its fields instances" do
+				structure = create(:structure)
+				text_setting = create(:text_setting, field_group_id: structure.field_groups.first.id)
+				component = create(:component, structure_id: structure.id)
+				component.reload
+				expect(component.texts.any?).to be true
+				expect(component.texts.first.field_setting_id).to eq text_setting.id
+			end
+
+			it "position is assigned by default upon creation" do
+				first_component = create(:component)
+				expect(first_component.reload.position).to eq 1
+			end
+
+			it "position increments every time a new item is created" do
+				first_component = create(:component)
+				second_component = create(:component, structure_id: first_component.structure.id)
+				expect(second_component.reload.position).to eq 1
+				expect(first_component.reload.position).to eq 2
+			end
+			
 		end
 
   end

@@ -10,8 +10,8 @@
 			hint: field_setting.description,
 			value_method: :id,
 			checked: ff.object.dependent_component_ids, 
-			include_blank: false, 
-			include_hidden: false,
+			include_blank: true, 
+			include_hidden: true,
 			placeholder: t('binda.select_placeholder') %>
 	<% end %>
 
@@ -23,8 +23,8 @@
 			hint: field_setting.description,
 			value_method: :id, 
 			checked: ff.object.dependent_board_ids, 
-			include_blank: false, 
-			include_hidden: false,
+			include_blank: true, 
+			include_hidden: true,
 			placeholder: t('binda.select_placeholder') %>
 	<% end %>
 

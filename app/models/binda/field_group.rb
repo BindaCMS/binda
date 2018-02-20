@@ -20,7 +20,7 @@ module Binda
 		extend FriendlyId
 		friendly_id :default_slug, use: [:slugged, :finders]
 
-		after_create :update_position
+		after_create :set_default_position
 
 		# Friendly id preference on slug generation
 		#
@@ -58,10 +58,12 @@ module Binda
 
 		private 
 
-			def update_position
-				if self.position.nil?
-					self.update_attribute('position', self.structure.field_groups.length)
-				end
+			# Set a default position if isn't set and updates all related field settings
+			# Update all field settings related to the one created
+			def set_default_position
+				FieldGroup
+					.where(structure_id: self.structure_id)
+					.each{|field_group| field_group.increment(:position).save!}
 			end
 
 	end

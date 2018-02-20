@@ -57,45 +57,27 @@ module Binda
 
     def sort
       params[:field_group].each_with_index do |id, i|
-        FieldGroup.find( id ).update_column('position', i ) # use update_column to skip callbacks (which leads to huge useless memory consumption)
+        FieldGroup.find( id ).update_column('position', i+1) # use update_column to skip callbacks (which leads to huge useless memory consumption)
       end
       render json: { id: "##{params[:id]}" }, status: 200
     end
 
     def sort_field_settings
-      params["form--list-item"].each_with_index do |id, i|
-        FieldSetting.find( id ).update_column('position', i ) # use update_column to skip callbacks (which leads to huge useless memory consumption)
-      end
+      sort_field_setting_by(params["form--list-item"])
       render json: { id: "##{params[:id]}" }, status: 200
     end
 
     def add_field_setting
       # We set some default values in order to be able to save the field setting
       # (if field setting isn't save it makes impossible to sort the order)
+      # TODO params should be passed into a permit method
       @field_setting = FieldSetting.new(
         name: "#{I18n.t('binda.field_setting.new')}",
         field_group_id: @field_group.id, 
-        field_type: 'string'
+        field_type: 'string',
+        ancestry: params[:ancestry]
       )
-      @field_setting[:ancestry] = params[:ancestry]
       @field_setting.save!
-      # Put new repeater to first position, then store all the other ones
-      if params["form--list-item"].nil?
-        field_settings = [
-          @field_setting.id.to_s, 
-          *@field_group
-            .field_settings
-            .order('position ASC')
-            .select{|fs| fs.ancestry == @field_setting.ancestry }
-            .map(&:id)
-        ]
-      else
-        field_settings = [
-          @field_setting.id.to_s,
-          *params["form--list-item"]
-        ]
-      end
-      sort_field_setting_by(field_settings)
       render 'binda/field_groups/_form_new_item', layout: false
     end
 
@@ -174,7 +156,7 @@ module Binda
       # @param field_settings [Array] the list of ids of the field settings
       def sort_field_setting_by(field_settings)
         field_settings.each_with_index do |id, i|
-          FieldSetting.find( id ).update!({ position: i })
+          FieldSetting.find( id ).update_column('position', i+1)
         end
       end
   end

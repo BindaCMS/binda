@@ -24,10 +24,9 @@ module Binda
       component = create(:component_and_radio)
       component.reload
       radio = component.radios.first
-      expect(radio.choices.any?).to be false
       choice = create(:choice, field_setting_id: radio.field_setting.id)
       radio.choices << choice
-      expect(radio.reload.choices.any?).to be true
+      expect(radio.reload.choices.select{|choice| choice.id == choice.id}.empty?).to be false
     end
 
     it "can be attached to a checkbox field" do
