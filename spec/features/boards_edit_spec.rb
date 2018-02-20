@@ -212,7 +212,7 @@ describe "GET boards#edit", type: :feature, js: true do
 		# position.location_once_scrolled_into_view
 		page.driver.browser.action
 			.drag_and_drop(target, position)
-			.drag_and_drop_by(target, 1, 100) # move it a bit more so we are 100% sure it's below the latest
+			.drag_and_drop_by(target, 1, 80) # move it a bit more so we are 100% sure it's below the latest
 			.perform
 		wait_for_ajax
 		# They should be sorted by new position

@@ -85,7 +85,7 @@ module Binda
     describe "POST #update" do
       it "removes all relations which are not listed" do
         related_structure = create(:structure)
-        related_component = create(:board, structure_id: related_structure.id)
+        related_component = create(:component, structure_id: related_structure.id)
         relation_setting = create(
           :relation_setting, 
           field_group_id: @structure.field_groups.first.id

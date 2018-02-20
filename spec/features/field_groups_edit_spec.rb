@@ -59,7 +59,7 @@ describe "GET field_groups#edit", type: :feature, js: true do
 		# position.location_once_scrolled_into_view
 		page.driver.browser.action
 			.drag_and_drop(target, position)
-			.drag_and_drop_by(target, 1, 100) # make sure it's dragged below the latest element
+			.drag_and_drop_by(target, 1, 80) # make sure it's dragged below the latest element
 			.perform
 		wait_for_ajax
 		# They should be sorted by new position
@@ -109,7 +109,7 @@ describe "GET field_groups#edit", type: :feature, js: true do
 		# position.location_once_scrolled_into_view
 		page.driver.browser.action
 			.drag_and_drop(target, position)
-			.drag_and_drop_by(target, 1, 100) # make sure it's dragged below the latest element
+			.drag_and_drop_by(target, 1, 80) # make sure it's dragged below the latest element
 			.perform
 		wait_for_ajax
 		# They should be sorted by new position
