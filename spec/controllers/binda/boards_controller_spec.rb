@@ -95,15 +95,16 @@ module Binda
         relation.dependent_components << related_component
         relation.reload
         expect(relation.dependent_components.any?).to be true
-        post :update, params: {
+        params = {
           id: @board.id,
           structure_id: @structure.id,
-          relations_attributes: [
-            {
-              dependent_component_ids: []
-            }
-          ]
+          board: { id: @board.id, relations_attributes: {} }
         }
+        params[:board][:relations_attributes][relation.id] = {
+          id: relation.id,
+          dependent_component_ids: [""]
+        }
+        post :update, params: params
         relation.reload
         expect(relation.dependent_components.empty?).to be true
       end
