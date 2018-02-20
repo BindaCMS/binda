@@ -36,15 +36,27 @@ module Binda
 		# 
 		# @param field_setting [Binda::FieldSetting] The field setting object
 		def prepare_description_for_selections_form_hint(field_setting)
-			description = []
 			unless field_setting.description.blank? && field_setting.allow_null?
-				description << field_setting.description unless field_setting.description.blank?
-				description << I18n.t("binda.null_is_not_allowed") if !field_setting.allow_null? 
-				return description.join('. ')
+				prepare_description_for_selections_from_hint_with(field_setting)
 			else
 				return false 
 			end
 		end
+
+		#
+		# Prepare description for selections with field setting detail
+		#
+		# @param      field_setting  The field setting
+		#
+		# @return     [String] The description
+		#
+		def prepare_description_for_selections_from_hint_with(field_setting)
+			description = []
+			description << field_setting.description unless field_setting.description.blank?
+      description << I18n.t("binda.null_is_not_allowed") if !field_setting.allow_null? 
+      return description.join('. ')
+		end
+
 
 		# Get sort link by argument
 		#

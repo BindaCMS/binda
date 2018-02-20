@@ -110,7 +110,7 @@ module Binda
 		validates :field_type, inclusion: { 
 			in: [ *FieldSetting.get_field_classes.map{ |fc| fc.to_s.underscore } ], 
 			allow_nil: false,
-			message: -> (field_setting, data) { 
+			message: -> (field_setting, _) { 
 				I18n.t(
 					"binda.field_setting.validation_message.field_type", 
 					{ arg1: field_setting.name, arg2: FieldSetting.get_field_classes.join(", ") }

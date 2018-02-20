@@ -56,10 +56,10 @@ describe "GET field_groups#edit", type: :feature, js: true do
 		target = find("#form--list-#{@field_group.id} #form--list-item-#{field_settings_ids.first}").native
 		position = find("#form--list-#{@field_group.id} #form--list-item-#{field_settings_ids.last} .form-item--collapsable-stack").native
 		page.evaluate_script("window.scrollTo(0, document.body.scrollHeight)")
-		page.evaluate_script("window.scrollTo(0, document.body.scrollHeight)")
-		position.location_once_scrolled_into_view
+		# position.location_once_scrolled_into_view
 		page.driver.browser.action
 			.drag_and_drop(target, position)
+			.drag_and_drop_by(target, 1, 100) # make sure it's dragged below the latest element
 			.perform
 		wait_for_ajax
 		# They should be sorted by new position
@@ -109,6 +109,7 @@ describe "GET field_groups#edit", type: :feature, js: true do
 		# position.location_once_scrolled_into_view
 		page.driver.browser.action
 			.drag_and_drop(target, position)
+			.drag_and_drop_by(target, 1, 100) # make sure it's dragged below the latest element
 			.perform
 		wait_for_ajax
 		# They should be sorted by new position

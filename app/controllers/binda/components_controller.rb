@@ -103,7 +103,7 @@ module Binda
       # Only allow a trusted parameter "white list" through.
       def component_params
         params.require(:component).permit(
-          :name, :slug, :position, :publish_state, :structure_id, :category_ids,
+          :id, :name, :slug, :position, :publish_state, :structure_id, :category_ids,
           {structure_attributes:  [ :id ]}, 
           {categories_attributes: [ :id, :category_id ]}, *fieldable_params)
       end

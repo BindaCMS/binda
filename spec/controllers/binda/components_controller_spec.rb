@@ -13,9 +13,12 @@ module Binda
       @component = @structure.components.first
     end
 
+    before(:each) do
+      sign_in user
+    end
+
     describe "GET #index" do
       it "returns http success" do
-        sign_in user
         get :index, params: { structure_id: @structure.slug }
         expect(response).to have_http_status(:success)
       end
@@ -23,7 +26,6 @@ module Binda
 
     describe "GET #show" do
       it "returns http success" do
-        sign_in user
         get :show, params: { structure_id: @structure.slug, id: @structure.components.first.slug }
         expect(response).to have_http_status(:redirect)
       end
@@ -31,7 +33,6 @@ module Binda
 
     describe "GET #edit" do
       it "returns http success" do
-        sign_in user
         get :edit, params: { structure_id: @structure.slug, id: @structure.components.first.slug }
         expect(response).to have_http_status(:success)
       end
@@ -39,7 +40,6 @@ module Binda
     
     describe "POST #sort_repeaters" do
       it "reorders repeaters based on position value" do
-        sign_in user
 
         ordered_ids = @component.repeater_ids
         shuffled_ids = ordered_ids.shuffle
@@ -67,7 +67,6 @@ module Binda
 
     describe "POST #new_repeater" do
       it "creates a new repeater with correct position" do
-        sign_in user
 
         initial_repeaters_length = @component.repeaters.length
         repeater_setting = Binda::FieldSetting
@@ -114,6 +113,34 @@ module Binda
         # component_one.reload
         # expect( component_one.position ).to eq(3)
         skip "not implemented yet"
+      end
+    end
+
+    describe "POST #update" do
+      it "removes all relations which are not listed" do
+        related_structure = create(:structure)
+        related_component = create(:component, structure_id: related_structure.id)
+        relation_setting = create(
+          :relation_setting, 
+          field_group_id: @structure.field_groups.first.id
+        )
+        relation_setting.accepted_structures << related_structure
+        relation = @component.relations.find{|rel| rel.field_setting_id == relation_setting.id}
+        relation.dependent_components << related_component
+        relation.reload
+        expect(relation.dependent_components.any?).to be true
+        params = {
+          id: @component.id,
+          structure_id: @structure.id,
+          component: { id: @component.id, relations_attributes: {} }
+        }
+        params[:component][:relations_attributes][relation.id] = {
+          id: relation.id,
+          dependent_component_ids: [""]
+        }
+        post :update, params: params
+        relation.reload
+        expect(relation.dependent_components.empty?).to be true
       end
     end
   end
