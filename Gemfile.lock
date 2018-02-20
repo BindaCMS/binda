@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    binda (0.1.6.alpha.4)
+    binda (0.1.6.alpha.5)
       aasm (>= 4.11, < 4.13)
       ancestry (>= 2.1, < 3.1)
       bourbon (= 4.3.4)
