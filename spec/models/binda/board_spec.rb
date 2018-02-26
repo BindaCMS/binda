@@ -26,5 +26,17 @@ module Binda
 			expect(dependents.first.name).to eq(dependent_2.name)
 		end
 
+		describe "after has been created" do
+
+			it "generates all its fields instances" do
+				structure = create(:board_structure)
+				text_setting = create(:text_setting, field_group_id: structure.field_groups.first.id)
+				structure.board.reload
+				expect(structure.board.texts.any?).to be true
+				expect(structure.board.texts.first.field_setting_id).to eq text_setting.id
+			end
+			
+		end
+
   end
 end
