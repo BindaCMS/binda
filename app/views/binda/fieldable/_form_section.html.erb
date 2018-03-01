@@ -1,75 +1,14 @@
-<%# - - - - - - - - - - - - %>
-<%# TEXT                    %>
-<%# - - - - - - - - - - - - %>
-<% if field_setting.field_type == 'text' %>
-  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'text' ) %>
-  <%= f.simple_fields_for "texts_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_text', f: f, ff: ff, field_setting: field_setting %>
+<% if %w(text string date image video audio relation).include? field_setting.field_type %>
+  <% current = @instance.find_or_create_a_field_by( field_setting.id, field_setting.field_type) %>
+  <%= f.simple_fields_for "#{field_setting.field_type}s_attributes[]", current do |ff| %>
+    <%= render "binda/fieldable/form_item_#{field_setting.field_type}", f: f, ff: ff, field_setting: field_setting %>
   <% end %>
 
-
-<%# - - - - - - - - - - - - %>
-<%# STRING                  %>
-<%# - - - - - - - - - - - - %>
-<% elsif field_setting.field_type == 'string' %>
-  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'string' ) %>
-  <%= f.simple_fields_for "strings_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_string', f: f, ff: ff, field_setting: field_setting %>
-  <% end %>
-
-
-<%# - - - - - - - - - - - - %>
-<%# DATE                    %>
-<%# - - - - - - - - - - - - %>
-<% elsif field_setting.field_type == 'date' %>
-  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'date' ) %>
-  <%= f.simple_fields_for "dates_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_date', ff: ff, field_setting: field_setting %>
-  <% end %>
-
-
-<%# - - - - - - - - - - - - %>
-<%# IMAGE                   %>
-<%# - - - - - - - - - - - - %>
-<% elsif field_setting.field_type == 'image' %>
-  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'image' ) %>
-  <%= f.simple_fields_for "images_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_image', ff: ff, field_setting: field_setting %>
-  <% end %>
-
-
-<%# - - - - - - - - - - - - %>
-<%# VIDEO                   %>
-<%# - - - - - - - - - - - - %>
-<% elsif field_setting.field_type == 'video' %>
-  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'video' ) %>
-  <%= f.simple_fields_for "videos_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_video', ff: ff, field_setting: field_setting %>
-  <% end %>
-
-
-<%# - - - - - - - - - - - - %>
-<%# RELATED_FIELD           %>
-<%# - - - - - - - - - - - - %>
-<% elsif field_setting.field_type == 'relation' %>
-  <% current = @instance.find_or_create_a_field_by( field_setting.id, 'relation' ) %>
-  <%= f.simple_fields_for "relations_attributes[]", current do |ff| %>
-    <%= render 'binda/fieldable/form_item_relation', ff: ff, field_setting: field_setting %>
-  <% end %>
-
-<%# - - - - - - - - - - - - %>
-<%# SELECTION TYPES         %>
-<%# - - - - - - - - - - - - %>
-<% elsif ['radio', 'selection', 'checkbox'].include? field_setting.field_type %>
+<% elsif %w(radio selection checkbox).include? field_setting.field_type %>
   <%= render 'binda/fieldable/form_item_selections', f: f, field_setting: field_setting %>
 
-
-<%# - - - - - - - - - - - - %>
-<%# REPEATER                %>
-<%# - - - - - - - - - - - - %>
 <% elsif field_setting.field_type == 'repeater' %>
   <% repeaters = @instance.repeaters.where( field_setting: field_setting ).order('position ASC') %>
   <%= render 'binda/fieldable/form_item_repeater', f: f, repeater_setting: field_setting, repeaters: repeaters %>
-
 
 <% end %>

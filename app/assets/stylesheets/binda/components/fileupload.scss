@@ -47,12 +47,16 @@
   }
 }
 
-.fileupload--dashboard {
+.fileupload--field {
   float: left;
 
   .control-label-wrap {
     float: left;
   }
+}
+
+.fileupload--dashboard {
+  float: left;
 }
 
 .fileupload input {
@@ -112,10 +116,15 @@
   display: none;
 }
 
-.standard-form--video .fileupload--dimension {
+.standard-form--video .fileupload--dimension,
+.standard-form--audio .fileupload--dimension {
   display: none;
 }
 
 .standard-form--image .fileupload--videolink {
+  display: none;
+}
+
+.fileupload--preview--hidden {
   display: none;
 }

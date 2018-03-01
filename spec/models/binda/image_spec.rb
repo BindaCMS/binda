@@ -24,7 +24,6 @@ module Binda
       image_record = @component.reload.images.first
       image_record.image = image_path.open
   		expect(image_record.save!).to be_truthy
-  		image_record.reload
   		expect(image_record.file_width).to be_within(1).of(400) # image is 400px wide
   		expect(image_record.file_height).to be_within(1).of(226) # image is 226px high
   	end
@@ -35,7 +34,6 @@ module Binda
       image_record = @component.reload.images.first
       image_record.image = image_path.open
   		expect(image_record.save!).to be_truthy
-  		image_record.reload
   		expect(image_record.content_type).to eq 'image/jpeg'
   		expect(image_record.file_size).to be_within(1000).of(14000) # image is 14kb
   	end

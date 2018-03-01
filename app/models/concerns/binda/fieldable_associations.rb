@@ -25,6 +25,7 @@ module Binda
 	    has_many :assets,        as: :fieldable, dependent: :delete_all
 	    has_many :images,        as: :fieldable, dependent: :delete_all
 	    has_many :videos,        as: :fieldable, dependent: :delete_all
+	    has_many :audios,        as: :fieldable, dependent: :delete_all
 	    has_many :radios,        as: :fieldable, dependent: :delete_all 
 	    has_many :selections,    as: :fieldable, dependent: :delete_all 
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
@@ -52,7 +53,7 @@ module Binda
 	                            source: :owner 
 
 
-	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :galleries, :repeaters, :radios, :selections, :checkboxes, :relations, allow_destroy: true
+	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :audios, :galleries, :repeaters, :radios, :selections, :checkboxes, :relations, allow_destroy: true
 
 			validates_associated :texts
 			validates_associated :strings
@@ -60,6 +61,7 @@ module Binda
 			validates_associated :assets
 			validates_associated :images
 			validates_associated :videos
+			validates_associated :audios
 			validates_associated :repeaters
 			validates_associated :radios
 			validates_associated :selections

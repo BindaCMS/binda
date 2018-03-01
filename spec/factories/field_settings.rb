@@ -86,4 +86,12 @@ FactoryBot.define do
 		field_type 'image'
 	end
 
+	factory :video_setting, parent: :field_setting do
+		field_type 'video'
+	end
+
+	factory :audio_setting, parent: :field_setting do
+		field_type 'audio'
+	end
+
 end

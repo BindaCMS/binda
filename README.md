@@ -365,6 +365,7 @@ Here below a list of field types available and their use:
 | text | Store a text. TinyMCE let's you format the text as you like. | [source](http://www.rubydoc.info/gems/binda/Binda/Text) |
 | image | Store image. | [source](http://www.rubydoc.info/gems/binda/Binda/Image) |
 | video | Store video. | [source](http://www.rubydoc.info/gems/binda/Binda/Video) |
+| audio | Store audio. | [source](http://www.rubydoc.info/gems/binda/Binda/Audio) |
 | date | Store a date. | [source](http://www.rubydoc.info/gems/binda/Binda/Date) |
 | radio | Select one choice amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Radio) |
 | selection | Select one or more choices amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Selection) |
@@ -441,7 +442,10 @@ You can retrieve field content from a instance of `Binda::Component`, `Binda::Bo
 |`get_image_mime_type`| Returns the mime type of the image. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_mime_type) |
 |`has_video`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_video) |
 |`get_video_url`| Returns the url of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_video_url) |
-|`get_video_path`| Returns the path of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_path) |
+|`get_video_path`| Returns the path of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_video_path) |
+|`has_audio`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_audio) |
+|`get_audio_url`| Returns the url of the audio. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_audio_url) |
+|`get_audio_path`| Returns the path of the audio. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_audio_path) |
 |`has_date`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_date) |
 |`get_date`| Returns the date in `datetime` format. Use [`strftime`](https://apidock.com/rails/ActiveSupport/TimeWithZone/strftime) to change date format. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_date) |
 |`has_repeaters`| Returns `true/false`| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_repeaters) |
@@ -576,8 +580,6 @@ To change appereance and behaviour of the page add your styles to `app/assets/st
 ---
 
 # Field settings and field groups
-
----
 
 ## Orphans
 
@@ -881,16 +883,21 @@ npm install --global geckodriver
 Some specs are run against the database. If you haven't installed Binda on the dummy application yet run:
 
 ```bash
-rails db:migrate RAILS_ENV=test
+RAILS_ENV=test rails db:migrate
 ```
 
 The above command might generate an error. This is probably because you have previously installed Binda and the generator finds migration both in `binda/db/migrate` and `binda/spec/dummy/db/migrate`. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again. Here below the oneliner (be aware that this destroy both development and test databases of the dummy app):
 
 ```bash
-rm -rf spec/dummy/db/migrate && rails db:drop && rails db:create && rails generate binda:install && rails db:migrate RAILS_ENV=test
+cd spec/dummy && rm -rf db/migrate && rails db:drop && rails db:create && RAILS_ENV=test rails db:migrate
 ```
 
-In case you are creating new migrations or modifing the default one, consider running the above command to refresh the `schema.rb` file while updating both databases.
+In case you are creating new migrations or modifing the default one:
+
+```bash
+cd spec/dummy && rm -r db/schema.rb && rails db:drop && rails db:create && RAILS_ENV=test rails db:migrate
+```
+
 
 If in the future you need to clean your dummy app code, simply run:
 

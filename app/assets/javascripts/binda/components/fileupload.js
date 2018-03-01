@@ -116,6 +116,8 @@ function updateFileuploadField(data, id) {
 		setup_image_preview(data, id);
 	} else if (data.type == "video") {
 		setup_video_preview(data, id);
+	} else if (data.type == "audio") {
+		setup_audio_preview(data, id);
 	} else {
 		alert("Something went wrong. No preview has been received.");
 	}
@@ -183,14 +185,15 @@ function setup_image_preview(data, id) {
 function setup_video_preview(data, id) {
 	let $parent = $("#fileupload-" + id);
 	let $preview = $("#fileupload-" + id + " .fileupload--preview");
+	let uploadedClass = "fileupload--preview--uploaded";
 
 	$preview
-		.removeClass("fileupload--preview--uploaded")
+		.removeClass(uploadedClass)
 		.find("video")
 		.attr("id", "video-" + id)
 		.find("source")
 		.attr("src", data.url)
-		.attr("type", "video/" + data.ext);
+		.attr("type", data.contentType);
 
 	// If video source isn't blank load it (consider that a video tag is always present)
 	if (typeof $preview.find("video source").attr("src") != undefined) {
@@ -201,11 +204,42 @@ function setup_video_preview(data, id) {
 	}
 
 	// Remove and add class to trigger css animation
-	let uploadedClass = "fileupload--preview--uploaded";
-	$preview.removeClass(uploadedClass).addClass(uploadedClass);
+	$preview.addClass(uploadedClass);
 
 	// Update details
 	$parent.find(".fileupload--filesize").text(data.size);
 	$parent.find(".fileupload--filename").text(data.name);
-	$parent.find(".fileupload--videolink a").attr("href", data.url);
+	$parent.find(".fileupload--previewlink a").attr("href", data.url);
+}
+
+function setup_audio_preview(data, id) {
+	let $parent = $("#fileupload-" + id);
+	let $preview = $("#fileupload-" + id + " .fileupload--preview");
+	let uploadedClass = "fileupload--preview--uploaded";
+
+	$preview
+		.removeClass(uploadedClass)
+		.find("audio")
+		.attr("id", "audio-" + id)
+		.find("source")
+		.attr("src", data.url)
+		.attr("type", data.contentType);
+
+	// If video source isn't blank load it (consider that a video tag is always present)
+	if (typeof $preview.find("audio source").attr("src") != undefined) {
+		$preview
+			.find("audio")
+			.get(0)
+			.load();
+	}
+
+	// Remove and add class to trigger css animation
+	$preview
+		.addClass(uploadedClass)
+		.addClass("fileupload--preview--hidden")
+
+	// Update details
+	$parent.find(".fileupload--filesize").text(data.size);
+	$parent.find(".fileupload--filename").text(data.name);
+	$parent.find(".fileupload--previewlink a").attr("href", data.url);
 }
