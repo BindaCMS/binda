@@ -81,7 +81,7 @@ module Binda
       elsif asset.audio.present?
         return_audio_details(asset)
       else
-        raise "The record Binda::Asset with id=#{asset.id} doesn't have any image or video attached. This might be due to a bug. Please report it in Binda official Github page."
+        raise "The record Binda::Asset with id=#{asset.id} doesn't have any image, video or audio attached. This might be due to a bug. Please report it in Binda official Github page."
       end
     end
 
