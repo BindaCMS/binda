@@ -3,7 +3,7 @@
 	<%= ff.input :content, 
 				input_html: { value: ff.object.content, class: 'tinymce' }, 
 				as: :text,
-				hint: field_setting.description,
+				hint: field_setting.description.html_safe,
 				label: field_setting.name %>
 
 	<%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
