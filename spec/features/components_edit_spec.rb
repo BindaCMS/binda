@@ -71,7 +71,6 @@ describe "GET component#edit", type: :feature, js: true do
 		expect(page).to have_field("component_name", with: @component.name)
 	end
 
-
 	it "allows to create multiple new repeater items clicking the button" do		
 		repeater_setting = @component.repeaters.first.field_setting
 		num_of_repeaters = Binda::Repeater.where(
@@ -129,7 +128,7 @@ describe "GET component#edit", type: :feature, js: true do
 		skip "not implemeted yet"
 	end
 
-	it "allows to add an image to an image field and store it" do
+	it "allows to upload a file to the an image field and store it" do
     Binda::Image::ImageUploader.enable_processing = true
 		# Create an image field setting on which will work
 		image_setting = create(:image_setting, field_group_id: @structure.field_groups.first.id)
@@ -167,6 +166,66 @@ describe "GET component#edit", type: :feature, js: true do
     Binda::Image::ImageUploader.enable_processing = false
 	end
 
+	it "allows to upload a file to the audio field and store it" do
+    Binda::Audio::AudioUploader.enable_processing = true
+		# Create an image field setting on which will work
+		audio_setting = create(:audio_setting, field_group_id: @structure.field_groups.first.id)
+		# Refresh the page so the image field appear on the editor
+		visit @path
+		expect(@component.audios.first.audio.present?).not_to be_truthy
+		field_id = "component_audios_attributes_#{@component.audios.where(field_setting_id: audio_setting.id ).first.id}_audio"
+		audio_name = 'test-audio.mp3'
+		audio_path = ::Binda::Engine.root.join('spec', 'support', audio_name)
+		page.execute_script("document.getElementById('#{field_id}').style.zIndex = '1'")
+		page.execute_script("document.getElementById('#{field_id}').style.opacity = '1'")
+		page.attach_file(field_id, audio_path)
+		wait_for_ajax
+		sleep 1 # wait for animation to complete
+		@component.reload
+		audio = @component.audios.first
+		within "#fileupload-#{audio.id}" do
+			expect(page).to have_content audio_name
+			expect(page).to have_content (audio.file_size.to_f / 1.megabyte).round(2)
+		end
+		visit @path
+		expect( File.basename( audio.audio.path ) ).to eq audio_name
+		within "#fileupload-#{audio.id}" do
+			expect(page).to have_content audio_name
+			expect(page).to have_content (audio.file_size.to_f / 1.megabyte).round(2)
+		end
+    Binda::Audio::AudioUploader.enable_processing = false
+	end
+
+	it "allows to upload a file to the video field and store it" do
+    Binda::Video::VideoUploader.enable_processing = true
+		# Create an image field setting on which will work
+		video_setting = create(:video_setting, field_group_id: @structure.field_groups.first.id)
+		# Refresh the page so the image field appear on the editor
+		visit @path
+		expect(@component.videos.first.video.present?).not_to be_truthy
+		field_id = "component_videos_attributes_#{@component.videos.where(field_setting_id: video_setting.id ).first.id}_video"
+		video_name = 'test-video.mp4'
+		video_path = ::Binda::Engine.root.join('spec', 'support', video_name)
+		page.execute_script("document.getElementById('#{field_id}').style.zIndex = '1'")
+		page.execute_script("document.getElementById('#{field_id}').style.opacity = '1'")
+		page.attach_file(field_id, video_path)
+		wait_for_ajax
+		sleep 1 # wait for animation to complete
+		@component.reload
+		video = @component.videos.first
+		within "#fileupload-#{video.id}" do
+			expect(page).to have_content video_name
+			expect(page).to have_content (video.file_size.to_f / 1.megabyte).round(2)
+		end
+		visit @path
+		expect( File.basename( video.video.path ) ).to eq video_name
+		within "#fileupload-#{video.id}" do
+			expect(page).to have_content video_name
+			expect(page).to have_content (video.file_size.to_f / 1.megabyte).round(2)
+		end
+    Binda::Video::VideoUploader.enable_processing = false
+	end
+
 	it "allows to add an image to an image field in a repeater" do
 		skip "not implemeted yet"
 	end
@@ -190,16 +249,7 @@ describe "GET component#edit", type: :feature, js: true do
 		skip "not implemented yet"
 	end
 
-	it "allows to reorder repeater elements" do
-		# This is pretty difficult to on a 'feature' spec, probably not reliable either
-		skip "not implemented yet"
-	end
-
 	it "allows to relate a component to other ones" do
-		skip "not implemented yet"
-	end
-
-	it "doesn't allow to relate a component to itself" do
 		skip "not implemented yet"
 	end
 

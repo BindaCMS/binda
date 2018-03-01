@@ -112,10 +112,15 @@
   display: none;
 }
 
-.standard-form--video .fileupload--dimension {
+.standard-form--video .fileupload--dimension,
+.standard-form--audio .fileupload--dimension {
   display: none;
 }
 
 .standard-form--image .fileupload--videolink {
+  display: none;
+}
+
+.fileupload--preview--hidden {
   display: none;
 }

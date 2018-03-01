@@ -9,6 +9,7 @@ module Binda
         strings_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
         images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ], 
         videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ], 
+        audios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :audio, :audio_cache ], 
         dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
         galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ],
         radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
@@ -20,6 +21,7 @@ module Binda
           strings_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
           images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ], 
           videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ], 
+          audios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :audio, :audio_cache ], 
           dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
           galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ],
           relations_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, dependent_component_ids: [],  dependent_board_ids: []  ],
@@ -43,9 +45,11 @@ module Binda
         {categories_attributes: [ :id, :category_id ]}, 
         {images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ]}, 
         {videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ]}, 
+        {audios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :audio, :audio_cache ]},
         {repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id,
           images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ],
-          videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ]]})
+          videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ],
+          audios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :audio, :audio_cache ]]})
     end
 
     # Uploads a details for a fieldable instance (component or board)
@@ -70,12 +74,12 @@ module Binda
       # Therefore get the latest uploaded asset
       asset = Asset.order('updated_at').last
 
-      if asset.image.present? && asset.video.present?
-        raise "The record Binda::Asset with id=#{asset.id} has both image and video attached. This might have been caused by updating the record outside Binda's interface. Please make sure this record has either an image or a video."
-      elsif asset.image.present?
+      if asset.image.present?
         return_image_details(asset)
       elsif asset.video.present?
         return_video_details(asset)
+      elsif asset.audio.present?
+        return_audio_details(asset)
       else
         raise "The record Binda::Asset with id=#{asset.id} doesn't have any image or video attached. This might be due to a bug. Please report it in Binda official Github page."
       end
@@ -117,7 +121,23 @@ module Binda
         name: asset.video_identifier,
         size: "#{bytes_to_megabytes( asset.video.size )}MB",
         url: asset.video.url,
-        ext: asset.video.file.extension.downcase
+        contentType: asset.content_type
+      }
+    end
+
+
+    # Return audio details
+    # 
+    # This helper is used internally by the `upload_details` method 
+    #   to retrieve and return the necessary details to be displayed on
+    #   the editor.
+    def return_audio_details asset
+      return {
+        type: 'audio',
+        name: asset.audio_identifier,
+        size: "#{bytes_to_megabytes( asset.audio.size )}MB",
+        url: asset.audio.url,
+        contentType: asset.content_type
       }
     end
 

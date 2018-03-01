@@ -69,13 +69,17 @@ Binda::Engine.routes.draw do
   end
 
   resources :choices, only: [:destroy]
-  
+
+  resources :audios do
+    member do
+      delete 'remove_audio'
+    end
+  end
   resources :videos do
     member do
       delete 'remove_video'
     end
   end
-
   resources :images do
     member do
       delete 'remove_image'

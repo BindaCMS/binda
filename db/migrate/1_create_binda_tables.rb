@@ -90,6 +90,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :type
       t.string           :video
       t.string           :image
+      t.string           :audio
       t.belongs_to       :field_setting
       t.references       :fieldable, polymorphic: true, index: true
       t.string           :content_type

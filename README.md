@@ -577,8 +577,6 @@ To change appereance and behaviour of the page add your styles to `app/assets/st
 
 # Field settings and field groups
 
----
-
 ## Orphans
 
 Sometime playing with Rails console you might end up creating orphans, which basically are components without a field setting parent. They might cause errors in some queries and they hard to track down.
@@ -881,16 +879,21 @@ npm install --global geckodriver
 Some specs are run against the database. If you haven't installed Binda on the dummy application yet run:
 
 ```bash
-rails db:migrate RAILS_ENV=test
+RAILS_ENV=test rails db:migrate
 ```
 
 The above command might generate an error. This is probably because you have previously installed Binda and the generator finds migration both in `binda/db/migrate` and `binda/spec/dummy/db/migrate`. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again. Here below the oneliner (be aware that this destroy both development and test databases of the dummy app):
 
 ```bash
-rm -rf spec/dummy/db/migrate && rails db:drop && rails db:create && rails generate binda:install && rails db:migrate RAILS_ENV=test
+cd spec/dummy && rm -rf db/migrate && rails db:drop && rails db:create && RAILS_ENV=test rails db:migrate
 ```
 
-In case you are creating new migrations or modifing the default one, consider running the above command to refresh the `schema.rb` file while updating both databases.
+In case you are creating new migrations or modifing the default one:
+
+```bash
+cd spec/dummy && rm -r db/schema.rb && rails db:drop && rails db:create && RAILS_ENV=test rails db:migrate
+```
+
 
 If in the future you need to clean your dummy app code, simply run:
 

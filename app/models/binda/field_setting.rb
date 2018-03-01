@@ -6,7 +6,7 @@ module Binda
     # An array of all classes which represent fields associated to Binda::FieldSetting
     # This definition must stay on the top of the file
 		def self.get_field_classes
-			%w( String Text Date Image Video Repeater Radio Selection Checkbox Relation )
+			%w( String Text Date Image Video Audio Repeater Radio Selection Checkbox Relation )
 		end
 
 		# ASSOCIATIONS
@@ -27,6 +27,7 @@ module Binda
 		has_many :assets,        as: :fieldable
 		has_many :images,        as: :fieldable
 		has_many :videos,        as: :fieldable
+		has_many :audios,        as: :fieldable
 		has_many :repeaters,     as: :fieldable
 		has_many :radios,        as: :fieldable
 		has_many :selections,    as: :fieldable
@@ -48,6 +49,7 @@ module Binda
 		has_many :assets,         dependent: :destroy
 		has_many :images,         dependent: :destroy
 		has_many :videos,         dependent: :destroy
+		has_many :audios,         dependent: :destroy
 
 		# We don't want to run callbacks for choices!
 		# If you run a callback the last choice will throw a error
@@ -59,7 +61,7 @@ module Binda
 		has_and_belongs_to_many :accepted_structures, class_name: 'Binda::Structure'
 
 		accepts_nested_attributes_for :accepted_structures, :texts, :strings, :dates, :galleries,
-		                              :assets, :images, :videos, :repeaters, :radios, :selections,
+		                              :assets, :images, :videos, :audios, :repeaters, :radios, :selections,
 		                              :checkboxes, :relations, :choices, allow_destroy: true, reject_if: :is_rejected
 
 		# Sets the validation rules to accept and save an attribute
