@@ -1,3 +1,3 @@
 module Binda
-  VERSION = '0.1.7.alpha.1'.freeze
+  VERSION = '0.1.7.alpha.2'.freeze
 end
