@@ -47,12 +47,16 @@
   }
 }
 
-.fileupload--dashboard {
+.fileupload--field {
   float: left;
 
   .control-label-wrap {
     float: left;
   }
+}
+
+.fileupload--dashboard {
+  float: left;
 }
 
 .fileupload input {

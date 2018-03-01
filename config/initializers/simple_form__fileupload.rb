@@ -105,8 +105,8 @@ module SimpleForm
           html << obj.video.url if obj.video.present?
           html << obj.audio.url if obj.audio.present?
           html << '" target="_blank"><i class="fas fa-external-link-alt"></i> <strong>'
-          html << t('binda.filevideolink') if obj.video.present?
-          html << t('binda.fileaudiolink') if obj.audio.present?
+          html << t('binda.filevideolink') if obj.class.name.demodulize == 'Video'
+          html << t('binda.fileaudiolink') if obj.class.name.demodulize == 'Audio'
           html << '</strong></a></p>'
 
           html << '</div>'

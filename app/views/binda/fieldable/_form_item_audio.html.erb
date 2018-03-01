@@ -6,7 +6,7 @@
 
 		<p class="control-label"><%= field_setting.name %></p>
 
-		<div class="fileupload--dashboard">
+		<div class="fileupload--field">
 
 			<%= ff.input :audio, 
 				label: "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> #{t('binda.choose_file_button')}".html_safe, 
@@ -20,7 +20,6 @@
 					'data-id': ff.object.id,
 				} %>
 
-			
 		</div>
 
 		<%= ff.input :audio_cache, as: :hidden %>
