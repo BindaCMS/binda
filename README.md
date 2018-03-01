@@ -365,6 +365,7 @@ Here below a list of field types available and their use:
 | text | Store a text. TinyMCE let's you format the text as you like. | [source](http://www.rubydoc.info/gems/binda/Binda/Text) |
 | image | Store image. | [source](http://www.rubydoc.info/gems/binda/Binda/Image) |
 | video | Store video. | [source](http://www.rubydoc.info/gems/binda/Binda/Video) |
+| audio | Store audio. | [source](http://www.rubydoc.info/gems/binda/Binda/Audio) |
 | date | Store a date. | [source](http://www.rubydoc.info/gems/binda/Binda/Date) |
 | radio | Select one choice amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Radio) |
 | selection | Select one or more choices amongst a custom set. | [source](http://www.rubydoc.info/gems/binda/Binda/Selection) |
@@ -441,7 +442,10 @@ You can retrieve field content from a instance of `Binda::Component`, `Binda::Bo
 |`get_image_mime_type`| Returns the mime type of the image. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_mime_type) |
 |`has_video`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_video) |
 |`get_video_url`| Returns the url of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_video_url) |
-|`get_video_path`| Returns the path of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_path) |
+|`get_video_path`| Returns the path of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_video_path) |
+|`has_audio`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_audio) |
+|`get_audio_url`| Returns the url of the audio. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_audio_url) |
+|`get_audio_path`| Returns the path of the audio. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_audio_path) |
 |`has_date`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_date) |
 |`get_date`| Returns the date in `datetime` format. Use [`strftime`](https://apidock.com/rails/ActiveSupport/TimeWithZone/strftime) to change date format. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_date) |
 |`has_repeaters`| Returns `true/false`| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_repeaters) |
