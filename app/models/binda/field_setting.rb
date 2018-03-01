@@ -80,12 +80,12 @@ module Binda
 
 		after_save do
 			add_choice_if_allow_null_is_false
+			create_field_instances
 		end
 
     after_create do 
     	self.class.reset_field_settings_array
     	convert_allow_null__nil_to_false
-    	create_field_instances
     	set_default_position
     end
 
@@ -251,7 +251,10 @@ module Binda
 		# A similar script runs after saving components and boards which makes sure
 		#   a field instance is always present no matter if the component has been created
 		#   before the field setting or the other way around.
+		#   
+		# TODO this MUST be optimized
 		def create_field_instances
+			FieldSetting.remove_orphan_fields
 			# Get the structure
 			structure = self.structures.includes(:board, components: [:repeaters]).first
 			structure.components.each do |component|
