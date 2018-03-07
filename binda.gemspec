@@ -54,7 +54,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "yard-activesupport-concern",  "~> 0.0.1", "< 0.1"
   s.add_development_dependency "bullet",                      ">= 5.6", "< 6"
   s.add_development_dependency "redcarpet",                   "~> 3.4"
-  s.add_development_dependency "github-markup",               ">= 1.6", "< 2"
+  s.add_development_dependency "github-markup",               ">= 1.6", "< 2.1"
   s.add_development_dependency "travis",                      "~> 1.8"
   s.add_development_dependency "rubocop",                     "~> 0.52.1"
   s.add_development_dependency "mry",                         "~> 0.52"
