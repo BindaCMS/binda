@@ -7,7 +7,7 @@ module Binda
     # Register image details
     # 
     # Do not delete. This method is used by a rake task
-    def register_deatils
+    def register_details
       if !self.image.present?
         warn "Ops, there is no image for Binda::Image id=#{self.id}"
       elsif CarrierWave::Uploader::Base.storage == CarrierWave::Storage::File
@@ -21,7 +21,7 @@ module Binda
 
     # Register image details
     # 
-    # This method is used by register_deatils in a rake task
+    # This method is used by register_details in a rake task
     def register_details_of(file)
       self.file_width = file.width
       self.file_height = file.height
