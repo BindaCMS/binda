@@ -6,7 +6,7 @@ module Binda
     # An array of all classes which represent fields associated to Binda::FieldSetting
     # This definition must stay on the top of the file
 		def self.get_field_classes
-			%w( String Text Date Image Video Audio Repeater Radio Selection Checkbox Relation )
+			%w( String Text Date Image Video Audio Repeater Radio Selection Checkbox Relation Svg )
 		end
 
 		# ASSOCIATIONS
@@ -33,6 +33,7 @@ module Binda
 		has_many :selections,    as: :fieldable
 		has_many :checkboxes,    as: :fieldable
 		has_many :relations,     as: :fieldable
+		has_many :svgs,          as: :fieldable
 
 		# The following direct associations are used to securely delete associated fields
 		# Infact via `fieldable` the associated fields might not be deleted 
@@ -41,15 +42,16 @@ module Binda
 		has_many :strings,        dependent: :destroy
 		has_many :dates,          dependent: :destroy
 		has_many :galleries,      dependent: :destroy
+		has_many :assets,         dependent: :destroy
+		has_many :images,         dependent: :destroy
+		has_many :videos,         dependent: :destroy
+		has_many :audios,         dependent: :destroy
 		has_many :repeaters,      dependent: :destroy
 		has_many :radios,         dependent: :destroy
 		has_many :selections,     dependent: :destroy
 		has_many :checkboxes,     dependent: :destroy
 		has_many :relations,      dependent: :destroy
-		has_many :assets,         dependent: :destroy
-		has_many :images,         dependent: :destroy
-		has_many :videos,         dependent: :destroy
-		has_many :audios,         dependent: :destroy
+		has_many :svgs,           dependent: :destroy
 
 		# We don't want to run callbacks for choices!
 		# If you run a callback the last choice will throw a error
@@ -62,7 +64,7 @@ module Binda
 
 		accepts_nested_attributes_for :accepted_structures, :texts, :strings, :dates, :galleries,
 		                              :assets, :images, :videos, :audios, :repeaters, :radios, :selections,
-		                              :checkboxes, :relations, :choices, allow_destroy: true, reject_if: :is_rejected
+		                              :checkboxes, :relations, :svgs, :choices, allow_destroy: true, reject_if: :is_rejected
 
 		# Sets the validation rules to accept and save an attribute
 		def is_rejected( attributes )

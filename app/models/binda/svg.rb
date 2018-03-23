@@ -1,5 +1,5 @@
 module Binda
-  class SvgImage < Asset
+  class Svg < Asset
 
   	mount_uploader :svg, SvgUploader
 

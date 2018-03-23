@@ -29,9 +29,10 @@ module Binda
 	    has_many :radios,        as: :fieldable, dependent: :delete_all 
 	    has_many :selections,    as: :fieldable, dependent: :delete_all 
 	    has_many :checkboxes,    as: :fieldable, dependent: :delete_all 
+	    has_many :svgs,          as: :fieldable, dependent: :delete_all
 	    # Repeaters need destroy_all, not delete_all
 	    has_many :repeaters,     as: :fieldable, dependent: :destroy
-			has_many :relations,     as: :fieldable, dependent: :destroy 
+		has_many :relations,     as: :fieldable, dependent: :destroy 
 
 
     	has_many :owner_relations, class_name: "RelationLink", 
@@ -53,7 +54,7 @@ module Binda
 	                            source: :owner 
 
 
-	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :audios, :galleries, :repeaters, :radios, :selections, :checkboxes, :relations, allow_destroy: true
+	    accepts_nested_attributes_for :texts, :strings, :dates, :assets, :images, :videos, :audios, :galleries, :repeaters, :radios, :selections, :checkboxes, :relations, :svgs, allow_destroy: true
 
 			validates_associated :texts
 			validates_associated :strings
@@ -67,6 +68,7 @@ module Binda
 			validates_associated :selections
 			validates_associated :checkboxes
 			validates_associated :relations
+			validates_associated :svgs
 
       after_save :generate_fields
 
