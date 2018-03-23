@@ -17,6 +17,8 @@ module SimpleForm
             html << " fileupload--preview--uploaded"
           elsif options[:object].audio.present?
             html << " fileupload--preview--uploaded fileupload--preview--hidden"
+          elsif options[:object].svg.present?
+            html << " fileupload--preview--uploaded\" style=\"background-image: url(#{options[:object].svg.url})"
           end
           
           # Add no-preview text
@@ -54,7 +56,7 @@ module SimpleForm
           obj = options[:object]
           url = options[:url]
           html = '<a class="b-btn b-btn-outline-danger fileupload--remove-image-btn'
-            html << ' fileupload--remove-image-btn--hidden' unless obj.image.present? || obj.video.present? || obj.audio.present?
+            html << ' fileupload--remove-image-btn--hidden' unless obj.image.present? || obj.video.present? || obj.audio.present? || obj.svg.present?
             html << '" href="'
             html << url
             html << '" data-method="delete" data-remote="true" data-confirm="'
@@ -81,32 +83,35 @@ module SimpleForm
           obj = options[:object]
 
           html = '<div class="fileupload--details'
-          html << ' fileupload--details--hidden' unless obj.image.present? || obj.video.present? || obj.audio.present?
+          html << ' fileupload--details--hidden' unless obj.image.present? || obj.video.present? || obj.audio.present? || obj.svg.present?
           html << '"><p class="fileupload--name">'
           html << "<strong>#{t 'binda.filename'}:</strong> "
           html << '<span class="fileupload--filename">'
           html << File.basename(obj.image.path).to_s if obj.image.present?
           html << File.basename(obj.video.path).to_s if obj.video.present?
           html << File.basename(obj.audio.path).to_s if obj.audio.present?
+          html << File.basename(obj.svg.path).to_s if obj.svg.present?
           html << '</span></p>'
           html << '<p class="fileupload--size">'
           html << "<strong>#{t 'binda.filesize'}:</strong> "
           html << '<span class="fileupload--filesize">'
           html << bytes_to_megabytes(obj.file_size).to_s unless obj.file_size.blank?
           html << 'MB</span></p>'
-          html << '<p class="fileupload--dimension">'
-          html << "<strong>#{t 'binda.filedimension'}:</strong> "
-          html << '<span class="fileupload--width">'
-          html << obj.file_width.round.to_s unless obj.file_width.blank?
-          html << '</span> x <span class="fileupload--height">'
-          html << obj.file_height.round.to_s unless obj.file_height.blank?
-          html << '</span> px</p>'
+          html << '<p class="fileupload--dimension">' unless obj.svg.present?
+          html << "<strong>#{t 'binda.filedimension'}:</strong> " unless obj.svg.present?
+          html << '<span class="fileupload--width">' unless obj.svg.present?
+          html << obj.file_width.round.to_s unless obj.file_width.blank? unless obj.svg.present?
+          html << '</span> x <span class="fileupload--height">' unless obj.svg.present?
+          html << obj.file_height.round.to_s unless obj.file_height.blank? || obj.svg.present?
+          html << '</span> px</p>' unless obj.svg.present?
           html << '<p class="fileupload--previewlink"><a href="'
           html << obj.video.url if obj.video.present?
           html << obj.audio.url if obj.audio.present?
+          html << obj.svg.url if obj.svg.present?
           html << '" target="_blank"><i class="fas fa-external-link-alt"></i> <strong>'
           html << t('binda.filevideolink') if obj.class.name.demodulize == 'Video'
           html << t('binda.fileaudiolink') if obj.class.name.demodulize == 'Audio'
+          html << t('binda.filesvglink') if obj.class.name.demodulize == 'Svg'
           html << '</strong></a></p>'
 
           html << '</div>'
