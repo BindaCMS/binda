@@ -38,7 +38,7 @@ module Binda
   		expect(image_record.file_size).to be_within(1000).of(14000) # image is 14kb
   	end
 
-    it "registers details if you call register_deatils method (also in rake task)"  do
+    it "registers details if you call register_details method (also in rake task)"  do
       skip("don't know how to test it")
     end
   end

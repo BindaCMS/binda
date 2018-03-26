@@ -15,7 +15,11 @@ module Binda
       puts "Implement Binda settings"
       puts 
 
-      dashboard_structure = Structure.find_or_create_by( name: 'dashboard', slug: 'dashboard', instance_type: 'board' )
+      if Structure.find_by(slug: 'dashboard').nil?
+        dashboard_structure = Structure.create!(name: 'dashboard', slug: 'dashboard', instance_type: 'board')
+      else
+        dashboard_structure = Structure.find_by(slug: 'dashboard')
+      end
       @dashboard = dashboard_structure.board
 
       # By default each structure has a field group which will be used to store the default field settings
