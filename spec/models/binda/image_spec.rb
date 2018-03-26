@@ -6,7 +6,7 @@ module Binda
   include CarrierWave::Test::Matchers
 
     before(:context) do
-      Binda::Image::ImageUploader.enable_processing = true
+      Image::ImageUploader.enable_processing = true
     end
 
   	before(:example) do
@@ -15,7 +15,7 @@ module Binda
   	end
 
     after(:context) do
-      Binda::Image::ImageUploader.enable_processing = false
+      Image::ImageUploader.enable_processing = false
     end
 
   	it "stores height and width" do

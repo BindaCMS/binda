@@ -69,7 +69,7 @@ module Binda
       it "creates a new repeater with correct position" do
 
         initial_repeaters_length = @component.repeaters.length
-        repeater_setting = Binda::FieldSetting
+        repeater_setting = FieldSetting
           .includes(:field_group)
           .where(
             binda_field_groups: { structure_id: @structure.id },

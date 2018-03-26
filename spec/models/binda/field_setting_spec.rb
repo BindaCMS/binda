@@ -156,7 +156,7 @@ module Binda
 				component = @radio_setting.structure.components.create(name:'my component')
 
 				# Get directly that radio
-				radio = Binda::Radio.where(
+				radio = Radio.where(
 					field_setting_id: @radio_setting.id,
 					fieldable_id: component.id,
 					fieldable_type: component.class.name
@@ -193,7 +193,7 @@ module Binda
 
 				# Get directly that radio
 				expect{
-					Binda::Radio.where(
+					Radio.where(
 						field_setting_id: @radio_setting.id,
 						fieldable_id: board.id,
 						fieldable_type: board.class.name
@@ -238,7 +238,7 @@ module Binda
 		end
 
 		it "generates a error if field group isn't specified" do
-			expect{Binda::FieldSetting.create!(name: 'foo', field_type: 'text')}.to raise_error ActiveRecord::RecordInvalid
+			expect{FieldSetting.create!(name: 'foo', field_type: 'text')}.to raise_error ActiveRecord::RecordInvalid
 		end
 
 		# test method Binda::FieldSetting.remove_orphan_fields

@@ -4,8 +4,9 @@ module Binda
     extend ActiveSupport::Concern
 
     # Only allow a trusted parameter "white list" through.
-    def fieldable_params 
-      [ texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
+    def fieldable_params
+      [
+        texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
         strings_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
         images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ], 
         videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ], 
@@ -17,21 +18,26 @@ module Binda
         selections_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
         checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ],
         relations_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, dependent_component_ids: [], dependent_board_ids: []  ],
-        repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id,
-          texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
-          strings_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
-          images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ], 
-          videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ], 
-          audios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :audio, :audio_cache ],
-          svgs_attributes:       [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :svg, :svg_cache ],   
-          dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
-          galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ],
-          relations_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, dependent_component_ids: [],  dependent_board_ids: []  ],
-          repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id ],
-          radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-          selections_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
-          checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ]
-        ]]
+        repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id, *nested_fieldable_params ]
+      ]
+    end
+
+    def nested_fieldable_params
+      [ 
+        texts_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
+        strings_attributes:    [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :content ], 
+        images_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :image, :image_cache ], 
+        videos_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :video, :video_cache ], 
+        audios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :audio, :audio_cache ],
+        svgs_attributes:       [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :svg, :svg_cache ],   
+        dates_attributes:      [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :date ], 
+        galleries_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id ],
+        relations_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, dependent_component_ids: [],  dependent_board_ids: []  ],
+        repeaters_attributes:  [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :field_group_id ],
+        radios_attributes:     [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
+        selections_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, :choice_ids ],
+        checkboxes_attributes: [ :id, :field_setting_id, :fieldable_type, :fieldable_id, choice_ids: [] ] 
+      ]
     end
 
     # Uploads parameters.
