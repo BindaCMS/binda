@@ -220,7 +220,7 @@ describe "GET component#edit", type: :feature, js: true do
 		end
 		visit @path
 		expect( File.basename( svg.svg.path ) ).to eq svg_name
-		within "#fileupload-#{audio.id}" do
+		within "#fileupload-#{svg.id}" do
 			expect(page).to have_content svg_name
 			expect(page).to have_content (svg.file_size.to_f / 1.megabyte).round(2)
 		end
