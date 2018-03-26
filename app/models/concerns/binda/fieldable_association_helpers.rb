@@ -342,6 +342,20 @@ module Binda
 			end
 		end
 
+		def get_svg_size(field_slug)
+			obj = self.svgs.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+     	return bytes_to_megabytes(obj.file_size)
+		end
+		
+		# Get svg type
+		# 
+		# @param field_slug [string] The slug of the field setting
+		# @return [string] with svg type
+		def get_svg_mime_type(field_slug)
+			obj = self.svgs.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
+     	return obj.content_type
+		end
+
 		# Check if the field has an attached date
 		# 
 		# @param field_slug [string] The slug of the field setting

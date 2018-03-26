@@ -364,6 +364,7 @@ Here below a list of field types available and their use:
 | string | Store a string. No formatting options available. | [source](http://www.rubydoc.info/gems/binda/Binda/String) |
 | text | Store a text. TinyMCE let's you format the text as you like. | [source](http://www.rubydoc.info/gems/binda/Binda/Text) |
 | image | Store image. | [source](http://www.rubydoc.info/gems/binda/Binda/Image) |
+| svg | Store svg. | [source](http://www.rubydoc.info/gems/binda/Binda/Svg) |
 | video | Store video. | [source](http://www.rubydoc.info/gems/binda/Binda/Video) |
 | audio | Store audio. | [source](http://www.rubydoc.info/gems/binda/Binda/Audio) |
 | date | Store a date. | [source](http://www.rubydoc.info/gems/binda/Binda/Date) |
@@ -440,6 +441,12 @@ You can retrieve field content from a instance of `Binda::Component`, `Binda::Bo
 |`get_image_size`| Returns the image size in MB. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_size) |
 |`get_image_dimension`| Returns a hash { width: xxx, height: xxx } with image dimension. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_dimension) |
 |`get_image_mime_type`| Returns the mime type of the image. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_mime_type) |
+|`has_svg`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_svg) |
+|`get_svg_url`| Returns the url of the svg. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_svg_url) |
+|`get_svg_path`| Returns the path of the svg. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_svg_path) |
+|`get_svg_size`| Returns the svg size in MB. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_svg_size) |
+|`get_svg_mime_type`| Returns the mime type of the svg. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_svg_mime_type) |
+
 |`has_video`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_video) |
 |`get_video_url`| Returns the url of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_video_url) |
 |`get_video_path`| Returns the path of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_video_path) |
