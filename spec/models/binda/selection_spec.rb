@@ -51,7 +51,7 @@ module Binda
 			# At this point we have an situation:
 			# selection it's now required to have a choice, but it has none.
 			# Let's fix it!
-			expect{Binda::Selection.add_default_choice_to_all_selections_with_no_choices}.not_to raise_error
+			expect{Selection.add_default_choice_to_all_selections_with_no_choices}.not_to raise_error
 
 			@selection.reload
 			expect(@selection.choices.empty?).to be false
@@ -68,7 +68,7 @@ module Binda
 			# At this point we have an situation:
 			# selection it's now required to have a choice, but it has none.
 			# Let's fix it!
-			expect{Binda::Selection.add_default_choice_to_all_selections_with_no_choices}.to raise_error RuntimeError
+			expect{Selection.add_default_choice_to_all_selections_with_no_choices}.to raise_error RuntimeError
 			# but the above cannot work as there are no choices at all!
 		end
 

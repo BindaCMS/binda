@@ -34,9 +34,9 @@ module Binda
 		  end
 
 		  it "creates one maintenance mode field" do
-		  	maintenance_mode_array = Binda::Radio
+		  	maintenance_mode_array = Radio
 		  	  .where(
-		  	  	field_setting_id: Binda::FieldSetting.where(
+		  	  	field_setting_id: FieldSetting.where(
 		  	  		slug: 'maintenance-mode'
 		  	  	).ids
 		  	  )
@@ -44,9 +44,9 @@ module Binda
 		  end
 
 		  it "assigns one choice to the maintenance mode field" do
-	  	  maintenance_mode = Binda::Radio
+	  	  maintenance_mode = Radio
 		  	  .where(
-		  	  	field_setting_id: Binda::FieldSetting.where(
+		  	  	field_setting_id: FieldSetting.where(
 		  	  		slug: 'maintenance-mode'
 		  	  	).ids
 		  	  ).first
@@ -54,9 +54,9 @@ module Binda
 			end
 
 			it "set maintenance mode as disabled" do
-				maintenance_mode_choice = Binda::Radio
+				maintenance_mode_choice = Radio
 		  	  .where(
-		  	  	field_setting_id: Binda::FieldSetting.where(
+		  	  	field_setting_id: FieldSetting.where(
 		  	  		slug: 'maintenance-mode'
 		  	  	)
 		  	  	.ids
@@ -69,13 +69,13 @@ module Binda
 			end
 
 			it "sets a dashboard structure" do
-				expect(Binda::Structure.all.any?).to be true
-				expect(Binda::Structure.where(slug: 'dashboard').length).to eq 1
+				expect(Structure.all.any?).to be true
+				expect(Structure.where(slug: 'dashboard').length).to eq 1
 			end
 
 			it "sets website name" do
-				dashboard = Binda::Board.where(slug: 'dashboard').first
-				website_name = Binda::String
+				dashboard = Board.where(slug: 'dashboard').first
+				website_name = String
 					.includes(:field_setting)
 					.where(
 						binda_texts: { fieldable_id: dashboard.id, fieldable_type: dashboard.class.name},
@@ -86,8 +86,8 @@ module Binda
 			end
 
 			it "sets website description" do
-				dashboard = Binda::Board.where(slug: 'dashboard').first
-				website_desc = Binda::Text
+				dashboard = Board.where(slug: 'dashboard').first
+				website_desc = Text
 					.includes(:field_setting)
 					.where(
 						binda_texts: { fieldable_id: dashboard.id, fieldable_type: dashboard.class.name},
@@ -114,7 +114,7 @@ module Binda
 		  end
 
 		  it "can create a default user" do
-		    expect(Binda::User.where(email: 'new@admin.com').present?).to be true
+		    expect(User.where(email: 'new@admin.com').present?).to be true
 			end
 		end
 	end

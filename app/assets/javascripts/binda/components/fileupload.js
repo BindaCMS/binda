@@ -118,6 +118,8 @@ function updateFileuploadField(data, id) {
 		setup_video_preview(data, id);
 	} else if (data.type == "audio") {
 		setup_audio_preview(data, id);
+	} else if (data.type == "svg") {
+		setup_svg_preview(data, id);
 	} else {
 		alert("Something went wrong. No preview has been received.");
 	}
@@ -237,6 +239,23 @@ function setup_audio_preview(data, id) {
 	$preview
 		.addClass(uploadedClass)
 		.addClass("fileupload--preview--hidden")
+
+	// Update details
+	$parent.find(".fileupload--filesize").text(data.size);
+	$parent.find(".fileupload--filename").text(data.name);
+	$parent.find(".fileupload--previewlink a").attr("href", data.url);
+}
+
+function setup_svg_preview(data, id) {
+	let $parent = $("#fileupload-" + id);
+	let $preview = $("#fileupload-" + id + " .fileupload--preview");
+		
+	// Update thumbnail
+	$preview.css("background-image", `url(${data.thumbnailUrl})`);
+
+	// Remove and add class to trigger css animation
+	let uploadedClass = "fileupload--preview--uploaded";
+	$preview.removeClass(uploadedClass).addClass(uploadedClass);
 
 	// Update details
 	$parent.find(".fileupload--filesize").text(data.size);

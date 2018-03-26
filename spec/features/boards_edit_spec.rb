@@ -139,6 +139,35 @@ describe "GET boards#edit", type: :feature, js: true do
     Binda::Image::ImageUploader.enable_processing = false
 	end
 
+	it "allows to add an svg to an svg field and store it" do
+    Binda::SvgUploader.enable_processing = true
+		# Create an image field setting on which will work
+		svg_setting = create(:svg_setting, field_group_id: @structure.field_groups.first.id)
+		# Refresh the page so the image field appear on the editor
+		visit @path
+		expect(@board.svgs.first.svg.present?).not_to be_truthy
+		field_id = "board_svgs_attributes_#{@board.svgs.where(field_setting_id: svg_setting.id ).first.id}_svg"
+		svg_name = 'test-svg.svg'
+		svg_path = ::Binda::Engine.root.join('spec', 'support', svg_name)
+		page.execute_script("document.getElementById('#{field_id}').style.zIndex = '1'")
+		page.execute_script("document.getElementById('#{field_id}').style.opacity = '1'")
+		page.attach_file(field_id, svg_path)
+		wait_for_ajax
+		sleep 1 # wait for animation to complete
+		@board.reload
+		svg = @board.svgs.first
+		within "#fileupload-#{svg.id}" do
+			expect(page).to have_content svg_name
+		end
+    
+		visit @path
+		expect( File.basename( svg.svg.path ) ).to eq svg_name
+		within "#fileupload-#{svg.id}" do
+			expect( page ).to have_content svg_name
+		end
+    Binda::SvgUploader.enable_processing = false
+	end
+
 	it "allows to add an image to an image field in a repeater" do
 		skip "not implemeted yet"
 	end

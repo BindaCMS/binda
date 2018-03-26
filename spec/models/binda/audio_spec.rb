@@ -6,7 +6,7 @@ module Binda
   include CarrierWave::Test::Matchers
 
     before(:context) do
-      Binda::Audio::AudioUploader.enable_processing = true
+      Audio::AudioUploader.enable_processing = true
     end
 
     before(:example) do
@@ -15,7 +15,7 @@ module Binda
     end
 
     after(:context) do
-      Binda::Audio::AudioUploader.enable_processing = false
+      Audio::AudioUploader.enable_processing = false
     end
 
     it "stores content_type and file size" do

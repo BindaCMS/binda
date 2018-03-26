@@ -94,4 +94,8 @@ FactoryBot.define do
 		field_type 'audio'
 	end
 
+	factory :svg_setting, parent: :field_setting do 
+		field_type 'svg'
+	end
+	
 end
