@@ -85,6 +85,11 @@ Binda::Engine.routes.draw do
       delete 'remove_image'
     end
   end
+  resources :svgs do
+    member do
+     delete 'remove_svg'  
+    end
+  end
   resources :repeaters
 
 end

@@ -59,6 +59,7 @@ en:
     filedimension: Dimension
     filevideolink: Preview video
     fileaudiolink: Preview audio
+    filesvglink: Preview svg
     select_placeholder: Select a option
     new_item_in_repeater: New %{arg1} item
     null_is_not_allowed: You need to select at least one choice

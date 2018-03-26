@@ -33,6 +33,9 @@
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -60,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -165,7 +168,7 @@ function setupAndAppend(newItem, $list) {
 	var collapsable = $list.find(".form-item--collapsable").get(0);
 
 	// Update select input for Select2 plugin
-	Object(__WEBPACK_IMPORTED_MODULE_0__select2__["b" /* setupSelect2 */])($list.find("select"));
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__select2__["b" /* setupSelect2 */])($list.find("select"));
 
 	setupTinyMCE($list.find("textarea"));
 
@@ -355,66 +358,13 @@ function setupSelect2(target) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item_collapsable__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_image__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_field_setting_choices__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_fileupload__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_login_shader__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_login_form__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sortable__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_bootstrap__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_select2__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_radio_toggle__ = __webpack_require__(11);
-///- - - - - - - - - - - - - - - - - - - -
-/// INDEX OF BINDA'S SCRIPTS
-///- - - - - - - - - - - - - - - - - - - -
+/**
+ * BOOSTRAP SCRIPT
+ */
 
-
-
-
-
-
-
-
-
-
-
-
-
-$(document).ready(function () {
-	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item_collapsable__["a" /* _FormItemCollapsable */].isPresent()) {
-		__WEBPACK_IMPORTED_MODULE_0__components_form_item_collapsable__["a" /* _FormItemCollapsable */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_image__["a" /* _FormItemImage */].isPresent()) {
-		__WEBPACK_IMPORTED_MODULE_1__components_form_item_image__["a" /* _FormItemImage */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_2__components_field_setting_choices__["a" /* _FieldSettingChoices */].isPresent()) {
-		__WEBPACK_IMPORTED_MODULE_2__components_field_setting_choices__["a" /* _FieldSettingChoices */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_3__components_fileupload__["a" /* _FileUpload */].isPresent()) {
-		__WEBPACK_IMPORTED_MODULE_3__components_fileupload__["a" /* _FileUpload */].setEvents();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_5__components_login_form__["a" /* _LoginForm */].isPresent()) {
-		__WEBPACK_IMPORTED_MODULE_5__components_login_form__["a" /* _LoginForm */].init();
-	}
-	if (__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].isPresent()) {
-		__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].setup();
-		__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].start();
-	}
-	Object(__WEBPACK_IMPORTED_MODULE_10__components_radio_toggle__["a" /* default */])();
-	Object(__WEBPACK_IMPORTED_MODULE_6__components_sortable__["a" /* default */])();
-	Object(__WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__["a" /* default */])();
-	Object(__WEBPACK_IMPORTED_MODULE_8__components_bootstrap__["a" /* default */])();
-	Object(__WEBPACK_IMPORTED_MODULE_9__components_select2__["a" /* default */])();
-});
-
-// handle event
-window.addEventListener("optimizedResize", function () {
-	if (__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].isPresent()) {
-		__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].resize();
-	}
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+  // See https://v4-alpha.getbootstrap.com/components/tooltips/#example-enable-tooltips-everywhere
+  $('[data-toggle="tooltip"]').tooltip();
 });
 
 /***/ }),
@@ -422,40 +372,22 @@ window.addEventListener("optimizedResize", function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemImage; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 /**
- * FORM ITEM IMAGE
+ * FIELD GROUP EDITOR
  */
 
-var FormItemImage = function () {
-	function FormItemImage() {
-		_classCallCheck(this, FormItemImage);
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+	$(".field_groups-edit #save").on("click", function (event) {
+		var instanceType = $(this).data("instance-type");
+		var entriesNumber = $(this).data("entries-number");
 
-		this.target = ".form-item--image--uploader";
-	}
-
-	_createClass(FormItemImage, [{
-		key: "isPresent",
-		value: function isPresent() {
-			if ($(this.target).length > 0) {
-				return true;
-			} else {
-				return false;
-			}
+		// If the current structure have many entries updating the field group
+		// might be a slow operation, therefore it's good practice to inform the user
+		if (entriesNumber > 500) {
+			alert("You have " + entriesNumber + " " + instanceType + ". This operation might take some time to complete. To avoid unexpected behaviour don't leave or refresh the page");
 		}
-	}, {
-		key: "setEvents",
-		value: function setEvents() {}
-	}]);
-
-	return FormItemImage;
-}();
-
-var _FormItemImage = new FormItemImage();
+	});
+});
 
 /***/ }),
 /* 4 */
@@ -501,7 +433,7 @@ var FieldSettingChoices = function () {
 				event.preventDefault();
 				$(this).closest(".field-setting-choices--choice").remove();
 				// Update form item editor size
-				Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["d" /* resizeCollapsableStacks */])();
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["d" /* resizeCollapsableStacks */])();
 			});
 		}
 	}]);
@@ -526,7 +458,7 @@ function addChoice(event) {
 	// Append the clone right after
 	choices.prepend(clone);
 	// Update form item editor size
-	Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["d" /* resizeCollapsableStacks */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["d" /* resizeCollapsableStacks */])();
 }
 
 function deleteChoice(event) {
@@ -542,7 +474,7 @@ function deleteChoice(event) {
 	}).done(function () {
 		choice.remove();
 		// Update form item editor size
-		Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["d" /* resizeCollapsableStacks */])();
+		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["d" /* resizeCollapsableStacks */])();
 	}).fail(function (data) {
 		alert(data.responseJSON.errors);
 	});
@@ -683,6 +615,8 @@ function updateFileuploadField(data, id) {
 		setup_video_preview(data, id);
 	} else if (data.type == "audio") {
 		setup_audio_preview(data, id);
+	} else if (data.type == "svg") {
+		setup_svg_preview(data, id);
 	} else {
 		alert("Something went wrong. No preview has been received.");
 	}
@@ -780,8 +714,65 @@ function setup_audio_preview(data, id) {
 	$parent.find(".fileupload--previewlink a").attr("href", data.url);
 }
 
+function setup_svg_preview(data, id) {
+	var $parent = $("#fileupload-" + id);
+	var $preview = $("#fileupload-" + id + " .fileupload--preview");
+
+	// Update thumbnail
+	$preview.css("background-image", "url(" + data.thumbnailUrl + ")");
+
+	// Remove and add class to trigger css animation
+	var uploadedClass = "fileupload--preview--uploaded";
+	$preview.removeClass(uploadedClass).addClass(uploadedClass);
+
+	// Update details
+	$parent.find(".fileupload--filesize").text(data.size);
+	$parent.find(".fileupload--filename").text(data.name);
+	$parent.find(".fileupload--previewlink a").attr("href", data.url);
+}
+
 /***/ }),
 /* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _FormItemImage; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * FORM ITEM IMAGE
+ */
+
+var FormItemImage = function () {
+	function FormItemImage() {
+		_classCallCheck(this, FormItemImage);
+
+		this.target = ".form-item--image--uploader";
+	}
+
+	_createClass(FormItemImage, [{
+		key: "isPresent",
+		value: function isPresent() {
+			if ($(this.target).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, {
+		key: "setEvents",
+		value: function setEvents() {}
+	}]);
+
+	return FormItemImage;
+}();
+
+var _FormItemImage = new FormItemImage();
+
+/***/ }),
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -998,7 +989,7 @@ function hexToShaderRgb(hex) {
 })();
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1127,7 +1118,27 @@ var LoginForm = function () {
 var _LoginForm = new LoginForm();
 
 /***/ }),
-/* 8 */
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+    $('input[name="login"]').click(function () {
+        var $radio = $(this);
+
+        // if this was previously checked
+        if ($radio.data("waschecked") === true) {
+            $radio.prop("checked", false);
+            $radio.data("waschecked", false);
+        } else $radio.data("waschecked", true);
+
+        // remove was checked from other radios
+        $radio.siblings('input[name="login"]').data("waschecked", false);
+    });
+});
+
+/***/ }),
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1184,7 +1195,7 @@ var sortableOptions = {
 function setupSortableToggle() {
 	$(".sortable--toggle").each(function () {
 		var id = "#" + $(this).data("sortable-target-id");
-		Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["b" /* closeCollapsableStacks */])(id);
+		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["b" /* closeCollapsableStacks */])(id);
 	});
 	// Add event to any sortable toggle button
 	$(document).on("click", ".sortable--toggle", toggleSortable);
@@ -1196,10 +1207,10 @@ function toggleSortable(event) {
 
 	if ($(id).hasClass("sortable--disabled")) {
 		$(id).sortable("enable");
-		Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["b" /* closeCollapsableStacks */])(id);
+		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["b" /* closeCollapsableStacks */])(id);
 	} else {
 		$(id).sortable("disable");
-		Object(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["c" /* openCollapsableStacks */])(id);
+		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__form_item_collapsable__["c" /* openCollapsableStacks */])(id);
 	}
 
 	$(id).toggleClass("sortable--disabled");
@@ -1229,59 +1240,70 @@ function updateSortable() {
 }
 
 /***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * FIELD GROUP EDITOR
- */
-
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-	$(".field_groups-edit #save").on("click", function (event) {
-		var instanceType = $(this).data("instance-type");
-		var entriesNumber = $(this).data("entries-number");
-
-		// If the current structure have many entries updating the field group
-		// might be a slow operation, therefore it's good practice to inform the user
-		if (entriesNumber > 500) {
-			alert("You have " + entriesNumber + " " + instanceType + ". This operation might take some time to complete. To avoid unexpected behaviour don't leave or refresh the page");
-		}
-	});
-});
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * BOOSTRAP SCRIPT
- */
-
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-  // See https://v4-alpha.getbootstrap.com/components/tooltips/#example-enable-tooltips-everywhere
-  $('[data-toggle="tooltip"]').tooltip();
-});
-
-/***/ }),
 /* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-    $('input[name="login"]').click(function () {
-        var $radio = $(this);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_form_item_collapsable__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_form_item_image__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_field_setting_choices__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_fileupload__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_login_shader__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_login_form__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sortable__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_bootstrap__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_select2__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_radio_toggle__ = __webpack_require__(9);
+///- - - - - - - - - - - - - - - - - - - -
+/// INDEX OF BINDA'S SCRIPTS
+///- - - - - - - - - - - - - - - - - - - -
 
-        // if this was previously checked
-        if ($radio.data("waschecked") === true) {
-            $radio.prop("checked", false);
-            $radio.data("waschecked", false);
-        } else $radio.data("waschecked", true);
 
-        // remove was checked from other radios
-        $radio.siblings('input[name="login"]').data("waschecked", false);
-    });
+
+
+
+
+
+
+
+
+
+
+
+$(document).ready(function () {
+	if (__WEBPACK_IMPORTED_MODULE_0__components_form_item_collapsable__["a" /* _FormItemCollapsable */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_0__components_form_item_collapsable__["a" /* _FormItemCollapsable */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_1__components_form_item_image__["a" /* _FormItemImage */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_1__components_form_item_image__["a" /* _FormItemImage */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_2__components_field_setting_choices__["a" /* _FieldSettingChoices */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_2__components_field_setting_choices__["a" /* _FieldSettingChoices */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_3__components_fileupload__["a" /* _FileUpload */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_3__components_fileupload__["a" /* _FileUpload */].setEvents();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_5__components_login_form__["a" /* _LoginForm */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_5__components_login_form__["a" /* _LoginForm */].init();
+	}
+	if (__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].setup();
+		__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].start();
+	}
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__components_radio_toggle__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__components_sortable__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__components_field_group_editor__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__components_bootstrap__["a" /* default */])();
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__components_select2__["a" /* default */])();
+});
+
+// handle event
+window.addEventListener("optimizedResize", function () {
+	if (__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].isPresent()) {
+		__WEBPACK_IMPORTED_MODULE_4__components_login_shader__["a" /* _Shader */].resize();
+	}
 });
 
 /***/ })

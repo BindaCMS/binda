@@ -119,7 +119,7 @@ SimpleForm.setup do |config|
     b.optional :maxlength
     b.optional :readonly
 
-    b.use :preview
+    b.use :preview 
     b.wrapper tag: 'div', class: 'fileupload--dashboard' do |bb|
       bb.use :label, class: 'control-label b-btn b-btn-primary', wrap_with: { tag: 'div', class: 'control-label-wrap' }
       bb.use :delete_button

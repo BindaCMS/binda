@@ -1,4 +1,4 @@
-<% if %w(text string date image video audio relation).include? field_setting.field_type %>
+<% if %w(text string date image video audio relation svg).include? field_setting.field_type %>
   <% current = @instance.find_or_create_a_field_by( field_setting.id, field_setting.field_type) %>
   <%= f.simple_fields_for "#{field_setting.field_type}s_attributes[]", current do |ff| %>
     <%= render "binda/fieldable/form_item_#{field_setting.field_type}", f: f, ff: ff, field_setting: field_setting %>

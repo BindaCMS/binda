@@ -63,7 +63,7 @@ module Binda
       it "create a new repeater with correct position" do
         @board.reload # apparently this is needed as the variable isn't updated to reflect the real record state
         initial_repeaters_length = @board.repeaters.length
-        repeater_setting = Binda::FieldSetting
+        repeater_setting = FieldSetting
           .includes(:field_group)
           .where(
             binda_field_groups: { structure_id: @structure.id },
