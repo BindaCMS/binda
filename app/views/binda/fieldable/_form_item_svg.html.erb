@@ -1,4 +1,4 @@
-<div id="standard-form--image-<%= field_setting.id %>" class="standard-form--image form-item">
+<div id="standard-form--svg-<%= field_setting.id %>" class="standard-form--svg form-item">
   <div id="fileupload-<%= ff.object.id %>" 
     class="fileupload form-group"
     data-message="<%= t('binda.upload_loading_message') %>"
@@ -6,7 +6,6 @@
     <p class="control-label">
         <%= field_setting.name %>    
     </p>
-    <% image = ff.object.image.thumb.url if ff.object.image.present? %>
     <div class="fileupload--field">
       <%= ff.input :svg, 
         label: "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> #{t('binda.choose_file_button')}".html_safe, 
