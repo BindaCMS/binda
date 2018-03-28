@@ -10,18 +10,18 @@ module Binda
     # Get all components related to a "relation" field setting
   	def get_relationable_components(field_setting)
   		if @instance.class.to_s == 'Binda::Component'
-	  		Binda::Component.where(structure_id: Binda::Structure.where(id: field_setting.accepted_structure_ids)).where.not(id: @instance.id)
+	  		Component.where(structure_id: Structure.where(id: field_setting.accepted_structure_ids)).where.not(id: @instance.id)
 	  	elsif @instance.class.to_s == 'Binda::Board' 
-	  		Binda::Component.where(structure_id: Binda::Structure.where(id: field_setting.accepted_structure_ids))
+	  		Component.where(structure_id: Structure.where(id: field_setting.accepted_structure_ids))
 	  	end
   	end
 
     # Get all boards related to a "relation" field setting
   	def get_relationable_boards(field_setting)
   		if @instance.class.to_s == 'Binda::Component'
-	  		Binda::Board.where(structure_id: Binda::Structure.where(id: field_setting.accepted_structure_ids))
+	  		Board.where(structure_id: Structure.where(id: field_setting.accepted_structure_ids))
 	  	elsif @instance.class.to_s == 'Binda::Board' 
-	  		Binda::Board.where(structure_id: Binda::Structure.where(id: field_setting.accepted_structure_ids)).where.not(id: @instance.id)
+	  		Board.where(structure_id: Structure.where(id: field_setting.accepted_structure_ids)).where.not(id: @instance.id)
 	  	end
   	end
 
