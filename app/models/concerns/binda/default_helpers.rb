@@ -29,8 +29,7 @@ module Binda
 			#   # reduce N+1 query issue by including dependencies
 			#   B.get_components('page').includes(:strings, :texts, repeaters: [:images, :selections])
 			#   
-			# @param slug [string] The slug of the structure to which the components belong
-			# @param slug [array] The slugs of the structures to which the components belongs
+			# @param slug [string/array] The slug of the structure to which the components belong
 			#   
 			# @return [ActiveRecord::Relation Object] if slug is nil or is an array
 			# 
@@ -58,8 +57,7 @@ module Binda
 			#   # reduce N+1 query issue by including dependencies
 			#   B.get_boards('default-dashboard').includes(:strings, :texts, repeaters: [:images, :selections]).first
 			#   
-			# @param slug [string] The slug of the structure on which the board is based
-			# @param slug [array] The slugs of the structures to which the board belongs
+			# @param slug [string/array] The slug of the structure on which the board is based
 			#   
 			# @return [ActiveRecord::Relation Object] if slug is nil or is an array  
 			# 
@@ -86,8 +84,7 @@ module Binda
 			#   B.get_categories(['page', 'post'])
 			#   # returns all categories belonging to 'page' structure and the ones belonging to 'post' structure
 			#   
-			# @param slug [string] The slug of the structure to which categories belong
-			# @param slug [array] The slugs of the structures to which categories belong
+			# @param slug [string/array] The slug of the structure to which categories belong
 			#   
 			# @return [ActiveRecord::Relation Object] 
 			# 
@@ -111,8 +108,7 @@ module Binda
 			# 	B.get_field_settings('subtitle')
 			# 	# returns an ActiveRecord::Relation (a sort of Array) containing the 'subtitle' field setting
 			# 	
-			# @param slug [string] The slug of a specific field setting
-			# @param slug [array] The slugs of the selected field settings
+			# @param slug [string/array] The slug of a specific field setting
 			# 
 			# @return [ActiveRecord::Relation] 
 			# 
@@ -126,8 +122,7 @@ module Binda
 
 			# Get each owner of all relations with the specified slug (or slugs)
 			#
-			# @param slug [string] The slug of the field setting to which the relations belong
-			# @param slug [array] The slugs of the field settings to which the relations belong
+			# @param field_slug [string/array] The slug of the field setting to which the relations belong
 			# 
 			# @return [Array] 
 			# 
@@ -155,7 +150,7 @@ module Binda
 			# You can also ask for all instance type of dependent or specify 'components' or 'boards' using 
 			#   the second parameter.
 			#
-			# @param slug [string] The slug of the field setting to which the relations belong
+			# @param field_slug [string] The slug of the field setting to which the relations belong
 			# 
 			# @return [Array] 
 			# 

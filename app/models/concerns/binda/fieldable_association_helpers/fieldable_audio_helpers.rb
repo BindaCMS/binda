@@ -17,8 +17,6 @@ module Binda
 			#   default is Carrierwave default (usually the real size)
 			# 
 			# @param field_slug [string] The slug of the field setting
-			# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
-			#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
 			# @return [string] The url of the audio
 			def get_audio_url(field_slug)
 				get_audio_info( field_slug, 'url' )
@@ -28,8 +26,6 @@ module Binda
 			#   default is Carrierwave default (usually the real size)
 			# 
 			# @param field_slug [string] The slug of the field setting
-			# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
-			#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
 			# @return [string] The url of the audio
 			def get_audio_path(field_slug)
 				get_audio_info( field_slug, 'path' )

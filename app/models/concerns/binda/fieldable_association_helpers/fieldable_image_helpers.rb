@@ -18,8 +18,7 @@ module Binda
 			#   default is Carrierwave default (usually the real size)
 			# 
 			# @param field_slug [string] The slug of the field setting
-			# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
-			#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
+			# @param size [string] The size. It can be 'thumb' 200x200 cropped. 
 			# @return [string] The url of the image
 			def get_image_url(field_slug, size = '')
 				get_image_info( field_slug, size, 'url' )
@@ -29,8 +28,7 @@ module Binda
 			#   default is Carrierwave default (usually the real size)
 			# 
 			# @param field_slug [string] The slug of the field setting
-			# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
-			#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
+			# @param size [string] The size. It can be 'thumb' 200x200 cropped.
 			# @return [string] The url of the image
 			def get_image_path(field_slug, size = '')
 				get_image_info( field_slug, size, 'path' )
@@ -39,8 +37,7 @@ module Binda
 			# Get the object related to that field setting
 			# 
 			# @param field_slug [string] The slug of the field setting
-			# @param size [string] The size. It can be 'thumb' 200x200 cropped, 
-			#   'medium' 700x700 max size, 'large' 1400x1400 max size, or blank
+			# @param size [string] The size. It can be 'thumb' 200x200 cropped. 
 			# @param info [string] String of the info to be retrieved
 			# @return [string] The info requested if present
 			# @return [boolean] Returns false if no info is found or if image isn't found

@@ -97,7 +97,7 @@ module Binda
 
       # Sort field settings following the order with which are listed in the array provided as a argument.
       #
-      # @param field_settings [Array] the list of ids of the field settings
+      # @param field_groups [Array] the list of ids of the field groups
       def sort_field_group_by(field_groups)
         field_groups.each_with_index do |id, i|
           FieldGroup.find( id ).update_column('position', i+1)
