@@ -66,7 +66,7 @@ module Binda
 		#  
 		# Rails guide reference --> http://guides.rubyonrails.org/action_controller_overview.html#hash-and-array-parameters
 		# 
-		# @param arg [string] This should be the database column on which sort will be based
+		# @param argument [string] This should be the database column on which sort will be based
 		# @return [string] The URL with the encoded parameters
 		# 
 		def get_sort_link_by argument

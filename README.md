@@ -114,7 +114,7 @@ This two preferences can be changed later on inside _Dashboard_ panel visible in
 
 You can customize the _Dashboard_ panel adding, removing and modifing fields as you prefer. As a matter of fact in _Structures_ you can find the one related to _Dashboard_ which you can edit as you like. The only thing you shouldn't do is to turn it into a component!
 
-You can also create new boards if you need it. See https://github.com/lacolonia/binda/wiki/Boards
+You can also create new boards if you need it, you just have to create a structure and set it to `board` via admin panel or assign `instance_type: 'board'` to _structure_ (`your_structure.update_attribute('instance_type', 'board')`).
 
 By default after the installation a `Board` called `dashboard` will be populated with three fields: a `Radio` called `maintenance-mode`, a `String` called `website-name` and `Text` called `webiste-description`.
 
@@ -431,39 +431,38 @@ You can retrieve field content from a instance of `Binda::Component`, `Binda::Bo
 
 | Helper |||
 |---|---|---|
-| `has_text`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_text) |
-| `get_text`| Returns the text. Use [`simple_format`](https://apidock.com/rails/ActionView/Helpers/TextHelper/simple_format) to maintain HTML tags. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_text) |
-| `has_string`| Returns `true/false`. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_string) |
-| `get_string`| Returns the text. Use [`simple_format`](https://apidock.com/rails/ActionView/Helpers/TextHelper/simple_format) to maintain HTML tags. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_string) |
-|`has_image`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_image) |
-|`get_image_url(size)`| Returns the url of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_url) |
-|`get_image_path(size)`| Returns the path of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_path) |
-|`get_image_size`| Returns the image size in MB. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_size) |
-|`get_image_dimension`| Returns a hash { width: xxx, height: xxx } with image dimension. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_dimension) |
-|`get_image_mime_type`| Returns the mime type of the image. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_image_mime_type) |
-|`has_svg`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_svg) |
-|`get_svg_url`| Returns the url of the svg. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_svg_url) |
-|`get_svg_path`| Returns the path of the svg. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_svg_path) |
-|`get_svg_size`| Returns the svg size in MB. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_svg_size) |
-|`get_svg_mime_type`| Returns the mime type of the svg. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_svg_mime_type) |
-
-|`has_video`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_video) |
-|`get_video_url`| Returns the url of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_video_url) |
-|`get_video_path`| Returns the path of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_video_path) |
-|`has_audio`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_audio) |
-|`get_audio_url`| Returns the url of the audio. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_audio_url) |
-|`get_audio_path`| Returns the path of the audio. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_audio_path) |
-|`has_date`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_date) |
-|`get_date`| Returns the date in `datetime` format. Use [`strftime`](https://apidock.com/rails/ActiveSupport/TimeWithZone/strftime) to change date format. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_date) |
-|`has_repeaters`| Returns `true/false`| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_repeaters) |
-|`get_repeaters`| Returns an array of repeaters. See next session for more details. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_repeaters) |
-|`get_selection_choices`| Returns an hash with label and value of the selected choice. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_selection_choices) |
-|`get_radio_choice`| Returns an hash with label and value of the selected choice. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_radio_choice) |
-|`get_checkbox_choices`| Returns an array of label/value pairs of all the selected choices. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:get_checkbox_choices) |
-|`has_related_components`| Check if has related components. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_related_components) |
-|`get_related_components`| Retrieve related components. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_related_components) |
-|`has_related_boards`| Check if has related boards. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_related_boards) |
-|`get_related_boards`| Retrieve related boards. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers:has_related_boards) |
+| `has_text`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableTextHelpers:has_text) |
+| `get_text`| Returns the text. Use [`simple_format`](https://apidock.com/rails/ActionView/Helpers/TextHelper/simple_format) to maintain HTML tags. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableTextHelpers:get_text) |
+| `has_string`| Returns `true/false`. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableStringHelpers:has_string) |
+| `get_string`| Returns the text. Use [`simple_format`](https://apidock.com/rails/ActionView/Helpers/TextHelper/simple_format) to maintain HTML tags. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableStringHelpers:get_string) |
+|`has_image`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableImageHelpers:has_image) |
+|`get_image_url(size)`| Returns the url of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableImageHelpers:get_image_url) |
+|`get_image_path(size)`| Returns the path of the image. A thumbnail version (200x200) by specifying `thumb` size. If no size is provided the method will return the original image size. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableImageHelpers:get_image_path) |
+|`get_image_size`| Returns the image size in MB. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableImageHelpers:get_image_size) |
+|`get_image_dimension`| Returns a hash { width: xxx, height: xxx } with image dimension. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableImageHelpers:get_image_dimension) |
+|`get_image_mime_type`| Returns the mime type of the image. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableImageHelpers:get_image_mime_type) |
+|`has_svg`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableSvgHelpers:has_svg) |
+|`get_svg_url`| Returns the url of the svg. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableSvgHelpers:get_svg_url) |
+|`get_svg_path`| Returns the path of the svg. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableSvgHelpers:get_svg_path) |
+|`get_svg_size`| Returns the svg size in MB. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableSvgHelpers:get_svg_size) |
+|`get_svg_mime_type`| Returns the mime type of the svg. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableSvgHelpers:get_svg_mime_type) |
+|`has_video`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableAudioHelpers:has_video)|
+|`get_video_url`| Returns the url of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableAudioHelpers:get_video_url) |
+|`get_video_path`| Returns the path of the video. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableAudioHelpers:get_video_path) |
+|`has_audio`| Returns `true/false`.| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableAudioHelpers:has_audio) |
+|`get_audio_url`| Returns the url of the audio. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableAudioHelpers:get_audio_url) |
+|`get_audio_path`| Returns the path of the audio. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableAudioHelpers:get_audio_path) |
+|`has_date`| Returns `true/false` | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableDateHelpers:has_date) |
+|`get_date`| Returns the date in `datetime` format. Use [`strftime`](https://apidock.com/rails/ActiveSupport/TimeWithZone/strftime) to change date format. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableDateHelpers:get_date) |
+|`has_repeaters`| Returns `true/false`| [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableRepeaterHelpers:has_repeaters) |
+|`get_repeaters`| Returns an array of repeaters. See next session for more details. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableRepeaterHelpers:get_repeaters) |
+|`get_selection_choices`| Returns an hash with label and value of the selected choice. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableSelectionHelpers:get_selection_choices) |
+|`get_radio_choice`| Returns an hash with label and value of the selected choice. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableSelectionHelpers:get_radio_choice) |
+|`get_checkbox_choices`| Returns an array of label/value pairs of all the selected choices. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableSelectionHelpers:get_checkbox_choices) |
+|`has_related_components`| Check if has related components. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableRelationHelpers:has_related_components) |
+|`get_related_components`| Retrieve related components. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableRelationHelpers:has_related_components) |
+|`has_related_boards`| Check if has related boards. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableRelationHelpers:has_related_boards) |
+|`get_related_boards`| Retrieve related boards. | [source](http://www.rubydoc.info/gems/binda/Binda/FieldableAssociationHelpers/FieldableRelationHelpers:has_related_boards) |
 
 If you need to get each dependent of all relations with a specified slug (or slugs) you can use `B.get_relation_dependents` helper. This is very useful to retrieve only the instances which have a owner (and therefore are 'dependents'). 
 

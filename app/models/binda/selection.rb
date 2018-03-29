@@ -201,7 +201,7 @@ module Binda
 		# - depend on a field setting which requires to have at least a choice
 		# - have no choice selected
 		# 
-		# @param field_setting_slug [string] Add the slug of a field setting to filter the query
+		# @param field_setting [string] Add the slug of a field setting to filter the query
 		# 
 		# @return [array] An array of Binda::Selection objects
 		def self.get_selections_which_must_have_a_choice_but_have_none(field_setting = nil)
