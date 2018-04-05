@@ -12,7 +12,7 @@ field_settings = dashboard_structure.field_groups.first.field_settings
 puts "Setting up maintenance mode"
 
 # Use radio field_type untill truefalse isn't available
-maintenance_mode = field_settings.create!( name: 'Maintenance Mode', field_type: 'radio', allow_null: false)
+maintenance_mode = field_settings.create!( name: 'Maintenance Mode', field_type: 'radio', allow_null: false, slug: 'maintenance-mode')
 disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
 maintenance_mode.choices.create!( label: 'active', value: 'true' )
 @dashboard.reload
