@@ -6,9 +6,9 @@
 %>
 
 <% unless is_devise_controller %>
-<div id="main-sidebar">
+<div data-hook="main-sidebar" id="main-sidebar">
   <ul class="main-sidebar--nav">
-    <li class= "main-sidebar--brand">
+    <li data-hook="main-sidebar-head" class= "main-sidebar--brand">
       <a href="/" target="_blank">
         <p class="main-sidebar--website-name"><%= get_website_name %></p>
         <p class= "main-sidebar--view-website">
@@ -41,24 +41,24 @@
       <% end %>
     <% end %>
     <% if current_user.is_superadmin %>
-      <li>
+      <li data-hook="main-sidebar-structures">
         <a href="<%= structures_path %>">
           <i class="fas fa-sitemap"></i> Structures
         </a>
       </li>
     <% end %>
-    <li>
+    <li data-hook="main-sidebar-manage-users">
       <a href="<%= manage_users_path %>">
         <i class="fas fa-user"></i> Users
       </a>
     </li>
-    <li>
+    <li data-hook="main-sidebar-log-out">
       <a href="<%= destroy_user_session_path %>" data-method="delete">
         <i class="fas fa-sign-out-alt"></i> Log out
       </a>
     </li>
   </ul>
-  <div class="main-sidebar--footer">    
+  <div data-hook="main-sidebar-foot" class="main-sidebar--footer">    
     <small><a href="https://github.com/lacolonia/binda" target="_blank"><%= t('binda.login_credit', { arg1: Binda::VERSION.dup}) %></a></small>
   </div>
 </div>
