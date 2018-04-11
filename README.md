@@ -97,6 +97,7 @@ This lets you create another temporary super admin user.
 
 ## Specific needs
 In order to use Carrierwave to process images you need to run MiniMagik. Please refer to [Carrierwave documentation](https://github.com/carrierwaveuploader/carrierwave#using-minimagick) to find more information.
+
 If you need absolute URLs for your images remember to set up your asset host in config/environments/production.rb
 
 ```ruby
