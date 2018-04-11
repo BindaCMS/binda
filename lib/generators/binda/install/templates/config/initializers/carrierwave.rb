@@ -1,5 +1,6 @@
 CarrierWave.configure do |config|
   config.storage = :file
+  config.asset_host = ActionController::Base.asset_host
 
 
   # # If you prefer to use Google uncomment and udpate the following lines
