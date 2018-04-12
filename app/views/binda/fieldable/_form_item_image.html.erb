@@ -12,6 +12,7 @@
         label: "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> #{t('binda.choose_file_button')}".html_safe, 
         hint: field_setting.description.nil? ? false : field_setting.description.html_safe, 
         url: url_for([ff.object, action: :remove_image]).html_safe,
+        disabled: field_setting.read_only?,
         object: ff.object,
         wrapper: false,
         input_html: {

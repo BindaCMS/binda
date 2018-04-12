@@ -1,6 +1,7 @@
 <div id="standard-form--date-<%= field_setting.id %>"  class="standard-form--date form-item">	
 	<%= ff.input :date, 
 				as: :date, 
+        disabled: field_setting.read_only?,
 				start_year: Date.today.year - 200, 
 				end_year: Date.today.year + 200, 
 				hint: field_setting.description.nil? ? false : field_setting.description.html_safe, 

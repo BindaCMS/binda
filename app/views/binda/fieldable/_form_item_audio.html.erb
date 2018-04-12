@@ -14,6 +14,7 @@
 				url: url_for([ff.object, action: :remove_audio]).html_safe,
 				object: ff.object,
 				wrapper: false,
+        disabled: field_setting.read_only?,
 				input_html: { 
 					class: 'form-item--audio--uploader',
 					'data-url': url_for([@instance.structure, @instance, action: :upload]),

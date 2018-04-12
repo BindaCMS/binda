@@ -12,6 +12,7 @@
         hint: field_setting.description.nil? ? false : field_setting.description.html_safe, 
         url: url_for([ff.object, action: :remove_svg]).html_safe,
         object: ff.object,
+        disabled: field_setting.read_only?,
         wrapper: false,
         input_html: {
           'data-url': url_for([

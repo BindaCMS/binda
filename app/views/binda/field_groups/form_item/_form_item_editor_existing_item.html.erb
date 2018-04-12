@@ -1,12 +1,15 @@
 <div class="form-item--half-size">
 	<%= ff.input :slug, as: :string, input_html: { class: "form-item--input" } %>
 </div>
-<div class="form-item--full-size">
+<div class="form-item--half-size">
   <% if ff.object.field_type.nil? %>
     <%= ff.input :field_type, as: :select, collection: get_field_types, include_blank: false, prompt: t(:select_field_type), input_html: { class: 'form-item--select-input' } %>
   <% else %>
     <%= ff.input :field_type, as: :string, disabled: true, input_html: { class: "form-item--input" } %>
   <% end %>
+</div>
+<div class="form-item--half-size">
+  <%= ff.input :read_only, as: :boolean, label: "<span class=\"standard-form--input-box\"></span> #{ t('binda.read_only')}".html_safe, wrapper_html: { class: 'standard-form--radio' } %>
 </div>
 <div class="form-item--full-size">
 	<%= ff.input :description, input_html: { class: "form-item--input tinymce" } %>
