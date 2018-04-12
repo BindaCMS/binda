@@ -95,7 +95,7 @@ module Binda
       def field_group_params
         params.require(:field_group).permit(
           :name, :slug, :description, :position, :layout, :structure_id, field_settings_attributes: [ 
-            :id, :field_group_id, :field_setting_id, :name, :slug, :description, :field_type, :position, :required, :default_text, :ancestry, :default_choice_id, :allow_null, accepted_structure_ids: [], choices: [], choices_attributes: [ 
+            :id, :field_group_id, :field_setting_id, :name, :slug, :description, :field_type, :position, :required, :read_only, :default_text, :ancestry, :default_choice_id, :allow_null, accepted_structure_ids: [], choices: [], choices_attributes: [ 
               :id, :field_setting_id, :label, :value 
             ]
           ]
@@ -105,7 +105,7 @@ module Binda
       def new_params
         params.require(:field_group).permit( 
           new_field_settings: [ 
-            :id, :field_group_id, :field_setting_id, :name, :slug, :description, :field_type, :position, :required, :ancestry, :default_choice_id, :allow_null, choices: [] 
+            :id, :field_group_id, :field_setting_id, :name, :slug, :description, :field_type, :position, :required, :read_only, :ancestry, :default_choice_id, :allow_null, choices: [] 
           ], 
           new_choices: [ 
             :id, :field_setting_id, :label, :value 

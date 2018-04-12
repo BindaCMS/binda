@@ -55,19 +55,24 @@ module SimpleForm
         @delete_button ||= begin
           obj = options[:object]
           url = options[:url]
-          html = '<a class="b-btn b-btn-outline-danger fileupload--remove-image-btn'
-            html << ' fileupload--remove-image-btn--hidden' unless obj.image.present? || obj.video.present? || obj.audio.present? || obj.svg.present?
-            html << '" href="'
-            html << url
-            html << '" data-method="delete" data-remote="true" data-confirm="'
-            html << t('binda.confirm_delete')
-            html << '" data-id="'
-            html << obj.id.to_s
-            html << '">'
-              html << '<i class="fa fa-trash-alt" aria-hidden="true"></i>'
-              html << t('binda.delete')
-          html << '</a>'
-          html << '<div class="clearfix"></div>'
+          html = ''
+          unless obj.field_setting.read_only?
+            html = '<a class="b-btn b-btn-outline-danger fileupload--remove-image-btn'
+              html << ' fileupload--remove-image-btn--hidden' unless obj.image.present? || obj.video.present? || obj.audio.present? || obj.svg.present?
+              html << '" href="'
+              html << url
+              html << '" data-method="delete" data-remote="true" data-confirm="'
+              html << t('binda.confirm_delete')
+              html << '" data-id="'
+              html << obj.id.to_s
+              html << '">'
+                html << '<i class="fa fa-trash-alt" aria-hidden="true"></i>'
+                html << t('binda.delete')
+            html << '</a>'
+            html << '<div class="clearfix"></div>'
+          end
+
+          html
         end
       end
 

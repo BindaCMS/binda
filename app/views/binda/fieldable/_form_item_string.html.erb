@@ -3,6 +3,7 @@
 	<%= ff.input :content, 
 				input_html: { value: ff.object.content }, 
 				as: :string,
+        disabled: field_setting.read_only?,
 				hint: field_setting.description.nil? ? false : field_setting.description.html_safe,
 				label: field_setting.name %>
 
