@@ -16,6 +16,7 @@
 
   <body class="<%= action_name %> <%= "#{controller_name}-#{action_name}" %> <%= 'devise-view' if is_devise_controller %>">
     
+    <%= render 'layouts/binda/popup_warning' %>
     <div id="main-container">
 
       <%= yield :background %>

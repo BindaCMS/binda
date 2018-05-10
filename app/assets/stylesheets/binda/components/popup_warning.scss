@@ -35,6 +35,11 @@
 }
 
 .popup-warning--loader {
+  transition: opacity 0.1s 0.1s linear;
+  &.popup-warning--loader--hidden {
+    opacity: 0;
+  }
+  opacity: 1;
   margin-bottom: 16px;
   span {
     display: inline-block;
@@ -54,5 +59,20 @@
   }
   span:nth-child(4) {
     animation-delay: 540ms;
+  }
+}
+
+.popup-warning--success {
+  transition: opacity 0.1s 0.1s linear;
+  opacity: 1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 16px;
+  color: $color-success;
+  font-size: 30px;
+
+  &.popup-warning--success--hidden {
+    opacity: 0;
   }
 }
