@@ -1,4 +1,3 @@
-<%= render 'layouts/binda/popup_warning' %>
 <%= simple_form_for [ @instance.structure, @instance ], html: { class: 'form-body', multipart: true } do |f| %>
   <%= f.error_notification %>
   <%= render 'layouts/binda/form_errors', f: f %>
