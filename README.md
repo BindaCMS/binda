@@ -901,7 +901,7 @@ Some specs are run against the database. If you haven't installed Binda on the d
 RAILS_ENV=test rails db:migrate
 ```
 
-The above command might generate an error. This is probably because you have previously installed Binda and the generator finds migration both in `binda/db/migrate` and `binda/spec/dummy/db/migrate`. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again. Here below the oneliner (be aware that this destroy both development and test databases of the dummy app):
+The above command might generate an error. This is probably because you have previously installed Binda and the generator finds migration both in `binda/db/migrate` and `binda/spec/dummy/db/migrate`. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again.
 
 ```bash
 cd spec/dummy
@@ -930,6 +930,7 @@ rm -rf db/migrate
 rm -rf config/initializers/devise_backup_*.rb
 cd ../..
 ```
+
 Here the oneliner:
 
 ```bash
