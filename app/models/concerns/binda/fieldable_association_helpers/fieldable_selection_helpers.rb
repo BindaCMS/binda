@@ -16,10 +16,10 @@ module Binda
 				return { label: obj.choices.first.label, value: obj.choices.first.value }
 			end
 
-			# Get the select choices
+			# Get the select choice
 			# 
 			# @param field_slug [string] The slug of the field setting
-			# @return [hash] A hash of containing the label and value of the selected choice. `{ label: 'the label', 'value': 'the value'}`
+			# @return [hash] A hash of containing the label and value of the selected choice. `{ label: 'the label', value: 'the value'}`
 			def get_selection_choice(field_slug)
 				field_setting = FieldSetting.find_by(slug:field_slug)
 				obj = self.selections.find{ |t| t.field_setting_id == field_setting.id }
@@ -31,7 +31,7 @@ module Binda
 			# Get the select choices
 			# 
 			# @param field_slug [string] The slug of the field setting
-			# @return [array] An array of hashes of containing label and value of the selected choices. `{ label: 'the label', 'value': 'the value'}`
+			# @return [array] An array of hashes of containing label and value of the selected choices. `{ label: 'the label', value: 'the value'}`
 			def get_selection_choices(field_slug)
 				field_setting = FieldSetting.find_by(slug:field_slug)
 				obj = self.selections.find{ |t| t.field_setting_id == field_setting.id }

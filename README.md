@@ -4,7 +4,6 @@ A modular CMS for Ruby on Rails 5.1.
 [![Gem Version](https://badge.fury.io/rb/binda.svg)](https://badge.fury.io/rb/binda)
 [![Code Climate](https://codeclimate.com/github/lacolonia/binda/badges/gpa.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5dc62774a6b8b63aa72b/test_coverage)](https://codeclimate.com/github/lacolonia/binda/test_coverage)
-[![Dependency Status](https://gemnasium.com/badges/github.com/lacolonia/binda.svg)](https://gemnasium.com/github.com/lacolonia/binda)
 [![Inline docs](http://inch-ci.org/github/lacolonia/binda.svg?branch=master)](http://inch-ci.org/github/lacolonia/binda)
 
 > This documentation has been written for the [Official Documentation](http://www.rubydoc.info/gems/binda), not the Github README. 
@@ -16,7 +15,7 @@ A modular CMS for Ruby on Rails 5.1.
 
 # Quick Start
 
-**Binda** is a headless CMS with an intuitive out-of-the-box interface which makes very easy to create your application infrastructure.
+**Binda** is a headless CMS with an intuitive out-of-the-box interface which makes very easy creating application infrastructures.
 
 The core element is the _structure_ element which is the finger print of any _component_ instance. Every _structure_ can have one or more _field-groups_ which can be populated with several _field-settings_. _Field-groups_ and _field-settings_ represent _components_ features, such as galleries, textareas, dates, repeaters and so on.
 
@@ -60,7 +59,7 @@ bundle install
 
 Before completing the installation you need to setup the database. If you are going to use Postgres set it up now.
 
-To complete binda installation run the installer from terminal. Binda will take you through a bit of configuration where you will setup the first user and some basic details.
+To complete binda installation run the installer from terminal. Binda will take you through a short configuration process where you will setup the first user and some basic details.
 
 ```bash
 rails generate binda:install
