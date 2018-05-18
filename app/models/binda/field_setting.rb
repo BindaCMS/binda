@@ -81,12 +81,12 @@ module Binda
 		end
 
 		after_save do
+    	self.class.reset_field_settings_array
 			add_choice_if_allow_null_is_false
 			create_field_instances
 		end
 
     after_create do 
-    	self.class.reset_field_settings_array
     	convert_allow_null__nil_to_false
     	set_default_position
     end

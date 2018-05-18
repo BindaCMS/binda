@@ -904,15 +904,37 @@ RAILS_ENV=test rails db:migrate
 The above command might generate an error. This is probably because you have previously installed Binda and the generator finds migration both in `binda/db/migrate` and `binda/spec/dummy/db/migrate`. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again. Here below the oneliner (be aware that this destroy both development and test databases of the dummy app):
 
 ```bash
-cd spec/dummy && rm -rf db/migrate && rails db:drop && rails db:create && RAILS_ENV=test rails db:migrate
+cd spec/dummy
+rm -rf db/migrate
+rails db:drop
+rails db:create
+RAILS_ENV=test rails db:migrate
+cd ../.. 
 ```
 
-In case you are creating new migrations or modifing the default one:
+Here the oneliner: 
 
 ```bash
-cd spec/dummy && rm -r db/schema.rb && rails db:drop && rails db:create && RAILS_ENV=test rails db:migrate
+cd spec/dummy && rm -rf db/migrate && rails db:drop && rails db:create && RAILS_ENV=test rails db:migrate && cd ../.. 
 ```
 
+If Binda migration have been updated then your `schema.rb` is outdated and will generate false failing tests. In this case you need to run following command to refresh your database configuration:
+
+```bash
+cd spec/dummy
+rm -r db/schema.rb
+rails db:drop
+rails db:create
+rails generate binda:install
+rm -rf db/migrate
+rm -rf config/initializers/devise_backup_*.rb
+cd ../..
+```
+Here the oneliner:
+
+```bash
+cd spec/dummy && rm -r db/schema.rb && rails db:drop && rails db:create && rails generate binda:install && rm -rf db/migrate && rm -rf config/initializers/devise_backup_*.rb && cd ../..
+```
 
 If in the future you need to clean your dummy app code, simply run:
 
