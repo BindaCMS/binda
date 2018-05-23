@@ -47,8 +47,8 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.index            :slug, unique: true
       t.text             :description
       t.integer          :position
-      t.boolean          :required
-      t.boolean          :read_only
+      t.boolean          :required, default: false
+      t.boolean          :read_only, default: false
       t.text             :default_text
       t.string           :field_type
       t.belongs_to       :field_group
