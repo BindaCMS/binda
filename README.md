@@ -613,7 +613,8 @@ rails binda:remove_orphan_fields
 
 Here a list of useful plugins:
 
-- [Binda Multilanguage](https://github.com/lacolonia/binda_multilanguage)
+- [Binda API](https://github.com/lacolonia/binda-api)
+- [Binda Shopify](https://github.com/lacolonia/binda-shopify)
 
 ---
 
