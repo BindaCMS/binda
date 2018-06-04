@@ -613,7 +613,8 @@ rails binda:remove_orphan_fields
 
 Here a list of useful plugins:
 
-- [Binda Multilanguage](https://github.com/lacolonia/binda_multilanguage)
+- [Binda API](https://github.com/lacolonia/binda-api)
+- [Binda Shopify](https://github.com/lacolonia/binda-shopify)
 
 ---
 
@@ -1003,8 +1004,19 @@ If you need direct help you can join [Binda Slack Channel](https://bindacms.slac
 ### License
 The gem is available as open source under the terms of the [GNU General Public License v3.0](https://github.com/a-barbieri/binda/blob/master/LICENSE).
 
+
+Binda is a headless CMS with an intuitive out-of-the-box interface.
+
+Copyright (C) 2017  Alessandro Barbieri
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+Find the GNU General Public License here <http://www.gnu.org/licenses/>.
+
 ### Credits
-Binda is inspired by [Spina CMS](https://github.com/denkGroot/Spina).
+Binda is inspired by [Spina CMS](https://github.com/SpinaCMS/Spina).
 
 We give also credit to authors and contributors of the gems that Binda uses. Huge thank you to all of them.
 
