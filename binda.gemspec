@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 
   # PRIMARY GEMS
   # ------------
-  s.add_dependency "rails",                ">= 5.0",        "< 5.2"
+  s.add_dependency "rails",                ">= 5.0",        "< 5.3"
   s.add_dependency "jquery-rails",         "~> 4.3"
   s.add_dependency "jquery-ui-rails",      ">= 5.0",        "< 6.1"
   s.add_dependency "sass-rails",           "~> 5.0"
