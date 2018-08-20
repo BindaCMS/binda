@@ -4,7 +4,6 @@ A modular CMS for Ruby on Rails 5.1.
 [![Gem Version](https://badge.fury.io/rb/binda.svg)](https://badge.fury.io/rb/binda)
 [![Code Climate](https://codeclimate.com/github/lacolonia/binda/badges/gpa.svg)](https://codeclimate.com/github/lacolonia/binda)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5dc62774a6b8b63aa72b/test_coverage)](https://codeclimate.com/github/lacolonia/binda/test_coverage)
-[![Dependency Status](https://gemnasium.com/badges/github.com/lacolonia/binda.svg)](https://gemnasium.com/github.com/lacolonia/binda)
 [![Inline docs](http://inch-ci.org/github/lacolonia/binda.svg?branch=master)](http://inch-ci.org/github/lacolonia/binda)
 
 > This documentation has been written for the [Official Documentation](http://www.rubydoc.info/gems/binda), not the Github README. 
@@ -16,7 +15,7 @@ A modular CMS for Ruby on Rails 5.1.
 
 # Quick Start
 
-**Binda** is a headless CMS with an intuitive out-of-the-box interface which makes very easy to create your application infrastructure.
+**Binda** is a headless CMS with an intuitive out-of-the-box interface which makes very easy creating application infrastructures.
 
 The core element is the _structure_ element which is the finger print of any _component_ instance. Every _structure_ can have one or more _field-groups_ which can be populated with several _field-settings_. _Field-groups_ and _field-settings_ represent _components_ features, such as galleries, textareas, dates, repeaters and so on.
 
@@ -60,7 +59,7 @@ bundle install
 
 Before completing the installation you need to setup the database. If you are going to use Postgres set it up now.
 
-To complete binda installation run the installer from terminal. Binda will take you through a bit of configuration where you will setup the first user and some basic details.
+To complete binda installation run the installer from terminal. Binda will take you through a short configuration process where you will setup the first user and some basic details.
 
 ```bash
 rails generate binda:install
@@ -614,7 +613,8 @@ rails binda:remove_orphan_fields
 
 Here a list of useful plugins:
 
-- [Binda Multilanguage](https://github.com/lacolonia/binda_multilanguage)
+- [Binda API](https://github.com/lacolonia/binda-api)
+- [Binda Shopify](https://github.com/lacolonia/binda-shopify)
 
 ---
 
@@ -902,18 +902,41 @@ Some specs are run against the database. If you haven't installed Binda on the d
 RAILS_ENV=test rails db:migrate
 ```
 
-The above command might generate an error. This is probably because you have previously installed Binda and the generator finds migration both in `binda/db/migrate` and `binda/spec/dummy/db/migrate`. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again. Here below the oneliner (be aware that this destroy both development and test databases of the dummy app):
+The above command might generate an error. This is probably because you have previously installed Binda and the generator finds migration both in `binda/db/migrate` and `binda/spec/dummy/db/migrate`. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again.
 
 ```bash
-cd spec/dummy && rm -rf db/migrate && rails db:drop && rails db:create && RAILS_ENV=test rails db:migrate
+cd spec/dummy
+rm -rf db/migrate
+rails db:drop
+rails db:create
+RAILS_ENV=test rails db:migrate
+cd ../.. 
 ```
 
-In case you are creating new migrations or modifing the default one:
+Here the oneliner: 
 
 ```bash
-cd spec/dummy && rm -r db/schema.rb && rails db:drop && rails db:create && RAILS_ENV=test rails db:migrate
+cd spec/dummy && rm -rf db/migrate && rails db:drop && rails db:create && RAILS_ENV=test rails db:migrate && cd ../.. 
 ```
 
+If Binda migration have been updated then your `schema.rb` is outdated and will generate false failing tests. In this case you need to run following command to refresh your database configuration:
+
+```bash
+cd spec/dummy
+rm -r db/schema.rb
+rails db:drop
+rails db:create
+rails generate binda:install
+rm -rf db/migrate
+rm -rf config/initializers/devise_backup_*.rb
+cd ../..
+```
+
+Here the oneliner:
+
+```bash
+cd spec/dummy && rm -r db/schema.rb && rails db:drop && rails db:create && rails generate binda:install && rm -rf db/migrate && rm -rf config/initializers/devise_backup_*.rb && cd ../..
+```
 
 If in the future you need to clean your dummy app code, simply run:
 
@@ -981,8 +1004,19 @@ If you need direct help you can join [Binda Slack Channel](https://bindacms.slac
 ### License
 The gem is available as open source under the terms of the [GNU General Public License v3.0](https://github.com/a-barbieri/binda/blob/master/LICENSE).
 
+
+Binda is a headless CMS with an intuitive out-of-the-box interface.
+
+Copyright (C) 2017  Alessandro Barbieri
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+Find the GNU General Public License here <http://www.gnu.org/licenses/>.
+
 ### Credits
-Binda is inspired by [Spina CMS](https://github.com/denkGroot/Spina).
+Binda is inspired by [Spina CMS](https://github.com/SpinaCMS/Spina).
 
 We give also credit to authors and contributors of the gems that Binda uses. Huge thank you to all of them.
 

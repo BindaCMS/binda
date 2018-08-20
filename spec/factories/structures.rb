@@ -49,6 +49,7 @@ FactoryBot.define do
       create :repeater_setting_with_children_settings, field_group: default_field_group
       create :radio_setting_with_choices, field_group: default_field_group
       create :selection_setting_with_choices, field_group: default_field_group
+      create :checkbox_setting_with_choices, field_group: default_field_group
       create_list( :article_component, evaluator.components_count, structure: structure)
     end
   end
