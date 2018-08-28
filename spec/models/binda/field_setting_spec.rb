@@ -29,7 +29,7 @@ module Binda
 						).first
 					}.not_to raise_error
 				end
-				it "generates a field #{field_class.downcase.underscore} for each component to which is associated" do
+				it "generates a field #{field_class.downcase.underscore} for each board to which is associated" do
 					field_setting = create(
 						:field_setting,
 						field_type: field_class.underscore,
@@ -262,5 +262,32 @@ module Binda
 			expect(second_field_setting.reload.position).to eq 1
 			expect(first_field_setting.reload.position).to eq 2
 		end
+
+		it "isn't read only by default" do
+			pending("not implemented yet")
+		end
+
+		it "can be read only" do
+			pending("not implemented yet")
+		end
+
+
+		it "hasn't a preview by default" do
+			pending("not implemented yet")
+		end
+
+		it "can have a preview" do
+			pending("not implemented yet")
+		end
+
+
+		it "isn't required by default" do
+			pending("not implemented yet")
+		end
+
+		it "can be required" do
+			pending("not implemented yet")
+		end
+
 	end
 end

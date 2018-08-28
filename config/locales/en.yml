@@ -118,6 +118,7 @@ en:
     has_categories: Enable categories
     has_preview: Enable preview
     read_only: Read Only
+    preview: Preview
     has_categories_hint: Enable a taxonomy specific to this structure
     preview_path_warning: Make preview available. Once enabled, remember to create a route in you application for
     relation_warning: This relation isn't set properly. Ensure the setup of this relation refers to at least one structure.

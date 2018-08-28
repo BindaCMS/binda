@@ -72,7 +72,7 @@ module Binda
 
       # Only allow a trusted parameter "white list" through.
       def field_setting_params
-        params.require(:field_setting).permit(:name, :slug, :description, :position, :required, :default_text, :field_group_id, :field_type )
+        params.require(:field_setting).permit(:name, :slug, :description, :position, :preview, :required, :default_text, :field_group_id, :field_type )
       end
   end
 end

@@ -8,6 +8,15 @@
   padding: 12px;
 }
 
+.form-item--quarter-size {
+  display: inline-block;
+  width: calc(25% - 3px);
+
+  .form-group {
+    border-top: none !important;
+  }
+}
+
 .form-item--half-size {
   // OLD SOLUTION (nicer, but can't be used with max-height=0 and overflow-y=hidden)
   // position: relative;

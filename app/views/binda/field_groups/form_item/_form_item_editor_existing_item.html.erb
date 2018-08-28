@@ -8,8 +8,11 @@
     <%= ff.input :field_type, as: :string, disabled: true, input_html: { class: "form-item--input" } %>
   <% end %>
 </div>
-<div class="form-item--half-size">
+<div class="form-item--quarter-size" id="read-only">
   <%= ff.input :read_only, as: :boolean, label: "<span class=\"standard-form--input-box\"></span> #{ t('binda.read_only')}".html_safe, wrapper_html: { class: 'standard-form--radio' } %>
+</div>
+<div class="form-item--quarter-size" id="has-preview">
+  <%= ff.input :has_preview, as: :boolean, label: "<span class=\"standard-form--input-box\"></span> #{ t('binda.preview')}".html_safe, wrapper_html: { class: 'standard-form--radio' } %>
 </div>
 <div class="form-item--full-size">
 	<%= ff.input :description, input_html: { class: "form-item--input tinymce" } %>
