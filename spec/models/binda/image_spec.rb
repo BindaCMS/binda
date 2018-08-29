@@ -41,5 +41,46 @@ module Binda
     it "registers details if you call register_details method (also in rake task)"  do
       skip("don't know how to test it")
     end
+
+    describe "when is read only" do
+      it "blocks any upload" do
+        @component = create(:component)
+        @image_setting = create(:image_setting, field_group_id: @component.structure.field_groups.first.id)
+        @image_setting.read_only = true
+        image_name = 'test-image.jpg'
+        image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
+        image_record = @component.reload.images.first
+        image_record.image = image_path.open
+        expect(image_record.save!).to be(false)
+      end
+      describe "when there is already a image" do
+        it "avoid image to be deleted" do
+          @component = create(:component)
+          @image_setting = create(:image_setting, field_group_id: @component.structure.field_groups.first.id)
+          image_name = 'test-image.jpg'
+          image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
+          image_record = @component.reload.images.first
+          image_record.image = image_path.open
+          expect(image_record.save!).to be_truthy
+          @image_setting.read_only = true
+          expect(image_record.image.remove!).to be(false)
+        end
+        it "blocks any update" do
+          @component = create(:component)
+          @image_setting = create(:image_setting, field_group_id: @component.structure.field_groups.first.id)
+          image_name = 'test-image.jpg'
+          image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
+          image_record = @component.reload.images.first
+          image_record.image = image_path.open
+          expect(image_record.save!).to be_truthy
+          @image_setting.read_only = true
+          image_name = 'test-image.jpg'
+          image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
+          image_record = @component.reload.images.first
+          image_record.image = image_path.open
+          expect(image_record.save!).to be(false)
+        end
+      end
+    end
   end
 end
