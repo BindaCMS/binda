@@ -37,5 +37,14 @@ module Binda
 			skip('not implemented yet')
 		end
 
+		it "shouldn't let you select choice if read only" do
+			radio = @component.radios.first
+			radio.choices.clear
+			@radio_setting.read_only = true
+
+			radio.choices << @radio_setting.choices.first
+			expect( radio.choices.first.id ).to be( nil )
+		end
+
 	end
 end
