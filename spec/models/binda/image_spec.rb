@@ -44,41 +44,46 @@ module Binda
 
     describe "when is read only" do
       it "blocks any upload" do
-        @component = create(:component)
-        @image_setting = create(:image_setting, field_group_id: @component.structure.field_groups.first.id)
-        @image_setting.read_only = true
         image_name = 'test-image.jpg'
         image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
         image_record = @component.reload.images.first
         image_record.image = image_path.open
-        expect(image_record.save!).to be(false)
+        @image_setting.read_only = true
+        @image_setting.save!
+        expect(@image_setting.reload.read_only).to be(true)
+        expect{ image_record.save! }.to raise_error ActiveRecord::RecordInvalid
       end
       describe "when there is already a image" do
         it "avoid image to be deleted" do
-          @component = create(:component)
-          @image_setting = create(:image_setting, field_group_id: @component.structure.field_groups.first.id)
           image_name = 'test-image.jpg'
           image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
           image_record = @component.reload.images.first
           image_record.image = image_path.open
           expect(image_record.save!).to be_truthy
           @image_setting.read_only = true
-          expect(image_record.image.remove!).to be(false)
+          @image_setting.save!
+          expect(@image_setting.reload.read_only).to be(true)
+          image_name = 'test-image.jpg'
+          image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
+          image_record = @component.reload.images.first
+          image_record.image = image_path.open
+          image_record.remove_image
+          expect{ image_record.save! }.to raise_error ActiveRecord::RecordInvalid
         end
         it "blocks any update" do
-          @component = create(:component)
-          @image_setting = create(:image_setting, field_group_id: @component.structure.field_groups.first.id)
           image_name = 'test-image.jpg'
           image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
           image_record = @component.reload.images.first
           image_record.image = image_path.open
           expect(image_record.save!).to be_truthy
           @image_setting.read_only = true
+          @image_setting.save!
+          expect(@image_setting.reload.read_only).to be(true)
           image_name = 'test-image.jpg'
           image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
           image_record = @component.reload.images.first
           image_record.image = image_path.open
-          expect(image_record.save!).to be(false)
+          expect{ image_record.save! }.to raise_error ActiveRecord::RecordInvalid
         end
       end
     end
