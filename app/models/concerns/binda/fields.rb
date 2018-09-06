@@ -2,18 +2,10 @@ require 'pry'
 
 class ReadOnlyValidator < ActiveModel::Validator
 	def validate(record)
-=begin
-	binding.pry
-=end
-=begin
-	get field setting of current record
-	return false if field setting has been set to read only
-	else true
-=end
-
-=begin
-		!record.read_only?
-=end
+    field_setting = record.field_setting
+    unless !field_setting.read_only?
+      record.errors.add :base, "#{field_setting.name} can't be saved because is read only"
+    end
 	end
 end
 
