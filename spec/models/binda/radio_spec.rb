@@ -41,9 +41,10 @@ module Binda
 			radio = @component.radios.first
 			radio.choices.clear
 			@radio_setting.read_only = true
-
+      @radio_setting.save!
+			expect(@radio_setting.reload.read_only).to be(true)
 			radio.choices << @radio_setting.choices.first
-			expect( radio.choices.first.id ).to be( nil )
+			expect{ radio.save! }.to raise_error ActiveRecord::RecordInvalid
 		end
 
 	end
