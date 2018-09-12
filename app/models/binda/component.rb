@@ -62,7 +62,7 @@ module Binda
     	end
 		end
 
-		def remove_orphans
+		def self.remove_orphans
 			Component
 				.includes(:structure)
 				.where(binda_structures: {id: nil})

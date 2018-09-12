@@ -20,7 +20,7 @@ module Binda
 			slug.blank?
 		end
 
-		def remove_orphans
+		def self.remove_orphans
 			Board
 				.includes(:structure)
 				.where(binda_structures: {id: nil})
