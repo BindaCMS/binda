@@ -60,7 +60,17 @@ module Binda
     	instance_field_settings.each do |field_setting|
     		field_setting.create_field_instance_for(self)
     	end
-    end
+		end
+
+		def remove_orphans
+			Component
+				.includes(:structure)
+				.where(binda_structures: {id: nil})
+				.each do |c|
+					c.destroy!
+					puts "Binda::Component with id ##{c.id} successfully destroyed"
+				end
+		end
 
 		private 
 

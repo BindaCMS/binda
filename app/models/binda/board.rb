@@ -20,5 +20,15 @@ module Binda
 			slug.blank?
 		end
 
+		def remove_orphans
+			Board
+				.includes(:structure)
+				.where(binda_structures: {id: nil})
+				.each do |b|
+				b.destroy!
+				puts "Binda::Board with id ##{b.id} successfully destroyed"
+			end
+		end
+
   end
 end
