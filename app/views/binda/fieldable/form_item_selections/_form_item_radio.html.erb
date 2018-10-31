@@ -1,7 +1,7 @@
 <% current = f.object.find_or_create_a_field_by( field_setting.id, 'radio' ) %>
 <%= f.simple_fields_for "radios_attributes[]", current do |ff| %>
 	<% if ff.object.choices.any? %>
-		<%= ff.input :choice_ids, 
+		<%= ff.input :choice_ids,
 					label: field_setting.name.capitalize, 
 					hint: prepare_description_for_selections_form_hint(field_setting), 
 					as: :radio_buttons, 

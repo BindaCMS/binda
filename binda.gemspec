@@ -21,12 +21,12 @@ Gem::Specification.new do |s|
 
   # PRIMARY GEMS
   # ------------
-  s.add_dependency "rails",                ">= 5.0",        "< 5.2"
+  s.add_dependency "rails",                ">= 5.0",        "< 5.3"
   s.add_dependency "jquery-rails",         "~> 4.3"
   s.add_dependency "jquery-ui-rails",      ">= 5.0",        "< 6.1"
   s.add_dependency "sass-rails",           "~> 5.0"
   s.add_dependency "aasm",                 ">= 4.11",       "< 4.13"
-  s.add_dependency "simple_form",          ">= 3.3",        "< 3.6"
+  s.add_dependency "simple_form",          ">= 3.3",        "< 4.1"
   s.add_dependency "tinymce-rails",        ">= 4.1",        "<= 4.8"
   s.add_dependency "tinymce-rails-langs",  "~> 4.20160310"
   s.add_dependency "devise",               ">= 4.1",        "< 4.5"
