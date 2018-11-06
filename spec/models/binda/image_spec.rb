@@ -25,7 +25,7 @@ module Binda
       image_record.image = image_path.open
   		expect(image_record.save!).to be_truthy
   		expect(image_record.file_width).to be_within(1).of(400) # image is 400px wide
-  		expect(image_record.file_height).to be_within(1).of(226) # image is 226px high
+      expect(image_record.file_height).to be_within(1).of(226) # image is 226px high
   	end
 
   	it "stores content_type and file size" do
@@ -47,11 +47,12 @@ module Binda
         @component = create(:component)
         @image_setting = create(:image_setting, field_group_id: @component.structure.field_groups.first.id)
         @image_setting.read_only = true
+        @image_setting.save!
         image_name = 'test-image.jpg'
         image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
         image_record = @component.reload.images.first
         image_record.image = image_path.open
-        expect(image_record.save!).to be(false)
+        expect{ image_record.save! }.to raise_error ActiveRecord::RecordInvalid
       end
       describe "when there is already a image" do
         it "avoid image to be deleted" do

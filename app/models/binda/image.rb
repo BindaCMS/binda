@@ -4,6 +4,13 @@ module Binda
 
     mount_uploader :image, ImageUploader
 
+    validate :is_read_only
+
+    # Check if is read_only
+    def is_read_only
+      errors.add(:base, "This instance is read_only. You can't upload an image") if self.field_setting.read_only?   
+    end
+
     # Register image details
     # 
     # Do not delete. This method is used by a rake task
@@ -18,7 +25,7 @@ module Binda
         register_details_of(file)
       end
     end
-
+    
     # Register image details
     # 
     # This method is used by register_details in a rake task
