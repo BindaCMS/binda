@@ -120,11 +120,72 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     b.use :preview 
+
+    # ApplicationController.render(
+    #   assigns: { builder: b },
+    #   template: 'binda/fieldable/_form_item_upload_file',
+    #   layout: false
+    # )
+
     b.wrapper tag: 'div', class: 'fileupload--dashboard' do |bb|
       bb.use :label, class: 'control-label b-btn b-btn-primary', wrap_with: { tag: 'div', class: 'control-label-wrap' }
       bb.use :delete_button
       bb.use :detail
     end
+    
+    b.use :input
+  end
+
+  config.wrappers :file_read_only do |b|
+    b.optional :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.wrapper tag: :p, class: 'help-block', unless_blank: true do |bb|
+      bb.optional :hint
+    end
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :readonly
+
+    b.use :preview 
+
+    # ApplicationController.render(
+    #   assigns: { builder: b },
+    #   template: 'binda/fieldable/_form_item_upload_file',
+    #   layout: false
+    # )
+
+    b.wrapper tag: 'div', class: 'fileupload--dashboard' do |bb|
+      bb.use :delete_button
+      bb.use :detail
+    end
+    
+    b.use :input
+  end
+
+  config.wrappers :file_uploadable do |b|
+    b.optional :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.wrapper tag: :p, class: 'help-block', unless_blank: true do |bb|
+      bb.optional :hint
+    end
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :readonly
+
+    b.use :preview 
+
+    # ApplicationController.render(
+    #   assigns: { builder: b },
+    #   template: 'binda/fieldable/_form_item_upload_file',
+    #   layout: false
+    # )
+
+    b.wrapper tag: 'div', class: 'fileupload--dashboard' do |bb|
+      bb.use :label, class: 'control-label b-btn b-btn-primary', wrap_with: { tag: 'div', class: 'control-label-wrap' }
+      bb.use :delete_button
+      bb.use :detail
+    end
+    
     b.use :input
   end
 
@@ -139,7 +200,7 @@ SimpleForm.setup do |config|
       ba.use :label_input
     end
   end
-
+  
   config.wrappers :vertical_radio_and_checkboxes, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
@@ -168,7 +229,8 @@ SimpleForm.setup do |config|
   config.wrapper_mappings = {
     check_boxes: :vertical_radio_and_checkboxes,
     radio_buttons: :vertical_radio_and_checkboxes,
-    file: :fileupload,
+    file: :file_uploadable,
+    file2: :file_read_only,
     boolean: :vertical_boolean,
     datetime: :multi_select,
     date: :multi_select,

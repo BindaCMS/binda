@@ -8,38 +8,40 @@ module SimpleForm
       def preview(wrapper_options = nil)
         @preview ||= begin
           # open a div tag for the file preview
-          html = '<div class="fileupload--preview'
           
-          # add preview image if it's set
-          if options[:object].image.present?
-            html << " fileupload--preview--uploaded\" style=\"background-image: url(#{options[:object].image.url})" 
-          elsif options[:object].video.present?
-            html << " fileupload--preview--uploaded"
-          elsif options[:object].audio.present?
-            html << " fileupload--preview--uploaded fileupload--preview--hidden"
-          elsif options[:object].svg.present?
-            html << " fileupload--preview--uploaded\" style=\"background-image: url(#{options[:object].svg.url})"
-          end
+            html = '<div class="fileupload--preview'
+            
+            # add preview image if it's set
+            if options[:object].image.present?
+              html << " fileupload--preview--uploaded\" style=\"background-image: url(#{options[:object].image.url})" 
+            elsif options[:object].video.present?
+              html << " fileupload--preview--uploaded"
+            elsif options[:object].audio.present?
+              html << " fileupload--preview--uploaded fileupload--preview--hidden"
+            elsif options[:object].svg.present?
+              html << " fileupload--preview--uploaded\" style=\"background-image: url(#{options[:object].svg.url})"
+            end
+            
+            # Add no-preview text
+            html << "\"><p>#{ t('binda.no_preview')}</p>"
           
-          # Add no-preview text
-          html << "\"><p>#{ t('binda.no_preview')}</p>"
-        
-          # Add video tag
-          if options[:object].video.present?
-            html << "<video id=\"video-#{options[:object].id}\" class=\"form-item--video--video\">"
-            html << "<source src=\"#{options[:object].video.url}\" type=\"#{options[:object].video.content_type}\"></video>"
-            html << "<audio class=\"form-item--audio--audio\"><source></audio>"
-          elsif options[:object].audio.present?
-            html << "<audio id=\"audio-#{options[:object].id}\" class=\"from-item--audio--audio\">"
-            html << "<source src=\"#{options[:object].audio.url}\" type=\"#{options[:object].audio.content_type}\"></audio>"
-            html << "<video class=\"form-item--video--video\"><source></video>"
-          else
-            html << "<video class=\"form-item--video--video\"><source></video>"
-            html << "<audio class=\"form-item--audio--audio\"><source></audio>"
-          end
+            # Add video tag
+            if options[:object].video.present?
+              html << "<video id=\"video-#{options[:object].id}\" class=\"form-item--video--video\">"
+              html << "<source src=\"#{options[:object].video.url}\" type=\"#{options[:object].video.content_type}\"></video>"
+              html << "<audio class=\"form-item--audio--audio\"><source></audio>"
+            elsif options[:object].audio.present?
+              html << "<audio id=\"audio-#{options[:object].id}\" class=\"from-item--audio--audio\">"
+              html << "<source src=\"#{options[:object].audio.url}\" type=\"#{options[:object].audio.content_type}\"></audio>"
+              html << "<video class=\"form-item--video--video\"><source></video>"
+            else
+              html << "<video class=\"form-item--video--video\"><source></video>"
+              html << "<audio class=\"form-item--audio--audio\"><source></audio>"
+            end
+            
+            # Close preview container
+            html << "</div>"
           
-          # Close preview container
-          html << "</div>"
         end
       end
 
@@ -86,7 +88,7 @@ module SimpleForm
       def detail(wrapper_options = nil)
         @detail ||= begin
           obj = options[:object]
-
+          
           html = '<div class="fileupload--details'
           html << ' fileupload--details--hidden' unless obj.image.present? || obj.video.present? || obj.audio.present? || obj.svg.present?
           html << '"><p class="fileupload--name">'
@@ -118,10 +120,9 @@ module SimpleForm
           html << t('binda.fileaudiolink') if obj.class.name.demodulize == 'Audio'
           html << t('binda.filesvglink') if obj.class.name.demodulize == 'Svg'
           html << '</strong></a></p>'
-
           html << '</div>'
-        end
       end
+    end
 
       # Used when the preview is optional
       def has_detail?

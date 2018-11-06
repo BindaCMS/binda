@@ -8,21 +8,39 @@
     </p>
     <% image = ff.object.image.thumb.url if ff.object.image.present? %>
     <div class="fileupload--field">
-      <%= ff.input :image, 
-        label: "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> #{t('binda.choose_file_button')}".html_safe, 
-        hint: field_setting.description.nil? ? false : field_setting.description.html_safe, 
-        url: url_for([ff.object, action: :remove_image]).html_safe,
-        disabled: field_setting.read_only?,
-        object: ff.object,
-        wrapper: false,
-        input_html: {
-          'data-url': url_for([
-            @instance.structure, 
-            @instance, 
-            action: :upload, 
-            repeater: { id: "#{field_setting.parent_id}" }]),
-          'data-id': ff.object.id
-        } %>
+      <% if ff.object.field_setting.read_only? %>
+        <%= ff.input :image, 
+          label: "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> #{t('binda.choose_file_button')}".html_safe, 
+          hint: field_setting.description.nil? ? false : field_setting.description.html_safe, 
+          url: url_for([ff.object, action: :remove_image]).html_safe,
+          disabled: field_setting.read_only?,
+          object: ff.object,
+          wrapper: :file_read_only,
+          input_html: {
+            'data-url': url_for([
+              @instance.structure, 
+              @instance, 
+              action: :upload, 
+              repeater: { id: "#{field_setting.parent_id}" }]),
+            'data-id': ff.object.id
+          } %>
+      <% else %>
+        <%= ff.input :image, 
+          label: "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> #{t('binda.choose_file_button')}".html_safe, 
+          hint: field_setting.description.nil? ? false : field_setting.description.html_safe, 
+          url: url_for([ff.object, action: :remove_image]).html_safe,
+          disabled: field_setting.read_only?,
+          object: ff.object,
+          wrapper: :file_uploadable,
+          input_html: {
+            'data-url': url_for([
+              @instance.structure, 
+              @instance, 
+              action: :upload, 
+              repeater: { id: "#{field_setting.parent_id}" }]),
+            'data-id': ff.object.id 
+          } %>
+      <% end %>
     </div>
     <%= ff.input :image_cache, as: :hidden %>
     <%= ff.input :field_setting_id, as: :hidden, input_html: { value: field_setting.id } %>
