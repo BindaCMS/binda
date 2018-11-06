@@ -148,12 +148,6 @@ SimpleForm.setup do |config|
 
     b.use :preview 
 
-    # ApplicationController.render(
-    #   assigns: { builder: b },
-    #   template: 'binda/fieldable/_form_item_upload_file',
-    #   layout: false
-    # )
-
     b.wrapper tag: 'div', class: 'fileupload--dashboard' do |bb|
       bb.use :delete_button
       bb.use :detail
@@ -174,14 +168,8 @@ SimpleForm.setup do |config|
 
     b.use :preview 
 
-    # ApplicationController.render(
-    #   assigns: { builder: b },
-    #   template: 'binda/fieldable/_form_item_upload_file',
-    #   layout: false
-    # )
-
     b.wrapper tag: 'div', class: 'fileupload--dashboard' do |bb|
-      bb.use :label, class: 'control-label b-btn b-btn-primary', wrap_with: { tag: 'div', class: 'control-label-wrap' }
+      bb.use :label, class: 'control-label b-btn b-btn-primary', wrap_with: { tag: 'div', class: 'control-label-wrap test-label' }
       bb.use :delete_button
       bb.use :detail
     end
@@ -230,7 +218,6 @@ SimpleForm.setup do |config|
     check_boxes: :vertical_radio_and_checkboxes,
     radio_buttons: :vertical_radio_and_checkboxes,
     file: :file_uploadable,
-    file2: :file_read_only,
     boolean: :vertical_boolean,
     datetime: :multi_select,
     date: :multi_select,

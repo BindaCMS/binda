@@ -328,6 +328,17 @@ describe "GET component#edit", type: :feature, js: true do
 		repeaters_dom_ids = all("ul#form--list-#{repeater_setting.id} li").map{|item| item[:id]}
 		expect(repeaters_dom_ids.last).to eq "form--list-item-#{repeaters_ids.first}"
 		expect(repeaters_dom_ids.first).to eq "form--list-item-#{repeaters_ids[1]}"
-	end
+  end
+  
+  it "doesn't show file upload button if read only" do
+    Binda::Image::ImageUploader.enable_processing = true
+    image_setting = create(:image_setting, field_group_id: @structure.field_groups.first.id)
+    image_setting.read_only = true
+    image_setting.save
+
+    visit @path
+   
+    expect(page).not_to have_css('.test-label')
+  end
 
 end
