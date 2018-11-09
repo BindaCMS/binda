@@ -14,8 +14,9 @@ module Binda
 	  	
 	  	validates :field_setting, presence: true
 			validates :fieldable_id, presence: true
-			validates :fieldable_type, presence: true  	
+			validates :fieldable_type, presence: true
+			include ActiveModel::Validations
 		end
-
 	end
 end
+

@@ -134,6 +134,7 @@ module Binda
 
   	include Fields
   	include FieldUniqueness
+    include FieldReadonly
 
 		has_and_belongs_to_many :choices
 		validate :has_choices

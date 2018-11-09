@@ -29,7 +29,7 @@ module Binda
 						).first
 					}.not_to raise_error
 				end
-				it "generates a field #{field_class.downcase.underscore} for each component to which is associated" do
+				it "generates a field #{field_class.downcase.underscore} for each board to which is associated" do
 					field_setting = create(
 						:field_setting,
 						field_type: field_class.underscore,
@@ -261,6 +261,47 @@ module Binda
 			second_field_setting = create(:string_setting, field_group_id: first_field_setting.field_group.id)
 			expect(second_field_setting.reload.position).to eq 1
 			expect(first_field_setting.reload.position).to eq 2
+		end
+
+		FieldSetting.get_field_classes.each do |field_class|
+			it "#{field_class} isn't read only by default" do
+				first_field_setting = create(:field_setting,
+																		 field_type: field_class.underscore)
+				expect(first_field_setting.read_only?).to be(false)
+			end
+
+			it "#{field_class} can be read only" do
+				first_field_setting = create(:field_setting,
+																		 field_type: field_class.underscore)
+				first_field_setting.read_only = true
+				expect(first_field_setting.save).to be true
+			end
+
+			it "#{field_class} hasn't a preview by default" do
+				first_field_setting = create(:field_setting,
+																		 field_type: field_class.underscore)
+				expect(first_field_setting.has_preview?).to be(false)
+			end
+
+			it "#{field_class} can have a preview" do
+				first_field_setting = create(:field_setting,
+																		 field_type: field_class.underscore)
+				first_field_setting.has_preview = true
+				expect(first_field_setting.save).to be true
+			end
+
+			it "#{field_class} isn't required by default" do
+				first_field_setting = create(:field_setting,
+																		 field_type: field_class.underscore)
+				expect(first_field_setting.required?).to be(false)
+			end
+
+			it "#{field_class} can be required" do
+				first_field_setting = create(:field_setting,
+																		 field_type: field_class.underscore)
+				first_field_setting.required = true
+				expect(first_field_setting.save).to be true
+			end
 		end
 	end
 end

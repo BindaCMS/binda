@@ -18,7 +18,7 @@ module Binda
         register_details_of(file)
       end
     end
-
+    
     # Register image details
     # 
     # This method is used by register_details in a rake task

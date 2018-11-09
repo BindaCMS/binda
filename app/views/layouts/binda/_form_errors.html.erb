@@ -5,6 +5,16 @@
       <% f.object.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
+      <% f.object.errors.details.keys.each do |key|
+          f.object.errors.details[key].each do |obj|
+            obj[:value].each do |obj2| %>
+              <% obj2.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end 
+            end
+          end
+        end 
+      %>
     </ul>
   </div>
 <% end %>

@@ -46,5 +46,29 @@ module Binda
 			expect{ new_text.save! }.to raise_error ActiveRecord::RecordInvalid
 		end
 
+    describe "when is read only" do
+      it "avoid text to be deleted" do
+        @component = create(:component)
+  			@text_field_setting = @structure.field_groups.first.field_settings.create(name: 'Testing string 2', field_type: 'text')
+  			new_text = @component.texts.build({ field_setting_id: @text_field_setting.id })
+        expect(new_text.save!).to be_truthy
+        @text_field_setting.read_only = true
+        @text_field_setting.save!
+        new_text = @component.reload.texts.first
+        expect{ new_text.save! }.to raise_error ActiveRecord::RecordInvalid
+      end
+      
+      it "blocks any update" do
+        @component = create(:component)
+        @text_field_setting = @structure.field_groups.first.field_settings.create(name: 'Testing string 2', field_type: 'text')
+        new_text = @component.texts.build({ field_setting_id: @text_field_setting.id })
+        expect(new_text.save!).to be_truthy
+        @text_field_setting.read_only = true
+        @text_field_setting.save!
+        new_text = @component.reload.texts.first
+        new_text.update_attributes(content: "updating")
+        expect{ new_text.save! }.to raise_error ActiveRecord::RecordInvalid
+      end
+    end
 	end
 end

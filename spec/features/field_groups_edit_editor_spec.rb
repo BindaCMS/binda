@@ -138,6 +138,69 @@ describe "In field group editor, user", type: :feature, js: true do
 
 	it "allows to sort field settings" do
 		skip "not implemented yet"
-	end
+  end
+
+  it "allows to mark a field setting as read only" do
+    field_group = @structure.field_groups.first
+		field_setting = field_group.field_settings.create!(name: 'read-only-test', field_type: 'string')
+    path_to_field_group = binda.edit_structure_field_group_path( structure_id: @structure.slug, id: field_group.slug )
+    visit path_to_field_group
+
+		within "#form--list-item-#{field_setting.id}" do
+			find('.form-item--collapse-btn').click
+			# Make sure the form item appeared
+			sleep 1
+		end
+
+    find("#read-only").click
+    # Make sure the form item appeared
+    sleep 1
+		click_button "save"
+
+		# look for anything, just to make sure the page isn't throwing a error
+		expect(page).to have_field("field_group_name", with: field_group.name)
+  end
+
+  it "allows to mark a field setting as has_preview" do
+		field_group = @structure.field_groups.first
+		field_setting = field_group.field_settings.create!(name: 'has-preview-test', field_type: 'string')
+		path_to_field_group = binda.edit_structure_field_group_path( structure_id: @structure.slug, id: field_group.slug )
+		visit path_to_field_group
+
+		within "#form--list-item-#{field_setting.id}" do
+			find('.form-item--collapse-btn').click
+			# Make sure the form item appeared
+			sleep 1
+		end
+
+		find("#has-preview").click
+		# Make sure the form item appeared
+		sleep 1
+		click_button "save"
+
+		# look for anything, just to make sure the page isn't throwing a error
+		expect(page).to have_field("field_group_name", with: field_group.name)
+  end
+
+  it "allows to mark a field setting as required" do
+		field_group = @structure.field_groups.first
+		field_setting = field_group.field_settings.create!(name: 'is-required-test', field_type: 'string')
+		path_to_field_group = binda.edit_structure_field_group_path( structure_id: @structure.slug, id: field_group.slug )
+		visit path_to_field_group
+
+		within "#form--list-item-#{field_setting.id}" do
+			find('.form-item--collapse-btn').click
+			# Make sure the form item appeared
+			sleep 1
+		end
+
+		find("#is-required").click
+		# Make sure the form item appeared
+		sleep 1
+		click_button "save"
+
+		# look for anything, just to make sure the page isn't throwing a error
+		expect(page).to have_field("field_group_name", with: field_group.name)
+  end
 
 end

@@ -127,9 +127,9 @@ module Binda
 	    	end
     	# If this is a repeater
     	else
-    		self.field_setting.children.each do |field_setting|
+        self.field_setting.children.each do |field_setting|
 	    		"Binda::#{field_setting.field_type.classify}".constantize.find_or_create_by!(
-	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
+          fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
     		end
 	    end
     end
