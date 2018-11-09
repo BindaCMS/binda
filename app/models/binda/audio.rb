@@ -3,6 +3,5 @@ module Binda
 	class Audio < Asset
 
     mount_uploader :audio, AudioUploader
-    include FieldReadonly
-	end
+  end
 end

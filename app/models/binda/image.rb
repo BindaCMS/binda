@@ -4,8 +4,6 @@ module Binda
 
     mount_uploader :image, ImageUploader
 
-    include FieldReadonly
-
     # Register image details
     # 
     # Do not delete. This method is used by a rake task

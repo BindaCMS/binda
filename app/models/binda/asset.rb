@@ -4,6 +4,6 @@ module Binda
   class Asset < ApplicationRecord
 
   	include Fields
-
+    include FieldReadonly
   end
 end

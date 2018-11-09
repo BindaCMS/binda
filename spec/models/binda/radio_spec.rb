@@ -38,12 +38,13 @@ module Binda
 		end
 
 		it "shouldn't let you select choice if read only" do
-			radio = @component.radios.first
-			radio.choices.clear
-			@radio_setting.read_only = true
-
-			radio.choices << @radio_setting.choices.first
-			expect( radio.choices.first.id ).to be( nil )
+      radio = @component.radios.first
+      first_choice = radio.choices.first
+      radio.choices.clear
+      @radio_setting.read_only = true
+      @radio_setting.save!
+      radio.choices << @radio_setting.choices.second
+      expect{ radio.save! }.to raise_error ActiveRecord::RecordInvalid
 		end
 
 	end
