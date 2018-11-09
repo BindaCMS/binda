@@ -1,22 +1,3 @@
-require 'pry'
-
-class ReadOnlyValidator < ActiveModel::Validator
-	def validate(record)
-=begin
-	binding.pry
-=end
-=begin
-	get field setting of current record
-	return false if field setting has been set to read only
-	else true
-=end
-
-=begin
-		!record.read_only?
-=end
-	end
-end
-
 module Binda
 	# Fieldable associated are Binda's core fields. 
 	# 
@@ -35,10 +16,7 @@ module Binda
 			validates :fieldable_id, presence: true
 			validates :fieldable_type, presence: true
 			include ActiveModel::Validations
-			validates_with ReadOnlyValidator
 		end
 	end
 end
-
-
 
