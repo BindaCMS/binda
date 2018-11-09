@@ -6,9 +6,10 @@ module Binda
 	#   this field is represented by a WYSIWYG. But this is just a admin panel convention: the class can infact store 
 	#   a simple string of text as well.
   class Text < ApplicationRecord
-
+  
   	include Fields
   	include FieldUniqueness
-  	
+    include FieldReadonly
+     
   end
 end
