@@ -8,6 +8,8 @@
     </p>
     <% image = ff.object.image.thumb.url if ff.object.image.present? %>
     <div class="fileupload--field">
+      <% # TODO test! %>
+      <% check_field_errors(ff.object, :image) unless @fields_errors.nil? %>
       <% if ff.object.field_setting.read_only? %>
         <%= ff.input :image, 
           label: "<i class=\"fa fa-upload\" aria-hidden=\"true\"></i> #{t('binda.choose_file_button')}".html_safe, 

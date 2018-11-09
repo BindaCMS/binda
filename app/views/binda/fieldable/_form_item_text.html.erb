@@ -1,7 +1,8 @@
 <div id="standard-form--text-<%= field_setting.id %>" class="standard-form--text form-item">
-
-	<%= ff.input :content, 
-				input_html: { value: ff.object.content, class: ( field_setting.read_only? ? '' : 'tinymce' )  }, 
+  <% # TODO test! %>
+  <% check_field_errors(ff.object, :content) unless @fields_errors.nil? %>
+	<%= ff.input :content,
+				input_html: { value: ff.object.content, class: ( field_setting.read_only? ? '' : 'tinymce' )  },
 				as: :text,
         disabled: field_setting.read_only?,
 				hint: field_setting.description.nil? ? false : field_setting.description.html_safe,

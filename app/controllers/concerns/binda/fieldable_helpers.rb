@@ -1,6 +1,6 @@
 module Binda
   module FieldableHelpers
-    
+
     extend ActiveSupport::Concern
 
     # Only allow a trusted parameter "white list" through.
@@ -173,5 +173,28 @@ module Binda
     def bytes_to_megabytes bytes
       (bytes.to_f / 1.megabyte).round(2)
     end
+
+    # When a field belonging to a component has a error, this method
+    #   will store the class name and id. Useful to check the status of
+    #   a field on the front end application.
+    #
+    # @return {array} Array of objects containing class name and id of the fields with errors
+    def get_errors(instance)
+      fields_errors = {}
+      instance.errors.details.keys.each do |key|
+        instance.errors.details[key].each do |obj|
+          obj[:value].each do |obj2|
+            newKey = "#{obj2.class.name.parameterize}--#{obj2.id.to_s}" # eg: binda-image--33
+            fields_errors[newKey] = {
+              class: obj2.class.name,
+              id: obj2.id,
+              message: obj2.errors.full_messages.join('. ')
+            }
+          end
+        end
+      end
+      fields_errors
+    end
+
   end
 end
