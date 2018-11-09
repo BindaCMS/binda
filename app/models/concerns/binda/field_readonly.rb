@@ -27,6 +27,5 @@ module Binda
         end
       end
     end
-
   end
 end

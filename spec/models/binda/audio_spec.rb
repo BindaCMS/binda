@@ -51,7 +51,9 @@ module Binda
           expect(audio_record.save!).to be_truthy
           @audio_setting.read_only = true
           @audio_setting.save!
-          expect{ audio_record.audio.remove! }.to raise_error ActiveRecord::RecordInvalid
+          audio_record = @component.reload.audios.first
+          audio_record.remove_audio!
+          expect{ audio_record.save! }.to raise_error ActiveRecord::RecordInvalid
         end
         it "blocks any update" do
           @component = create(:component)
@@ -63,7 +65,7 @@ module Binda
           expect(audio_record.save!).to be_truthy
           @audio_setting.read_only = true
           @audio_setting.save!
-          audio_name = 'test-audio.mp3'
+          audio_name = 'test-audio2.mp3'
           audio_path = ::Binda::Engine.root.join('spec', 'support', audio_name)
           audio_record = @component.reload.audios.first
           audio_record.audio = audio_path.open
