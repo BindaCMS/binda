@@ -59,6 +59,6 @@ module Binda
 				expect(second_repeater.reload.position).to eq 1
 				expect(first_repeater.reload.position).to eq 2
 			end			
-		end
-  end
+    end
+  
 end
