@@ -18,6 +18,7 @@ module Binda
       if @board.update(board_params)
         redirect_to structure_board_path(@structure.slug, @board.slug), notice: 'Setting was successfully updated.'
       else
+        @fields_errors = get_errors(@board)
         render :edit, flash: { alert: @board.errors }
       end
     end
@@ -86,5 +87,6 @@ module Binda
           Repeater.find(id).update_column('position', i+1)
         end
       end
+
   end
 end
