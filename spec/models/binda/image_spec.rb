@@ -64,7 +64,11 @@ module Binda
           image_record.image = image_path.open
           expect(image_record.save!).to be_truthy
           @image_setting.read_only = true
-          expect(image_record.image.remove!).to be(false)
+          @image_setting.save!
+          image_record = @component.reload.images.first
+          image_record.image = image_path.open
+          image_record.remove_image!
+          expect{ image_record.save! }.to raise_error ActiveRecord::RecordInvalid 
         end
         it "blocks any update" do
           @component = create(:component)
@@ -75,11 +79,12 @@ module Binda
           image_record.image = image_path.open
           expect(image_record.save!).to be_truthy
           @image_setting.read_only = true
-          image_name = 'test-image.jpg'
+          @image_setting.save!
+          image_name = 'test-image2.jpg'
           image_path = ::Binda::Engine.root.join('spec', 'support', image_name)
           image_record = @component.reload.images.first
           image_record.image = image_path.open
-          expect(image_record.save!).to be(false)
+          expect{ image_record.save! }.to raise_error ActiveRecord::RecordInvalid
         end
       end
     end
