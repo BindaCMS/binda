@@ -3,7 +3,6 @@
   <%= @structure.name.humanize.split.map(&:capitalize).join(' ') %> 
 <% end %>
 
-
 <% content_for :header do %>
   <div class="main-header--buttons">
   	<% if @structure.has_preview %>

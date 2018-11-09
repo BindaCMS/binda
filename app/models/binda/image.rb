@@ -5,15 +5,6 @@ module Binda
     mount_uploader :image, ImageUploader
 
     include FieldReadonly
-    validate :is_read_only
-
-    # Check if is read_only
-    # def is_read_only
-		# 	errors.add(:base, I18n.t("binda.readonly_validation", { 
-		# 		arg1: self.field_setting.field_type, 
-    #     arg2: self.field_setting.name      
-		# 	})) if self.field_setting.read_only?
-    # end
 
     # Register image details
     # 
