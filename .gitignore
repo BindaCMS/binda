@@ -21,3 +21,4 @@ coverage
 cc-test-reporter
 .idea
 .temp
+.ruby-version
