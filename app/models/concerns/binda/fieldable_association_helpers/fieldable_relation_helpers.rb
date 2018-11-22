@@ -58,7 +58,7 @@ module Binda
 			# @param field_slug [string] The slug of the field setting
 			# @return [array] An array of boards
 			def get_related_boards(field_slug)
-				obj = self.relations.find{ |t| t.field_setting_idid == FieldSetting.get_id( field_slug ) }
+				obj = self.relations.find{ |t| t.field_setting_id == FieldSetting.get_id( field_slug ) }
 				raise ArgumentError, "There isn't any related field associated to the current slug (#{field_slug}) on instance (#{self.class.name} ##{self.id}).", caller if obj.nil?
 				return obj.dependent_relations.map{|relation| relation.dependent}
 			end
