@@ -595,17 +595,26 @@ To change appereance and behaviour of the page add your styles to `app/assets/st
 ---
 
 # Field settings and field groups
-
+    
 ## Orphans
 
-Sometime playing with Rails console you might end up creating orphans, which basically are components without a field setting parent. They might cause errors in some queries and they hard to track down.
+Sometime playing with Rails console you might end up creating orphans, which basically are children of a parent that doesn't exist anymore. They might cause errors in some queries and they are hard to track down.
 
-To avoid the problem run the following command from your shell:
-
+To make sure you haven't any orphan run the following commands from your shell:
+ 
 ```bash
 rails binda:remove_orphan_fields
+rails binda:remove_orphan_components
+rails binda:remote_orphan_boards
 ```
 
+## Missing Field instances
+
+It might happen that a board or component doesn't have a field even though a field setting exists. This might be caused by an improper use of the rails console. If you're paranoid about it run the following command:
+
+```bash
+rails binda:create_missing_field_instances
+```
 ---
 
 
