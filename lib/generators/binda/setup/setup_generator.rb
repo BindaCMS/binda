@@ -90,7 +90,7 @@ module Binda
     def feedback
       puts "==============================================================================="
       puts
-      puts "                 Binda CMS has been succesfully installed! "
+      puts "                 Binda CMS has been successfully installed! "
       puts
       puts "==============================================================================="
       puts
