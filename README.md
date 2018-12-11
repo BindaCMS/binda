@@ -1024,7 +1024,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 Find the GNU General Public License here <http://www.gnu.org/licenses/>.
 
-### Open Source Patrons
+### Open Source Tools
 
 Binda is supported by those amazing services which are giving invaluable help in making Binda a better tool:
 
