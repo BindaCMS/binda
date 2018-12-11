@@ -1026,23 +1026,14 @@ Find the GNU General Public License here <http://www.gnu.org/licenses/>.
 
 ### Open Source Patrons
 
-Binda is supported by those amazing services which are givinig invaluable help in making Binda a better tool:
+Binda is supported by those amazing services which are giving invaluable help in making Binda a better tool:
 
-<img src="https://www.dropbox.com/s/0n9042d6c5jjiw5/jetbrains.png?raw=1" width="90">
-
-[Jet Brains](https://www.jetbrains.com) 
-
-<img src="https://www.dropbox.com/s/cj4vehhl2dpfzhw/browserstack-logo-600x315.png?raw=1" width="200">
-
-[Browserstack](https://www.browserstack.com/)
-
-<img src="https://www.dropbox.com/s/fxd1vich31sbhp6/code-climate-logo-png-transparent.png?raw=1" width="180">
-
-[Code Climate](http://codeclimate.com/)
-
-<img src="https://www.dropbox.com/s/89xzo1tutve9lva/TravisCI-Full-Color.png?raw=1" width="160">
-
-[Travis CI](http://travis-ci.org)
+|||
+|---|---|
+|<img src="https://www.dropbox.com/s/0n9042d6c5jjiw5/jetbrains.png?raw=1" width="90"> | [Jet Brains](https://www.jetbrains.com) is the main tool for developing Binda code.|
+|<img src="https://www.dropbox.com/s/cj4vehhl2dpfzhw/browserstack-logo-600x315.png?raw=1" width="200">|[Browserstack](https://www.browserstack.com/) is the best way to make sure Binda interface is consistent on every browser and device.|
+|<img src="https://www.dropbox.com/s/fxd1vich31sbhp6/code-climate-logo-png-transparent.png?raw=1" width="180">|[Code Climate](http://codeclimate.com/) is an amazing tool to ensure code quality are at the highest standard.| 
+|<img src="https://www.dropbox.com/s/89xzo1tutve9lva/TravisCI-Full-Color.png?raw=1" width="160">|[Travis CI](http://travis-ci.org) takes care of testing every pull request which is an invaluable help.|
 
 ### Credits
 Binda is inspired by [Spina CMS](https://github.com/SpinaCMS/Spina).
