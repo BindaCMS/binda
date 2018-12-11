@@ -1024,6 +1024,26 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 Find the GNU General Public License here <http://www.gnu.org/licenses/>.
 
+### Open Source Patrons
+
+Binda is supported by those amazing services which are givinig invaluable help in making Binda a better tool:
+
+<img src="https://www.dropbox.com/s/0n9042d6c5jjiw5/jetbrains.png?raw=1" width="90">
+
+[Jet Brains](https://www.jetbrains.com) 
+
+<img src="https://www.dropbox.com/s/cj4vehhl2dpfzhw/browserstack-logo-600x315.png?raw=1" width="200">
+
+[Browserstack](https://www.browserstack.com/)
+
+<img src="https://www.dropbox.com/s/fxd1vich31sbhp6/code-climate-logo-png-transparent.png?raw=1" width="180">
+
+[Code Climate](http://codeclimate.com/)
+
+<img src="https://www.dropbox.com/s/89xzo1tutve9lva/TravisCI-Full-Color.png?raw=1" width="160">
+
+[Travis CI](http://travis-ci.org)
+
 ### Credits
 Binda is inspired by [Spina CMS](https://github.com/SpinaCMS/Spina).
 
