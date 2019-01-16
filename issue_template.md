@@ -1,6 +1,6 @@
-### Expected behavior
+### Issue
 
-### Actual behavior
+### Expected behavior
 
 ### How to reproduce the issue
 

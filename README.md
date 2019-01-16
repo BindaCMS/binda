@@ -2,8 +2,8 @@
 A modular CMS for Ruby on Rails 5.1.
 
 [![Gem Version](https://badge.fury.io/rb/binda.svg)](https://badge.fury.io/rb/binda)
-[![Code Climate](https://codeclimate.com/github/lacolonia/binda/badges/gpa.svg)](https://codeclimate.com/github/lacolonia/binda)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/5dc62774a6b8b63aa72b/test_coverage)](https://codeclimate.com/github/lacolonia/binda/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8eef73404f871e431560/maintainability)](https://codeclimate.com/github/BindaCMS/binda/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8eef73404f871e431560/test_coverage)](https://codeclimate.com/github/BindaCMS/binda/test_coverage)
 [![Inline docs](http://inch-ci.org/github/lacolonia/binda.svg?branch=master)](http://inch-ci.org/github/lacolonia/binda)
 
 > This documentation has been written for the [Official Documentation](http://www.rubydoc.info/gems/binda), not the Github README. 
@@ -595,17 +595,26 @@ To change appereance and behaviour of the page add your styles to `app/assets/st
 ---
 
 # Field settings and field groups
-
+    
 ## Orphans
 
-Sometime playing with Rails console you might end up creating orphans, which basically are components without a field setting parent. They might cause errors in some queries and they hard to track down.
+Sometime playing with Rails console you might end up creating orphans, which basically are children of a parent that doesn't exist anymore. They might cause errors in some queries and they are hard to track down.
 
-To avoid the problem run the following command from your shell:
-
+To make sure you haven't any orphan run the following commands from your shell:
+ 
 ```bash
 rails binda:remove_orphan_fields
+rails binda:remove_orphan_components
+rails binda:remote_orphan_boards
 ```
 
+## Missing Field instances
+
+It might happen that a board or component doesn't have a field even though a field setting exists. This might be caused by an improper use of the rails console. If you're paranoid about it run the following command:
+
+```bash
+rails binda:create_missing_field_instances
+```
 ---
 
 
@@ -968,7 +977,7 @@ $ curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.1.4-da
 $ chmod +x ./cc-test-reporter
 $ ./cc-test-reporter before-build
 $ rspec
-$ ./cc-test-reporter after-build -r a8789f8ca71f52cc879c1fa313d94547c9a0ddbd207977fe997f686a71e0c400
+$ ./cc-test-reporter after-build -r 7bffb1da50f35979ea3ef4fc205aa03c6b3c10fa603d5b66f19f81ab06d2ab97
 ```
 
 `cc-test-reporter` is ignored by the repo, so it want be pushed.
@@ -1014,6 +1023,17 @@ This program is free software: you can redistribute it and/or modify it under th
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 Find the GNU General Public License here <http://www.gnu.org/licenses/>.
+
+### Open Source Tools
+
+Binda is supported by those amazing services which are giving invaluable help in making Binda a better tool:
+
+|||
+|---|---|
+|<img src="https://www.dropbox.com/s/0n9042d6c5jjiw5/jetbrains.png?raw=1" width="90"> | [Jet Brains](https://www.jetbrains.com) is the main tool for developing Binda code.|
+|<img src="https://www.dropbox.com/s/cj4vehhl2dpfzhw/browserstack-logo-600x315.png?raw=1" width="200">|[Browserstack](https://www.browserstack.com/) is the best way to make sure Binda interface is consistent on every browser and device.|
+|<img src="https://www.dropbox.com/s/fxd1vich31sbhp6/code-climate-logo-png-transparent.png?raw=1" width="180">|[Code Climate](http://codeclimate.com/) is an amazing tool to ensure code quality are at the highest standard.| 
+|<img src="https://www.dropbox.com/s/89xzo1tutve9lva/TravisCI-Full-Color.png?raw=1" width="160">|[Travis CI](http://travis-ci.org) takes care of testing every pull request which is an invaluable help.|
 
 ### Credits
 Binda is inspired by [Spina CMS](https://github.com/SpinaCMS/Spina).

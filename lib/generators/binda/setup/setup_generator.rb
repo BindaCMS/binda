@@ -2,18 +2,18 @@ require 'securerandom'
 
 module Binda
   # Setup initial settings for the application.
-  # 
-  # This is setup is mandatory as sets the initial super admin user and 
+  #
+  # This setup is mandatory as sets the initial super admin user and
   #   the default dashboard where are stored the main application settings.
   #   It is useful also when Binda has been already installed once but the
-  #   database has been reset. Runnin `rails g binda:setup` will populate 
+  #   database has been reset. Runnin `rails g binda:setup` will populate
   #   the application database with new default settings.
   class SetupGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
     def setup_settings
       puts "Implement Binda settings"
-      puts 
+      puts
 
       if Structure.find_by(slug: 'dashboard').nil?
         dashboard_structure = Structure.create!(name: 'dashboard', slug: 'dashboard', instance_type: 'board')
@@ -29,7 +29,7 @@ module Binda
     def create_credentials
       puts "1) Create a superadmin user"
       User.create_super_admin_user
-      puts 
+      puts
     end
 
     def setup_maintenance_mode
@@ -49,10 +49,10 @@ module Binda
         unwanted.each{|choice| choice.destroy} if unwanted.any?
       end
       puts "The maintenance-mode option has been set up."
-      puts 
+      puts
     end
 
-    def setup_website_name 
+    def setup_website_name
       puts "3) Setting up website name"
       puts "Don't worry you can modify it later."
 
@@ -66,7 +66,7 @@ module Binda
       website_name = STDIN.gets
       website_name = 'MySite' if website_name.blank?
       @dashboard.strings.find_or_create_by( field_setting_id: name_field_setting.id ).update_attribute('content', website_name )
-      puts 
+      puts
     end
 
     def setup_website_content
@@ -79,18 +79,18 @@ module Binda
         # make sure slug works
         description_field_setting.update_attribute( 'slug', 'website-description' )
       end
-    
+
       STDOUT.puts "What is your website about? ['A website about the world']"
       website_description = STDIN.gets
       website_description = 'A website about the world' if website_description.blank?
       @dashboard.texts.find_or_create_by!( field_setting_id: description_field_setting.id ).update_attribute( 'content', website_description )
-      puts 
+      puts
     end
 
     def feedback
       puts "==============================================================================="
       puts
-      puts "                 Binda CMS has been succesfully installed! "
+      puts "                 Binda CMS has been successfully installed! "
       puts
       puts "==============================================================================="
       puts
