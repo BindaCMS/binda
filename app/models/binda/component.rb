@@ -41,7 +41,7 @@ module Binda
 
 		# Friendly id preference on slug generation
 		#
-		# Method inherited from friendly id 
+		# Method inherited from friendly id
 		# @see https://github.com/norman/friendly_id/issues/436
 		def should_generate_new_friendly_id?
 			slug.blank?
@@ -72,12 +72,12 @@ module Binda
 				end
 		end
 
-		private 
+		private
 
 			def set_default_position
 				Component
 					.where(structure_id: self.structure_id)
-					.each{|component| component.increment(:position).save!}
+					.update_all('position = position + 1')
 			end
 
 	end
