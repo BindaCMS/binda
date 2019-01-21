@@ -14,7 +14,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :slug
       t.index            :slug, unique: true
       t.string           :publish_state
-      t.integer          :position
+      t.integer          :position, default: 0
       t.belongs_to       :structure
       t.timestamps
     end
@@ -121,7 +121,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.belongs_to :selection, index: true
       t.timestamps
     end
-    
+
     create_table :binda_selections do |t|
       t.belongs_to       :field_setting
       t.references       :fieldable, polymorphic: true, index: true
