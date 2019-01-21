@@ -101,9 +101,9 @@ If you need absolute URLs for your images remember to set up your asset host in 
 
 ```ruby
 Rails.application.configure do
-  ...
+  #...
   config.action_controller.asset_host = 'http://your.host.com'
-  ...
+  #...
 end
 ```
 
@@ -820,7 +820,7 @@ Let's say you have a component which depends on another components and you want 
 @component_B = @structure.components.detect{|c| c.slug == 'component_B'}
 ```
 
-```ruby
+```erb
 # view
 <%= simple_form_for @structure, html: { class: 'some-form-class' } do |f| %>
   <%= f.simple_fields_for :components, @component_A do |A| %>
@@ -918,14 +918,14 @@ cd spec/dummy
 rm -rf db/migrate
 rails db:drop
 rails db:create
-RAILS_ENV=test rails db:migrate
+rails db:test:prepare
 cd ../.. 
 ```
 
 Here the oneliner: 
 
 ```bash
-cd spec/dummy && rm -rf db/migrate && rails db:drop && rails db:create && RAILS_ENV=test rails db:migrate && cd ../.. 
+cd spec/dummy && rm -rf db/migrate && rails db:drop && rails db:create && rails db:test:prepare && cd ../.. 
 ```
 
 If Binda migration have been updated then your `schema.rb` is outdated and will generate false failing tests. In this case you need to run following command to refresh your database configuration:
@@ -936,6 +936,7 @@ rm -r db/schema.rb
 rails db:drop
 rails db:create
 rails generate binda:install
+rails db:test:prepare
 rm -rf db/migrate
 rm -rf config/initializers/devise_backup_*.rb
 cd ../..
@@ -944,7 +945,7 @@ cd ../..
 Here the oneliner:
 
 ```bash
-cd spec/dummy && rm -r db/schema.rb && rails db:drop && rails db:create && rails generate binda:install && rm -rf db/migrate && rm -rf config/initializers/devise_backup_*.rb && cd ../..
+cd spec/dummy && rm -r db/schema.rb && rails db:drop && rails db:create && rails generate binda:install && rails db:test:prepare && rm -rf db/migrate && rm -rf config/initializers/devise_backup_*.rb && cd ../..
 ```
 
 If in the future you need to clean your dummy app code, simply run:
