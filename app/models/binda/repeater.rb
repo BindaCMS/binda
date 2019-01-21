@@ -23,7 +23,7 @@ module Binda
                 fieldable_id: self.fieldable_id,
                 fieldable_type: self.fieldable_type
             )
-            .each{|repeater| repeater.increment(:position).save!}
+            .update_all('position = position + 1')
     end
 
 

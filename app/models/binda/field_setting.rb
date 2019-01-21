@@ -369,7 +369,7 @@ module Binda
 					field_group_id: self.field_group_id,
 					ancestry: self.ancestry
 				)
-				.each{|field_setting| field_setting.increment(:position).save!}
+        .update_all('position = position + 1')
 		end
 
 	end

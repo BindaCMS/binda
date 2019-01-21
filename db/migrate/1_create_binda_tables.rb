@@ -5,7 +5,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     	t.string           :name, null: false
     	t.string           :slug
   		t.index            :slug, unique: true
-    	t.integer          :position
+    	t.integer          :position, default: 0, index: true
       t.belongs_to       :structure
     end
 
@@ -14,7 +14,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :slug
       t.index            :slug, unique: true
       t.string           :publish_state
-      t.integer          :position, default: 0
+      t.integer          :position, default: 0, index: true
       t.belongs_to       :structure
       t.timestamps
     end
@@ -22,7 +22,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     create_table :binda_structures do |t|
       t.string           :name, null: false
       t.string           :slug
-      t.integer          :position
+      t.integer          :position, default: 0, index: true
       t.boolean          :has_categories, default: true
       t.boolean          :has_preview, default: false
       t.index            :slug, unique: true
@@ -35,7 +35,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :slug
       t.index            :slug, unique: true
       t.text             :description
-      t.integer          :position
+      t.integer          :position, default: 0, index: true
       t.string           :layout
       t.belongs_to       :structure
       t.timestamps
@@ -46,7 +46,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :slug
       t.index            :slug, unique: true
       t.text             :description
-      t.integer          :position
+      t.integer          :position, default: 0, index: true
       t.boolean          :required, default: false
       t.boolean          :read_only, default: false
       t.text             :default_text
@@ -65,7 +65,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     end
 
     create_table :binda_repeaters do |t|
-      t.integer          :position
+      t.integer          :position, default: 0, index: true
       t.belongs_to       :field_setting
       t.references       :fieldable, polymorphic: true, index: true
       t.timestamps
@@ -73,7 +73,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
 
     create_table :binda_texts do |t|
       t.text             :content
-      t.integer          :position
+      t.integer          :position, default: 0, index: true
       t.belongs_to       :field_setting
       t.references       :fieldable, polymorphic: true, index: true
       t.string           :type
@@ -81,7 +81,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
     end
 
      create_table :binda_galleries do |t|
-      t.integer          :position
+      t.integer          :position, default: 0, index: true
       t.belongs_to       :field_setting
       t.references       :fieldable, polymorphic: true, index: true
       t.timestamps
@@ -134,7 +134,7 @@ class CreateBindaTables < ActiveRecord::Migration[5.0]
       t.string           :slug
       t.index            :slug, unique: true
       t.belongs_to       :structure
-      t.integer          :position
+      t.integer          :position, default: 0, index: true
       t.text             :description
       t.timestamps
     end
