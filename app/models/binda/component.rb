@@ -54,12 +54,7 @@ module Binda
 
     # Create field instances for the current component
     def create_field_instances
-    	instance_field_settings = FieldSetting
-    		.includes(field_group: [ :structure ])
-    		.where(binda_structures: { id: self.structure.id })
-    	instance_field_settings.each do |field_setting|
-    		field_setting.create_field_instance_for(self)
-    	end
+      CreateFieldInstancesJob.perform_later self
 		end
 
 		def self.remove_orphans
