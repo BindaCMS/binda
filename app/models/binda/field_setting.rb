@@ -256,13 +256,7 @@ module Binda
 		#   
 		# TODO this MUST be optimized
 		def create_field_instances
-			FieldSetting.remove_orphan_fields
-			# Get the structure
-			structure = self.structures.includes(:board, components: [:repeaters]).first
-			structure.components.each do |component|
-				create_field_instance_for(component)
-			end
-			create_field_instance_for(structure.board) if structure.board.present?
+      CreateFieldInstancesJob.perform_later self
 		end
 
 		def create_field_instance_for(instance)
