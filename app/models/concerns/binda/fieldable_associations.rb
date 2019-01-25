@@ -118,20 +118,7 @@ module Binda
     # TODO check if find_or_create_a_field_by method should be used instead (it's used in editors views)
     # 
     def generate_fields
-  		# If this is a component or a board
-    	if self.respond_to?('structure')
-	    	field_settings = FieldSetting.where(field_group_id: FieldGroup.where(structure_id: self.structure.id))
-	    	field_settings.each do |field_setting|
-	    		"Binda::#{field_setting.field_type.classify}".constantize.find_or_create_by!(
-	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
-	    	end
-    	# If this is a repeater
-    	else
-    		self.field_setting.children.each do |field_setting|
-	    		"Binda::#{field_setting.field_type.classify}".constantize.find_or_create_by!(
-	    			fieldable_id: self.id, fieldable_type: self.class.name, field_setting_id: field_setting.id )
-    		end
-	    end
+      GenerateFieldsJob.perform_later self
     end
 
 		# TODO: Update all helpers replacing `find` method with ruby `select`. 
