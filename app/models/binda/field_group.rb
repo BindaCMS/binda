@@ -63,7 +63,7 @@ module Binda
 			def set_default_position
 				FieldGroup
 					.where(structure_id: self.structure_id)
-					.each{|field_group| field_group.increment(:position).save!}
+          .update_all('position = position + 1')
 			end
 
 	end
