@@ -19,7 +19,7 @@ module Binda
           exit
         end
       end
-      
+
       def run_migrations
         puts ""
         puts "==============================================================================="
@@ -58,9 +58,9 @@ module Binda
 
 
       # Setup Devise initializer
-      # 
+      #
       # It append the snippet below to `config/initializers/devise.rb` of your application:
-      # 
+      #
       # ```ruby
       #  # PLEASE UPDATE THIS WITH THE FINAL URL OF YOUR DOMAIN
       #  # for setup see https://rubyonrailshelp.wordpress.com/2014/01/02/setting-up-mailer-using-devise-for-forgot-password/
@@ -80,7 +80,7 @@ module Binda
       #  }
       #  ```
       def setup_devise
-        puts "4) Setup Devise"
+        puts "3) Setup Devise"
         # Check if devise is already setup and if so, create a backup before overwrite it
         initializers_path = Rails.root.join('config', 'initializers' )
         if File.exist?( "#{ initializers_path }/devise.rb" )
@@ -88,16 +88,16 @@ module Binda
           puts "In order to avoid any conflict that file has been renamed"
           File.rename( "#{ initializers_path }/devise.rb" , "#{ initializers_path }/devise_backup_#{ Time.now.strftime('%Y%m%d-%H%M%S-%3N') }.rb" )
         end
-        
+
         # Copy the initilializer on the application folder
         template 'config/initializers/devise.rb'
 
         # Add secret key
-        inject_into_file 'config/initializers/devise.rb', after: "# binda.hook.1" do 
+        inject_into_file 'config/initializers/devise.rb', after: "# binda.hook.1" do
           "\n  config.secret_key = '#{ SecureRandom.hex(64) }'"
         end
         # Add pepper
-        inject_into_file 'config/initializers/devise.rb', after: "# binda.hook.2" do 
+        inject_into_file 'config/initializers/devise.rb', after: "# binda.hook.2" do
           "\n  config.pepper = '#{ SecureRandom.hex(64) }'"
         end
 
@@ -110,7 +110,7 @@ module Binda
       end
 
       # Setup Carrierwave
-      # 
+      #
       # It generates this {file:lib/generators/binda/install/templates/confic/initializers/carrierwave.rb}
       def setup_carrierwave
         return if File.exist?( Rails.root.join('config', 'initializers', 'carrierwave.rb' ))
@@ -118,9 +118,9 @@ module Binda
         template 'config/initializers/carrierwave.rb'
         puts "==============================================================================="
       end
-      
+
       # Setup default helpers
-      # 
+      #
       # This operation creates a class called `B` from which is possible to call any
       #   Binda helper contained in Binda::DefaultHelpers. This is possible by inheriting the
       #   `Binda::B` class.
@@ -128,7 +128,7 @@ module Binda
         puts "5) Setting up default helpers"
         generate "model", "B --no-migration --parent=::Binda::B"
         puts "Default helpers has been set up."
-        puts 
+        puts
       end
 
       def setup_settings
