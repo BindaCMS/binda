@@ -878,6 +878,13 @@ If you haven't already, install Binda.
 rails generate binda:install
 ```
 
+This should automatically launch binda:setup, which prompts you to enter an email address and a password.
+If this doesn't enter you have to launch it manually
+
+```bash
+rails generate binda:setup
+``
+
 In order to edit javascript files you need to run Webpack and leave the terminal window open, so Webpack can compile everytime you save a file. To install Webpack run `npm install` from the root of your application. Then everytime you want to edit a javascript file run:
 
 ```bash
@@ -894,7 +901,7 @@ rails generate binda:setup
 
 In order to make the dummy application flexible any update to that folder isn't saved in the repository.
 
-This let you as you prefer with your dummy without the hassle of cleaning it before creating a commit.
+This let you as you prefer with your dummy withou`t the hassle of cleaning it before creating a commit.
 
 ## How to test
 In order to avoid the *it works on my machine* issue, test are run via Travis every time a commit is pushed. Make sure you register your forked version on Travis in order to test every commit. If you don't the forked version will be tested once you make a pull request to the original repository.
