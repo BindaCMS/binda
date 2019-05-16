@@ -36,11 +36,18 @@ module Binda
       puts "2) Setting up maintenance mode"
 
       # Use radio field_type untill truefalse isn't available
-      unless FieldSetting.find_by(slug: 'maintenance-mode').present?
+      if FieldSetting.find_by(slug: 'maintenance-mode').nil?
         maintenance_mode = @field_settings.create!( name: 'Maintenance Mode', field_type: 'radio', position: 1, allow_null: false, slug: 'maintenance-mode' )
         # create active and disabled choices
         disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
         maintenance_mode.choices.create!( label: 'active', value: 'true' )
+
+        # Create field settings for dashboard
+        instance_field_settings = FieldSetting
+            .includes(field_group: [ :structure ]).where(binda_structures: { id: @dashboard.structure.id })
+        instance_field_settings.each do |field_setting|
+          field_setting.create_field_instance_for( @dashboard )
+        end
 
         # assign disabled choice and remove the temporary choice
         @dashboard.reload
