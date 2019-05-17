@@ -1,9 +1,9 @@
 module Binda
 	module FieldableAssociationHelpers
 		module FieldableImageHelpers
-			
+
 			# Check if the field has an attached image
-			# 
+			#
 			# @param field_slug [string] The slug of the field setting
 			# @return [boolean]
 			def has_image(field_slug)
@@ -14,19 +14,19 @@ module Binda
 				return obj.image.present?
 			end
 
-			# Get the image url based on the size provided, 
+			# Get the image url based on the size provided,
 			#   default is Carrierwave default (usually the real size)
-			# 
+			#
 			# @param field_slug [string] The slug of the field setting
-			# @param size [string] The size. It can be 'thumb' 200x200 cropped. 
+			# @param size [string] The size. It can be 'thumb' 200x200 cropped.
 			# @return [string] The url of the image
 			def get_image_url(field_slug, size = '')
 				get_image_info( field_slug, size, 'url' )
 			end
 
-			# Get the image path based on the size provided, 
+			# Get the image path based on the size provided,
 			#   default is Carrierwave default (usually the real size)
-			# 
+			#
 			# @param field_slug [string] The slug of the field setting
 			# @param size [string] The size. It can be 'thumb' 200x200 cropped.
 			# @return [string] The url of the image
@@ -35,9 +35,9 @@ module Binda
 			end
 
 			# Get the object related to that field setting
-			# 
+			#
 			# @param field_slug [string] The slug of the field setting
-			# @param size [string] The size. It can be 'thumb' 200x200 cropped. 
+			# @param size [string] The size. It can be 'thumb' 200x200 cropped.
 			# @param info [string] String of the info to be retrieved
 			# @return [string] The info requested if present
 			# @return [boolean] Returns false if no info is found or if image isn't found
@@ -51,12 +51,12 @@ module Binda
 				elsif obj.image.present?
 					obj.image.send(info)
 				else
-					raise "Looks like the image you are looking for isn't present. See field setting with slug=\"#{field_slug}\" on component with id=\"self.id\""
+					raise "Looks like the image you are looking for isn't present. See field setting with slug=\"#{field_slug}\" on component with id=\"#{self.id}\""
 				end
 			end
 
 			# Get image size
-			# 
+			#
 			# @param field_slug [string] The slug of the field setting
 			# @return [float] with image type
 			def get_image_size(field_slug)
@@ -65,7 +65,7 @@ module Binda
 			end
 
 			# Get image type
-			# 
+			#
 			# @param field_slug [string] The slug of the field setting
 			# @return [string] with image type
 			def get_image_mime_type(field_slug)
@@ -74,7 +74,7 @@ module Binda
 			end
 
 			# Get image dimension
-			# 
+			#
 			# @param field_slug [string] The slug of the field setting
 			# @return [hash] with width and height as floats
 			def get_image_dimension(field_slug)
@@ -86,7 +86,7 @@ module Binda
 		    def bytes_to_megabytes bytes
 		      (bytes.to_f / 1.megabyte).round(2)
 		    end
-			
+
 		end
 	end
 end
