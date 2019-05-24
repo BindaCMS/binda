@@ -42,6 +42,13 @@ module Binda
         disabled = maintenance_mode.choices.create!( label: 'disabled', value: 'false' )
         maintenance_mode.choices.create!( label: 'active', value: 'true' )
 
+        # Create field settings for dashboard
+        instance_field_settings = FieldSetting
+            .includes(field_group: [ :structure ]).where(binda_structures: { id: @dashboard.structure.id })
+        instance_field_settings.each do |field_setting|
+          field_setting.create_field_instance_for( @dashboard )
+        end
+
         # assign disabled choice and remove the temporary choice
         @dashboard.reload
         @dashboard.radios.first.choices << disabled
