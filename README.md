@@ -918,6 +918,12 @@ Some specs are run against the database. If you haven't installed Binda on the d
 RAILS_ENV=test rails db:migrate
 ```
 
+Sometimes this isn't possible because you have already a database present and other times you might get `ActiveRecord::PendingMigrationError: Migrations are pending. To resolve this issue, run: bin/rails db:migrate RAILS_ENV=test` Therefore, instead of `db:migrate` use the following command:
+
+```bash
+RAILS_ENV=test rails db:reset
+```
+
 The above command might generate an error. This is probably because you have previously installed Binda and the generator finds migration both in `binda/db/migrate` and `binda/spec/dummy/db/migrate`. To solve the issue, remove the `spec/dummy/db/migrate` folder and run the previous command again.
 
 ```bash
