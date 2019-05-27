@@ -7,7 +7,6 @@ npm-debug.log
 .DS_Store
 
 spec/dummy/db/migrate/
-spec/dummy/db/schema.rb
 spec/dummy/config/initializers/devise.rb
 spec/dummy/public/uploads/
 spec/dummy/log/*.log

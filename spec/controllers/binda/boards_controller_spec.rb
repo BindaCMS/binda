@@ -13,7 +13,7 @@ module Binda
       @board = @structure.board
     end
 
-    before(:example) do 
+    before(:example) do
       sign_in user
     end
 
@@ -26,12 +26,12 @@ module Binda
 
     describe "GET #edit" do
       it "returns http success" do
-        get :edit, params: { structure_id: @structure.slug, id: @board.slug }        
+        get :edit, params: { structure_id: @structure.slug, id: @board.slug }
         expect(response).to have_http_status(:success)
       end
     end
 
- 
+
     describe "POST #sort_repeaters" do
       it "reorder repeater based on position value" do
         @board.reload # apparently this is needed as the variable isn't updated to reflect the real record state
@@ -39,16 +39,16 @@ module Binda
         shuffled_ids = ordered_ids.shuffle
 
         # call sort_repeaters method via post request
-        post :sort_repeaters, params: { 
+        post :sort_repeaters, params: {
           'form--list-item': shuffled_ids,
           structure_id: @structure.slug,
-          board_id: @board.slug 
+          board_id: @board.slug
         }
         @board.reload
 
         repeater_setting_id = @structure.reload.field_groups.first.field_settings.find{ |fs| fs.field_type == 'repeater'}.id
         repeaters = @board.repeaters.order('position').find_all{ |r| r.field_setting_id = repeater_setting_id }
-        
+
         expect(repeaters.first.position).to eq 1
         expect(repeaters.last.position).to eq repeaters.length
 
@@ -71,9 +71,9 @@ module Binda
           )
           .first
 
-        post :new_repeater, params: { 
-          repeater_setting_id: repeater_setting.id, 
-          structure_id: @structure.slug, 
+        post :new_repeater, params: {
+          repeater_setting_id: repeater_setting.id,
+          structure_id: @structure.slug,
           board_id: @board.slug
         }
         @board.reload
@@ -87,7 +87,7 @@ module Binda
         related_structure = create(:structure)
         related_component = create(:component, structure_id: related_structure.id)
         relation_setting = create(
-          :relation_setting, 
+          :relation_setting,
           field_group_id: @structure.field_groups.first.id
         )
         relation_setting.accepted_structures << related_structure
