@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails",      ">= 5.0",        "< 6.1"
   s.add_dependency "sass-rails",           "~> 5.0"
   s.add_dependency "aasm",                 ">= 4.11",       "< 4.13"
-  s.add_dependency "simple_form",          ">= 3.3",        "< 4.1"
+  s.add_dependency "simple_form",          ">= 3.3", "< 5.1"
   s.add_dependency "tinymce-rails",        ">= 4.1",        "<= 4.8"
   s.add_dependency "tinymce-rails-langs",  "~> 4.20160310"
   s.add_dependency "devise",               ">= 4.1",        "< 4.5"
