@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency "tinymce-rails-langs",  "~> 4.20160310"
   s.add_dependency "devise",               ">= 4.1",        "< 4.5"
   s.add_dependency "devise-i18n",          "~> 1.4"
-  s.add_dependency "carrierwave",          ">= 0.10",       "< 1.3"
+  s.add_dependency "carrierwave",          ">= 0.10", "< 2.2"
   s.add_dependency "mini_magick",          ">= 4.5",        "< 4.9"
   s.add_dependency "ancestry",             ">= 2.1",        "< 3.1"
   s.add_dependency "kaminari",             "~> 1.0"
